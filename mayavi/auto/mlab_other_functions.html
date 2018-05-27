@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Other functions &mdash; mayavi 4.5.0 documentation</title>
+    <title>Other functions &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="MLab reference" href="mlab_reference.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
     <link rel="prev" title="Camera handling functions" href="mlab_camera.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -84,9 +85,9 @@
   <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
-the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for an introduction to
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
 <div class="section" id="other-functions">
@@ -123,8 +124,8 @@ provided.</td>
 <p>The decorated function returns an <cite>Animator</cite> instance.</p>
 <p><strong>Examples</strong></p>
 <p>Here is the example provided in the Animator class documentation:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.animate</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab</span><span class="o">.</span><span class="n">animate</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
@@ -136,8 +137,8 @@ provided.</td>
 </pre></div>
 </div>
 <p>For more specialized use you can pass arguments to the decorator:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.animate</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">ui</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">ui</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
@@ -150,7 +151,7 @@ provided.</td>
 </div>
 <p><strong>Notes</strong></p>
 <p class="last">If you want to modify the data plotted by an <cite>mlab</cite> function call,
-please refer to the section on: <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><span>Animating the data</span></a>.</p>
+please refer to the section on: <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><span class="std std-ref">Animating the data</span></a>.</p>
 </dd>
 </dl>
 </dd>
@@ -196,17 +197,17 @@ Ranges of the labels displayed on the axes.
 Default is the object&#8217;s extents.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">x_axis_visibility:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Whether or not the x axis is visible (boolean)</td>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Whether or not the x axis is visible (boolean)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">y_axis_visibility:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Whether or not the y axis is visible (boolean)</td>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Whether or not the y axis is visible (boolean)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">z_axis_visibility:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Whether or not the z axis is visible (boolean)</td>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Whether or not the z axis is visible (boolean)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
 </tr>
@@ -339,18 +340,18 @@ allows the event loop to be stopped.</td>
 </div></blockquote>
 <p><strong>Examples</strong></p>
 <p>Here is a simple example demonstrating the use of show:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>You can stop interaction via a simple pop up UI like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The decorator can be used like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.show</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab</span><span class="o">.</span><span class="n">show</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">do</span><span class="p">():</span>
 <span class="gp">... </span>   <span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
 <span class="gp">...</span>
@@ -358,7 +359,7 @@ allows the event loop to be stopped.</td>
 </pre></div>
 </div>
 <p>The decorator can also be passed the stop argument:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.show</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">do</span><span class="p">():</span>
 <span class="gp">... </span>   <span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
 <span class="gp">...</span>
@@ -431,7 +432,7 @@ nothing is saved.</td>
 <code class="descclassname">mayavi.mlab.</code><code class="descname">text</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a text on the figure.</p>
 <p><strong>Function signature</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">text(x, y, text, ...)</span>
 </pre></div>
 </div>
 <p>x, and y are the position of the origin of the text. If no z
@@ -476,7 +477,7 @@ text is positioned in 3D</td>
 <code class="descclassname">mayavi.mlab.</code><code class="descname">text3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.text3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Positions text at a 3D location in the scene.</p>
 <p><strong>Function signature</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">text3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">text3d(x, y, z, text, ...)</span>
 </pre></div>
 </div>
 <p>x, y, and z are the position of the origin of the text. The
@@ -503,7 +504,7 @@ Default: 2.0</td>
 Default: 1.0</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">orient_to_camera:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">if the text is kept oriented to the
+<tr class="field-even field"><td>&#160;</td><td class="field-body">if the text is kept oriented to the
 camera, or is pointing in a specific direction,
 regardless of the camera position. Must be a
 boolean. Default: True</td>
@@ -530,7 +531,7 @@ Either a float, or 3-tuple of floats.</td>
 <code class="descclassname">mayavi.mlab.</code><code class="descname">title</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a title for the figure.</p>
 <p><strong>Function signature</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">title</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">title(text, ...)</span>
 </pre></div>
 </div>
 <p><strong>Keyword arguments:</strong></p>
@@ -606,7 +607,7 @@ Default: 1.0</td>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/mlab_other_functions.txt"
+      <li><a href="../_sources/auto/mlab_other_functions.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -614,14 +615,11 @@ Default: 1.0</td>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -668,14 +666,14 @@ Default: 1.0</td>
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

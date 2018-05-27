@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Loading scalar data: the heart.vtk example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Loading scalar data: the heart.vtk example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
-    <link rel="up" title="Using the Mayavi application" href="application.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Visualizing rich datasets: the fire_ug.vtu example" href="example_fire.html" />
     <link rel="prev" title="Parametric surfaces: a simple introduction to visualization" href="example_parametric_surface.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -128,7 +129,7 @@ data to graphics primitives.  Properties related to it will be
 grouped under the <cite>Mapper</cite> head.</p>
 </li>
 <li><p class="first">To interact with the TVTK scene window, look at the section on
-<a class="reference internal" href="application.html#interaction-with-the-scene"><span>Interaction with the scene</span></a> for more details.  Experiment with
+<a class="reference internal" href="application.html#interaction-with-the-scene"><span class="std std-ref">Interaction with the scene</span></a> for more details.  Experiment with
 these options till you are comfortable.</p>
 </li>
 <li><p class="first">Now, with the Outline node selected, create an iso-surface by selecting the
@@ -180,15 +181,15 @@ shown below.</p>
 <p>The nice thing about mayavi is that although in this case all of the
 above was done using the user interface, all of it can be done using
 pure Python scripts as well.  More details on this are available in
-the <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> section (see also
-<a class="reference internal" href="advanced_scripting.html#advanced-scripting-with-mayavi"><span>Advanced Scripting with Mayavi</span></a> for a more in-depth coverage).</p>
+the <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> section (see also
+<a class="reference internal" href="advanced_scripting.html#advanced-scripting-with-mayavi"><span class="std std-ref">Advanced Scripting with Mayavi</span></a> for a more in-depth coverage).</p>
 <p>Opening data files and starting up modules can also be done from the
 command line.  For example we could simply have done:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -d /path/to/heart.vtk -m Outline -m IsoSurface \
-&gt; -m GridPlane -m ScalarCutPlane
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -d /path/to/heart.vtk -m Outline -m IsoSurface </span><span class="se">\</span>
+<span class="s2">&gt; -m GridPlane -m ScalarCutPlane</span>
 </pre></div>
 </div>
-<p>More details are available in the <a class="reference internal" href="application.html#command-line-arguments"><span>Command line arguments</span></a> section.</p>
+<p>More details are available in the <a class="reference internal" href="application.html#command-line-arguments"><span class="std std-ref">Command line arguments</span></a> section.</p>
 </div>
 
 
@@ -209,7 +210,7 @@ command line.  For example we could simply have done:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/example_heart.txt"
+      <li><a href="_sources/example_heart.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -217,14 +218,11 @@ command line.  For example we could simply have done:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -271,14 +269,14 @@ command line.  For example we could simply have done:</p>
         <li class="right" >
           <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

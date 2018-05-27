@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Polydata example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Polydata example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Offscreen example" href="example_offscreen.html" />
     <link rel="prev" title="Volume slicer advanced example" href="example_volume_slicer_advanced.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_volume_slicer_advanced.html" title="Volume slicer advanced example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -86,51 +87,51 @@
 <p>An example of how to generate a polydata dataset using numpy arrays.</p>
 <p>The example is similar to tvtk/examples/tiny_mesh.py.  Also shown is a
 way to visualize this data with mayavi2.  The script can be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -x polydata.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x polydata.py</span>
 </pre></div>
 </div>
 <p>It can be alternatively run as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ python polydata.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ python polydata.py</span>
 </pre></div>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/polydata.py"><code class="xref download docutils literal"><span class="pre">polydata.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>
-<span class="c1"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
-<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c1"># License: BSD style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/polydata.py" download=""><code class="xref download docutils literal"><span class="pre">polydata.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="s2"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
+<span class="s2"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="s2"># License: BSD style.</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
+<span class="s2">from numpy import array</span>
+<span class="s2">from tvtk.api import tvtk</span>
+<span class="s2">from mayavi.scripts import mayavi2</span>
 
-<span class="c1"># The numpy array data.</span>
-<span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
-<span class="n">triangles</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
-<span class="n">temperature</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">20.</span><span class="p">,</span> <span class="mf">30.</span><span class="p">,</span> <span class="mf">40.</span><span class="p">])</span>
+<span class="s2"># The numpy array data.</span>
+<span class="s2">points = array([[0,0,0], [1,0,0], [0,1,0], [0,0,1]], &#39;f&#39;)</span>
+<span class="s2">triangles = array([[0,1,3], [0,3,2], [1,2,3], [0,2,1]])</span>
+<span class="s2">temperature = array([10., 20., 30., 40.])</span>
 
-<span class="c1"># The TVTK dataset.</span>
-<span class="n">mesh</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">polys</span><span class="o">=</span><span class="n">triangles</span><span class="p">)</span>
-<span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">temperature</span>
-<span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Temperature&#39;</span>
+<span class="s2"># The TVTK dataset.</span>
+<span class="s2">mesh = tvtk.PolyData(points=points, polys=triangles)</span>
+<span class="s2">mesh.point_data.scalars = temperature</span>
+<span class="s2">mesh.point_data.scalars.name = &#39;Temperature&#39;</span>
 
-<span class="c1"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
-<span class="c1">#w = tvtk.XMLPolyDataWriter(input=mesh, file_name=&#39;polydata.vtp&#39;)</span>
-<span class="c1">#w.write()</span>
+<span class="s2"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
+<span class="s2">#w = tvtk.XMLPolyDataWriter(input=mesh, file_name=&#39;polydata.vtp&#39;)</span>
+<span class="s2">#w.write()</span>
 
-<span class="c1"># Now view the data.</span>
-<span class="nd">@mayavi2.standalone</span>
-<span class="k">def</span> <span class="nf">view</span><span class="p">():</span>
-    <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
-    <span class="kn">from</span> <span class="nn">mayavi.modules.surface</span> <span class="kn">import</span> <span class="n">Surface</span>
+<span class="s2"># Now view the data.</span>
+<span class="s2">@mayavi2.standalone</span>
+<span class="s2">def view():</span>
+<span class="s2">    from mayavi.sources.vtk_data_source import VTKDataSource</span>
+<span class="s2">    from mayavi.modules.surface import Surface</span>
 
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">mesh</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">Surface</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="s2">    mayavi.new_scene()</span>
+<span class="s2">    src = VTKDataSource(data = mesh)</span>
+<span class="s2">    mayavi.add_source(src)</span>
+<span class="s2">    s = Surface()</span>
+<span class="s2">    mayavi.add_module(s)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">view</span><span class="p">()</span>
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    view()</span>
 
 </pre></div>
 </div>
@@ -154,7 +155,7 @@ way to visualize this data with mayavi2.  The script can be run like so:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_polydata.txt"
+      <li><a href="../_sources/auto/example_polydata.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -162,14 +163,11 @@ way to visualize this data with mayavi2.  The script can be run like so:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -216,14 +214,14 @@ way to visualize this data with mayavi2.  The script can be run like so:</p>
         <li class="right" >
           <a href="example_volume_slicer_advanced.html" title="Volume slicer advanced example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

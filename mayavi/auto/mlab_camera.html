@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Camera handling functions &mdash; mayavi 4.5.0 documentation</title>
+    <title>Camera handling functions &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="MLab reference" href="mlab_reference.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Other functions" href="mlab_other_functions.html" />
     <link rel="prev" title="Figure decoration functions" href="mlab_decorations.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -84,9 +85,9 @@
   <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
-the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for an introduction to
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
 <div class="section" id="camera-handling-functions">
@@ -132,7 +133,7 @@ tuple (camera_position, focal_point_position)</p>
 <p>otherwise, returns None</p>
 <p><strong>Examples</strong>:</p>
 <p>Get the current camera position:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cam</span><span class="p">,</span><span class="n">foc</span> <span class="o">=</span> <span class="n">move</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cam</span><span class="p">,</span><span class="n">foc</span> <span class="o">=</span> <span class="n">move</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cam</span>
 <span class="go">array([-0.06317079, -0.52849738, -1.68316389])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foc</span>
@@ -140,7 +141,7 @@ tuple (camera_position, focal_point_position)</p>
 </pre></div>
 </div>
 <p>Translate the camera:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.2</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">()</span>
 <span class="go">(array([ 2.93682921, -1.52849738, -2.88316389]),</span>
 <span class="go"> array([ 4.25909623, -0.84307292, -1.57576693]))</span>
@@ -148,7 +149,7 @@ tuple (camera_position, focal_point_position)</p>
 </div>
 <dl class="docutils">
 <dt>Return to the starting position::</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">()</span>
 <span class="go">(array([-0.06317079, -0.52849738, -1.68316389]),</span>
 <span class="go"> array([ 1.25909623,  0.15692708, -0.37576693]))</span>
@@ -222,8 +223,8 @@ point</td>
 <dt id="mayavi.mlab.view">
 <code class="descclassname">mayavi.mlab.</code><code class="descname">view</code><span class="sig-paren">(</span><em>azimuth=None</em>, <em>elevation=None</em>, <em>distance=None</em>, <em>focalpoint=None</em>, <em>roll=None</em>, <em>reset_roll=True</em>, <em>figure=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets/Gets the view point for the camera:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">view</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">focalpoint</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-     <span class="n">roll</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reset_roll</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">view(azimuth=None, elevation=None, distance=None, focalpoint=None,</span>
+<span class="s2">     roll=None, reset_roll=True, figure=None)</span>
 </pre></div>
 </div>
 <p>If called with no arguments this returns the current view of the
@@ -284,20 +285,20 @@ current view.  Note that these can be used later on to set the view.</p>
 <p>If arguments are supplied it returns <cite>None</cite>.</p>
 <p><strong>Examples</strong>:</p>
 <p>Get the current view:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span> &gt;&gt;&gt; v = view()
- &gt;&gt;&gt; v
-(45.0, 45.0, 25.02794981, array([ 0.01118028,  0.        ,  4.00558996]))
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"> &gt;&gt;&gt; v = view()</span>
+<span class="s2"> &gt;&gt;&gt; v</span>
+<span class="s2">(45.0, 45.0, 25.02794981, array([ 0.01118028,  0.        ,  4.00558996]))</span>
 </pre></div>
 </div>
 <p>Set the view in different ways:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="n">distance</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="n">focalpoint</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Set the view to that saved in <cite>v</cite> above:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>See also</strong></p>
@@ -374,7 +375,7 @@ point</td>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/mlab_camera.txt"
+      <li><a href="../_sources/auto/mlab_camera.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -382,14 +383,11 @@ point</td>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -436,14 +434,14 @@ point</td>
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

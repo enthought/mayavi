@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Miscellaneous &mdash; mayavi 4.5.0 documentation</title>
+    <title>Miscellaneous &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,16 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Example gallery" href="auto/examples.html" />
     <link rel="prev" title="Tips and Tricks" href="tips.html" />
 <style type="text/css">
@@ -70,7 +72,7 @@
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -86,7 +88,7 @@
 <p>The core developers of Mayavi are academics. Therefore they justify time and
 resources spent developing Mayavi by the number of citations of the
 software. If you publish scientific articles using Mayavi, please cite
-the following article (bibtex entry <a class="reference download internal" href="_downloads/citation.bib"><code class="xref download docutils literal"><span class="pre">citation.bib</span></code></a>):</p>
+the following article (bibtex entry <a class="reference download internal" href="_downloads/citation.bib" download=""><code class="xref download docutils literal"><span class="pre">citation.bib</span></code></a>):</p>
 <blockquote>
 <div>Ramachandran, P. and Varoquaux, G., <em>`Mayavi: 3D Visualization of
 Scientific Data`</em> IEEE Computing in Science &amp; Engineering, <strong>13</strong>
@@ -99,6 +101,11 @@ provide enough information so that the issue can be reproduced. For
 other requests, if this manual, the Mayavi web page, the wiki page,
 stack overflow and google are of no help, feel free to ask on the
 <a class="reference external" href="https://github.com/enthought/mayavi/issues">issue tracker</a>.</p>
+<p>If you have questions you could ask on the <a class="reference external" href="https://sourceforge.net/p/mayavi/mailman/mayavi-users/">Mayavi-users mailing list</a>. This is used by
+some folks and is not too active. Another mailing list that may be of use is
+the <a class="reference external" href="https://groups.google.com/forum/#!forum/ets-users">ETS Users mailing list</a>. This is a more general
+list where a lot of folks experienced with the Enthought Tool Suite are
+available.</p>
 </div>
 <div class="section" id="tests-for-mayavi">
 <h2>Tests for Mayavi<a class="headerlink" href="#tests-for-mayavi" title="Permalink to this headline">¶</a></h2>
@@ -111,29 +118,29 @@ their best to support many different configuration, but you can help them
 by running the test suite and reporting any errors.</p>
 <p>You can use <a class="reference external" href="https://nose.readthedocs.org">nose</a> to run the unit tests of both packages by doing the
 following from the root of the Mayavi source directory:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ nosetests
-----------------------------------------------------------------------
-Ran 317 tests in 29.934s
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ nosetests</span>
+<span class="s2">----------------------------------------------------------------------</span>
+<span class="s2">Ran 317 tests in 29.934s</span>
 
-OK (SKIP=5)
+<span class="s2">OK (SKIP=5)</span>
 </pre></div>
 </div>
 <p>From the mayavi source directory, to run tests only for mayavi package you can
 do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ nosetests mayavi/tests
-----------------------------------------------------------------------
-Ran 231 tests in 14.066s
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ nosetests mayavi/tests</span>
+<span class="s2">----------------------------------------------------------------------</span>
+<span class="s2">Ran 231 tests in 14.066s</span>
 
-OK (SKIP=4)
+<span class="s2">OK (SKIP=4)</span>
 </pre></div>
 </div>
 <p>From the mayavi source directory, to run tests only for tvtk package you can
 do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ nosetests tvtk/tests
-----------------------------------------------------------------------
-Ran 87 tests in 9.080s
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ nosetests tvtk/tests</span>
+<span class="s2">----------------------------------------------------------------------</span>
+<span class="s2">Ran 87 tests in 9.080s</span>
 
-OK (SKIP=1)
+<span class="s2">OK (SKIP=1)</span>
 </pre></div>
 </div>
 <p>If you get an &#8220;ERROR&#8221; regarding the unavailability of coverage you may
@@ -145,7 +152,7 @@ directories and run <code class="docutils literal"><span class="pre">nosetests</
 <p>In addition to these unit tests mayavi also has several integration tests.
 These are in the <code class="docutils literal"><span class="pre">integrationtests/mayavi</span></code> directory of the source
 distribution.  You may run the tests there like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ ./run.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ ./run.py</span>
 </pre></div>
 </div>
 <p>These tests are intrusive and will create several mayavi windows and
@@ -166,13 +173,13 @@ workflow:</p>
 </ol>
 <p>The <strong>master</strong> branch is a 100% stable (should be).  The pull request is merged
 only after it is certain that things are working out, which means that
-<a class="reference external" href="http://travis-ci.org/enthought/mayavi">Travis</a> and <a class="reference external" href="https://ci.appveyor.com/project/itziakos/mayavi">Appveyor</a> tests pass.</p>
+<a class="reference external" href="https://travis-ci.org/enthought/mayavi">Travis</a> and <a class="reference external" href="https://ci.appveyor.com/project/itziakos/mayavi">Appveyor</a> tests pass.</p>
 <p>Please note that we aim to improve the overall testing of the Mayavi codebase,
 so tests are also important.</p>
 <div class="section" id="development-quick-start">
 <h3>Development quick start<a class="headerlink" href="#development-quick-start" title="Permalink to this headline">¶</a></h3>
 <p>To help improve Mayavi, you first need to install the development
-version, see <a class="reference internal" href="installation.html#installing-git"><span>The bleeding edge: Git</span></a>. You can then modify your local
+version, see <a class="reference internal" href="installation.html#installing-git"><span class="std std-ref">Bleeding edge</span></a>. You can then modify your local
 installation of Mayavi to add the functionality you are interested in
 (make sure the tests still run after your modifications).  Once you
 are done, you can generate a github <a class="reference external" href="https://help.github.com/articles/using-pull-requests">pull request</a> to get your changes
@@ -183,14 +190,14 @@ into the next stable release.</p>
 <p>Documentation of a project is incredibly important. It also takes a lot
 of time to write and improve. You can easily help us with documentation.</p>
 <p>You will find the documentation sources in <code class="docutils literal"><span class="pre">docs/sources/mayavi</span></code>. The
-documentation is written in <a class="reference external" href="http://sphinx.pocoo.org">sphinx</a>. It is
+documentation is written in <a class="reference external" href="https://sphinx.pocoo.org">sphinx</a>. It is
 easy to edit the <cite>.rst</cite> files to modify or extend the text. Once you have
 done your modifications, you can build the documentation using by
 running:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python setup.py build_docs
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">python setup.py build_docs</span>
 </pre></div>
 </div>
-<p>in the base directory of your checkout. You will need <a class="reference external" href="http://sphinx.pocoo.org">sphinx</a> installed for
+<p>in the base directory of your checkout. You will need <a class="reference external" href="https://sphinx.pocoo.org">sphinx</a> installed for
 that. The documentation is then built as an HTML documentation that you can
 find in the sub directory <code class="docutils literal"><span class="pre">build/docs/html/mayavi</span></code>. Once you are comfortable
 with the modifications, just generate a github pull request to integrate
@@ -232,7 +239,7 @@ your changes into the next stable release.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/misc.txt"
+      <li><a href="_sources/misc.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -240,14 +247,11 @@ your changes into the next stable release.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -294,13 +298,13 @@ your changes into the next stable release.</p>
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

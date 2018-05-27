@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Contour contour example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Contour contour example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Scatter plot example" href="example_scatter_plot.html" />
     <link rel="prev" title="Structured points2d example" href="example_structured_points2d.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_structured_points2d.html" title="Structured points2d example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -84,64 +85,64 @@
   <div class="section" id="contour-contour-example">
 <span id="example-contour-contour"></span><h1>Contour contour example<a class="headerlink" href="#contour-contour-example" title="Permalink to this headline">¶</a></h1>
 <p>This example shows how you can produce contours on an IsoSurface.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/contour_contour.py"><code class="xref download docutils literal"><span class="pre">contour_contour.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu [at] aero . iitb . ac . in&gt;</span>
-<span class="c1"># Copyright (c) 2008,  Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/contour_contour.py" download=""><code class="xref download docutils literal"><span class="pre">contour_contour.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Prabhu Ramachandran &lt;prabhu [at] aero . iitb . ac . in&gt;</span>
+<span class="s2"># Copyright (c) 2008,  Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="c1"># Standard library imports</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
+<span class="s2"># Standard library imports</span>
+<span class="s2">from os.path import join, abspath, dirname</span>
 
-<span class="c1"># Mayavi imports.</span>
-<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
-<span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
-<span class="kn">from</span> <span class="nn">mayavi.filters.contour</span> <span class="kn">import</span> <span class="n">Contour</span>
-<span class="kn">from</span> <span class="nn">mayavi.filters.api</span> <span class="kn">import</span> <span class="n">PolyDataNormals</span>
-<span class="kn">from</span> <span class="nn">mayavi.filters.set_active_attribute</span> <span class="kn">import</span> <span class="n">SetActiveAttribute</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="kn">import</span> <span class="n">Surface</span><span class="p">,</span> <span class="n">Outline</span>
+<span class="s2"># Mayavi imports.</span>
+<span class="s2">from mayavi.scripts import mayavi2</span>
+<span class="s2">from mayavi.sources.api import VTKXMLFileReader</span>
+<span class="s2">from mayavi.filters.contour import Contour</span>
+<span class="s2">from mayavi.filters.api import PolyDataNormals</span>
+<span class="s2">from mayavi.filters.set_active_attribute import SetActiveAttribute</span>
+<span class="s2">from mayavi.modules.api import Surface, Outline</span>
 
-<span class="nd">@mayavi2.standalone</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+<span class="s2">@mayavi2.standalone</span>
+<span class="s2">def main():</span>
+<span class="s2">    mayavi.new_scene()</span>
 
-    <span class="c1"># Read the example data: fire_ug.vtu.</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">VTKXMLFileReader</span><span class="p">()</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
-                    <span class="s1">&#39;fire_ug.vtu&#39;</span><span class="p">)</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-    <span class="c1"># Set the active point scalars to &#39;u&#39;.</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">point_scalars_name</span> <span class="o">=</span> <span class="s1">&#39;u&#39;</span>
+<span class="s2">    # Read the example data: fire_ug.vtu.</span>
+<span class="s2">    r = VTKXMLFileReader()</span>
+<span class="s2">    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))),</span>
+<span class="s2">                    &#39;fire_ug.vtu&#39;)</span>
+<span class="s2">    r.initialize(filename)</span>
+<span class="s2">    mayavi.add_source(r)</span>
+<span class="s2">    # Set the active point scalars to &#39;u&#39;.</span>
+<span class="s2">    r.point_scalars_name = &#39;u&#39;</span>
 
-    <span class="c1"># Simple outline for the data.</span>
-    <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+<span class="s2">    # Simple outline for the data.</span>
+<span class="s2">    o = Outline()</span>
+<span class="s2">    mayavi.add_module(o)</span>
 
-    <span class="c1"># Branch the pipeline with a contour -- the outline above is</span>
-    <span class="c1"># directly attached to the source whereas the contour below is a</span>
-    <span class="c1"># filter and will branch the flow of data.   An isosurface in the</span>
-    <span class="c1"># &#39;u&#39; data attribute is generated and normals generated for it.</span>
+<span class="s2">    # Branch the pipeline with a contour -- the outline above is</span>
+<span class="s2">    # directly attached to the source whereas the contour below is a</span>
+<span class="s2">    # filter and will branch the flow of data.   An isosurface in the</span>
+<span class="s2">    # &#39;u&#39; data attribute is generated and normals generated for it.</span>
 
-    <span class="n">c</span> <span class="o">=</span> <span class="n">Contour</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">PolyDataNormals</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="s2">    c = Contour()</span>
+<span class="s2">    mayavi.add_filter(c)</span>
+<span class="s2">    n = PolyDataNormals()</span>
+<span class="s2">    mayavi.add_filter(n)</span>
 
-    <span class="c1"># Now we want to show the temperature &#39;t&#39; on the surface of the &#39;u&#39;</span>
-    <span class="c1"># iso-contour.  This is easily done by using the SetActiveAttribute</span>
-    <span class="c1"># filter below.</span>
+<span class="s2">    # Now we want to show the temperature &#39;t&#39; on the surface of the &#39;u&#39;</span>
+<span class="s2">    # iso-contour.  This is easily done by using the SetActiveAttribute</span>
+<span class="s2">    # filter below.</span>
 
-    <span class="n">aa</span> <span class="o">=</span> <span class="n">SetActiveAttribute</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span>
-    <span class="n">aa</span><span class="o">.</span><span class="n">point_scalars_name</span> <span class="o">=</span> <span class="s1">&#39;t&#39;</span>
+<span class="s2">    aa = SetActiveAttribute()</span>
+<span class="s2">    mayavi.add_filter(aa)</span>
+<span class="s2">    aa.point_scalars_name = &#39;t&#39;</span>
 
-    <span class="c1"># Now view the iso-contours of &#39;t&#39; with a Surface filter.</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">Surface</span><span class="p">(</span><span class="n">enable_contours</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="s2">    # Now view the iso-contours of &#39;t&#39; with a Surface filter.</span>
+<span class="s2">    s = Surface(enable_contours=True)</span>
+<span class="s2">    mayavi.add_module(s)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+<span class="s2">if __name__ == &quot;__main__&quot;:</span>
+<span class="s2">    main()</span>
 
 </pre></div>
 </div>
@@ -165,7 +166,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_contour_contour.txt"
+      <li><a href="../_sources/auto/example_contour_contour.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -173,14 +174,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -227,14 +225,14 @@
         <li class="right" >
           <a href="example_structured_points2d.html" title="Structured points2d example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

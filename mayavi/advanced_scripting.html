@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Advanced Scripting with Mayavi &mdash; mayavi 4.5.0 documentation</title>
+    <title>Advanced Scripting with Mayavi &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
-    <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Building applications using Mayavi" href="building_applications.html" />
     <link rel="prev" title="Objects populating the Mayavi pipeline" href="mayavi_objects.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -83,7 +84,7 @@
             
   <div class="section" id="advanced-scripting-with-mayavi">
 <span id="id1"></span><h1>Advanced Scripting with Mayavi<a class="headerlink" href="#advanced-scripting-with-mayavi" title="Permalink to this headline">¶</a></h1>
-<p>As elaborated in the <a class="reference internal" href="overview.html#an-overview-of-mayavi"><span>An overview of Mayavi</span></a> section, Mayavi can be
+<p>As elaborated in the <a class="reference internal" href="overview.html#an-overview-of-mayavi"><span class="std std-ref">An overview of Mayavi</span></a> section, Mayavi can be
 scripted from Python in order to visualize data.  Mayavi was designed
 from the ground up to be highly scriptable.  Everything that can be done
 from the user interface can be achieved using Python scripts. Scripting
@@ -95,10 +96,10 @@ powerful visualization library.</p>
 build an application, but looking for quick ways to get your
 visualization done with simple code you may want to check out Mayavi&#8217;s
 <cite>mlab</cite> module.  This is described in more detail in the
-<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> section.  In addition to this Mayavi
+<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> section.  In addition to this Mayavi
 features an automatic script recording feature that automatically writes
 Python scripts for you as you use the GUI.  This is described in more
-detail in the <a class="reference internal" href="application.html#automatic-script-generation"><span>Recording Mayavi actions to a script</span></a> chapter.  This is
+detail in the <a class="reference internal" href="application.html#automatic-script-generation"><span class="std std-ref">Recording Mayavi actions to a script</span></a> chapter.  This is
 probably the easiest and most powerful way to script Mayavi.</p>
 <p>However, to best understand how to script Mayavi, a reasonable
 understanding of the Mayavi internals is necessary.  The following
@@ -138,23 +139,23 @@ source code of a class can be view in IPython by entering <cite>Class??</cite>).
 <p>When scripting Mayavi to create or modify a visualization, one mainly
 deals with adding or removing objects to the engine, or modifying their
 properties. We can thus rewrite the example of building a pipeline with
-mlab visited in <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span>Assembling pipelines with mlab</span></a> by
+mlab visited in <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">Assembling pipelines with mlab</span></a> by
 explicit calls to the engine:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="kn">import</span> <span class="n">Engine</span>
+<span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="k">import</span> <span class="n">Engine</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">()</span>
 <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">ArraySource</span>
+<span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="k">import</span> <span class="n">ArraySource</span>
 <span class="n">src</span> <span class="o">=</span> <span class="n">ArraySource</span><span class="p">(</span><span class="n">scalar_data</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
 <span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mayavi.filters.api</span> <span class="kn">import</span> <span class="n">WarpScalar</span><span class="p">,</span> <span class="n">PolyDataNormals</span>
+<span class="kn">from</span> <span class="nn">mayavi.filters.api</span> <span class="k">import</span> <span class="n">WarpScalar</span><span class="p">,</span> <span class="n">PolyDataNormals</span>
 <span class="n">warp</span> <span class="o">=</span> <span class="n">WarpScalar</span><span class="p">()</span>
 <span class="n">e</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">warp</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">src</span><span class="p">)</span>
 <span class="n">normals</span> <span class="o">=</span> <span class="n">PolyDataNormals</span><span class="p">()</span>
 <span class="n">e</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">warp</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="kn">import</span> <span class="n">Surface</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="k">import</span> <span class="n">Surface</span>
 <span class="n">surf</span> <span class="o">=</span> <span class="n">Surface</span><span class="p">()</span>
 <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">normals</span><span class="p">)</span>
 </pre></div>
@@ -186,11 +187,11 @@ object is removed from the pipeline its <code class="docutils literal"><span cla
 automatically.  Note that if you are looking to remove an object from
 the mayavi pipeline, you can use the <code class="docutils literal"><span class="pre">remove</span></code> method to do so.  For
 example (the following will require that you use <cite>ipython &#8211;gui=qt</cite>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="kn">import</span> <span class="n">Engine</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="k">import</span> <span class="n">Engine</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">ParametricSurface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="k">import</span> <span class="n">ParametricSurface</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">ParametricSurface</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c1"># calls p.start internally.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span> <span class="c1"># Removes p from the engine.</span>
@@ -235,7 +236,7 @@ merely provides some nice conveniences while scripting from the UI.  It
 has an <code class="docutils literal"><span class="pre">engine</span></code> trait that is a reference to the running mayavi
 engine.  Note that it is just as convenient to use an
 <code class="docutils literal"><span class="pre">Engine</span></code> instance itself to script mayavi.</p>
-<p>As described in <a class="reference internal" href="application.html#the-embedded-python-interpreter"><span>The embedded Python interpreter</span></a> section, one can
+<p>As described in <a class="reference internal" href="application.html#the-embedded-python-interpreter"><span class="std std-ref">The embedded Python interpreter</span></a> section, one can
 always drag a mayavi pipeline object from the tree and drop it on the
 interpreter to script it directly.</p>
 <p>One may select the <cite>File-&gt;Open Text File...</cite> menu to open an existing
@@ -249,14 +250,14 @@ instance as it is on the shell.  To execute this script one can press
 something on the interpreter or on the editor, one may save the
 contents to a file, say <code class="docutils literal"><span class="pre">script.py</span></code> and then the next time this script
 can be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -x script.py
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mayavi2 -x script.py
 </pre></div>
 </div>
 <p>This will execute the script for automatically.  The name <code class="docutils literal"><span class="pre">mayavi</span></code>
 is available to the script and is bound to the <code class="docutils literal"><span class="pre">Script</span></code> instance.
 This is very convenient.  It is possible to have mayavi execute
 multiple scripts.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -d foo.vtk -m IsoSurface -x setup_iso.py -x script2.py
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mayavi2 -d foo.vtk -m IsoSurface -x setup_iso.py -x script2.py
 </pre></div>
 </div>
 <p>will load the <code class="docutils literal"><span class="pre">foo.vtk</span></code> file, create an <code class="docutils literal"><span class="pre">IsoSurface</span></code> module, then
@@ -270,19 +271,19 @@ contains some information on the recommended ways to script.</p>
 <p>It is possible to script Mayavi using <a class="reference external" href="http://ipython.scipy.org">IPython</a>.  IPython will have to
 be invoked with the <code class="docutils literal"><span class="pre">--gui=qt</span></code> command line option in order to allow
 one to interactively script the mayavi application:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ ipython --gui=qt
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ipython --gui=qt
 </pre></div>
 </div>
 <p>To start a visualization do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">main</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="k">import</span> <span class="n">main</span>
 <span class="c1"># Note, this does not process any command line arguments.</span>
 <span class="n">mayavi</span> <span class="o">=</span> <span class="n">main</span><span class="p">()</span>
 <span class="c1"># &#39;mayavi&#39; is the mayavi Script instance.</span>
 </pre></div>
 </div>
-<p>It is also possible to use <cite>mlab</cite> (see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a>) for
+<p>It is also possible to use <cite>mlab</cite> (see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a>) for
 this purpose:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span> <span class="c1"># Returns the current scene.</span>
 <span class="n">engine</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">get_engine</span><span class="p">()</span> <span class="c1"># Returns the running mayavi engine.</span>
 </pre></div>
@@ -296,7 +297,7 @@ done on the embedded interpreter or on the text editor.</p>
 Mayavi (note that this will work if you execute the following from the
 embedded Python shell inside Mayavi or if you run it as <code class="docutils literal"><span class="pre">mayavi2</span> <span class="pre">-x</span>
 <span class="pre">script.py</span></code>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Create a new mayavi scene.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Create a new mayavi scene.</span>
 <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
 <span class="c1"># Get the current active scene.</span>
@@ -306,7 +307,7 @@ embedded Python shell inside Mayavi or if you run it as <code class="docutils li
 <span class="n">d</span> <span class="o">=</span> <span class="n">mayavi</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;fire_ug.vtu&#39;</span><span class="p">)</span>
 
 <span class="c1"># Import a few modules.</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="kn">import</span> <span class="n">Outline</span><span class="p">,</span> <span class="n">IsoSurface</span><span class="p">,</span> <span class="n">Streamline</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="k">import</span> <span class="n">Outline</span><span class="p">,</span> <span class="n">IsoSurface</span><span class="p">,</span> <span class="n">Streamline</span>
 
 <span class="c1"># Show an outline.</span>
 <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
@@ -320,7 +321,7 @@ embedded Python shell inside Mayavi or if you run it as <code class="docutils li
 <span class="c1"># Make them translucent.</span>
 <span class="n">iso</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.4</span>
 <span class="c1"># Show the scalar bar (legend).</span>
-<span class="n">iso</span><span class="o">.</span><span class="n">module_manager</span><span class="o">.</span><span class="n">scalar_lut_manager</span><span class="o">.</span><span class="n">show_scalar_bar</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">iso</span><span class="o">.</span><span class="n">module_manager</span><span class="o">.</span><span class="n">scalar_lut_manager</span><span class="o">.</span><span class="n">show_scalar_bar</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="c1"># A streamline.</span>
 <span class="n">st</span> <span class="o">=</span> <span class="n">Streamline</span><span class="p">()</span>
@@ -348,8 +349,8 @@ embedded Python shell inside Mayavi or if you run it as <code class="docutils li
 <p>Sometimes, given a Mayavi <code class="docutils literal"><span class="pre">Script</span></code> instance or <code class="docutils literal"><span class="pre">Engine</span></code>, it is
 handy to be able to navigate to a particular module/object.  In the
 above this could be achieved as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">mayavi</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">scenes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="k">print</span> <span class="n">x</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">mayavi</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">scenes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span> <span class="n">x</span>
 </pre></div>
 </div>
 <p>In this case <code class="docutils literal"><span class="pre">x</span></code> will be set to the <code class="docutils literal"><span class="pre">Streamline</span></code> instance that we
@@ -437,7 +438,7 @@ in your envisage applications.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/advanced_scripting.txt"
+      <li><a href="_sources/advanced_scripting.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -445,14 +446,11 @@ in your envisage applications.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -499,14 +497,14 @@ in your envisage applications.</p>
         <li class="right" >
           <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

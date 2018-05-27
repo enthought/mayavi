@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Canyon example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Canyon example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Julia set decimation example" href="example_julia_set_decimation.html" />
     <link rel="prev" title="Lorenz example" href="example_lorenz.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_lorenz.html" title="Lorenz example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -90,52 +91,52 @@ more, see the canyon decimation example.</p>
 <p>This example is interesting as it shows how numpy can be used to load
 and crop data completly foreign to Mayavi.</p>
 <img alt="../_images/example_canyon.jpg" class="align-center" src="../_images/example_canyon.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon.py"><code class="xref download docutils literal"><span class="pre">canyon.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2008, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon.py" download=""><code class="xref download docutils literal"><span class="pre">canyon.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="c1"># Retrieve the grand Canyon topological data ##################################</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="c1"># Original file:</span>
-<span class="c1">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt.zip&#39;</span><span class="p">):</span>
-    <span class="c1"># Download the data</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Downloading data, please wait (10M)&#39;</span><span class="p">)</span>
-    <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
-    <span class="s1">&#39;https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip&#39;</span>
-        <span class="p">)</span>
-    <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="s2"># Retrieve the grand Canyon topological data ##################################</span>
+<span class="s2">import os</span>
+<span class="s2"># Original file:</span>
+<span class="s2">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
+<span class="s2">if not os.path.exists(&#39;N36W113.hgt.zip&#39;):</span>
+<span class="s2">    # Download the data</span>
+<span class="s2">    try:</span>
+<span class="s2">        from urllib import urlopen</span>
+<span class="s2">    except ImportError:</span>
+<span class="s2">        from urllib.request import urlopen</span>
+<span class="s2">    print(&#39;Downloading data, please wait (10M)&#39;)</span>
+<span class="s2">    opener = urlopen(</span>
+<span class="s2">    &#39;https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip&#39;</span>
+<span class="s2">        )</span>
+<span class="s2">    open(&#39;N36W113.hgt.zip&#39;, &#39;wb&#39;).write(opener.read())</span>
 
-<span class="c1"># Load the data (signed 2 byte integers, big endian) ##########################</span>
-<span class="kn">import</span> <span class="nn">zipfile</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="s2"># Load the data (signed 2 byte integers, big endian) ##########################</span>
+<span class="s2">import zipfile</span>
+<span class="s2">import numpy as np</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt.zip&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt&#39;</span><span class="p">),</span>
-                    <span class="s1">&#39;&gt;i2&#39;</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3601</span><span class="p">,</span> <span class="mi">3601</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="s2">data = np.fromstring(zipfile.ZipFile(&#39;N36W113.hgt.zip&#39;).read(&#39;N36W113.hgt&#39;),</span>
+<span class="s2">                    &#39;&gt;i2&#39;)</span>
+<span class="s2">data.shape = (3601, 3601)</span>
+<span class="s2">data = data.astype(np.float32)</span>
 
-<span class="c1"># Plot an interesting section #################################################</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">900</span><span class="p">:</span><span class="mi">1900</span><span class="p">]</span>
-<span class="c1"># Convert missing values into something more sensible.</span>
-<span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">==</span> <span class="o">-</span><span class="mi">32768</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="s2"># Plot an interesting section #################################################</span>
+<span class="s2">from mayavi import mlab</span>
+<span class="s2">data = data[:1000, 900:1900]</span>
+<span class="s2"># Convert missing values into something more sensible.</span>
+<span class="s2">data[data == -32768] = data[data &gt; 0].min()</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.46</span><span class="p">))</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gist_earth&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-            <span class="n">vmin</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1610</span><span class="p">)</span>
-<span class="c1"># The data takes a lot of memory, and the surf command has created a</span>
-<span class="c1"># copy. We free the inital memory.</span>
-<span class="k">del</span> <span class="n">data</span>
+<span class="s2">mlab.figure(size=(400, 320), bgcolor=(0.16, 0.28, 0.46))</span>
+<span class="s2">mlab.surf(data, colormap=&#39;gist_earth&#39;, warp_scale=0.2,</span>
+<span class="s2">            vmin=1200, vmax=1610)</span>
+<span class="s2"># The data takes a lot of memory, and the surf command has created a</span>
+<span class="s2"># copy. We free the inital memory.</span>
+<span class="s2">del data</span>
 
-<span class="c1"># A view of the canyon</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mf">5.9</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">570</span><span class="p">,</span> <span class="p">[</span><span class="mf">5.3</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">238</span><span class="p">])</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2"># A view of the canyon</span>
+<span class="s2">mlab.view(-5.9, 83, 570, [5.3, 20, 238])</span>
+<span class="s2">mlab.show()</span>
 </pre></div>
 </div>
 </div>
@@ -158,7 +159,7 @@ and crop data completly foreign to Mayavi.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_canyon.txt"
+      <li><a href="../_sources/auto/example_canyon.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -166,14 +167,11 @@ and crop data completly foreign to Mayavi.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -220,14 +218,14 @@ and crop data completly foreign to Mayavi.</p>
         <li class="right" >
           <a href="example_lorenz.html" title="Lorenz example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

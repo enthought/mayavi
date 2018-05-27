@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Objects populating the Mayavi pipeline &mdash; mayavi 4.5.0 documentation</title>
+    <title>Objects populating the Mayavi pipeline &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
-    <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Advanced Scripting with Mayavi" href="advanced_scripting.html" />
     <link rel="prev" title="Data representation in Mayavi" href="data.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -101,7 +102,7 @@ to threading problems in IPython.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -131,7 +132,7 @@ subclasses of the <code class="docutils literal"><span class="pre">Source</span>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -141,7 +142,7 @@ subclasses of the <code class="docutils literal"><span class="pre">Source</span>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">outputs</span></code></td>
 <td><code class="docutils literal"><span class="pre">List</span></code> of outputs produced by the source. These are
 TVTK datasets, that are explained in
-the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a>.</td>
+the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -154,7 +155,7 @@ module.</p>
 </div>
 <div class="section" id="filter">
 <h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
-<p>All the <code class="docutils literal"><span class="pre">Filters</span></code> described in the <a class="reference internal" href="filters.html#filters"><span>Filters</span></a> section are
+<p>All the <code class="docutils literal"><span class="pre">Filters</span></code> described in the <a class="reference internal" href="filters.html#filters"><span class="std std-ref">Filters</span></a> section are
 subclasses of this class.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -163,7 +164,7 @@ subclasses of this class.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -177,7 +178,7 @@ the filter.</td>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">outputs</span></code></td>
 <td>a list of outputs produced by the filter. These are
 TVTK datasets, that are explained in
-the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a>.</td>
+the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -188,7 +189,7 @@ the section <a class="reference internal" href="data.html#data-structures-used-b
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -229,7 +230,7 @@ This lookup table is managed by the module manager.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -278,10 +279,10 @@ module.</p>
 <div class="section" id="module">
 <h2>Module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h2>
 <p>These objects are the ones that typically produce a visualization on the
-scene.  All the modules defined in the <a class="reference internal" href="modules.html#modules"><span>Modules</span></a> section are
+scene.  All the modules defined in the <a class="reference internal" href="modules.html#modules"><span class="std std-ref">Modules</span></a> section are
 subclasses of this.</p>
 <p>A module is typically returned by the mlab
-<a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><span>3D plotting functions</span></a>.</p>
+<a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><span class="std std-ref">3D plotting functions</span></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="28%" />
@@ -289,7 +290,7 @@ subclasses of this.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -325,7 +326,7 @@ mayavi pipeline objects.</td>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -373,7 +374,7 @@ load and save the entire visualization.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -400,7 +401,7 @@ default.</td>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -417,7 +418,7 @@ Subclasses override this method.</td>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Important sub-classes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -465,7 +466,7 @@ functionality.</p>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -473,7 +474,7 @@ functionality.</p>
 <td><p class="first">This is an <code class="docutils literal"><span class="pre">Event</span></code> Trait: it can only be
 assigned to and determines when the pipeline has
 been changed. Therefore, if one does:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="o">.</span><span class="n">pipeline_changed</span> <span class="o">=</span> <span class="bp">True</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">object.pipeline_changed = True</span>
 </pre></div>
 </div>
 <p class="last">then the <code class="docutils literal"><span class="pre">pipeline_changed</span></code> event is fired.
@@ -507,7 +508,7 @@ object and its downstream pipeline.</td>
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&nbsp;</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -568,7 +569,7 @@ involved.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/mayavi_objects.txt"
+      <li><a href="_sources/mayavi_objects.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -576,14 +577,11 @@ involved.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -630,14 +628,14 @@ involved.</p>
         <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

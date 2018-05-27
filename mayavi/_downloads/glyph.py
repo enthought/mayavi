@@ -44,7 +44,7 @@ def glyph():
     # Now mask the points and show glyphs (we could also use
     # Vectors but glyphs are a bit more generic)
     m = MaskPoints()
-    m.filter.set(on_ratio=10, random_mode=True)
+    m.filter.trait_set(on_ratio=10, random_mode=True)
     mayavi.add_filter(m)
 
     g = Glyph()

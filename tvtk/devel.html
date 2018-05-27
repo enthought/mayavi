@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development guide for TVTK &mdash; tvtk 4.5.0 documentation</title>
+    <title>Development guide for TVTK &#8212; tvtk 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,16 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="tvtk 4.5.0 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="An Introduction to Traited VTK (tvtk)" href="README.html" /> 
   </head>
   <body role="document">
@@ -36,7 +38,7 @@
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -115,10 +117,10 @@ traits of object are dynamically updated if the underlying VTK object
 is changed.  This is achieved by adding an observer to the VTK object
 that effectively calls TVTKBase.update_traits when the &#8216;ModifiedEvent&#8217;
 is invoked.  Here is an example of a VTK observer callback:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vtk</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkProperty</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cb</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">print</span> <span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">evt</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">evt</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;ModifiedEvent&quot;</span><span class="p">,</span> <span class="n">cb</span><span class="p">)</span>
 <span class="go">1</span>
@@ -140,7 +142,7 @@ the rest.  This allows the tvtk class to be safely used and also
 allows for automatic trait updation.</p>
 <p>Each tvtk class has an attribute called <cite>_updateable_traits_</cite>.  This
 is a tuple of tuples.  Each tuple contains a pair of strings like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">_updateable_traits_</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
 <span class="go">((&#39;opacity&#39;, &#39;GetOpacity&#39;),</span>
 <span class="go"> (&#39;frontface_culling&#39;, &#39;GetFrontfaceCulling&#39;),</span>
@@ -222,7 +224,7 @@ correct VTK data array and passed to the wrapped VTK object.</p>
 module is required.  The sources for this extension module are in
 <cite>src/array_ext.*</cite>.  The <a class="reference external" href="http://cython.org/">Cython</a> file can be used to generate the
 <cite>src/array_ext.c</cite> file like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cd src
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd src
 $ cython array_ext.pyx
 </pre></div>
 </div>
@@ -235,7 +237,7 @@ iteration, <cite>__repr__</cite>, <cite>__getitem__</cite> etc.</p>
 <div class="section" id="the-magical-tvtk-instance">
 <h3><a class="toc-backref" href="#id8">The magical <cite>tvtk</cite> instance</a><a class="headerlink" href="#the-magical-tvtk-instance" title="Permalink to this headline">¶</a></h3>
 <p>When one does the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
 </pre></div>
 </div>
 <p>The imported <cite>tvtk</cite> is really an instance of a class and not a module!
@@ -346,13 +348,13 @@ special code for some of the VTK classes.</p>
 code generation process, builds a ZIP file and optionally cleans up
 the temporary directory where the wrapper code was written.</p>
 <p>Please run the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ python code_gen.py -h
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python code_gen.py -h
 </pre></div>
 </div>
 <p>To see a list of options to the code generator.  Some of the options
 are extremely useful during development.  For example do this to
 generate the code for a few classes alone:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ python code_gen.py -n -z -o /tmp/tvtk_tmp vtkCollection \
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python code_gen.py -n -z -o /tmp/tvtk_tmp vtkCollection \
   vtkProperty vtkConeSource
 </pre></div>
 </div>
@@ -398,14 +400,11 @@ inhibits ZIP file generation.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -421,13 +420,13 @@ inhibits ZIP file generation.</p>
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2016, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

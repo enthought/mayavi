@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mlab interactive dialog example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Mlab interactive dialog example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Wx mayavi embed in notebook example" href="example_wx_mayavi_embed_in_notebook.html" />
     <link rel="prev" title="Superquad with gui example" href="example_superquad_with_gui.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_superquad_with_gui.html" title="Superquad with gui example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -94,71 +95,71 @@ as an attribute on the main MyModel object, to modify it inplace later.</p>
 <p>When the <cite>n_meridional</cite> and <cite>n_longitudinal</cite> attributes are modified, eg via
 the slide bars on the dialog, the curve is recomputed, and the
 visualization is updated by modifying inplace the stored plot
-object (see <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><span>Animating the data</span></a>).</p>
+object (see <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><span class="std std-ref">Animating the data</span></a>).</p>
 <p>This example is discussed in details in the section
-<a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><span>Embedding a Mayavi scene in a Traits dialog</span></a>.</p>
+<a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><span class="std std-ref">Embedding a Mayavi scene in a Traits dialog</span></a>.</p>
 <img alt="../_images/example_mlab_interactive_dialog.jpg" class="align-center" src="../_images/example_mlab_interactive_dialog.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_interactive_dialog.py"><code class="xref download docutils literal"><span class="pre">mlab_interactive_dialog.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2008, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_interactive_dialog.py" download=""><code class="xref download docutils literal"><span class="pre">mlab_interactive_dialog.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
+<span class="s2">from numpy import arange, pi, cos, sin</span>
 
-<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
-        <span class="n">on_trait_change</span>
-<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Group</span>
+<span class="s2">from traits.api import HasTraits, Range, Instance, </span><span class="se">\</span>
+<span class="s2">        on_trait_change</span>
+<span class="s2">from traitsui.api import View, Item, Group</span>
 
-<span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">PipelineBase</span>
-<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">SceneEditor</span><span class="p">,</span> \
-                <span class="n">MlabSceneModel</span>
-
-
-<span class="n">dphi</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">1000.</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">curve</span><span class="p">(</span><span class="n">n_mer</span><span class="p">,</span> <span class="n">n_long</span><span class="p">):</span>
-    <span class="n">mu</span> <span class="o">=</span> <span class="n">phi</span><span class="o">*</span><span class="n">n_mer</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span>
+<span class="s2">from mayavi.core.api import PipelineBase</span>
+<span class="s2">from mayavi.core.ui.api import MayaviScene, SceneEditor, </span><span class="se">\</span>
+<span class="s2">                MlabSceneModel</span>
 
 
-<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-    <span class="n">n_meridional</span>    <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">)</span><span class="c1">#mode=&#39;spinner&#39;)</span>
-    <span class="n">n_longitudinal</span>  <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="p">)</span><span class="c1">#mode=&#39;spinner&#39;)</span>
+<span class="s2">dphi = pi/1000.</span>
+<span class="s2">phi = arange(0.0, 2*pi + 0.5*dphi, dphi, &#39;d&#39;)</span>
 
-    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
-
-    <span class="n">plot</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
-
-
-    <span class="c1"># When the scene is activated, or when the parameters are changed, we</span>
-    <span class="c1"># update the plot.</span>
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;n_meridional,n_longitudinal,scene.activated&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">curve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_meridional</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_longitudinal</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span>
-                                <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+<span class="s2">def curve(n_mer, n_long):</span>
+<span class="s2">    mu = phi*n_mer</span>
+<span class="s2">    x = cos(mu) * (1 + cos(n_long * mu/n_mer)*0.5)</span>
+<span class="s2">    y = sin(mu) * (1 + cos(n_long * mu/n_mer)*0.5)</span>
+<span class="s2">    z = 0.5 * sin(n_long*mu/n_mer)</span>
+<span class="s2">    t = sin(mu)</span>
+<span class="s2">    return x, y, z, t</span>
 
 
-    <span class="c1"># The layout of the dialog created</span>
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
-                     <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                <span class="n">Group</span><span class="p">(</span>
-                        <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;n_meridional&#39;</span><span class="p">,</span> <span class="s1">&#39;n_longitudinal&#39;</span><span class="p">,</span>
-                     <span class="p">),</span>
-                <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                <span class="p">)</span>
+<span class="s2">class MyModel(HasTraits):</span>
+<span class="s2">    n_meridional    = Range(0, 30, 6, )#mode=&#39;spinner&#39;)</span>
+<span class="s2">    n_longitudinal  = Range(0, 30, 11, )#mode=&#39;spinner&#39;)</span>
 
-<span class="n">my_model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
-<span class="n">my_model</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+<span class="s2">    scene = Instance(MlabSceneModel, ())</span>
+
+<span class="s2">    plot = Instance(PipelineBase)</span>
+
+
+<span class="s2">    # When the scene is activated, or when the parameters are changed, we</span>
+<span class="s2">    # update the plot.</span>
+<span class="s2">    @on_trait_change(&#39;n_meridional,n_longitudinal,scene.activated&#39;)</span>
+<span class="s2">    def update_plot(self):</span>
+<span class="s2">        x, y, z, t = curve(self.n_meridional, self.n_longitudinal)</span>
+<span class="s2">        if self.plot is None:</span>
+<span class="s2">            self.plot = self.scene.mlab.plot3d(x, y, z, t,</span>
+<span class="s2">                                tube_radius=0.025, colormap=&#39;Spectral&#39;)</span>
+<span class="s2">        else:</span>
+<span class="s2">            self.plot.mlab_source.trait_set(x=x, y=y, z=z, scalars=t)</span>
+
+
+<span class="s2">    # The layout of the dialog created</span>
+<span class="s2">    view = View(Item(&#39;scene&#39;, editor=SceneEditor(scene_class=MayaviScene),</span>
+<span class="s2">                     height=250, width=300, show_label=False),</span>
+<span class="s2">                Group(</span>
+<span class="s2">                        &#39;_&#39;, &#39;n_meridional&#39;, &#39;n_longitudinal&#39;,</span>
+<span class="s2">                     ),</span>
+<span class="s2">                resizable=True,</span>
+<span class="s2">                )</span>
+
+<span class="s2">my_model = MyModel()</span>
+<span class="s2">my_model.configure_traits()</span>
 </pre></div>
 </div>
 </div>
@@ -181,7 +182,7 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_mlab_interactive_dialog.txt"
+      <li><a href="../_sources/auto/example_mlab_interactive_dialog.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -189,14 +190,11 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -243,14 +241,14 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
         <li class="right" >
           <a href="example_superquad_with_gui.html" title="Superquad with gui example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

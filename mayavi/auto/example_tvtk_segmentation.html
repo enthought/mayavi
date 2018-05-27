@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tvtk segmentation example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Tvtk segmentation example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Datasets example" href="example_datasets.html" />
     <link rel="prev" title="Structured grid example" href="example_structured_grid.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_structured_grid.html" title="Structured grid example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -90,144 +91,144 @@ applies a segmentation procedure made of VTK filters to extract the
 gray-matter/white-matter boundary.</p>
 <p>The segmentation algorithm used here is very naive and should, of course,
 not be used as an example of segmentation.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/tvtk_segmentation.py"><code class="xref download docutils literal"><span class="pre">tvtk_segmentation.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>
-<span class="c1">### Download the data, if not already on disk ##################################</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;MRbrain.tar.gz&#39;</span><span class="p">):</span>
-    <span class="c1"># Download the data</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Downloading data, Please Wait (7.8MB)&quot;</span><span class="p">)</span>
-    <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
-                <span class="s1">&#39;http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz&#39;</span><span class="p">)</span>
-    <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;MRbrain.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/tvtk_segmentation.py" download=""><code class="xref download docutils literal"><span class="pre">tvtk_segmentation.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="s2">### Download the data, if not already on disk ##################################</span>
+<span class="s2">import os</span>
+<span class="s2">if not os.path.exists(&#39;MRbrain.tar.gz&#39;):</span>
+<span class="s2">    # Download the data</span>
+<span class="s2">    try:</span>
+<span class="s2">        from urllib import urlopen</span>
+<span class="s2">    except ImportError:</span>
+<span class="s2">        from urllib.request import urlopen</span>
+<span class="s2">    print(&quot;Downloading data, Please Wait (7.8MB)&quot;)</span>
+<span class="s2">    opener = urlopen(</span>
+<span class="s2">                &#39;http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz&#39;)</span>
+<span class="s2">    open(&#39;MRbrain.tar.gz&#39;, &#39;wb&#39;).write(opener.read())</span>
 
-<span class="c1"># Extract the data</span>
-<span class="kn">import</span> <span class="nn">tarfile</span>
-<span class="n">tar_file</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;MRbrain.tar.gz&#39;</span><span class="p">)</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">&#39;mri_data&#39;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-<span class="n">tar_file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;mri_data&#39;</span><span class="p">)</span>
-<span class="n">tar_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="s2"># Extract the data</span>
+<span class="s2">import tarfile</span>
+<span class="s2">tar_file = tarfile.open(&#39;MRbrain.tar.gz&#39;)</span>
+<span class="s2">try:</span>
+<span class="s2">    os.mkdir(&#39;mri_data&#39;)</span>
+<span class="s2">except:</span>
+<span class="s2">    pass</span>
+<span class="s2">tar_file.extractall(&#39;mri_data&#39;)</span>
+<span class="s2">tar_file.close()</span>
 
 
-<span class="c1">### Read the data in a numpy 3D array ##########################################</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;mri_data&#39;</span><span class="p">,</span> <span class="s1">&#39;MRbrain.</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">),</span>
-                                        <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;&gt;u2&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">110</span><span class="p">)])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span>
+<span class="s2">### Read the data in a numpy 3D array ##########################################</span>
+<span class="s2">import numpy as np</span>
+<span class="s2">data = np.array([np.fromfile(os.path.join(&#39;mri_data&#39;, &#39;MRbrain.</span><span class="si">%i</span><span class="s2">&#39; </span><span class="si">% i</span><span class="s2">),</span>
+<span class="s2">                                        dtype=&#39;&gt;u2&#39;) for i in range(1, 110)])</span>
+<span class="s2">data.shape = (109, 256, 256)</span>
+<span class="s2">data = data.T</span>
 
-<span class="c1">################################################################################</span>
-<span class="c1"># Heuristic for finding the threshold for the brain</span>
+<span class="s2">################################################################################</span>
+<span class="s2"># Heuristic for finding the threshold for the brain</span>
 
-<span class="c1"># Exctract the percentile 20 and 80 (without using</span>
-<span class="c1"># scipy.stats.scoreatpercentile)</span>
-<span class="n">sorted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
-<span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
-<span class="n">lower_thr</span> <span class="o">=</span> <span class="n">sorted_data</span><span class="p">[</span><span class="mf">0.2</span><span class="o">*</span><span class="n">l</span><span class="p">]</span>
-<span class="n">upper_thr</span> <span class="o">=</span> <span class="n">sorted_data</span><span class="p">[</span><span class="mf">0.8</span><span class="o">*</span><span class="n">l</span><span class="p">]</span>
+<span class="s2"># Exctract the percentile 20 and 80 (without using</span>
+<span class="s2"># scipy.stats.scoreatpercentile)</span>
+<span class="s2">sorted_data = np.sort(data.ravel())</span>
+<span class="s2">l = len(sorted_data)</span>
+<span class="s2">lower_thr = sorted_data[0.2*l]</span>
+<span class="s2">upper_thr = sorted_data[0.8*l]</span>
 
-<span class="c1"># The white matter boundary: find the densest part of the upper half</span>
-<span class="c1"># of histogram, and take a value 10% higher, to cut _in_ the white matter</span>
-<span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">brain_thr_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
-<span class="n">brain_thr</span> <span class="o">=</span>  <span class="n">bins</span><span class="p">[</span><span class="n">brain_thr_idx</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span>
+<span class="s2"># The white matter boundary: find the densest part of the upper half</span>
+<span class="s2"># of histogram, and take a value 10</span><span class="si">% hi</span><span class="s2">gher, to cut _in_ the white matter</span>
+<span class="s2">hist, bins = np.histogram(data[data &gt; np.mean(data)], bins=50)</span>
+<span class="s2">brain_thr_idx = np.argmax(hist)</span>
+<span class="s2">brain_thr =  bins[brain_thr_idx + 4]</span>
 
-<span class="k">del</span> <span class="n">hist</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">brain_thr_idx</span>
+<span class="s2">del hist, bins, brain_thr_idx</span>
 
-<span class="c1"># Display the data #############################################################</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="s2"># Display the data #############################################################</span>
+<span class="s2">from mayavi import mlab</span>
+<span class="s2">from tvtk.api import tvtk</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
-<span class="c1"># to speed things up</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="s2">fig = mlab.figure(bgcolor=(0, 0, 0), size=(400, 500))</span>
+<span class="s2"># to speed things up</span>
+<span class="s2">fig.scene.disable_render = True</span>
 
-<span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="c1"># Our data is not equally spaced in all directions:</span>
-<span class="n">src</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
-<span class="n">src</span><span class="o">.</span><span class="n">update_image_data</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="s2">src = mlab.pipeline.scalar_field(data)</span>
+<span class="s2"># Our data is not equally spaced in all directions:</span>
+<span class="s2">src.spacing = [1, 1, 1.5]</span>
+<span class="s2">src.update_image_data = True</span>
 
-<span class="c1">#----------------------------------------------------------------------</span>
-<span class="c1"># Brain extraction pipeline</span>
+<span class="s2">#----------------------------------------------------------------------</span>
+<span class="s2"># Brain extraction pipeline</span>
 
-<span class="c1"># In the following, we create a Mayavi pipeline that strongly</span>
-<span class="c1"># relies on VTK filters. For this, we make heavy use of the</span>
-<span class="c1"># mlab.pipeline.user_defined function, to include VTK filters in</span>
-<span class="c1"># the Mayavi pipeline.</span>
+<span class="s2"># In the following, we create a Mayavi pipeline that strongly</span>
+<span class="s2"># relies on VTK filters. For this, we make heavy use of the</span>
+<span class="s2"># mlab.pipeline.user_defined function, to include VTK filters in</span>
+<span class="s2"># the Mayavi pipeline.</span>
 
-<span class="c1"># Apply image-based filters to clean up noise</span>
-<span class="n">thresh_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageThreshold</span><span class="p">()</span>
-<span class="n">thresh_filter</span><span class="o">.</span><span class="n">threshold_between</span><span class="p">(</span><span class="n">lower_thr</span><span class="p">,</span> <span class="n">upper_thr</span><span class="p">)</span>
-<span class="n">thresh</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">thresh_filter</span><span class="p">)</span>
+<span class="s2"># Apply image-based filters to clean up noise</span>
+<span class="s2">thresh_filter = tvtk.ImageThreshold()</span>
+<span class="s2">thresh_filter.threshold_between(lower_thr, upper_thr)</span>
+<span class="s2">thresh = mlab.pipeline.user_defined(src, filter=thresh_filter)</span>
 
-<span class="n">median_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageMedian3D</span><span class="p">()</span>
-<span class="n">median_filter</span><span class="o">.</span><span class="n">set_kernel_size</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">median</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">median_filter</span><span class="p">)</span>
+<span class="s2">median_filter = tvtk.ImageMedian3D()</span>
+<span class="s2">median_filter.set_kernel_size(3, 3, 3)</span>
+<span class="s2">median = mlab.pipeline.user_defined(thresh, filter=median_filter)</span>
 
-<span class="n">diffuse_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageAnisotropicDiffusion3D</span><span class="p">(</span>
-                                    <span class="n">diffusion_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-                                    <span class="n">diffusion_threshold</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
-                                    <span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="p">)</span>
+<span class="s2">diffuse_filter = tvtk.ImageAnisotropicDiffusion3D(</span>
+<span class="s2">                                    diffusion_factor=1.0,</span>
+<span class="s2">                                    diffusion_threshold=100.0,</span>
+<span class="s2">                                    number_of_iterations=5, )</span>
 
-<span class="n">diffuse</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">diffuse_filter</span><span class="p">)</span>
+<span class="s2">diffuse = mlab.pipeline.user_defined(median, filter=diffuse_filter)</span>
 
-<span class="c1"># Extract brain surface</span>
-<span class="n">contour</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">diffuse</span><span class="p">,</span> <span class="p">)</span>
-<span class="n">contour</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="n">brain_thr</span><span class="p">,</span> <span class="p">]</span>
+<span class="s2"># Extract brain surface</span>
+<span class="s2">contour = mlab.pipeline.contour(diffuse, )</span>
+<span class="s2">contour.filter.contours = [brain_thr, ]</span>
 
-<span class="c1"># Apply mesh filter to clean up the mesh (decimation and smoothing)</span>
-<span class="n">dec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">decimate_pro</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
-<span class="n">dec</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">feature_angle</span> <span class="o">=</span> <span class="mf">60.</span>
-<span class="n">dec</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">target_reduction</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="s2"># Apply mesh filter to clean up the mesh (decimation and smoothing)</span>
+<span class="s2">dec = mlab.pipeline.decimate_pro(contour)</span>
+<span class="s2">dec.filter.feature_angle = 60.</span>
+<span class="s2">dec.filter.target_reduction = 0.7</span>
 
-<span class="n">smooth_</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">SmoothPolyDataFilter</span><span class="p">(</span>
-                    <span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                    <span class="n">relaxation_factor</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-                    <span class="n">feature_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-                    <span class="n">feature_edge_smoothing</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                    <span class="n">boundary_smoothing</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                    <span class="n">convergence</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
-                <span class="p">)</span>
-<span class="n">smooth</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">smooth_</span><span class="p">)</span>
+<span class="s2">smooth_ = tvtk.SmoothPolyDataFilter(</span>
+<span class="s2">                    number_of_iterations=10,</span>
+<span class="s2">                    relaxation_factor=0.1,</span>
+<span class="s2">                    feature_angle=60,</span>
+<span class="s2">                    feature_edge_smoothing=False,</span>
+<span class="s2">                    boundary_smoothing=False,</span>
+<span class="s2">                    convergence=0.,</span>
+<span class="s2">                )</span>
+<span class="s2">smooth = mlab.pipeline.user_defined(dec, filter=smooth_)</span>
 
-<span class="c1"># Get the largest connected region</span>
-<span class="n">connect_</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataConnectivityFilter</span><span class="p">(</span><span class="n">extraction_mode</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">connect</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">smooth</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">connect_</span><span class="p">)</span>
+<span class="s2"># Get the largest connected region</span>
+<span class="s2">connect_ = tvtk.PolyDataConnectivityFilter(extraction_mode=4)</span>
+<span class="s2">connect = mlab.pipeline.user_defined(smooth, filter=connect_)</span>
 
-<span class="c1"># Compute normals for shading the surface</span>
-<span class="n">compute_normals</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">poly_data_normals</span><span class="p">(</span><span class="n">connect</span><span class="p">)</span>
-<span class="n">compute_normals</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">feature_angle</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="s2"># Compute normals for shading the surface</span>
+<span class="s2">compute_normals = mlab.pipeline.poly_data_normals(connect)</span>
+<span class="s2">compute_normals.filter.feature_angle = 80</span>
 
-<span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">compute_normals</span><span class="p">,</span>
-                                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.72</span><span class="p">,</span> <span class="mf">0.62</span><span class="p">))</span>
+<span class="s2">surf = mlab.pipeline.surface(compute_normals,</span>
+<span class="s2">                                        color=(0.9, 0.72, 0.62))</span>
 
-<span class="c1">#----------------------------------------------------------------------</span>
-<span class="c1"># Display a cut plane of the raw data</span>
-<span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;bone&#39;</span><span class="p">,</span>
-                <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;z_axes&#39;</span><span class="p">,</span>
-                <span class="n">slice_index</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span>
+<span class="s2">#----------------------------------------------------------------------</span>
+<span class="s2"># Display a cut plane of the raw data</span>
+<span class="s2">ipw = mlab.pipeline.image_plane_widget(src, colormap=&#39;bone&#39;,</span>
+<span class="s2">                plane_orientation=&#39;z_axes&#39;,</span>
+<span class="s2">                slice_index=55)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">165</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="p">[</span><span class="mi">143</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">73</span><span class="p">])</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
+<span class="s2">mlab.view(-165, 32, 350, [143, 133, 73])</span>
+<span class="s2">mlab.roll(180)</span>
 
-<span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="s2">fig.scene.disable_render = False</span>
 
-<span class="c1">#----------------------------------------------------------------------</span>
-<span class="c1"># To make the link between the Mayavi pipeline and the much more</span>
-<span class="c1"># complex VTK pipeline, we display both:</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">show_pipeline</span><span class="p">(</span><span class="n">rich_view</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
-<span class="n">browser</span> <span class="o">=</span> <span class="n">PipelineBrowser</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
-<span class="n">browser</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2">#----------------------------------------------------------------------</span>
+<span class="s2"># To make the link between the Mayavi pipeline and the much more</span>
+<span class="s2"># complex VTK pipeline, we display both:</span>
+<span class="s2">mlab.show_pipeline(rich_view=False)</span>
+<span class="s2">from tvtk.pipeline.browser import PipelineBrowser</span>
+<span class="s2">browser = PipelineBrowser(fig.scene)</span>
+<span class="s2">browser.show()</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2">mlab.show()</span>
 </pre></div>
 </div>
 </div>
@@ -250,7 +251,7 @@ not be used as an example of segmentation.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_tvtk_segmentation.txt"
+      <li><a href="../_sources/auto/example_tvtk_segmentation.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -258,14 +259,11 @@ not be used as an example of segmentation.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -312,14 +310,14 @@ not be used as an example of segmentation.</p>
         <li class="right" >
           <a href="example_structured_grid.html" title="Structured grid example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

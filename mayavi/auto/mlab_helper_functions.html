@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plotting functions &mdash; mayavi 4.5.0 documentation</title>
+    <title>Plotting functions &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="MLab reference" href="mlab_reference.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Figure handling functions" href="mlab_figure.html" />
     <link rel="prev" title="MLab reference" href="mlab_reference.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -84,9 +85,9 @@
   <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
-the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for an introduction to
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
 <div class="section" id="plotting-functions">
@@ -101,11 +102,11 @@ histogram-like plots.</p>
 <p>This functions accepts a wide variety of inputs, with positions given
 in 2-D or in 3-D.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">barchart</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">barchart(s, ...)</span>
+<span class="s2">barchart(x, y, s, ...)</span>
+<span class="s2">barchart(x, y, f, ...)</span>
+<span class="s2">barchart(x, y, z, s, ...)</span>
+<span class="s2">barchart(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>If only one positional argument is passed, it can be a 1-D, 2-D, or 3-D
@@ -194,15 +195,15 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_barchart</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; Demo the bar chart plot with a 2D array.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-    <span class="k">return</span> <span class="n">barchart</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="s2">def test_barchart():</span>
+<span class="s2">    &quot;&quot;&quot;</span> <span class="n">Demo</span> <span class="n">the</span> <span class="n">bar</span> <span class="n">chart</span> <span class="n">plot</span> <span class="k">with</span> <span class="n">a</span> <span class="mi">2</span><span class="n">D</span> <span class="n">array</span><span class="o">.</span>
+    <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    s = numpy.abs(numpy.random.random((3, 3)))</span>
+<span class="s2">    return barchart(s)</span>
 </pre></div>
 </div>
 </div>
@@ -213,8 +214,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <code class="descclassname">mayavi.mlab.</code><code class="descname">contour3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots iso-surfaces for a 3D volume of data suplied as arguments.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">contour3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">contour3d(scalars, ...)</span>
+<span class="s2">contour3d(x, y, z, scalars, ...)</span>
 </pre></div>
 </div>
 <p>scalars is a 3D numpy arrays giving the data on a grid.</p>
@@ -280,17 +281,17 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_contour3d</span><span class="p">():</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">]</span>
+<span class="s2">def test_contour3d():</span>
+<span class="s2">    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]</span>
 
-    <span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="mf">2.0</span>
+<span class="s2">    scalars = x * x * 0.5 + y * y + z * z * 2.0</span>
 
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">obj</span>
+<span class="s2">    obj = contour3d(scalars, contours=4, transparent=True)</span>
+<span class="s2">    return obj</span>
 </pre></div>
 </div>
 </div>
@@ -302,9 +303,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <dd><p>Plots a the contours of a surface using grid-spaced data for
 elevation supplied as a 2D array.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">contour_surf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">contour_surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">contour_surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">contour_surf(s, ...)</span>
+<span class="s2">contour_surf(x, y, s, ...)</span>
+<span class="s2">contour_surf(x, y, f, ...)</span>
 </pre></div>
 </div>
 <p>s is the elevation matrix, a 2D array. The contour lines plotted
@@ -374,19 +375,19 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_contour_surf</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Test contour_surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
-        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+<span class="s2">def test_contour_surf():</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="n">Test</span> <span class="n">contour_surf</span> <span class="n">on</span> <span class="n">regularly</span> <span class="n">spaced</span> <span class="n">co</span><span class="o">-</span><span class="n">ordinates</span> <span class="n">like</span> <span class="n">MayaVi</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    def f(x, y):</span>
+<span class="s2">        sin, cos = numpy.sin, numpy.cos</span>
+<span class="s2">        return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)</span>
 
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">7.</span><span class="p">:</span><span class="mf">7.05</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">:</span><span class="mf">5.05</span><span class="p">:</span><span class="mf">0.05</span><span class="p">]</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">contour_surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">s</span>
+<span class="s2">    x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
+<span class="s2">    s = contour_surf(x, y, f)</span>
+<span class="s2">    return s</span>
 </pre></div>
 </div>
 </div>
@@ -397,9 +398,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <code class="descclassname">mayavi.mlab.</code><code class="descname">flow</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a trajectory of particles following the flow of a vector field.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">flow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">flow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">flow(u, v, w, ...)</span>
+<span class="s2">flow(x, y, z, u, v, w, ...)</span>
+<span class="s2">flow(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>u, v, w are numpy arrays giving the components of the vectors.</p>
@@ -438,7 +439,7 @@ created.</td>
 <tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">integration_direction:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">The direction of the integration. Must be
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The direction of the integration. Must be
 &#8216;forward&#8217; or &#8216;backward&#8217; or &#8216;both&#8217;. Default:
 forward</td>
 </tr>
@@ -460,7 +461,7 @@ added to the scene. Defaults to True.</td>
 <tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">The resolution of the seed. Determines the number of
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The resolution of the seed. Determines the number of
 seed points Must be an integer or None.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
@@ -488,18 +489,18 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_flow</span><span class="p">():</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">obj</span>
+<span class="s2">def test_flow():</span>
+<span class="s2">    x, y, z = numpy.mgrid[0:5, 0:5, 0:5]</span>
+<span class="s2">    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 4)</span>
+<span class="s2">    u = y * numpy.sin(r) / r</span>
+<span class="s2">    v = -x * numpy.sin(r) / r</span>
+<span class="s2">    w = numpy.zeros_like(z)</span>
+<span class="s2">    obj = flow(u, v, w)</span>
+<span class="s2">    return obj</span>
 </pre></div>
 </div>
 </div>
@@ -510,7 +511,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <code class="descclassname">mayavi.mlab.</code><code class="descname">imshow</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
 <dd><p>View a 2D array as an image.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">imshow(s, ...)</span>
 </pre></div>
 </div>
 <p>s is a 2 dimension array. The values of s are mapped to a color using
@@ -565,15 +566,15 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_imshow</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; Use imshow to visualize a 2D 10x10 random array.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gist_earth&#39;</span><span class="p">)</span>
+<span class="s2">def test_imshow():</span>
+<span class="s2">    &quot;&quot;&quot;</span> <span class="n">Use</span> <span class="n">imshow</span> <span class="n">to</span> <span class="n">visualize</span> <span class="n">a</span> <span class="mi">2</span><span class="n">D</span> <span class="mi">10</span><span class="n">x10</span> <span class="n">random</span> <span class="n">array</span><span class="o">.</span>
+    <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    s = numpy.random.random((10, 10))</span>
+<span class="s2">    return imshow(s, colormap=&#39;gist_earth&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -584,7 +585,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <code class="descclassname">mayavi.mlab.</code><code class="descname">mesh</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using grid-spaced data supplied as 2D arrays.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">mesh(x, y, z, ...)</span>
 </pre></div>
 </div>
 <p>x, y, z are 2D arrays, all of the same shape, giving the positions of
@@ -677,34 +678,34 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_mesh</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;A very pretty picture of spherical harmonics translated from</span>
-<span class="sd">    the octaviz example.&quot;&quot;&quot;</span>
-    <span class="n">pi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span>
-    <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
-    <span class="n">sin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span>
-    <span class="n">dphi</span><span class="p">,</span> <span class="n">dtheta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">250.0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">250.0</span>
-    <span class="p">[</span><span class="n">phi</span><span class="p">,</span> <span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span> <span class="o">+</span> <span class="n">dphi</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span><span class="n">dphi</span><span class="p">,</span>
-                               <span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">dtheta</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span><span class="n">dtheta</span><span class="p">]</span>
-    <span class="n">m0</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">m1</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="n">m2</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">m3</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="n">m4</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="n">m5</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">m6</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="n">m7</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">m0</span> <span class="o">*</span> <span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m2</span> <span class="o">*</span> <span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="n">m3</span> <span class="o">+</span> \
-        <span class="n">sin</span><span class="p">(</span><span class="n">m4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="n">m5</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m6</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="n">m7</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="s2">def test_mesh():</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="n">A</span> <span class="n">very</span> <span class="n">pretty</span> <span class="n">picture</span> <span class="n">of</span> <span class="n">spherical</span> <span class="n">harmonics</span> <span class="n">translated</span> <span class="kn">from</span>
+    <span class="nn">the</span> <span class="n">octaviz</span> <span class="n">example</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    pi = numpy.pi</span>
+<span class="s2">    cos = numpy.cos</span>
+<span class="s2">    sin = numpy.sin</span>
+<span class="s2">    dphi, dtheta = pi / 250.0, pi / 250.0</span>
+<span class="s2">    [phi, theta] = numpy.mgrid[0:pi + dphi * 1.5:dphi,</span>
+<span class="s2">                               0:2 * pi + dtheta * 1.5:dtheta]</span>
+<span class="s2">    m0 = 4</span>
+<span class="s2">    m1 = 3</span>
+<span class="s2">    m2 = 2</span>
+<span class="s2">    m3 = 3</span>
+<span class="s2">    m4 = 6</span>
+<span class="s2">    m5 = 2</span>
+<span class="s2">    m6 = 6</span>
+<span class="s2">    m7 = 4</span>
+<span class="s2">    r = sin(m0 * phi) ** m1 + cos(m2 * phi) ** m3 + </span><span class="se">\</span>
+<span class="s2">        sin(m4 * theta) ** m5 + cos(m6 * theta) ** m7</span>
+<span class="s2">    x = r * sin(phi) * cos(theta)</span>
+<span class="s2">    y = r * cos(phi)</span>
+<span class="s2">    z = r * sin(phi) * sin(theta)</span>
 
-    <span class="k">return</span> <span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;bone&quot;</span><span class="p">)</span>
+<span class="s2">    return mesh(x, y, z, colormap=&quot;bone&quot;)</span>
 </pre></div>
 </div>
 </div>
@@ -715,8 +716,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <code class="descclassname">mayavi.mlab.</code><code class="descname">plot3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws lines between points.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">plot3d(x, y, z, ...)</span>
+<span class="s2">plot3d(x, y, z, s, ...)</span>
 </pre></div>
 </div>
 <p>x, y, z and s are numpy arrays or lists of the same shape. x, y and z
@@ -779,23 +780,23 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_plot3d</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Generates a pretty set of lines.&quot;&quot;&quot;</span>
-    <span class="n">n_mer</span><span class="p">,</span> <span class="n">n_long</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span>
-    <span class="n">pi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span>
-    <span class="n">dphi</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">1000.0</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">)</span>
-    <span class="n">mu</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">*</span> <span class="n">n_mer</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="s2">def test_plot3d():</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="n">Generates</span> <span class="n">a</span> <span class="n">pretty</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">lines</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    n_mer, n_long = 6, 11</span>
+<span class="s2">    pi = numpy.pi</span>
+<span class="s2">    dphi = pi / 1000.0</span>
+<span class="s2">    phi = numpy.arange(0.0, 2 * pi + 0.5 * dphi, dphi)</span>
+<span class="s2">    mu = phi * n_mer</span>
+<span class="s2">    x = numpy.cos(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)</span>
+<span class="s2">    y = numpy.sin(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)</span>
+<span class="s2">    z = numpy.sin(n_long * mu / n_mer) * 0.5</span>
 
-    <span class="n">l</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">l</span>
+<span class="s2">    l = plot3d(x, y, z, numpy.sin(mu), tube_radius=0.025, colormap=&#39;Spectral&#39;)</span>
+<span class="s2">    return l</span>
 </pre></div>
 </div>
 </div>
@@ -806,9 +807,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <code class="descclassname">mayavi.mlab.</code><code class="descname">points3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like points) at the position of the supplied data.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">...</span><span class="p">)</span>
-<span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">points3d(x, y, z...)</span>
+<span class="s2">points3d(x, y, z, s, ...)</span>
+<span class="s2">points3d(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>x, y and z are numpy arrays, or lists, all of the same shape, giving
@@ -890,21 +891,21 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_points3d</span><span class="p">():</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-    <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
-    <span class="n">sin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span>
+<span class="s2">def test_points3d():</span>
+<span class="s2">    t = numpy.linspace(0, 4 * numpy.pi, 20)</span>
+<span class="s2">    cos = numpy.cos</span>
+<span class="s2">    sin = numpy.sin</span>
 
-    <span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="s2">    x = sin(2 * t)</span>
+<span class="s2">    y = cos(t)</span>
+<span class="s2">    z = cos(2 * t)</span>
+<span class="s2">    s = 2 + sin(t)</span>
 
-    <span class="k">return</span> <span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;copper&quot;</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=.</span><span class="mi">25</span><span class="p">)</span>
+<span class="s2">    return points3d(x, y, z, s, colormap=&quot;copper&quot;, scale_factor=.25)</span>
 </pre></div>
 </div>
 </div>
@@ -916,9 +917,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <dd><p>Plots glyphs (like arrows) indicating the direction of the vectors
 at the positions supplied.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">quiver3d(u, v, w, ...)</span>
+<span class="s2">quiver3d(x, y, z, u, v, w, ...)</span>
+<span class="s2">quiver3d(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>u, v, w are numpy arrays giving the components of the vectors.</p>
@@ -1003,18 +1004,18 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_quiver3d</span><span class="p">():</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">)</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">obj</span>
+<span class="s2">def test_quiver3d():</span>
+<span class="s2">    x, y, z = numpy.mgrid[-2:3, -2:3, -2:3]</span>
+<span class="s2">    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 4)</span>
+<span class="s2">    u = y * numpy.sin(r) / (r + 0.001)</span>
+<span class="s2">    v = -x * numpy.sin(r) / (r + 0.001)</span>
+<span class="s2">    w = numpy.zeros_like(z)</span>
+<span class="s2">    obj = quiver3d(x, y, z, u, v, w, line_width=3, scale_factor=1)</span>
+<span class="s2">    return obj</span>
 </pre></div>
 </div>
 </div>
@@ -1026,9 +1027,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <dd><p>Plots a surface using regularly-spaced elevation data supplied as a 2D
 array.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">surf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">surf(s, ...)</span>
+<span class="s2">surf(x, y, s, ...)</span>
+<span class="s2">surf(x, y, f, ...)</span>
 </pre></div>
 </div>
 <p>s is the elevation matrix, a 2D array, where indices along the first
@@ -1118,20 +1119,20 @@ see the <cite>extent</cite> keyword argument.</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_surf</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Test surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
-        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+<span class="s2">def test_surf():</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="n">Test</span> <span class="n">surf</span> <span class="n">on</span> <span class="n">regularly</span> <span class="n">spaced</span> <span class="n">co</span><span class="o">-</span><span class="n">ordinates</span> <span class="n">like</span> <span class="n">MayaVi</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    def f(x, y):</span>
+<span class="s2">        sin, cos = numpy.sin, numpy.cos</span>
+<span class="s2">        return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)</span>
 
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">7.</span><span class="p">:</span><span class="mf">7.05</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">:</span><span class="mf">5.05</span><span class="p">:</span><span class="mf">0.05</span><span class="p">]</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-    <span class="c1">#cs = contour_surf(x, y, f, contour_z=0)</span>
-    <span class="k">return</span> <span class="n">s</span>
+<span class="s2">    x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
+<span class="s2">    s = surf(x, y, f)</span>
+<span class="s2">    #cs = contour_surf(x, y, f, contour_z=0)</span>
+<span class="s2">    return s</span>
 </pre></div>
 </div>
 </div>
@@ -1143,7 +1144,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <dd><p>Plots a surface using a mesh defined by the position of its vertices
 and the triangles connecting them.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>triangular_mesh(x, y, z, triangles ...)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">triangular_mesh(x, y, z, triangles ...)</span>
 </pre></div>
 </div>
 <p>x, y, z are arrays giving the positions of the vertices of the surface.
@@ -1235,28 +1236,28 @@ If None, the min of the data will be used</td>
 
 <p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
+<span class="s2">from mayavi.mlab import *</span>
 
-<span class="k">def</span> <span class="nf">test_triangular_mesh</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;An example of a cone, ie a non-regular mesh defined by its</span>
-<span class="sd">        triangles.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="s2">def test_triangular_mesh():</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="n">An</span> <span class="n">example</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cone</span><span class="p">,</span> <span class="n">ie</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">regular</span> <span class="n">mesh</span> <span class="n">defined</span> <span class="n">by</span> <span class="n">its</span>
+        <span class="n">triangles</span><span class="o">.</span>
+    <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    n = 8</span>
+<span class="s2">    t = numpy.linspace(-numpy.pi, numpy.pi, n)</span>
+<span class="s2">    z = numpy.exp(1j * t)</span>
+<span class="s2">    x = z.real.copy()</span>
+<span class="s2">    y = z.imag.copy()</span>
+<span class="s2">    z = numpy.zeros_like(x)</span>
 
-    <span class="n">triangles</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+<span class="s2">    triangles = [(0, i, i + 1) for i in range(1, n)]</span>
+<span class="s2">    x = numpy.r_[0, x]</span>
+<span class="s2">    y = numpy.r_[0, y]</span>
+<span class="s2">    z = numpy.r_[1, z]</span>
+<span class="s2">    t = numpy.r_[0, t]</span>
 
-    <span class="k">return</span> <span class="n">triangular_mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">triangles</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+<span class="s2">    return triangular_mesh(x, y, z, triangles, scalars=t)</span>
 </pre></div>
 </div>
 </div>
@@ -1298,7 +1299,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/mlab_helper_functions.txt"
+      <li><a href="../_sources/auto/mlab_helper_functions.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -1306,14 +1307,11 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -1360,14 +1358,14 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Adjust cropping extents example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Adjust cropping extents example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Poll file example" href="example_poll_file.html" />
     <link rel="prev" title="Qt embedding example" href="example_qt_embedding.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_qt_embedding.html" title="Qt embedding example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -99,94 +100,94 @@ on creating GUIs with Traits:</p>
 <div><p><a class="reference external" href="http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html">http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html</a></p>
 <p><a class="reference external" href="http://code.enthought.com/projects/traits/documentation.php">http://code.enthought.com/projects/traits/documentation.php</a></p>
 </div></blockquote>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/adjust_cropping_extents.py"><code class="xref download docutils literal"><span class="pre">adjust_cropping_extents.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&quot;&quot;&quot;
-# Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;
-# Copyright (c) 2010, Enthought, Inc.
-# License: BSD Style.
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/adjust_cropping_extents.py" download=""><code class="xref download docutils literal"><span class="pre">adjust_cropping_extents.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="sd"># Copyright (c) 2010, Enthought, Inc.</span>
+<span class="sd"># License: BSD Style.</span>
 
 
-################################################################################
-# Create a set of points, with given density
-import numpy as np
-x, y, z, s = np.random.random((4, 500))
+<span class="sd">################################################################################</span>
+<span class="sd"># Create a set of points, with given density</span>
+<span class="sd">import numpy as np</span>
+<span class="sd">x, y, z, s = np.random.random((4, 500))</span>
 
-################################################################################
-# A dialog to edit a range interactively and propagate it to the filter
-from traits.api import HasTraits, Range, Float, Instance, \
-    on_trait_change
-from traitsui.api import View
+<span class="sd">################################################################################</span>
+<span class="sd"># A dialog to edit a range interactively and propagate it to the filter</span>
+<span class="sd">from traits.api import HasTraits, Range, Float, Instance, \</span>
+<span class="sd">    on_trait_change</span>
+<span class="sd">from traitsui.api import View</span>
 
-class ExtentDialog(HasTraits):
-    &quot;&quot;&quot; A dialog to graphical adjust the extents of a filter.
-    &quot;&quot;&quot;
+<span class="sd">class ExtentDialog(HasTraits):</span>
+<span class="sd">    &quot;&quot;&quot;</span> <span class="n">A</span> <span class="n">dialog</span> <span class="n">to</span> <span class="n">graphical</span> <span class="n">adjust</span> <span class="n">the</span> <span class="n">extents</span> <span class="n">of</span> <span class="n">a</span> <span class="nb">filter</span><span class="o">.</span>
+    <span class="s2">&quot;&quot;&quot;</span>
 
-    # Data extents
-    data_x_min = Float
-    data_x_max = Float
-    data_y_min = Float
-    data_y_max = Float
-    data_z_min = Float
-    data_z_max = Float
+<span class="s2">    # Data extents</span>
+<span class="s2">    data_x_min = Float</span>
+<span class="s2">    data_x_max = Float</span>
+<span class="s2">    data_y_min = Float</span>
+<span class="s2">    data_y_max = Float</span>
+<span class="s2">    data_z_min = Float</span>
+<span class="s2">    data_z_max = Float</span>
 
-    x_min = Range(&#39;data_x_min&#39;, &#39;data_x_max&#39;, &#39;data_x_min&#39;)
-    x_max = Range(&#39;data_x_min&#39;, &#39;data_x_max&#39;, &#39;data_x_max&#39;)
-    y_min = Range(&#39;data_y_min&#39;, &#39;data_y_max&#39;, &#39;data_y_min&#39;)
-    y_max = Range(&#39;data_y_min&#39;, &#39;data_y_max&#39;, &#39;data_y_max&#39;)
-    z_min = Range(&#39;data_z_min&#39;, &#39;data_z_max&#39;, &#39;data_z_min&#39;)
-    z_max = Range(&#39;data_z_min&#39;, &#39;data_z_max&#39;, &#39;data_z_max&#39;)
+<span class="s2">    x_min = Range(&#39;data_x_min&#39;, &#39;data_x_max&#39;, &#39;data_x_min&#39;)</span>
+<span class="s2">    x_max = Range(&#39;data_x_min&#39;, &#39;data_x_max&#39;, &#39;data_x_max&#39;)</span>
+<span class="s2">    y_min = Range(&#39;data_y_min&#39;, &#39;data_y_max&#39;, &#39;data_y_min&#39;)</span>
+<span class="s2">    y_max = Range(&#39;data_y_min&#39;, &#39;data_y_max&#39;, &#39;data_y_max&#39;)</span>
+<span class="s2">    z_min = Range(&#39;data_z_min&#39;, &#39;data_z_max&#39;, &#39;data_z_min&#39;)</span>
+<span class="s2">    z_max = Range(&#39;data_z_min&#39;, &#39;data_z_max&#39;, &#39;data_z_max&#39;)</span>
 
-    filter = Instance(HasTraits, allow_none=False)
+<span class="s2">    filter = Instance(HasTraits, allow_none=False)</span>
 
-    @on_trait_change(&#39;x_min,x_max,y_min,y_max,z_min,z_max&#39;)
-    def update_extent(self):
-        if (self.filter is not None
-                    and self.x_min &lt; self.x_max
-                    and self.y_min &lt; self.y_max
-                    and self.z_min &lt; self.z_max
-                            ):
-            self.filter.extent = (self.x_min, self.x_max,
-                                  self.y_min, self.y_max,
-                                  self.z_min, self.z_max)
+<span class="s2">    @on_trait_change(&#39;x_min,x_max,y_min,y_max,z_min,z_max&#39;)</span>
+<span class="s2">    def update_extent(self):</span>
+<span class="s2">        if (self.filter is not None</span>
+<span class="s2">                    and self.x_min &lt; self.x_max</span>
+<span class="s2">                    and self.y_min &lt; self.y_max</span>
+<span class="s2">                    and self.z_min &lt; self.z_max</span>
+<span class="s2">                            ):</span>
+<span class="s2">            self.filter.extent = (self.x_min, self.x_max,</span>
+<span class="s2">                                  self.y_min, self.y_max,</span>
+<span class="s2">                                  self.z_min, self.z_max)</span>
 
-    view = View(&#39;x_min&#39;, &#39;x_max&#39;, &#39;y_min&#39;, &#39;y_max&#39;, &#39;z_min&#39;, &#39;z_max&#39;,
-                title=&#39;Edit extent&#39;, resizable=True)
+<span class="s2">    view = View(&#39;x_min&#39;, &#39;x_max&#39;, &#39;y_min&#39;, &#39;y_max&#39;, &#39;z_min&#39;, &#39;z_max&#39;,</span>
+<span class="s2">                title=&#39;Edit extent&#39;, resizable=True)</span>
 
 
-################################################################################
-# Now build the visualization using mlab
-from mayavi import mlab
-fig = mlab.figure(1, bgcolor=(1, 1, 1))
+<span class="s2">################################################################################</span>
+<span class="s2"># Now build the visualization using mlab</span>
+<span class="s2">from mayavi import mlab</span>
+<span class="s2">fig = mlab.figure(1, bgcolor=(1, 1, 1))</span>
 
-# Create unconnected points
-pts = mlab.pipeline.scalar_scatter(x, y, z, s)
-mlab.outline(pts)
+<span class="s2"># Create unconnected points</span>
+<span class="s2">pts = mlab.pipeline.scalar_scatter(x, y, z, s)</span>
+<span class="s2">mlab.outline(pts)</span>
 
-# Use a geometry_filter to filter with a bounding box
-geometry_filter = mlab.pipeline.user_defined(pts,
-                                   filter=&#39;GeometryFilter&#39;)
-geometry_filter.filter.extent_clipping = True
-# Connect our dialog to the filter
-extent_dialog = ExtentDialog(
-            data_x_min=0, data_x_max=1,
-            data_y_min=0, data_y_max=1,
-            data_z_min=0, data_z_max=1,
-            filter=geometry_filter.filter)
-# We need to use &#39;edit_traits&#39; and not &#39;configure_traits()&#39; as we do
-# not want to start the GUI event loop (the call to mlab.show())
-# at the end of the script will do it.
-extent_dialog.edit_traits()
+<span class="s2"># Use a geometry_filter to filter with a bounding box</span>
+<span class="s2">geometry_filter = mlab.pipeline.user_defined(pts,</span>
+<span class="s2">                                   filter=&#39;GeometryFilter&#39;)</span>
+<span class="s2">geometry_filter.filter.extent_clipping = True</span>
+<span class="s2"># Connect our dialog to the filter</span>
+<span class="s2">extent_dialog = ExtentDialog(</span>
+<span class="s2">            data_x_min=0, data_x_max=1,</span>
+<span class="s2">            data_y_min=0, data_y_max=1,</span>
+<span class="s2">            data_z_min=0, data_z_max=1,</span>
+<span class="s2">            filter=geometry_filter.filter)</span>
+<span class="s2"># We need to use &#39;edit_traits&#39; and not &#39;configure_traits()&#39; as we do</span>
+<span class="s2"># not want to start the GUI event loop (the call to mlab.show())</span>
+<span class="s2"># at the end of the script will do it.</span>
+<span class="s2">extent_dialog.edit_traits()</span>
 
-# The geometry_filter leaves hanging points, we need to add a
-# CleanPolyData filter to get rid of these.
-clip = mlab.pipeline.user_defined(geometry_filter,
-                                    filter=&#39;CleanPolyData&#39;)
+<span class="s2"># The geometry_filter leaves hanging points, we need to add a</span>
+<span class="s2"># CleanPolyData filter to get rid of these.</span>
+<span class="s2">clip = mlab.pipeline.user_defined(geometry_filter,</span>
+<span class="s2">                                    filter=&#39;CleanPolyData&#39;)</span>
 
-# Finally, visualize the remaining points with spheres using a glyph
-# module
-spheres = mlab.pipeline.glyph(clip, scale_factor=.1)
+<span class="s2"># Finally, visualize the remaining points with spheres using a glyph</span>
+<span class="s2"># module</span>
+<span class="s2">spheres = mlab.pipeline.glyph(clip, scale_factor=.1)</span>
 
-mlab.show()
+<span class="s2">mlab.show()</span>
 </pre></div>
 </div>
 </div>
@@ -209,7 +210,7 @@ mlab.show()
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_adjust_cropping_extents.txt"
+      <li><a href="../_sources/auto/example_adjust_cropping_extents.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -217,14 +218,11 @@ mlab.show()
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -271,14 +269,14 @@ mlab.show()
         <li class="right" >
           <a href="example_qt_embedding.html" title="Qt embedding example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

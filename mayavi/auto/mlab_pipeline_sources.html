@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Sources &mdash; mayavi 4.5.0 documentation</title>
+    <title>Sources &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Tools" href="mlab_pipeline_tools.html" />
     <link rel="prev" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
 <style type="text/css">
@@ -71,9 +72,9 @@
         <li class="right" >
           <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -85,9 +86,9 @@
   <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
-the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for an introduction to
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
 <div class="section" id="sources">
@@ -99,9 +100,9 @@ instructions on running the examples.</p>
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">array2d_source</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.array2d_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates structured 2D data from a 2D array.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">array2d_source</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">array2d_source</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">array2d_source</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">array2d_source(s, ...)</span>
+<span class="s2">array2d_source(x, y, s, ...)</span>
+<span class="s2">array2d_source(x, y, f, ...)</span>
 </pre></div>
 </div>
 <p>If 3 positional arguments are passed the last one must be an array s,
@@ -209,12 +210,12 @@ visualization.</td>
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">line_source</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.line_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates line data.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>line_source(x, y, z, ...)
-line_source(x, y, z, s, ...)
-line_source(x, y, z, f, ...)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">line_source(x, y, z, ...)</span>
+<span class="s2">line_source(x, y, z, s, ...)</span>
+<span class="s2">line_source(x, y, z, f, ...)</span>
 
-If 4 positional arguments are passed the last one must be an array s,
-or a callable, f, that returns an array.
+<span class="s2">If 4 positional arguments are passed the last one must be an array s,</span>
+<span class="s2">or a callable, f, that returns an array.</span>
 </pre></div>
 </div>
 <p><strong>Keyword arguments</strong>:</p>
@@ -276,9 +277,9 @@ GUI or openGL context.</p>
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">scalar_field</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.scalar_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a scalar field data.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">scalar_field</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">scalar_field</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">scalar_field(s, ...)</span>
+<span class="s2">scalar_field(x, y, z, s, ...)</span>
+<span class="s2">scalar_field(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>If only 1 array s is passed the x, y and z arrays are assumed to be
@@ -317,10 +318,10 @@ visualization.</td>
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">scalar_scatter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.scalar_scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates scattered scalar data.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">scalar_scatter(s, ...)</span>
+<span class="s2">scalar_scatter(x, y, z, s, ...)</span>
+<span class="s2">scalar_scatter(x, y, z, s, ...)</span>
+<span class="s2">scalar_scatter(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>If only 1 array s is passed the x, y and z arrays are assumed to be
@@ -390,9 +391,9 @@ visualization.</td>
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">vector_field</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vector_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates vector field data.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vector_field</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vector_field</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">vector_field(u, v, w, ...)</span>
+<span class="s2">vector_field(x, y, z, u, v, w, ...)</span>
+<span class="s2">vector_field(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>If only 3 arrays u, v, w are passed the x, y and z arrays are assumed to be
@@ -433,9 +434,9 @@ visualization.</td>
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">vector_scatter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vector_scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates scattered vector data.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">vector_scatter</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vector_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vector_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">vector_scatter(u, v, w, ...)</span>
+<span class="s2">vector_scatter(x, y, z, u, v, w, ...)</span>
+<span class="s2">vector_scatter(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>If only 3 arrays u, v, w are passed the x, y and z arrays are assumed to be
@@ -473,11 +474,11 @@ visualization.</td>
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">vertical_vectors_source</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vertical_vectors_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of vectors pointing upward, useful eg for bar graphs.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">vertical_vectors_source</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vertical_vectors_source</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vertical_vectors_source</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vertical_vectors_source</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">vertical_vectors_source</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">vertical_vectors_source(s, ...)</span>
+<span class="s2">vertical_vectors_source(x, y, s, ...)</span>
+<span class="s2">vertical_vectors_source(x, y, f, ...)</span>
+<span class="s2">vertical_vectors_source(x, y, z, s, ...)</span>
+<span class="s2">vertical_vectors_source(x, y, z, f, ...)</span>
 </pre></div>
 </div>
 <p>If only one positional argument is passed, it can be a 1D, 2D, or 3D
@@ -566,7 +567,7 @@ visualization.</td>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/mlab_pipeline_sources.txt"
+      <li><a href="../_sources/auto/mlab_pipeline_sources.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -574,14 +575,11 @@ visualization.</td>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -628,15 +626,15 @@ visualization.</td>
         <li class="right" >
           <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

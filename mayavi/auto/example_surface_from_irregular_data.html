@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Surface from irregular data example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Surface from irregular data example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Spherical harmonics example" href="example_spherical_harmonics.html" />
     <link rel="prev" title="Custom colormap example" href="example_custom_colormap.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_custom_colormap.html" title="Custom colormap example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -100,37 +101,37 @@ embedded in a surface in the z axis. We first visualize the points using
 mlab.points3d. We then use the delaunay2d filter to extract the mesh by
 nearest-neighboor matching, and visualize it using the surface module.</p>
 <img alt="../_images/example_surface_from_irregular_data.jpg" class="align-center" src="../_images/example_surface_from_irregular_data.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/surface_from_irregular_data.py"><code class="xref download docutils literal"><span class="pre">surface_from_irregular_data.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2009, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/surface_from_irregular_data.py" download=""><code class="xref download docutils literal"><span class="pre">surface_from_irregular_data.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="s2">import numpy as np</span>
 
-<span class="c1"># Create data with x and y random in the [-2, 2] segment, and z a</span>
-<span class="c1"># Gaussian function of x and y.</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="s2"># Create data with x and y random in the [-2, 2] segment, and z a</span>
+<span class="s2"># Gaussian function of x and y.</span>
+<span class="s2">np.random.seed(12345)</span>
+<span class="s2">x = 4 * (np.random.random(500) - 0.5)</span>
+<span class="s2">y = 4 * (np.random.random(500) - 0.5)</span>
 
 
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<span class="s2">def f(x, y):</span>
+<span class="s2">    return np.exp(-(x ** 2 + y ** 2))</span>
 
-<span class="n">z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="s2">z = f(x, y)</span>
 
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="s2">from mayavi import mlab</span>
+<span class="s2">mlab.figure(1, fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))</span>
 
-<span class="c1"># Visualize the points</span>
-<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="s2"># Visualize the points</span>
+<span class="s2">pts = mlab.points3d(x, y, z, z, scale_mode=&#39;none&#39;, scale_factor=0.2)</span>
 
-<span class="c1"># Create and visualize the mesh</span>
-<span class="n">mesh</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">delaunay2d</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="s2"># Create and visualize the mesh</span>
+<span class="s2">mesh = mlab.pipeline.delaunay2d(pts)</span>
+<span class="s2">surf = mlab.pipeline.surface(mesh)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">))</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2">mlab.view(47, 57, 8.2, (0.1, 0.15, 0.14))</span>
+<span class="s2">mlab.show()</span>
 </pre></div>
 </div>
 </div>
@@ -153,7 +154,7 @@ nearest-neighboor matching, and visualize it using the surface module.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_surface_from_irregular_data.txt"
+      <li><a href="../_sources/auto/example_surface_from_irregular_data.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -161,14 +162,11 @@ nearest-neighboor matching, and visualize it using the surface module.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -215,14 +213,14 @@ nearest-neighboor matching, and visualize it using the surface module.</p>
         <li class="right" >
           <a href="example_custom_colormap.html" title="Custom colormap example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

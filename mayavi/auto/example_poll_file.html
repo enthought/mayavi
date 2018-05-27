@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Poll file example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Poll file example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lorenz ui example" href="example_lorenz_ui.html" />
     <link rel="prev" title="Adjust cropping extents example" href="example_adjust_cropping_extents.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -86,121 +87,121 @@
 <p>A simple script that polls a data file for changes and then updates
 the mayavi pipeline automatically.</p>
 <p>This script is to be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -x poll_file.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x poll_file.py</span>
 </pre></div>
 </div>
 <p>Or:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ python poll_file.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ python poll_file.py</span>
 </pre></div>
 </div>
 <p>The script currently defaults to using the example data in
 examples/data/heart.vtk.  You can try editing that data file or change
 this script to point to other data which you can edit.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/poll_file.py"><code class="xref download docutils literal"><span class="pre">poll_file.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>
-<span class="c1"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
-<span class="c1"># Copyright (c) 2006-2015, Enthought Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/poll_file.py" download=""><code class="xref download docutils literal"><span class="pre">poll_file.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+# Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;
+# Copyright (c) 2006-2015, Enthought Inc.
+# License: BSD Style.
 
-<span class="c1"># Standard imports.</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
+# Standard imports.
+import os
+from os.path import join, abspath, dirname
 
-<span class="c1"># Enthought library imports</span>
-<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
-<span class="kn">from</span> <span class="nn">mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.contour_grid_plane</span> <span class="kn">import</span> <span class="n">ContourGridPlane</span>
-<span class="kn">from</span> <span class="nn">pyface.timer.api</span> <span class="kn">import</span> <span class="n">Timer</span>
-
-
-<span class="c1">######################################################################</span>
-<span class="c1"># `Pollster` class.</span>
-<span class="k">class</span> <span class="nc">Pollster</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a file name and a mayavi2 data reader object, this class</span>
-<span class="sd">    polls the file for any changes and automatically updates the</span>
-<span class="sd">    mayavi pipeline.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">        -----------</span>
-<span class="sd">        fname -- filename to poll.</span>
-<span class="sd">        data -- the MayaVi source object to update.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fname</span> <span class="o">=</span> <span class="n">fname</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_stat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">poll_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Check the file&#39;s time stamp.</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_stat</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
-            <span class="k">return</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">last_stat</span> <span class="o">=</span> <span class="n">s</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_pipeline</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">update_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Override this to do something else if needed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;file changed&quot;</span><span class="p">)</span>
-        <span class="c1"># Force the reader to re-read the file.</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-        <span class="n">d</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">modified</span><span class="p">()</span>
-        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-        <span class="c1"># Propagate the changes in the pipeline.</span>
-        <span class="n">d</span><span class="o">.</span><span class="n">data_changed</span> <span class="o">=</span> <span class="bp">True</span>
+# Enthought library imports
+from mayavi.scripts import mayavi2
+from mayavi.sources.vtk_file_reader import VTKFileReader
+from mayavi.modules.outline import Outline
+from mayavi.modules.contour_grid_plane import ContourGridPlane
+from pyface.timer.api import Timer
 
 
+######################################################################
+# `Pollster` class.
+class Pollster(object):
+    &quot;&quot;&quot;Given a file name and a mayavi2 data reader object, this class
+    polls the file for any changes and automatically updates the
+    mayavi pipeline.
+    &quot;&quot;&quot;
+    def __init__(self, fname, data):
+        &quot;&quot;&quot;Initialize the object.
 
-<span class="k">def</span> <span class="nf">setup_data</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a VTK file name `fname`, this creates a mayavi2 reader</span>
-<span class="sd">    for it and adds it to the pipeline.  It returns the reader</span>
-<span class="sd">    created.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">VTKFileReader</span><span class="p">()</span>
-    <span class="n">d</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">d</span>
+        Parameters:
+        -----------
+        fname -- filename to poll.
+        data -- the MayaVi source object to update.
+        &quot;&quot;&quot;
+        self.fname = fname
+        self.data = data
+        self.last_stat = os.stat(fname)
 
-<span class="k">def</span> <span class="nf">view_data</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
-    <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+    def poll_file(self):
+        # Check the file&#39;s time stamp.
+        s = os.stat(self.fname)
+        if s[-2] == self.last_stat[-2]:
+            return
+        else:
+            self.last_stat = s
+            self.update_pipeline()
 
-    <span class="n">c</span> <span class="o">=</span> <span class="n">ContourGridPlane</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">16</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">module_manager</span><span class="o">.</span><span class="n">scalar_lut_manager</span><span class="o">.</span><span class="n">show_scalar_bar</span> <span class="o">=</span> <span class="bp">True</span>
+    def update_pipeline(self):
+        &quot;&quot;&quot;Override this to do something else if needed.
+        &quot;&quot;&quot;
+        print(&quot;file changed&quot;)
+        # Force the reader to re-read the file.
+        d = self.data
+        d.reader.modified()
+        d.update()
+        # Propagate the changes in the pipeline.
+        d.data_changed = True
 
-<span class="nd">@mayavi2.standalone</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># Change this to suit your needs.  Edit the file after running this</span>
-    <span class="c1"># script and the pipeline should be updated automatically.</span>
 
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
-                 <span class="s1">&#39;heart.vtk&#39;</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">setup_data</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-    <span class="n">view_data</span><span class="p">()</span>
+def setup_data(fname):
+    &quot;&quot;&quot;Given a VTK file name `fname`, this creates a mayavi2 reader
+    for it and adds it to the pipeline.  It returns the reader
+    created.
+    &quot;&quot;&quot;
+    # &#39;mayavi&#39; is always defined on the interpreter.
+    mayavi.new_scene()
+    d = VTKFileReader()
+    d.initialize(fname)
+    mayavi.add_source(d)
+    return d
 
-    <span class="c1"># Poll the file.</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">Pollster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-    <span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">poll_file</span><span class="p">)</span>
-    <span class="c1"># Keep a reference on the timer</span>
-    <span class="n">mayavi2</span><span class="o">.</span><span class="n">savedtimerbug</span> <span class="o">=</span> <span class="n">timer</span>
+def view_data():
+    &quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.
+    &quot;&quot;&quot;
+    # &#39;mayavi&#39; is always defined on the interpreter.
+    o = Outline()
+    mayavi.add_module(o)
 
-    <span class="c1"># To stop polling the file do:</span>
-    <span class="c1">#timer.Stop()</span>
+    c = ContourGridPlane()
+    mayavi.add_module(c)
+    c.grid_plane.position = 16
+    c.module_manager.scalar_lut_manager.show_scalar_bar = True
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+@mayavi2.standalone
+def main():
+    # Change this to suit your needs.  Edit the file after running this
+    # script and the pipeline should be updated automatically.
+
+    fname = join(mayavi2.get_data_dir(abspath(dirname(__file__))),
+                 &#39;heart.vtk&#39;)
+
+    data = setup_data(fname)
+    view_data()
+
+    # Poll the file.
+    p = Pollster(fname, data)
+    timer = Timer(1000, p.poll_file)
+    # Keep a reference on the timer
+    mayavi2.savedtimerbug = timer
+
+    # To stop polling the file do:
+    #timer.Stop()
+
+if __name__ == &#39;__main__&#39;:
+    main()
 </pre></div>
 </div>
 </div>
@@ -223,7 +224,7 @@ this script to point to other data which you can edit.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_poll_file.txt"
+      <li><a href="../_sources/auto/example_poll_file.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -231,14 +232,11 @@ this script to point to other data which you can edit.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -285,14 +283,14 @@ this script to point to other data which you can edit.</p>
         <li class="right" >
           <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

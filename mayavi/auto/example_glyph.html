@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Glyph example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Glyph example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Structured points2d example" href="example_structured_points2d.html" />
     <link rel="prev" title="Surf regular mlab example" href="example_surf_regular_mlab.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -86,61 +87,61 @@
 <p>This script demonstrates using the Mayavi core API to add a VectorCutPlane,
 split the pipeline using a MaskPoints filter and then view the filtered data
 with the Glyph module.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/glyph.py"><code class="xref download docutils literal"><span class="pre">glyph.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
-<span class="c1"># Copyright (c) 2005-2008, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/glyph.py" download=""><code class="xref download docutils literal"><span class="pre">glyph.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="s2"># Copyright (c) 2005-2008, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="c1"># Standard library imports</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
+<span class="s2"># Standard library imports</span>
+<span class="s2">from os.path import join, abspath, dirname</span>
 
-<span class="c1"># Enthought library imports</span>
-<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
-<span class="kn">from</span> <span class="nn">mayavi.sources.vtk_xml_file_reader</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.glyph</span> <span class="kn">import</span> <span class="n">Glyph</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.vector_cut_plane</span> <span class="kn">import</span> <span class="n">VectorCutPlane</span>
-<span class="kn">from</span> <span class="nn">mayavi.filters.mask_points</span> <span class="kn">import</span> <span class="n">MaskPoints</span>
+<span class="s2"># Enthought library imports</span>
+<span class="s2">from mayavi.scripts import mayavi2</span>
+<span class="s2">from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader</span>
+<span class="s2">from mayavi.modules.outline import Outline</span>
+<span class="s2">from mayavi.modules.glyph import Glyph</span>
+<span class="s2">from mayavi.modules.vector_cut_plane import VectorCutPlane</span>
+<span class="s2">from mayavi.filters.mask_points import MaskPoints</span>
 
-<span class="nd">@mayavi2.standalone</span>
-<span class="k">def</span> <span class="nf">glyph</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;The script itself.  We needn&#39;t have defined a function but</span>
-<span class="sd">    having a function makes this more reusable.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
-    <span class="c1"># Create a new VTK scene.</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+<span class="s2">@mayavi2.standalone</span>
+<span class="s2">def glyph():</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="n">The</span> <span class="n">script</span> <span class="n">itself</span><span class="o">.</span>  <span class="n">We</span> <span class="n">needn</span><span class="s1">&#39;t have defined a function but</span>
+    <span class="n">having</span> <span class="n">a</span> <span class="n">function</span> <span class="n">makes</span> <span class="n">this</span> <span class="n">more</span> <span class="n">reusable</span><span class="o">.</span>
+    <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    # &#39;mayavi&#39; is always defined on the interpreter.</span>
+<span class="s2">    # Create a new VTK scene.</span>
+<span class="s2">    mayavi.new_scene()</span>
 
-    <span class="c1"># Read a VTK (old style) data file.</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">VTKXMLFileReader</span><span class="p">()</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
-                      <span class="s1">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="s2">    # Read a VTK (old style) data file.</span>
+<span class="s2">    r = VTKXMLFileReader()</span>
+<span class="s2">    r.initialize(join(mayavi2.get_data_dir(dirname(abspath(__file__))),</span>
+<span class="s2">                      &#39;fire_ug.vtu&#39;))</span>
+<span class="s2">    mayavi.add_source(r)</span>
 
-    <span class="c1"># Create an outline and a vector cut plane.</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
+<span class="s2">    # Create an outline and a vector cut plane.</span>
+<span class="s2">    mayavi.add_module(Outline())</span>
 
-    <span class="n">v</span> <span class="o">=</span> <span class="n">VectorCutPlane</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-    <span class="n">v</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s1">&#39;color_by_scalar&#39;</span>
+<span class="s2">    v = VectorCutPlane()</span>
+<span class="s2">    mayavi.add_module(v)</span>
+<span class="s2">    v.glyph.color_mode = &#39;color_by_scalar&#39;</span>
 
-    <span class="c1"># Now mask the points and show glyphs (we could also use</span>
-    <span class="c1"># Vectors but glyphs are a bit more generic)</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">MaskPoints</span><span class="p">()</span>
-    <span class="n">m</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">on_ratio</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_mode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="s2">    # Now mask the points and show glyphs (we could also use</span>
+<span class="s2">    # Vectors but glyphs are a bit more generic)</span>
+<span class="s2">    m = MaskPoints()</span>
+<span class="s2">    m.filter.trait_set(on_ratio=10, random_mode=True)</span>
+<span class="s2">    mayavi.add_filter(m)</span>
 
-    <span class="n">g</span> <span class="o">=</span> <span class="n">Glyph</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-    <span class="c1"># Note that this adds the module to the filtered output.</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">scale_mode</span> <span class="o">=</span> <span class="s1">&#39;scale_by_vector&#39;</span>
-    <span class="c1"># Use arrows to view the scalars.</span>
-    <span class="n">gs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph_source</span>
-    <span class="n">gs</span><span class="o">.</span><span class="n">glyph_source</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">glyph_dict</span><span class="p">[</span><span class="s1">&#39;arrow_source&#39;</span><span class="p">]</span>
+<span class="s2">    g = Glyph()</span>
+<span class="s2">    mayavi.add_module(g)</span>
+<span class="s2">    # Note that this adds the module to the filtered output.</span>
+<span class="s2">    g.glyph.scale_mode = &#39;scale_by_vector&#39;</span>
+<span class="s2">    # Use arrows to view the scalars.</span>
+<span class="s2">    gs = g.glyph.glyph_source</span>
+<span class="s2">    gs.glyph_source = gs.glyph_dict[&#39;arrow_source&#39;]</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">glyph</span><span class="p">()</span>
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    glyph()</span>
 </pre></div>
 </div>
 </div>
@@ -163,7 +164,7 @@ with the Glyph module.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_glyph.txt"
+      <li><a href="../_sources/auto/example_glyph.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -171,14 +172,11 @@ with the Glyph module.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -225,14 +223,14 @@ with the Glyph module.</p>
         <li class="right" >
           <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nongui example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Nongui example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="User mayavi example" href="example_user_mayavi.html" />
     <link rel="prev" title="Zzz reader example" href="example_zzz_reader.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_zzz_reader.html" title="Zzz reader example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -88,110 +89,110 @@ without displaying Mayavi&#8217;s UI.</p>
 <p>Note: look at the end of this file to see how the non gui plugin is
 chosen instead of the default gui mayavi plugin.</p>
 <p>This should be run as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ python nongui.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ python nongui.py</span>
 </pre></div>
 </div>
 <p>Or:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 script.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 script.py</span>
 </pre></div>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/nongui.py"><code class="xref download docutils literal"><span class="pre">nongui.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
-<span class="c1"># Copyright (c) 2005, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/nongui.py" download=""><code class="xref download docutils literal"><span class="pre">nongui.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;
+# Copyright (c) 2005, Enthought, Inc.
+# License: BSD Style.
 
-<span class="c1"># Standard library imports</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span>
+# Standard library imports
+from os.path import join, abspath
 
-<span class="c1"># Enthought library imports</span>
-<span class="kn">from</span> <span class="nn">mayavi.scripts.util</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
-<span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">Mayavi</span><span class="p">,</span> <span class="n">get_non_gui_plugins</span>
+# Enthought library imports
+from mayavi.scripts.util import get_data_dir
+from mayavi.plugins.app import Mayavi, get_non_gui_plugins
 
-<span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">Mayavi</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This is executed once the application GUI has started.</span>
-<span class="sd">        *Make sure all other MayaVi specific imports are made here!*</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+class MyApp(Mayavi):
+    def run(self):
+        &quot;&quot;&quot;This is executed once the application GUI has started.
+        *Make sure all other MayaVi specific imports are made here!*
+        &quot;&quot;&quot;
 
-        <span class="c1"># Various imports to do different things.</span>
-        <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.grid_plane</span> <span class="kn">import</span> <span class="n">GridPlane</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.image_plane_widget</span> <span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.text</span> <span class="kn">import</span> <span class="n">Text</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.contour_grid_plane</span> <span class="kn">import</span> <span class="n">ContourGridPlane</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.iso_surface</span> <span class="kn">import</span> <span class="n">IsoSurface</span>
+        # Various imports to do different things.
+        from mayavi.sources.vtk_file_reader import VTKFileReader
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.axes import Axes
+        from mayavi.modules.grid_plane import GridPlane
+        from mayavi.modules.image_plane_widget import ImagePlaneWidget
+        from mayavi.modules.text import Text
+        from mayavi.modules.contour_grid_plane import ContourGridPlane
+        from mayavi.modules.iso_surface import IsoSurface
 
-        <span class="n">script</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script</span>
+        script = self.script
 
-        <span class="c1"># Create a new scene.</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+        # Create a new scene.
+        script.new_scene()
 
-        <span class="c1"># Read a VTK (old style) data file.</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">VTKFileReader</span><span class="p">()</span>
-        <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)),</span>
-                          <span class="s1">&#39;heart.vtk&#39;</span><span class="p">))</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        # Read a VTK (old style) data file.
+        r = VTKFileReader()
+        r.initialize(join(get_data_dir(abspath(__file__)),
+                          &#39;heart.vtk&#39;))
+        script.add_source(r)
 
-        <span class="c1"># Put up some text.</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;MayaVi rules!&#39;</span><span class="p">,</span> <span class="n">x_position</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">y_position</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>  <span class="c1"># Bright yellow, yeah!</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        # Put up some text.
+        t = Text(text=&#39;MayaVi rules!&#39;, x_position=0.2, y_position=0.9, width=0.8)
+        t.property.color = 1, 1, 0  # Bright yellow, yeah!
+        script.add_module(t)
 
-        <span class="c1"># Create an outline for the data.</span>
-        <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        # Create an outline for the data.
+        o = Outline()
+        script.add_module(o)
 
-        <span class="c1"># Create an axes for the data.</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">Axes</span><span class="p">()</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        # Create an axes for the data.
+        a = Axes()
+        script.add_module(a)
 
-        <span class="c1"># Create three simple grid plane modules.</span>
-        <span class="c1"># First normal to &#39;x&#39; axis.</span>
-        <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-        <span class="c1"># Second normal to &#39;y&#39; axis.</span>
-        <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
-        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-        <span class="c1"># Third normal to &#39;z&#39; axis.</span>
-        <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span>
+        # Create three simple grid plane modules.
+        # First normal to &#39;x&#39; axis.
+        gp = GridPlane()
+        script.add_module(gp)
+        # Second normal to &#39;y&#39; axis.
+        gp = GridPlane()
+        gp.grid_plane.axis = &#39;y&#39;
+        script.add_module(gp)
+        # Third normal to &#39;z&#39; axis.
+        gp = GridPlane()
+        script.add_module(gp)
+        gp.grid_plane.axis = &#39;z&#39;
 
-        <span class="c1"># Create one ImagePlaneWidget.</span>
-        <span class="n">ipw</span> <span class="o">=</span> <span class="n">ImagePlaneWidget</span><span class="p">()</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ipw</span><span class="p">)</span>
-        <span class="c1"># Set the position to the middle of the data.</span>
-        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="mi">16</span>
+        # Create one ImagePlaneWidget.
+        ipw = ImagePlaneWidget()
+        script.add_module(ipw)
+        # Set the position to the middle of the data.
+        ipw.ipw.slice_position = 16
 
-        <span class="c1"># Create one ContourGridPlane normal to the &#39;x&#39; axis.</span>
-        <span class="n">cgp</span> <span class="o">=</span> <span class="n">ContourGridPlane</span><span class="p">()</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cgp</span><span class="p">)</span>
-        <span class="c1"># Set the position to the middle of the data.</span>
-        <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
-        <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">15</span>
+        # Create one ContourGridPlane normal to the &#39;x&#39; axis.
+        cgp = ContourGridPlane()
+        script.add_module(cgp)
+        # Set the position to the middle of the data.
+        cgp.grid_plane.axis = &#39;y&#39;
+        cgp.grid_plane.position = 15
 
-        <span class="c1"># An isosurface module.</span>
-        <span class="n">iso</span> <span class="o">=</span> <span class="n">IsoSurface</span><span class="p">(</span><span class="n">compute_normals</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
-        <span class="n">iso</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="mf">200.0</span><span class="p">]</span>
+        # An isosurface module.
+        iso = IsoSurface(compute_normals=True)
+        script.add_module(iso)
+        iso.contour.contours = [200.0]
 
-        <span class="c1"># Set the view.</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">script</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">current_scene</span>
-        <span class="n">cam</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
-        <span class="n">cam</span><span class="o">.</span><span class="n">azimuth</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
-        <span class="n">cam</span><span class="o">.</span><span class="n">elevation</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+        # Set the view.
+        s = script.engine.current_scene
+        cam = s.scene.camera
+        cam.azimuth(45)
+        cam.elevation(15)
+        s.render()
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">MyApp</span><span class="p">()</span>
-    <span class="c1"># Get the default non GUI plugins.</span>
-    <span class="n">plugins</span> <span class="o">=</span> <span class="n">get_non_gui_plugins</span><span class="p">()</span>
-    <span class="c1"># Start the app with these plugins.</span>
-    <span class="n">m</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">plugins</span><span class="o">=</span><span class="n">plugins</span><span class="p">)</span>
+if __name__ == &#39;__main__&#39;:
+    m = MyApp()
+    # Get the default non GUI plugins.
+    plugins = get_non_gui_plugins()
+    # Start the app with these plugins.
+    m.main(plugins=plugins)
 </pre></div>
 </div>
 </div>
@@ -214,7 +215,7 @@ chosen instead of the default gui mayavi plugin.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_nongui.txt"
+      <li><a href="../_sources/auto/example_nongui.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -222,14 +223,11 @@ chosen instead of the default gui mayavi plugin.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -276,14 +274,14 @@ chosen instead of the default gui mayavi plugin.</p>
         <li class="right" >
           <a href="example_zzz_reader.html" title="Zzz reader example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

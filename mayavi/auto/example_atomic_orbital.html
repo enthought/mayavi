@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Atomic orbital example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Atomic orbital example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Tvtk in mayavi example" href="example_tvtk_in_mayavi.html" />
     <link rel="prev" title="Simple structured grid example" href="example_simple_structured_grid.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_simple_structured_grid.html" title="Simple structured grid example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -96,63 +97,63 @@ second step is to apply filters and modules, using the
 &#8216;set_active_attribute&#8217; filter to select on which data these apply.</p>
 <p>Creating a data source with two scalar datasets is actually slighlty
 tricky, as it requires some understanding of the layout of the datasets
-in TVTK. The reader is referred to <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a>
+in TVTK. The reader is referred to <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>
 for more details.</p>
 <img alt="../_images/example_atomic_orbital.jpg" class="align-center" src="../_images/example_atomic_orbital.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/atomic_orbital.py"><code class="xref download docutils literal"><span class="pre">atomic_orbital.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2008, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/atomic_orbital.py" download=""><code class="xref download docutils literal"><span class="pre">atomic_orbital.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="c1"># Create the data ############################################################</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="s2"># Create the data ############################################################</span>
+<span class="s2">import numpy as np</span>
 
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">200j</span><span class="p">,</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">200j</span><span class="p">,</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">200j</span><span class="p">]</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="s2">x, y, z = np.ogrid[- .5:.5:200j, - .5:.5:200j, - .5:.5:200j]</span>
+<span class="s2">r = np.sqrt(x ** 2 + y ** 2 + z ** 2)</span>
 
 
-<span class="c1"># Generalized Laguerre polynomial (3, 2)</span>
-<span class="n">L</span> <span class="o">=</span> <span class="o">-</span> <span class="n">r</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">+</span> <span class="mf">5.</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">6</span>
+<span class="s2"># Generalized Laguerre polynomial (3, 2)</span>
+<span class="s2">L = - r ** 3 / 6 + 5. / 2 * r ** 2 - 10 * r + 6</span>
 
-<span class="c1"># Spherical harmonic (3, 2)</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">1j</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">z</span> <span class="o">/</span> <span class="n">r</span> <span class="o">**</span> <span class="mi">3</span>
+<span class="s2"># Spherical harmonic (3, 2)</span>
+<span class="s2">Y = (x + y * 1j) ** 2 * z / r ** 3</span>
 
-<span class="n">Phi</span> <span class="o">=</span> <span class="n">L</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="s2">Phi = L * Y * np.exp(- r) * r ** 2</span>
 
-<span class="c1"># Plot it ####################################################################</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="c1"># We create a scalar field with the module of Phi as the scalar</span>
-<span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Phi</span><span class="p">))</span>
+<span class="s2"># Plot it ####################################################################</span>
+<span class="s2">from mayavi import mlab</span>
+<span class="s2">mlab.figure(1, fgcolor=(1, 1, 1), bgcolor=(0, 0, 0))</span>
+<span class="s2"># We create a scalar field with the module of Phi as the scalar</span>
+<span class="s2">src = mlab.pipeline.scalar_field(np.abs(Phi))</span>
 
-<span class="c1"># And we add the phase of Phi as an additional array</span>
-<span class="c1"># This is a tricky part: the layout of the new array needs to be the same</span>
-<span class="c1"># as the existing dataset, and no checks are performed. The shape needs</span>
-<span class="c1"># to be the same, and so should the data. Failure to do so can result in</span>
-<span class="c1"># segfaults.</span>
-<span class="n">src</span><span class="o">.</span><span class="n">image_data</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">add_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">Phi</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
-<span class="c1"># We need to give a name to our new dataset.</span>
-<span class="n">src</span><span class="o">.</span><span class="n">image_data</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;angle&#39;</span>
-<span class="c1"># Make sure that the dataset is up to date with the different arrays:</span>
-<span class="n">src</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="s2"># And we add the phase of Phi as an additional array</span>
+<span class="s2"># This is a tricky part: the layout of the new array needs to be the same</span>
+<span class="s2"># as the existing dataset, and no checks are performed. The shape needs</span>
+<span class="s2"># to be the same, and so should the data. Failure to do so can result in</span>
+<span class="s2"># segfaults.</span>
+<span class="s2">src.image_data.point_data.add_array(np.angle(Phi).T.ravel())</span>
+<span class="s2"># We need to give a name to our new dataset.</span>
+<span class="s2">src.image_data.point_data.get_array(1).name = &#39;angle&#39;</span>
+<span class="s2"># Make sure that the dataset is up to date with the different arrays:</span>
+<span class="s2">src.update()</span>
 
-<span class="c1"># We select the &#39;scalar&#39; attribute, ie the norm of Phi</span>
-<span class="n">src2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">set_active_attribute</span><span class="p">(</span><span class="n">src</span><span class="p">,</span>
-                                    <span class="n">point_scalars</span><span class="o">=</span><span class="s1">&#39;scalar&#39;</span><span class="p">)</span>
+<span class="s2"># We select the &#39;scalar&#39; attribute, ie the norm of Phi</span>
+<span class="s2">src2 = mlab.pipeline.set_active_attribute(src,</span>
+<span class="s2">                                    point_scalars=&#39;scalar&#39;)</span>
 
-<span class="c1"># Cut isosurfaces of the norm</span>
-<span class="n">contour</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">src2</span><span class="p">)</span>
+<span class="s2"># Cut isosurfaces of the norm</span>
+<span class="s2">contour = mlab.pipeline.contour(src2)</span>
 
-<span class="c1"># Now we select the &#39;angle&#39; attribute, ie the phase of Phi</span>
-<span class="n">contour2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">set_active_attribute</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span>
-                                    <span class="n">point_scalars</span><span class="o">=</span><span class="s1">&#39;angle&#39;</span><span class="p">)</span>
+<span class="s2"># Now we select the &#39;angle&#39; attribute, ie the phase of Phi</span>
+<span class="s2">contour2 = mlab.pipeline.set_active_attribute(contour,</span>
+<span class="s2">                                    point_scalars=&#39;angle&#39;)</span>
 
-<span class="c1"># And we display the surface. The colormap is the current attribute: the phase.</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">contour2</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;hsv&#39;</span><span class="p">)</span>
+<span class="s2"># And we display the surface. The colormap is the current attribute: the phase.</span>
+<span class="s2">mlab.pipeline.surface(contour2, colormap=&#39;hsv&#39;)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Phase&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">nb_labels</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="s2">mlab.colorbar(title=&#39;Phase&#39;, orientation=&#39;vertical&#39;, nb_labels=3)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2">mlab.show()</span>
 </pre></div>
 </div>
 </div>
@@ -175,7 +176,7 @@ for more details.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_atomic_orbital.txt"
+      <li><a href="../_sources/auto/example_atomic_orbital.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -183,14 +184,11 @@ for more details.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -237,14 +235,14 @@ for more details.</p>
         <li class="right" >
           <a href="example_simple_structured_grid.html" title="Simple structured grid example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

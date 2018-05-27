@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Pipeline base objects &mdash; mayavi 4.5.0 documentation</title>
+    <title>Pipeline base objects &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Mayavi API reference" href="index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Main view and UI objects" href="core_view_objects.html" />
     <link rel="prev" title="Mayavi API reference" href="index.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="index.html" title="Mayavi API reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Mayavi API reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Mayavi API reference</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -84,7 +85,7 @@
   <div class="section" id="pipeline-base-objects">
 <h1>Pipeline base objects<a class="headerlink" href="#pipeline-base-objects" title="Permalink to this headline">¶</a></h1>
 <p>This is an API reference of the base classes of the pipeline objects.
-Please refer to section <a class="reference internal" href="../advanced_use.html#advanced-use-of-mayavi"><span>Advanced use of Mayavi</span></a> for instructions on
+Please refer to section <a class="reference internal" href="../advanced_use.html#advanced-use-of-mayavi"><span class="std std-ref">Advanced use of Mayavi</span></a> for instructions on
 how to use them.</p>
 <div class="section" id="scene">
 <h2><a class="reference internal" href="#mayavi.core.api.Scene" title="mayavi.core.api.Scene"><code class="xref py py-class docutils literal"><span class="pre">Scene</span></code></a><a class="headerlink" href="#scene" title="Permalink to this headline">¶</a></h2>
@@ -93,20 +94,6 @@ how to use them.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Scene</code><a class="headerlink" href="#mayavi.core.api.Scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mayavi.core.base.Base</span></code></p>
 <p>The Mayavi scene class.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>scene</strong> : Instance(TVTKScene)</p>
-<p><strong>children</strong> : List(Source)</p>
-<p><strong>name</strong> : Str(&#8216;TVTK Scene&#8217;)</p>
-<p><strong>icon</strong> : Str(&#8216;scene.ico&#8217;)</p>
-<p><strong>type</strong> : Str(&#8216; scene&#8217;)</p>
-<p class="last"><strong>view</strong> : View(Group(Item()))</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mayavi.core.api.Scene.add_child">
 <code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.add_child" title="Permalink to this definition">¶</a></dt>
@@ -195,19 +182,6 @@ pipeline.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Source</code><a class="headerlink" href="#mayavi.core.api.Source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mayavi.core.pipeline_base.PipelineBase</span></code></p>
 <p>Base class for the sources objects in the pipeline.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>children</strong> : List(Base)</p>
-<p><strong>icon</strong> : &#8216;source.ico&#8217;</p>
-<p><strong>type</strong> : Str(&#8216; data source&#8217;)</p>
-<p><strong>input_info</strong> : PipelineInfo()</p>
-<p class="last"><strong>output_info</strong> : PipelineInfo()</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mayavi.core.api.Source.add_child">
 <code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.add_child" title="Permalink to this definition">¶</a></dt>
@@ -274,18 +248,6 @@ pipeline.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Filter</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mayavi.core.source.Source</span></code></p>
 <p>Base class for all the Mayavi filters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>inputs</strong> : List(PipelineBase)</p>
-<p><strong>icon</strong> : Str(&#8216;filter.ico&#8217;)</p>
-<p><strong>type</strong> : Str(&#8216; filter&#8217;)</p>
-<p class="last"><strong>input_info</strong> : PipelineInfo()</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mayavi.core.api.Filter.setup_pipeline">
 <code class="descname">setup_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.setup_pipeline" title="Permalink to this definition">¶</a></dt>
@@ -343,24 +305,6 @@ when data upstream is known to have changed.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">ModuleManager</code><a class="headerlink" href="#mayavi.core.api.ModuleManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mayavi.core.base.Base</span></code></p>
 <p>The module manager node (represented as &#8216;Colors and Legends&#8217;).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>source</strong> : Instance(Base)</p>
-<p><strong>children</strong> : List(Module)</p>
-<p><strong>lut_data_mode</strong> : Trait(&#8216;auto&#8217;, TraitPrefixList(LUT_DATA_MODE_TYPES))</p>
-<p><strong>scalar_lut_manager</strong> : Instance(LUTManager)</p>
-<p><strong>vector_lut_manager</strong> : Instance(LUTManager)</p>
-<p><strong>name</strong> : Str(&#8216;Colors and legends&#8217;)</p>
-<p><strong>icon</strong> : Str(&#8216;modulemanager.ico&#8217;)</p>
-<p><strong>type</strong> : Str(&#8216; colors and legends&#8217;)</p>
-<p><strong>input_info</strong> : PipelineInfo()</p>
-<p class="last"><strong>output_info</strong> : PipelineInfo()</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mayavi.core.api.ModuleManager.add_child">
 <code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.add_child" title="Permalink to this definition">¶</a></dt>
@@ -418,20 +362,6 @@ pipeline/data changes upstream.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Module</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mayavi.core.pipeline_base.PipelineBase</span></code></p>
 <p>Base class for the Mayavi modules.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>module_manager</strong> : Instance(&#8216;mayavi.core.module_manager.ModuleManager&#8217;)</p>
-<p><strong>components</strong> : List()</p>
-<p><strong>icon</strong> : Str(&#8216;module.ico&#8217;)</p>
-<p><strong>type</strong> : Str(&#8216; module&#8217;)</p>
-<p><strong>input_info</strong> : PipelineInfo()</p>
-<p class="last"><strong>output_info</strong> : PipelineInfo()</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mayavi.core.api.Module.add_child">
 <code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.add_child" title="Permalink to this definition">¶</a></dt>
@@ -515,21 +445,6 @@ when data upstream is known to have changed.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mayavi.core.base.Base</span></code></p>
 <p>Base class for all the Source, Filters and Modules in the
 pipeline.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>outputs</strong> : List()</p>
-<p><strong>actors</strong> : List()</p>
-<p><strong>widgets</strong> : List()</p>
-<p><strong>input_info</strong> : Instance(PipelineInfo)</p>
-<p><strong>output_info</strong> : Instance(PipelineInfo)</p>
-<p><strong>pipeline_changed</strong> : Event()</p>
-<p class="last"><strong>data_changed</strong> : Event()</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mayavi.core.api.PipelineBase.add_actors">
 <code class="descname">add_actors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.add_actors" title="Permalink to this definition">¶</a></dt>
@@ -622,26 +537,6 @@ pipeline.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Engine</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">traits.has_traits.HasStrictTraits</span></code></p>
 <p>The Mayavi engine base class.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>scenes</strong> : List(Scene)</p>
-<p><strong>children_ui_list</strong> : Property()</p>
-<p><strong>name</strong> : Str(&#8216;Mayavi Engine&#8217;)</p>
-<p><strong>current_scene</strong> : Property(Instance(Scene))</p>
-<p><strong>current_object</strong> : Property()</p>
-<p><strong>current_selection</strong> : Property()</p>
-<p><strong>started</strong> : Event()</p>
-<p><strong>scene_factory</strong> : Callable(viewer_factory)</p>
-<p><strong>running</strong> : Bool(False)</p>
-<p><strong>closed</strong> : Event()</p>
-<p><strong>recorder</strong> : Instance(Recorder)</p>
-<p class="last"><strong>current_selection_view</strong> : View(Item())</p>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="mayavi.core.api.Engine.add_filter">
 <code class="descname">add_filter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_filter" title="Permalink to this definition">¶</a></dt>
@@ -666,6 +561,17 @@ the mayavi engine so that mayavi can manage the scene.  This
 is used when the user creates a scene.  Note that for the
 <cite>EnvisageEngine</cite> this is automatically taken care of when you
 create a new scene using the TVTK scene plugin.</p>
+<blockquote>
+<div><p>scene - <cite>pyface.tvtk.scene.Scene</cite></p>
+<blockquote>
+<div>The scene that needs to be managed from mayavi.</div></blockquote>
+<dl class="docutils">
+<dt>name - <cite>str</cite></dt>
+<dd>The name assigned to the scene.  It tries to determine the
+name of the scene from the passed scene instance.  If this
+is not possible it defaults to &#8216;Mayavi Scene&#8217;.</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -680,6 +586,10 @@ scene is given in the scene keyword argument.</p>
 <code class="descname">close_scene</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.close_scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a scene created from new_scene, this method closes it
 and removes the scene from the list of scenes we manage.</p>
+<blockquote>
+<div>scene - <cite>pyface.tvtk.scene.Scene</cite> or an object that holds a
+reference to a <cite>pyface.tvtk.scene.Scene</cite> in a <cite>scene</cite>
+attribute.</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -692,6 +602,8 @@ and removes the scene from the list of scenes we manage.</p>
 <dt id="mayavi.core.api.Engine.get_viewer">
 <code class="descname">get_viewer</code><span class="sig-paren">(</span><em>scene</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.get_viewer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the viewer associated with a given scene.</p>
+<blockquote>
+<div>scene - An <cite>mayavi.core.scene.Scene</cite> instance.</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -711,6 +623,12 @@ it creates an <cite>ivtk</cite> viewer.  This code requires that the
 <cite>pyface.tvtk.scene.Scene</cite>.  It also works best if the viewer
 supports <cite>closing</cite> and <cite>activated</cite> events.</p>
 <p>The method returns the created viewer.</p>
+<blockquote>
+<div><p>viewer - The viewer object, if None, one is created for you.</p>
+<p>name - The name attribute of the viewer</p>
+<p><code class="docutils literal"><span class="pre">**kwargs</span></code> - The extra keyword arguments are passed along to
+the scene factory.</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -735,6 +653,11 @@ instance) from the mayavi engine if it is already being
 managed by mayavi.  Note that for the <cite>EnvisageEngine</cite> this is
 automatically taken care of when you close a scene started
 using the TVTK scene plugin.</p>
+<blockquote>
+<div><p>scene - <cite>pyface.tvtk.scene.Scene</cite></p>
+<blockquote>
+<div>The scene that needs to be removed from mayavi.</div></blockquote>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -788,7 +711,7 @@ starts.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/api/pipeline_objects.txt"
+      <li><a href="../_sources/api/pipeline_objects.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -796,14 +719,11 @@ starts.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -850,14 +770,14 @@ starts.</p>
         <li class="right" >
           <a href="index.html" title="Mayavi API reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Mayavi API reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Mayavi API reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

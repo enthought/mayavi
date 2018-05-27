@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Wigner example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Wigner example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Canyon decimation example" href="example_canyon_decimation.html" />
     <link rel="prev" title="Chemistry example" href="example_chemistry.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_chemistry.html" title="Chemistry example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -96,72 +97,72 @@ the wigner function in the middle of our extents, we put this to zero.</p>
 <p>We add a set of axes and outlines to the plot. We have to play we extents
 and ranges in order to make them fit with the data.</p>
 <img alt="../_images/example_wigner.jpg" class="align-center" src="../_images/example_wigner.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/wigner.py"><code class="xref download docutils literal"><span class="pre">wigner.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/wigner.py" download=""><code class="xref download docutils literal"><span class="pre">wigner.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
 
-<span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="s2">import numpy</span>
+<span class="s2">from mayavi import mlab</span>
 
 
-<span class="k">def</span> <span class="nf">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">purity</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Multiphoton shrodinger cat. eta is the fidelity, alpha the number</span>
-<span class="sd">        of photons&quot;&quot;&quot;</span>
-    <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
-    <span class="n">exp</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span>
-    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span>
-    <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">purity</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> \
-    <span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))))</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="s2">def cat(x, y, alpha, eta=1, purity=1):</span>
+<span class="s2">    &quot;&quot;&quot;</span> <span class="n">Multiphoton</span> <span class="n">shrodinger</span> <span class="n">cat</span><span class="o">.</span> <span class="n">eta</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">fidelity</span><span class="p">,</span> <span class="n">alpha</span> <span class="n">the</span> <span class="n">number</span>
+        <span class="n">of</span> <span class="n">photons</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    cos = numpy.cos</span>
+<span class="s2">    exp = numpy.exp</span>
+<span class="s2">    return (1 + eta * (exp(-x ** 2 - (y - alpha) ** 2) + exp(-x ** 2 -</span>
+<span class="s2">    (y + alpha) ** 2) + 2 * purity * exp(-x ** 2 - y ** 2) * cos(2 * </span><span class="se">\</span>
+<span class="s2">    alpha * x)) / (2 * (1 + exp(- alpha ** 2)))) / 2</span>
 
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mf">4.15</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mf">4.15</span><span class="p">:</span><span class="mf">0.1</span><span class="p">]</span>
+<span class="s2">x, y = numpy.mgrid[-4:4.15:0.1, -4:4.15:0.1]</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-                                    <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="s2">mlab.figure(1, size=(500, 250), fgcolor=(1, 1, 1),</span>
+<span class="s2">                                    bgcolor=(0.5, 0.5, 0.5))</span>
+<span class="s2">mlab.clf()</span>
 
-<span class="n">cat1</span> <span class="o">=</span> <span class="n">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">cat2</span> <span class="o">=</span> <span class="n">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">cat3</span> <span class="o">=</span> <span class="n">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="s2">cat1 = cat(x, y, 1)</span>
+<span class="s2">cat2 = cat(x, y, 2)</span>
+<span class="s2">cat3 = cat(x, y, 3)</span>
 
-<span class="c1"># The cats lie in a [0, 1] interval, with .5 being the assymptotique</span>
-<span class="c1"># value. We want to reposition this value to 0, so as to put it in the</span>
-<span class="c1"># center of our extents.</span>
-<span class="n">cat1</span> <span class="o">-=</span> <span class="mf">0.5</span>
-<span class="n">cat2</span> <span class="o">-=</span> <span class="mf">0.5</span>
-<span class="n">cat3</span> <span class="o">-=</span> <span class="mf">0.5</span>
+<span class="s2"># The cats lie in a [0, 1] interval, with .5 being the assymptotique</span>
+<span class="s2"># value. We want to reposition this value to 0, so as to put it in the</span>
+<span class="s2"># center of our extents.</span>
+<span class="s2">cat1 -= 0.5</span>
+<span class="s2">cat2 -= 0.5</span>
+<span class="s2">cat3 -= 0.5</span>
 
-<span class="n">cat1_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">surf_cat1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat1</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-            <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">,</span>
-            <span class="n">ranges</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-            <span class="n">zlabel</span><span class="o">=</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span>
-            <span class="n">x_axis_visibility</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">z_axis_visibility</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="s2">cat1_extent = (-14, -6, -4, 4, 0, 5)</span>
+<span class="s2">surf_cat1 = mlab.surf(x - 10, y, cat1, colormap=&#39;Spectral&#39;, warp_scale=5,</span>
+<span class="s2">            extent=cat1_extent, vmin=-0.5, vmax=0.5)</span>
+<span class="s2">mlab.outline(surf_cat1, color=(.7, .7, .7), extent=cat1_extent)</span>
+<span class="s2">mlab.axes(surf_cat1, color=(.7, .7, .7), extent=cat1_extent,</span>
+<span class="s2">            ranges=(0, 1, 0, 1, 0, 1), xlabel=&#39;&#39;, ylabel=&#39;&#39;,</span>
+<span class="s2">            zlabel=&#39;Probability&#39;,</span>
+<span class="s2">            x_axis_visibility=False, z_axis_visibility=False)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">18</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;1 photon&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.13</span><span class="p">)</span>
+<span class="s2">mlab.text(-18, -4, &#39;1 photon&#39;, z=-4, width=0.13)</span>
 
-<span class="n">cat2_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">surf_cat2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat2</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-            <span class="n">extent</span><span class="o">=</span><span class="n">cat2_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat2_extent</span><span class="p">)</span>
+<span class="s2">cat2_extent = (-4, 4, -4, 4, 0, 5)</span>
+<span class="s2">surf_cat2 = mlab.surf(x, y, cat2, colormap=&#39;Spectral&#39;, warp_scale=5,</span>
+<span class="s2">            extent=cat2_extent, vmin=-0.5, vmax=0.5)</span>
+<span class="s2">mlab.outline(surf_cat2, color=(0.7, .7, .7), extent=cat2_extent)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;2 photons&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.14</span><span class="p">)</span>
+<span class="s2">mlab.text(-4, -3, &#39;2 photons&#39;, z=-4, width=0.14)</span>
 
-<span class="n">cat3_extent</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">surf_cat3</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat3</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-            <span class="n">extent</span><span class="o">=</span><span class="n">cat3_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat3_extent</span><span class="p">)</span>
+<span class="s2">cat3_extent = (6, 14, -4, 4, 0, 5)</span>
+<span class="s2">surf_cat3 = mlab.surf(x + 10, y, cat3, colormap=&#39;Spectral&#39;, warp_scale=5,</span>
+<span class="s2">            extent=cat3_extent, vmin=-0.5, vmax=0.5)</span>
+<span class="s2">mlab.outline(surf_cat3, color=(.7, .7, .7), extent=cat3_extent)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="s1">&#39;3 photons&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.14</span><span class="p">)</span>
+<span class="s2">mlab.text(6, -2.5, &#39;3 photons&#39;, z=-4, width=0.14)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Multi-photons cats Wigner function&#39;</span><span class="p">)</span>
+<span class="s2">mlab.title(&#39;Multi-photons cats Wigner function&#39;)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">142</span><span class="p">,</span> <span class="o">-</span><span class="mi">72</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="s2">mlab.view(142, -72, 32)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2">mlab.show()</span>
 </pre></div>
 </div>
 </div>
@@ -184,7 +185,7 @@ and ranges in order to make them fit with the data.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_wigner.txt"
+      <li><a href="../_sources/auto/example_wigner.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -192,14 +193,11 @@ and ranges in order to make them fit with the data.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -246,14 +244,14 @@ and ranges in order to make them fit with the data.</p>
         <li class="right" >
           <a href="example_chemistry.html" title="Chemistry example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mayavi traits ui example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Mayavi traits ui example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Compute in thread example" href="example_compute_in_thread.html" />
     <link rel="prev" title="Subclassing mayavi application example" href="example_subclassing_mayavi_application.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_subclassing_mayavi_application.html" title="Subclassing mayavi application example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -91,92 +92,92 @@ Mayavi application.</p>
 to create a dialog mimicking the mayavi2 application: a scene on the
 right, and on the left a pipeline tree view, and below it a panel to
 edit the currently-selected object.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mayavi_traits_ui.py"><code class="xref download docutils literal"><span class="pre">mayavi_traits_ui.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>
-<span class="c1"># Authors: Prabhu Ramachandran &lt;prabhu [at] aero.iitb.ac.in&gt;</span>
-<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mayavi_traits_ui.py" download=""><code class="xref download docutils literal"><span class="pre">mayavi_traits_ui.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="s2"># Authors: Prabhu Ramachandran &lt;prabhu [at] aero.iitb.ac.in&gt;</span>
+<span class="s2"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="c1"># Standard imports.</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">mgrid</span>
+<span class="s2"># Standard imports.</span>
+<span class="s2">from numpy import sqrt, sin, mgrid</span>
 
-<span class="c1"># Enthought imports.</span>
-<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Property</span><span class="p">,</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">VSplit</span><span class="p">,</span> <span class="n">InstanceEditor</span>
-<span class="kn">from</span> <span class="nn">tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
-<span class="kn">from</span> <span class="nn">mayavi.core.ui.engine_view</span> <span class="kn">import</span> <span class="n">EngineView</span>
-<span class="kn">from</span> <span class="nn">mayavi.tools.mlab_scene_model</span> <span class="kn">import</span> <span class="n">MlabSceneModel</span>
-
-
-<span class="c1">######################################################################</span>
-<span class="k">class</span> <span class="nc">Mayavi</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-
-    <span class="c1"># The scene model.</span>
-    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
-
-    <span class="c1"># The mayavi engine view.</span>
-    <span class="n">engine_view</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">EngineView</span><span class="p">)</span>
-
-    <span class="c1"># The current selection in the engine tree view.</span>
-    <span class="n">current_selection</span> <span class="o">=</span> <span class="n">Property</span>
+<span class="s2"># Enthought imports.</span>
+<span class="s2">from traits.api import HasTraits, Instance, Property, Enum</span>
+<span class="s2">from traitsui.api import View, Item, HSplit, VSplit, InstanceEditor</span>
+<span class="s2">from tvtk.pyface.scene_editor import SceneEditor</span>
+<span class="s2">from mayavi.core.ui.engine_view import EngineView</span>
+<span class="s2">from mayavi.tools.mlab_scene_model import MlabSceneModel</span>
 
 
-    <span class="c1">######################</span>
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HSplit</span><span class="p">(</span><span class="n">VSplit</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;engine_view&#39;</span><span class="p">,</span>
-                                   <span class="n">style</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span>
-                                   <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                   <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span>
-                                   <span class="p">),</span>
-                              <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;current_selection&#39;</span><span class="p">,</span>
-                                   <span class="n">editor</span><span class="o">=</span><span class="n">InstanceEditor</span><span class="p">(),</span>
-                                   <span class="n">enabled_when</span><span class="o">=</span><span class="s1">&#39;current_selection is not None&#39;</span><span class="p">,</span>
-                                   <span class="n">style</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span>
-                                   <span class="n">springy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                   <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                                   <span class="p">),</span>
-                               <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;scene&#39;</span><span class="p">,</span>
-                                    <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span>
-                                    <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                                    <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                    <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-                                    <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span>
-                        <span class="p">),</span>
-                <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                <span class="n">scrollable</span><span class="o">=</span><span class="bp">True</span>
-                <span class="p">)</span>
+<span class="s2">######################################################################</span>
+<span class="s2">class Mayavi(HasTraits):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
-        <span class="n">HasTraits</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">engine_view</span> <span class="o">=</span> <span class="n">EngineView</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+<span class="s2">    # The scene model.</span>
+<span class="s2">    scene = Instance(MlabSceneModel, ())</span>
 
-        <span class="c1"># Hook up the current_selection to change when the one in the engine</span>
-        <span class="c1"># changes.  This is probably unnecessary in Traits3 since you can show</span>
-        <span class="c1"># the UI of a sub-object in T3.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">on_trait_change</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection_change</span><span class="p">,</span>
-                                          <span class="s1">&#39;current_selection&#39;</span><span class="p">)</span>
+<span class="s2">    # The mayavi engine view.</span>
+<span class="s2">    engine_view = Instance(EngineView)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">generate_data_mayavi</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">generate_data_mayavi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Shows how you can generate data using mayavi instead of mlab.&quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">ParametricSurface</span>
-        <span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="kn">import</span> <span class="n">Outline</span><span class="p">,</span> <span class="n">Surface</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">ParametricSurface</span><span class="p">()</span>
-        <span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-        <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
-        <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Surface</span><span class="p">())</span>
-
-    <span class="k">def</span> <span class="nf">_selection_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trait_property_changed</span><span class="p">(</span><span class="s1">&#39;current_selection&#39;</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_get_current_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">current_selection</span>
+<span class="s2">    # The current selection in the engine tree view.</span>
+<span class="s2">    current_selection = Property</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">Mayavi</span><span class="p">()</span>
-    <span class="n">m</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+<span class="s2">    ######################</span>
+<span class="s2">    view = View(HSplit(VSplit(Item(name=&#39;engine_view&#39;,</span>
+<span class="s2">                                   style=&#39;custom&#39;,</span>
+<span class="s2">                                   resizable=True,</span>
+<span class="s2">                                   show_label=False</span>
+<span class="s2">                                   ),</span>
+<span class="s2">                              Item(name=&#39;current_selection&#39;,</span>
+<span class="s2">                                   editor=InstanceEditor(),</span>
+<span class="s2">                                   enabled_when=&#39;current_selection is not None&#39;,</span>
+<span class="s2">                                   style=&#39;custom&#39;,</span>
+<span class="s2">                                   springy=True,</span>
+<span class="s2">                                   show_label=False),</span>
+<span class="s2">                                   ),</span>
+<span class="s2">                               Item(name=&#39;scene&#39;,</span>
+<span class="s2">                                    editor=SceneEditor(),</span>
+<span class="s2">                                    show_label=False,</span>
+<span class="s2">                                    resizable=True,</span>
+<span class="s2">                                    height=500,</span>
+<span class="s2">                                    width=500),</span>
+<span class="s2">                        ),</span>
+<span class="s2">                resizable=True,</span>
+<span class="s2">                scrollable=True</span>
+<span class="s2">                )</span>
+
+<span class="s2">    def __init__(self, **traits):</span>
+<span class="s2">        HasTraits.__init__(self, **traits)</span>
+<span class="s2">        self.engine_view = EngineView(engine=self.scene.engine)</span>
+
+<span class="s2">        # Hook up the current_selection to change when the one in the engine</span>
+<span class="s2">        # changes.  This is probably unnecessary in Traits3 since you can show</span>
+<span class="s2">        # the UI of a sub-object in T3.</span>
+<span class="s2">        self.scene.engine.on_trait_change(self._selection_change,</span>
+<span class="s2">                                          &#39;current_selection&#39;)</span>
+
+<span class="s2">        self.generate_data_mayavi()</span>
+
+<span class="s2">    def generate_data_mayavi(self):</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="n">Shows</span> <span class="n">how</span> <span class="n">you</span> <span class="n">can</span> <span class="n">generate</span> <span class="n">data</span> <span class="n">using</span> <span class="n">mayavi</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">mlab</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        from mayavi.sources.api import ParametricSurface</span>
+<span class="s2">        from mayavi.modules.api import Outline, Surface</span>
+<span class="s2">        e = self.scene.engine</span>
+<span class="s2">        s = ParametricSurface()</span>
+<span class="s2">        e.add_source(s)</span>
+<span class="s2">        e.add_module(Outline())</span>
+<span class="s2">        e.add_module(Surface())</span>
+
+<span class="s2">    def _selection_change(self, old, new):</span>
+<span class="s2">        self.trait_property_changed(&#39;current_selection&#39;, old, new)</span>
+
+<span class="s2">    def _get_current_selection(self):</span>
+<span class="s2">        return self.scene.engine.current_selection</span>
+
+
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    m = Mayavi()</span>
+<span class="s2">    m.configure_traits()</span>
 </pre></div>
 </div>
 </div>
@@ -199,7 +200,7 @@ edit the currently-selected object.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_mayavi_traits_ui.txt"
+      <li><a href="../_sources/auto/example_mayavi_traits_ui.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -207,14 +208,11 @@ edit the currently-selected object.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -261,14 +259,14 @@ edit the currently-selected object.</p>
         <li class="right" >
           <a href="example_subclassing_mayavi_application.html" title="Subclassing mayavi application example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

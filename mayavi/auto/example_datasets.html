@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Datasets example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Datasets example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Delaunay graph example" href="example_delaunay_graph.html" />
     <link rel="prev" title="Tvtk segmentation example" href="example_tvtk_segmentation.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_tvtk_segmentation.html" title="Tvtk segmentation example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -84,7 +85,7 @@
   <div class="section" id="datasets-example">
 <span id="example-datasets"></span><h1>Datasets example<a class="headerlink" href="#datasets-example" title="Permalink to this headline">¶</a></h1>
 <p>A Mayavi example to show the different data sets. See
-<a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a> for a discussion.</p>
+<a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a> for a discussion.</p>
 <p>The following images are created:</p>
 <table class="hlist"><tr><td><ul>
 <li><p class="first"><strong>ImageData</strong></p>
@@ -103,152 +104,152 @@
 </li>
 </ul>
 </td></tr></table>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/datasets.py"><code class="xref download docutils literal"><span class="pre">datasets.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael dot varoquaux at normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2008, Enthought, Inc.</span>
-<span class="c1"># License: BSD style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/datasets.py" download=""><code class="xref download docutils literal"><span class="pre">datasets.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael dot varoquaux at normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="s2"># License: BSD style.</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">ravel</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">empty</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="s2">from numpy import array, random, linspace, pi, ravel, cos, sin, empty</span>
+<span class="s2">from tvtk.api import tvtk</span>
 
-<span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+<span class="s2">from mayavi.sources.vtk_data_source import VTKDataSource</span>
 
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-
-
-<span class="k">def</span> <span class="nf">image_data</span><span class="p">():</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageData</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
-    <span class="k">return</span> <span class="n">i</span>
+<span class="s2">from mayavi import mlab</span>
 
 
-<span class="k">def</span> <span class="nf">rectilinear_grid</span><span class="p">():</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">RectilinearGrid</span><span class="p">()</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">x_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">))</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">y_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">r</span><span class="o">.</span><span class="n">z_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">r</span>
+<span class="s2">def image_data():</span>
+<span class="s2">    data = random.random((3, 3, 3))</span>
+<span class="s2">    i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))</span>
+<span class="s2">    i.point_data.scalars = data.ravel()</span>
+<span class="s2">    i.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="s2">    i.dimensions = data.shape</span>
+<span class="s2">    return i</span>
 
 
-<span class="k">def</span> <span class="nf">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Generate points for structured grid for a cylindrical annular</span>
-<span class="sd">        volume.  This method is useful for generating a unstructured</span>
-<span class="sd">        cylindrical mesh for VTK (and perhaps other tools).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Find the x values and y values for each plane.</span>
-    <span class="n">x_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-    <span class="n">y_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-
-    <span class="c1"># Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
-    <span class="c1"># points on each plane, and we have a plane for each z value, so</span>
-    <span class="c1"># we need len(x_plane)*len(z) points.</span>
-    <span class="n">points</span> <span class="o">=</span> <span class="n">empty</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">),</span><span class="mi">3</span><span class="p">])</span>
-
-    <span class="c1"># Loop through the points for each plane and fill them with the</span>
-    <span class="c1"># correct x,y,z values.</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">z_plane</span> <span class="ow">in</span> <span class="n">z</span><span class="p">:</span>
-        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span>
-        <span class="c1"># slice out a plane of the output points and fill it</span>
-        <span class="c1"># with the x,y, and z values for this plane.  The x,y</span>
-        <span class="c1"># values are the same for every plane.  The z value</span>
-        <span class="c1"># is set to the current z</span>
-        <span class="n">plane_points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
-        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_plane</span>
-        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_plane</span>
-        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z_plane</span>
-        <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
-
-    <span class="k">return</span> <span class="n">points</span>
+<span class="s2">def rectilinear_grid():</span>
+<span class="s2">    data = random.random((3, 3, 3))</span>
+<span class="s2">    r = tvtk.RectilinearGrid()</span>
+<span class="s2">    r.point_data.scalars = data.ravel()</span>
+<span class="s2">    r.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="s2">    r.dimensions = data.shape</span>
+<span class="s2">    r.x_coordinates = array((0, 0.7, 1.4))</span>
+<span class="s2">    r.y_coordinates = array((0, 1, 3))</span>
+<span class="s2">    r.z_coordinates = array((0, .5, 2))</span>
+<span class="s2">    return r</span>
 
 
-<span class="k">def</span> <span class="nf">structured_grid</span><span class="p">():</span>
-    <span class="c1"># Make the data.</span>
-    <span class="n">dims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">theta</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">pts</span> <span class="o">=</span> <span class="n">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-    <span class="n">sgrid</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredGrid</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
-    <span class="n">sgrid</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">pts</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
-    <span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">ravel</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-    <span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
-    <span class="k">return</span> <span class="n">sgrid</span>
+<span class="s2">def generate_annulus(r, theta, z):</span>
+<span class="s2">    &quot;&quot;&quot;</span> <span class="n">Generate</span> <span class="n">points</span> <span class="k">for</span> <span class="n">structured</span> <span class="n">grid</span> <span class="k">for</span> <span class="n">a</span> <span class="n">cylindrical</span> <span class="n">annular</span>
+        <span class="n">volume</span><span class="o">.</span>  <span class="n">This</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">useful</span> <span class="k">for</span> <span class="n">generating</span> <span class="n">a</span> <span class="n">unstructured</span>
+        <span class="n">cylindrical</span> <span class="n">mesh</span> <span class="k">for</span> <span class="n">VTK</span> <span class="p">(</span><span class="ow">and</span> <span class="n">perhaps</span> <span class="n">other</span> <span class="n">tools</span><span class="p">)</span><span class="o">.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    # Find the x values and y values for each plane.</span>
+<span class="sd">    x_plane = (cos(theta)*r[:,None]).ravel()</span>
+<span class="sd">    y_plane = (sin(theta)*r[:,None]).ravel()</span>
+
+<span class="sd">    # Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
+<span class="sd">    # points on each plane, and we have a plane for each z value, so</span>
+<span class="sd">    # we need len(x_plane)*len(z) points.</span>
+<span class="sd">    points = empty([len(x_plane)*len(z),3])</span>
+
+<span class="sd">    # Loop through the points for each plane and fill them with the</span>
+<span class="sd">    # correct x,y,z values.</span>
+<span class="sd">    start = 0</span>
+<span class="sd">    for z_plane in z:</span>
+<span class="sd">        end = start+len(x_plane)</span>
+<span class="sd">        # slice out a plane of the output points and fill it</span>
+<span class="sd">        # with the x,y, and z values for this plane.  The x,y</span>
+<span class="sd">        # values are the same for every plane.  The z value</span>
+<span class="sd">        # is set to the current z</span>
+<span class="sd">        plane_points = points[start:end]</span>
+<span class="sd">        plane_points[:,0] = x_plane</span>
+<span class="sd">        plane_points[:,1] = y_plane</span>
+<span class="sd">        plane_points[:,2] = z_plane</span>
+<span class="sd">        start = end</span>
+
+<span class="sd">    return points</span>
 
 
-<span class="k">def</span> <span class="nf">unstructured_grid</span><span class="p">():</span>
-    <span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># tetra</span>
-                    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.6</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># Hex</span>
-                    <span class="p">],</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
-    <span class="c1"># The cells</span>
-    <span class="n">cells</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="c1"># tetra</span>
-                   <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span> <span class="c1"># hex</span>
-                   <span class="p">])</span>
-    <span class="c1"># The offsets for the cells, i.e. the indices where the cells</span>
-    <span class="c1"># start.</span>
-    <span class="n">offset</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-    <span class="n">tetra_type</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Tetra</span><span class="p">()</span><span class="o">.</span><span class="n">cell_type</span> <span class="c1"># VTK_TETRA == 10</span>
-    <span class="n">hex_type</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Hexahedron</span><span class="p">()</span><span class="o">.</span><span class="n">cell_type</span> <span class="c1"># VTK_HEXAHEDRON == 12</span>
-    <span class="n">cell_types</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">tetra_type</span><span class="p">,</span> <span class="n">hex_type</span><span class="p">])</span>
-    <span class="c1"># Create the array of cells unambiguously.</span>
-    <span class="n">cell_array</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">CellArray</span><span class="p">()</span>
-    <span class="n">cell_array</span><span class="o">.</span><span class="n">set_cells</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">cells</span><span class="p">)</span>
-    <span class="c1"># Now create the UG.</span>
-    <span class="n">ug</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">UnstructuredGrid</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">)</span>
-    <span class="c1"># Now just set the cell types and reuse the ug locations and cells.</span>
-    <span class="n">ug</span><span class="o">.</span><span class="n">set_cells</span><span class="p">(</span><span class="n">cell_types</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">cell_array</span><span class="p">)</span>
-    <span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span>
-    <span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
-    <span class="k">return</span> <span class="n">ug</span>
+<span class="sd">def structured_grid():</span>
+<span class="sd">    # Make the data.</span>
+<span class="sd">    dims = (3, 4, 3)</span>
+<span class="sd">    r = linspace(5, 15, dims[0])</span>
+<span class="sd">    theta = linspace(0, 0.5*pi, dims[1])</span>
+<span class="sd">    z = linspace(0, 10, dims[2])</span>
+<span class="sd">    pts = generate_annulus(r, theta, z)</span>
+<span class="sd">    sgrid = tvtk.StructuredGrid(dimensions=(dims[1], dims[0], dims[2]))</span>
+<span class="sd">    sgrid.points = pts</span>
+<span class="sd">    s = random.random((dims[0]*dims[1]*dims[2]))</span>
+<span class="sd">    sgrid.point_data.scalars = ravel(s.copy())</span>
+<span class="sd">    sgrid.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="sd">    return sgrid</span>
 
 
-<span class="k">def</span> <span class="nf">polydata</span><span class="p">():</span>
-    <span class="c1"># The numpy array data.</span>
-    <span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span>
-                    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
-    <span class="n">triangles</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
-                       <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-                        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]])</span>
-    <span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="sd">def unstructured_grid():</span>
+<span class="sd">    points = array([[0,1.2,0.6], [1,0,0], [0,1,0], [1,1,1], # tetra</span>
+<span class="sd">                    [1,0,-0.5], [2,0,0], [2,1.5,0], [0,1,0],</span>
+<span class="sd">                    [1,0,0], [1.5,-0.2,1], [1.6,1,1.5], [1,1,1], # Hex</span>
+<span class="sd">                    ], &#39;f&#39;)</span>
+<span class="sd">    # The cells</span>
+<span class="sd">    cells = array([4, 0, 1, 2, 3, # tetra</span>
+<span class="sd">                   8, 4, 5, 6, 7, 8, 9, 10, 11 # hex</span>
+<span class="sd">                   ])</span>
+<span class="sd">    # The offsets for the cells, i.e. the indices where the cells</span>
+<span class="sd">    # start.</span>
+<span class="sd">    offset = array([0, 5])</span>
+<span class="sd">    tetra_type = tvtk.Tetra().cell_type # VTK_TETRA == 10</span>
+<span class="sd">    hex_type = tvtk.Hexahedron().cell_type # VTK_HEXAHEDRON == 12</span>
+<span class="sd">    cell_types = array([tetra_type, hex_type])</span>
+<span class="sd">    # Create the array of cells unambiguously.</span>
+<span class="sd">    cell_array = tvtk.CellArray()</span>
+<span class="sd">    cell_array.set_cells(2, cells)</span>
+<span class="sd">    # Now create the UG.</span>
+<span class="sd">    ug = tvtk.UnstructuredGrid(points=points)</span>
+<span class="sd">    # Now just set the cell types and reuse the ug locations and cells.</span>
+<span class="sd">    ug.set_cells(cell_types, offset, cell_array)</span>
+<span class="sd">    scalars = random.random(points.shape[0])</span>
+<span class="sd">    ug.point_data.scalars = scalars</span>
+<span class="sd">    ug.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="sd">    return ug</span>
 
-    <span class="c1"># The TVTK dataset.</span>
-    <span class="n">mesh</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">polys</span><span class="o">=</span><span class="n">triangles</span><span class="p">)</span>
-    <span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span>
-    <span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
-    <span class="k">return</span> <span class="n">mesh</span>
+
+<span class="sd">def polydata():</span>
+<span class="sd">    # The numpy array data.</span>
+<span class="sd">    points = array([[0,-0.5,0], [1.5,0,0], [0,1,0], [0,0,0.5],</span>
+<span class="sd">                    [-1,-1.5,0.1], [0,-1, 0.5], [-1, -0.5, 0],</span>
+<span class="sd">                    [1,0.8,0]], &#39;f&#39;)</span>
+<span class="sd">    triangles = array([[0,1,3], [1,2,3], [1,0,5],</span>
+<span class="sd">                       [2,3,4], [3,0,4], [0,5,4], [2, 4, 6],</span>
+<span class="sd">                        [2, 1, 7]])</span>
+<span class="sd">    scalars = random.random(points.shape)</span>
+
+<span class="sd">    # The TVTK dataset.</span>
+<span class="sd">    mesh = tvtk.PolyData(points=points, polys=triangles)</span>
+<span class="sd">    mesh.point_data.scalars = scalars</span>
+<span class="sd">    mesh.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="sd">    return mesh</span>
 
 
-<span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Open up a mayavi scene and display the dataset in it.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                      <span class="n">figure</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">class_name</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
-    <span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-    <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">surf</span><span class="p">),</span>
-                            <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">)</span>
+<span class="sd">def view(dataset):</span>
+<span class="sd">    &quot;&quot;&quot;</span> <span class="n">Open</span> <span class="n">up</span> <span class="n">a</span> <span class="n">mayavi</span> <span class="n">scene</span> <span class="ow">and</span> <span class="n">display</span> <span class="n">the</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span>
+    <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0),</span>
+<span class="s2">                      figure=dataset.class_name[3:])</span>
+<span class="s2">    surf = mlab.pipeline.surface(dataset, opacity=0.1)</span>
+<span class="s2">    mlab.pipeline.surface(mlab.pipeline.extract_edges(surf),</span>
+<span class="s2">                            color=(0, 0, 0), )</span>
 
 
-<span class="nd">@mlab.show</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">view</span><span class="p">(</span><span class="n">image_data</span><span class="p">())</span>
-    <span class="n">view</span><span class="p">(</span><span class="n">rectilinear_grid</span><span class="p">())</span>
-    <span class="n">view</span><span class="p">(</span><span class="n">structured_grid</span><span class="p">())</span>
-    <span class="n">view</span><span class="p">(</span><span class="n">unstructured_grid</span><span class="p">())</span>
-    <span class="n">view</span><span class="p">(</span><span class="n">polydata</span><span class="p">())</span>
+<span class="s2">@mlab.show</span>
+<span class="s2">def main():</span>
+<span class="s2">    view(image_data())</span>
+<span class="s2">    view(rectilinear_grid())</span>
+<span class="s2">    view(structured_grid())</span>
+<span class="s2">    view(unstructured_grid())</span>
+<span class="s2">    view(polydata())</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    main()</span>
 
 </pre></div>
 </div>
@@ -272,7 +273,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_datasets.txt"
+      <li><a href="../_sources/auto/example_datasets.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -280,14 +281,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -334,14 +332,14 @@
         <li class="right" >
           <a href="example_tvtk_segmentation.html" title="Tvtk segmentation example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

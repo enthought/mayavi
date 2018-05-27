@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Magnetic field lines example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Magnetic field lines example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Mri example" href="example_mri.html" />
     <link rel="prev" title="Plotting many lines example" href="example_plotting_many_lines.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_plotting_many_lines.html" title="Plotting many lines example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -93,83 +94,83 @@ field. As a consequence, we need to clear temporary arrays as soon as
 possible.</p>
 <p>For a more thorough example of magnetic field calculation and
 visualization with Mayavi and scipy, see
-<a class="reference internal" href="example_magnetic_field.html#example-magnetic-field"><span>Magnetic field example</span></a>.</p>
+<a class="reference internal" href="example_magnetic_field.html#example-magnetic-field"><span class="std std-ref">Magnetic field example</span></a>.</p>
 <img alt="../_images/example_magnetic_field_lines.jpg" class="align-center" src="../_images/example_magnetic_field_lines.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/magnetic_field_lines.py"><code class="xref download docutils literal"><span class="pre">magnetic_field_lines.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/magnetic_field_lines.py" download=""><code class="xref download docutils literal"><span class="pre">magnetic_field_lines.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">special</span>
+<span class="s2">import numpy as np</span>
+<span class="s2">from scipy import special</span>
 
-<span class="c1">#### Calculate the field ####################################################</span>
-<span class="n">radius</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Radius of the coils</span>
+<span class="s2">#### Calculate the field ####################################################</span>
+<span class="s2">radius = 1  # Radius of the coils</span>
 
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150j</span><span class="p">]]</span>
+<span class="s2">x, y, z = [e.astype(np.float32) for e in</span>
+<span class="s2">            np.ogrid[-10:10:150j, -10:10:150j, -10:10:150j]]</span>
 
-<span class="c1"># express the coordinates in polar form</span>
-<span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">x_proj</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">rho</span>
-<span class="n">y_proj</span> <span class="o">=</span> <span class="n">y</span> <span class="o">/</span> <span class="n">rho</span>
-<span class="c1"># Free memory early</span>
-<span class="k">del</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="s2"># express the coordinates in polar form</span>
+<span class="s2">rho = np.sqrt(x ** 2 + y ** 2)</span>
+<span class="s2">x_proj = x / rho</span>
+<span class="s2">y_proj = y / rho</span>
+<span class="s2"># Free memory early</span>
+<span class="s2">del x, y</span>
 
-<span class="n">E</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipe</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipk</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">Bz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="n">K</span>
-                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">rho</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span>
-                    <span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="p">)</span>
-<span class="n">Brho</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="o">-</span> <span class="n">K</span>
-                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">rho</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span>
-                    <span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="p">)</span>
-<span class="k">del</span> <span class="n">E</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rho</span>
-<span class="c1"># On the axis of the coil we get a divided by zero. This returns a</span>
-<span class="c1"># NaN, where the field is actually zero :</span>
-<span class="n">Brho</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">Brho</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="s2">E = special.ellipe((4 * radius * rho) / ((radius + rho) ** 2 + z ** 2))</span>
+<span class="s2">K = special.ellipk((4 * radius * rho) / ((radius + rho) ** 2 + z ** 2))</span>
+<span class="s2">Bz = 1 / np.sqrt((radius + rho) ** 2 + z ** 2) * (</span>
+<span class="s2">                K</span>
+<span class="s2">                + E * (radius ** 2 - rho ** 2 - z ** 2) /</span>
+<span class="s2">                    ((radius - rho) ** 2 + z ** 2)</span>
+<span class="s2">            )</span>
+<span class="s2">Brho = z / (rho * np.sqrt((radius + rho) ** 2 + z ** 2)) * (</span>
+<span class="s2">                - K</span>
+<span class="s2">                + E * (radius ** 2 + rho ** 2 + z ** 2) /</span>
+<span class="s2">                    ((radius - rho) ** 2 + z ** 2)</span>
+<span class="s2">            )</span>
+<span class="s2">del E, K, z, rho</span>
+<span class="s2"># On the axis of the coil we get a divided by zero. This returns a</span>
+<span class="s2"># NaN, where the field is actually zero :</span>
+<span class="s2">Brho[np.isnan(Brho)] = 0</span>
 
-<span class="n">Bx</span><span class="p">,</span> <span class="n">By</span> <span class="o">=</span> <span class="n">x_proj</span> <span class="o">*</span> <span class="n">Brho</span><span class="p">,</span> <span class="n">y_proj</span> <span class="o">*</span> <span class="n">Brho</span>
+<span class="s2">Bx, By = x_proj * Brho, y_proj * Brho</span>
 
-<span class="k">del</span> <span class="n">x_proj</span><span class="p">,</span> <span class="n">y_proj</span><span class="p">,</span> <span class="n">Brho</span>
+<span class="s2">del x_proj, y_proj, Brho</span>
 
-<span class="c1">#### Visualize the field ####################################################</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="s2">#### Visualize the field ####################################################</span>
+<span class="s2">from mayavi import mlab</span>
+<span class="s2">fig = mlab.figure(1, size=(400, 400), bgcolor=(1, 1, 1), fgcolor=(0, 0, 0))</span>
 
-<span class="n">field</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span><span class="p">)</span>
-<span class="c1"># Unfortunately, the above call makes a copy of the arrays, so we delete</span>
-<span class="c1"># this copy to free memory.</span>
-<span class="k">del</span> <span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span>
+<span class="s2">field = mlab.pipeline.vector_field(Bx, By, Bz)</span>
+<span class="s2"># Unfortunately, the above call makes a copy of the arrays, so we delete</span>
+<span class="s2"># this copy to free memory.</span>
+<span class="s2">del Bx, By, Bz</span>
 
-<span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
-<span class="n">contours</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span>
-                                        <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="p">],</span>
-                                        <span class="n">transparent</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
-                                        <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">,</span>
-                                        <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="s2">magnitude = mlab.pipeline.extract_vector_norm(field)</span>
+<span class="s2">contours = mlab.pipeline.iso_surface(magnitude,</span>
+<span class="s2">                                        contours=[0.01, 0.8, 3.8, ],</span>
+<span class="s2">                                        transparent=True,</span>
+<span class="s2">                                        opacity=0.4,</span>
+<span class="s2">                                        colormap=&#39;YlGnBu&#39;,</span>
+<span class="s2">                                        vmin=0, vmax=2)</span>
 
 
-<span class="n">field_lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span>
-                                        <span class="n">integration_direction</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span>
-                                        <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;bone&#39;</span><span class="p">,</span>
-                                        <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="s2">field_lines = mlab.pipeline.streamline(magnitude, seedtype=&#39;line&#39;,</span>
+<span class="s2">                                        integration_direction=&#39;both&#39;,</span>
+<span class="s2">                                        colormap=&#39;bone&#39;,</span>
+<span class="s2">                                        vmin=0, vmax=1)</span>
 
-<span class="c1"># Tweak a bit the streamline.</span>
-<span class="n">field_lines</span><span class="o">.</span><span class="n">stream_tracer</span><span class="o">.</span><span class="n">maximum_propagation</span> <span class="o">=</span> <span class="mf">100.</span>
-<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">point1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">69</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">]</span>
-<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">point2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">82</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">]</span>
-<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="s2"># Tweak a bit the streamline.</span>
+<span class="s2">field_lines.stream_tracer.maximum_propagation = 100.</span>
+<span class="s2">field_lines.seed.widget.point1 = [69, 75.5, 75.5]</span>
+<span class="s2">field_lines.seed.widget.point2 = [82, 75.5, 75.5]</span>
+<span class="s2">field_lines.seed.widget.resolution = 50</span>
+<span class="s2">field_lines.seed.widget.enabled = False</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="p">[</span><span class="mi">79</span><span class="p">,</span>  <span class="mi">75</span><span class="p">,</span>  <span class="mi">76</span><span class="p">])</span>
+<span class="s2">mlab.view(42, 73, 104, [79,  75,  76])</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2">mlab.show()</span>
 </pre></div>
 </div>
 </div>
@@ -192,7 +193,7 @@ visualization with Mayavi and scipy, see
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_magnetic_field_lines.txt"
+      <li><a href="../_sources/auto/example_magnetic_field_lines.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -200,14 +201,11 @@ visualization with Mayavi and scipy, see
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -254,14 +252,14 @@ visualization with Mayavi and scipy, see
         <li class="right" >
           <a href="example_plotting_many_lines.html" title="Plotting many lines example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

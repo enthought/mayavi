@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mri example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Mri example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Protein example" href="example_protein.html" />
     <link rel="prev" title="Magnetic field lines example" href="example_magnetic_field_lines.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_magnetic_field_lines.html" title="Magnetic field lines example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -92,101 +93,101 @@ volume of interest around them, and using iso surfaces.</p>
 <p>Finally we display the outer surface, but we restrict it to volume of
 interest to leave a cut for the cut planes.</p>
 <p>For an example of feature extraction from MRI data using Mayavi and vtk,
-see <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><span>Tvtk segmentation example</span></a>.</p>
+see <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><span class="std std-ref">Tvtk segmentation example</span></a>.</p>
 <img alt="../_images/example_mri.jpg" class="align-center" src="../_images/example_mri.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mri.py"><code class="xref download docutils literal"><span class="pre">mri.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>
-<span class="c1">### Download the data, if not already on disk #################################</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;MRbrain.tar.gz&#39;</span><span class="p">):</span>
-    <span class="c1"># Download the data</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Downloading data, Please Wait (7.8MB)&quot;</span><span class="p">)</span>
-    <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
-                <span class="s1">&#39;http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz&#39;</span><span class="p">)</span>
-    <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;MRbrain.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mri.py" download=""><code class="xref download docutils literal"><span class="pre">mri.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="s2">### Download the data, if not already on disk #################################</span>
+<span class="s2">import os</span>
+<span class="s2">if not os.path.exists(&#39;MRbrain.tar.gz&#39;):</span>
+<span class="s2">    # Download the data</span>
+<span class="s2">    try:</span>
+<span class="s2">        from urllib import urlopen</span>
+<span class="s2">    except ImportError:</span>
+<span class="s2">        from urllib.request import urlopen</span>
+<span class="s2">    print(&quot;Downloading data, Please Wait (7.8MB)&quot;)</span>
+<span class="s2">    opener = urlopen(</span>
+<span class="s2">                &#39;http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz&#39;)</span>
+<span class="s2">    open(&#39;MRbrain.tar.gz&#39;, &#39;wb&#39;).write(opener.read())</span>
 
-<span class="c1"># Extract the data</span>
-<span class="kn">import</span> <span class="nn">tarfile</span>
-<span class="n">tar_file</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;MRbrain.tar.gz&#39;</span><span class="p">)</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">&#39;mri_data&#39;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-<span class="n">tar_file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;mri_data&#39;</span><span class="p">)</span>
-<span class="n">tar_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-
-<span class="c1">### Read the data in a numpy 3D array #########################################</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;mri_data&#39;</span><span class="p">,</span> <span class="s1">&#39;MRbrain.</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">),</span>
-                                        <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;&gt;u2&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">110</span><span class="p">)])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span>
-
-<span class="c1"># Display the data ############################################################</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-
-<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span>
-
-<span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="c1"># Our data is not equally spaced in all directions:</span>
-<span class="n">src</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
-<span class="n">src</span><span class="o">.</span><span class="n">update_image_data</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="s2"># Extract the data</span>
+<span class="s2">import tarfile</span>
+<span class="s2">tar_file = tarfile.open(&#39;MRbrain.tar.gz&#39;)</span>
+<span class="s2">try:</span>
+<span class="s2">    os.mkdir(&#39;mri_data&#39;)</span>
+<span class="s2">except:</span>
+<span class="s2">    pass</span>
+<span class="s2">tar_file.extractall(&#39;mri_data&#39;)</span>
+<span class="s2">tar_file.close()</span>
 
 
-<span class="c1"># Extract some inner structures: the ventricles and the inter-hemisphere</span>
-<span class="c1"># fibers. We define a volume of interest (VOI) that restricts the</span>
-<span class="c1"># iso-surfaces to the inner of the brain. We do this with the ExtractGrid</span>
-<span class="c1"># filter.</span>
-<span class="n">blur</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;ImageGaussianSmooth&#39;</span><span class="p">)</span>
-<span class="n">voi</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_grid</span><span class="p">(</span><span class="n">blur</span><span class="p">)</span>
-<span class="n">voi</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x_min</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">x_max</span><span class="o">=</span><span class="mi">193</span><span class="p">,</span> <span class="n">y_min</span><span class="o">=</span><span class="mi">92</span><span class="p">,</span> <span class="n">y_max</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">z_min</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">z_max</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+<span class="s2">### Read the data in a numpy 3D array #########################################</span>
+<span class="s2">import numpy as np</span>
+<span class="s2">data = np.array([np.fromfile(os.path.join(&#39;mri_data&#39;, &#39;MRbrain.</span><span class="si">%i</span><span class="s2">&#39; </span><span class="si">% i</span><span class="s2">),</span>
+<span class="s2">                                        dtype=&#39;&gt;u2&#39;) for i in range(1, 110)])</span>
+<span class="s2">data.shape = (109, 256, 256)</span>
+<span class="s2">data = data.T</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">voi</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mi">1610</span><span class="p">,</span> <span class="mi">2480</span><span class="p">],</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
+<span class="s2"># Display the data ############################################################</span>
+<span class="s2">from mayavi import mlab</span>
 
-<span class="c1"># Add two cut planes to show the raw MRI data. We use a threshold filter</span>
-<span class="c1"># to remove cut the planes outside the brain.</span>
-<span class="n">thr</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">1120</span><span class="p">)</span>
-<span class="n">cut_plane</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_cut_plane</span><span class="p">(</span><span class="n">thr</span><span class="p">,</span>
-                                <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;y_axes&#39;</span><span class="p">,</span>
-                                <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;black-white&#39;</span><span class="p">,</span>
-                                <span class="n">vmin</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span>
-                                <span class="n">vmax</span><span class="o">=</span><span class="mi">2600</span><span class="p">)</span>
-<span class="n">cut_plane</span><span class="o">.</span><span class="n">implicit_plane</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="p">(</span><span class="mi">136</span><span class="p">,</span> <span class="mf">111.5</span><span class="p">,</span> <span class="mi">82</span><span class="p">)</span>
-<span class="n">cut_plane</span><span class="o">.</span><span class="n">implicit_plane</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="s2">mlab.figure(bgcolor=(0, 0, 0), size=(400, 400))</span>
 
-<span class="n">cut_plane2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_cut_plane</span><span class="p">(</span><span class="n">thr</span><span class="p">,</span>
-                                <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;z_axes&#39;</span><span class="p">,</span>
-                                <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;black-white&#39;</span><span class="p">,</span>
-                                <span class="n">vmin</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span>
-                                <span class="n">vmax</span><span class="o">=</span><span class="mi">2600</span><span class="p">)</span>
-<span class="n">cut_plane2</span><span class="o">.</span><span class="n">implicit_plane</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="p">(</span><span class="mi">136</span><span class="p">,</span> <span class="mf">111.5</span><span class="p">,</span> <span class="mi">82</span><span class="p">)</span>
-<span class="n">cut_plane2</span><span class="o">.</span><span class="n">implicit_plane</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
-
-<span class="c1"># Extract two views of the outside surface. We need to define VOIs in</span>
-<span class="c1"># order to leave out a cut in the head.</span>
-<span class="n">voi2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_grid</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-<span class="n">voi2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">y_min</span><span class="o">=</span><span class="mi">112</span><span class="p">)</span>
-<span class="n">outer</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">voi2</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mi">1776</span><span class="p">,</span> <span class="p">],</span>
-                                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">))</span>
-
-<span class="n">voi3</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_grid</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-<span class="n">voi3</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">y_max</span><span class="o">=</span><span class="mi">112</span><span class="p">,</span> <span class="n">z_max</span><span class="o">=</span><span class="mi">53</span><span class="p">)</span>
-<span class="n">outer3</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">voi3</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mi">1776</span><span class="p">,</span> <span class="p">],</span>
-                                         <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">))</span>
+<span class="s2">src = mlab.pipeline.scalar_field(data)</span>
+<span class="s2"># Our data is not equally spaced in all directions:</span>
+<span class="s2">src.spacing = [1, 1, 1.5]</span>
+<span class="s2">src.update_image_data = True</span>
 
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">125</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">326</span><span class="p">,</span> <span class="p">(</span><span class="mf">145.5</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mf">66.5</span><span class="p">))</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="o">-</span><span class="mi">175</span><span class="p">)</span>
+<span class="s2"># Extract some inner structures: the ventricles and the inter-hemisphere</span>
+<span class="s2"># fibers. We define a volume of interest (VOI) that restricts the</span>
+<span class="s2"># iso-surfaces to the inner of the brain. We do this with the ExtractGrid</span>
+<span class="s2"># filter.</span>
+<span class="s2">blur = mlab.pipeline.user_defined(src, filter=&#39;ImageGaussianSmooth&#39;)</span>
+<span class="s2">voi = mlab.pipeline.extract_grid(blur)</span>
+<span class="s2">voi.trait_set(x_min=125, x_max=193, y_min=92, y_max=125, z_min=34, z_max=75)</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="s2">mlab.pipeline.iso_surface(voi, contours=[1610, 2480], colormap=&#39;Spectral&#39;)</span>
 
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s1">&#39;mri_data&#39;</span><span class="p">)</span>
+<span class="s2"># Add two cut planes to show the raw MRI data. We use a threshold filter</span>
+<span class="s2"># to remove cut the planes outside the brain.</span>
+<span class="s2">thr = mlab.pipeline.threshold(src, low=1120)</span>
+<span class="s2">cut_plane = mlab.pipeline.scalar_cut_plane(thr,</span>
+<span class="s2">                                plane_orientation=&#39;y_axes&#39;,</span>
+<span class="s2">                                colormap=&#39;black-white&#39;,</span>
+<span class="s2">                                vmin=1400,</span>
+<span class="s2">                                vmax=2600)</span>
+<span class="s2">cut_plane.implicit_plane.origin = (136, 111.5, 82)</span>
+<span class="s2">cut_plane.implicit_plane.widget.enabled = False</span>
+
+<span class="s2">cut_plane2 = mlab.pipeline.scalar_cut_plane(thr,</span>
+<span class="s2">                                plane_orientation=&#39;z_axes&#39;,</span>
+<span class="s2">                                colormap=&#39;black-white&#39;,</span>
+<span class="s2">                                vmin=1400,</span>
+<span class="s2">                                vmax=2600)</span>
+<span class="s2">cut_plane2.implicit_plane.origin = (136, 111.5, 82)</span>
+<span class="s2">cut_plane2.implicit_plane.widget.enabled = False</span>
+
+<span class="s2"># Extract two views of the outside surface. We need to define VOIs in</span>
+<span class="s2"># order to leave out a cut in the head.</span>
+<span class="s2">voi2 = mlab.pipeline.extract_grid(src)</span>
+<span class="s2">voi2.trait_set(y_min=112)</span>
+<span class="s2">outer = mlab.pipeline.iso_surface(voi2, contours=[1776, ],</span>
+<span class="s2">                                        color=(0.8, 0.7, 0.6))</span>
+
+<span class="s2">voi3 = mlab.pipeline.extract_grid(src)</span>
+<span class="s2">voi3.trait_set(y_max=112, z_max=53)</span>
+<span class="s2">outer3 = mlab.pipeline.iso_surface(voi3, contours=[1776, ],</span>
+<span class="s2">                                         color=(0.8, 0.7, 0.6))</span>
+
+
+<span class="s2">mlab.view(-125, 54, 326, (145.5, 138, 66.5))</span>
+<span class="s2">mlab.roll(-175)</span>
+
+<span class="s2">mlab.show()</span>
+
+<span class="s2">import shutil</span>
+<span class="s2">shutil.rmtree(&#39;mri_data&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -209,7 +210,7 @@ see <a class="reference internal" href="example_tvtk_segmentation.html#example-t
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_mri.txt"
+      <li><a href="../_sources/auto/example_mri.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -217,14 +218,11 @@ see <a class="reference internal" href="example_tvtk_segmentation.html#example-t
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -271,14 +269,14 @@ see <a class="reference internal" href="example_tvtk_segmentation.html#example-t
         <li class="right" >
           <a href="example_magnetic_field_lines.html" title="Magnetic field lines example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

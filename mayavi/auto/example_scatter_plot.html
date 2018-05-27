@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Scatter plot example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Scatter plot example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Streamline example" href="example_streamline.html" />
     <link rel="prev" title="Contour contour example" href="example_contour_contour.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_contour_contour.html" title="Contour contour example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -99,52 +100,52 @@ creating the objects and adding them to the pipeline engine via the Mayavi
 core API. Compared to using mlab, this method has the advantage of giving
 more control on which objects are created, and there life cycle.</p>
 <p>Run this script like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -x scatter_plot.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x scatter_plot.py</span>
 </pre></div>
 </div>
 <p>Alternatively it can be run as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ python scatter_plot.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ python scatter_plot.py</span>
 </pre></div>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/scatter_plot.py"><code class="xref download docutils literal"><span class="pre">scatter_plot.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>
-<span class="c1"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
-<span class="c1"># Copyright (c) 2007 Prabhu Ramachandran.</span>
-<span class="c1"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/scatter_plot.py" download=""><code class="xref download docutils literal"><span class="pre">scatter_plot.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="s2"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
+<span class="s2"># Copyright (c) 2007 Prabhu Ramachandran.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
+<span class="s2">import numpy as np</span>
+<span class="s2">from tvtk.api import tvtk</span>
+<span class="s2">from mayavi.scripts import mayavi2</span>
 
 
-<span class="nd">@mayavi2.standalone</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># Create some random points to view.</span>
-    <span class="n">pd</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">verts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">verts</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">verts</span> <span class="o">=</span> <span class="n">verts</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
+<span class="s2">@mayavi2.standalone</span>
+<span class="s2">def main():</span>
+<span class="s2">    # Create some random points to view.</span>
+<span class="s2">    pd = tvtk.PolyData()</span>
+<span class="s2">    pd.points = np.random.random((1000, 3))</span>
+<span class="s2">    verts = np.arange(0, 1000, 1)</span>
+<span class="s2">    verts.shape = (1000, 1)</span>
+<span class="s2">    pd.verts = verts</span>
+<span class="s2">    pd.point_data.scalars = np.random.random(1000)</span>
+<span class="s2">    pd.point_data.scalars.name = &#39;scalars&#39;</span>
 
-    <span class="c1"># Now visualize it using mayavi2.</span>
-    <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
-    <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-    <span class="kn">from</span> <span class="nn">mayavi.modules.surface</span> <span class="kn">import</span> <span class="n">Surface</span>
+<span class="s2">    # Now visualize it using mayavi2.</span>
+<span class="s2">    from mayavi.sources.vtk_data_source import VTKDataSource</span>
+<span class="s2">    from mayavi.modules.outline import Outline</span>
+<span class="s2">    from mayavi.modules.surface import Surface</span>
 
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">()</span>
-    <span class="n">d</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">Surface</span><span class="p">()</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-    <span class="n">s</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">representation</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="c1"># You could also use glyphs to render the points via the Glyph module.</span>
+<span class="s2">    mayavi.new_scene()</span>
+<span class="s2">    d = VTKDataSource()</span>
+<span class="s2">    d.data = pd</span>
+<span class="s2">    mayavi.add_source(d)</span>
+<span class="s2">    mayavi.add_module(Outline())</span>
+<span class="s2">    s = Surface()</span>
+<span class="s2">    mayavi.add_module(s)</span>
+<span class="s2">    s.actor.property.trait_set(representation=&#39;p&#39;, point_size=2)</span>
+<span class="s2">    # You could also use glyphs to render the points via the Glyph module.</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    main()</span>
 </pre></div>
 </div>
 </div>
@@ -167,7 +168,7 @@ more control on which objects are created, and there life cycle.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_scatter_plot.txt"
+      <li><a href="../_sources/auto/example_scatter_plot.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -175,14 +176,11 @@ more control on which objects are created, and there life cycle.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -229,14 +227,14 @@ more control on which objects are created, and there life cycle.</p>
         <li class="right" >
           <a href="example_contour_contour.html" title="Contour contour example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

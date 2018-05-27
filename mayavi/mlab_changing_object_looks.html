@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changing the looks of the visual objects created &mdash; mayavi 4.5.0 documentation</title>
+    <title>Changing the looks of the visual objects created &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,16 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -62,7 +64,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -89,46 +91,46 @@ for functions with vectors, or to the z elevation for functions where it is
 meaningful, such as <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code> or <code class="xref py py-func docutils literal"><span class="pre">barchart()</span></code>.</p>
 <p>This scalar information is converted into colors using the colormap, or
 also called LUT, for Look Up Table. The list of possible colormaps is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>accent       flag          hot      pubu     set2
-autumn       gist_earth    hsv      pubugn   set3
-black-white  gist_gray     jet      puor     spectral
-blue-red     gist_heat     oranges  purd     spring
-blues        gist_ncar     orrd     purples  summer
-bone         gist_rainbow  paired   rdbu     winter
-brbg         gist_stern    pastel1  rdgy     ylgnbu
-bugn         gist_yarg     pastel2  rdpu     ylgn
-bupu         gnbu          pink     rdylbu   ylorbr
-cool         gray          piyg     rdylgn   ylorrd
-copper       greens        prgn     reds
-dark2        greys         prism    set1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">accent       flag          hot      pubu     set2</span>
+<span class="s2">autumn       gist_earth    hsv      pubugn   set3</span>
+<span class="s2">black-white  gist_gray     jet      puor     spectral</span>
+<span class="s2">blue-red     gist_heat     oranges  purd     spring</span>
+<span class="s2">blues        gist_ncar     orrd     purples  summer</span>
+<span class="s2">bone         gist_rainbow  paired   rdbu     winter</span>
+<span class="s2">brbg         gist_stern    pastel1  rdgy     ylgnbu</span>
+<span class="s2">bugn         gist_yarg     pastel2  rdpu     ylgn</span>
+<span class="s2">bupu         gnbu          pink     rdylbu   ylorbr</span>
+<span class="s2">cool         gray          piyg     rdylgn   ylorrd</span>
+<span class="s2">copper       greens        prgn     reds</span>
+<span class="s2">dark2        greys         prism    set1</span>
 </pre></div>
 </div>
 <p>The easiest way to choose the colormap, most adapted to your visualization
 is to use the GUI (as described in the next paragraph). The dialog
 to set the colormap can be found in the <cite>Colors and legends</cite> node.</p>
 <p>To use a custom-defined colormap, for the time being, you need to write
-specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><span>Custom colormap example</span></a>.</p>
+specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><span class="std std-ref">Custom colormap example</span></a>.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Size of the glyph:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">The scalar information can also be displayed in many different ways.
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">The scalar information can also be displayed in many different ways.
 For instance it can be used to adjust the size of glyphs positioned at
 the data points.</p>
 <p><strong>A caveat: Clamping: relative or absolute scaling</strong>
 Given six points positionned on a line with interpoint spacing 1:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">y</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">x = [1, 2, 3, 4, 5, 6]</span>
+<span class="s2">y = [0, 0, 0, 0, 0, 0]</span>
+<span class="s2">z = y</span>
 </pre></div>
 </div>
 <p>If we represent a scalar varying from 0.5 to 1 on this dataset:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">s = [.5, .6, .7, .8, .9, 1]</span>
 </pre></div>
 </div>
 <p>We represent the dataset as spheres, using <code class="xref py py-func docutils literal"><span class="pre">points3d()</span></code>, and the
 scalar is mapped to diameter of the spheres:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
+<span class="s2">pts = mlab.points3d(x, y, z, s)</span>
 </pre></div>
 </div>
 <p>By default the diameter of the spheres is not &#8216;clamped&#8217;, in other
@@ -142,7 +144,7 @@ desired if the scalar represents the size of the glyphs in the same
 unit as the positions specified.</p>
 <p>In this case, you shoud turn auto-scaling off by specifying the desired
 scale factor:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">pts = mlab.points3d(x, y, z, s, scale_factor=1)</span>
 </pre></div>
 </div>
 <img alt="_images/clamping_off.jpg" src="_images/clamping_off.jpg" />
@@ -153,14 +155,14 @@ not auto-scaled, and as a result the visualization can seem empty
 due to the glyphs being very small. In addition the minimum diameter of
 the glyphs is clamped to zero, and thus the glyph are not scaled
 absolutely, unless you specify:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span></span><span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">clamping</span> <span class="o">=</span> <span class="bp">False</span>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="s2">pts.glyph.glyph.clamping = False</span>
 </pre></div>
 </div>
 </div>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">More representations of the attached scalars or vectors:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">There are many more ways to represent the scalar or vector information
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">There are many more ways to represent the scalar or vector information
 attached to the data. For instance, scalar data can be &#8216;warped&#8217; into a
 displacement, e.g. using a <cite>WarpScalar</cite> filter, or the norm of scalar
 data can be extracted to a scalar component that can be visualized using
@@ -168,19 +170,19 @@ iso-surfaces with the <cite>ExtractVectorNorm</cite> filter.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Displaying more than one quantity:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">You may want to display color related to one scalar quantity while
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first">You may want to display color related to one scalar quantity while
 using a second for the iso-contours, or the elevation. This is possible
-but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><span>Atomic orbital example</span></a>.</p>
+but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><span class="std std-ref">Atomic orbital example</span></a>.</p>
 <p>If you simply want to display points with a size given by one quantity,
 and a color by a second, you can use a simple trick: add the size
 information using the norm of vectors, add the color information using
 scalars, create a <code class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></code> plot choosing the glyphs to symmetric
 glyphs, and use scalars to represent the color:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">)</span>
-<span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s1">&#39;color_by_scalar&#39;</span>
-<span class="c1"># Finally, center the glyphs on the data point</span>
-<span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph_source</span><span class="o">.</span><span class="n">glyph_source</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="s2">x, y, z, s, c = np.random.random((5, 10))</span>
+<span class="s2">pts = mlab.quiver3d(x, y, z, s, s, s, scalars=c, mode=&#39;sphere&#39;)</span>
+<span class="s2">pts.glyph.color_mode = &#39;color_by_scalar&#39;</span>
+<span class="s2"># Finally, center the glyphs on the data point</span>
+<span class="s2">pts.glyph.glyph_source.glyph_source.center = [0, 0, 0]</span>
 </pre></div>
 </div>
 </td>
@@ -219,22 +221,22 @@ red round button of the toolbar of the pipeline view. This opens up a
 recorder that tracks the changes made interactively to the
 visualization via the dialogs, and generates valid lines of Python
 code. To find out about navigating through a program in the pipeline, see
-<a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><span>Organisation of Mayavi visualizations: the pipeline</span></a>.</p>
+<a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><span class="std std-ref">Organisation of Mayavi visualizations: the pipeline</span></a>.</p>
 </div>
 <p>In addition, for every object returned by a mlab function,
 <code class="docutils literal"><span class="pre">this_object.edit_traits()</span></code> brings up a dialog that can be used to
 interactively edit the object&#8217;s properties. If the dialog doesn&#8217;t show up
-when you enter this command, please see <a class="reference internal" href="mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a>.</p>
+when you enter this command, please see <a class="reference internal" href="mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a>.</p>
 <div class="topic">
 <p class="topic-title first">Using <code class="docutils literal"><span class="pre">mlab</span></code> with the full Envisage UI</p>
 <p>Sometimes it is convenient to write an mlab script but still use the
 full envisage application so you can click on the menus and use other
 modules etc.  To do this you may do the following before you create an
 mlab figure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;envisage&#39;</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="c1"># ...</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
+<span class="s2">mlab.options.backend = &#39;envisage&#39;</span>
+<span class="s2">f = mlab.figure()</span>
+<span class="s2"># ...</span>
 </pre></div>
 </div>
 <p>This will give you the full-fledged UI instead of the default simple
@@ -265,7 +267,7 @@ window.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/mlab_changing_object_looks.txt"
+      <li><a href="_sources/mlab_changing_object_looks.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -273,14 +275,11 @@ window.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -321,13 +320,13 @@ window.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

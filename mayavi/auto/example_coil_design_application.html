@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Coil design application example &mdash; mayavi 4.5.0 documentation</title>
+    <title>Coil design application example &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
-    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Volume slicer advanced example" href="example_volume_slicer_advanced.html" />
     <link rel="prev" title="Volume slicer example" href="example_volume_slicer.html" />
 <style type="text/css">
@@ -71,8 +72,8 @@
         <li class="right" >
           <a href="example_volume_slicer.html" title="Volume slicer example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -105,270 +106,270 @@ from the data that is visualized, contained in the data source, any
 visualization module added by the user will update when coils are added or
 changed.</p>
 <p>Simpler examples of magnetic field visualization can be found on
-<a class="reference internal" href="example_magnetic_field_lines.html#example-magnetic-field-lines"><span>Magnetic field lines example</span></a> and <a class="reference internal" href="example_magnetic_field.html#example-magnetic-field"><span>Magnetic field example</span></a>.
+<a class="reference internal" href="example_magnetic_field_lines.html#example-magnetic-field-lines"><span class="std std-ref">Magnetic field lines example</span></a> and <a class="reference internal" href="example_magnetic_field.html#example-magnetic-field"><span class="std std-ref">Magnetic field example</span></a>.
 The material required to understand this example is covered in section
-<a class="reference internal" href="../building_applications.html#builing-applications"><span>Building applications using Mayavi</span></a>.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/coil_design_application.py"><code class="xref download docutils literal"><span class="pre">coil_design_application.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c1"># Copyright (c) 2009, Enthought, Inc.</span>
-<span class="c1"># License: BSD Style.</span>
+<a class="reference internal" href="../building_applications.html#builing-applications"><span class="std std-ref">Building applications using Mayavi</span></a>.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/coil_design_application.py" download=""><code class="xref download docutils literal"><span class="pre">coil_design_application.py</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="s2"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="s2"># License: BSD Style.</span>
 
-<span class="c1"># Major scientific library imports</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span><span class="p">,</span> <span class="n">special</span>
+<span class="s2"># Major scientific library imports</span>
+<span class="s2">import numpy as np</span>
+<span class="s2">from scipy import linalg, special</span>
 
-<span class="c1"># Enthought library imports:</span>
-<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> <span class="n">CFloat</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> \
-   <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span><span class="p">,</span> <span class="n">Property</span>
-<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">Item</span><span class="p">,</span> <span class="n">View</span><span class="p">,</span> <span class="n">ListEditor</span><span class="p">,</span> \
-        <span class="n">HSplit</span><span class="p">,</span> <span class="n">VSplit</span>
-<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">EngineView</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
-        <span class="n">SceneEditor</span>
+<span class="s2"># Enthought library imports:</span>
+<span class="s2">from traits.api import HasTraits, Array, CFloat, List, </span><span class="se">\</span>
+<span class="s2">   Instance, on_trait_change, Property</span>
+<span class="s2">from traitsui.api import Item, View, ListEditor, </span><span class="se">\</span>
+<span class="s2">        HSplit, VSplit</span>
+<span class="s2">from mayavi.core.ui.api import EngineView, MlabSceneModel, </span><span class="se">\</span>
+<span class="s2">        SceneEditor</span>
 
-<span class="c1">##############################################################################</span>
-<span class="c1"># Module-level variables</span>
+<span class="s2">##############################################################################</span>
+<span class="s2"># Module-level variables</span>
 
-<span class="c1"># The grid of points on which we want to evaluate the field</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">0.15</span><span class="p">:</span><span class="mf">0.15</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">:</span><span class="mf">0.15</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">:</span><span class="mf">0.15</span><span class="p">:</span><span class="mi">20j</span><span class="p">]</span>
-<span class="c1"># Avoid rounding issues :</span>
-<span class="n">f</span> <span class="o">=</span> <span class="mf">1e4</span>  <span class="c1"># this gives the precision we are interested by :</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="n">f</span><span class="p">)</span> <span class="o">/</span> <span class="n">f</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">Y</span> <span class="o">*</span> <span class="n">f</span><span class="p">)</span> <span class="o">/</span> <span class="n">f</span>
-<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">Z</span> <span class="o">*</span> <span class="n">f</span><span class="p">)</span> <span class="o">/</span> <span class="n">f</span>
+<span class="s2"># The grid of points on which we want to evaluate the field</span>
+<span class="s2">X, Y, Z = np.mgrid[-0.15:0.15:20j, -0.15:0.15:20j, -0.15:0.15:20j]</span>
+<span class="s2"># Avoid rounding issues :</span>
+<span class="s2">f = 1e4  # this gives the precision we are interested by :</span>
+<span class="s2">X = np.round(X * f) / f</span>
+<span class="s2">Y = np.round(Y * f) / f</span>
+<span class="s2">Z = np.round(Z * f) / f</span>
 
-<span class="c1">##############################################################################</span>
-<span class="c1"># A current loop class</span>
-<span class="k">class</span> <span class="nc">Loop</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; A current loop class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="s2">##############################################################################</span>
+<span class="s2"># A current loop class</span>
+<span class="s2">class Loop(HasTraits):</span>
+<span class="s2">    &quot;&quot;&quot;</span> <span class="n">A</span> <span class="n">current</span> <span class="n">loop</span> <span class="n">class</span><span class="o">.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 
-    <span class="c1">#-------------------------------------------------------------------------</span>
-    <span class="c1"># Public traits</span>
-    <span class="c1">#-------------------------------------------------------------------------</span>
-    <span class="n">direction</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;directing vector of the loop&#39;</span><span class="p">,</span>
-                    <span class="n">enter_set</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">auto_set</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="sd">    #-------------------------------------------------------------------------</span>
+<span class="sd">    # Public traits</span>
+<span class="sd">    #-------------------------------------------------------------------------</span>
+<span class="sd">    direction = Array(float, value=(0, 0, 1), cols=3,</span>
+<span class="sd">                    shape=(3,), desc=&#39;directing vector of the loop&#39;,</span>
+<span class="sd">                    enter_set=True, auto_set=False)</span>
 
-    <span class="n">radius</span>    <span class="o">=</span> <span class="n">CFloat</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;radius of the loop&#39;</span><span class="p">,</span>
-                    <span class="n">enter_set</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">auto_set</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="sd">    radius    = CFloat(0.1, desc=&#39;radius of the loop&#39;,</span>
+<span class="sd">                    enter_set=True, auto_set=False)</span>
 
-    <span class="n">position</span>  <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;position of the center of the loop&#39;</span><span class="p">,</span>
-                    <span class="n">enter_set</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">auto_set</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="sd">    position  = Array(float, value=(0, 0, 0), cols=3,</span>
+<span class="sd">                    shape=(3,), desc=&#39;position of the center of the loop&#39;,</span>
+<span class="sd">                    enter_set=True, auto_set=False)</span>
 
-    <span class="n">_plot</span>      <span class="o">=</span> <span class="bp">None</span>
+<span class="sd">    _plot      = None</span>
 
-    <span class="n">Bnorm</span>   <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">depends_on</span><span class="o">=</span><span class="s1">&#39;direction,position,radius&#39;</span><span class="p">)</span>
+<span class="sd">    Bnorm   = Property(depends_on=&#39;direction,position,radius&#39;)</span>
 
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
-
-
-    <span class="c1">#-------------------------------------------------------------------------</span>
-    <span class="c1"># Loop interface</span>
-    <span class="c1">#-------------------------------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">base_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Returns 3 orthognal base vectors, the first one colinear to</span>
-<span class="sd">            the axis of the loop.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># normalize n</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="c1"># choose two vectors perpendicular to n</span>
-        <span class="c1"># choice is arbitrary since the coil is symetric about n</span>
-        <span class="k">if</span>  <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="mi">1</span> <span class="p">:</span>
-            <span class="n">l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">-</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-
-        <span class="n">l</span> <span class="o">/=</span> <span class="p">(</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span>
+<span class="sd">    view = View(&#39;position&#39;, &#39;direction&#39;, &#39;radius&#39;, &#39;_&#39;)</span>
 
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;Bnorm&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">redraw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;app&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">_renderer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">visualize_field</span><span class="p">()</span>
-
-
-    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="sd">    #-------------------------------------------------------------------------</span>
+<span class="sd">    # Loop interface</span>
+<span class="sd">    #-------------------------------------------------------------------------</span>
+<span class="sd">    def base_vectors(self):</span>
+<span class="sd">        &quot;&quot;&quot;</span> <span class="n">Returns</span> <span class="mi">3</span> <span class="n">orthognal</span> <span class="n">base</span> <span class="n">vectors</span><span class="p">,</span> <span class="n">the</span> <span class="n">first</span> <span class="n">one</span> <span class="n">colinear</span> <span class="n">to</span>
+            <span class="n">the</span> <span class="n">axis</span> <span class="n">of</span> <span class="n">the</span> <span class="n">loop</span><span class="o">.</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Display the coil in the 3D view.</span>
+<span class="sd">        # normalize n</span>
+<span class="sd">        n = self.direction / (self.direction**2).sum(axis=-1)</span>
+
+<span class="sd">        # choose two vectors perpendicular to n</span>
+<span class="sd">        # choice is arbitrary since the coil is symetric about n</span>
+<span class="sd">        if  np.abs(n[0])==1 :</span>
+<span class="sd">            l = np.r_[n[2], 0, -n[0]]</span>
+<span class="sd">        else:</span>
+<span class="sd">            l = np.r_[0, n[2], -n[1]]</span>
+
+<span class="sd">        l /= (l**2).sum(axis=-1)</span>
+<span class="sd">        m = np.cross(n, l)</span>
+<span class="sd">        return n, l, m</span>
+
+
+<span class="sd">    @on_trait_change(&#39;Bnorm&#39;)</span>
+<span class="sd">    def redraw(self):</span>
+<span class="sd">        if hasattr(self, &#39;app&#39;) and self.app.scene._renderer is not None:</span>
+<span class="sd">            self.display()</span>
+<span class="sd">            self.app.visualize_field()</span>
+
+
+<span class="sd">    def display(self):</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">()</span>
-        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">30</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-        <span class="n">coil</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">l</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">coil</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
-        <span class="n">coil_x</span><span class="p">,</span> <span class="n">coil_y</span><span class="p">,</span> <span class="n">coil_z</span> <span class="o">=</span> <span class="n">coil</span><span class="o">.</span><span class="n">T</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">coil_x</span><span class="p">,</span> <span class="n">coil_y</span><span class="p">,</span> <span class="n">coil_z</span><span class="p">,</span>
-                                    <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.007</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-                                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Coil&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">coil_x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">coil_y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">coil_z</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">_get_Bnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Display</span> <span class="n">the</span> <span class="n">coil</span> <span class="ow">in</span> <span class="n">the</span> <span class="mi">3</span><span class="n">D</span> <span class="n">view</span><span class="o">.</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        returns the magnetic field for the current loop calculated</span>
-<span class="sd">        from eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987.</span>
+<span class="sd">        n, l, m = self.base_vectors()</span>
+<span class="sd">        theta = np.linspace(0, 2*np.pi, 30)[..., np.newaxis]</span>
+<span class="sd">        coil = self.radius*(np.sin(theta)*l + np.cos(theta)*m)</span>
+<span class="sd">        coil += self.position</span>
+<span class="sd">        coil_x, coil_y, coil_z = coil.T</span>
+<span class="sd">        if self._plot is None:</span>
+<span class="sd">            self._plot = self.app.scene.mlab.plot3d(coil_x, coil_y, coil_z,</span>
+<span class="sd">                                    tube_radius=0.007, color=(0, 0, 1),</span>
+<span class="sd">                                    name=&#39;Coil&#39;)</span>
+<span class="sd">        else:</span>
+<span class="sd">            self._plot.mlab_source.trait_set(x=coil_x, y=coil_y, z=coil_z)</span>
+
+
+<span class="sd">    def _get_Bnorm(self):</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">### Translate the coordinates in the coil&#39;s frame</span>
-        <span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">()</span>
-        <span class="n">R</span>       <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span>
-        <span class="n">r0</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
-        <span class="n">r</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">Z</span><span class="p">)]</span>
+        <span class="n">returns</span> <span class="n">the</span> <span class="n">magnetic</span> <span class="n">field</span> <span class="k">for</span> <span class="n">the</span> <span class="n">current</span> <span class="n">loop</span> <span class="n">calculated</span>
+        <span class="kn">from</span> <span class="nn">eqns</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">Phys</span> <span class="n">Rev</span> <span class="n">A</span> <span class="n">Vol</span><span class="o">.</span> <span class="mi">35</span><span class="p">,</span> <span class="n">N</span> <span class="mi">4</span><span class="p">,</span> <span class="n">pp</span><span class="o">.</span> <span class="mi">1535</span><span class="o">-</span><span class="mi">1546</span><span class="p">;</span> <span class="mf">1987.</span>
+        <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        ### Translate the coordinates in the coil&#39;s frame</span>
+<span class="s2">        n, l, m = self.base_vectors()</span>
+<span class="s2">        R       = self.radius</span>
+<span class="s2">        r0      = self.position</span>
+<span class="s2">        r       = np.c_[np.ravel(X), np.ravel(Y), np.ravel(Z)]</span>
 
-        <span class="c1"># transformation matrix coil frame to lab frame</span>
-        <span class="n">trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="s2">        # transformation matrix coil frame to lab frame</span>
+<span class="s2">        trans = np.vstack((l, m, n))</span>
 
-        <span class="n">r</span> <span class="o">-=</span> <span class="n">r0</span>   <span class="c1">#point location from center of coil</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span> <span class="p">)</span>           <span class="c1">#transform vector to coil frame</span>
+<span class="s2">        r -= r0   #point location from center of coil</span>
+<span class="s2">        r = np.dot(r, linalg.inv(trans) )           #transform vector to coil frame</span>
 
-        <span class="c1">#### calculate field</span>
+<span class="s2">        #### calculate field</span>
 
-        <span class="c1"># express the coordinates in polar form</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="n">r</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
-        <span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="s2">        # express the coordinates in polar form</span>
+<span class="s2">        x = r[:, 0]</span>
+<span class="s2">        y = r[:, 1]</span>
+<span class="s2">        z = r[:, 2]</span>
+<span class="s2">        rho = np.sqrt(x**2 + y**2)</span>
+<span class="s2">        theta = np.arctan2(x, y)</span>
 
-        <span class="n">E</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipe</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">R</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">K</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipk</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">R</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">Bz</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
-                    <span class="n">K</span>
-                  <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">R</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-                <span class="p">)</span>
-        <span class="n">Brho</span> <span class="o">=</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="n">rho</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="o">-</span><span class="n">K</span>
-                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">R</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-                <span class="p">)</span>
-        <span class="c1"># On the axis of the coil we get a divided by zero here. This returns a</span>
-        <span class="c1"># NaN, where the field is actually zero :</span>
-        <span class="n">Brho</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">Brho</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="s2">        E = special.ellipe((4 * R * rho)/( (R + rho)**2 + z**2))</span>
+<span class="s2">        K = special.ellipk((4 * R * rho)/( (R + rho)**2 + z**2))</span>
+<span class="s2">        Bz =  1/np.sqrt((R + rho)**2 + z**2) * (</span>
+<span class="s2">                    K</span>
+<span class="s2">                  + E * (R**2 - rho**2 - z**2)/((R - rho)**2 + z**2)</span>
+<span class="s2">                )</span>
+<span class="s2">        Brho = z/(rho*np.sqrt((R + rho)**2 + z**2)) * (</span>
+<span class="s2">                -K</span>
+<span class="s2">                + E * (R**2 + rho**2 + z**2)/((R - rho)**2 + z**2)</span>
+<span class="s2">                )</span>
+<span class="s2">        # On the axis of the coil we get a divided by zero here. This returns a</span>
+<span class="s2">        # NaN, where the field is actually zero :</span>
+<span class="s2">        Brho[np.isnan(Brho)] = 0</span>
 
-        <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">Brho</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">Brho</span><span class="p">,</span> <span class="n">Bz</span> <span class="p">]</span>
+<span class="s2">        B = np.c_[np.cos(theta)*Brho, np.sin(theta)*Brho, Bz ]</span>
 
-        <span class="c1"># Rotate the field back in the lab&#39;s frame</span>
-        <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">trans</span><span class="p">)</span>
+<span class="s2">        # Rotate the field back in the lab&#39;s frame</span>
+<span class="s2">        B = np.dot(B, trans)</span>
 
-        <span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">Bx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">Bx</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">By</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">By</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">Bz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">Bz</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="s2">        Bx, By, Bz = B.T</span>
+<span class="s2">        Bx = np.reshape(Bx, X.shape)</span>
+<span class="s2">        By = np.reshape(By, X.shape)</span>
+<span class="s2">        Bz = np.reshape(Bz, X.shape)</span>
 
-        <span class="n">Bnorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Bx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">By</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Bz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="s2">        Bnorm = np.sqrt(Bx**2 + By**2 + Bz**2)</span>
 
-        <span class="c1"># We need to threshold ourselves, rather than with VTK, to be able</span>
-        <span class="c1"># to use an ImageData</span>
-        <span class="n">Bmax</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">Bnorm</span><span class="p">)</span>
+<span class="s2">        # We need to threshold ourselves, rather than with VTK, to be able</span>
+<span class="s2">        # to use an ImageData</span>
+<span class="s2">        Bmax = 10 * np.median(Bnorm)</span>
 
-        <span class="n">Bx</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
-        <span class="n">By</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
-        <span class="n">Bz</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
-        <span class="n">Bnorm</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
+<span class="s2">        Bx[Bnorm &gt; Bmax] = np.NAN</span>
+<span class="s2">        By[Bnorm &gt; Bmax] = np.NAN</span>
+<span class="s2">        Bz[Bnorm &gt; Bmax] = np.NAN</span>
+<span class="s2">        Bnorm[Bnorm &gt; Bmax] = np.NAN</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">Bx</span> <span class="o">=</span> <span class="n">Bx</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">By</span> <span class="o">=</span> <span class="n">By</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Bz</span> <span class="o">=</span> <span class="n">Bz</span>
-        <span class="k">return</span> <span class="n">Bnorm</span>
-
-
-<span class="c1">##############################################################################</span>
-<span class="c1"># The application object</span>
-<span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-
-    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">(),</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">())</span>
-
-    <span class="c1"># The mayavi engine view.</span>
-    <span class="n">engine_view</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">EngineView</span><span class="p">)</span>
-
-    <span class="n">coils</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Instance</span><span class="p">(</span><span class="n">Loop</span><span class="p">,</span> <span class="p">(),</span> <span class="n">allow_none</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                        <span class="n">editor</span><span class="o">=</span><span class="n">ListEditor</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">),</span>
-                        <span class="n">value</span><span class="o">=</span><span class="p">[</span> <span class="n">Loop</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">),</span> <span class="p">),</span>
-                                 <span class="n">Loop</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mf">0.05</span><span class="p">),</span> <span class="p">),</span> <span class="p">])</span>
+<span class="s2">        self.Bx = Bx</span>
+<span class="s2">        self.By = By</span>
+<span class="s2">        self.Bz = Bz</span>
+<span class="s2">        return Bnorm</span>
 
 
-    <span class="n">Bx</span>    <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
-    <span class="n">By</span>    <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
-    <span class="n">Bz</span>    <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
-    <span class="n">Bnorm</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="s2">##############################################################################</span>
+<span class="s2"># The application object</span>
+<span class="s2">class Application(HasTraits):</span>
 
-    <span class="n">vector_field</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="s2">    scene = Instance(MlabSceneModel, (), editor=SceneEditor())</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
-        <span class="n">HasTraits</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">engine_view</span> <span class="o">=</span> <span class="n">EngineView</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+<span class="s2">    # The mayavi engine view.</span>
+<span class="s2">    engine_view = Instance(EngineView)</span>
 
-
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene.activated,coils&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">init_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">_renderer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">scene_editor</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">coil</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coils</span><span class="p">:</span>
-                <span class="n">coil</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="bp">self</span>
-                <span class="n">coil</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">visualize_field</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">visualize_field</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Bx</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">By</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Bz</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Bnorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">for</span> <span class="n">coil</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coils</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Bx</span> <span class="o">+=</span> <span class="n">coil</span><span class="o">.</span><span class="n">Bx</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">By</span> <span class="o">+=</span> <span class="n">coil</span><span class="o">.</span><span class="n">By</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Bz</span> <span class="o">+=</span> <span class="n">coil</span><span class="o">.</span><span class="n">Bz</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">Bnorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Bx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">By</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Bz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span>
-                                    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Bx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">By</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Bz</span><span class="p">,</span>
-                                    <span class="n">scalars</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bnorm</span><span class="p">,</span>
-                                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;B field&#39;</span><span class="p">)</span>
-            <span class="n">vectors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span><span class="p">,</span>
-                                    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;arrow&#39;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                    <span class="n">mask_points</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;YlOrRd&#39;</span><span class="p">,</span>
-                                    <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-                                                          <span class="o">-</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>
-            <span class="n">vectors</span><span class="o">.</span><span class="n">module_manager</span><span class="o">.</span><span class="n">vector_lut_manager</span><span class="o">.</span><span class="n">reverse_lut</span> <span class="o">=</span> <span class="bp">True</span>
-            <span class="n">vectors</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">mask_points</span><span class="o">.</span><span class="n">random_mode</span> <span class="o">=</span> <span class="bp">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_cut_plane</span><span class="p">(</span>
-                                                      <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span><span class="p">,</span>
-                                                      <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Modify in place the data source. The visualization will</span>
-            <span class="c1"># update automaticaly</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bx</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">By</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bz</span><span class="p">,</span>
-                                              <span class="n">scalars</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bnorm</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="s2">    coils = List(Instance(Loop, (), allow_none=False),</span>
+<span class="s2">                        editor=ListEditor(style=&#39;custom&#39;),</span>
+<span class="s2">                        value=[ Loop(position=(0, 0, -0.05), ),</span>
+<span class="s2">                                 Loop(position=(0, 0,  0.05), ), ])</span>
 
 
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HSplit</span><span class="p">(</span>
-                    <span class="n">VSplit</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;engine_view&#39;</span><span class="p">,</span>
-                                   <span class="n">style</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span>
-                                   <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
-                            <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;coils&#39;</span><span class="p">,</span> <span class="n">springy</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
-                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                        <span class="s1">&#39;scene&#39;</span><span class="p">,</span>
-                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                    <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Coils...&#39;</span><span class="p">,</span>
-                    <span class="n">height</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                <span class="p">)</span>
+<span class="s2">    Bx    = Array(value=np.zeros_like(X))</span>
+<span class="s2">    By    = Array(value=np.zeros_like(X))</span>
+<span class="s2">    Bz    = Array(value=np.zeros_like(X))</span>
+<span class="s2">    Bnorm = Array(value=np.zeros_like(X))</span>
+
+<span class="s2">    vector_field = None</span>
+
+<span class="s2">    def __init__(self, **traits):</span>
+<span class="s2">        HasTraits.__init__(self, **traits)</span>
+<span class="s2">        self.engine_view = EngineView(engine=self.scene.engine)</span>
 
 
-<span class="c1">##############################################################################</span>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">()</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+<span class="s2">    @on_trait_change(&#39;scene.activated,coils&#39;)</span>
+<span class="s2">    def init_view(self):</span>
+<span class="s2">        if self.scene._renderer is not None:</span>
+<span class="s2">            self.scene.scene_editor.background = (0, 0, 0)</span>
+<span class="s2">            for coil in self.coils:</span>
+<span class="s2">                coil.app = self</span>
+<span class="s2">                coil.display()</span>
+
+<span class="s2">            self.visualize_field()</span>
+
+<span class="s2">    def visualize_field(self):</span>
+<span class="s2">        self.Bx    = np.zeros_like(X)</span>
+<span class="s2">        self.By    = np.zeros_like(X)</span>
+<span class="s2">        self.Bz    = np.zeros_like(X)</span>
+<span class="s2">        self.Bnorm = np.zeros_like(X)</span>
+<span class="s2">        self.scene.scene.disable_render = True</span>
+<span class="s2">        for coil in self.coils:</span>
+<span class="s2">            self.Bx += coil.Bx</span>
+<span class="s2">            self.By += coil.By</span>
+<span class="s2">            self.Bz += coil.Bz</span>
+
+<span class="s2">        self.Bnorm = np.sqrt(self.Bx**2 + self.By**2 + self.Bz**2)</span>
+
+<span class="s2">        if self.vector_field is None:</span>
+<span class="s2">            self.vector_field = self.scene.mlab.pipeline.vector_field(</span>
+<span class="s2">                                    X, Y, Z, self.Bx, self.By, self.Bz,</span>
+<span class="s2">                                    scalars=self.Bnorm,</span>
+<span class="s2">                                    name=&#39;B field&#39;)</span>
+<span class="s2">            vectors = self.scene.mlab.pipeline.vectors(self.vector_field,</span>
+<span class="s2">                                    mode=&#39;arrow&#39;, resolution=10,</span>
+<span class="s2">                                    mask_points=6, colormap=&#39;YlOrRd&#39;,</span>
+<span class="s2">                                    scale_factor=2*np.abs(X[0,0,0]</span>
+<span class="s2">                                                          -X[1,1,1]) )</span>
+<span class="s2">            vectors.module_manager.vector_lut_manager.reverse_lut = True</span>
+<span class="s2">            vectors.glyph.mask_points.random_mode = False</span>
+<span class="s2">            self.scene.mlab.axes()</span>
+<span class="s2">            self.scp = self.scene.mlab.pipeline.scalar_cut_plane(</span>
+<span class="s2">                                                      self.vector_field,</span>
+<span class="s2">                                                      colormap=&#39;hot&#39;)</span>
+<span class="s2">        else:</span>
+<span class="s2">            # Modify in place the data source. The visualization will</span>
+<span class="s2">            # update automaticaly</span>
+<span class="s2">            self.vector_field.mlab_source.trait_set(</span>
+<span class="s2">                u=self.Bx, v=self.By, w=self.Bz, scalars=self.Bnorm)</span>
+<span class="s2">        self.scene.scene.disable_render = False</span>
+
+
+<span class="s2">    view = View(HSplit(</span>
+<span class="s2">                    VSplit(Item(name=&#39;engine_view&#39;,</span>
+<span class="s2">                                   style=&#39;custom&#39;,</span>
+<span class="s2">                                   resizable=True),</span>
+<span class="s2">                            Item(&#39;coils&#39;, springy=True),</span>
+<span class="s2">                        show_labels=False),</span>
+<span class="s2">                        &#39;scene&#39;,</span>
+<span class="s2">                        show_labels=False),</span>
+<span class="s2">                    resizable=True,</span>
+<span class="s2">                    title=&#39;Coils...&#39;,</span>
+<span class="s2">                    height=0.8,</span>
+<span class="s2">                    width=0.8,</span>
+<span class="s2">                )</span>
+
+
+<span class="s2">##############################################################################</span>
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    app = Application()</span>
+<span class="s2">    app.configure_traits()</span>
 
 </pre></div>
 </div>
@@ -392,7 +393,7 @@ The material required to understand this example is covered in section
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_coil_design_application.txt"
+      <li><a href="../_sources/auto/example_coil_design_application.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -400,14 +401,11 @@ The material required to understand this example is covered in section
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -454,14 +452,14 @@ The material required to understand this example is covered in section
         <li class="right" >
           <a href="example_volume_slicer.html" title="Volume slicer example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

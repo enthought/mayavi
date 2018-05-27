@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Figures, legends, camera and decorations &mdash; mayavi 4.5.0 documentation</title>
+    <title>Figures, legends, camera and decorations &#8212; mayavi 4.6.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,16 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.5.0',
+        VERSION:     '4.6.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -62,7 +64,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -112,17 +114,17 @@ focal point. The <code class="xref py py-func docutils literal"><span class="pre
 of the camera for a pleasing view, but it sometimes fails. The <code class="xref py py-func docutils literal"><span class="pre">roll()</span></code>
 explicitly sets the roll angle of the camera (this can be achieve
 interactively in the scene by pressing down the control key, while
-dragging the mouse, see <a class="reference internal" href="application.html#interaction-with-the-scene"><span>Interaction with the scene</span></a>).</p>
+dragging the mouse, see <a class="reference internal" href="application.html#interaction-with-the-scene"><span class="std std-ref">Interaction with the scene</span></a>).</p>
 <p>The <code class="xref py py-func docutils literal"><span class="pre">view()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">roll()</span></code> functions return the current values of
 the different angles and distances they take as arguments. As a result, the
 view point obtained interactively can be stored and reset using:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Store the information</span>
-<span class="n">view</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-<span class="n">roll</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Store the information</span>
+<span class="s2">view = mlab.view()</span>
+<span class="s2">roll = mlab.roll()</span>
 
-<span class="c1"># Reposition the camera</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">view</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">roll</span><span class="p">)</span>
+<span class="s2"># Reposition the camera</span>
+<span class="s2">mlab.view(*view)</span>
+<span class="s2">mlab.roll(roll)</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -130,9 +132,9 @@ view point obtained interactively can be stored and reset using:</p>
 <blockquote>
 <div><p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
 and <cite>pitch</cite> methods of the camera object. This moves the focal point:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
-<span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
-<span class="n">camera</span><span class="o">.</span><span class="n">yaw</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">f = mlab.gcf()</span>
+<span class="s2">camera = f.scene.camera</span>
+<span class="s2">camera.yaw(45)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -155,9 +157,9 @@ function can also be useful in these regards.</p>
 mlab.roll, a last parameter is needed to fully define the view point:
 the parallel scale of the camera, that control its view angle. It can
 be read (or set) with the following code:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
-<span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
-<span class="n">cam</span><span class="o">.</span><span class="n">parallel_scale</span> <span class="o">=</span> <span class="mi">9</span>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="s2">f = mlab.gcf()</span>
+<span class="s2">camera = f.scene.camera</span>
+<span class="s2">cam.parallel_scale = 9</span>
 </pre></div>
 </div>
 </div>
@@ -186,7 +188,7 @@ be read (or set) with the following code:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/mlab_figures_decorations.txt"
+      <li><a href="_sources/mlab_figures_decorations.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -194,14 +196,11 @@ be read (or set) with the following code:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
     <div id="searchbox">
@@ -242,13 +241,13 @@ be read (or set) with the following code:</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2016, Enthought Inc..
-      Last updated on Aug 02, 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+        &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 27, 2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>
