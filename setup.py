@@ -1,66 +1,7 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2016 by Enthought, Inc.
+# Copyright (c) 2008-2018 by Enthought, Inc.
 # All rights reserved.
-
-"""The Mayavi scientific data 3-dimensional visualizer.
-
-The Mayavi *project* includes two related *packages* for 3-dimensional
-visualization:
-
-- **Mayavi**: A tool for easy and interactive visualization of data.
-- **TVTK**: A Traits-based wrapper for the Visualization Toolkit, a popular
-  open-source visualization library.
-
-These libraries operate at different levels of abstraction. TVTK manipulates
-visualization objects, while Mayavi2 lets you operate on your data, and then
-see the results. Most users either use the Mayavi user interface or program
-to its scripting interface; you probably don't need to interact with TVTK
-unless you want to create a new Mayavi module.
-
-Mayavi
--------
-
-Mayavi seeks to provide easy and interactive visualization of 3-D data.
-It offers:
-
-- An (optional) rich user interface with dialogs to interact with all data
-  and objects in the visualization.
-- A simple and clean scripting interface in Python, including one-liners,
-  or an object-oriented programming interface.
-- The power of the VTK toolkit, harnessed through these interfaces, without
-  forcing you to learn it.
-
-Additionally Mayavi is a reusable tool that can be embedded in your
-applications in different ways or combined with the Envisage
-application-building framework to assemble domain-specific tools.
-
-Mayavi is a complete rewrite and far superior to `MayaVi1
-<http://mayavi.sf.net>`_ which is no longer maintained.
-
-TVTK
-----
-
-TVTK wraps VTK objects to provide a convenient, Pythonic API, while supporting
-Traits attributes and NumPy/SciPy arrays. TVTK is implemented mostly in pure
-Python, except for a small extension module.
-
-Developers typically use TVTK to write Mayavi modules, and then use Mayavi to
-interact with visualizations or create applications.
-
-Prerequisites
--------------
-You must have the following libraries installed before installing the Mayavi
-project:
-
-* `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.1.1 or later
-* `VTK <http://www.vtk.org/>`_ version 5.0 or later
-* One of the following GUI toolkit packages:
-    - `Qt <http://www.qt.io>`_ version 4.8 with either PyQt 4.11.4 or PySide 1.2.2
-    - `wxPython <http://www.wxpython.org/>`_ version 2.8 or later
-* `configobj <http://pypi.python.org/pypi/configobj>`_
-
-"""
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
 # numpy.distutils does the Wrong(TM) thing.
@@ -433,7 +374,6 @@ config['packages'] += packages
 
 
 # The actual setup call
-DOCLINES = __doc__.split("\n")
 numpy.distutils.core.setup(
     name='mayavi',
     version=info['__version__'],
@@ -469,7 +409,7 @@ numpy.distutils.core.setup(
         'gen_docs': GenDocs,
         'build_docs': BuildDocs,
         },
-    description=DOCLINES[1],
+    description='3D scientific data visualization library and application',
     download_url=('https://www.github.com/enthought/mayavi'),
     entry_points={
         'gui_scripts': [
@@ -494,7 +434,7 @@ numpy.distutils.core.setup(
     include_package_data=True,
     install_requires=info['__requires__'],
     license="BSD",
-    long_description='\n'.join(DOCLINES[3:]),
+    long_description=open('README.rst').read(),
     platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
     zip_safe=False,
     **config
