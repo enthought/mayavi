@@ -8,7 +8,15 @@
 import setuptools
 from setuptools import Command
 
-import numpy
+try:
+    import numpy
+    from numpy.distutils.command import build, install_data
+    from numpy.distutils.core import setup
+    HAS_NUMPY = True
+except ImportError:
+    HAS_NUMPY = False
+    from distutils.command import build, install_data
+    from distutils.core import setup
 import os
 import subprocess
 import shutil
@@ -18,11 +26,17 @@ import traceback
 from os.path import (abspath, basename, dirname, exists, getmtime, isdir,
                      join, split)
 
-from numpy.distutils.command import build, install_data
 from distutils.command import clean
 from distutils import log
 from setuptools.command import develop
 
+
+MODE = 'normal'
+if len(sys.argv) >= 2 and \
+   ('--help' in sys.argv[1:] or
+    sys.argv[1] in ('--help-commands', 'egg_info', '--version',
+                    'clean', 'sdist')):
+    MODE = 'info'
 
 info = {}
 fname = join('mayavi', '__init__.py')
@@ -357,8 +371,8 @@ def configuration(parent_package=None, top_path=None):
 # Similar to package_data, but installed before build
 build_package_data = {'mayavi.images': ['docs/source/mayavi/m2_about.jpg']}
 
-# Instal our data files at build time. This is iffy,
-# but we need to do this before distutils kick in.
+# Install our data files at build time. This is iffy,
+# but we need to do this before distutils kicks in.
 for package, files in build_package_data.items():
     target_path = package.replace('.', os.sep)
     for filename in files:
@@ -367,75 +381,90 @@ for package, files in build_package_data.items():
 
 # Build the full set of packages by appending any found by setuptools'
 # find_packages to those discovered by numpy.distutils.
-config = configuration().todict()
+if HAS_NUMPY:
+    config = configuration().todict()
+else:
+    # This is just a dummy so the egg_info command works.
+    config = {'packages': []}
 packages = setuptools.find_packages(exclude=config['packages'] +
                                     ['docs', 'examples'])
 config['packages'] += packages
 
 
+if MODE != 'info' and not HAS_NUMPY:
+    msg = '''
+    Numpy is required to build Mayavi correctly, please install it first.
+    '''
+    print('*'*80)
+    print(msg)
+    print('*'*80)
+    raise RuntimeError(msg)
+
+
 # The actual setup call
-numpy.distutils.core.setup(
-    name='mayavi',
-    version=info['__version__'],
-    author="Prabhu Ramachandran, et. al.",
-    author_email="prabhu@aero.iitb.ac.in",
-    maintainer='ETS Developers',
-    maintainer_email='mayavi-users@lists.sf.net',
-    url='http://docs.enthought.com/mayavi/mayavi/',
-    classifiers=[c.strip() for c in """\
-        Development Status :: 5 - Production/Stable
-        Intended Audience :: Developers
-        Intended Audience :: Science/Research
-        License :: OSI Approved :: BSD License
-        Operating System :: MacOS
-        Operating System :: Microsoft :: Windows
-        Operating System :: OS Independent
-        Operating System :: POSIX
-        Operating System :: Unix
-        Programming Language :: C
-        Programming Language :: Python
-        Topic :: Scientific/Engineering
-        Topic :: Software Development
-        Topic :: Software Development :: Libraries
-        """.splitlines() if len(c.split()) > 0],
-    cmdclass={
-        # Work around a numpy distutils bug by forcing the use of the
-        # setuptools' sdist command.
-        'sdist': setuptools.command.sdist.sdist,
-        'build': MyBuild,
-        'clean': MyClean,
-        'develop': MyDevelop,
-        'install_data': MyInstallData,
-        'gen_docs': GenDocs,
-        'build_docs': BuildDocs,
+if __name__ == '__main__':
+    setup(
+        name='mayavi',
+        version=info['__version__'],
+        author="Prabhu Ramachandran, et. al.",
+        author_email="prabhu@aero.iitb.ac.in",
+        maintainer='ETS Developers',
+        maintainer_email='mayavi-users@lists.sf.net',
+        url='http://docs.enthought.com/mayavi/mayavi/',
+        classifiers=[c.strip() for c in """\
+            Development Status :: 5 - Production/Stable
+            Intended Audience :: Developers
+            Intended Audience :: Science/Research
+            License :: OSI Approved :: BSD License
+            Operating System :: MacOS
+            Operating System :: Microsoft :: Windows
+            Operating System :: OS Independent
+            Operating System :: POSIX
+            Operating System :: Unix
+            Programming Language :: C
+            Programming Language :: Python
+            Topic :: Scientific/Engineering
+            Topic :: Software Development
+            Topic :: Software Development :: Libraries
+            """.splitlines() if len(c.split()) > 0],
+        cmdclass={
+            # Work around a numpy distutils bug by forcing the use of the
+            # setuptools' sdist command.
+            'sdist': setuptools.command.sdist.sdist,
+            'build': MyBuild,
+            'clean': MyClean,
+            'develop': MyDevelop,
+            'install_data': MyInstallData,
+            'gen_docs': GenDocs,
+            'build_docs': BuildDocs,
+            },
+        description='3D scientific data visualization library and application',
+        download_url=('https://www.github.com/enthought/mayavi'),
+        entry_points={
+            'gui_scripts': [
+                'mayavi2 = mayavi.scripts.mayavi2:main',
+                'tvtk_doc = tvtk.tools.tvtk_doc:main'
+                ],
+            'envisage.plugins': [
+                'tvtk.scene = tvtk.plugins.scene.scene_plugin:ScenePlugin',
+                'tvtk.scene_ui = tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
+                'tvtk.browser = tvtk.plugins.browser.browser_plugin:BrowserPlugin',
+                'mayavi = mayavi.plugins.mayavi_plugin:MayaviPlugin',
+                'mayavi_ui = mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
+                ],
+            'tvtk.toolkits': [
+                'qt4 = tvtk.pyface.ui.qt4.init:toolkit_object',
+                'qt = tvtk.pyface.ui.qt4.init:toolkit_object',
+                'wx = tvtk.pyface.ui.wx.init:toolkit_object',
+                'null = tvtk.pyface.ui.null.init:toolkit_object',
+            ]
         },
-    description='3D scientific data visualization library and application',
-    download_url=('https://www.github.com/enthought/mayavi'),
-    entry_points={
-        'gui_scripts': [
-            'mayavi2 = mayavi.scripts.mayavi2:main',
-            'tvtk_doc = tvtk.tools.tvtk_doc:main'
-            ],
-        'envisage.plugins': [
-            'tvtk.scene = tvtk.plugins.scene.scene_plugin:ScenePlugin',
-            'tvtk.scene_ui = tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
-            'tvtk.browser = tvtk.plugins.browser.browser_plugin:BrowserPlugin',
-            'mayavi = mayavi.plugins.mayavi_plugin:MayaviPlugin',
-            'mayavi_ui = mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
-            ],
-        'tvtk.toolkits': [
-            'qt4 = tvtk.pyface.ui.qt4.init:toolkit_object',
-            'qt = tvtk.pyface.ui.qt4.init:toolkit_object',
-            'wx = tvtk.pyface.ui.wx.init:toolkit_object',
-            'null = tvtk.pyface.ui.null.init:toolkit_object',
-        ]
-    },
-    extras_require=info['__extras_require__'],
-    include_package_data=True,
-    install_requires=info['__requires__'],
-    license="BSD",
-    long_description=open('README.rst').read(),
-    platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
-    zip_safe=False,
-    **config
-)
+        extras_require=info['__extras_require__'],
+        include_package_data=True,
+        install_requires=info['__requires__'],
+        license="BSD",
+        long_description=open('README.rst').read(),
+        platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
+        zip_safe=False,
+        **config
+    )
