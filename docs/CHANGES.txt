@@ -20,7 +20,7 @@ version of Mayavi that can be installed via ``pip install mayavi``.
 
 19 Jul 2017 `#528 <https://github.com/enthought/mayavi/pull/528>`_ (PR)
    - Qt5 support. This is critical for Python 3.x as this is the only toolkit
-     that works with Python 3.x.
+     that *currently* works reliably with Python 3.x and ETS.
 
 Fixes
 -----
