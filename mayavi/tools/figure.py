@@ -300,7 +300,9 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
     """
     if figure is None:
         figure = gcf()
-    x, y = tuple(figure.scene.get_size())
+    # don't use figure.scene.get_size() here because this will be incorrect
+    # for HiDPI systems
+    x, y = tuple(figure.scene.render_window.size)
 
     # Try to lift the window
     figure.scene._lift()
