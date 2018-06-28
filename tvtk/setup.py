@@ -4,18 +4,36 @@
 #
 from __future__ import print_function
 
-import os, sys
+import os
+import sys
+
+
+def can_compile_extensions():
+    from distutils.dist import Distribution
+    sargs = {'script_name': None, 'script_args': ["--build-ext"]}
+    d = Distribution(sargs)
+    cfg = d.get_command_obj('config')
+    cfg.dump_source = 0
+    cfg.noisy = 0
+    cfg.finalize_options()
+    build_ext = d.get_command_obj('build_ext')
+    build_ext.finalize_options()
+    return cfg.try_compile(
+        'int main(void) {return 0;}',
+        headers=['Python.h'],
+        include_dirs=build_ext.include_dirs,
+        lang='c'
+    )
 
 
 def configuration(parent_package=None, top_path=None):
     from os.path import join
     from numpy.distutils.misc_util import Configuration
-    config = Configuration('tvtk',parent_package,top_path)
+    config = Configuration('tvtk', parent_package, top_path)
     config.set_options(ignore_setup_xxx_py=True,
                        assume_default_configuration=True,
                        delegate_options_to_subpackages=True,
                        quiet=True)
-
 
     config.add_subpackage('custom')
     config.add_subpackage('pipeline')
@@ -37,15 +55,18 @@ def configuration(parent_package=None, top_path=None):
 
     config.add_subpackage('tests')
 
-    # Numpy support.
-    config.add_extension('array_ext',
-                         sources = [join('src','array_ext.c')],
-                         depends = [join('src','array_ext.pyx')],
-                         )
+    # Add any extensions.  These are optional.
+    if can_compile_extensions():
+        config.add_extension(
+            'array_ext',
+            sources=[join('src', 'array_ext.c')],
+            depends=[join('src', 'array_ext.pyx')],
+        )
 
     tvtk_classes_zip_depends = config.paths(
-        'code_gen.py','wrapper_gen.py', 'special_gen.py',
-        'tvtk_base.py', 'indenter.py', 'vtk_parser.py')
+        'code_gen.py', 'wrapper_gen.py', 'special_gen.py',
+        'tvtk_base.py', 'indenter.py', 'vtk_parser.py'
+    )
 
     return config
 

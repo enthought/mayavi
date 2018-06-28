@@ -25,7 +25,12 @@ except ImportError:
 import numpy
 
 # Enthought library imports.
-from tvtk.array_ext import set_id_type_array
+try:
+    from tvtk.array_ext import set_id_type_array
+    HAS_ARRAY_EXT = True
+except ImportError:
+    HAS_ARRAY_EXT = False
+
 from tvtk.common import is_old_pipeline
 
 # Useful constants for VTK arrays.
@@ -48,8 +53,45 @@ BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 if sys.version_info[0] > 2:
     unicode = str
 
+
 def getbuffer(array):
     return getattr(numpy, 'getbuffer', memoryview)(array)
+
+
+def set_id_type_array_py(id_array, out_array):
+    """Given a 2D Int array (`id_array`), and a contiguous 1D numarray array
+    (`out_array`) having the correct size, this function sets the data from
+    `id_array` into `out_array` so that it can be used in place of a
+    `vtkIdTypeArray` in order to set the cells of a `vtkCellArray`.
+
+    Note that if `shape = id_array.shape` then `size(out_array) ==
+    shape[0]*(shape[1] + 1)` should be true. If not you'll get an
+    `AssertionError`.
+
+    `id_array` need not be contiguous but `out_array` must be.
+
+    """
+    assert numpy.issubdtype(id_array.dtype, numpy.signedinteger)
+    assert out_array.flags.contiguous == 1, \
+        "out_array must be contiguous."
+    shp = id_array.shape
+    assert len(shp) == 2, "id_array must be a two dimensional array."
+    sz = numpy.size(out_array)
+    e_sz = shp[0]*(shp[1]+1)
+    assert sz == e_sz, \
+        "out_array size is incorrect, expected: %s, given: %s" % (e_sz, sz)
+
+    # numpy.insert does the trick for us albeit slower than our Cython
+    # implementation (by as much as 4x).
+    res = numpy.insert(id_array, 0, shp[1], axis=1)
+    if len(out_array.shape) > 1:
+        out_array[:] = res
+    else:
+        out_array[:] = res.ravel()
+
+
+if not HAS_ARRAY_EXT:
+    set_id_type_array = set_id_type_array_py
 
 
 ######################################################################
