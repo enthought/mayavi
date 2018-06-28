@@ -47,7 +47,7 @@ def browser_open(url):
             webbrowser.open(url, autoraise=1)
 
 
-def open_help_index():
+def open_help_index(*args):
     """ Open the mayavi user manual index in a browser.
     """
     # If the HTML_DIR was found, bring up the documentation in a
@@ -56,15 +56,15 @@ def open_help_index():
         auto_close_message("Opening help in web browser...")
         browser_open(join(HTML_DIR, 'index.html'))
     else:
-        error("Could not find the user guide in your installation " \
-            "or the source tree.")
+        browser_open('https://docs.enthought.com/mayavi/mayavi/')
 
 
-def open_tvtk_docs():
+def open_tvtk_docs(*args):
     """ Open the TVTK class browser.
     """
     from tvtk.tools.tvtk_doc import TVTKClassChooser
     TVTKClassChooser().edit_traits()
+
 
 ######################################################################
 # `HelpIndex` class.
@@ -102,4 +102,3 @@ class TVTKClassBrowser(Action):
     def perform(self, event):
         """ Performs the action. """
         open_tvtk_docs()
-
