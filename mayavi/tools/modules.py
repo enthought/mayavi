@@ -345,15 +345,23 @@ class StreamlineFactory(DataModuleFactory):
             desc="The direction of the integration.",
             )
 
+    def _anytrait_changed(self, name, value):
+        if name == 'seed_visible' and self._target.scene is None:
+            pass
+        else:
+            super(StreamlineFactory, self)._anytrait_changed(name, value)
+
     def _seedtype_changed(self):
         # XXX: this also acts for seed_scale and seed_resolution, but no
         # need to define explicit callbacks, as all the callbacks are
         # being called anyhow.
         self._target.seed.widget = widget = \
                             self._target.seed.widget_list[self.seedtype_]
+        scene = self._target.scene
 
         if not self.seed_scale == 1.:
-            widget.enabled = True
+            if scene is not None:
+                widget.enabled = True
             if self.seedtype == 'line':
                 p1 = widget.point1
                 p2 = widget.point2
@@ -375,10 +383,12 @@ class StreamlineFactory(DataModuleFactory):
             # propagate changes.
             self._target.seed.stop()
             self._target.seed.start()
-            widget.enabled = self.seed_visible
+            if scene is not None:
+                widget.enabled = self.seed_visible
 
         if self.seed_resolution is not None:
-            widget.enabled = True
+            if scene is not None:
+                widget.enabled = True
             if self.seedtype in ('plane', 'line'):
                 widget.resolution = self.seed_resolution
             elif self.seedtype == 'sphere':
@@ -389,7 +399,8 @@ class StreamlineFactory(DataModuleFactory):
             # propagate changes.
             self._target.seed.stop()
             self._target.seed.start()
-            widget.enabled = self.seed_visible
+            if scene is not None:
+                widget.enabled = self.seed_visible
 
 
 streamline = make_function(StreamlineFactory)
