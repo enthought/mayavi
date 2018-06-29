@@ -47,6 +47,8 @@ if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
 elif qt_api == 'pyqt5':
     PyQtImpl = "PyQt5"
+elif qt_api == 'pyside2':
+    PyQtImpl = "PySide2"
 else:
     PyQtImpl = "PySide"
 
@@ -82,6 +84,15 @@ elif PyQtImpl == "PySide":
         from PySide.QtOpenGL import QGLWidget
     from PySide.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
     from PySide.QtCore import Qt, QTimer, QObject, QSize, QEvent
+elif PyQtImpl == "PySide2":
+    if QVTKRWIBase == "QGLWidget":
+        try:
+            from PySide2.QtWidgets import QOpenGLWidget as QGLWidget
+        except:
+            from PySide2.QtOpenGL import QGLWidget
+    from PySide2.QtWidgets import QWidget, QSizePolicy, QApplication
+    from PySide2.QtGui import QWheelEvent
+    from PySide2.QtCore import Qt, QTimer, QObject, QSize, QEvent
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
 
