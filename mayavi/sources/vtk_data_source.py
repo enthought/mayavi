@@ -10,21 +10,24 @@ import sys
 import os
 import tempfile
 
+import numpy as np
+
 # Enthought library imports.
 from traits.api import Instance, List, Str, Bool, Int
 from traitsui.api import View, Group, Item
 from apptools.persistence.state_pickler \
      import gzip_string, gunzip_string, set_state
-from tvtk.api import tvtk
-from tvtk import messenger
 
 # Local imports.
+from tvtk.api import tvtk
+from tvtk import messenger
+from tvtk.array_handler import array2vtk
 from tvtk.common import is_old_pipeline, configure_input_data
 from mayavi.core.source import Source
 from mayavi.core.common import handle_children_state
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.pipeline_info import (PipelineInfo,
-        get_tvtk_dataset_name)
+                                       get_tvtk_dataset_name)
 from .utils import has_attributes
 from .vtk_xml_file_reader import get_all_attributes
 
@@ -218,6 +221,68 @@ class VTKDataSource(Source):
         if has_attributes(self.data):
             self._assign_attribute.update()
 
+    def add_attribute(self, array, name, category='point'):
+        """Add an attribute to the dataset to specified category ('point' or
+        'cell').
+
+        One may add a scalar, vector (3/4 components) or a tensor (9 components).
+
+        Note that it is the user's responsibility to set the correct size of
+        the arrays.
+
+        Parameters
+        ----------
+
+        array: numpy array/list : array data to add.
+
+        name: str: name of the array.
+
+        category: 'point'/'cell': the category of the attribute data.
+
+        """
+        array = np.asarray(array)
+        assert len(array.shape) <= 2, "Only 2D arrays can be added."
+        data = getattr(self.data, '%s_data' % category)
+        if len(array.shape) == 2:
+            assert array.shape[1] in [1, 3, 4, 9], \
+                    "Only Nxm arrays where (m in [1,3,4,9]) are supported"
+            va = tvtk.to_tvtk(array2vtk(array))
+            va.name = name
+            data.add_array(va)
+            mapping = {1: 'scalars', 3: 'vectors', 4: 'scalars',
+                       9: 'tensors'}
+            attribute = '_%s_%s_list' % (category, mapping[array.shape[1]])
+        else:
+            va = tvtk.to_tvtk(array2vtk(array))
+            va.name = name
+            data.add_array(va)
+            attribute = '_%s_scalars_list' % category
+        names = set(getattr(self, attribute) + [name])
+        setattr(self, attribute, sorted(names))
+
+    def remove_attribute(self, name, category='point'):
+        """Remove an attribute by its name and optional category (point and
+        cell).  Returns the removed array.
+        """
+        type = self._find_array_list(name, category)
+        data = getattr(self.data, '%s_data' % category)
+        data.remove_array(name)
+        attr_list = getattr(self, '%s_%s_list' % (category, type))
+        return attr_list.remove(name)
+
+    def rename_attribute(self, name1, name2, category='point'):
+        """Rename a particular attribute from `name1` to `name2`.
+        """
+        type = self._find_array_list(name1, category)
+        data = getattr(self.data, '%s_data' % category)
+        arr = data.get_array(name1)
+        arr.name = name2
+        attribute = '%s_%s_list' % (category, type)
+        attr_list = getattr(self, attribute)
+        attr_list.remove(name1)
+        attr_list.append(name2)
+        setattr(self, attribute, sorted(attr_list))
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -359,7 +424,19 @@ class VTKDataSource(Source):
         ret = "VTK Data (uninitialized)"
         if self.data is not None:
             typ = self.data.__class__.__name__
-            ret = "VTK Data (%s)"%typ
+            ret = "VTK Data (%s)" % typ
         if '[Hidden]' in self.name:
             ret += ' [Hidden]'
         return ret
+
+    def _find_array_list(self, name, category='point'):
+        """Return information on which kind of attribute contains the
+        specified named array in a particular category."""
+        types = ['scalars', 'vectors', 'tensors']
+        for type in types:
+            attr = '%s_%s_list' % (category, type)
+            names = getattr(self, attr)
+            if name in names:
+                return type
+        raise KeyError('No %s array named %s available in dataset'
+                       % (category, name))
