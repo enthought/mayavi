@@ -267,7 +267,7 @@ class VTKDataSource(Source):
         type = self._find_array_list(name, category)
         data = getattr(self.data, '%s_data' % category)
         data.remove_array(name)
-        attr_list = getattr(self, '%s_%s_list' % (category, type))
+        attr_list = getattr(self, '_%s_%s_list' % (category, type))
         return attr_list.remove(name)
 
     def rename_attribute(self, name1, name2, category='point'):
@@ -277,7 +277,7 @@ class VTKDataSource(Source):
         data = getattr(self.data, '%s_data' % category)
         arr = data.get_array(name1)
         arr.name = name2
-        attribute = '%s_%s_list' % (category, type)
+        attribute = '_%s_%s_list' % (category, type)
         attr_list = getattr(self, attribute)
         attr_list.remove(name1)
         attr_list.append(name2)
@@ -434,7 +434,7 @@ class VTKDataSource(Source):
         specified named array in a particular category."""
         types = ['scalars', 'vectors', 'tensors']
         for type in types:
-            attr = '%s_%s_list' % (category, type)
+            attr = '_%s_%s_list' % (category, type)
             names = getattr(self, attr)
             if name in names:
                 return type
