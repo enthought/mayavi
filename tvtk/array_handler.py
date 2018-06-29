@@ -76,18 +76,18 @@ def set_id_type_array_py(id_array, out_array):
         "out_array must be contiguous."
     shp = id_array.shape
     assert len(shp) == 2, "id_array must be a two dimensional array."
-    sz = numpy.size(out_array)
+    sz = out_array.size
     e_sz = shp[0]*(shp[1]+1)
     assert sz == e_sz, \
         "out_array size is incorrect, expected: %s, given: %s" % (e_sz, sz)
 
-    # numpy.insert does the trick for us albeit slower than our Cython
-    # implementation (by as much as 4x).
-    res = numpy.insert(id_array, 0, shp[1], axis=1)
-    if len(out_array.shape) > 1:
-        out_array[:] = res
-    else:
-        out_array[:] = res.ravel()
+    # we are guaranteed contiguous, so these just change the view (no copy)
+    out_shp = out_array.shape
+    out_array.shape = (shp[0], shp[1] + 1)
+    out_array[:, 0] = shp[1]
+    out_array[:, 1:] = id_array
+    out_array.shape = out_shp
+
 
 
 if not HAS_ARRAY_EXT:
