@@ -14,7 +14,7 @@ from traits.api import (Instance, Trait, Str, Bool, Button, DelegatesTo, List,
                         Int)
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
-from tvtk import array_handler
+from tvtk.array_handler import array2vtk, get_vtk_array_type
 from tvtk.common import is_old_pipeline
 from tvtk.vtk_module import VTK_MAJOR_VERSION
 
@@ -22,37 +22,41 @@ from tvtk.vtk_module import VTK_MAJOR_VERSION
 from mayavi.core.source import Source
 from mayavi.core.pipeline_info import PipelineInfo
 
+
 def _check_scalar_array(obj, name, value):
     """Validates a scalar array passed to the object."""
     if value is None:
         return None
     arr = numpy.asarray(value)
-    assert len(arr.shape) in [2,3], "Scalar array must be 2 or 3 dimensional"
+    assert len(arr.shape) in [2, 3], "Scalar array must be 2 or 3 dimensional"
     vd = obj.vector_data
     if vd is not None:
         assert vd.shape[:-1] == arr.shape, \
                "Scalar array must match already set vector data.\n"\
-               "vector_data.shape = %s, given array shape = %s"%(vd.shape,
-                                                                 arr.shape)
+               "vector_data.shape = %s, given array shape = %s" % (vd.shape,
+                                                                   arr.shape)
     return arr
 
+
 _check_scalar_array.info = 'a 2D or 3D numpy array'
+
 
 def _check_vector_array(obj, name, value):
     """Validates a vector array passed to the object."""
     if value is None:
         return None
     arr = numpy.asarray(value)
-    assert len(arr.shape) in [3,4], "Vector array must be 3 or 4 dimensional"
+    assert len(arr.shape) in [3, 4], "Vector array must be 3 or 4 dimensional"
     assert arr.shape[-1] == 3, \
-           "The vectors must be three dimensional with `array.shape[-1] == 3`"
+        "The vectors must be three dimensional with `array.shape[-1] == 3`"
     sd = obj.scalar_data
     if sd is not None:
         assert arr.shape[:-1] == sd.shape, \
                "Vector array must match already set scalar data.\n"\
-               "scalar_data.shape = %s, given array shape = %s"%(sd.shape,
-                                                                 arr.shape)
+               "scalar_data.shape = %s, given array shape = %s" % (sd.shape,
+                                                                   arr.shape)
     return arr
+
 
 _check_vector_array.info = 'a 3D or 4D numpy array with shape[-1] = 3'
 
@@ -97,8 +101,8 @@ class ArraySource(Source):
     # Use an ImageChangeInformation filter to reliably set the
     # spacing and origin on the output
     change_information_filter = Instance(tvtk.ImageChangeInformation, args=(),
-                                         kw={'output_spacing' : (1.0, 1.0, 1.0),
-                                             'output_origin' : (0.0, 0.0, 0.0)})
+                                         kw={'output_spacing': (1.0, 1.0, 1.0),
+                                             'output_origin': (0.0, 0.0, 0.0)})
 
     # Should we transpose the input data or not.  Transposing is
     # necessary to make the numpy array compatible with the way VTK
@@ -107,7 +111,11 @@ class ArraySource(Source):
     # user explicitly requests that transpose_input_array is false
     # then we assume that the array has already been suitably
     # formatted by the user.
-    transpose_input_array = Bool(True, desc='if input array should be transposed (if on VTK will copy the input data)')
+    transpose_input_array = Bool(
+        True,
+        desc='if input array should be transposed (if True '
+        'VTK will copy the input data)'
+    )
 
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['image_data'])
@@ -142,7 +150,7 @@ class ArraySource(Source):
         if vd is not None:
             self.vector_data = vd
 
-        self.outputs = [ self.change_information_filter.output ]
+        self.outputs = [self.change_information_filter.output]
         self.on_trait_change(self._information_changed, 'spacing,origin')
 
     def __get_pure_state__(self):
@@ -165,6 +173,50 @@ class ArraySource(Source):
             pd.vectors.modified()
         self.change_information_filter.update()
         self.data_changed = True
+
+    def add_attribute(self, array, name, category='point'):
+        """Add an attribute to the dataset to specified category ('point' or
+        'cell').
+
+        One may add a scalar, vector (3/4 components) or a tensor (9
+        components).
+
+        Note that it is the user's responsibility to set the correct size of
+        the arrays. Also no automatic transposing of the data is done.
+
+        Parameters
+        ----------
+
+        array: numpy array/list : array data to add.
+
+        name: str: name of the array.
+
+        category: 'point'/'cell': the category of the attribute data.
+
+        """
+        array = numpy.asarray(array)
+        assert len(array.shape) <= 2, "Only 2D arrays can be added."
+        data = getattr(self.image_data, '%s_data' % category)
+        if len(array.shape) == 2:
+            assert array.shape[1] in [1, 3, 4, 9], \
+                    "Only N x m arrays where (m in [1,3,4,9]) are supported"
+        va = tvtk.to_tvtk(array2vtk(array))
+        va.name = name
+        data.add_array(va)
+
+    def remove_attribute(self, name, category='point'):
+        """Remove an attribute by its name and optional category (point and
+        cell).  Returns the removed array.
+        """
+        data = getattr(self.image_data, '%s_data' % category)
+        data.remove_array(name)
+
+    def rename_attribute(self, name1, name2, category='point'):
+        """Rename a particular attribute from `name1` to `name2`.
+        """
+        data = getattr(self.image_data, '%s_data' % category)
+        arr = data.get_array(name1)
+        arr.name = name2
 
     ######################################################################
     # Non-public interface.
@@ -203,12 +255,12 @@ class ArraySource(Source):
         # This is very important and if not done can lead to a segfault!
         typecode = data.dtype
         if is_old_pipeline():
-            img_data.scalar_type = array_handler.get_vtk_array_type(typecode)
+            img_data.scalar_type = get_vtk_array_type(typecode)
             img_data.update() # This sets up the extents correctly.
         else:
             filter_out_info = self.change_information_filter.get_output_information(0)
             img_data.set_point_data_active_scalar_info(filter_out_info,
-                    array_handler.get_vtk_array_type(typecode), -1)
+                                                       get_vtk_array_type(typecode), -1)
             img_data.modified()
         img_data.update_traits()
         self.change_information_filter.update()
