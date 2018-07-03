@@ -12,6 +12,7 @@ application with a compatible UI (Qt or wxPython).
 
 
 # Mayavi imports
+from mayavi.core.common import process_ui_events
 from mayavi.tools.camera import view, roll, yaw, pitch, move
 from mayavi.tools.figure import figure, clf, gcf, savefig, \
     draw, sync_camera, close, screenshot
