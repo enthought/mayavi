@@ -37,14 +37,7 @@ def browser_open(url):
             os.system('open %s &' % url)
     else:
         import webbrowser
-        if webbrowser._iscommand('firefox') and \
-                        preference_manager.root.open_help_in_light_browser:
-            # Firefox is installed, let's use it, we know how to make it
-            # chromeless.
-            firefox = webbrowser.get('firefox')
-            firefox._invoke(['-chrome', url], remote=False, autoraise=True)
-        else:
-            webbrowser.open(url, autoraise=1)
+        webbrowser.open(url, autoraise=1)
 
 
 def open_help_index(*args):
