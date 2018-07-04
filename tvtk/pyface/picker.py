@@ -104,7 +104,7 @@ class DefaultPickHandler(PickHandler):
     coordinate = Trait(None, None, Array('d', (3,)),
                        desc='the coordinate of the picked point')
 
-    scalar = Trait(None, None, Float, desc='the scalar at picked point')
+    scalar = Trait(None, None, Array, Float, desc='the scalar at picked point')
 
     vector = Trait(None, None, Array('d', (3,)),
                    desc='the vector at picked point')
@@ -398,7 +398,7 @@ class Picker(HasTraits):
                 probe.set_input_data(self.probe_data)
             else:
                 probe.source = data
-                probe.input = self.probe_data            
+                probe.input = self.probe_data
             probe.update()
             data = probe.output.point_data
             bounds = cp.mapper.input.bounds
