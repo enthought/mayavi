@@ -467,7 +467,7 @@ class Text(ModuleFactory):
         if 'z' in kwargs and kwargs['z'] is not None:
             self._target.z_position = kwargs['z']
             self._target.position_in_3d = True
-        elif not (x < 1. and x > 0. and y > 0. and y < 1.):
+        elif not (x <= 1. and x >= 0. and y >= 0. and y <= 1.):
             raise ValueError('Text positions should be in [0, 1] if no z'
                 'position is given')
         super(Text, self).__init__(None, **kwargs)
