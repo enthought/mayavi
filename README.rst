@@ -9,9 +9,13 @@ TVTK docs: http://docs.enthought.com/mayavi/tvtk
    :target: https://travis-ci.org/enthought/mayavi
    :alt: Build status
 
+.. image:: https://ci.appveyor.com/api/projects/status/lnb24gj70yidfnrl/branch/master?svg=true
+   :target: https://ci.appveyor.com/project/EnthoughtOSS/mayavi
+   :alt: Appveyor build status
+
 .. image:: http://codecov.io/github/enthought/mayavi/coverage.svg?branch=master
    :target: http://codecov.io/github/enthought/mayavi?branch=master
-
+   :alt: Code coverage status
 
 Vision
 ======
