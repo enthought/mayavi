@@ -28,7 +28,7 @@ from .auto_doc import traits_doc, dedent
 from . import tools
 from traits.api import Array, Callable, CFloat, HasTraits, \
     List, Trait, Any, Instance, TraitError, true
-import numpy
+import numpy as np
 
 
 def document_pipeline(pipeline):
@@ -187,14 +187,12 @@ points3d = document_pipeline(Points3d())
 
 
 def test_points3d():
-    t = numpy.linspace(0, 4 * numpy.pi, 20)
-    cos = numpy.cos
-    sin = numpy.sin
+    t = np.linspace(0, 4 * np.pi, 20)
 
-    x = sin(2 * t)
-    y = cos(t)
-    z = cos(2 * t)
-    s = 2 + sin(t)
+    x = np.sin(2 * t)
+    y = np.cos(t)
+    z = np.cos(2 * t)
+    s = 2 + np.sin(t)
 
     return points3d(x, y, z, s, colormap="copper", scale_factor=.25)
 
@@ -202,26 +200,26 @@ def test_points3d():
 def test_points3d_anim(obj=None):
     """Animates the test_points3d example."""
     g = obj if obj is not None else test_points3d()
-    t = numpy.linspace(0, 4 * numpy.pi, 20)
+    t = np.linspace(0, 4 * np.pi, 20)
     # Animate the points3d.
     ms = g.mlab_source
     for i in range(10):
-        ms.z = numpy.cos(2 * t * 0.1 * (i + 1))
+        ms.z = np.cos(2 * t * 0.1 * (i + 1))
         yield
 
 
 def test_molecule():
     """Generates and shows a Caffeine molecule."""
     o = [[30, 62, 19], [8, 21, 10]]
-    ox, oy, oz = list(map(numpy.array, zip(*o)))
+    ox, oy, oz = list(map(np.array, zip(*o)))
     n = [[31, 21, 11], [18, 42, 14], [55, 46, 17], [56, 25, 13]]
-    nx, ny, nz = list(map(numpy.array, zip(*n)))
+    nx, ny, nz = list(map(np.array, zip(*n)))
     c = [[5, 49, 15], [30, 50, 16], [42, 42, 15], [43, 29, 13], [18, 28, 12],
          [32, 6, 8], [63, 36, 15], [59, 60, 20]]
-    cx, cy, cz = list(map(numpy.array, zip(*c)))
+    cx, cy, cz = list(map(np.array, zip(*c)))
     h = [[23, 5, 7], [32, 0, 16], [37, 5, 0], [73, 36, 16], [69, 60, 20],
          [54, 62, 28], [57, 66, 12], [6, 59, 16], [1, 44, 22], [0, 49, 6]]
-    hx, hy, hz = list(map(numpy.array, zip(*h)))
+    hx, hy, hz = list(map(np.array, zip(*h)))
 
     oxygen = points3d(ox, oy, oz, scale_factor=16, scale_mode='none',
                                 resolution=20, color=(1, 0, 0), name='Oxygen')
@@ -275,27 +273,25 @@ quiver3d = document_pipeline(Quiver3D())
 
 
 def test_quiver3d():
-    x, y, z = numpy.mgrid[-2:3, -2:3, -2:3]
-    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 4)
-    u = y * numpy.sin(r) / (r + 0.001)
-    v = -x * numpy.sin(r) / (r + 0.001)
-    w = numpy.zeros_like(z)
+    x, y, z = np.mgrid[-2:3, -2:3, -2:3]
+    r = np.sqrt(x ** 2 + y ** 2 + z ** 4)
+    u = y * np.sin(r) / (r + 0.001)
+    v = -x * np.sin(r) / (r + 0.001)
+    w = np.zeros_like(z)
     obj = quiver3d(x, y, z, u, v, w, line_width=3, scale_factor=1)
     return obj
 
 
 def test_quiver3d_cone():
     xmin, xmax, ymin, ymax, zmin, zmax = [-5, 5, -5, 5, -5, 5]
-    x, y, z = numpy.mgrid[-5:5:8j, -5:5:8j, -5:5:8j]
+    x, y, z = np.mgrid[-5:5:8j, -5:5:8j, -5:5:8j]
     x = x.astype('f')
     y = y.astype('f')
     z = z.astype('f')
 
-    sin = numpy.sin
-    cos = numpy.cos
-    u = cos(x)
-    v = sin(y)
-    w = sin(x * z)
+    u = np.cos(x)
+    v = np.sin(y)
+    w = np.sin(x * z)
 
     obj = quiver3d(x, y, z, u, v, w, mode='cone', extent=(0, 1, 0, 1, 0, 1),
                    scale_factor=0.9)
@@ -306,16 +302,14 @@ def test_quiver3d_cone():
 def test_quiver3d_2d_data():
     dims = [32, 32]
     xmin, xmax, ymin, ymax = [-5, 5, -5, 5]
-    x, y = numpy.mgrid[xmin:xmax:dims[0] * 1j,
-                       ymin:ymax:dims[1] * 1j]
+    x, y = np.mgrid[xmin:xmax:dims[0] * 1j,
+                    ymin:ymax:dims[1] * 1j]
     x = x.astype('f')
     y = y.astype('f')
 
-    sin = numpy.sin
-    cos = numpy.cos
-    u = cos(x)
-    v = sin(y)
-    w = numpy.zeros_like(x)
+    u = np.cos(x)
+    v = np.sin(y)
+    w = np.zeros_like(x)
 
     return quiver3d(x, y, w, u, v, w, colormap="Purples",
                                 scale_factor=0.5, mode="2dthick_arrow")
@@ -374,11 +368,11 @@ flow = document_pipeline(Flow())
 
 
 def test_flow():
-    x, y, z = numpy.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]
-    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)
-    u = y * numpy.sin(r) / r
-    v = -x * numpy.sin(r) / r
-    w = numpy.ones_like(z)*0.05
+    x, y, z = np.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]
+    r = np.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)
+    u = y * np.sin(r) / r
+    v = -x * np.sin(r) / r
+    w = np.ones_like(z)*0.05
     obj = flow(u, v, w)
     return obj
 
@@ -386,18 +380,16 @@ def test_flow():
 def test_flow_tubes():
     dims = [32, 32, 32]
     xmin, xmax, ymin, ymax, zmin, zmax = [-5, 5, -5, 5, -5, 5]
-    x, y, z = numpy.mgrid[xmin:xmax:dims[0] * 1j,
-                          ymin:ymax:dims[1] * 1j,
-                          zmin:zmax:dims[2] * 1j]
+    x, y, z = np.mgrid[xmin:xmax:dims[0] * 1j,
+                       ymin:ymax:dims[1] * 1j,
+                       zmin:zmax:dims[2] * 1j]
     x = x.astype('f')
     y = y.astype('f')
     z = z.astype('f')
 
-    sin = numpy.sin
-    cos = numpy.cos
-    u = cos(x / 2.)
-    v = sin(y / 2.)
-    w = sin(x * z / 4.)
+    u = np.cos(x / 2.)
+    v = np.sin(y / 2.)
+    w = np.sin(x * z / 4.)
 
     obj = flow(x, y, z, u, v, w, linetype='tube')
     return obj
@@ -410,8 +402,8 @@ def test_flow_anim(obj=None):
     ms = obj.mlab_source
     x, y, z = ms.x, ms.y, ms.z
     for i in range(10):
-        u = numpy.cos(x / 2. + numpy.pi * (i + 1) / 10.)
-        w = numpy.sin(x * z / 4. + numpy.pi * (i + 1) / 10.)
+        u = np.cos(x / 2. + np.pi * (i + 1) / 10.)
+        w = np.sin(x * z / 4. + np.pi * (i + 1) / 10.)
         ms.trait_set(u=u, w=w)
         yield
 
@@ -419,18 +411,16 @@ def test_flow_anim(obj=None):
 def test_flow_scalars():
     dims = [32, 32, 32]
     xmin, xmax, ymin, ymax, zmin, zmax = [-5, 5, -5, 5, -5, 5]
-    x, y, z = numpy.mgrid[xmin:xmax:dims[0] * 1j,
-                          ymin:ymax:dims[1] * 1j,
-                          zmin:zmax:dims[2] * 1j]
+    x, y, z = np.mgrid[xmin:xmax:dims[0] * 1j,
+                       ymin:ymax:dims[1] * 1j,
+                       zmin:zmax:dims[2] * 1j]
     x = x.astype('f')
     y = y.astype('f')
     z = z.astype('f')
 
-    sin = numpy.sin
-    cos = numpy.cos
-    u = cos(x / 2.)
-    v = sin(y / 2.)
-    w = sin(x * z / 8.)
+    u = np.cos(x / 2.)
+    v = np.sin(y / 2.)
+    w = np.sin(x * z / 8.)
     t = x * z
 
     obj = flow(u, v, w, scalars=t, seedtype='plane',
@@ -468,7 +458,7 @@ contour3d = document_pipeline(Contour3d())
 
 
 def test_contour3d():
-    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
+    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
 
     scalars = x * x * 0.5 + y * y + z * z * 2.0
 
@@ -479,7 +469,7 @@ def test_contour3d():
 @animate
 def test_contour3d_anim(obj=None):
     obj = obj if obj is not None else test_contour3d()
-    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
+    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
     # Now animate the contours.
     ms = obj.mlab_source
     for i in range(1, 10):
@@ -517,7 +507,7 @@ volume_slice = document_pipeline(VolumeSlice())
 
 
 def test_volume_slice():
-    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
+    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
 
     scalars = x * x * 0.5 + y * y + z * z * 2.0
 
@@ -528,7 +518,7 @@ def test_volume_slice():
 @animate
 def test_volume_slice_anim(obj=None):
     obj = obj if obj is not None else test_volume_slice()
-    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
+    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
     # Now animate the contours.
     ms = obj.mlab_source
     for i in range(1, 10):
@@ -581,15 +571,14 @@ plot3d = document_pipeline(Plot3d())
 def test_plot3d():
     """Generates a pretty set of lines."""
     n_mer, n_long = 6, 11
-    pi = numpy.pi
-    dphi = pi / 1000.0
-    phi = numpy.arange(0.0, 2 * pi + 0.5 * dphi, dphi)
+    dphi = np.pi / 1000.0
+    phi = np.arange(0.0, 2 * np.pi + 0.5 * dphi, dphi)
     mu = phi * n_mer
-    x = numpy.cos(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)
-    y = numpy.sin(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)
-    z = numpy.sin(n_long * mu / n_mer) * 0.5
+    x = np.cos(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)
+    y = np.sin(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)
+    z = np.sin(n_long * mu / n_mer) * 0.5
 
-    l = plot3d(x, y, z, numpy.sin(mu), tube_radius=0.025, colormap='Spectral')
+    l = plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap='Spectral')
     return l
 
 @animate
@@ -601,17 +590,16 @@ def test_plot3d_anim(obj=None):
 
     # Some data from the test example for the animation.
     n_mer, n_long = 6, 11
-    pi = numpy.pi
-    dphi = pi / 1000.0
-    phi = numpy.arange(0.0, 2 * pi + 0.5 * dphi, dphi, 'd')
+    dphi = np.pi / 1000.0
+    phi = np.arange(0.0, 2 * np.pi + 0.5 * dphi, dphi, 'd')
     mu = phi * n_mer
 
     # Now animate the data.
     ms = obj.mlab_source
     for i in range(10):
-        x = numpy.cos(mu) * (1 + numpy.cos(n_long * mu / n_mer +
-                                          numpy.pi * (i + 1) / 5.) * 0.5)
-        scalars = numpy.sin(mu + numpy.pi * (i + 1) / 5)
+        x = np.cos(mu) * (1 + np.cos(n_long * mu / n_mer +
+                                     np.pi * (i + 1) / 5.) * 0.5)
+        scalars = np.sin(mu + np.pi * (i + 1) / 5)
         ms.trait_set(x=x, scalars=scalars)
         yield
 
@@ -638,7 +626,7 @@ imshow = document_pipeline(ImShow())
 def test_imshow():
     """ Use imshow to visualize a 2D 10x10 random array.
     """
-    s = numpy.random.random((10, 10))
+    s = np.random.random((10, 10))
     return imshow(s, colormap='gist_earth')
 
 
@@ -772,8 +760,8 @@ surf = document_pipeline(Surf())
 
 def test_simple_surf():
     """Test Surf with a simple collection of points."""
-    x, y = numpy.mgrid[0:3:1, 0:3:1]
-    return surf(x, y, numpy.asarray(x, 'd'))
+    x, y = np.mgrid[0:3:1, 0:3:1]
+    return surf(x, y, np.asarray(x, 'd'))
 
 @animate
 def test_simple_surf_anim(obj=None):
@@ -783,17 +771,17 @@ def test_simple_surf_anim(obj=None):
     ms = obj.mlab_source
     x = ms.x
     for i in range(10):
-        ms.scalars = numpy.asarray(x * 0.1 * (i + 1), 'd')
+        ms.scalars = np.asarray(x * 0.1 * (i + 1), 'd')
         yield
 
 
 def test_surf():
     """Test surf on regularly spaced co-ordinates like MayaVi."""
     def f(x, y):
-        sin, cos = numpy.sin, numpy.cos
+        sin, cos = np.sin, np.cos
         return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)
 
-    x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
+    x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
     s = surf(x, y, f)
     #cs = contour_surf(x, y, f, contour_z=0)
     return s
@@ -803,13 +791,13 @@ def test_surf_wigner():
     def cat(x, y, alpha=2, eta=1, purity=1):
         """ Multiphoton shrodinger cat. eta is the fidelity, alpha the number
             of photons"""
-        cos = numpy.cos
-        exp = numpy.exp
+        cos = np.cos
+        exp = np.exp
         return (1 + eta * (exp(-x ** 2 - (y - alpha) ** 2)
                 + exp(-x ** 2 - (y + alpha) ** 2)
                 + 2 * purity * exp(-x ** 2 - y ** 2) *
                         cos(2 * alpha * x)) / (2 * (1 + exp(-alpha ** 2)))) / 2
-    x, y = numpy.mgrid[-5:5:0.1, -5:5:0.1]
+    x, y = np.mgrid[-5:5:0.1, -5:5:0.1]
     return surf(x, y, cat)
 
 
@@ -892,12 +880,12 @@ mesh = document_pipeline(Mesh())
 def test_mesh():
     """A very pretty picture of spherical harmonics translated from
     the octaviz example."""
-    pi = numpy.pi
-    cos = numpy.cos
-    sin = numpy.sin
+    pi = np.pi
+    cos = np.cos
+    sin = np.sin
     dphi, dtheta = pi / 250.0, pi / 250.0
-    [phi, theta] = numpy.mgrid[0:pi + dphi * 1.5:dphi,
-                               0:2 * pi + dtheta * 1.5:dtheta]
+    [phi, theta] = np.mgrid[0:pi + dphi * 1.5:dphi,
+                            0:2 * pi + dtheta * 1.5:dtheta]
     m0 = 4
     m1 = 3
     m2 = 2
@@ -917,12 +905,12 @@ def test_mesh():
 
 def test_mesh_sphere(r=1.0, npts=(100, 100), colormap='jet'):
     """Create a simple sphere."""
-    pi = numpy.pi
-    cos = numpy.cos
-    sin = numpy.sin
+    pi = np.pi
+    cos = np.cos
+    sin = np.sin
     np_phi = npts[0] * 1j
     np_theta = npts[1] * 1j
-    phi, theta = numpy.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
+    phi, theta = np.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
     x = r * sin(phi) * cos(theta)
     y = r * sin(phi) * sin(theta)
     z = r * cos(phi)
@@ -932,11 +920,11 @@ def test_mesh_sphere(r=1.0, npts=(100, 100), colormap='jet'):
 def test_mesh_sphere_anim(obj=None, r=1.0, npts=(100, 100), colormap='jet'):
     """Create a simple sphere and animate it."""
     obj = obj if obj is not None else test_mesh_sphere(r, npts, colormap)
-    pi = numpy.pi
-    cos = numpy.cos
+    pi = np.pi
+    cos = np.cos
     np_phi = npts[0] * 1j
     np_theta = npts[1] * 1j
-    phi, theta = numpy.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
+    phi, theta = np.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
 
     ms = obj.mlab_source
     for i in range(1, 10):
@@ -952,18 +940,18 @@ def test_mesh_mask_custom_colors(r=1.0, npts=(100, 100)):
     In this case we use a simple 2 color colormap.
     """
     # Create the data like for test_mesh_sphere.
-    pi = numpy.pi
-    cos = numpy.cos
-    sin = numpy.sin
+    pi = np.pi
+    cos = np.cos
+    sin = np.sin
     np_phi = npts[0] * 1j
     np_theta = npts[1] * 1j
-    phi, theta = numpy.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
+    phi, theta = np.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
     x = r * sin(phi) * cos(theta)
     y = r * sin(phi) * sin(theta)
     z = r * cos(phi)
 
     # Setup the mask array.
-    mask = numpy.zeros_like(x).astype(bool)
+    mask = np.zeros_like(x).astype(bool)
     mask[::5] = True
     mask[:,::5] = True
 
@@ -973,7 +961,7 @@ def test_mesh_mask_custom_colors(r=1.0, npts=(100, 100)):
     # Setup the colormap. This is an array of (R, G, B, A) values (each in
     # range 0-255), there should be at least 2 colors in the array.  If you
     # want a constant color set the two colors to the same value.
-    colors = numpy.zeros((2, 4), dtype='uint8')
+    colors = np.zeros((2, 4), dtype='uint8')
     colors[0,2] = 255
     colors[1,1] = 255
     # Set the alpha value to fully visible.
@@ -986,10 +974,10 @@ def test_mesh_mask_custom_colors(r=1.0, npts=(100, 100)):
 
 def test_fancy_mesh():
     """Create a fancy looking mesh using mesh (example taken from octaviz)."""
-    pi = numpy.pi
-    cos = numpy.cos
+    pi = np.pi
+    cos = np.cos
     du, dv = pi / 20.0, pi / 20.0
-    u, v = numpy.mgrid[0.01:pi + du * 1.5:du, 0:2 * pi + dv * 1.5:dv]
+    u, v = np.mgrid[0.01:pi + du * 1.5:du, 0:2 * pi + dv * 1.5:dv]
     x = (1 - cos(u)) * cos(u + 2 * pi / 3) * cos(v + 2 * pi / 3.0) * 0.5
     y = (1 - cos(u)) * cos(u + 2 * pi / 3) * cos(v - 2 * pi / 3.0) * 0.5
     z = -cos(u - 2 * pi / 3.)
@@ -1040,10 +1028,10 @@ contour_surf = document_pipeline(ContourSurf())
 def test_contour_surf():
     """Test contour_surf on regularly spaced co-ordinates like MayaVi."""
     def f(x, y):
-        sin, cos = numpy.sin, numpy.cos
+        sin, cos = np.sin, np.cos
         return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)
 
-    x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
+    x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
     s = contour_surf(x, y, f)
     return s
 
@@ -1145,7 +1133,7 @@ barchart = document_pipeline(BarChart())
 def test_barchart():
     """ Demo the bar chart plot with a 2D array.
     """
-    s = numpy.abs(numpy.random.random((3, 3)))
+    s = np.abs(np.random.random((3, 3)))
     return barchart(s)
 
 
@@ -1178,16 +1166,16 @@ def test_triangular_mesh():
         triangles.
     """
     n = 8
-    t = numpy.linspace(-numpy.pi, numpy.pi, n)
-    z = numpy.exp(1j * t)
+    t = np.linspace(-np.pi, np.pi, n)
+    z = np.exp(1j * t)
     x = z.real.copy()
     y = z.imag.copy()
-    z = numpy.zeros_like(x)
+    z = np.zeros_like(x)
 
     triangles = [(0, i, i + 1) for i in range(1, n)]
-    x = numpy.r_[0, x]
-    y = numpy.r_[0, y]
-    z = numpy.r_[1, z]
-    t = numpy.r_[0, t]
+    x = np.r_[0, x]
+    y = np.r_[0, y]
+    z = np.r_[1, z]
+    t = np.r_[0, t]
 
     return triangular_mesh(x, y, z, triangles, scalars=t)

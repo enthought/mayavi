@@ -9,7 +9,7 @@ visualize it as image data using a few modules.
 # License: BSD Style.
 
 # Standard library imports
-import numpy
+import numpy as np
 
 # Enthought library imports
 from mayavi.scripts import mayavi2
@@ -24,16 +24,16 @@ def make_data(dims=(128, 128, 128)):
     np = dims[0]*dims[1]*dims[2]
 
     # Create some scalars to render.
-    x, y, z = numpy.ogrid[-5:5:dims[0]*1j,-5:5:dims[1]*1j,-5:5:dims[2]*1j]
+    x, y, z = np.ogrid[-5:5:dims[0]*1j,-5:5:dims[1]*1j,-5:5:dims[2]*1j]
     x = x.astype('f')
     y = y.astype('f')
     z = z.astype('f')
 
-    scalars = (numpy.sin(x*y*z)/(x*y*z))
+    scalars = (np.sin(x*y*z)/(x*y*z))
     # The copy makes the data contiguous and the transpose makes it
     # suitable for display via tvtk.  Please note that we assume here
     # that the ArraySource is configured to not transpose the data.
-    s = numpy.transpose(scalars).copy()
+    s = np.transpose(scalars).copy()
     # Reshaping the array is needed since the transpose messes up the
     # dimensions of the data.  The scalars themselves are ravel'd and
     # used internally by VTK so the dimension does not matter for the

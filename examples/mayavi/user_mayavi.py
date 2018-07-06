@@ -113,7 +113,7 @@ def user_outline():
 # The WorkerPlugin exposes the service offer and shows the view of this
 # worker.
 
-import numpy
+import numpy as np
 
 from traits.api import HasTraits, Range, Button, Instance, List
 from traitsui.api import Item, View
@@ -151,11 +151,11 @@ class Worker(HasTraits):
     def _make_data(self):
         dims = [64, 64, 64]
         np = dims[0]*dims[1]*dims[2]
-        x, y, z = numpy.ogrid[-5:5:dims[0]*1j,-5:5:dims[1]*1j,-5:5:dims[2]*1j]
+        x, y, z = np.ogrid[-5:5:dims[0]*1j,-5:5:dims[1]*1j,-5:5:dims[2]*1j]
         x = x.astype('f')
         y = y.astype('f')
         z = z.astype('f')
-        s = (numpy.sin(x*y*z)/(x*y*z))
+        s = (np.sin(x*y*z)/(x*y*z))
         s = s.transpose().copy() # This makes the data contiguous.
         return s
 
@@ -189,7 +189,7 @@ class Worker(HasTraits):
         src = self.source
         data = src.scalar_data
         data += value*0.01
-        numpy.mod(data, 1.0, data)
+        np.mod(data, 1.0, data)
         src.update()
 
 ######################################################################

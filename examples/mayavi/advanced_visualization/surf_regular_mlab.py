@@ -7,7 +7,7 @@ mayavi2.
 # Copyright (c) 2006-2007, Enthought Inc.
 # License: BSD Style.
 
-import numpy
+import numpy as np
 
 from mayavi.scripts import mayavi2
 from tvtk.tools import mlab
@@ -24,10 +24,10 @@ def make_data():
     def f(x, y):
         """Some test function.
         """
-        return numpy.sin(x*y)/(x*y)
+        return np.sin(x*y)/(x*y)
 
-    x = numpy.arange(-7., 7.05, 0.1)
-    y = numpy.arange(-5., 5.05, 0.05)
+    x = np.arange(-7., 7.05, 0.1)
+    y = np.arange(-5., 5.05, 0.05)
     s = mlab.SurfRegular(x, y, f)
     return s.data
 

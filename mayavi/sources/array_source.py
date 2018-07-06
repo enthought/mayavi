@@ -6,7 +6,7 @@ array as ImageData.  This supports both scalar and vector data.
 # License: BSD Style.
 
 # Standard library imports.
-import numpy
+import numpy as np
 from vtk.util import vtkConstants
 
 # Enthought library imports
@@ -27,7 +27,7 @@ def _check_scalar_array(obj, name, value):
     """Validates a scalar array passed to the object."""
     if value is None:
         return None
-    arr = numpy.asarray(value)
+    arr = np.asarray(value)
     assert len(arr.shape) in [2, 3], "Scalar array must be 2 or 3 dimensional"
     vd = obj.vector_data
     if vd is not None:
@@ -45,7 +45,7 @@ def _check_vector_array(obj, name, value):
     """Validates a vector array passed to the object."""
     if value is None:
         return None
-    arr = numpy.asarray(value)
+    arr = np.asarray(value)
     assert len(arr.shape) in [3, 4], "Vector array must be 3 or 4 dimensional"
     assert arr.shape[-1] == 3, \
         "The vectors must be three dimensional with `array.shape[-1] == 3`"
@@ -194,7 +194,7 @@ class ArraySource(Source):
         category: 'point'/'cell': the category of the attribute data.
 
         """
-        array = numpy.asarray(array)
+        array = np.asarray(array)
         assert len(array.shape) <= 2, "Only 2D arrays can be added."
         data = getattr(self.image_data, '%s_data' % category)
         if len(array.shape) == 2:
@@ -248,9 +248,9 @@ class ArraySource(Source):
                 update_extent = [0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1]
                 self.change_information_filter.set_update_extent(update_extent)
         if self.transpose_input_array:
-            img_data.point_data.scalars = numpy.ravel(numpy.transpose(data))
+            img_data.point_data.scalars = np.ravel(np.transpose(data))
         else:
-            img_data.point_data.scalars = numpy.ravel(data)
+            img_data.point_data.scalars = np.ravel(data)
         img_data.point_data.scalars.name = self.scalar_name
         # This is very important and if not done can lead to a segfault!
         typecode = data.dtype
@@ -277,7 +277,7 @@ class ArraySource(Source):
         dims = list(data.shape)
         if len(dims) == 3:
             dims.insert(2, 1)
-            data = numpy.reshape(data, dims)
+            data = np.reshape(data, dims)
 
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims[:-1])
@@ -289,12 +289,12 @@ class ArraySource(Source):
                 self.change_information_filter.update_information()
                 update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
                 self.change_information_filter.set_update_extent(update_extent)
-        sz = numpy.size(data)
+        sz = np.size(data)
         if self.transpose_input_array:
-            data_t = numpy.transpose(data, (2, 1, 0, 3))
+            data_t = np.transpose(data, (2, 1, 0, 3))
         else:
             data_t = data
-        img_data.point_data.vectors = numpy.reshape(data_t, (sz//3, 3))
+        img_data.point_data.vectors = np.reshape(data_t, (sz//3, 3))
         img_data.point_data.vectors.name = self.vector_name
         if is_old_pipeline():
             img_data.update() # This sets up the extents correctly.
