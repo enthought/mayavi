@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mlab: Python scripting for 3D plotting &#8212; mayavi 4.6.0 documentation</title>
+    <title>mlab: Python scripting for 3D plotting &#8212; mayavi 4.6.1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.6.0',
+        VERSION:     '4.6.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -72,7 +72,7 @@
         <li class="right" >
           <a href="filters.html" title="Filters"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -349,7 +349,7 @@ described by three 3D arrays giving the <code class="docutils literal"><span cla
 <code class="docutils literal"><span class="pre">v</span></code>, <code class="docutils literal"><span class="pre">w</span></code> components on a grid.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_volume_slice.jpg"><img alt="slice" src="_images/enthought_mayavi_mlab_volume_slice.jpg" style="width: 121.0px; height: 185.0px;" /></a></td>
-<td><code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code>
+<td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.volume_slice" title="mayavi.mlab.volume_slice"><code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code></a>
 <br>
 Plots an interactive image plane sliced through
 volumetric data.</td>
@@ -358,7 +358,7 @@ volumetric data.</td>
 </table>
 <div class="topic">
 <p class="topic-title first">Structured or unstructured data</p>
-<p><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code></a>, <code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code> and <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><code class="xref py py-func docutils literal"><span class="pre">flow()</span></code></a> require
+<p><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code></a>, <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.volume_slice" title="mayavi.mlab.volume_slice"><code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code></a> and <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><code class="xref py py-func docutils literal"><span class="pre">flow()</span></code></a> require
 ordered data (to be able to interpolate between the points), whereas
 <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.quiver3d" title="mayavi.mlab.quiver3d"><code class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></code></a> works with any set of points. The required structure
 is detailed in the functions&#8217; documentation.</p>
@@ -1091,7 +1091,7 @@ visualizing the details of a scalar field:</p>
 </pre></div>
 </div>
 <p>Image plane widgets can also being created from NumPy arrays using
-the <code class="docutils literal"><span class="pre">mlab</span></code> <code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code> function:</p>
+the <code class="docutils literal"><span class="pre">mlab</span></code> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.volume_slice" title="mayavi.mlab.volume_slice"><code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code></a> function:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">mlab.volume_slice(s, plane_orientation=&#39;x_axes&#39;, slice_index=10)</span>
 </pre></div>
 </div>
@@ -1119,7 +1119,7 @@ plane, and the global mass with a large iso-surface:</p>
 </div>
 <p><img alt="volumetric_combination" src="_images/volumetric_combination.jpg" /></p>
 <p>In the above example, we have used the pipeline syntax of mayavi
-instead of using <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code></a> and <code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code>
+instead of using <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code></a> and <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.volume_slice" title="mayavi.mlab.volume_slice"><code class="xref py py-func docutils literal"><span class="pre">volume_slice()</span></code></a>
 in order to use a single scalar field as data source.</p>
 <p class="last">In some cases, though not in our example, it might be usable to
 insert a threshold filter before the cut plane, eg:to remove area
@@ -1409,12 +1409,12 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
         <li class="right" >
           <a href="filters.html" title="Filters"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 27, 2018.
+      Last updated on Jul 05, 2018.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>

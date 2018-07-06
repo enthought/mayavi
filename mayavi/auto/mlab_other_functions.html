@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Other functions &#8212; mayavi 4.6.0 documentation</title>
+    <title>Other functions &#8212; mayavi 4.6.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.6.0',
+        VERSION:     '4.6.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -72,7 +72,7 @@
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
       </ul>
     </div>  
@@ -96,16 +96,18 @@ instructions on running the examples.</p>
 <h2>animate<a class="headerlink" href="#animate" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.animate">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">animate</code><span class="sig-paren">(</span><em>func=None</em>, <em>delay=500</em>, <em>ui=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.animate" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>::</dt>
-<dd><dl class="first last docutils">
-<dt>A convenient decorator to animate a generator that performs an</dt>
-<dd><p class="first">animation.  The <cite>delay</cite> parameter specifies the delay (in
-milliseconds) between calls to the decorated function. If <cite>ui</cite> is
-True, then a simple UI for the animator is also popped up.  The
-decorated function will return the <cite>Animator</cite> instance used and a
-user may call its <cite>Stop</cite> method to stop the animation.</p>
+<code class="descclassname">mayavi.mlab.</code><code class="descname">animate</code><span class="sig-paren">(</span><em>func=None</em>, <em>delay=500</em>, <em>ui=True</em>, <em>support_movie=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.animate" title="Permalink to this definition">¶</a></dt>
+<dd><p>::
+A convenient decorator to animate a generator that performs an</p>
+<blockquote>
+<div><p>animation.</p>
+<p>The <cite>delay</cite> parameter specifies the delay (in milliseconds) between calls
+to the decorated function. If <cite>ui</cite> is True, then a simple UI for the
+animator is also popped up.  The decorated function will return the
+<cite>Animator</cite> instance used and a user may call its <cite>Stop</cite> method to stop the
+animation.  The <cite>support_movie</cite> parameter is True by default and this
+makes it easy to record a movie with the decorator.  If this is turned
+off, one cannot record a movie of the animation.</p>
 <p>If an ordinary function is decorated a <cite>TypeError</cite> will be raised.</p>
 <p><strong>Parameters</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -117,6 +119,9 @@ calls to the function.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">ui:</th><td class="field-body">bool specifying if a UI controlling the animation is to be
 provided.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">support_movie:</th><td class="field-body">bool specifying if the animation will support
+recording of a movie.</td>
 </tr>
 </tbody>
 </table>
@@ -150,12 +155,9 @@ provided.</td>
 </pre></div>
 </div>
 <p><strong>Notes</strong></p>
-<p class="last">If you want to modify the data plotted by an <cite>mlab</cite> function call,
+<p>If you want to modify the data plotted by an <cite>mlab</cite> function call,
 please refer to the section on: <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><span class="std std-ref">Animating the data</span></a>.</p>
-</dd>
-</dl>
-</dd>
-</dl>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -223,6 +225,20 @@ Default is the object&#8217;s extents.</td>
 <dt id="mayavi.mlab.get_engine">
 <code class="descclassname">mayavi.mlab.</code><code class="descname">get_engine</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.get_engine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an engine in agreement with the options.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="init-notebook">
+<h2>init_notebook<a class="headerlink" href="#init-notebook" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="mayavi.mlab.init_notebook">
+<code class="descclassname">mayavi.mlab.</code><code class="descname">init_notebook</code><span class="sig-paren">(</span><em>backend='x3d'</em>, <em>width=None</em>, <em>height=None</em>, <em>local=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.init_notebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a suitable backend for Jupyter notebooks.</p>
+<p><strong>Parameters</strong></p>
+<p>backend :str: one of (&#8216;png&#8217;, &#8216;x3d&#8217;)
+width :int: suggested default width of the element
+height :int: suggested default height of the element
+local :bool: Use local copy of x3dom.js instead of online version.</p>
 </dd></dl>
 
 </div>
@@ -298,6 +314,17 @@ Default: 1.0</td>
 </tbody>
 </table>
 </div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="process-ui-events">
+<h2>process_ui_events<a class="headerlink" href="#process-ui-events" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="mayavi.mlab.process_ui_events">
+<code class="descclassname">mayavi.mlab.</code><code class="descname">process_ui_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.process_ui_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process GUI events.</p>
+<p>This function merely abstracts the function so nothing is done when
+no UI is running.</p>
 </dd></dl>
 
 </div>
@@ -583,8 +610,10 @@ Default: 1.0</td>
 <li><a class="reference internal" href="#animate">animate</a></li>
 <li><a class="reference internal" href="#axes">axes</a></li>
 <li><a class="reference internal" href="#get-engine">get_engine</a></li>
+<li><a class="reference internal" href="#init-notebook">init_notebook</a></li>
 <li><a class="reference internal" href="#orientation-axes">orientation_axes</a></li>
 <li><a class="reference internal" href="#outline">outline</a></li>
+<li><a class="reference internal" href="#process-ui-events">process_ui_events</a></li>
 <li><a class="reference internal" href="#set-engine">set_engine</a></li>
 <li><a class="reference internal" href="#show">show</a></li>
 <li><a class="reference internal" href="#show-engine">show_engine</a></li>
@@ -666,13 +695,13 @@ Default: 1.0</td>
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 27, 2018.
+      Last updated on Jul 05, 2018.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>

@@ -17,63 +17,71 @@ Other functions
 animate
 ~~~~~~~
 
-.. function:: animate(func=None, delay=500, ui=True)
+.. function:: animate(func=None, delay=500, ui=True, support_movie=True)
 
     
     ::
-     A convenient decorator to animate a generator that performs an
-            animation.  The `delay` parameter specifies the delay (in
-            milliseconds) between calls to the decorated function. If `ui` is
-            True, then a simple UI for the animator is also popped up.  The
-            decorated function will return the `Animator` instance used and a
-            user may call its `Stop` method to stop the animation.
+    A convenient decorator to animate a generator that performs an
+        animation.
     
-            If an ordinary function is decorated a `TypeError` will be raised.
+        The `delay` parameter specifies the delay (in milliseconds) between calls
+        to the decorated function. If `ui` is True, then a simple UI for the
+        animator is also popped up.  The decorated function will return the
+        `Animator` instance used and a user may call its `Stop` method to stop the
+        animation.  The `support_movie` parameter is True by default and this
+        makes it easy to record a movie with the decorator.  If this is turned
+        off, one cannot record a movie of the animation.
     
-            **Parameters**
+        If an ordinary function is decorated a `TypeError` will be raised.
     
-            :delay: int specifying the time interval in milliseconds between
-                    calls to the function.
+        **Parameters**
     
-            :ui: bool specifying if a UI controlling the animation is to be
-                 provided.
+        :delay: int specifying the time interval in milliseconds between
+                calls to the function.
     
-            **Returns**
+        :ui: bool specifying if a UI controlling the animation is to be
+             provided.
     
-            The decorated function returns an `Animator` instance.
+        :support_movie: bool specifying if the animation will support
+                        recording of a movie.
     
-            **Examples**
+        **Returns**
     
-            Here is the example provided in the Animator class documentation::
+        The decorated function returns an `Animator` instance.
     
-                >>> from mayavi import mlab
-                >>> @mlab.animate
-                ... def anim():
-                ...     f = mlab.gcf()
-                ...     while 1:
-                ...         f.scene.camera.azimuth(10)
-                ...         f.scene.render()
-                ...         yield
-                ...
-                >>> a = anim() # Starts the animation.
+        **Examples**
     
-            For more specialized use you can pass arguments to the decorator::
+        Here is the example provided in the Animator class documentation::
     
-                >>> from mayavi import mlab
-                >>> @mlab.animate(delay=500, ui=False)
-                ... def anim():
-                ...     f = mlab.gcf()
-                ...     while 1:
-                ...         f.scene.camera.azimuth(10)
-                ...         f.scene.render()
-                ...         yield
-                ...
-                >>> a = anim() # Starts the animation without a UI.
+            >>> from mayavi import mlab
+            >>> @mlab.animate
+            ... def anim():
+            ...     f = mlab.gcf()
+            ...     while 1:
+            ...         f.scene.camera.azimuth(10)
+            ...         f.scene.render()
+            ...         yield
+            ...
+            >>> a = anim() # Starts the animation.
     
-            **Notes**
+        For more specialized use you can pass arguments to the decorator::
     
-            If you want to modify the data plotted by an `mlab` function call,
-            please refer to the section on: :ref:`mlab-animating-data`.
+            >>> from mayavi import mlab
+            >>> @mlab.animate(delay=500, ui=False)
+            ... def anim():
+            ...     f = mlab.gcf()
+            ...     while 1:
+            ...         f.scene.camera.azimuth(10)
+            ...         f.scene.render()
+            ...         yield
+            ...
+            >>> a = anim() # Starts the animation without a UI.
+    
+        **Notes**
+    
+        If you want to modify the data plotted by an `mlab` function call,
+        please refer to the section on: :ref:`mlab-animating-data`.
+    
     
 
     
@@ -140,6 +148,24 @@ get_engine
     
 
 
+init_notebook
+~~~~~~~~~~~~~
+
+.. function:: init_notebook(backend='x3d', width=None, height=None, local=True)
+
+    Initialize a suitable backend for Jupyter notebooks.
+    
+    **Parameters**
+    
+    backend :str: one of ('png', 'x3d')
+    width :int: suggested default width of the element
+    height :int: suggested default height of the element
+    local :bool: Use local copy of x3dom.js instead of online version.
+    
+
+    
+
+
 orientation_axes
 ~~~~~~~~~~~~~~~~
 
@@ -200,6 +226,20 @@ outline
     
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
+    
+
+    
+
+
+process_ui_events
+~~~~~~~~~~~~~~~~~
+
+.. function:: process_ui_events()
+
+    Process GUI events.
+    
+    This function merely abstracts the function so nothing is done when
+    no UI is running.
     
 
     

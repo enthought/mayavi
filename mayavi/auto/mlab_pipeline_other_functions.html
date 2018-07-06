@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Filters, modules, other functions &#8212; mayavi 4.6.0 documentation</title>
+    <title>Filters, modules, other functions &#8212; mayavi 4.6.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.6.0',
+        VERSION:     '4.6.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -64,7 +64,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -672,8 +672,8 @@ Default: 2.0</td>
 </tr>
 <tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is useful to reduce the number of
-points displayed on large datasets Must be an integer or
-None.</td>
+points displayed on large datasets Must be an integer
+(int or long) or None.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
@@ -691,7 +691,7 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
+phi. Must be an integer (int or long). Default: 8</td>
 </tr>
 <tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
@@ -1478,7 +1478,8 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body">The resolution of the seed. Determines the number of
-seed points Must be an integer or None.</td>
+seed points Must be an integer (int or long) or
+None.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
 float. Default: 1.0</td>
@@ -1831,7 +1832,8 @@ If None, the min of the data will be used</td>
 lines. Must be a float. Default: 0.05</td>
 </tr>
 <tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
-represent the lines. Must be an integer. Default: 6</td>
+represent the lines. Must be an integer (int or long).
+Default: 6</td>
 </tr>
 </tbody>
 </table>
@@ -1899,8 +1901,8 @@ Default: 2.0</td>
 </tr>
 <tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is useful to reduce the number of
-points displayed on large datasets Must be an integer or
-None.</td>
+points displayed on large datasets Must be an integer
+(int or long) or None.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
@@ -1922,7 +1924,7 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
+phi. Must be an integer (int or long). Default: 8</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
@@ -1981,8 +1983,8 @@ Default: 2.0</td>
 </tr>
 <tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is useful to reduce the number of
-points displayed on large datasets Must be an integer or
-None.</td>
+points displayed on large datasets Must be an integer
+(int or long) or None.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
@@ -2000,7 +2002,7 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
+phi. Must be an integer (int or long). Default: 8</td>
 </tr>
 <tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
@@ -2344,12 +2346,12 @@ If None, the min of the data will be used</td>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 27, 2018.
+      Last updated on Jul 05, 2018.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>

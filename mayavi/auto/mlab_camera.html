@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Camera handling functions &#8212; mayavi 4.6.0 documentation</title>
+    <title>Camera handling functions &#8212; mayavi 4.6.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.6.0',
+        VERSION:     '4.6.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -72,7 +72,7 @@
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
       </ul>
     </div>  
@@ -97,11 +97,8 @@ instructions on running the examples.</p>
 <dl class="function">
 <dt id="mayavi.mlab.move">
 <code class="descclassname">mayavi.mlab.</code><code class="descname">move</code><span class="sig-paren">(</span><em>forward=None</em>, <em>right=None</em>, <em>up=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.move" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>::</dt>
-<dd><p class="first">Translates the camera and focal point together.</p>
-<blockquote class="last">
-<div><p>The arguments specify the relative distance to translate the
+<dd><p>Translates the camera and focal point together.</p>
+<p>The arguments specify the relative distance to translate the
 camera and focal point, so as to produce the appearence of
 moving the camera without changing the effective field of view.
 If called with no arguments, the function returns the absolute
@@ -110,23 +107,21 @@ system.</p>
 <p>Note that the arguments specify relative motion, although the
 return value with no arguments is in an absolute coordinate system.</p>
 <p><strong>Keyword arguments</strong>:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">forward:</th><td class="field-body">float, optional. The distance in space to translate the
+<tr class="field-odd field"><th class="field-name">Forward:</th><td class="field-body">float, optional. The distance in space to translate the
 camera forward (if positive) or backward (if negative)</td>
 </tr>
-<tr class="field-even field"><th class="field-name">right:</th><td class="field-body">float, optional.  The distance in space to translate the
+<tr class="field-even field"><th class="field-name">Right:</th><td class="field-body">float, optional.  The distance in space to translate the
 camera to the right (if positive) or left (if negative)</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">up:</th><td class="field-body">float, optional. The distance in space to translate the
+<tr class="field-odd field"><th class="field-name">Up:</th><td class="field-body">float, optional. The distance in space to translate the
 camera up (if positive) or down (if negative)</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied (or all are None), returns a
 tuple (camera_position, focal_point_position)</p>
@@ -147,26 +142,29 @@ tuple (camera_position, focal_point_position)</p>
 <span class="go"> array([ 4.25909623, -0.84307292, -1.57576693]))</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Return to the starting position::</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
+<p>Return to the starting position:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">move</span><span class="p">()</span>
 <span class="go">(array([-0.06317079, -0.52849738, -1.68316389]),</span>
 <span class="go"> array([ 1.25909623,  0.15692708, -0.37576693]))</span>
 </pre></div>
 </div>
-</dd>
-</dl>
-<p><strong>See also</strong>
-:mlab.yaw: yaw the camera (tilt left-right)
-:mlab.pitch: pitch the camera (tilt up-down)
-:mlab.roll: control the absolute roll angle of the camera
-:mlab.view: set the camera position relative to the focal point instead</p>
-<blockquote>
-<div>of in absolute space</div></blockquote>
-</div></blockquote>
-</dd>
-</dl>
+<p><strong>See also</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Mlab.yaw:</th><td class="field-body">yaw the camera (tilt left-right)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Mlab.pitch:</th><td class="field-body">pitch the camera (tilt up-down)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Mlab.roll:</th><td class="field-body">control the absolute roll angle of the camera</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Mlab.view:</th><td class="field-body">set the camera position relative to the focal point instead
+of in absolute space</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -434,13 +432,13 @@ point</td>
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 27, 2018.
+      Last updated on Jul 05, 2018.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>

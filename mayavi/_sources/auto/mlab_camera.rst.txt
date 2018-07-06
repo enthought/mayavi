@@ -19,71 +19,69 @@ move
 
 .. function:: move(forward=None, right=None, up=None)
 
+    Translates the camera and focal point together.
     
-    ::
-     Translates the camera and focal point together.
+    The arguments specify the relative distance to translate the
+    camera and focal point, so as to produce the appearence of
+    moving the camera without changing the effective field of view.
+    If called with no arguments, the function returns the absolute
+    position of the camera and focal pointon a cartesian coordinate
+    system.
     
-        The arguments specify the relative distance to translate the
-        camera and focal point, so as to produce the appearence of
-        moving the camera without changing the effective field of view.
-        If called with no arguments, the function returns the absolute
-        position of the camera and focal pointon a cartesian coordinate
-        system.
+    Note that the arguments specify relative motion, although the
+    return value with no arguments is in an absolute coordinate system.
     
-        Note that the arguments specify relative motion, although the
-        return value with no arguments is in an absolute coordinate system.
+    **Keyword arguments**:
     
+    :forward: float, optional. The distance in space to translate the
+        camera forward (if positive) or backward (if negative)
     
-        **Keyword arguments**:
+    :right: float, optional.  The distance in space to translate the
+        camera to the right (if positive) or left (if negative)
     
-         :forward: float, optional. The distance in space to translate the
-             camera forward (if positive) or backward (if negative)
-    
-    
-         :right: float, optional.  The distance in space to translate the
-             camera to the right (if positive) or left (if negative)
-    
-         :up: float, optional. The distance in space to translate the
-             camera up (if positive) or down (if negative)
+    :up: float, optional. The distance in space to translate the
+        camera up (if positive) or down (if negative)
     
     
-        **Returns**:
+    **Returns**:
     
-        If no arguments are supplied (or all are None), returns a
-        tuple (camera_position, focal_point_position)
+    If no arguments are supplied (or all are None), returns a
+    tuple (camera_position, focal_point_position)
     
-        otherwise, returns None
+    otherwise, returns None
     
-        **Examples**:
+    **Examples**:
     
-        Get the current camera position::
+    Get the current camera position::
     
-          >>> cam,foc = move()
-          >>> cam
-          array([-0.06317079, -0.52849738, -1.68316389])
-          >>> foc
-          array([ 1.25909623,  0.15692708, -0.37576693])
+      >>> cam,foc = move()
+      >>> cam
+      array([-0.06317079, -0.52849738, -1.68316389])
+      >>> foc
+      array([ 1.25909623,  0.15692708, -0.37576693])
     
-        Translate the camera::
+    Translate the camera::
     
-          >>> move(3,-1,-1.2)
-          >>> move()
-          (array([ 2.93682921, -1.52849738, -2.88316389]),
-           array([ 4.25909623, -0.84307292, -1.57576693]))
+      >>> move(3,-1,-1.2)
+      >>> move()
+      (array([ 2.93682921, -1.52849738, -2.88316389]),
+       array([ 4.25909623, -0.84307292, -1.57576693]))
     
-        Return to the starting position::
-         >>> move(-3,1,1.2)
-         >>> move()
-         (array([-0.06317079, -0.52849738, -1.68316389]),
-          array([ 1.25909623,  0.15692708, -0.37576693]))
+    Return to the starting position::
     
+      >>> move(-3,1,1.2)
+      >>> move()
+      (array([-0.06317079, -0.52849738, -1.68316389]),
+       array([ 1.25909623,  0.15692708, -0.37576693]))
     
-        **See also**
-        :mlab.yaw: yaw the camera (tilt left-right)
-        :mlab.pitch: pitch the camera (tilt up-down)
-        :mlab.roll: control the absolute roll angle of the camera
-        :mlab.view: set the camera position relative to the focal point instead
-                    of in absolute space
+    **See also**
+    
+    :mlab.yaw: yaw the camera (tilt left-right)
+    :mlab.pitch: pitch the camera (tilt up-down)
+    :mlab.roll: control the absolute roll angle of the camera
+    :mlab.view: set the camera position relative to the focal point instead
+                of in absolute space
+    
     
 
     
