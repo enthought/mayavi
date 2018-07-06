@@ -1,3 +1,59 @@
+Mayavi 4.6.1
+============
+
+Thanks to the following who contributed to this release (in alphabetical
+order):  Eric Larson, Hongzhuo Liang, and Prabhu Ramachandran (PR).
+
+15 pull requests were merged.
+
+Enhancements
+------------
+
+04 Jul 2018 `#669 <https://github.com/enthought/mayavi/pull/669>`_ (PR)
+   - ENH: Expose `process_ui_events` in mlab.
+
+30 Jun 2018 `#666 <https://github.com/enthought/mayavi/pull/666>`_ (PR)
+   - Add attribute data to datasets. This makes it very easy to add new
+     scalar/vector/tensor attributes to either a VTKDataSource or to an
+     ArraySource using the `add_attribute`, `remove_attribute`, and
+     `rename_attribute` methods.
+
+29 Jun 2018 `#663 <https://github.com/enthought/mayavi/pull/663>`_ (PR)
+   - Support PySide2.  Set `QT_API=pyside2` for this to work.
+
+28 Jun 2018 `#661 <https://github.com/enthought/mayavi/pull/661>`_ (PR)
+   - Make `tvtk.array_ext` optional on systems with no compiler. This makes
+     Mayavi easy to install via pip without a compiler to build the extension
+     module.  For those who have a compiler, the extension is built.
+
+Fixes
+-----
+
+04 Jul 2018 `#672 <https://github.com/enthought/mayavi/pull/672>`_ (PR)
+   - Fix Python3 error in some examples and fix picking of multi-component
+     scalars.
+
+03 Jul 2018 `#667 <https://github.com/enthought/mayavi/pull/667>`_ (lianghongzhuo)
+   - Fix help icon so it actually works and loads the documentation in a browser.
+
+29 Jun 2018 `#665 <https://github.com/enthought/mayavi/pull/665>`_ (PR)
+   - Fix annoying warning when running Mayavi tests.
+
+29 Jun 2018 `#664 <https://github.com/enthought/mayavi/pull/664>`_ (larsoner)
+   - ENH: Use views in set_id_type_array_py making it more efficient.
+
+28 Jun 2018 `#662 <https://github.com/enthought/mayavi/pull/662>`_ (PR)
+   - Fix the broken help links and icon to launch TVTK class browser.
+
+27 Jun 2018 `#660 <https://github.com/enthought/mayavi/pull/660>`_ (larsoner)
+   - MRG: Fix window size for screenshot on HiDPI
+
+05 Jun 2018 `#651 <https://github.com/enthought/mayavi/pull/651>`_ (PR)
+   - Fix description/long description in setup.py.
+   - Cleanup setup.py so just pip install mayavi works correctly without
+     needing numpy first.
+
+
 Mayavi 4.6.0
 ============
 

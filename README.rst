@@ -73,14 +73,15 @@ visualization engine for any application.
 Quick start
 ===========
 
-If you are new to mayavi it is a good idea to read the users guide which should
-introduce you to how to install and use it.  The user guide is available in the
-`docs` directory and also available from the mayavi home page.
+If you are new to mayavi it is a good idea to read the `online user manual`_
+which should introduce you to how to install and use it.
 
 If you have installed `mayavi` as described in the next section, you should be
 able to launch the `mayavi2` application and also run any of the examples in
 the examples directory.
 
+
+.. _online user manual: http://docs.enthought.com/mayavi/mayavi/
 
 Installation
 =============
@@ -161,11 +162,16 @@ you should be good to go.
 Documentation
 ==============
 
-More documentation is available in the `online user manual
-<http://docs.enthought.com/mayavi/mayavi/>`_ or in ``docs`` directory
-of the sources.  This includes a man page for the ``mayavi2``
-application, a users guide in HTML and PDF format and documentation
-for `mlab`.
+More documentation is available in the `online user manual`_ or in ``docs``
+directory of the sources. This includes a man page for the ``mayavi2``
+application, a users guide in HTML and PDF format and documentation for
+`mlab`.
+
+More documentation in the form of workshop/tutorial material is available
+here:
+
+- https://github.com/prabhuramachandran/mayavi-tutorial
+- https://github.com/prabhuramachandran/mayavi-workshop
 
 
 Examples
@@ -212,6 +218,8 @@ Authors and Contributors
 * Core contributors:
 
   Prabhu Ramachandran: primary author.
+
+* Previous contributors:
 
   Gaël Varoquaux: mlab, icons, many general improvements and maintenance.
 
