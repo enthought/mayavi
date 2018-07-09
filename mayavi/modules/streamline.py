@@ -13,7 +13,7 @@ from math import sqrt
 
 # Enthought library imports.
 from traits.api import Instance, Bool, TraitPrefixList, Trait, \
-                             Delegate, Button
+                             Delegate, Button, Array
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from tvtk.common import configure_outputs
@@ -128,6 +128,9 @@ class Streamline(Module):
     ######################################################################
     # `Module` interface
     ######################################################################
+    def _setup_seed(self):
+        self.seed = SourceWidget()
+
     def setup_pipeline(self):
         """Override this method so that it *creates* the tvtk
         pipeline.
@@ -141,7 +144,7 @@ class Streamline(Module):
         set the `actors` attribute up at this point.
         """
         # Create and setup the default objects.
-        self.seed = SourceWidget()
+        self._setup_seed()
         self.stream_tracer = tvtk.StreamTracer(maximum_propagation=50,
                                                integration_direction='forward',
                                                compute_vorticity=True,
@@ -168,7 +171,8 @@ class Streamline(Module):
 
         src = mm.source
         self.configure_connection(self.stream_tracer, src)
-        self.seed.inputs = [src]
+        if isinstance(self.seed, SourceWidget):
+            self.seed.inputs = [src]
 
         # Setup the radius/width of the tube/ribbon filters based on
         # given input.
@@ -230,7 +234,11 @@ class Streamline(Module):
             old.on_trait_change(self.render, remove=True)
         seed = self.seed
         if seed is not None:
-            self.configure_source_data(new, seed.poly_data)
+            if isinstance(seed, SourceWidget):
+                data = seed.poly_data
+            else:
+                data = seed
+            self.configure_source_data(new, data)
         new.on_trait_change(self.render)
         mm = self.module_manager
         if mm is not None:
@@ -265,3 +273,29 @@ class Streamline(Module):
         new.scene = self.scene
         new.inputs = [self]
         self._change_components(old, new)
+
+
+class SeedStreamline(Streamline):
+    """
+    A Streamline tracer with fixed input of points.
+    """
+
+    seed_points = Array(allow_none=False)
+    seed = Instance(tvtk.PolyData, args=())
+
+    update_mode = Trait('interactive', TraitPrefixList(['interactive',
+                                                         'semi-interactive',
+                                                         'non-interactive']),
+                         desc='the speed at which the poly data is updated')
+
+    def _setup_seed(self):
+        # Create and setup the default objects.
+        self.seed = tvtk.PolyData(points=self.seed_points)
+
+    def _seed_points_changed(self, old, new):
+        self.seed = tvtk.PolyData(points=self.seed_points)
+
+    def _seed_changed(self, old, new):
+        st = self.stream_tracer
+        if st is not None:
+            self.configure_connection(st, new)
