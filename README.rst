@@ -9,7 +9,7 @@ TVTK docs: http://docs.enthought.com/mayavi/tvtk
    :target: https://travis-ci.org/enthought/mayavi
    :alt: Build status
 
-.. image:: https://ci.appveyor.com/api/projects/status/lnb24gj70yidfnrl/branch/master?svg=true
+.. image:: https://ci.appveyor.com/api/projects/status/lnb24gj70yidfnrl/branch/master
    :target: https://ci.appveyor.com/project/EnthoughtOSS/mayavi
    :alt: Appveyor build status
 
