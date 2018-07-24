@@ -219,7 +219,7 @@ class TestTVTK(unittest.TestCase):
         """Test if the help attribute is correct."""
         n = tvtk.PolyDataNormals()
         t = n.traits()
-        test = t['splitting'].help != t['non_manifold_traversal'].help
+        test = t['splitting'].desc != t['non_manifold_traversal'].desc
         self.assertEqual(test, True)
 
     def test_object_cache(self):
