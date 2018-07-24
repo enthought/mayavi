@@ -14,7 +14,7 @@ an IsoSurface module on this scalar component.
 # Copyright (c) 2008-2009, Enthought, Inc.
 # License: BSD Style.
 
-import numpy
+import numpy as np
 from mayavi import mlab
 
 
@@ -26,7 +26,7 @@ def lorenz(x, y, z, s=10., r=28., b=8. / 3.):
     return u, v, w
 
 # Sample the space in an interesting region.
-x, y, z = numpy.mgrid[-50:50:100j, -50:50:100j, -10:60:70j]
+x, y, z = np.mgrid[-50:50:100j, -50:50:100j, -10:60:70j]
 u, v, w = lorenz(x, y, z)
 fig = mlab.figure(size=(400, 300), bgcolor=(0, 0, 0))
 
