@@ -1043,7 +1043,7 @@ class WrapperGenerator:
                 self._wrap_call(self._vtk_obj.SetOutput, deref_vtk(obj))
                 self.trait_property_changed('output', old_val, obj)
             output = traits.Property(_get_output, _set_output,
-                                     help=\"%(doc)s\")
+                                     desc=\"%(doc)s\")
 
             """%locals()
         else:
@@ -1051,7 +1051,7 @@ class WrapperGenerator:
             def _get_output(self):
                 return wrap_vtk(self._vtk_obj.GetOutput())
             output = traits.Property(_get_output,
-                                     help=\"%(doc)s\")
+                                     desc=\"%(doc)s\")
 
             """%locals()
         out.write(self.indent.format(trait_def))
@@ -1099,7 +1099,7 @@ class WrapperGenerator:
                 self._wrap_call(self._vtk_obj.SetSource, deref_vtk(obj))
                 self.trait_property_changed('source', old_val, obj)
             source = traits.Property(_get_source, _set_source,
-                                     help=\"%(doc)s\")
+                                     desc=\"%(doc)s\")
 
             """%locals()
             out.write(self.indent.format(trait_def))
@@ -1124,7 +1124,7 @@ class WrapperGenerator:
         """%locals()
         indent = self.indent
         out.write(indent.format(t_def))
-        t_def = """output_port = traits.Property(_get_output_port, help=\\"""
+        t_def = """output_port = traits.Property(_get_output_port, desc=\\"""
         out.write(indent.format(t_def))
         doc = vtk_get_meth.__doc__
         self.dm.write_trait_doc(doc, out, indent)
@@ -1149,7 +1149,7 @@ class WrapperGenerator:
                 except TypeError:
                     return wrap_vtk(self._vtk_obj.GetInput())
             input = traits.Property(_get_input,
-                                    help=\"%(doc)s\")
+                                    desc=\"%(doc)s\")
 
             """%locals()
             out.write(self.indent.format(trait_def))
@@ -1181,7 +1181,7 @@ class WrapperGenerator:
                 self._wrap_call(self._vtk_obj.SetInput, deref_vtk(obj))
                 self.trait_property_changed('input', old_val, obj)
             input = traits.Property(_get_input, _set_input,
-                                    help=\"%(doc)s\")
+                                    desc=\"%(doc)s\")
 
             """%locals()
             out.write(self.indent.format(trait_def))
@@ -1213,7 +1213,7 @@ class WrapperGenerator:
             self.trait_property_changed('input_connection', old_val, obj)
         input_connection = traits.Property(_get_input_connection,
                                            _set_input_connection,
-                                           help=\"%(doc)s\")
+                                           desc=\"%(doc)s\")
 
         """%locals()
         out.write(self.indent.format(trait_def))
@@ -1369,9 +1369,9 @@ class WrapperGenerator:
 
         # Fixing the trait definition in order to handle the help trait.
         if t_def.endswith(')'):
-            t_def = t_def[:-1] + ', help=\\'
+            t_def = t_def[:-1] + ', desc=\\'
         else:
-            t_def += '(help=\\'
+            t_def += '(desc=\\'
         trait_def = '%(t_name)s = %(t_def)s'%locals()
 
         if broken_bool:
@@ -1499,9 +1499,9 @@ class WrapperGenerator:
                         self.trait_property_changed('%(t_name)s', old_val, arg)
                     """%locals()
             out.write(indent.format(trait_def))
-            t_def = "traits.Property(%(getter)s, %(setter)s, help=\\"%locals()
+            t_def = "traits.Property(%(getter)s, %(setter)s, desc=\\"%locals()
         else:
-            t_def = "traits.Property(%(getter)s, help=\\"%locals()
+            t_def = "traits.Property(%(getter)s, desc=\\"%locals()
 
         trait_def = """%(t_name)s = %(t_def)s"""%locals()
         out.write(indent.format(trait_def))
