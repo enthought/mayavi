@@ -10,6 +10,7 @@ import sys
 
 def can_compile_extensions():
     from distutils.dist import Distribution
+    from distutils.errors import DistutilsError
     sargs = {'script_name': None, 'script_args': ["--build-ext"]}
     d = Distribution(sargs)
     cfg = d.get_command_obj('config')
@@ -18,12 +19,17 @@ def can_compile_extensions():
     cfg.finalize_options()
     build_ext = d.get_command_obj('build_ext')
     build_ext.finalize_options()
-    return cfg.try_compile(
-        'int main(void) {return 0;}',
-        headers=['Python.h'],
-        include_dirs=build_ext.include_dirs,
-        lang='c'
-    )
+    try:
+        result = cfg.try_compile(
+            'int main(void) {return 0;}',
+            headers=['Python.h'],
+            include_dirs=build_ext.include_dirs,
+            lang='c'
+        )
+    except DistutilsError:
+        return False
+    else:
+        return result
 
 
 def configuration(parent_package=None, top_path=None):
