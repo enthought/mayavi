@@ -421,7 +421,7 @@ class TVTKScene(HasPrivateTraits):
             raise ValueError(
                 'Unable to find suitable image type for given file extension.'
             )
-        meth = getattr(self, 'save_' + meth_map[ext])
+        meth = getattr(self, 'save_' + meth_map[ext.lower()])
         if size is not None:
             orig_size = self.get_size()
             self.set_size(size)
