@@ -13,6 +13,18 @@ the following article (bibtex entry :download:`citation.bib`):
   Scientific Data`* IEEE Computing in Science & Engineering, **13**
   (2), pp. 40-51 (2011)
 
+
+Tutorial videos
+----------------
+
+Here are some tutorial videos that you can watch to learn Mayavi:
+
+- SciPy 2018 Mayavi tutorial (3 hrs):
+
+  - Video: https://www.youtube.com/watch?v=r6OD07Qq2mw
+  - Material: https://github.com/prabhuramachandran/mayavi-tutorial
+
+
 .. _getting-help:
 
 Getting help

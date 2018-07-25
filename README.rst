@@ -91,7 +91,7 @@ are unfortunately rather heavy. However, many of these dependencies are now
 available as wheels on PyPI.  The two critical dependencies are,
 
   1. VTK_
-  2. A GUI toolkit, either PyQt4_, PySide_, PyQt5_ or wxPython_.
+  2. A GUI toolkit, either PyQt4_, PySide_, PySide2_, PyQt5_ or wxPython_.
 
 The latest VTK wheels are available on all the major platforms (Windows,
 MacOS, and Linux), but only for 64 bit machines. Python 3.x is fully supported
@@ -107,12 +107,13 @@ wxPython_. These can be installed from pip or from your package manager.
 
 Currently, Mayavi itself should work with the new wxPython 4.x. However,
 traitsui_, pyface_, and other ETS packages do not yet support it so the UI
-will not work correctly. Older versions should work. PyQt/PySide should work
-largely out of the box. PySide2 is still young so YMMV.
+will not work correctly. Older versions should work. PyQt/PySide/PySide2
+should work largely out of the box.
 
 
 .. _PyQt5: https://pypi.org/project/PyQt5/
 .. _PySide: https://pypi.org/project/PySide
+.. _PySide2: https://wiki.qt.io/Qt_for_Python
 .. _PyQt4: https://pypi.org/project/PyQt4/
 .. _wxPython: https://pypi.org/project/wxPython/
 .. _VTK: https://www.vtk.org
@@ -172,6 +173,16 @@ here:
 
 - https://github.com/prabhuramachandran/mayavi-tutorial
 - https://github.com/prabhuramachandran/mayavi-workshop
+
+Tutorial Videos
+===============
+
+Here are some tutorial videos that you can watch to learn Mayavi:
+
+- SciPy 2018 Mayavi tutorial (3 hrs):
+
+  - Video: https://www.youtube.com/watch?v=r6OD07Qq2mw
+  - Material: https://github.com/prabhuramachandran/mayavi-tutorial
 
 
 Examples
