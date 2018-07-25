@@ -337,7 +337,6 @@ class Volume(Module):
         if mm is None:
             return
 
-
         dataset = mm.source.get_output_dataset()
 
         ug = hasattr(tvtk, 'UnstructuredGridVolumeMapper')
@@ -373,6 +372,9 @@ class Volume(Module):
     ######################################################################
     # Non-public methods.
     ######################################################################
+    def _has_smart_volume_mapper(self):
+        return 'SmartVolumeMapper' in self._available_mapper_types
+
     def _setup_mapper_types(self):
         """Sets up the mapper based on input data types.
         """
@@ -391,24 +393,27 @@ class Volume(Module):
                 self._mapper_types = mapper_types
                 return
         else:
+            mapper_types = []
+            if self._has_smart_volume_mapper():
+                mapper_types = ['SmartVolumeMapper']
             if dataset.point_data.scalars.data_type not in \
                [vtkConstants.VTK_UNSIGNED_CHAR,
                 vtkConstants.VTK_UNSIGNED_SHORT]:
                 if 'FixedPointVolumeRayCastMapper' \
                        in self._available_mapper_types:
-                    self._mapper_types = ['FixedPointVolumeRayCastMapper']
-                else:
-                    error('Available volume mappers only work with \
-                    unsigned_char or unsigned_short datatypes')
+                    mapper_types.append('FixedPointVolumeRayCastMapper')
+                elif len(mapper_types) == 0:
+                    error('Available volume mappers only work with '
+                          'unsigned_char or unsigned_short datatypes')
             else:
-                mapper_types = ['TextureMapper2D', 'RayCastMapper']
                 check = ['FixedPointVolumeRayCastMapper',
-                         'VolumeProMapper'
+                         'VolumeProMapper', 'TextureMapper2D', 'RayCastMapper',
+                         'TextureMapper3D'
                          ]
                 for mapper in check:
                     if mapper in self._available_mapper_types:
                         mapper_types.append(mapper)
-                self._mapper_types = mapper_types
+            self._mapper_types = mapper_types
 
     def _setup_current_range(self):
         mm = self.module_manager
@@ -416,7 +421,7 @@ class Volume(Module):
         lm = self.lut_manager
         slm = mm.scalar_lut_manager
         lm.trait_set(default_data_name=slm.default_data_name,
-               default_data_range=slm.default_data_range)
+                     default_data_range=slm.default_data_range)
 
         # Set the current range.
         dataset = mm.source.get_output_dataset()
@@ -455,8 +460,16 @@ class Volume(Module):
                                         'RayCastMIPFunction',
                                         'RayCastIsosurfaceFunction']
             new_vm.volume_ray_cast_function = tvtk.VolumeRayCastCompositeFunction()
+        elif value == 'SmartVolumeMapper':
+            new_vm = tvtk.SmartVolumeMapper()
+            self._volume_mapper = new_vm
+            self._ray_cast_functions = ['']
         elif value == 'TextureMapper2D':
             new_vm = tvtk.VolumeTextureMapper2D()
+            self._volume_mapper = new_vm
+            self._ray_cast_functions = ['']
+        elif value == 'TextureMapper3D':
+            new_vm = tvtk.VolumeTextureMapper3D()
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'VolumeProMapper':
