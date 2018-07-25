@@ -120,7 +120,7 @@ def get_tvtk_class_doc(obj):
     for key, trait in obj.traits().items():
         if key.startswith('_') or key.endswith('_') or key in ignore:
             continue
-        doc += '\n%s: %s'%(key, trait.help)
+        doc += '\n%s: %s'%(key, trait.tooltip or trait.desc or trait.help)
 
     doc += '\nMethods:\n----------------------\n\n'
     traits = obj.trait_names()
