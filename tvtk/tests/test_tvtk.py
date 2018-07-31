@@ -833,6 +833,13 @@ class TestTVTK(unittest.TestCase):
         self.assertTrue(hasattr(klass, 'set_matrix'))
         self.assertTrue(hasattr(klass, 'get_matrix'))
 
+    def test_algorithm_methods_are_wrapped(self):
+        x = tvtk.Algorithm()
+        self.assertTrue(hasattr(x, 'get_input_algorithm'))
+        self.assertTrue(callable(x.get_input_algorithm))
+        # It should also expose input_algorithm as a property trait.
+        self.assertTrue(hasattr(x, 'input_algorithm'))
+
 
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.
