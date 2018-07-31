@@ -162,17 +162,18 @@ class TestArrayHandler(unittest.TestCase):
 
         # Make sure the code at least runs for all the non-complex
         # numerical dtypes in numpy.
+        float_types = [x for x in numpy.sctypes['float']
+                       if x().dtype.name not in ('float16', 'float128')]
         for dtype in (numpy.sctypes['int'] + numpy.sctypes['uint'] +
-                            numpy.sctypes['float']):
+                      float_types):
             array_handler.array2vtk(numpy.zeros((1,), dtype=dtype))
-
 
     def test_arr2cell_array(self):
         """Test Numeric array to vtkCellArray conversion."""
         # Test list of lists.
         a = [[0], [1, 2], [3, 4, 5], [6, 7, 8, 9]]
         cells = array_handler.array2vtkCellArray(a)
-        z = numpy.array([1, 0, 2, 1,2, 3, 3,4,5, 4, 6,7,8,9])
+        z = numpy.array([1, 0, 2, 1, 2, 3, 3, 4, 5, 4, 6, 7, 8, 9])
         arr = array_handler.vtk2array(cells.GetData())
         self.assertEqual(numpy.sum(arr - z), 0)
         self.assertEqual(len(arr.shape), 1)
@@ -314,7 +315,7 @@ class TestArrayHandler(unittest.TestCase):
                                   args[i], sigs[i])
             else:
                 s = array_handler.get_correct_sig(args[i], sigs[i])
-                #print s, res[i]
+                #print(s, res[i])
                 self.assertEqual(s, res[i])
 
     def test_deref_array(self):
