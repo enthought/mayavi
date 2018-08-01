@@ -14,6 +14,8 @@ import numpy as np
 from numpy.testing import assert_allclose
 from traits.testing.unittest_tools import UnittestTools
 
+import vtk
+
 from mayavi import mlab
 from mayavi.core.engine import Engine
 from tvtk.api import tvtk
@@ -89,9 +91,6 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         self.assertTrue(isinstance(density.get_output_dataset(), tvtk.ImageData))
 
     def test_mlab_source(self):
-        """ Check that the different objects created by mlab have an
-            'mlab_source' attribute.
-        """
         # Test for functions taking 3D scalar data
         pipelines = (
             (mlab.pipeline.scalar_scatter, ),
@@ -123,6 +122,18 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             for factory in pipeline[1:]:
                 obj = factory(obj)
             self.assertTrue(hasattr(obj, 'mlab_source'))
+
+    def test_add_dataset_works_with_vtk_datasets(self):
+        # Given
+        pd = vtk.vtkPolyData()
+        # When
+        mlab.pipeline.add_dataset(pd)
+        # Then
+        e = mlab.get_engine()
+        src = e.scenes[0].children[0]
+        from mayavi.sources.vtk_data_source import VTKDataSource
+        self.assertTrue(isinstance(src, VTKDataSource))
+        self.assertEqual(tvtk.to_vtk(src.data), pd)
 
     def test_figure(self):
         """ Various tests for mlab.figure().

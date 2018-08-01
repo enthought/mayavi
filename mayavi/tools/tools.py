@@ -10,6 +10,8 @@ The general purpose tools to manipulate the pipeline with the mlab interface.
 # Standard library imports.
 import numpy
 
+import vtk
+
 # Enthought library imports.
 from tvtk.api import tvtk
 
@@ -31,7 +33,7 @@ def add_dataset(dataset, name='', **kwargs):
 
     **Parameters**
 
-    :dataset: a tvtk dataset, or a Mayavi source.
+    :dataset: a tvtk/vtk dataset, or a Mayavi source.
               The dataset added to the Mayavi pipeline
     :figure: a figure identifier number or string, None or False, optionnal.
 
@@ -51,19 +53,19 @@ def add_dataset(dataset, name='', **kwargs):
 
     The corresponding Mayavi source is returned.
     """
-    if isinstance(dataset, tvtk.Object):
+    if isinstance(dataset, (tvtk.Object, vtk.vtkObjectBase)):
         d = VTKDataSource()
-        d.data = dataset
+        d.data = tvtk.to_tvtk(dataset)
     elif isinstance(dataset, Source):
         d = dataset
     else:
         raise TypeError(
-              "first argument should be either a TVTK object"\
+              "first argument should be either a TVTK object"
               " or a mayavi source")
 
     if len(name) > 0:
         d.name = name
-    if not 'figure' in kwargs:
+    if 'figure' not in kwargs:
         # No figure has been specified, retrieve the default one.
         gcf()
         engine = get_engine()
