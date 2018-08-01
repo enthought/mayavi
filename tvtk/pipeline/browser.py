@@ -130,7 +130,8 @@ class SimpleTreeGenerator(TreeGenerator):
 
         for attribute in ['source', 'get_input', 'input', 'mapper', 'property',
                           'texture', 'text_property', 'volume_property',
-                          'lookup_table', 'producer_port', 'producer']:
+                          'lookup_table', 'producer_port', 'producer',
+                          'get_input_algorithm']:
             if hasattr(obj, attribute):
                 return True
 
@@ -174,20 +175,21 @@ class SimpleTreeGenerator(TreeGenerator):
 
         # Check for sources and inputs.
         if hasattr(obj, 'number_of_sources'):
-            srcs = [obj.get_source(i) \
+            srcs = [obj.get_source(i)
                     for i in range(obj.number_of_sources)]
             _add_kid('source', srcs)
         elif hasattr(obj, 'source'):
             _add_kid('source', obj.source)
 
-        if hasattr(obj, 'get_input'):
+        if hasattr(obj, 'get_input_algorithm'):
             inputs = []
             if hasattr(obj, 'number_of_input_ports'):
-                if obj.number_of_input_ports:
-                    inputs = [obj.get_input(i) \
-                              for i in range(obj.number_of_input_ports)]
-            else:
-                inputs = [obj.get_input(i) \
+                inputs = [obj.get_input_algorithm(i, j)
+                          for i in range(obj.number_of_input_ports)
+                          for j in range(
+                                  obj.get_number_of_input_connections(i))]
+            elif hasattr(obj, 'get_input'):
+                inputs = [obj.get_input(i)
                           for i in range(obj.number_of_inputs)]
             _add_kid('input', inputs)
         elif hasattr(obj, 'input'):
@@ -274,30 +276,23 @@ class FullTreeGenerator(SimpleTreeGenerator):
 
         # Check for sources and inputs.
         if hasattr(obj, 'number_of_sources'):
-            srcs = [obj.get_source(i) \
+            srcs = [obj.get_source(i)
                     for i in range(obj.number_of_sources)]
             _add_kid('source', srcs)
         elif hasattr(obj, 'source'):
             _add_kid('source', obj.source)
 
-        if hasattr(obj, 'get_input'):
+        if hasattr(obj, 'get_input_algorithm'):
             inputs = []
             if hasattr(obj, 'number_of_input_ports'):
-                if obj.number_of_input_ports:
-                    # Sometimes not all the inputs can be retrieved using
-                    # 'get_input', as they may be sources (for instance
-                    # the ProbeFilter).
-                    inputs = list()
-                    for i in range(obj.number_of_input_ports):
-                        try:
-                            inputs.append(obj.get_input(i))
-                        except TypeError:
-                            pass
-                    if not inputs:
-                        inputs = [obj.get_input()]
-            else:
-                inputs = [obj.get_input(i) \
-                          for i in range(obj.number_of_inputs)]
+                inputs = [obj.get_input_algorithm(i, j)
+                          for i in range(obj.number_of_input_ports)
+                          for j in range(
+                                  obj.get_number_of_input_connections(i))]
+            _add_kid('input', inputs)
+        elif hasattr(obj, 'get_input'):
+            inputs = [obj.get_input(i)
+                      for i in range(obj.number_of_inputs)]
             _add_kid('input', inputs)
         elif hasattr(obj, 'input'):
             _add_kid('input', obj.input)
@@ -310,19 +305,12 @@ class FullTreeGenerator(SimpleTreeGenerator):
     def has_children(self, obj):
         """Returns true of the object has children, false if not.  This is
         very specific to tvtk objects."""
-        if isinstance(obj, (tvtk.RenderWindow, tvtk.Renderer,
-                            tvtk.Collection)):
-            return True
-        for attribute in ['source', 'get_input', 'input', 'mapper', 'property',
-                          'texture', 'text_property', 'volume_property',
-                          'lookup_table', 'producer_port', 'producer']:
-            if hasattr(obj, attribute):
-                return True
+        result = super(FullTreeGenerator, self).has_children(obj)
         # FIXME: This is inefficient.  We probably should cache the
         # get_children call.
-        if self.get_children(obj):
+        if not result and self.get_children(obj):
             return True
-        return False
+        return result
 
     ###########################################################################
     # Non-public interface.
@@ -401,7 +389,7 @@ class FullTreeGenerator(SimpleTreeGenerator):
         # the browser.  I check for Source and Input anyway so I dont need
         # them.
         for name in('Output', 'FieldData', 'CellData', 'PointData',
-                    'Source', 'Input', 'ExtentTranslator',
+                    'Source', 'Input', 'ExtentTranslator', 'ProgressText',
                     'Interactor', 'Lights', 'Information', 'Executive'):
             _remove_method(name, methods, method_names)
 
@@ -782,7 +770,7 @@ def main(instantiate_gui=True):
 
     v = ivtk.viewer(browser=False, instantiate_gui=instantiate_gui)
     cs = tvtk.ConeSource()
-    m = tvtk.PolyDataMapper(input=cs.output)
+    m = tvtk.PolyDataMapper(input_connection=cs.output_port)
     a = tvtk.Actor(mapper=m)
     v.scene.add_actor(a)
     v.scene.reset_zoom()
@@ -796,5 +784,5 @@ def main(instantiate_gui=True):
 if __name__ == '__main__':
     from pyface.api import GUI
     gui = GUI()
-    main(instantiate_gui=False)
+    v, b, a = main(instantiate_gui=False)
     gui.start_event_loop()
