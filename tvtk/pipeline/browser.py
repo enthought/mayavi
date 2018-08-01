@@ -626,6 +626,7 @@ class PipelineBrowser(HasTraits):
     # Private traits.
     # The root of the tree to display.
     _root = Any
+    _ui = Any
 
     ###########################################################################
     # `object` interface.
@@ -643,7 +644,7 @@ class PipelineBrowser(HasTraits):
 
         """
         super(PipelineBrowser, self).__init__(**traits)
-        self.ui = None
+        self._ui = None
         self.view = None
         if renwin:
             self.renwins.append(renwin)
@@ -685,9 +686,9 @@ class PipelineBrowser(HasTraits):
         `parent` widget is passed, the tree is displayed inside the
         passed parent widget."""
         # If UI already exists, raise it and return.
-        if self.ui and self.ui.control:
+        if self._ui and self._ui.control:
             try:
-                self.ui.control.Raise()
+                self._ui.control.Raise()
             except AttributeError:
                 pass
             else:
@@ -696,18 +697,18 @@ class PipelineBrowser(HasTraits):
             # No active ui, create one.
             view = self.default_traits_view()
             if parent:
-                self.ui = view.ui(self, parent=parent, kind='subpanel')
+                self._ui = view.ui(self, parent=parent, kind='subpanel')
             else:
-                self.ui = view.ui(self, parent=parent)
+                self._ui = view.ui(self, parent=parent)
 
     def update(self):
         """Update the tree view."""
         # This is a hack.
-        if self.ui and self.ui.control:
+        if self._ui and self._ui.control:
             try:
-                ed = self.ui._editors[0]
+                ed = self._ui._editors[0]
                 ed.update_editor()
-                self.ui.control.Refresh()
+                self._ui.control.Refresh()
             except (AttributeError, IndexError):
                 pass
     # Another name for update.
