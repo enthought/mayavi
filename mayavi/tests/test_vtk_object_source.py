@@ -3,6 +3,7 @@ import unittest
 from tvtk.api import tvtk
 
 from mayavi.sources.vtk_object_source import VTKObjectSource
+from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi import mlab
 
 from .test_mlab_integration import TestMlabNullEngine
@@ -55,6 +56,16 @@ class TestVTKObjectSource(TestMlabNullEngine):
 
         # Then
         self.assertTrue(self.count > 0)
+
+    def test_add_dataset_uses_vtk_data_source_for_datasets(self):
+        # Given
+        pd = tvtk.PolyData()
+
+        # When
+        src = mlab.pipeline.add_dataset(pd)
+
+        # Then
+        self.assertTrue(isinstance(src, VTKDataSource))
 
 
 if __name__ == '__main__':
