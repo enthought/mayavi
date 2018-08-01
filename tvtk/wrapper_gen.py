@@ -915,12 +915,12 @@ class WrapperGenerator:
                 name = self._reform_name(m[3:])
                 sig = parser.get_method_signature(vtk_get_meth)
                 write_prop = False
-                write_getter = False
+                write_getter = True
                 if len(sig) == 1 and sig[0][1] is None:
                     write_prop = True
+                    # No need for a getter in this case.
+                    write_getter = False
                 elif len(sig) > 1:
-                    # The method has multiple signatures so write the getter.
-                    write_getter = True
                     for i in sig:
                         if i[1] is None:
                             # There is a getter which takes no args too, so
