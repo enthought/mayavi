@@ -26,18 +26,18 @@ TODO:
  * When a node is selected, the actor involved could be highlighted.
 
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
+# Copyright (c) 2005-2018, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 import re
 
 # Enthought library imports.
-from traits.api import HasTraits, Property, Any, Instance, \
-                             Trait, List, Str, Dict, Python
+from traits.api import (HasTraits, Property, Any, Instance, Event,
+                        Trait, List, Str, Dict, Python)
 from traitsui.api import \
-     TreeEditor, TreeNodeObject, ObjectTreeNode, View, Item, Group
+     TreeEditor, TreeNodeObject, ObjectTreeNode, View, Item, Group, VSplit
 from traitsui.menu import Menu, Action
 
 from tvtk.api import tvtk
@@ -616,6 +616,13 @@ class PipelineBrowser(HasTraits):
     # object instantiation time.
     root_object = List(TVTKBase)
 
+    selected = Instance(TVTKBase)
+
+    # This is fired when an object has been changed on the UI. Use this when
+    # you do not set the renwins list with the render windows but wish to do
+    # your own thing when the object traits are edited on the UI.
+    object_edited = Event
+
     # Private traits.
     # The root of the tree to display.
     _root = Any
@@ -642,6 +649,8 @@ class PipelineBrowser(HasTraits):
             self.renwins.append(renwin)
 
         self._root_object_changed(self.root_object)
+
+    def default_traits_view(self):
         menu = Menu(Action(name='Refresh', action='editor.update_editor'),
                     Action(name='Expand all', action='editor.expand_all'))
         self.menu = menu
@@ -652,17 +661,21 @@ class PipelineBrowser(HasTraits):
                                       editable=False,
                                       orientation='vertical',
                                       hide_root=True,
+                                      on_select=self._on_select,
                                       on_dclick=self._on_dclick)
-        self.view = View(Group(Item(name='_root',
-                                    editor=self.tree_editor,
-                                    resizable=True),
-                               show_labels=False,
-                               show_border=False,
-                               orientation='vertical'),
-                         title='Pipeline browser',
-                         help=False,
-                         resizable=True, undo=False, revert=False,
-                         width=.3, height=.3)
+        view = View(Group(VSplit(Item(name='_root',
+                                      editor=self.tree_editor,
+                                      resizable=True),
+                                 Item(name='selected',
+                                      style='custom',
+                                      resizable=True),
+                                 show_labels=False,
+                                 show_border=False)),
+                    title='Pipeline browser',
+                    help=False,
+                    resizable=True, undo=False, revert=False,
+                    width=.3, height=.3)
+        return view
 
     ###########################################################################
     # `PipelineBrowser` interface.
@@ -681,10 +694,11 @@ class PipelineBrowser(HasTraits):
                 return
         else:
             # No active ui, create one.
+            view = self.default_traits_view()
             if parent:
-                self.ui = self.view.ui(self, parent=parent, kind='subpanel')
+                self.ui = view.ui(self, parent=parent, kind='subpanel')
             else:
-                self.ui = self.view.ui(self, parent=parent)
+                self.ui = view.ui(self, parent=parent)
 
     def update(self):
         """Update the tree view."""
@@ -702,6 +716,7 @@ class PipelineBrowser(HasTraits):
     def render(self):
         """Calls render on all render windows associated with this
         browser."""
+        self.object_edited = True
         for rw in self.renwins:
             rw.render()
 
@@ -758,6 +773,17 @@ class PipelineBrowser(HasTraits):
             view.handler = UICloseHandler(browser=self)
             object.on_trait_change(self.render)
             ui = object.edit_traits(view=view)
+
+    def _on_select(self, obj):
+        if hasattr(obj, 'object') and hasattr(obj.object, 'edit_traits'):
+            new = obj.object
+            old = self.selected
+            if new != old:
+                self.selected = new
+            if old is not None:
+                old.on_trait_change(self.render, remove=True)
+            if new is not None:
+                new.on_trait_change(self.render)
 
 
 
