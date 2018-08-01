@@ -292,7 +292,7 @@ class VTKDataSource(Source):
             self.configure_input_data(aa, new)
             self._update_data()
             aa.update()
-            self.outputs = [aa.output]
+            self.outputs = [aa]
         else:
             self.outputs = [self.data]
         self.data_changed = True

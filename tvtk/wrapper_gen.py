@@ -903,9 +903,9 @@ class WrapperGenerator:
         meths = parser.get_get_methods()
         for m in meths:
             vtk_get_meth = getattr(klass, m)
-            if m == 'GetOutput': # GetOutput is special.
+            if m == 'GetOutput':  # GetOutput is special.
                 self._write_get_output_method(klass, out, set=False)
-            elif m == 'GetInput': # GetInput is special.
+            elif m == 'GetInput':  # GetInput is special.
                 self._write_pure_get_input_method(klass, out)
             elif m == 'GetOutputPort':
                 # This method sometimes prints warnings so we handle
@@ -914,19 +914,22 @@ class WrapperGenerator:
             else:
                 name = self._reform_name(m[3:])
                 sig = parser.get_method_signature(vtk_get_meth)
-                simple_get = 0
+                write_prop = False
+                write_getter = True
                 if len(sig) == 1 and sig[0][1] is None:
-                    simple_get = 1
+                    write_prop = True
+                    # No need for a getter in this case.
+                    write_getter = False
                 elif len(sig) > 1:
                     for i in sig:
                         if i[1] is None:
-                            simple_get = 1
+                            # There is a getter which takes no args too, so
+                            # expose that as a property.
+                            write_prop = True
                             break
-                if simple_get:
+                if write_prop:
                     self._write_property(out, name, vtk_get_meth, None)
-                else:
-                    # Cannot be represented as a simple property,
-                    # so we wrap it as a plain old method.
+                if write_getter:
                     self._write_tvtk_method(klass, out, vtk_get_meth, sig)
 
     def _gen_other_methods(self, klass, out):
