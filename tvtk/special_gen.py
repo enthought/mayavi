@@ -513,6 +513,17 @@ class HelperGenerator:
                 mod = __import__('tvtk.tvtk_classes.%%s'%%fname, globals(), locals(), [fname])
             return mod
 
+        def get_nearest_base_class(obj):
+            base = None
+            cls = obj.__class__.__bases__[0]
+            while base is None:
+                try:
+                    tvtk_name = get_tvtk_name(cls.__name__)
+                    base = get_class(tvtk_name)
+                except ImportError:
+                    cls = cls.__bases__[0]
+            return base
+
         def get_class(name):
             if name in _cache:
                 return _cache[name]
@@ -532,7 +543,10 @@ class HelperGenerator:
                 if cached_obj is not None:
                     return cached_obj
                 cname = get_tvtk_name(obj.__class__.__name__)
-                tvtk_class = get_class(cname)
+                try:
+                    tvtk_class = get_class(cname)
+                except ImportError:
+                    tvtk_class = get_nearest_base_class(obj)
                 return tvtk_class(obj)
             else:
                 return obj

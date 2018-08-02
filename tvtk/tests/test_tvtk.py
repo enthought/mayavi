@@ -868,6 +868,29 @@ class TestTVTK(unittest.TestCase):
         self.assertTrue(isinstance(x, tvtk.ContourFilter))
         self.assertTrue(v is x._vtk_obj)
 
+    def test_to_tvtk_wraps_subclass_of_vtk(self):
+        # Given
+        class MyAlgorithm(vtk.vtkPythonAlgorithm):
+            pass
+
+        a = MyAlgorithm()
+        # When
+        ta = tvtk.to_tvtk(a)
+
+        # Then
+        self.assertTrue(isinstance(ta, tvtk.PythonAlgorithm))
+
+        # Given
+        class B(MyAlgorithm):
+            pass
+
+        b = B()
+        # When
+        tb = tvtk.to_tvtk(b)
+
+        # Then
+        self.assertTrue(isinstance(tb, tvtk.PythonAlgorithm))
+
 
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.
