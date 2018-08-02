@@ -322,7 +322,6 @@ class TVTKBase(traits.HasStrictTraits):
         # Initialize the Python attribute.
         self._in_set = 0
         if obj:
-            assert obj.IsA(klass.__name__)
             self._vtk_obj = obj
         else:
             self._vtk_obj = klass()
