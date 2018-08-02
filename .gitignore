@@ -5,6 +5,7 @@
 *.enamlc
 *~
 .DS_Store
+_configtest.*
 
 # ignore the build directories
 *.egg-info/

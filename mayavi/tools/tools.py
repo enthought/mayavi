@@ -10,11 +10,14 @@ The general purpose tools to manipulate the pipeline with the mlab interface.
 # Standard library imports.
 import numpy
 
+import vtk
+
 # Enthought library imports.
 from tvtk.api import tvtk
 
 # MayaVi related imports.
 from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.sources.vtk_object_source import VTKObjectSource
 from mayavi.core.module_manager import ModuleManager
 from mayavi.core.source import Source
 from mayavi.core.filter import Filter
@@ -26,13 +29,31 @@ from .figure import gcf
 # Utility functions.
 
 
+def _get_engine_from_kwarg(kwargs):
+    engine = None
+    if 'figure' not in kwargs:
+        # No figure has been specified, retrieve the default one.
+        gcf()
+        engine = get_engine()
+    elif kwargs['figure'] is False:
+        # Get a null engine that we can use.
+        engine = get_null_engine()
+    elif kwargs['figure'] is not None:
+        figure = kwargs['figure']
+        engine = engine_manager.find_figure_engine(figure)
+        engine.current_scene = figure
+
+    return engine
+
+
 def add_dataset(dataset, name='', **kwargs):
     """Add a dataset object to the Mayavi pipeline.
 
     **Parameters**
 
-    :dataset: a tvtk dataset, or a Mayavi source.
-              The dataset added to the Mayavi pipeline
+    :dataset: a tvtk/vtk dataset/tvtk/VTK Algorithm, or a Mayavi source. The
+              dataset added to the Mayavi pipeline
+
     :figure: a figure identifier number or string, None or False, optionnal.
 
             If no `figure` keyword argument is given, the data
@@ -50,31 +71,25 @@ def add_dataset(dataset, name='', **kwargs):
     **Returns**
 
     The corresponding Mayavi source is returned.
+
     """
-    if isinstance(dataset, tvtk.Object):
+    if isinstance(dataset, (tvtk.DataSet, vtk.vtkDataSet)):
         d = VTKDataSource()
-        d.data = dataset
+        d.data = tvtk.to_tvtk(dataset)
+    elif isinstance(dataset, (tvtk.Algorithm, vtk.vtkAlgorithm)):
+        d = VTKObjectSource()
+        d.object = tvtk.to_tvtk(dataset)
     elif isinstance(dataset, Source):
         d = dataset
     else:
         raise TypeError(
-              "first argument should be either a TVTK object"\
+              "first argument should be either a TVTK object"
               " or a mayavi source")
 
     if len(name) > 0:
         d.name = name
-    if not 'figure' in kwargs:
-        # No figure has been specified, retrieve the default one.
-        gcf()
-        engine = get_engine()
-    elif kwargs['figure'] is False:
-        # Get a null engine that we can use.
-        engine = get_null_engine()
-    elif kwargs['figure'] is not None:
-        figure = kwargs['figure']
-        engine = engine_manager.find_figure_engine(figure)
-        engine.current_scene = figure
-    else:
+    engine = _get_engine_from_kwarg(kwargs)
+    if engine is None:
         # Return early, as we don't want to add the source to an engine.
         return d
     engine.add_source(d)
