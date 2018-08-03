@@ -840,6 +840,57 @@ class TestTVTK(unittest.TestCase):
         # It should also expose input_algorithm as a property trait.
         self.assertTrue(hasattr(x, 'input_algorithm'))
 
+    def test_vtk_python_algorithm_base_is_wrapped(self):
+        from tvtk import vtk_module
+        name = 'VTKPythonAlgorithmBase'
+        if hasattr(vtk_module, name):
+            self.assertTrue(hasattr(tvtk, name))
+            # Should be able to instantiate this wrapped class.
+            getattr(tvtk, name)()
+
+    def test_to_vtk_returns_vtk_object(self):
+        # Given
+        x = tvtk.ContourFilter()
+        # When
+        v = tvtk.to_vtk(x)
+        # Then
+        self.assertEqual(v.GetClassName(), 'vtkContourFilter')
+        self.assertTrue(v is x._vtk_obj)
+
+    def test_to_tvtk_returns_tvtk_object(self):
+        # Given
+        v = vtk.vtkContourFilter()
+        # When
+        x = tvtk.to_tvtk(v)
+        # Then
+        self.assertEqual(x.class_name, 'vtkContourFilter')
+        self.assertTrue(isinstance(x, tvtk_base.TVTKBase))
+        self.assertTrue(isinstance(x, tvtk.ContourFilter))
+        self.assertTrue(v is x._vtk_obj)
+
+    def test_to_tvtk_wraps_subclass_of_vtk(self):
+        # Given
+        class MyAlgorithm(vtk.vtkPythonAlgorithm):
+            pass
+
+        a = MyAlgorithm()
+        # When
+        ta = tvtk.to_tvtk(a)
+
+        # Then
+        self.assertTrue(isinstance(ta, tvtk.PythonAlgorithm))
+
+        # Given
+        class B(MyAlgorithm):
+            pass
+
+        b = B()
+        # When
+        tb = tvtk.to_tvtk(b)
+
+        # Then
+        self.assertTrue(isinstance(tb, tvtk.PythonAlgorithm))
+
 
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.

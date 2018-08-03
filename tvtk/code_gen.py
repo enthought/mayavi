@@ -7,7 +7,7 @@
 
 from __future__ import print_function
 
-import vtk
+import vtk_module as vtk
 import os
 import os.path
 import zipfile
@@ -86,7 +86,7 @@ class TVTKGenerator:
         v = vtk.vtkVersion()
         vtk_version = v.GetVTKVersion()[:3]
         vtk_src_version = v.GetVTKSourceVersion()
-        code ="vtk_build_version = \'%s\'\n"%(vtk_version)
+        code = "vtk_build_version = \'%s\'\n"%(vtk_version)
         code += "vtk_build_src_version = \'%s\'\n"%(vtk_src_version)
 
         with open(os.path.join(out_dir, 'vtk_version.py'), 'w') as f:
@@ -100,14 +100,16 @@ class TVTKGenerator:
             tree = wrap_gen.get_tree().tree
 
             classes = []
+            # This is another class we should not wrap and exists
+            # in version 8.1.0.
+            ignore = ['vtkOpenGLGL2PSHelperImpl']
+            include = ['VTKPythonAlgorithmBase']
             for node in wrap_gen.get_tree():
                 name = node.name
-                # This is another class we should not wrap and exists
-                # in version 8.1.0.
-                ignore = ['vtkOpenGLGL2PSHelperImpl']
                 if name in ignore:
                     continue
-                if not name.startswith('vtk') or name.startswith('vtkQt'):
+                if (name not in include and not name.startswith('vtk')) or \
+                    name.startswith('vtkQt'):
                     continue
                 if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):  # noqa
                     # We need to wrap VTK classes that are derived

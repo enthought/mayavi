@@ -9,10 +9,14 @@ need to be wrapped.
 """
 
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007,  Enthought, Inc.
+# Copyright (c) 2007-2018,  Enthought, Inc.
 # License: BSD Style.
 
 from vtk import *
+try:
+    from vtk.util.vtkAlgorithm import VTKPythonAlgorithmBase
+except ImportError:
+    pass
 
 try:
     from tvtk_local import *
