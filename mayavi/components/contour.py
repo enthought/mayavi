@@ -19,6 +19,7 @@ from traits.api import Instance, List, Tuple, Bool, Range, \
 from tvtk.api import tvtk
 
 # Local imports.
+from mayavi.core.module_manager import DataSetHelper
 from mayavi.core.component import Component
 from mayavi.core.common import error
 from mayavi.components.common \
@@ -229,22 +230,14 @@ class Contour(Component):
         if not self.auto_update_range:
             return
         src = get_module_source(self.inputs[0])
-        dataset = self._get_source_dataset(src)
-        sc = dataset.point_data.scalars
-        if sc is not None:
-            sc_array = sc.to_array()
-            has_nan = numpy.isnan(sc_array).any()
-            if has_nan:
-                rng = (float(numpy.nanmin(sc_array)),
-                       float(numpy.nanmax(sc_array)))
-            else:
-                rng = sc.range
-        else:
+        dsh = DataSetHelper(src.outputs[0])
+        name, rng = dsh.get_range('scalars', 'point')
+        if name is None:
             error('Cannot contour: No scalars in input data!')
             rng = (0.0, 1.0)
         if rng != self._current_range:
             self.trait_set(_data_min=rng[0], _data_max=rng[1],
-                     trait_change_notify=False)
+                           trait_change_notify=False)
             self._clip_contours(rng)
             self._current_range = rng
 

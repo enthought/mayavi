@@ -170,7 +170,7 @@ class Outline(Module):
 
         # The module has a list of outputs, but at this stage,
         # the output of the newly instantiated filter will be its only output.
-        self.outputs = [self.outline_filter.output]
+        self.outputs = [self.outline_filter]
 
     def _get_outline_filter(self):
         if self.outline_mode == 'full':

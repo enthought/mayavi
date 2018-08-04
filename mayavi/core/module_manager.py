@@ -3,11 +3,12 @@ tables.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008,  Enthought, Inc.
+# Copyright (c) 2005-2018,  Enthought, Inc.
 # License: BSD Style.
 
 import numpy
 
+import vtk
 from vtk.numpy_interface import dataset_adapter as dsa
 from vtk.numpy_interface import algorithms as algs
 
@@ -29,14 +30,23 @@ def get_new_output(input, update=True):
     if update and hasattr(input, 'update'):
         input.update()
     if input.is_a('vtkDataObject'):
-        return dsa.WrapDataObject(tvtk.to_vtk(input))
+        return input
     else:
-        return dsa.WrapDataObject(tvtk.to_vtk(input.output))
+        if input.output is not None:
+            result = input.output
+        else:
+            obj = input.get_output_information(0).get(
+                vtk.vtkDataSet.DATA_OBJECT()
+            )
+            result = obj
+        return result
 
 
 class DataSetHelper(object):
     def __init__(self, input):
-        self.dataset = get_new_output(input, update=True)
+        self.dataset = dsa.WrapDataObject(
+            tvtk.to_vtk(get_new_output(input, update=True))
+        )
         self._composite = isinstance(self.dataset, dsa.CompositeDataSet)
         self._scalars = None
         self._vectors = None
@@ -74,11 +84,13 @@ class DataSetHelper(object):
         da = dataset.PointData if mode == 'point' else dataset.CellData
         x = self._get_attr(da, attr, mode)
         if x is None:
-            return '', [0.0, 1.0]
+            return None, [0.0, 1.0]
         name, x = x
         if self._composite:
             # Don't bother with Nans for composite data for now.
-            if attr == 'scalars':
+            if isinstance(x, dsa.VTKNoneArray):
+                res = [0.0, 1.0]
+            elif attr == 'scalars':
                 res = [algs.min(x), algs.max(x)]
             else:
                 max_norm = numpy.sqrt(algs.max(algs.sum(x*x, axis=1)))

@@ -5,6 +5,8 @@
 # Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
+import vtk
+
 # Enthought library imports.
 from traits.api import Instance, Bool, Enum
 from tvtk.api import tvtk
@@ -51,6 +53,9 @@ class Actor(Component):
     # Texture coord generator.
     tcoord_generator = Instance(tvtk.Object, allow_none=True)
 
+    # Composite data filter.
+    comp_data_geom_filter = Instance(tvtk.CompositeDataGeometryFilter)
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -93,7 +98,11 @@ class Actor(Component):
                (len(self.inputs[0].outputs) == 0):
             return
 
-        self.configure_input(self.mapper, self.inputs[0].outputs[0])
+        input = self.inputs[0].outputs[0]
+        if input is None:
+            return
+
+        self._connect_mapper(input)
         self._tcoord_generator_mode_changed(self.tcoord_generator_mode)
         self.render()
 
@@ -135,6 +144,28 @@ class Actor(Component):
             old.on_trait_change(self.render, remove=True)
         new.on_trait_change(self.render)
 
+    def _get_correct_input(self, input):
+        if input.is_a('vtkDataSet') or input.is_a('vtkAlgorithmOutput'):
+            return input
+
+        info = input.get_output_information(0)
+        do = info.get(vtk.vtkDataObject.DATA_OBJECT())
+        if do.is_a('vtkCompositeDataSet'):
+            cdgf = self.comp_data_geom_filter
+            cdgf.input_connection = input.output_port
+            return cdgf
+        else:
+            return input
+
+    def _comp_data_geom_filter_default(self):
+        return tvtk.CompositeDataGeometryFilter()
+
+    def _connect_mapper(self, input):
+        if input is None:
+            return
+        inp = self._get_correct_input(input)
+        self.configure_input(self.mapper, inp)
+
     def _mapper_changed(self, old, new):
         # Setup the handlers.
         self._setup_handlers(old, new)
@@ -143,7 +174,7 @@ class Actor(Component):
             self.set_lut(old.lookup_table)
         # Setup the inputs to the mapper.
         if (len(self.inputs) > 0) and (len(self.inputs[0].outputs) > 0):
-            self.configure_connection(new, self.inputs[0])
+            self._connect_mapper(self.inputs[0].outputs[0])
         # Setup the actor's mapper.
         actor = self.actor
         if actor is not None:
@@ -244,14 +275,15 @@ class Actor(Component):
             old_tg.on_trait_change(self.render, remove=True)
         if value == 'none':
             self.tcoord_generator = None
-            self.configure_connection(self.mapper, inp[0])
+            self._connect_mapper(inp[0].outputs[0])
         else:
             tg_dict = {'cylinder': tvtk.TextureMapToCylinder,
                        'sphere': tvtk.TextureMapToSphere,
                        'plane': tvtk.TextureMapToPlane}
             tg = tg_dict[value]()
             self.tcoord_generator = tg
-            self.configure_connection(tg, inp[0])
+            actual_input = self._get_correct_input(inp[0])
+            self.configure_connection(tg, actual_input)
             self.configure_connection(self.mapper, tg)
         tg = self.tcoord_generator
         if tg is not None:

@@ -3,7 +3,7 @@
  outputs of an object in the pipeline.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2016, Prabhu Ramachandran Enthought, Inc.
+# Copyright (c) 2008-2018, Prabhu Ramachandran Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -27,24 +27,23 @@ def get_tvtk_dataset_name(dataset):
     """Given a TVTK dataset `dataset` return the string dataset type of
     the dataset.
     """
+    from mayavi.core.module_manager import get_new_output
     result = 'none'
-    if hasattr(dataset, 'is_a'):
-        if not dataset.is_a('vtkDataSet') and hasattr(dataset, 'output'):
-            # FIXME: Use pipeline information to do this correctly.
-            dataset = dataset.output
-        if dataset.is_a('vtkStructuredPoints') or \
-           dataset.is_a('vtkImageData'):
-               result = 'image_data'
-        elif dataset.is_a('vtkRectilinearGrid'):
-            result = 'rectilinear_grid'
-        elif dataset.is_a('vtkPolyData'):
-            result = 'poly_data'
-        elif dataset.is_a('vtkStructuredGrid'):
-            result = 'structured_grid'
-        elif dataset.is_a('vtkUnstructuredGrid'):
-            result = 'unstructured_grid'
-        else:
-            result = 'none'
+    if not hasattr(dataset, 'is_a') or not dataset.is_a('vtkDataObject'):
+        return result
+    dataset = get_new_output(dataset)
+    if dataset.is_a('vtkStructuredPoints') or dataset.is_a('vtkImageData'):
+        result = 'image_data'
+    elif dataset.is_a('vtkRectilinearGrid'):
+        result = 'rectilinear_grid'
+    elif dataset.is_a('vtkPolyData'):
+        result = 'poly_data'
+    elif dataset.is_a('vtkStructuredGrid'):
+        result = 'structured_grid'
+    elif dataset.is_a('vtkUnstructuredGrid'):
+        result = 'unstructured_grid'
+    elif dataset.is_a('vtkCompositeDataSet'):
+        result = 'any'
     else:
         result = 'none'
     return result
