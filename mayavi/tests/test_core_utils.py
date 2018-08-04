@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 
 from tvtk.api import tvtk
-from mayavi.core.module_manager import DataSetHelper
+from mayavi.core.utils import DataSetHelper
 
 
 class TestDataSetHelper(unittest.TestCase):

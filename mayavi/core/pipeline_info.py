@@ -9,6 +9,8 @@
 # Enthought library imports.
 from traits.api import HasTraits, Enum, List
 
+from .utils import get_tvtk_dataset_name
+
 # The list of datasets supported.
 DataSet = Enum('none', 'any', 'image_data', 'rectilinear_grid',
                'poly_data', 'structured_grid', 'unstructured_grid')
@@ -18,35 +20,6 @@ AttributeType = Enum('any', 'cell', 'point', 'none')
 
 # Attribute.
 Attribute = Enum('any', 'none', 'scalars', 'vectors', 'tensors')
-
-
-################################################################################
-# Utility functions.
-################################################################################
-def get_tvtk_dataset_name(dataset):
-    """Given a TVTK dataset `dataset` return the string dataset type of
-    the dataset.
-    """
-    from mayavi.core.module_manager import get_new_output
-    result = 'none'
-    if not hasattr(dataset, 'is_a') or not dataset.is_a('vtkDataObject'):
-        return result
-    dataset = get_new_output(dataset)
-    if dataset.is_a('vtkStructuredPoints') or dataset.is_a('vtkImageData'):
-        result = 'image_data'
-    elif dataset.is_a('vtkRectilinearGrid'):
-        result = 'rectilinear_grid'
-    elif dataset.is_a('vtkPolyData'):
-        result = 'poly_data'
-    elif dataset.is_a('vtkStructuredGrid'):
-        result = 'structured_grid'
-    elif dataset.is_a('vtkUnstructuredGrid'):
-        result = 'unstructured_grid'
-    elif dataset.is_a('vtkCompositeDataSet'):
-        result = 'any'
-    else:
-        result = 'none'
-    return result
 
 
 ################################################################################

@@ -29,7 +29,7 @@ class TestVTKFileReader(unittest.TestCase):
 
     def check(self, n_points, n_cells):
         """Do the actual testing."""
-        output = self.src.outputs[0]
+        output = self.src.get_output_dataset()
         self.assertEqual(output.number_of_points, n_points)
         self.assertEqual(output.number_of_cells, n_cells)
 

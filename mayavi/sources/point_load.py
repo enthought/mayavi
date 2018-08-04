@@ -26,7 +26,6 @@ class PointLoad(Source):
     point_load = Instance(tvtk.PointLoad, args=(), allow_none=False,
                           record=True)
 
-
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['image_data'],
                                attribute_types=['any'],
@@ -51,7 +50,7 @@ class PointLoad(Source):
         self.point_load.on_trait_change(self.render)
 
         # Setup the outputs.
-        self.outputs = [self.point_load.output]
+        self.outputs = [self.point_load]
 
     def has_output_port(self):
         """ Return True as the point load has output port."""

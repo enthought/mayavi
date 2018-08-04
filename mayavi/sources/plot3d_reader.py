@@ -208,7 +208,7 @@ class PLOT3DReader(Source):
             # No output so the file might be an ASCII file.
             try:
                 # Turn off IBlanking.
-                r.trait_set(i_blanking = False, binary_file = False)
+                r.trait_set(i_blanking=False, binary_file=False)
             except AttributeError:
                 pass
             else:
@@ -246,6 +246,7 @@ class PLOT3DReader(Source):
         except AttributeError: # for VTK >= 4.5
             n = r.number_of_outputs
         outputs = []
+        # FIXME
         for i in range(n):
             outputs.append(r.get_output().get_block(i))
 

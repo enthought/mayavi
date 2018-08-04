@@ -150,7 +150,7 @@ class ArraySource(Source):
         if vd is not None:
             self.vector_data = vd
 
-        self.outputs = [self.change_information_filter.output]
+        self.outputs = [self.change_information_filter]
         self.on_trait_change(self._information_changed, 'spacing,origin')
 
     def __get_pure_state__(self):

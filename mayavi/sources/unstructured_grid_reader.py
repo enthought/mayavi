@@ -90,6 +90,7 @@ class UnstructuredGridReader(FileDataSource):
             error('Invalid file extension for file: %s'%value)
             return
 
+        old_fname = self.reader.file_name
         self.reader.file_name = value.strip()
         self.reader.update_information()
         if isinstance(self.reader, tvtk.ExodusIIReader):
@@ -103,13 +104,9 @@ class UnstructuredGridReader(FileDataSource):
             old_reader.on_trait_change(self.render, remove=True)
         self.reader.on_trait_change(self.render)
 
-        old_outputs = self.outputs
-        if isinstance(self.reader, tvtk.ExodusIIReader):
-            self.outputs = [self.reader.output.get_block(0).get_block(0)]
-        else:
-            self.outputs = [self.reader.output]
+        self.outputs = [self.reader]
 
-        if self.outputs == old_outputs:
+        if old_fname != value:
             self.data_changed = True
 
         # Change our name on the tree view

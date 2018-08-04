@@ -20,30 +20,29 @@ from mayavi.modules.outline import Outline
 from mayavi.modules.glyph import Glyph
 from mayavi.modules.vector_cut_plane import VectorCutPlane
 
-class TestGlyph(unittest.TestCase):
 
+class TestGlyph(unittest.TestCase):
 
     def make_data(self):
         """Trivial data -- creates an elementatry scalar field and a
         constant vector field along the 'x' axis."""
         s = numpy.arange(0.0, 10.0, 0.01)
-        s = numpy.reshape(s, (10,10,10))
+        s = numpy.reshape(s, (10, 10, 10))
         s = numpy.transpose(s)
 
         v = numpy.zeros(3000, 'd')
         v[1::3] = 1.0
-        v = numpy.reshape(v, (10,10,10,3))
+        v = numpy.reshape(v, (10, 10, 10, 3))
         return s, v
 
     def setUp(self):
-        """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
-        #e = Engine()
+        # e = Engine()
         e.start()
-        s=e.new_scene()
-        self.e=e
-        self.s=s
+        s = e.new_scene()
+        self.e = e
+        self.s = s
 
         ############################################################
         # Create a new scene and set up the visualization.
@@ -100,17 +99,17 @@ class TestGlyph(unittest.TestCase):
         s = self.scene
         src = s.children[0]
         g = src.children[0].children[1]
-        self.assertEqual(g.glyph.glyph_source.glyph_position,'center')
-        self.assertEqual(g.glyph.glyph.vector_mode,'use_normal')
-        self.assertEqual(g.glyph.glyph.scale_factor,0.5)
-        self.assertEqual(g.actor.property.line_width,1.0)
+        self.assertEqual(g.glyph.glyph_source.glyph_position, 'center')
+        self.assertEqual(g.glyph.glyph.vector_mode, 'use_normal')
+        self.assertEqual(g.glyph.glyph.scale_factor, 0.5)
+        self.assertEqual(g.actor.property.line_width, 1.0)
         # Test masking
-        n_output_points = src.outputs[0].number_of_points
+        n_output_points = src.outputs[0].output.number_of_points
         n_glyph_input_points = g.glyph.glyph.input.number_of_points
         if mask:
-            self.assertNotEqual(n_glyph_input_points , 0)
+            self.assertNotEqual(n_glyph_input_points, 0)
             if mask_random_mode:
-                self.assertLessEqual(n_glyph_input_points , n_output_points)
+                self.assertLessEqual(n_glyph_input_points, n_output_points)
             else:
                 on_ratio = g.glyph.mask_points.on_ratio
                 self.assertEqual(n_glyph_input_points,
@@ -121,18 +120,18 @@ class TestGlyph(unittest.TestCase):
         v = src.children[0].children[2]
         glyph = v.glyph
         gs = glyph.glyph_source
-        self.assertEqual(gs.glyph_position,'tail')
-        self.assertEqual(gs.glyph_source,gs.glyph_list[1])
+        self.assertEqual(gs.glyph_position, 'tail')
+        self.assertEqual(gs.glyph_source, gs.glyph_list[1])
         self.assertEqual(numpy.allclose(v.implicit_plane.normal,
-                                                    (0., 1., 0.)),True)
+                                        (0., 1., 0.)), True)
 
         v = src.children[0].children[3]
         glyph = v.glyph
         gs = glyph.glyph_source
-        self.assertEqual(gs.glyph_source,gs.glyph_list[2])
-        self.assertEqual(gs.glyph_position,'head')
+        self.assertEqual(gs.glyph_source, gs.glyph_list[2])
+        self.assertEqual(gs.glyph_position, 'head')
         self.assertEqual(numpy.allclose(v.implicit_plane.normal,
-                         (0., 1., 0.)),True)
+                                        (0., 1., 0.)), True)
 
     def test_glyph(self):
         "Test if the test fixture works"
@@ -162,8 +161,8 @@ class TestGlyph(unittest.TestCase):
         """"Test if the modules respond correctly when the components
             are changed."""
 
-        g=self.g
-        v=self.v
+        g = self.g
+        v = self.v
         g.actor = g.actor.__class__()
         glyph = g.glyph
         g.glyph = glyph.__class__()
@@ -185,9 +184,9 @@ class TestGlyph(unittest.TestCase):
         scene = self.scene
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath('test.mv2')  # We simulate a file.
         engine.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
 

@@ -13,8 +13,7 @@ from traits.api import Instance
 from tvtk.api import tvtk
 
 # Local imports.
-from mayavi.core.pipeline_info import (PipelineInfo,
-        get_tvtk_dataset_name)
+from mayavi.core.pipeline_info import PipelineInfo, get_tvtk_dataset_name
 from .utils import has_attributes
 from .vtk_xml_file_reader import VTKXMLFileReader
 
@@ -69,32 +68,18 @@ class VTKFileReader(VTKXMLFileReader):
             self.reader.file_name = value
             self.update()
 
-            # Setup the outputs by resetting self.outputs.  Changing
-            # the outputs automatically fires a pipeline_changed
-            # event.
-            try:
-                n = self.reader.number_of_outputs
-            except AttributeError: # for VTK >= 4.5
-                n = self.reader.number_of_output_ports
+            outputs = []
+            if has_attributes(self.reader.output):
+                aa = self._assign_attribute
+                self.configure_input(aa, self.reader)
+                self.update_data()
+                aa.update()
+                outputs = [aa]
+            else:
+                outputs = [self.reader]
+            self.outputs = outputs
 
-            if n > 0:
-                outputs = []
-                for i in range(n):
-                    outputs.append(self.reader.get_output(i))
-
-                # FIXME: currently handling only one output (the first one)
-                # with assign attributes.
-                if has_attributes(outputs[0]):
-                    aa = self._assign_attribute
-                    self.configure_input_data(aa, outputs[0])
-                    self.update_data()
-                    aa.update()
-                    outputs[0] = aa.output
-
-                self.outputs = outputs
-
-                # FIXME: The output info is only based on the first output.
-                self.output_info.datasets = [get_tvtk_dataset_name(outputs[0])]
+            self.output_info.datasets = [get_tvtk_dataset_name(outputs[0])]
 
             # Change our name on the tree view
             self.name = self._get_name()

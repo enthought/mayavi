@@ -8,108 +8,18 @@ tables.
 
 import numpy
 
-import vtk
-from vtk.numpy_interface import dataset_adapter as dsa
-from vtk.numpy_interface import algorithms as algs
-
 # Enthought library imports.
 from traits.api import List, Instance, Trait, TraitPrefixList, \
                                  HasTraits, Str
 from apptools.persistence.state_pickler import set_state
 
 # Local imports
-from tvtk.api import tvtk
 from mayavi.core.base import Base
 from mayavi.core.module import Module
 from mayavi.core.lut_manager import LUTManager
 from mayavi.core.common import handle_children_state, exception
 from mayavi.core.pipeline_info import PipelineInfo
-
-
-def get_new_output(input, update=True):
-    if update and hasattr(input, 'update'):
-        input.update()
-    if input.is_a('vtkDataObject'):
-        return input
-    else:
-        if input.output is not None:
-            result = input.output
-        else:
-            obj = input.get_output_information(0).get(
-                vtk.vtkDataSet.DATA_OBJECT()
-            )
-            result = obj
-        return result
-
-
-class DataSetHelper(object):
-    def __init__(self, input):
-        self.dataset = dsa.WrapDataObject(
-            tvtk.to_vtk(get_new_output(input, update=True))
-        )
-        self._composite = isinstance(self.dataset, dsa.CompositeDataSet)
-        self._scalars = None
-        self._vectors = None
-
-    def _find_attr_name_for_composite_data(self, attr, mode):
-        prop = 'PointData' if mode == 'point' else 'CellData'
-        for obj in self.dataset:
-            da = getattr(obj, prop)
-            if attr == 'scalars':
-                s = da.GetScalars()
-            else:
-                s = da.GetVectors()
-            if s is not None:
-                return s.GetName()
-
-    def _get_attr(self, da, attr, mode):
-        if self._composite:
-            name = self._find_attr_name_for_composite_data(attr, mode)
-            return name,  da[name]
-        else:
-            if attr == 'scalars':
-                s = da.GetScalars()
-            else:
-                s = da.GetVectors()
-            if s is not None:
-                name = s.GetName()
-                if name is None or len(name) == 0:
-                    s.SetName(mode + '_' + attr)
-                return name, da[name]
-
-    def get_range(self, attr='scalars', mode='point'):
-        assert mode in ('point', 'cell')
-        assert attr in ('scalars', 'vectors')
-        dataset = self.dataset
-        da = dataset.PointData if mode == 'point' else dataset.CellData
-        x = self._get_attr(da, attr, mode)
-        if x is None:
-            return None, [0.0, 1.0]
-        name, x = x
-        if self._composite:
-            # Don't bother with Nans for composite data for now.
-            if isinstance(x, dsa.VTKNoneArray):
-                res = [0.0, 1.0]
-            elif attr == 'scalars':
-                res = [algs.min(x), algs.max(x)]
-            else:
-                max_norm = numpy.sqrt(algs.max(algs.sum(x*x, axis=1)))
-                res = [0.0, max_norm]
-        else:
-            has_nan = numpy.isnan(x).any()
-            if attr == 'scalars':
-                if has_nan:
-                    res = [float(numpy.nanmin(x)), float(numpy.nanmax(x))]
-                else:
-                    res = list(x.GetRange())
-            else:
-                if has_nan:
-                    d_mag = numpy.sqrt((x*x).sum(axis=1))
-                    res = [float(numpy.nanmin(d_mag)),
-                           float(numpy.nanmax(d_mag))]
-                else:
-                    res = [0.0, x.GetMaxNorm()]
-        return name, res
+from mayavi.core.utils import DataSetHelper
 
 
 ######################################################################
@@ -183,10 +93,11 @@ class ModuleManager(Base):
     # one available.  If set to 'point data' it uses the input point
     # data for the LUT and if set to 'cell data' it uses the input
     # cell data.
-    lut_data_mode = Trait('auto',
-                          TraitPrefixList(LUT_DATA_MODE_TYPES),
-                          desc='specify the data type used by the lookup tables',
-                          )
+    lut_data_mode = Trait(
+        'auto',
+        TraitPrefixList(LUT_DATA_MODE_TYPES),
+        desc='specify the data type used by the lookup tables',
+    )
 
     # The scalar lookup table manager.
     scalar_lut_manager = Instance(LUTManager, args=(), record=True)

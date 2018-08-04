@@ -294,11 +294,12 @@ class VTKDataSource(Source):
             aa.update()
             self.outputs = [aa]
         else:
-            self.outputs = [self.data]
+            tp = tvtk.TrivialProducer()
+            tp.set_output(self.data)
+            self.outputs = [tp]
         self.data_changed = True
 
-        self.output_info.datasets = \
-                [get_tvtk_dataset_name(self.outputs[0])]
+        self.output_info.datasets = [get_tvtk_dataset_name(self.outputs[0])]
 
         # Add an observer to the VTK dataset after removing the one
         # for the old dataset.  We use the messenger to avoid an

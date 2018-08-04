@@ -12,6 +12,7 @@ from traits.api import List, Event, Bool, Instance
 # Local imports.
 from mayavi.core.base import Base
 from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.utils import get_new_output
 import tvtk.common as tvtk_common
 
 ######################################################################
@@ -178,14 +179,7 @@ class PipelineBase(Base):
         """ Return the output dataset of this object.
         """
         if self.outputs:
-            o = self.outputs[0]
-            if o.is_a('vtkDataSet'):
-                return o
-            else:
-                output = o.output
-                if output is None and hasattr(o, 'update'):
-                    o.update()
-                return o.output
+            return get_new_output(self.outputs[0])
         else:
             return None
 

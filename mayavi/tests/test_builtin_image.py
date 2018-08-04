@@ -76,7 +76,7 @@ class TestBuiltinImageSource(unittest.TestCase):
         self.assertEqual(src.data_source.standard_deviation,15)
 
         # Check the scalar ranges
-        sc = src.outputs[0].point_data.scalars
+        sc = src.outputs[0].output.point_data.scalars
         self.assertEqual(numpy.allclose(sc.range, (0, 2.0), atol=1.01e-03), True)
 
     def test_change(self):
@@ -92,8 +92,9 @@ class TestBuiltinImageSource(unittest.TestCase):
         self.assertEqual(src.data_source.maximum,1.0)
         self.assertEqual(src.data_source.standard_deviation,100)
 
-        #Check the scalar ranges
-        self.assertEqual(numpy.allclose(src.outputs[0].point_data.scalars.range,(0.00149, 1.0),atol=1.01e-03),True)
+        # Check the scalar ranges
+        self.assertEqual(numpy.allclose(src.outputs[0].output.point_data.scalars.range,
+                                        (0.00149, 1.0), atol=1.01e-03),True)
 
         src.data_source.maximum = 2.0
         src.data_source.standard_deviation = 15

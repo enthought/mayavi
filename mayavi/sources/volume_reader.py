@@ -65,7 +65,7 @@ class VolumeReader(Source):
     def get_output_object(self):
         """ Return the reader output port."""
         return self.reader.output_port
-    
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -80,5 +80,5 @@ class VolumeReader(Source):
         self.reader.update()
         self.reader.update_information()
         self.reader.on_trait_change(self.render)
-        self.outputs = [self.reader.output]
+        self.outputs = [self.reader]
         self.data_changed = True
