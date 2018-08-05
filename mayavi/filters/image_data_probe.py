@@ -15,6 +15,7 @@ import tvtk.common as tvtk_common
 from mayavi.core.filter import Filter
 from mayavi.core.pipeline_info import PipelineInfo
 
+
 ################################################################################
 # `ImageDataProbe` class.
 ################################################################################
@@ -51,7 +52,7 @@ class ImageDataProbe(Filter):
                     desc='the spacing of points')
 
     # Dimensions of the image data.
-    dimensions = Array(value=(0,0,0),
+    dimensions = Array(value=(0, 0, 0),
                        shape=(3,),
                        cols=1,
                        dtype=int,
@@ -92,8 +93,7 @@ class ImageDataProbe(Filter):
                       Item(name='reset_defaults',
                            show_label=False),
                       ),
-                resizable=True
-                      )
+                resizable=True)
 
 
     ######################################################################
@@ -128,10 +128,10 @@ class ImageDataProbe(Filter):
         if input.is_a('vtkImageData'):
             self.allow_changes = False
             self.trait_set(spacing=input.spacing,
-                     dimensions=input.dimensions)
+                           dimensions=input.dimensions)
             pd.trait_set(origin=input.origin,
-                   dimensions=input.dimensions,
-                   spacing=input.spacing)
+                         dimensions=input.dimensions,
+                         spacing=input.spacing)
             pd.update()
         elif reset:
             self.allow_changes = True
@@ -142,23 +142,23 @@ class ImageDataProbe(Filter):
             npnt = pow(input.number_of_points, 1./3.) + 0.5
             fac = 3.0*npnt/tot_len
             dims = (l*fac).astype(int) + 1
-            extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
+            extent = (0, dims[0] - 1, 0, dims[1] - 1, 0, dims[2] - 1)
             if tvtk_common.is_old_pipeline():
                 pd.trait_set(extent=extent,
-                       update_extent=extent,
-                       whole_extent=extent,
-                       dimensions=dims)
+                             update_extent=extent,
+                             whole_extent=extent,
+                             dimensions=dims)
             else:
                 pd.trait_set(extent=extent,
-                       dimensions=dims)
+                             dimensions=dims)
 
             max_dim = dims.max()
             dims = (dims-1).clip(min=1, max=max_dim+1)
             l = l.clip(min=1e-3, max=l.max()+1.0)
             pd.spacing = l/dims
             self._event_handled = True
-            self.trait_set(spacing = pd.spacing,
-                     dimensions=pd.dimensions)
+            self.trait_set(spacing=pd.spacing,
+                           dimensions=pd.dimensions)
             self._event_handled = False
 
     def _rescale_scalars_changed(self, value):
@@ -216,28 +216,28 @@ class ImageDataProbe(Filter):
         dims = (l/value + 0.5).astype(int) + 1
         # Recalculate space because of rounding.
         maxd = dims.max()
-        dims1 = (dims -1).clip(min=1, max=maxd)
+        dims1 = (dims - 1).clip(min=1, max=maxd)
         sp = l/dims1
         self._event_handled = True
-        self.trait_set(spacing = sp, dimensions=dims)
+        self.trait_set(spacing=sp, dimensions=dims)
         self._event_handled = False
-        self._update_probe ()
+        self._update_probe()
 
     def _update_probe(self):
         pd = self.probe_data
         dims = self.dimensions
         spacing = self.spacing
-        extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
+        extent = (0, dims[0] - 1, 0, dims[1] - 1, 0, dims[2] - 1)
         if tvtk_common.is_old_pipeline():
             pd.trait_set(extent=extent,
-                   update_extent=extent,
-                   whole_extent=extent,
-                   dimensions=dims,
-                   spacing=spacing)
+                         update_extent=extent,
+                         whole_extent=extent,
+                         dimensions=dims,
+                         spacing=spacing)
         else:
             pd.trait_set(extent=extent,
-                   dimensions=dims,
-                   spacing=spacing)
+                         dimensions=dims,
+                         spacing=spacing)
         pd.modified()
         fil = self.filter
         w = fil.global_warning_display

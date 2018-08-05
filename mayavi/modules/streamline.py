@@ -16,7 +16,6 @@ from traits.api import Instance, Bool, TraitPrefixList, Trait, \
                              Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
-from tvtk.common import configure_outputs
 
 # Local imports
 from mayavi.core.module import Module
@@ -167,7 +166,7 @@ class Streamline(Module):
             return
 
         src = mm.source
-        self.configure_connection(self.stream_tracer, src)
+        self.configure_connection(self.stream_tracer, src.outputs[0])
         self.seed.inputs = [src]
 
         # Setup the radius/width of the tube/ribbon filters based on
@@ -207,17 +206,17 @@ class Streamline(Module):
         rf = self.ribbon_filter
         tf = self.tube_filter
         if value == 'line':
-            configure_outputs(self, st)
+            self.outputs = [st]
         elif value == 'ribbon':
             self.configure_connection(rf, st)
-            configure_outputs(self, rf)
+            self.outputs = [rf]
         elif value == 'tube':
             # Without a clean poly data filter, tube filter will throw could
             # not generate normals warning
             cf = self.clean_filter
             self.configure_connection(cf, st)
             self.configure_connection(tf, cf)
-            configure_outputs(self, tf)
+            self.outputs = [tf]
         self.render()
 
     def _update_streamlines_fired(self):
@@ -235,7 +234,7 @@ class Streamline(Module):
         mm = self.module_manager
         if mm is not None:
             src = mm.source
-            self.configure_connection(new, src)
+            self.configure_connection(new, src.outputs[0])
 
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.

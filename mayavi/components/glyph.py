@@ -13,7 +13,6 @@ from traits.api import Enum
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap
-import tvtk.common as tvtk_common
 
 # Local imports.
 from mayavi.core.component import Component
@@ -179,7 +178,7 @@ class Glyph(Component):
         self._scale_mode_changed(self.scale_mode)
 
         # Set our output.
-        tvtk_common.configure_outputs(self, self.glyph)
+        self.outputs = [self.glyph]
         self.pipeline_changed = True
 
     def update_data(self):
@@ -270,7 +269,7 @@ class Glyph(Component):
             return
         if value:
             mask = self.mask_points
-            tvtk_common.configure_input(mask, inputs[0].outputs[0])
+            self.configure_connection(mask, inputs[0].outputs[0])
             self.configure_connection(self.glyph, mask)
         else:
             self.configure_connection(self.glyph, inputs[0])

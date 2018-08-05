@@ -10,7 +10,7 @@ from traits.api import (Instance, List, Trait, Bool,
     TraitPrefixList, Property, Dict)
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
-from tvtk.common import camel2enthought, configure_outputs
+from tvtk.common import camel2enthought
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
@@ -168,10 +168,10 @@ class GlyphSource(Component):
 
         name = value.__class__.__name__
         if name == 'GlyphSource2D':
-            configure_outputs(self, value)
+            self.outputs = [value]
         else:
             self.configure_input(self._trfm, value)
-            configure_outputs(self, self._trfm)
+            self.outputs = [self._trfm]
         value.on_trait_change(self.render)
         self._updating = False
 

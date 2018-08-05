@@ -11,6 +11,8 @@ def get_new_output(input, update=True):
         input.update()
     if input.is_a('vtkDataObject'):
         return input
+    elif input.is_a('vtkAlgorithmOutput'):
+        return input.producer
     else:
         if hasattr(input, 'output') and input.output is not None:
             result = input.output

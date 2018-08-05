@@ -16,6 +16,8 @@ from tvtk.common import is_old_pipeline
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.core.source import Source
+from mayavi.core.utils import get_new_output
+
 
 ######################################################################
 # `Actor` class.
@@ -145,11 +147,7 @@ class Actor(Component):
         new.on_trait_change(self.render)
 
     def _get_correct_input(self, input):
-        if input.is_a('vtkDataSet') or input.is_a('vtkAlgorithmOutput'):
-            return input
-
-        info = input.get_output_information(0)
-        do = info.get(vtk.vtkDataObject.DATA_OBJECT())
+        do = get_new_output(input)
         if do.is_a('vtkCompositeDataSet'):
             cdgf = self.comp_data_geom_filter
             cdgf.input_connection = input.output_port
@@ -282,7 +280,7 @@ class Actor(Component):
                        'plane': tvtk.TextureMapToPlane}
             tg = tg_dict[value]()
             self.tcoord_generator = tg
-            actual_input = self._get_correct_input(inp[0])
+            actual_input = self._get_correct_input(inp[0].outputs[0])
             self.configure_connection(tg, actual_input)
             self.configure_connection(self.mapper, tg)
         tg = self.tcoord_generator

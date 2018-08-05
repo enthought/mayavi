@@ -11,6 +11,7 @@ from tvtk.api import tvtk
 from tvtk.common import configure_input
 from mayavi.core.component import Component
 from mayavi.core.common import error
+from mayavi.core.utils import get_new_output
 
 
 def get_module_source(obj):
@@ -28,21 +29,17 @@ def convert_to_poly_data(obj):
     This is primarily used to convert the data suitably for filters
     that only work for PolyData.
     """
-    if obj.is_a('vtkDataSet'):
-        data = obj
-    else:
-        # FIXME
-        data = obj.output
+    data = get_new_output(obj)
 
     if obj.is_a('vtkPolyData') or data.is_a('vtkPolyData'):
         return obj
-
 
     conv = {'vtkStructuredPoints': tvtk.ImageDataGeometryFilter,
             'vtkImageData': tvtk.ImageDataGeometryFilter,
             'vtkRectilinearGrid': tvtk.RectilinearGridGeometryFilter,
             'vtkStructuredGrid': tvtk.StructuredGridGeometryFilter,
-            'vtkUnstructuredGrid':tvtk.GeometryFilter}
+            'vtkUnstructuredGrid': tvtk.GeometryFilter,
+            'vtkCompositeDataSet': tvtk.CompositeDataGeometryFilter}
 
     fil = None
     for name, fil_class in conv.items():
@@ -55,4 +52,4 @@ def convert_to_poly_data(obj):
         fil.update()
         return fil
     else:
-        error('Given object is not a VTK dataset: %s'%data.__class__.__name__)
+        error('Given object is not a VTK dataset: %s' % data.__class__.__name__)

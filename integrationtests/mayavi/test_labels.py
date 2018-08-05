@@ -38,7 +38,7 @@ class TestLabels(TestCase):
             l.property.italic = False
 
         np = l.visible_points.get_output_dataset().number_of_points
-        assert np < 60 and np > 35
+        assert np < 60 and np > 25
         assert l.visible_points.enabled
         assert l.visible_points.get_output_dataset() == \
             l.visible_points.filter.filter.output
