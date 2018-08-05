@@ -95,6 +95,27 @@ class DataSetHelper(object):
                     res = [0.0, x.GetMaxNorm()]
         return name, res
 
+    def get_center(self):
+        """Return the center of the data.
+        """
+        if self._composite:
+            return algs.mean(self.dataset.Points, axis=0)
+        else:
+            return self.dataset.GetCenter()
+
+    def get_bounds(self):
+        """Return the bounds of the data.
+        """
+        if self._composite:
+            c1 = algs.min(self.dataset.Points, axis=0)
+            c2 = algs.max(self.dataset.Points, axis=0)
+            result = np.zeros(6)
+            result[::2] = c1
+            result[1::2] = c2
+            return result
+        else:
+            return self.dataset.GetBounds()
+
 
 def get_tvtk_dataset_name(dataset):
     """Given a TVTK dataset `dataset` return the string dataset type of

@@ -5,12 +5,13 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import Instance, Bool, Property
+from traits.api import Instance, Bool, Property, Any
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component
+from mayavi.core.utils import DataSetHelper
 
 VTK_VER = tvtk.Version().vtk_version
 
@@ -48,6 +49,7 @@ class ImplicitPlane(Component):
 
     _first = Bool(True)
     _busy = Bool(False)
+    _bounds = Any
 
     ########################################
     # View related traits.
@@ -112,8 +114,10 @@ class ImplicitPlane(Component):
         w = self.widget
         self.configure_input(w, inp)
         if self._first:
-            w.place_widget()
-            self.origin = self.inputs[0].get_output_dataset().center
+            dsh = DataSetHelper(self.inputs[0].outputs[0])
+            self._bounds = dsh.get_bounds()
+            w.place_widget(*self._bounds)
+            self.origin = dsh.get_center()
             self._first = False
         else:
             n = self.normal
@@ -150,6 +154,7 @@ class ImplicitPlane(Component):
     ######################################################################
     def _get_normal(self):
         return self.widget.normal
+
     def _set_normal(self, value):
         w = self.widget
         old = w.normal
@@ -175,7 +180,7 @@ class ImplicitPlane(Component):
 
     def _on_normal_set(self):
         w = self.widget
-        w.place_widget()
+        w.place_widget(*self._bounds)
         w.update_traits()
 
     def _connect(self):

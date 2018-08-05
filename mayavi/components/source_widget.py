@@ -15,6 +15,7 @@ from apptools.persistence.state_pickler import set_state
 # Local imports.
 from mayavi.core.common import handle_children_state
 from mayavi.core.component import Component
+from mayavi.core.utils import DataSetHelper
 
 ######################################################################
 # `SourceWidget` class.
@@ -51,6 +52,7 @@ class SourceWidget(Component):
     _first = Bool(True)
     _busy = Bool(False)
     _unpickling = Bool(False)
+    _bounds = List
 
     ########################################
     # View related traits.
@@ -157,13 +159,15 @@ class SourceWidget(Component):
         inp = self.inputs[0].outputs[0]
         w = self.widget
         self.configure_input(w, inp)
+        dsh = DataSetHelper(self.inputs[0].outputs[0])
+        b = dsh.get_bounds()
+        self._bounds = list(b)
         if self._first:
-            w.place_widget()
+            w.place_widget(b)
             self._first = False
 
         # If the dataset is effectively 2D switch to using the line
         # widget since that works best.
-        b = self.inputs[0].get_output_dataset().bounds
         l = [(b[1]-b[0]), (b[3]-b[2]), (b[5]-b[4])]
         max_l = max(l)
         for i, x in enumerate(l):
@@ -220,7 +224,7 @@ class SourceWidget(Component):
 
         if len(self.inputs) > 0:
             self.configure_input(value, self.inputs[0].outputs[0])
-            value.place_widget()
+            value.place_widget(self._bounds)
 
         value.on_trait_change(self.render)
         self.widgets = [value]
@@ -248,7 +252,7 @@ class SourceWidget(Component):
 
     def _on_alignment_set(self):
         w = self.widget
-        w.place_widget()
+        w.place_widget(self._bounds)
         w.update_traits()
 
     def _connect(self, obj):

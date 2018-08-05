@@ -22,7 +22,7 @@ from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.components.actor import Actor
 from mayavi.components.source_widget import SourceWidget
-
+from mayavi.core.utils import DataSetHelper
 
 ######################################################################
 # `Streamline` class.
@@ -172,7 +172,8 @@ class Streamline(Module):
         # Setup the radius/width of the tube/ribbon filters based on
         # given input.
         if self._first:
-            b = src.get_output_dataset().bounds
+            dsh = DataSetHelper(src.outputs[0])
+            b = dsh.get_bounds()
             l = [(b[1]-b[0]), (b[3]-b[2]), (b[5]-b[4])]
             length = sqrt(l[0]*l[0] + l[1]*l[1] + l[2]*l[2])
             self.ribbon_filter.width = length*0.0075
