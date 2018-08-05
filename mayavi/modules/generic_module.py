@@ -18,9 +18,10 @@ from mayavi.core.module import Module
 from mayavi.core.common import handle_children_state
 from mayavi.components.actor import Actor
 
-################################################################################
+
+##############################################################################
 # Utility function.
-################################################################################
+##############################################################################
 def find_object_given_state(needle, haystack, object):
     """
     Find the object which corrsponds to given state instance (`needle`)
@@ -48,9 +49,9 @@ def find_object_given_state(needle, haystack, object):
     return None
 
 
-################################################################################
+###############################################################################
 # `GenericModule` class.
-################################################################################
+###############################################################################
 class GenericModule(Module):
     """
     Defines a GenericModule which is a collection of mayavi
@@ -142,7 +143,7 @@ class GenericModule(Module):
                                show_label=False,
                                editor=le,
                                resizable=True),
-                              show_labels=False),
+                          show_labels=False),
                     resizable=True)
         return view
 
@@ -258,4 +259,3 @@ class GenericModule(Module):
             if len(component.inputs) > 0 and \
                len(component.inputs[0].outputs) > 0:
                 component.start()
-

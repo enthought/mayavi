@@ -7,7 +7,7 @@ handle transformation.
 
 # Enthought library imports.
 from traits.api import (Instance, List, Trait, Bool,
-    TraitPrefixList, Property, Dict)
+                        TraitPrefixList, Property, Dict)
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from tvtk.common import camel2enthought
@@ -59,16 +59,20 @@ class GlyphSource(Component):
     ########################################
     # View related traits.
 
-    view = View(Group(Group(Item(name='glyph_position')),
-                      Group(Item(name='glyph_source',
-                                 style='custom',
-                                 resizable=True,
-                                 editor=InstanceEditor(name='glyph_list'),
-                               ),
-                            label='Glyph Source',
-                            show_labels=False)
-                     ),
-                resizable=True)
+    view = View(
+        Group(
+            Group(Item(name='glyph_position')),
+            Group(
+                Item(
+                    name='glyph_source',
+                    style='custom',
+                    resizable=True,
+                    editor=InstanceEditor(name='glyph_list'),
+                ),
+                label='Glyph Source',
+                show_labels=False)),
+        resizable=True
+    )
 
     ######################################################################
     # `Base` interface
@@ -149,7 +153,7 @@ class GlyphSource(Component):
     # Non-public methods.
     ######################################################################
     def _glyph_source_changed(self, value):
-        if self._updating == True:
+        if self._updating:
             return
 
         gd = self.glyph_dict
@@ -162,9 +166,9 @@ class GlyphSource(Component):
         recorder = self.recorder
         if recorder is not None:
             name = recorder.get_script_id(self)
-            lhs = '%s.glyph_source'%name
-            rhs = '%s.glyph_dict[%r]'%(name, value_cls)
-            recorder.record('%s = %s'%(lhs, rhs))
+            lhs = '%s.glyph_source' % name
+            rhs = '%s.glyph_dict[%r]' % (name, value_cls)
+            recorder.record('%s = %s' % (lhs, rhs))
 
         name = value.__class__.__name__
         if name == 'GlyphSource2D':
@@ -180,7 +184,7 @@ class GlyphSource(Component):
         self._glyph_position_changed(self.glyph_position)
 
     def _glyph_position_changed(self, value):
-        if self._updating == True:
+        if self._updating:
             return
 
         self._updating = True
@@ -216,7 +220,7 @@ class GlyphSource(Component):
             elif name == 'ArrowSource':
                 tr.translate(-1, 0, 0)
             elif name == 'CylinderSource':
-                g.center = 0,-tr_factor, 0.0
+                g.center = 0, -tr_factor, 0.0
             else:
                 g.center = -tr_factor, 0.0, 0.0
         else:
@@ -244,9 +248,11 @@ class GlyphSource(Component):
         return [gd[key] for key in order]
 
     def _glyph_dict_default(self):
-        g = {'glyph_source2d': tvtk.GlyphSource2D(glyph_type='arrow', filled=False),
+        g = {'glyph_source2d': tvtk.GlyphSource2D(glyph_type='arrow',
+                                                  filled=False),
              'arrow_source': tvtk.ArrowSource(),
-             'cone_source': tvtk.ConeSource(height=1.0, radius=0.2, resolution=15),
+             'cone_source': tvtk.ConeSource(height=1.0, radius=0.2,
+                                            resolution=15),
              'cylinder_source': tvtk.CylinderSource(height=1.0, radius=0.15,
                                                     resolution=10),
              'sphere_source': tvtk.SphereSource(),

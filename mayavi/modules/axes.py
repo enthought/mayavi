@@ -15,6 +15,7 @@ from apptools.persistence import state_pickler
 from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
 
+
 ######################################################################
 # `CubeAxesActor2D` class.
 ######################################################################
@@ -52,7 +53,7 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
                             Item('use_data_bounds'),
                             HGroup(
                                  Item('bounds',
-                                    enabled_when='not use_data_bounds'),
+                                      enabled_when='not use_data_bounds'),
                                 ),
                             show_border=True),
                         Group(
@@ -64,16 +65,14 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
                             Item('font_factor'),
                             show_border=True),
                         HGroup(Item('show_actual_bounds',
-                                label='Use size bigger than screen',
-                                editor=BooleanEditor())),
+                                    label='Use size bigger than screen',
+                                    editor=BooleanEditor())),
                         Item('fly_mode'),
                         Item('corner_offset'),
                         Item('layer_number'),
-                       springy=True,
-                      ),
-                     scrollable=True,
-                     resizable=True,
-                     )
+                       springy=True),
+                       scrollable=True,
+                       resizable=True)
 
 
 ######################################################################
@@ -148,11 +147,11 @@ class Axes(Module):
         set the `actors` attribute up at this point.
         """
         # Create the axes and set things up.
-        axes = CubeAxesActor2D(number_of_labels= 2,
-                                    font_factor=1.5,
-                                    fly_mode='outer_edges',
-                                    corner_offset=0.0,
-                                    scaling=False)
+        axes = CubeAxesActor2D(number_of_labels=2,
+                               font_factor=1.5,
+                               fly_mode='outer_edges',
+                               corner_offset=0.0,
+                               scaling=False)
         axes.axis_title_text_property.shadow = False
         axes.axis_label_text_property.shadow = False
 

@@ -41,6 +41,7 @@ class CustomGridPlane(ContourGridPlane):
                       label='Actor',
                       show_labels=False)
                 )
+
     ######################################################################
     # `Module` interface
     ######################################################################

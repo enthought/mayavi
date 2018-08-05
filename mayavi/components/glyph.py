@@ -4,7 +4,7 @@ input point data.
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #         KK Rai (kk.rai [at] iitb.ac.in)
 #         R. Ambareesha (ambareesha [at] iitb.ac.in)
-# Copyright (c) 2005-2016, Enthought, Inc.
+# Copyright (c) 2005-2018, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
