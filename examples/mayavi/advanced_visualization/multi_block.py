@@ -4,7 +4,8 @@ from tvtk.api import tvtk
 
 
 def create_mb_dataset():
-    path = os.path.join(os.pardir, 'data', 'fire_ug.vtu')
+    mydir = os.path.dirname(__file__)
+    path = os.path.join(mydir, os.pardir, 'data', 'fire_ug.vtu')
     r = tvtk.XMLUnstructuredGridReader(file_name=path)
     r.update()
     ug0 = r.output
@@ -19,12 +20,17 @@ def create_mb_dataset():
     return mb
 
 
-mb = create_mb_dataset()
-src = mlab.pipeline.add_dataset(mb)
+def main():
+    mb = create_mb_dataset()
+    src = mlab.pipeline.add_dataset(mb)
 
-iso = mlab.pipeline.iso_surface(src)
-scp = mlab.pipeline.scalar_cut_plane(src)
-vcp = mlab.pipeline.vector_cut_plane(src)
-vcp.implicit_plane.widget.normal_to_y_axis = True
+    iso = mlab.pipeline.iso_surface(src)
+    scp = mlab.pipeline.scalar_cut_plane(src)
+    vcp = mlab.pipeline.vector_cut_plane(src)
+    vcp.implicit_plane.widget.normal_to_y_axis = True
 
-mlab.show()
+    mlab.show()
+
+
+if __name__ == '__main__':
+    main()
