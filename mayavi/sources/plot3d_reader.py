@@ -44,22 +44,22 @@ class PLOT3DReader(Source):
     # The active scalar name.
     scalars_name = Trait('density',
                          TraitPrefixMap({'density': 100,
-                                          'pressure':110,
-                                          'temperature': 120,
-                                          'enthalpy': 130,
-                                          'internal energy': 140,
-                                          'kinetic energy': 144,
-                                          'velocity magnitude': 153,
-                                          'stagnation energy': 163,
-                                          'entropy': 170,
-                                          'swirl': 184}),
+                                         'pressure': 110,
+                                         'temperature': 120,
+                                         'enthalpy': 130,
+                                         'internal energy': 140,
+                                         'kinetic energy': 144,
+                                         'velocity magnitude': 153,
+                                         'stagnation energy': 163,
+                                         'entropy': 170,
+                                         'swirl': 184}),
                          desc='scalar data attribute to show')
     # The active vector name.
     vectors_name = Trait('momentum',
                          TraitPrefixMap({'velocity': 200,
-                                          'vorticity': 201,
-                                          'momentum': 202,
-                                          'pressure gradient': 210}),
+                                         'vorticity': 201,
+                                         'momentum': 202,
+                                         'pressure gradient': 210}),
                          desc='vector data attribute to show')
 
     # The VTK data file reader.
@@ -96,7 +96,8 @@ class PLOT3DReader(Source):
 
     # The current file paths.  This is not meant to be touched by the
     # user.
-    xyz_file_path = Instance(FilePath, args=(), desc='the current XYZ file path')
+    xyz_file_path = Instance(FilePath, args=(),
+                             desc='the current XYZ file path')
     q_file_path = Instance(FilePath, args=(), desc='the current Q file path')
 
     ######################################################################
@@ -115,7 +116,7 @@ class PLOT3DReader(Source):
         xyz_fn = state.xyz_file_path.abs_pth
         q_fn = state.q_file_path.abs_pth
         if not isfile(xyz_fn):
-            msg = 'Could not find file at %s\n'%xyz_fn
+            msg = 'Could not find file at %s\n' % xyz_fn
             msg += 'Please move the file there and try again.'
             raise IOError(msg)
 
@@ -124,12 +125,12 @@ class PLOT3DReader(Source):
         # Initialize the files.
         self.initialize(xyz_fn, q_fn, configure=False)
         # Now set the remaining state without touching the children.
-        set_state(self, state, ignore=['children', 'xyz_file_path', 'q_file_path'])
+        set_state(self, state, ignore=['children', 'xyz_file_path',
+                                       'q_file_path'])
         # Setup the children.
         handle_children_state(self.children, state.children)
         # Setup the children's state.
         set_state(self, state, first=['children'], ignore=['*'])
-
 
     ######################################################################
     # `FileDataSource` interface
@@ -241,16 +242,7 @@ class PLOT3DReader(Source):
 
         # Now setup the outputs by resetting self.outputs.  Changing
         # the outputs automatically fires a pipeline_changed event.
-        try:
-            n = r.get_output().number_of_blocks
-        except AttributeError: # for VTK >= 4.5
-            n = r.number_of_outputs
-        outputs = []
-        # FIXME
-        for i in range(n):
-            outputs.append(r.get_output().get_block(i))
-
-        self.outputs = outputs
+        self.outputs = [r]
 
         # Fire data_changed just in case the outputs are not
         # really changed.  This can happen if the dataset is of
@@ -283,9 +275,9 @@ class PLOT3DReader(Source):
         xyz_fname = basename(self.xyz_file_path.get())
         q_fname = basename(self.q_file_path.get())
         if len(self.q_file_name) > 0:
-            ret = "PLOT3D:%s, %s"%(xyz_fname, q_fname)
+            ret = "PLOT3D:%s, %s" % (xyz_fname, q_fname)
         else:
-            ret = "PLOT3D:%s"%(xyz_fname)
+            ret = "PLOT3D:%s" % (xyz_fname)
         if '[Hidden]' in self.name:
             ret += ' [Hidden]'
         return ret
