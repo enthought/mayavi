@@ -4,8 +4,8 @@ used anywhere.  This is because it is usually much easier to simply
 add a trait in the module to enable/disable a particular component.
 
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
+# Copyright (c) 2005-2018, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -104,7 +104,7 @@ class Optional(Component):
         if self.enabled:
             return self.component.outputs
         else:
-            return self.inputs[0].get_output_object()
+            return self.inputs[0].outputs
 
     def _enabled_changed(self, value):
         # Force downstream modules to update.

@@ -106,7 +106,7 @@ class HyperStreamline(Module):
         if old_inp is None or src != old_inp:
             w.place_widget()
         self.streamline.update()
-        self.outputs = [self.streamline.output]
+        self.outputs = [self.streamline]
         self.pipeline_changed = True
 
     def update_data(self):
@@ -131,7 +131,7 @@ class HyperStreamline(Module):
             self.configure_connection(new, mm.source)
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.
-        self.outputs = [new.output]
+        self.outputs = [new]
         self.update_pipeline()
 
     def _start_position_changed(self, value):

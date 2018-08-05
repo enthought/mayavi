@@ -98,6 +98,7 @@ class PolyDataReader(FileDataSource):
             error('Invalid extension for file: %s'%value)
             return
 
+        old_fname = self.reader.file_name
         self.reader.file_name = value.strip()
         self.reader.update()
         self.reader.update_information()
@@ -106,9 +107,8 @@ class PolyDataReader(FileDataSource):
             old_reader.on_trait_change(self.render, remove=True)
         self.reader.on_trait_change(self.render)
 
-        old_outputs = self.outputs
-        self.outputs = [self.reader.output]
-        if self.outputs == old_outputs:
+        self.outputs = [self.reader]
+        if old_fname != value:
             self.data_changed = True
 
         # Change our name on the tree view

@@ -123,7 +123,7 @@ class ImageReader(FileDataSource):
             old_reader.on_trait_change(self.render, remove=True)
         self.reader.on_trait_change(self.render)
 
-        self.outputs = [self.reader.output]
+        self.outputs = [self.reader]
 
         # Change our name on the tree view
         self.name = self._get_name()

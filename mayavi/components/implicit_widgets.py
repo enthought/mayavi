@@ -9,12 +9,14 @@ to be used by various modules.
 import pickle
 
 from traits.api import (Instance, Trait, Bool, TraitMap, Enum, Dict,
-                                  Str, Int)
+                        Str, Int, Any)
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from apptools.persistence.state_pickler import set_state
 
 from mayavi.core.component import Component
+from mayavi.core.utils import DataSetHelper
+
 
 ######################################################################
 # `ImplicitWidgets` class.
@@ -44,6 +46,7 @@ class ImplicitWidgets(Component):
     _first = Bool(True)
     _busy = Bool(False)
     _observer_id = Int(-1)
+    _bounds = Any
 
     # The actual widgets.
     _widget_dict = Dict(Str, Instance(tvtk.ThreeDWidget,
@@ -142,8 +145,11 @@ class ImplicitWidgets(Component):
         w = self.widget
         self.configure_input(w, inp)
 
+        dsh = DataSetHelper(self.inputs[0].outputs[0])
+        self._bounds = dsh.get_bounds()
+
         if self._first:
-            w.place_widget()
+            w.place_widget(self._bounds)
             self._first = False
 
         # Set our output.
@@ -180,7 +186,10 @@ class ImplicitWidgets(Component):
     def _widget_changed(self, old, value):
         if len(self.inputs) > 0:
             self.configure_input(value, self.inputs[0].outputs[0])
-            value.place_widget()
+            if self._bounds:
+                value.place_widget(self._bounds)
+            else:
+                value.place_widget()
         self.implicit_function = self._implicit_function_dict[self.widget_mode]
 
         if old is not None:
@@ -234,7 +243,7 @@ class ImplicitWidgets(Component):
         """Event handler when the widget's normal is reset (if
         applicable)."""
         w = self.widget
-        w.place_widget()
+        w.place_widget(self._bounds)
         w.update_traits()
         self.render()
 

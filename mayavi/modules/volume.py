@@ -47,7 +47,7 @@ def is_volume_pro_available():
 def find_volume_mappers():
     res = []
     for name in dir(tvtk):
-        if 'Volume' in name and 'Mapper' in name and 'OpenGL' not in name:
+        if 'Volume' in name and 'Mapper' in name:
             try:
                 klass = getattr(tvtk, name)
                 inst = klass()
@@ -372,8 +372,11 @@ class Volume(Module):
     ######################################################################
     # Non-public methods.
     ######################################################################
-    def _has_smart_volume_mapper(self):
-        return 'SmartVolumeMapper' in self._available_mapper_types
+    def _get_image_data_volume_mappers(self):
+        check = ('SmartVolumeMapper', 'GPUVolumeRayCastMapper',
+                 'OpenGLGPUVolumeRayCastMapper')
+        return [x for x in check
+                if x in self._available_mapper_types]
 
     def _setup_mapper_types(self):
         """Sets up the mapper based on input data types.
@@ -393,9 +396,7 @@ class Volume(Module):
                 self._mapper_types = mapper_types
                 return
         else:
-            mapper_types = []
-            if self._has_smart_volume_mapper():
-                mapper_types = ['SmartVolumeMapper']
+            mapper_types = self._get_image_data_volume_mappers()
             if dataset.point_data.scalars.data_type not in \
                [vtkConstants.VTK_UNSIGNED_CHAR,
                 vtkConstants.VTK_UNSIGNED_SHORT]:
@@ -462,6 +463,14 @@ class Volume(Module):
             new_vm.volume_ray_cast_function = tvtk.VolumeRayCastCompositeFunction()
         elif value == 'SmartVolumeMapper':
             new_vm = tvtk.SmartVolumeMapper()
+            self._volume_mapper = new_vm
+            self._ray_cast_functions = ['']
+        elif value == 'GPUVolumeRayCastMapper':
+            new_vm = tvtk.GPUVolumeRayCastMapper()
+            self._volume_mapper = new_vm
+            self._ray_cast_functions = ['']
+        elif value == 'OpenGLGPUVolumeRayCastMapper':
+            new_vm = tvtk.OpenGLGPUVolumeRayCastMapper()
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'TextureMapper2D':

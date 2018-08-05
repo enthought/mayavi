@@ -99,10 +99,9 @@ class Text3D(Module):
         set the `actors` attribute up at this point.
         """
         self.vector_text = tvtk.VectorText(text=self.text)
-        self.outputs = [self.vector_text.output]
+        self.outputs = [self.vector_text]
         self.actor = Actor()
         self._text_changed(self.text)
-
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -130,7 +129,6 @@ class Text3D(Module):
         vector_text.text = str(value)
         self.render()
 
-
     def _actor_changed(self, old, new):
         new.scene = self.scene
         new.inputs = [self]
@@ -141,7 +139,6 @@ class Text3D(Module):
         new.actor = self._get_actor_or_follower(old=old_actor)
         self.actors = new.actors
         self.render()
-
 
     def _orient_to_camera_changed(self):
         self.actor.actor = \
@@ -170,10 +167,7 @@ class Text3D(Module):
         self.sync_trait('orientation', new, 'orientation')
         return new
 
-
     def _scene_changed(self, old, new):
         super(Text3D, self)._scene_changed(old, new)
         if new is not None and self.orient_to_camera:
             self.actor.actor.camera = new.camera
-
-

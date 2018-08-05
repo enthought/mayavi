@@ -60,7 +60,7 @@ class PolyDataNormals(Component):
         `pipeline_changed` event.
         """
         if (len(self.inputs) == 0) or \
-               (len(self.inputs[0].outputs) == 0):
+           (len(self.inputs[0].outputs) == 0):
             return
         f = self.filter
         input = self.inputs[0].outputs[0]

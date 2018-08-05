@@ -78,12 +78,17 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             savefig(self.filename, size=(131, 217),
                     figure=self.figure)
 
+    def _get_pixel_ratio(self, fig):
+        return getattr(fig.scene._vtk_control, '_pixel_ratio', 1.0)
+
     def test_mlab_screenshot(self):
         # Given
         engine = Engine()
         self.setup_engine_and_figure(engine)
         create_quiver3d()
         sz = self.figure.scene.get_size()
+        pixel_ratio = self._get_pixel_ratio(self.figure)
+        sz = (sz[0]*pixel_ratio, sz[1]*pixel_ratio)
 
         for aa in (False, True):
             # When

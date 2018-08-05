@@ -18,6 +18,7 @@ from . import tools
 from .figure import draw, gcf
 
 # Mayavi imports
+from mayavi.core.utils import DataSetHelper
 import mayavi.modules.api as modules
 from .pipe_base import make_function
 from .modules import ModuleFactory
@@ -369,8 +370,8 @@ class Axes(AxesLikeModuleFactory):
         axes.axes.use_data_bounds = False
         axes.axes.bounds = self.extent
         if self.ranges is None:
-            axes.axes.ranges = \
-                axes.module_manager.source.get_output_dataset().bounds
+            dsh = DataSetHelper(axes.module_manager.source.outputs[0])
+            axes.axes.ranges = dsh.get_bounds()
 
     def _ranges_changed(self):
         if self.ranges is not None:

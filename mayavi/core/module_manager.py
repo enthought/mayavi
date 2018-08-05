@@ -3,7 +3,7 @@ tables.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008,  Enthought, Inc.
+# Copyright (c) 2005-2018,  Enthought, Inc.
 # License: BSD Style.
 
 import numpy
@@ -16,10 +16,10 @@ from apptools.persistence.state_pickler import set_state
 # Local imports
 from mayavi.core.base import Base
 from mayavi.core.module import Module
-from mayavi.core.common import get_output
 from mayavi.core.lut_manager import LUTManager
 from mayavi.core.common import handle_children_state, exception
 from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.utils import DataSetHelper
 
 
 ######################################################################
@@ -43,34 +43,21 @@ class DataAttributes(HasTraits):
         data_has_nan = numpy.isnan(data_array).any()
         return data_array, data_has_nan
 
-    def compute_scalar(self, data, mode='point'):
+    def compute_scalar(self, helper, mode='point'):
         """Compute the scalar range from given VTK data array.  Mode
         can be 'point' or 'cell'."""
-        if data is not None:
-            if data.name is None or len(data.name) == 0:
-                data.name = mode + '_scalars'
-            self.name = data.name
-            data_array, data_has_nan = self._get_np_arr(data)
-            if data_has_nan:
-                self.range = [float(numpy.nanmin(data_array)),
-                              float(numpy.nanmax(data_array))]
-            else:
-                self.range = list(data.range)
+        name, rng = helper.get_range(attr='scalars', mode=mode)
+        if name:
+            self.name = name
+            self.range = rng
 
-    def compute_vector(self, data, mode='point'):
+    def compute_vector(self, helper, mode='point'):
         """Compute the vector range from given VTK data array.  Mode
         can be 'point' or 'cell'."""
-        if data is not None:
-            if data.name is None or len(data.name) == 0:
-                data.name = mode + '_vectors'
-            self.name = data.name
-            data_array, data_has_nan = self._get_np_arr(data)
-            if data_has_nan:
-                d_mag = numpy.sqrt((data_array*data_array).sum(axis=1))
-                self.range = [float(numpy.nanmin(d_mag)),
-                              float(numpy.nanmax(d_mag))]
-            else:
-                self.range = [0.0, data.max_norm]
+        name, rng = helper.get_range(attr='vectors', mode=mode)
+        if name:
+            self.name = name
+            self.range = rng
 
     def config_lut(self, lut_mgr):
         """Set the attributes of the LUTManager."""
@@ -84,6 +71,7 @@ class DataAttributes(HasTraits):
 
 # Constant for a ModuleManager class and it's View.
 LUT_DATA_MODE_TYPES = ['auto', 'point data', 'cell data']
+
 
 ######################################################################
 # `ModuleManager` class.
@@ -105,10 +93,11 @@ class ModuleManager(Base):
     # one available.  If set to 'point data' it uses the input point
     # data for the LUT and if set to 'cell data' it uses the input
     # cell data.
-    lut_data_mode = Trait('auto',
-                          TraitPrefixList(LUT_DATA_MODE_TYPES),
-                          desc='specify the data type used by the lookup tables',
-                          )
+    lut_data_mode = Trait(
+        'auto',
+        TraitPrefixList(LUT_DATA_MODE_TYPES),
+        desc='specify the data type used by the lookup tables',
+    )
 
     # The scalar lookup table manager.
     scalar_lut_manager = Instance(LUTManager, args=(), record=True)
@@ -124,7 +113,6 @@ class ModuleManager(Base):
 
     # The human-readable type for this object
     type = Str(' colors and legends')
-
 
     # Information about what this object can consume.
     input_info = PipelineInfo(datasets=['any'])
@@ -161,9 +149,12 @@ class ModuleManager(Base):
         """
         if len(self.source.outputs) == 0:
             return
-        self._setup_scalar_data()
-        self._setup_vector_data()
 
+        input = self.source.outputs[0]
+        helper = DataSetHelper(input)
+
+        self._setup_scalar_data(helper)
+        self._setup_vector_data(helper)
 
     ######################################################################
     # `Base` interface
@@ -289,18 +280,14 @@ class ModuleManager(Base):
     def _lut_data_mode_changed(self, value):
         self.update()
 
-    def _setup_scalar_data(self):
+    def _setup_scalar_data(self, helper):
         """Computes the scalar range and an appropriate name for the
         lookup table."""
-        input = get_output(self.source.outputs[0])
-        ps = input.point_data.scalars
-        cs = input.cell_data.scalars
-
         data_attr = DataAttributes(name='No scalars')
         point_data_attr = DataAttributes(name='No scalars')
-        point_data_attr.compute_scalar(ps, 'point')
+        point_data_attr.compute_scalar(helper, 'point')
         cell_data_attr = DataAttributes(name='No scalars')
-        cell_data_attr.compute_scalar(cs, 'cell')
+        cell_data_attr.compute_scalar(helper, 'cell')
 
         if self.lut_data_mode == 'auto':
             if len(point_data_attr.range) > 0:
@@ -314,16 +301,12 @@ class ModuleManager(Base):
 
         data_attr.config_lut(self.scalar_lut_manager)
 
-    def _setup_vector_data(self):
-        input = get_output(self.source.outputs[0])
-        pv = input.point_data.vectors
-        cv = input.cell_data.vectors
-
+    def _setup_vector_data(self, helper):
         data_attr = DataAttributes(name='No vectors')
         point_data_attr = DataAttributes(name='No vectors')
-        point_data_attr.compute_vector(pv, 'point')
+        point_data_attr.compute_vector(helper, 'point')
         cell_data_attr = DataAttributes(name='No vectors')
-        cell_data_attr.compute_vector(cv, 'cell')
+        cell_data_attr.compute_vector(helper, 'cell')
 
         if self.lut_data_mode == 'auto':
             if len(point_data_attr.range) > 0:
@@ -337,15 +320,14 @@ class ModuleManager(Base):
 
         data_attr.config_lut(self.vector_lut_manager)
 
-    def _visible_changed(self,value):
+    def _visible_changed(self, value):
         for c in self.children:
             c.visible = value
         self.scalar_lut_manager.visible = value
         self.vector_lut_manager.visible = value
 
-        super(ModuleManager,self)._visible_changed(value)
+        super(ModuleManager, self)._visible_changed(value)
 
     def _menu_helper_default(self):
         from mayavi.core.traits_menu import ModuleMenuHelper
         return ModuleMenuHelper(object=self)
-

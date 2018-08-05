@@ -3,6 +3,7 @@
 # License: BSD Style.
 
 # Standard library imports.
+from vtk.numpy_interface import dataset_adapter as dsa
 
 # Enthought library imports.
 from traits.api import Int, Instance, Str, TraitError
@@ -187,9 +188,8 @@ class Labels(Module):
             return
         f = self.mask.filter
         inp = self.input.get_output_dataset()
-        if hasattr(inp, 'update'):
-            inp.update()
-        npts = inp.number_of_points
+        data_obj = dsa.WrapDataObject(tvtk.to_vtk(inp))
+        npts = data_obj.GetNumberOfPoints()
         typ = type(f.on_ratio)
         f.on_ratio = typ(max(npts/value, 1))
         if self.mask.running:

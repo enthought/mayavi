@@ -23,10 +23,10 @@ class ParametricSurface(Source):
     __version__ = 0
 
     # Flag to set the parametric function type.
-    function = Enum('boy','conic_spiral','cap','dini',
-                    'ellipsoid','enneper','figure8klein','klein',
-                    'mobius','random_hills','roman','spline',
-                    'super_ellipsoid','super_toroid','torus',
+    function = Enum('boy', 'conic_spiral', 'cap', 'dini',
+                    'ellipsoid', 'enneper', 'figure8klein', 'klein',
+                    'mobius', 'random_hills', 'roman', 'spline',
+                    'super_ellipsoid', 'super_toroid', 'torus',
                     desc='which parametric function to be used')
 
     # Define the trait 'parametric_function' whose value must be an instance of
@@ -53,27 +53,26 @@ class ParametricSurface(Source):
                           Instance(tvtk.ParametricFunction,
                                    allow_none=False))
 
-
     ######################################################################
     # `object` interface
     ######################################################################
     def __init__(self, **traits):
         # Setup the function dict.
-        fd = {'boy':tvtk.ParametricBoy(),
-              'conic_spiral':tvtk.ParametricConicSpiral(),
-              'cap':tvtk.ParametricCrossCap(),
-              'dini':tvtk.ParametricDini(),
-              'ellipsoid':tvtk.ParametricEllipsoid(),
-              'enneper':tvtk.ParametricEnneper(),
-              'figure8klein':tvtk.ParametricFigure8Klein(),
-              'klein':tvtk.ParametricKlein(),
-              'mobius':tvtk.ParametricMobius(),
-              'random_hills':tvtk.ParametricRandomHills(),
-              'roman':tvtk.ParametricRoman(),
-              'spline':tvtk.ParametricSpline(),
-              'super_ellipsoid':tvtk.ParametricSuperEllipsoid(),
-              'super_toroid':tvtk.ParametricSuperToroid(),
-              'torus':tvtk.ParametricTorus()}
+        fd = {'boy': tvtk.ParametricBoy(),
+              'conic_spiral': tvtk.ParametricConicSpiral(),
+              'cap': tvtk.ParametricCrossCap(),
+              'dini': tvtk.ParametricDini(),
+              'ellipsoid': tvtk.ParametricEllipsoid(),
+              'enneper': tvtk.ParametricEnneper(),
+              'figure8klein': tvtk.ParametricFigure8Klein(),
+              'klein': tvtk.ParametricKlein(),
+              'mobius': tvtk.ParametricMobius(),
+              'random_hills': tvtk.ParametricRandomHills(),
+              'roman': tvtk.ParametricRoman(),
+              'spline': tvtk.ParametricSpline(),
+              'super_ellipsoid': tvtk.ParametricSuperEllipsoid(),
+              'super_toroid': tvtk.ParametricSuperToroid(),
+              'torus': tvtk.ParametricTorus()}
         self._function_dict = fd
 
         # Call parent class' init.
@@ -86,7 +85,7 @@ class ParametricSurface(Source):
         # Call render everytime source traits change.
         self.source.on_trait_change(self.render)
         # Setup the outputs.
-        self.outputs = [self.source.output]
+        self.outputs = [self.source]
 
     ######################################################################
     # Non-public methods.

@@ -267,7 +267,6 @@ class VTKXMLFileReader(FileDataSource):
                           'trait_change_notify': False}
                     obj.trait_set(**kw)
 
-
         _setup_data_traits(self, cell_attr, 'cell')
         _setup_data_traits(self, pnt_attr, 'point')
         if self._first:
@@ -297,28 +296,13 @@ class VTKXMLFileReader(FileDataSource):
             reader = self.reader
             reader.file_name = value
             reader.update()
-
-            # Setup the outputs by resetting self.outputs.  Changing
-            # the outputs automatically fires a pipeline_changed
-            # event.
-            try:
-                n = reader.number_of_outputs
-            except AttributeError: # for VTK >= 4.5
-                n = reader.number_of_output_ports
-            outputs = []
-            for i in range(n):
-                outputs.append(reader.get_output(i))
-
-            # FIXME: Only the first output goes through the assign
-            # attribute filter.
             aa = self._assign_attribute
-            self.configure_input_data(aa, outputs[0])
-            outputs[0] = aa.output
+            self.configure_input(aa, self.reader)
             self.update_data()
-
+            aa.update()
+            outputs = [aa]
             self.outputs = outputs
 
-            # FIXME: The output info is only based on the first output.
             self.output_info.datasets = [get_tvtk_dataset_name(outputs[0])]
 
             # Change our name on the tree view

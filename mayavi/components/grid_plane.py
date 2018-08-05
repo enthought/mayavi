@@ -108,12 +108,12 @@ class GridPlane(Component):
         if input.is_a('vtkStructuredGrid'):
             plane = tvtk.StructuredGridGeometryFilter()
         elif input.is_a('vtkStructuredPoints') or input.is_a('vtkImageData'):
-            plane = tvtk.ImageDataGeometryFilter ()
+            plane = tvtk.ImageDataGeometryFilter()
         elif input.is_a('vtkRectilinearGrid'):
-            plane = tvtk.RectilinearGridGeometryFilter ()
+            plane = tvtk.RectilinearGridGeometryFilter()
         else:
             msg = "The GridPlane component does not support the %s dataset."\
-                  %(input.class_name)
+                  % (input.class_name)
             error(msg)
             raise TypeError(msg)
 
@@ -129,7 +129,6 @@ class GridPlane(Component):
         diff = [y-x for x, y in zip(extents[::2], extents[1::2])]
         if diff.count(0) > 0:
             self.axis = ['x', 'y', 'z'][diff.index(0)]
-
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -155,7 +154,7 @@ class GridPlane(Component):
     # Non-public methods.
     ######################################################################
     def _get_axis_index(self):
-        return {'x':0, 'y':1, 'z':2}[self.axis]
+        return {'x': 0, 'y': 1, 'z': 2}[self.axis]
 
     def _update_extents(self):
         inp = self.plane.input

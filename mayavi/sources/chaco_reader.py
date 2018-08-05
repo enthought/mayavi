@@ -78,5 +78,5 @@ class ChacoReader(Source):
         self.reader.update()
         self.reader.update_information()
         self.reader.on_trait_change(self.render)
-        self.outputs = [self.reader.output]
+        self.outputs = [self.reader]
         self.data_changed = True

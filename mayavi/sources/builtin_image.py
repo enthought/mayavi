@@ -90,12 +90,11 @@ class BuiltinImage(Source):
         """
         self.data_source = self._source_dict[self.source]
 
-
     def _data_source_changed(self, old, new):
         """This method is invoked (automatically) when the
         image data source is changed ."""
 
-        self.outputs = [self.data_source.output]
+        self.outputs = [self.data_source]
 
         if old is not None:
             old.on_trait_change(self.render, remove=True)
@@ -116,6 +115,3 @@ class BuiltinImage(Source):
         else:
             sd['rt_analytic'] = tvtk.ImageNoiseSource()
         return sd
-
-
-
