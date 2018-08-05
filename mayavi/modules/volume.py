@@ -47,7 +47,7 @@ def is_volume_pro_available():
 def find_volume_mappers():
     res = []
     for name in dir(tvtk):
-        if 'Volume' in name and 'Mapper' in name and 'OpenGL' not in name:
+        if 'Volume' in name and 'Mapper' in name:
             try:
                 klass = getattr(tvtk, name)
                 inst = klass()
@@ -373,7 +373,8 @@ class Volume(Module):
     # Non-public methods.
     ######################################################################
     def _get_image_data_volume_mappers(self):
-        check = ('SmartVolumeMapper', 'GPUVolumeRayCastMapper')
+        check = ('SmartVolumeMapper', 'GPUVolumeRayCastMapper',
+                 'OpenGLGPUVolumeRayCastMapper')
         return [x for x in check
                 if x in self._available_mapper_types]
 
@@ -466,6 +467,10 @@ class Volume(Module):
             self._ray_cast_functions = ['']
         elif value == 'GPUVolumeRayCastMapper':
             new_vm = tvtk.GPUVolumeRayCastMapper()
+            self._volume_mapper = new_vm
+            self._ray_cast_functions = ['']
+        elif value == 'OpenGLGPUVolumeRayCastMapper':
+            new_vm = tvtk.OpenGLGPUVolumeRayCastMapper()
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'TextureMapper2D':
