@@ -23,7 +23,7 @@ class TestVTKObjectSource(TestMlabNullEngine):
         # Then
         self.assertEqual(src.outputs[0], ef)
         self.assertEqual(src.browser.root_object, [ef])
-        self.assertEqual(src.output_info.datasets, ['any'])
+        self.assertEqual(src.output_info.datasets, ['poly_data'])
         self.assertEqual(src.name, 'VTK (ElevationFilter)')
 
         # When

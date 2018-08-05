@@ -1,47 +1,13 @@
-from traits.api import Bool, Instance, Int
+from traits.api import Instance, Int
 from traitsui.api import Item, Group, View
 
-import vtk
-from tvtk.common import camel2enthought
 from tvtk.api import tvtk
 from tvtk import messenger
 from tvtk.pipeline.browser import PipelineBrowser
 
 from mayavi.core.source import Source
 from mayavi.core.pipeline_info import PipelineInfo
-
-
-def _create_dataset_name_map():
-    names = ['vtkImageData', 'vtkPolyData',
-             'vtkRectilinearGrid', 'vtkStructuredGrid',
-             'vtkUnstructuredGrid']
-    mapping = {x: camel2enthought(x)[4:] for x in names}
-    mapping['vtkStructuredPoints'] = 'image_data'
-    mapping['vtkDataSet'] = 'any'
-    return mapping
-
-
-_dataset_name_map = _create_dataset_name_map()
-
-
-def tvtk_dataset_name(name):
-    return _dataset_name_map.get(name, 'none')
-
-
-def get_tvtk_dataset_name(obj):
-    v = tvtk.to_vtk(obj)
-    obj = v.GetOutputInformation(0).Get(vtk.vtkDataObject.DATA_OBJECT())
-    if obj is not None:
-        name = obj.GetClassName()
-    else:
-        name = v.GetOutputPortInformation(0).Get(
-            vtk.vtkDataObject.DATA_TYPE_NAME()
-        )
-        if name is None:
-            # Try again after calling update
-            v.Update()
-            return get_tvtk_dataset_name(v)
-    return [tvtk_dataset_name(name)]
+from mayavi.core.utils import get_tvtk_dataset_name
 
 
 class VTKObjectSource(Source):
@@ -84,7 +50,7 @@ class VTKObjectSource(Source):
 
         self.browser.root_object = [new]
 
-        self.output_info.datasets = get_tvtk_dataset_name(new)
+        self.output_info.datasets = [get_tvtk_dataset_name(new)]
 
         if old is not None:
             old.remove_observer(self._observer_id)
