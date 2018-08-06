@@ -10,6 +10,7 @@ import numpy as N
 from mock import patch
 
 from mayavi.tools import sources
+from mayavi.sources.vtk_data_source import VTKDataSource
 
 
 ###############################################################################
@@ -551,6 +552,27 @@ class TestMLineSource(unittest.TestCase):
         # Then
         self.assertFalse(N.allclose(bounds, lines.actor.actor.bounds))
 
+    def test_set_without_scalars_works(self):
+        # Given
+        x, y, z, s, src = self.get_data()
+        src = sources.MLineSource()
+        src.reset(x=x, y=y, z=z)
+
+        # When
+        src.m_data = VTKDataSource(data=src.dataset)
+        src.set(y=y+1)
+
+        # Then
+        self.assertTrue(N.allclose(src.y, y + 1))
+
+        # When
+        src.reset(x=x, y=y+1, z=z+1)
+
+        # Then
+        self.assertTrue(N.allclose(src.y, y + 1))
+        self.assertTrue(N.allclose(src.z, z + 1))
+
+
 
 ################################################################################
 # `TestMArray2DSource`
@@ -630,14 +652,12 @@ class TestMArray2DSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
-
     def test_set(self):
         "Test if the set method works correctly."
         x, y, s, src  = self.get_data()
         x *= 2
         s *= 2
         src.trait_set(x=x,scalars=s)
-
 
         self.check_traits()
         self.check_dataset()
