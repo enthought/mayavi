@@ -70,9 +70,11 @@ class MlabSource(HasTraits):
             self.dataset.modified()
             md = self.m_data
             if md is not None:
-                if hasattr(md, '_assign_attribute') and \
-                   (self.scalars is not None or self.vectors is not None):
-                    md._assign_attribute.update()
+                aa = getattr(md, '_assign_attribute', None)
+                vectors = getattr(self, 'vectors', None)
+                if aa is not None and (self.scalars is not None or
+                                       vectors is not None):
+                    aa.update()
                 md.data_changed = True
 
     def set(self, trait_change_notify=True, **traits):
