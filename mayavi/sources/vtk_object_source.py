@@ -21,8 +21,8 @@ class VTKObjectSource(Source):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    # The VTK algorithm to manage.
-    object = Instance(tvtk.Algorithm, allow_none=False)
+    # The VTK algorithm/object to manage.
+    object = Instance(tvtk.Object, allow_none=False)
 
     browser = Instance(PipelineBrowser)
 

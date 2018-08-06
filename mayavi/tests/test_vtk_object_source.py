@@ -67,6 +67,27 @@ class TestVTKObjectSource(TestMlabNullEngine):
         # Then
         self.assertTrue(isinstance(src, VTKDataSource))
 
+    def test_vtk_object_source_works_with_any_vtk_object(self):
+        # Given
+        a = tvtk.Actor()
+
+        # When/Then
+        src = VTKObjectSource(object=a, actors=[a])
+
+        # Then
+        self.assertEqual(src.object, a)
+        self.assertEqual(src.output_info.datasets, ['none'])
+
+    def test_add_dataset_uses_vtk_object_source_for_objects(self):
+        # Given
+        a = tvtk.Actor()
+
+        # When
+        src = mlab.pipeline.add_dataset(a)
+
+        # Then
+        self.assertTrue(isinstance(src, VTKObjectSource))
+
 
 if __name__ == '__main__':
     unittest.main()
