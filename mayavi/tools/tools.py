@@ -76,14 +76,14 @@ def add_dataset(dataset, name='', **kwargs):
     if isinstance(dataset, (tvtk.DataSet, vtk.vtkDataSet)):
         d = VTKDataSource()
         d.data = tvtk.to_tvtk(dataset)
-    elif isinstance(dataset, (tvtk.Algorithm, vtk.vtkAlgorithm)):
-        d = VTKObjectSource()
-        d.object = tvtk.to_tvtk(dataset)
     elif isinstance(dataset, (tvtk.DataObject, vtk.vtkDataObject)):
         d = VTKObjectSource()
         tp = tvtk.TrivialProducer()
         tp.set_output(tvtk.to_tvtk(dataset))
         d.object = tp
+    elif isinstance(dataset, tvtk.Object):
+        d = VTKObjectSource()
+        d.object = tvtk.to_tvtk(dataset)
     elif isinstance(dataset, Source):
         d = dataset
     else:
