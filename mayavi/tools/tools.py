@@ -81,7 +81,7 @@ def add_dataset(dataset, name='', **kwargs):
         tp = tvtk.TrivialProducer()
         tp.set_output(tvtk.to_tvtk(dataset))
         d.object = tp
-    elif isinstance(dataset, tvtk.Object):
+    elif isinstance(dataset, (tvtk.Object, vtk.vtkObject)):
         d = VTKObjectSource()
         d.object = tvtk.to_tvtk(dataset)
     elif isinstance(dataset, Source):

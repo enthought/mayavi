@@ -1,5 +1,6 @@
 import unittest
 
+import vtk
 from tvtk.api import tvtk
 
 from mayavi.sources.vtk_object_source import VTKObjectSource
@@ -81,6 +82,15 @@ class TestVTKObjectSource(TestMlabNullEngine):
     def test_add_dataset_uses_vtk_object_source_for_objects(self):
         # Given
         a = tvtk.Actor()
+
+        # When
+        src = mlab.pipeline.add_dataset(a)
+
+        # Then
+        self.assertTrue(isinstance(src, VTKObjectSource))
+
+        # Given
+        a = vtk.vtkActor()
 
         # When
         src = mlab.pipeline.add_dataset(a)
