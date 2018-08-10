@@ -30,6 +30,8 @@ from mayavi.core.module import Module
 from mayavi.core.common import error
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.lut_manager import LUTManager
+from mayavi.core.utils import DataSetHelper
+
 
 ######################################################################
 # Utility functions.
@@ -340,14 +342,24 @@ class Volume(Module):
         dataset = mm.source.get_output_dataset()
 
         ug = hasattr(tvtk, 'UnstructuredGridVolumeMapper')
-        if ug:
+        if dataset.is_a('vtkMultiBlockDataSet'):
+            if 'MultiBlockVolumeMapper' not in self._available_mapper_types:
+                error('Your version of VTK does not support '
+                      'Multiblock volume rendering')
+                return
+        elif dataset.is_a('vtkUniformGridAMR'):
+           if 'AMRVolumeMapper' not in self._available_mapper_types:
+               error('Your version of VTK does not support '
+                     'AMR volume rendering')
+               return
+        elif ug:
             if not dataset.is_a('vtkImageData') \
                    and not dataset.is_a('vtkUnstructuredGrid'):
-                error('Volume rendering only works with '\
+                error('Volume rendering only works with '
                       'StructuredPoints/ImageData/UnstructuredGrid datasets')
                 return
         elif not dataset.is_a('vtkImageData'):
-            error('Volume rendering only works with '\
+            error('Volume rendering only works with '
                   'StructuredPoints/ImageData datasets')
             return
 
@@ -382,7 +394,13 @@ class Volume(Module):
         """Sets up the mapper based on input data types.
         """
         dataset = self.module_manager.source.get_output_dataset()
-        if dataset.is_a('vtkUnstructuredGrid'):
+        if dataset.is_a('vtkMultiBlockDataSet'):
+            if 'MultiBlockVolumeMapper' in self._available_mapper_types:
+                self._mapper_types = ['MultiBlockVolumeMapper']
+        elif dataset.is_a('vtkUniformGridAMR'):
+            if 'AMRVolumeMapper' not in self._available_mapper_types:
+                self._mapper_types = ['AMRVolumeMapper']
+        elif dataset.is_a('vtkUnstructuredGrid'):
             if hasattr(tvtk, 'UnstructuredGridVolumeMapper'):
                 check = ['UnstructuredGridVolumeZSweepMapper',
                          'UnstructuredGridVolumeRayCastMapper',
@@ -426,10 +444,9 @@ class Volume(Module):
 
         # Set the current range.
         dataset = mm.source.get_output_dataset()
-        sc = dataset.point_data.scalars
-        if sc is not None:
-            rng = sc.range
-        else:
+        dsh = DataSetHelper(dataset)
+        name, rng = dsh.get_range('scalars', 'point')
+        if name is None:
             error('No scalars in input data!')
             rng = (0, 255)
 
@@ -461,6 +478,14 @@ class Volume(Module):
                                         'RayCastMIPFunction',
                                         'RayCastIsosurfaceFunction']
             new_vm.volume_ray_cast_function = tvtk.VolumeRayCastCompositeFunction()
+        elif value == 'MultiBlockVolumeMapper':
+            new_vm = tvtk.MultiBlockVolumeMapper()
+            self._volume_mapper = new_vm
+            self._ray_cast_functions = ['']
+        elif value == 'AMRVolumeMapper':
+            new_vm = tvtk.AMRVolumeMapper()
+            self._volume_mapper = new_vm
+            self._ray_cast_functions = ['']
         elif value == 'SmartVolumeMapper':
             new_vm = tvtk.SmartVolumeMapper()
             self._volume_mapper = new_vm
