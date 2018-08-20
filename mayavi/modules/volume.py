@@ -6,7 +6,7 @@ probably with the ImageData based renderers.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006, Enthought, Inc.
+# Copyright (c) 2006-2018, Enthought, Inc.
 # License: BSD Style.
 
 # Standard imports
@@ -15,7 +15,7 @@ from vtk.util import vtkConstants
 
 # Enthought library imports.
 from traits.api import Instance, Property, List, ReadOnly, \
-     Str, Button, Tuple
+     Str, Button, Tuple, Dict
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
@@ -46,6 +46,7 @@ def is_volume_pro_available():
     else:
         return map.number_of_boards > 0
 
+
 def find_volume_mappers():
     res = []
     for name in dir(tvtk):
@@ -63,6 +64,7 @@ def find_volume_mappers():
             res.remove(name)
     return res
 
+
 def default_OTF(x1, x2):
     """Creates a default opacity transfer function.
     """
@@ -72,6 +74,7 @@ def default_OTF(x1, x2):
     otf.add_point(mins, 0.0)
     otf.add_point(maxs, 0.2)
     return otf
+
 
 def make_CTF(x1, x2, hue_range=(2.0/3.0, 0.0),
              sat_range=(1.0, 1.0), val_range=(1.0, 1.0),
@@ -97,7 +100,7 @@ def make_CTF(x1, x2, hue_range=(2.0/3.0, 0.0),
     if mode == 'sqrt':
         for i in range(n+1):
             # Generate x in [0, 1]
-            x = 0.5*(1.0  + cos((n-i)*pi/n)) # Chebyshev nodes.
+            x = 0.5*(1.0 + cos((n-i)*pi/n))  # Chebyshev nodes.
             h = hue_range[0] + dhue*x
             s = sat_range[0] + dsat*x
             v = val_range[0] + dval*x
@@ -106,7 +109,7 @@ def make_CTF(x1, x2, hue_range=(2.0/3.0, 0.0),
     elif mode == 'linear':
         for i in range(n+1):
             # Generate x in [0, 1]
-            x = float(i)/n # Uniform nodes.
+            x = float(i)/n  # Uniform nodes.
             h = hue_range[0] + dhue*x
             s = sat_range[0] + dsat*x
             v = val_range[0] + dval*x
@@ -269,6 +272,9 @@ class Volume(Module):
     # The opacity values.
     _otf = Instance(PiecewiseFunction)
 
+    # A cache for the mappers, a dict keyed by class.
+    _mapper_cache = Dict
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -348,10 +354,10 @@ class Volume(Module):
                       'Multiblock volume rendering')
                 return
         elif dataset.is_a('vtkUniformGridAMR'):
-           if 'AMRVolumeMapper' not in self._available_mapper_types:
-               error('Your version of VTK does not support '
-                     'AMR volume rendering')
-               return
+            if 'AMRVolumeMapper' not in self._available_mapper_types:
+                error('Your version of VTK does not support '
+                      'AMR volume rendering')
+                return
         elif ug:
             if not dataset.is_a('vtkImageData') \
                    and not dataset.is_a('vtkUnstructuredGrid'):
@@ -462,6 +468,16 @@ class Volume(Module):
     def _get_ray_cast_function(self):
         return self._ray_cast_function
 
+    def _get_mapper(self, klass):
+        """ Return a mapper of the given class. Either from the cache or by
+        making a new one.
+        """
+        result = self._mapper_cache.get(klass)
+        if result is None:
+            result = klass()
+            self._mapper_cache[klass] = result
+        return result
+
     def _volume_mapper_type_changed(self, value):
         mm = self.module_manager
         if mm is None:
@@ -470,61 +486,67 @@ class Volume(Module):
         old_vm = self._volume_mapper
         if old_vm is not None:
             old_vm.on_trait_change(self.render, remove=True)
+            try:
+                old_vm.remove_all_input_connections(0)
+            except AttributeError:
+                pass
 
         if value == 'RayCastMapper':
-            new_vm = tvtk.VolumeRayCastMapper()
+            new_vm = self._get_mapper(tvtk.VolumeRayCastMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['RayCastCompositeFunction',
                                         'RayCastMIPFunction',
                                         'RayCastIsosurfaceFunction']
-            new_vm.volume_ray_cast_function = tvtk.VolumeRayCastCompositeFunction()
+            new_vm.volume_ray_cast_function = self._get_mapper(
+                tvtk.VolumeRayCastCompositeFunction
+            )
         elif value == 'MultiBlockVolumeMapper':
-            new_vm = tvtk.MultiBlockVolumeMapper()
+            new_vm = self._get_mapper(tvtk.MultiBlockVolumeMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'AMRVolumeMapper':
-            new_vm = tvtk.AMRVolumeMapper()
+            new_vm = self._get_mapper(tvtk.AMRVolumeMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'SmartVolumeMapper':
-            new_vm = tvtk.SmartVolumeMapper()
+            new_vm = self._get_mapper(tvtk.SmartVolumeMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'GPUVolumeRayCastMapper':
-            new_vm = tvtk.GPUVolumeRayCastMapper()
+            new_vm = self._get_mapper(tvtk.GPUVolumeRayCastMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'OpenGLGPUVolumeRayCastMapper':
-            new_vm = tvtk.OpenGLGPUVolumeRayCastMapper()
+            new_vm = self._get_mapper(tvtk.OpenGLGPUVolumeRayCastMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'TextureMapper2D':
-            new_vm = tvtk.VolumeTextureMapper2D()
+            new_vm = self._get_mapper(tvtk.VolumeTextureMapper2D)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'TextureMapper3D':
-            new_vm = tvtk.VolumeTextureMapper3D()
+            new_vm = self._get_mapper(tvtk.VolumeTextureMapper3D)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'VolumeProMapper':
-            new_vm = tvtk.VolumeProMapper()
+            new_vm = self._get_mapper(tvtk.VolumeProMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'FixedPointVolumeRayCastMapper':
-            new_vm = tvtk.FixedPointVolumeRayCastMapper()
+            new_vm = self._get_mapper(tvtk.FixedPointVolumeRayCastMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'UnstructuredGridVolumeRayCastMapper':
-            new_vm = tvtk.UnstructuredGridVolumeRayCastMapper()
+            new_vm = self._get_mapper(tvtk.UnstructuredGridVolumeRayCastMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
         elif value == 'UnstructuredGridVolumeZSweepMapper':
-            new_vm = tvtk.UnstructuredGridVolumeZSweepMapper()
+            new_vm = self._get_mapper(tvtk.UnstructuredGridVolumeZSweepMapper)
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
 
         src = mm.source
-        self.configure_connection(new_vm, src)
+        self.configure_input(new_vm, src.outputs[0])
         self.volume.mapper = new_vm
         new_vm.on_trait_change(self.render)
 
@@ -542,7 +564,7 @@ class Volume(Module):
             rcf.on_trait_change(self.render, remove=True)
 
         if len(new) > 0:
-            new_rcf = getattr(tvtk, 'Volume%s'%new)()
+            new_rcf = getattr(tvtk, 'Volume%s' % new)()
             new_rcf.on_trait_change(self.render)
             self._volume_mapper.volume_ray_cast_function = new_rcf
             self._ray_cast_function = new_rcf
