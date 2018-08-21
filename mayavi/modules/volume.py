@@ -18,6 +18,7 @@ from traits.api import Instance, Property, List, ReadOnly, \
      Str, Button, Tuple, Dict
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
+from tvtk.common import suppress_vtk_warnings
 from tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
 from tvtk.util.traitsui_gradient_editor import VolumePropertyEditor
 from tvtk.util.ctf import save_ctfs, load_ctfs, \
@@ -49,15 +50,18 @@ def is_volume_pro_available():
 
 def find_volume_mappers():
     res = []
-    for name in dir(tvtk):
-        if 'Volume' in name and 'Mapper' in name:
-            try:
-                klass = getattr(tvtk, name)
-                inst = klass()
-            except TypeError:
-                pass
-            else:
-                res.append(name)
+    with suppress_vtk_warnings():
+        obj = tvtk.Object()
+        obj.global_warning_display = False
+        for name in dir(tvtk):
+            if 'Volume' in name and 'Mapper' in name:
+                try:
+                    klass = getattr(tvtk, name)
+                    inst = klass()
+                except TypeError:
+                    pass
+                else:
+                    res.append(name)
     ignores = ['VolumeTextureMapper3D', 'VolumeProMapper']
     for name in ignores:
         if name in res:
