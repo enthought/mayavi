@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Data representation in Mayavi &#8212; mayavi 4.6.1 documentation</title>
+    <title>Data representation in Mayavi &#8212; mayavi 4.6.2 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.6.1',
+        VERSION:     '4.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -72,7 +72,7 @@
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>  
@@ -445,10 +445,7 @@ origin and the list of spacings of each axis.</p>
 <p>This dataset is made of data points positioned on arbitrary grid: each
 point is connected to its nearest neighbors on the data array. The
 position of the data points are fully described by 1 coordinate
-arrays, specifying x, y and z for each point. This is the dataset
-created by the <cite>mlab.pipeline.scalar_field</cite> and
-<cite>mlab.pipeline.vector_field</cite> factory functions, if the <cite>x</cite>, <cite>y</cite> and
-<cite>z</cite> arrays are explicitely specified.</p>
+arrays, specifying x, y and z for each point.</p>
 <img alt="_images/structured_grid1.jpg" src="_images/structured_grid1.jpg" />
 <p>Creating a <cite>tvtk.StructuredGrid</cite> object from numpy arrays:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from numpy import pi, cos, sin, empty, linspace, random</span>
@@ -466,7 +463,7 @@ created by the <cite>mlab.pipeline.scalar_field</cite> and
 <span class="s2">    # Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
 <span class="s2">    # points on each plane, and we have a plane for each z value, so</span>
 <span class="s2">    # we need len(x_plane)*len(z) points.</span>
-<span class="s2">    points = empty([len(x_plane)*len(z),3])</span>
+<span class="s2">    points = empty([len(x_plane)*len(z), 3])</span>
 
 <span class="s2">    # Loop through the points for each plane and fill them with the</span>
 <span class="s2">    # correct x,y,z values.</span>
@@ -796,13 +793,13 @@ data sources with mlab</span></a>.</p>
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 05, 2018.
+      Last updated on Sep 02, 2018.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>

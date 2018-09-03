@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plotting functions &#8212; mayavi 4.6.1 documentation</title>
+    <title>Plotting functions &#8212; mayavi 4.6.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.6.1',
+        VERSION:     '4.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -72,7 +72,7 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
       </ul>
     </div>  
@@ -201,7 +201,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">def test_barchart():</span>
 <span class="s2">    &quot;&quot;&quot;</span> <span class="n">Demo</span> <span class="n">the</span> <span class="n">bar</span> <span class="n">chart</span> <span class="n">plot</span> <span class="k">with</span> <span class="n">a</span> <span class="mi">2</span><span class="n">D</span> <span class="n">array</span><span class="o">.</span>
     <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    s = numpy.abs(numpy.random.random((3, 3)))</span>
+<span class="s2">    s = np.abs(np.random.random((3, 3)))</span>
 <span class="s2">    return barchart(s)</span>
 </pre></div>
 </div>
@@ -280,7 +280,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">from mayavi.mlab import *</span>
 
 <span class="s2">def test_contour3d():</span>
-<span class="s2">    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]</span>
+<span class="s2">    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]</span>
 
 <span class="s2">    scalars = x * x * 0.5 + y * y + z * z * 2.0</span>
 
@@ -375,10 +375,10 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">def test_contour_surf():</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="n">Test</span> <span class="n">contour_surf</span> <span class="n">on</span> <span class="n">regularly</span> <span class="n">spaced</span> <span class="n">co</span><span class="o">-</span><span class="n">ordinates</span> <span class="n">like</span> <span class="n">MayaVi</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    def f(x, y):</span>
-<span class="s2">        sin, cos = numpy.sin, numpy.cos</span>
+<span class="s2">        sin, cos = np.sin, np.cos</span>
 <span class="s2">        return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)</span>
 
-<span class="s2">    x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
+<span class="s2">    x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
 <span class="s2">    s = contour_surf(x, y, f)</span>
 <span class="s2">    return s</span>
 </pre></div>
@@ -487,11 +487,11 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">from mayavi.mlab import *</span>
 
 <span class="s2">def test_flow():</span>
-<span class="s2">    x, y, z = numpy.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]</span>
-<span class="s2">    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)</span>
-<span class="s2">    u = y * numpy.sin(r) / r</span>
-<span class="s2">    v = -x * numpy.sin(r) / r</span>
-<span class="s2">    w = numpy.ones_like(z)*0.05</span>
+<span class="s2">    x, y, z = np.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]</span>
+<span class="s2">    r = np.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)</span>
+<span class="s2">    u = y * np.sin(r) / r</span>
+<span class="s2">    v = -x * np.sin(r) / r</span>
+<span class="s2">    w = np.ones_like(z)*0.05</span>
 <span class="s2">    obj = flow(u, v, w)</span>
 <span class="s2">    return obj</span>
 </pre></div>
@@ -565,7 +565,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">def test_imshow():</span>
 <span class="s2">    &quot;&quot;&quot;</span> <span class="n">Use</span> <span class="n">imshow</span> <span class="n">to</span> <span class="n">visualize</span> <span class="n">a</span> <span class="mi">2</span><span class="n">D</span> <span class="mi">10</span><span class="n">x10</span> <span class="n">random</span> <span class="n">array</span><span class="o">.</span>
     <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    s = numpy.random.random((10, 10))</span>
+<span class="s2">    s = np.random.random((10, 10))</span>
 <span class="s2">    return imshow(s, colormap=&#39;gist_earth&#39;)</span>
 </pre></div>
 </div>
@@ -680,12 +680,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">def test_mesh():</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="n">A</span> <span class="n">very</span> <span class="n">pretty</span> <span class="n">picture</span> <span class="n">of</span> <span class="n">spherical</span> <span class="n">harmonics</span> <span class="n">translated</span> <span class="kn">from</span>
     <span class="nn">the</span> <span class="n">octaviz</span> <span class="n">example</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    pi = numpy.pi</span>
-<span class="s2">    cos = numpy.cos</span>
-<span class="s2">    sin = numpy.sin</span>
+<span class="s2">    pi = np.pi</span>
+<span class="s2">    cos = np.cos</span>
+<span class="s2">    sin = np.sin</span>
 <span class="s2">    dphi, dtheta = pi / 250.0, pi / 250.0</span>
-<span class="s2">    [phi, theta] = numpy.mgrid[0:pi + dphi * 1.5:dphi,</span>
-<span class="s2">                               0:2 * pi + dtheta * 1.5:dtheta]</span>
+<span class="s2">    [phi, theta] = np.mgrid[0:pi + dphi * 1.5:dphi,</span>
+<span class="s2">                            0:2 * pi + dtheta * 1.5:dtheta]</span>
 <span class="s2">    m0 = 4</span>
 <span class="s2">    m1 = 3</span>
 <span class="s2">    m2 = 2</span>
@@ -782,15 +782,14 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">def test_plot3d():</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="n">Generates</span> <span class="n">a</span> <span class="n">pretty</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">lines</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    n_mer, n_long = 6, 11</span>
-<span class="s2">    pi = numpy.pi</span>
-<span class="s2">    dphi = pi / 1000.0</span>
-<span class="s2">    phi = numpy.arange(0.0, 2 * pi + 0.5 * dphi, dphi)</span>
+<span class="s2">    dphi = np.pi / 1000.0</span>
+<span class="s2">    phi = np.arange(0.0, 2 * np.pi + 0.5 * dphi, dphi)</span>
 <span class="s2">    mu = phi * n_mer</span>
-<span class="s2">    x = numpy.cos(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)</span>
-<span class="s2">    y = numpy.sin(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)</span>
-<span class="s2">    z = numpy.sin(n_long * mu / n_mer) * 0.5</span>
+<span class="s2">    x = np.cos(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)</span>
+<span class="s2">    y = np.sin(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)</span>
+<span class="s2">    z = np.sin(n_long * mu / n_mer) * 0.5</span>
 
-<span class="s2">    l = plot3d(x, y, z, numpy.sin(mu), tube_radius=0.025, colormap=&#39;Spectral&#39;)</span>
+<span class="s2">    l = plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap=&#39;Spectral&#39;)</span>
 <span class="s2">    return l</span>
 </pre></div>
 </div>
@@ -890,14 +889,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">from mayavi.mlab import *</span>
 
 <span class="s2">def test_points3d():</span>
-<span class="s2">    t = numpy.linspace(0, 4 * numpy.pi, 20)</span>
-<span class="s2">    cos = numpy.cos</span>
-<span class="s2">    sin = numpy.sin</span>
+<span class="s2">    t = np.linspace(0, 4 * np.pi, 20)</span>
 
-<span class="s2">    x = sin(2 * t)</span>
-<span class="s2">    y = cos(t)</span>
-<span class="s2">    z = cos(2 * t)</span>
-<span class="s2">    s = 2 + sin(t)</span>
+<span class="s2">    x = np.sin(2 * t)</span>
+<span class="s2">    y = np.cos(t)</span>
+<span class="s2">    z = np.cos(2 * t)</span>
+<span class="s2">    s = 2 + np.sin(t)</span>
 
 <span class="s2">    return points3d(x, y, z, s, colormap=&quot;copper&quot;, scale_factor=.25)</span>
 </pre></div>
@@ -1002,11 +999,11 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">from mayavi.mlab import *</span>
 
 <span class="s2">def test_quiver3d():</span>
-<span class="s2">    x, y, z = numpy.mgrid[-2:3, -2:3, -2:3]</span>
-<span class="s2">    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 4)</span>
-<span class="s2">    u = y * numpy.sin(r) / (r + 0.001)</span>
-<span class="s2">    v = -x * numpy.sin(r) / (r + 0.001)</span>
-<span class="s2">    w = numpy.zeros_like(z)</span>
+<span class="s2">    x, y, z = np.mgrid[-2:3, -2:3, -2:3]</span>
+<span class="s2">    r = np.sqrt(x ** 2 + y ** 2 + z ** 4)</span>
+<span class="s2">    u = y * np.sin(r) / (r + 0.001)</span>
+<span class="s2">    v = -x * np.sin(r) / (r + 0.001)</span>
+<span class="s2">    w = np.zeros_like(z)</span>
 <span class="s2">    obj = quiver3d(x, y, z, u, v, w, line_width=3, scale_factor=1)</span>
 <span class="s2">    return obj</span>
 </pre></div>
@@ -1121,10 +1118,10 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">def test_surf():</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="n">Test</span> <span class="n">surf</span> <span class="n">on</span> <span class="n">regularly</span> <span class="n">spaced</span> <span class="n">co</span><span class="o">-</span><span class="n">ordinates</span> <span class="n">like</span> <span class="n">MayaVi</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    def f(x, y):</span>
-<span class="s2">        sin, cos = numpy.sin, numpy.cos</span>
+<span class="s2">        sin, cos = np.sin, np.cos</span>
 <span class="s2">        return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)</span>
 
-<span class="s2">    x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
+<span class="s2">    x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
 <span class="s2">    s = surf(x, y, f)</span>
 <span class="s2">    #cs = contour_surf(x, y, f, contour_z=0)</span>
 <span class="s2">    return s</span>
@@ -1243,17 +1240,17 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <span class="n">triangles</span><span class="o">.</span>
     <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    n = 8</span>
-<span class="s2">    t = numpy.linspace(-numpy.pi, numpy.pi, n)</span>
-<span class="s2">    z = numpy.exp(1j * t)</span>
+<span class="s2">    t = np.linspace(-np.pi, np.pi, n)</span>
+<span class="s2">    z = np.exp(1j * t)</span>
 <span class="s2">    x = z.real.copy()</span>
 <span class="s2">    y = z.imag.copy()</span>
-<span class="s2">    z = numpy.zeros_like(x)</span>
+<span class="s2">    z = np.zeros_like(x)</span>
 
 <span class="s2">    triangles = [(0, i, i + 1) for i in range(1, n)]</span>
-<span class="s2">    x = numpy.r_[0, x]</span>
-<span class="s2">    y = numpy.r_[0, y]</span>
-<span class="s2">    z = numpy.r_[1, z]</span>
-<span class="s2">    t = numpy.r_[0, t]</span>
+<span class="s2">    x = np.r_[0, x]</span>
+<span class="s2">    y = np.r_[0, y]</span>
+<span class="s2">    z = np.r_[1, z]</span>
+<span class="s2">    t = np.r_[0, t]</span>
 
 <span class="s2">    return triangular_mesh(x, y, z, triangles, scalars=t)</span>
 </pre></div>
@@ -1340,7 +1337,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="s2">from mayavi.mlab import *</span>
 
 <span class="s2">def test_volume_slice():</span>
-<span class="s2">    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]</span>
+<span class="s2">    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]</span>
 
 <span class="s2">    scalars = x * x * 0.5 + y * y + z * z * 2.0</span>
 
@@ -1447,13 +1444,13 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.6.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 05, 2018.
+      Last updated on Sep 02, 2018.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
