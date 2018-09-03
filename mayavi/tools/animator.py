@@ -127,8 +127,7 @@ class Animator(HasTraits):
 # Decorators.
 
 def animate(func=None, delay=500, ui=True, support_movie=True):
-    """A convenient decorator to animate a generator that performs an
-    animation.
+    """A convenient decorator to animate a generator performing an animation.
 
     The `delay` parameter specifies the delay (in milliseconds) between calls
     to the decorated function. If `ui` is True, then a simple UI for the
