@@ -1,3 +1,80 @@
+Mayavi 4.6.2
+============
+
+Thanks to the following who contributed to this release (in alphabetical
+order): solarjoe, François Boulogne, Prabhu Ramachandran (PR), and Ioannis
+Tziakos.
+
+11 pull requests were merged.
+
+This is largely a bugfix release with a few useful enhancements. This will be
+the last release to properly support VTK versions less than 7.0.
+
+Enhancements
+------------
+
+03 Aug 2018 `#695 <https://github.com/enthought/mayavi/pull/695>`_ (PR)
+   - Wrap user defined algorithm
+   - Ensure VTKPythonAlgorithmBase is wrapped
+   - `tvtk.to_tvtk` now wraps VTK subclasses by using a nearest base class.
+     This allows us to add VTK objects easily to the mayavi pipeline.
+
+02 Aug 2018 `#694 <https://github.com/enthought/mayavi/pull/694>`_ (PR)
+   - Allow adding a vtkAlgorithm to the Mayavi pipeline
+   - Allow `mlab.pipeline.add_dataset` to also accept raw VTK objects.
+   - Generalize the TVTK pipeline browser so it can be plugged into other
+     HasTraits objects easily.
+   - Add a `VTKObjectSource` to Mayavi:
+      - allows us to add any VTK algorithm to the mayavi pipeline and then
+        process that with the rest of Mayavi.
+      - It provides a convenient UI to configure the raw TVTK objects.
+      - these can be added to the pipeline with `mlab.pipeline.add_dataset`.
+      - does not yet support user-defined algorithms via subclasses of
+        VTKPythonAlgorithmBase.
+
+25 Jul 2018 `#687 <https://github.com/enthought/mayavi/pull/687>`_ (PR)
+   - Add smart volume mapper
+   - This is a much nicer volume mapper.
+   - Also fix an issue with the tvtk_doc and the recent change to use desc
+     instead of help for the trait metadata.
+
+24 Jul 2018 `#684 <https://github.com/enthought/mayavi/pull/684>`_ (PR)
+   - Use `desc` instead of `help` for traits. This is much more useful than
+     `help` as it shows up nicely as a tooltip for each trait on the UI.
+
+Fixes
+-----
+
+01 Aug 2018 `#693 <https://github.com/enthought/mayavi/pull/693>`_ (PR)
+   - Fix wrapping VTK's Get* methods
+   - Fix array handler tests for newer numpy versions. These versions have a
+     float16/float128 dtype which are not directly supported in VTK.
+   - BUG: wrap the `Get` methods correctly. Many of the new pipeline methods
+     were not wrapped correctly. For example the
+     `vtkAlgorithm.GetInputAlgorithm` has multiple signatures. TVTK was
+     wrapping any getter which had one of its signatures with no args as a
+     pure property and not exposing the method itself. This means that users
+     cannot call `obj.get_input_algorithm(0, 0)` which is broken. We now wrap
+     the no arg call as a property but also wrap the generic method as a
+     callable method.
+   - Fix the pipeline browser for the new pipeline.
+   - Add a few reasonable tests for the browser
+
+30 Jul 2018 `#691 <https://github.com/enthought/mayavi/pull/691>`_ (PR)
+   - Fix issue `#689 <https://github.com/enthought/mayavi/issues/689>`_.
+     The error was because the example uses the old pipeline.
+
+24 Jul 2018 `#683 <https://github.com/enthought/mayavi/pull/683>`_ (PR)
+   - Fix compiler check on windows. The check does not work when msvc is not
+     installed and this should fix it. This allows us to install Mayavi on
+     windows without having a compiler setup!
+
+24 Jul 2018 `#680 <https://github.com/enthought/mayavi/pull/680>`_ (solarjoe)
+   - fix upper case extension pyface will throw a KeyError if a filename with
+     an upper case extension like "my_image.PNG" it entered in the textbox as
+     the extension is not in the `meth_map`.
+
+
 Mayavi 4.6.1
 ============
 
