@@ -23,8 +23,9 @@ add_dataset
     
     **Parameters**
     
-    :dataset: a tvtk dataset, or a Mayavi source.
-              The dataset added to the Mayavi pipeline
+    :dataset: a tvtk/vtk dataset/tvtk/VTK Algorithm, or a Mayavi source. The
+              dataset added to the Mayavi pipeline
+    
     :figure: a figure identifier number or string, None or False, optionnal.
     
             If no `figure` keyword argument is given, the data
@@ -42,6 +43,7 @@ add_dataset
     **Returns**
     
     The corresponding Mayavi source is returned.
+    
     
 
     

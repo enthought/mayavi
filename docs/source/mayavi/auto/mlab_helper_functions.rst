@@ -125,7 +125,7 @@ see :ref:`running-mlab-scripts` for more info)::
     def test_barchart():
         """ Demo the bar chart plot with a 2D array.
         """
-        s = numpy.abs(numpy.random.random((3, 3)))
+        s = np.abs(np.random.random((3, 3)))
         return barchart(s)
     
                 
@@ -205,7 +205,7 @@ see :ref:`running-mlab-scripts` for more info)::
     from mayavi.mlab import *
     
     def test_contour3d():
-        x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
+        x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
     
         scalars = x * x * 0.5 + y * y + z * z * 2.0
     
@@ -303,10 +303,10 @@ see :ref:`running-mlab-scripts` for more info)::
     def test_contour_surf():
         """Test contour_surf on regularly spaced co-ordinates like MayaVi."""
         def f(x, y):
-            sin, cos = numpy.sin, numpy.cos
+            sin, cos = np.sin, np.cos
             return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)
     
-        x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
+        x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
         s = contour_surf(x, y, f)
         return s
     
@@ -416,11 +416,11 @@ see :ref:`running-mlab-scripts` for more info)::
     from mayavi.mlab import *
     
     def test_flow():
-        x, y, z = numpy.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]
-        r = numpy.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)
-        u = y * numpy.sin(r) / r
-        v = -x * numpy.sin(r) / r
-        w = numpy.ones_like(z)*0.05
+        x, y, z = np.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]
+        r = np.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)
+        u = y * np.sin(r) / r
+        v = -x * np.sin(r) / r
+        w = np.ones_like(z)*0.05
         obj = flow(u, v, w)
         return obj
     
@@ -494,7 +494,7 @@ see :ref:`running-mlab-scripts` for more info)::
     def test_imshow():
         """ Use imshow to visualize a 2D 10x10 random array.
         """
-        s = numpy.random.random((10, 10))
+        s = np.random.random((10, 10))
         return imshow(s, colormap='gist_earth')
     
                 
@@ -611,12 +611,12 @@ see :ref:`running-mlab-scripts` for more info)::
     def test_mesh():
         """A very pretty picture of spherical harmonics translated from
         the octaviz example."""
-        pi = numpy.pi
-        cos = numpy.cos
-        sin = numpy.sin
+        pi = np.pi
+        cos = np.cos
+        sin = np.sin
         dphi, dtheta = pi / 250.0, pi / 250.0
-        [phi, theta] = numpy.mgrid[0:pi + dphi * 1.5:dphi,
-                                   0:2 * pi + dtheta * 1.5:dtheta]
+        [phi, theta] = np.mgrid[0:pi + dphi * 1.5:dphi,
+                                0:2 * pi + dtheta * 1.5:dtheta]
         m0 = 4
         m1 = 3
         m2 = 2
@@ -713,15 +713,14 @@ see :ref:`running-mlab-scripts` for more info)::
     def test_plot3d():
         """Generates a pretty set of lines."""
         n_mer, n_long = 6, 11
-        pi = numpy.pi
-        dphi = pi / 1000.0
-        phi = numpy.arange(0.0, 2 * pi + 0.5 * dphi, dphi)
+        dphi = np.pi / 1000.0
+        phi = np.arange(0.0, 2 * np.pi + 0.5 * dphi, dphi)
         mu = phi * n_mer
-        x = numpy.cos(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)
-        y = numpy.sin(mu) * (1 + numpy.cos(n_long * mu / n_mer) * 0.5)
-        z = numpy.sin(n_long * mu / n_mer) * 0.5
+        x = np.cos(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)
+        y = np.sin(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)
+        z = np.sin(n_long * mu / n_mer) * 0.5
     
-        l = plot3d(x, y, z, numpy.sin(mu), tube_radius=0.025, colormap='Spectral')
+        l = plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap='Spectral')
         return l
     
                 
@@ -823,14 +822,12 @@ see :ref:`running-mlab-scripts` for more info)::
     from mayavi.mlab import *
     
     def test_points3d():
-        t = numpy.linspace(0, 4 * numpy.pi, 20)
-        cos = numpy.cos
-        sin = numpy.sin
+        t = np.linspace(0, 4 * np.pi, 20)
     
-        x = sin(2 * t)
-        y = cos(t)
-        z = cos(2 * t)
-        s = 2 + sin(t)
+        x = np.sin(2 * t)
+        y = np.cos(t)
+        z = np.cos(2 * t)
+        s = 2 + np.sin(t)
     
         return points3d(x, y, z, s, colormap="copper", scale_factor=.25)
     
@@ -938,11 +935,11 @@ see :ref:`running-mlab-scripts` for more info)::
     from mayavi.mlab import *
     
     def test_quiver3d():
-        x, y, z = numpy.mgrid[-2:3, -2:3, -2:3]
-        r = numpy.sqrt(x ** 2 + y ** 2 + z ** 4)
-        u = y * numpy.sin(r) / (r + 0.001)
-        v = -x * numpy.sin(r) / (r + 0.001)
-        w = numpy.zeros_like(z)
+        x, y, z = np.mgrid[-2:3, -2:3, -2:3]
+        r = np.sqrt(x ** 2 + y ** 2 + z ** 4)
+        u = y * np.sin(r) / (r + 0.001)
+        v = -x * np.sin(r) / (r + 0.001)
+        w = np.zeros_like(z)
         obj = quiver3d(x, y, z, u, v, w, line_width=3, scale_factor=1)
         return obj
     
@@ -1060,10 +1057,10 @@ see :ref:`running-mlab-scripts` for more info)::
     def test_surf():
         """Test surf on regularly spaced co-ordinates like MayaVi."""
         def f(x, y):
-            sin, cos = numpy.sin, numpy.cos
+            sin, cos = np.sin, np.cos
             return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)
     
-        x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
+        x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
         s = surf(x, y, f)
         #cs = contour_surf(x, y, f, contour_z=0)
         return s
@@ -1184,17 +1181,17 @@ see :ref:`running-mlab-scripts` for more info)::
             triangles.
         """
         n = 8
-        t = numpy.linspace(-numpy.pi, numpy.pi, n)
-        z = numpy.exp(1j * t)
+        t = np.linspace(-np.pi, np.pi, n)
+        z = np.exp(1j * t)
         x = z.real.copy()
         y = z.imag.copy()
-        z = numpy.zeros_like(x)
+        z = np.zeros_like(x)
     
         triangles = [(0, i, i + 1) for i in range(1, n)]
-        x = numpy.r_[0, x]
-        y = numpy.r_[0, y]
-        z = numpy.r_[1, z]
-        t = numpy.r_[0, t]
+        x = np.r_[0, x]
+        y = np.r_[0, y]
+        z = np.r_[1, z]
+        t = np.r_[0, t]
     
         return triangular_mesh(x, y, z, triangles, scalars=t)
     
@@ -1281,7 +1278,7 @@ see :ref:`running-mlab-scripts` for more info)::
     from mayavi.mlab import *
     
     def test_volume_slice():
-        x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
+        x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
     
         scalars = x * x * 0.5 + y * y + z * z * 2.0
     
