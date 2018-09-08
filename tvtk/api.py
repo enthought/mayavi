@@ -3,7 +3,6 @@
 
 # The external API for tvtk.
 
-
 # The version of TVTK that is installed
 from tvtk.version import version, version as __version__
 
@@ -15,3 +14,5 @@ from vtk.util import colors
 
 # Some miscellaneous functionality.
 from tvtk.misc import write_data
+
+from tvtk.tvtk_base import global_disable_update
