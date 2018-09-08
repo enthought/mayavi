@@ -4,7 +4,7 @@ test_tvtk.py.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2015, Enthought, Inc.
+# Copyright (c) 2004-2018, Enthought, Inc.
 # License: BSD Style.
 
 import unittest
@@ -23,33 +23,44 @@ from tvtk.common import get_tvtk_name, camel2enthought
 # testing.
 class Prop(tvtk_base.TVTKBase):
     def __init__(self, obj=None, update=1, **traits):
-        tvtk_base.TVTKBase.__init__(self, vtk.vtkProperty, obj, update, **traits)
+        tvtk_base.TVTKBase.__init__(
+            self, vtk.vtkProperty, obj, update, **traits
+        )
 
     edge_visibility = tvtk_base.false_bool_trait
+
     def _edge_visibility_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetEdgeVisibility, self.edge_visibility_)
 
-    representation = traits.Trait('surface',
-                            tvtk_base.TraitRevPrefixMap({'points': 0, 'wireframe': 1, 'surface': 2}))
+    representation = traits.Trait(
+        'surface',
+        tvtk_base.TraitRevPrefixMap(
+            {'points': 0, 'wireframe': 1, 'surface': 2})
+    )
+
     def _representation_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetRepresentation, self.representation_)
 
     opacity = traits.Trait(1.0, traits.Range(0.0, 1.0))
+
     def _opacity_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetOpacity,
                         self.opacity)
 
     specular_color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0))
+
     def _specular_color_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetSpecularColor,
                         self.specular_color, 1)
 
     diffuse_color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0))
+
     def _diffuse_color_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetDiffuseColor,
                         self.diffuse_color, 1)
 
     color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0))
+
     def _color_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetColor,
                         self.color)
@@ -60,7 +71,6 @@ class Prop(tvtk_base.TVTKBase):
                            ('color', 'GetColor'),
                            ('diffuse_color', 'GetDiffuseColor'),
                            ('representation', 'GetRepresentation'))
-
 
 
 class TestTVTKBase(unittest.TestCase):
@@ -77,9 +87,9 @@ class TestTVTKBase(unittest.TestCase):
         num = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five',
                'Six', 'Seven', 'Eight', 'Nine']
         for i in range(10):
-            vn = 'vtk%dA'%i
+            vn = 'vtk%dA' % i
             tn = get_tvtk_name(vn)
-            self.assertEqual(tn, '%sA'%num[i])
+            self.assertEqual(tn, '%sA' % num[i])
 
     def test_camel2enthought(self):
         """Test CamelCase to Enthought style name conversion."""
@@ -103,15 +113,30 @@ class TestTVTKBase(unittest.TestCase):
         p.edge_visibility = not p.edge_visibility
         p.representation = 'p'
         p.opacity = 0.5
-        p.color = (0,1,0)
-        p.diffuse_color = (1,1,1)
-        p.specular_color = (1,1,0)
+        p.color = (0, 1, 0)
+        p.diffuse_color = (1, 1, 1)
+        p.specular_color = (1, 1, 0)
         for t, g in p._updateable_traits_:
             val = getattr(p._vtk_obj, g)()
             if t == 'representation':
                 self.assertEqual(val, getattr(p, t + '_'))
             else:
                 self.assertEqual(val, getattr(p, t))
+
+    def test_wrap_call_is_graceful_on_failure(self):
+        # Given
+        p = Prop()
+
+        # When
+        try:
+            # Make a mistake
+            p._wrap_call(p._vtk_obj.SetLineWidth, 'a')
+        except TypeError:
+            pass
+
+        # Then
+        # The _in_set should be reset to zero.
+        self.assertEqual(p._in_set, 0)
 
     def test_auto_update(self):
         """Test trait updation when the VTK object changes."""
@@ -176,9 +201,9 @@ class TestTVTKBase(unittest.TestCase):
         p.edge_visibility = 1
         p.representation = 'p'
         p.opacity = 0.5
-        p.color = (0,1,0)
-        p.diffuse_color = (0,1,1)
-        p.specular_color = (1,1,0)
+        p.color = (0, 1, 0)
+        p.diffuse_color = (0, 1, 1)
+        p.specular_color = (1, 1, 0)
 
         s = pickle.dumps(p)
         del p
@@ -218,9 +243,9 @@ class TestTVTKBase(unittest.TestCase):
         p.representation = 'points'
         p.representation = 2
         self.assertEqual(p.representation, 'surface')
-        self.assertRaises(traits.TraitError, setattr , p,
+        self.assertRaises(traits.TraitError, setattr, p,
                           'representation', 'points1')
-        self.assertRaises(traits.TraitError, setattr , p,
+        self.assertRaises(traits.TraitError, setattr, p,
                           'representation', 'POINTS')
 
     def test_deref_vtk(self):
@@ -242,6 +267,25 @@ class TestTVTKBase(unittest.TestCase):
         del p
         self.assertEqual(ref(), None)
 
+    def test_global_disable_update(self):
+        # Given
+        p = Prop()
+        vp = tvtk_base.deref_vtk(p)
+
+        # When
+        with tvtk_base.global_disable_update():
+            vp.SetOpacity(0.5)
+            vp.Modified()
+
+        # Then
+        self.assertEqual(p.opacity, 1.0)
+
+        # When
+        vp.SetOpacity(0.4)
+
+        # Then
+        self.assertEqual(p.opacity, 0.4)
+
     def test_strict_traits(self):
         """Test if TVTK objects use strict traits."""
         p = Prop()
@@ -251,7 +295,7 @@ class TestTVTKBase(unittest.TestCase):
 
     def test_init_traits(self):
         """Test if the objects traits can be set in __init__."""
-        p = Prop(opacity=0.1, color=(1,0,0), representation='p')
+        p = Prop(opacity=0.1, color=(1, 0, 0), representation='p')
         self.assertEqual(p.opacity, 0.1)
         self.assertEqual(p.color, (1.0, 0.0, 0.0))
         self.assertEqual(p.representation, 'points')
@@ -272,7 +316,7 @@ class TestTVTKBase(unittest.TestCase):
         self.assertEqual(p, tvtk_base._object_cache.get(addr))
 
         del p
-        gc.collect() # Force collection.
+        gc.collect()  # Force collection.
         self.assertEqual(l1, len(tvtk_base._object_cache))
         self.assertEqual(addr in tvtk_base._object_cache, False)
 

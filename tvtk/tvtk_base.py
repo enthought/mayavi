@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2015,  Enthought, Inc.
+# Copyright (c) 2004-2018,  Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function
@@ -11,6 +11,7 @@ import sys
 import weakref
 import os
 import logging
+from contextlib import contextmanager
 
 import vtk
 
@@ -25,9 +26,11 @@ def BooleanEditor(*args, **kw):
     from traitsui.api import BooleanEditor as Editor
     return Editor(*args, **kw)
 
+
 def RGBColorEditor(*args, **kw):
     from traitsui.api import RGBColorEditor as Editor
     return Editor(*args, **kw)
+
 
 def FileEditor(*args, **kw):
     from traitsui.api import FileEditor as Editor
@@ -42,6 +45,7 @@ class TVTKObjectCache(weakref.WeakValueDictionary):
     def __init__(self, *args, **kw):
         self._observer_data = {}
         weakref.WeakValueDictionary.__init__(self, *args, **kw)
+
         def remove(wr, selfref=weakref.ref(self)):
             self = selfref()
             if self is not None:
@@ -139,7 +143,7 @@ true_bool_trait = traits.Trait('true',
                                {'true':  1, 't': 1, 'yes': 1,
                                 'y': 1, 'on': 1, 1: 1, 'false': 0,
                                 'f': 0, 'no':  0, 'n': 0,
-                                'off': 0, 0: 0, -1:0},
+                                'off': 0, 0: 0, -1: 0},
                                editor=BooleanEditor)
 
 false_bool_trait = traits.Trait('false', true_bool_trait)
@@ -174,21 +178,21 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
         try:
             if value in self._rmap:
                 value = self._rmap[value]
-            if not value in self._map:
+            if value not in self._map:
                 match = None
-                n     = len( value )
+                n = len(value)
                 for key in self.map.keys():
                     if value == key[:n]:
                         if match is not None:
-                           match = None
-                           break
+                            match = None
+                            break
                         match = key
                 if match is None:
-                    self.error( object, name, value )
-                self._map[ value ] = match
-            return self._map[ value ]
+                    self.error(object, name, value)
+                self._map[value] = match
+            return self._map[value]
         except:
-            self.error( object, name, value )
+            self.error(object, name, value)
 
     def info(self):
         keys = [repr(x) for x in self._rmap.keys()]
@@ -233,6 +237,28 @@ vtk_file_prefix = traits.Trait(None, None, traits.Str, str,
 
 # The Property class traits are delegated in the Actors.
 vtk_property_delegate = traits.Delegate('property', modify=True)
+
+
+_DISABLE_UPDATE = False
+
+
+@contextmanager
+def global_disable_update():
+    '''Disable updating any traits automatically due to changes in VTK.
+
+    Specifically, do not auto-update *any* objects due to the firing of a
+    ModifiedEvent from within VTK. This basically can call `update_traits` on
+    the object which can in turn fire off other callbacks.
+
+    Use this sparingly when you REALLY need to disable updates.
+
+    '''
+    global _DISABLE_UPDATE
+    try:
+        _DISABLE_UPDATE = True
+        yield
+    finally:
+        _DISABLE_UPDATE = False
 
 
 ######################################################################
@@ -282,7 +308,8 @@ class TVTKBase(traits.HasStrictTraits):
     # Stores the names of the traits that need to be updated.
     _updateable_traits_ = traits.Tuple
 
-    # List of trait names that are to be included in the full traits view of this object.
+    # List of trait names that are to be included in the full traits view of
+    # this object.
     _full_traitnames_list_ = traits.List
 
     #################################################################
@@ -326,7 +353,7 @@ class TVTKBase(traits.HasStrictTraits):
         else:
             self._vtk_obj = klass()
 
-        # print "INIT", self.__class__.__name__, repr(self._vtk_obj)
+        # print("INIT", self.__class__.__name__)#, repr(self._vtk_obj))
 
         # Call the Super class to update the traits.
         # Inhibit any updates at this point since we update in the end
@@ -394,8 +421,7 @@ class TVTKBase(traits.HasStrictTraits):
     #################################################################
     # `HasTraits` interface.
     #################################################################
-
-    def class_trait_view_elements ( cls ):
+    def class_trait_view_elements(cls):
         """ Returns the ViewElements object associated with the class.
 
         The returned object can be used to access all the view elements
@@ -429,12 +455,12 @@ class TVTKBase(traits.HasStrictTraits):
             )
             for name in names:
                 if name in result:
-                    view_elements.content[ name ] = result[name]
+                    view_elements.content[name] = result[name]
         except Exception:
             pass
         return view_elements
 
-    class_trait_view_elements = classmethod( class_trait_view_elements )
+    class_trait_view_elements = classmethod(class_trait_view_elements)
 
     #################################################################
     # `TVTKBase` interface.
@@ -464,7 +490,7 @@ class TVTKBase(traits.HasStrictTraits):
         the VTK observer callback functions.
 
         """
-        if self._in_set:
+        if self._in_set or _DISABLE_UPDATE:
             return
         if not hasattr(self, '_updateable_traits_'):
             return
@@ -538,10 +564,10 @@ class TVTKBase(traits.HasStrictTraits):
                 method(*val)
             else:
                 raise
-        self._in_set -= 1
+        finally:
+            self._in_set -= 1
         if force_update or self._wrapped_mtime(vtk_obj) > mtime:
             self.update_traits()
-
 
     def _wrap_call(self, vtk_method, *args):
         """This method allows us to safely call a VTK method without
@@ -565,8 +591,10 @@ class TVTKBase(traits.HasStrictTraits):
         vtk_obj = self._vtk_obj
         self._in_set += 1
         mtime = self._wrapped_mtime(vtk_obj) + 1
-        ret = vtk_method(*args)
-        self._in_set -= 1
+        try:
+            ret = vtk_method(*args)
+        finally:
+            self._in_set -= 1
         if self._wrapped_mtime(vtk_obj) > mtime:
             self.update_traits()
         return ret
