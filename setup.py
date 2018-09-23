@@ -17,6 +17,7 @@ except ImportError:
     HAS_NUMPY = False
     from distutils.command import build, install_data
     from distutils.core import setup
+import io
 import os
 import subprocess
 import shutil
@@ -463,7 +464,7 @@ if __name__ == '__main__':
         include_package_data=True,
         install_requires=info['__requires__'],
         license="BSD",
-        long_description=open('README.rst').read(),
+        long_description=io.open('README.rst', encoding='utf-8').read(),
         platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
         zip_safe=False,
         **config
