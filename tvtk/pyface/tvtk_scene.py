@@ -746,6 +746,12 @@ class TVTKScene(HasPrivateTraits):
         """Returns the vtkRenderWindowInteractor of the parent class"""
         return self._interactor
 
+    def _set_interactor(self, iren):
+        if self._interactor is not None:
+            self._interactor.render_window = None
+        self._interactor = iren
+        iren.render_window = self._renwin
+
     def _get_render_window(self):
         """Returns the scene's render window."""
         return self._renwin
@@ -789,20 +795,32 @@ class TVTKScene(HasPrivateTraits):
     ###########################################################################
     def _create_control(self, parent):
         """ Create the toolkit-specific control that represents the widget. """
-        # Create the renderwindow.
-        renwin = self._renwin = tvtk.RenderWindow()
-        # If we are doing offscreen rendering we set the window size to
-        # (1,1) so the window does not appear at all
+
         if self.off_screen_rendering:
-            renwin.size = (1,1)
+            if hasattr(tvtk, 'EGLRenderWindow'):
+                renwin = tvtk.EGLRenderWindow()
+            else:
+                renwin = tvtk.RenderWindow()
+                # If we are doing offscreen rendering we set the window size to
+                # (1,1) so the window does not appear at all
+                renwin.size = (1, 1)
+
+            self._renwin = renwin
+            self._interactor = tvtk.GenericRenderWindowInteractor(
+                render_window=renwin
+            )
+        else:
+            renwin = self._renwin = tvtk.RenderWindow()
+            self._interactor = tvtk.RenderWindowInteractor(
+                render_window=renwin
+            )
 
         renwin.trait_set(point_smoothing=self.point_smoothing,
-                   line_smoothing=self.line_smoothing,
-                   polygon_smoothing=self.polygon_smoothing)
+                         line_smoothing=self.line_smoothing,
+                         polygon_smoothing=self.polygon_smoothing)
         # Create a renderer and add it to the renderwindow
         self._renderer = tvtk.Renderer()
         renwin.add_renderer(self._renderer)
-        self._interactor = tvtk.RenderWindowInteractor(render_window=renwin)
         # Save a reference to our camera so it is not GC'd -- needed for
         # the sync_traits to work.
         self._camera = self.camera
