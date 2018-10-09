@@ -72,7 +72,8 @@ class MlabSource(HasTraits):
             if md is not None:
                 aa = getattr(md, '_assign_attribute', None)
                 vectors = getattr(self, 'vectors', None)
-                if aa is not None and (self.scalars is not None or
+                scalars = getattr(self, 'scalars', None)
+                if aa is not None and (scalars is not None or
                                        vectors is not None):
                     aa.update()
                 md.data_changed = True
