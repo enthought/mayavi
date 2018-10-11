@@ -799,6 +799,8 @@ class TVTKScene(HasPrivateTraits):
         if self.off_screen_rendering:
             if hasattr(tvtk, 'EGLRenderWindow'):
                 renwin = tvtk.EGLRenderWindow()
+            elif hasattr(tvtk, 'OSOpenGLRenderWindow'):
+                renwin = tvtk.OSOpenGLRenderWindow()
             else:
                 renwin = tvtk.RenderWindow()
                 # If we are doing offscreen rendering we set the window size to
