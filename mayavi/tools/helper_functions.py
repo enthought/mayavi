@@ -71,8 +71,8 @@ class Pipeline(HasTraits):
         # First retrieve the scene, if any.
         if 'figure' in kwargs:
             figure = kwargs['figure']
-            assert isinstance(figure, (Scene, None))
-            scene = figure.scene
+            assert isinstance(figure, Scene) or figure is None
+            scene = getattr(figure, 'scene', None)
         else:
             scene = tools.gcf().scene
         if scene is not None:
