@@ -429,6 +429,8 @@ class LUTManager(Base):
         self._default_data_range_changed(self.default_data_range)
 
     def _data_range_changed(self, value):
+        # should be guaranteed by callers, otherwise VTK will print an error
+        assert value[0] <= value[1]
         try:
             self.lut.set_range(value[0], value[1])
         except TypeError:

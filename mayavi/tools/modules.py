@@ -143,10 +143,16 @@ class DataModuleFactory(ModuleFactory):
                     = False
         vmin, vmax = \
                 self._target.module_manager.scalar_lut_manager.data_range
+        # This takes care of pathological cases where vmin is changed
+        # before vmax is changed, but vmin is greater than data_range[1]
         if self.vmin is not None:
             vmin = self.vmin
+            if self.vmax is None:
+                vmax = max(vmax, vmin)
         if self.vmax is not None:
             vmax = self.vmax
+            if self.vmin is None:
+                vmin = min(vmin, vmax)
         self._target.module_manager.scalar_lut_manager.data_range = \
                         (vmin, vmax)
 
