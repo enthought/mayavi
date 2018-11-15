@@ -70,11 +70,11 @@ class DataSetHelper(object):
         if x is None:
             return None, [0.0, 1.0]
         name, x = x
-        if self._composite:
+        if isinstance(x, dsa.VTKNoneArray):
+            res = [0.0, 1.0]
+        elif self._composite:
             # Don't bother with Nans for composite data for now.
-            if isinstance(x, dsa.VTKNoneArray):
-                res = [0.0, 1.0]
-            elif attr == 'scalars':
+            if attr == 'scalars':
                 res = [algs.min(x), algs.max(x)]
             else:
                 max_norm = np.sqrt(algs.max(algs.sum(x*x, axis=1)))

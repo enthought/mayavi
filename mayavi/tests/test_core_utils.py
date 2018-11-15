@@ -3,6 +3,7 @@ import numpy as np
 
 from tvtk.api import tvtk
 from mayavi.core.utils import DataSetHelper
+from vtk.numpy_interface import dataset_adapter as dsa
 
 
 class TestDataSetHelper(unittest.TestCase):
@@ -72,6 +73,15 @@ class TestDataSetHelper(unittest.TestCase):
         self.assertEqual(name, 'cv')
         self.assertEqual(rng, [0.0, np.sqrt(3.0)])
 
+    def test_get_range_works_for_VTKNoneArray(self):
+        id_ = tvtk.ImageData(dimensions=(2, 2, 1), origin=(0, 0, 0),
+                             spacing=(1, 1, 1))
+        id_.point_data.scalars = np.arange(4, dtype=float)
+        dsh = DataSetHelper(id_)
+        self.assertFalse(dsh._composite)
+        self.assertEqual(dsh.get_range(), (None, [0., 1.]))
+        # XXX there is some wackiness here, no idea why this changes!
+        self.assertEqual(dsh.get_range(), ('point_scalars', [0., 3.]))
 
 if __name__ == '__main__':
     unittest.main()
