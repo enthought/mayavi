@@ -686,7 +686,7 @@ class PipelineBrowser(HasTraits):
         `parent` widget is passed, the tree is displayed inside the
         passed parent widget."""
         # If UI already exists, raise it and return.
-        if self._ui and self._ui.control:
+        if self._ui is not None and self._ui.control is not None:
             try:
                 self._ui.control.Raise()
             except AttributeError:
@@ -696,7 +696,7 @@ class PipelineBrowser(HasTraits):
         else:
             # No active ui, create one.
             view = self.default_traits_view()
-            if parent:
+            if parent is not None:
                 self._ui = view.ui(self, parent=parent, kind='subpanel')
             else:
                 self._ui = view.ui(self, parent=parent)
@@ -704,7 +704,7 @@ class PipelineBrowser(HasTraits):
     def update(self):
         """Update the tree view."""
         # This is a hack.
-        if self._ui and self._ui.control:
+        if self._ui is not None and self._ui.control is not None:
             try:
                 ed = self._ui._editors[0]
                 ed.update_editor()
