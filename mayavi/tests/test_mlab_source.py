@@ -9,6 +9,7 @@ import unittest
 import numpy as N
 from mock import patch
 
+from tvtk.api import tvtk
 from mayavi.tools import sources
 from mayavi.sources.vtk_data_source import VTKDataSource
 
@@ -572,6 +573,19 @@ class TestMLineSource(unittest.TestCase):
         self.assertTrue(N.allclose(src.y, y + 1))
         self.assertTrue(N.allclose(src.z, z + 1))
 
+    def test_set_without_scalars_attribute_works(self):
+        # Given
+        class MySource(sources.MlabSource):
+            x = sources.ArrayNumberOrNone
+
+        src = MySource(x=1.0, dataset=tvtk.PolyData())
+        src.m_data = VTKDataSource(data=src.dataset)
+
+        # When
+        src.update()
+
+        # Then
+        N.testing.assert_almost_equal(src.x, 1.0)
 
 
 ################################################################################
