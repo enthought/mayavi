@@ -13,6 +13,7 @@ import mock
 import numpy as np
 from numpy.testing import assert_allclose
 from traits.testing.unittest_tools import UnittestTools
+from traits.api import push_exception_handler
 
 import vtk
 
@@ -22,6 +23,8 @@ from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
 from mayavi.core.registry import registry
 from mayavi.tests.common import get_example_data
+
+push_exception_handler(reraise_exceptions=True)  # XXX should probably be elsewhere
 
 
 ################################################################################
@@ -122,6 +125,12 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             for factory in pipeline[1:]:
                 obj = factory(obj)
             self.assertTrue(hasattr(obj, 'mlab_source'))
+
+    def test_strange_vmin_vmax(self):
+        tris = [[0, 1, 2]]
+        x, y, z = np.random.random((3, 3, 3))
+        mesh = mlab.pipeline.triangular_mesh_source(x, y, z, tris)
+        surf = mlab.pipeline.surface(mesh, vmin=100, vmax=101)
 
     def test_add_dataset_works_with_vtk_datasets(self):
         # Given
