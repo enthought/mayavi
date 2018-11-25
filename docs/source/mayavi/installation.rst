@@ -77,6 +77,12 @@ following (after ensuring that you have jupyter_ installed of course)::
   $ jupyter nbextension install --py mayavi --user
   $ jupyter nbextension enable --py mayavi --user
 
+You will also need to have ipywidgets_ and ipyevents_ installed. These can be
+installed via pip or your favorite package manager.
+
+.. _ipywidgets: https://ipywidgets.readthedocs.io
+.. _ipyevents: https://github.com/mwcraig/ipyevents
+
 
 .. _installing_git:
 
