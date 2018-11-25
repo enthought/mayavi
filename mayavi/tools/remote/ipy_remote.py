@@ -3,7 +3,10 @@ from IPython.display import display
 from ipywidgets import Image
 from ipyevents import Event
 
-from mayavi.tools.remote.remote_widget import RemoteWidget
+from .bridge import LocalBridge
+from .remote_scene import SceneManager
+from .remote_widget import RemoteWidget
+from ..figure import gcf
 
 decode_func = getattr(base64, 'decodebytes', getattr(base64, 'decodestring'))
 
@@ -93,8 +96,6 @@ class IPyRemoteWidget(RemoteWidget):
 
 class WidgetManager(object):
     def __init__(self):
-        from .remote_scene import SceneManager
-        from .bridge import LocalBridge
         self.sm = SceneManager()
         # FIXME: we need a way to set the SceneManager.call_later.
         # not sure what sort of event loop we can rely on with IPython.
@@ -103,8 +104,6 @@ class WidgetManager(object):
         self.widgets = {}
 
     def scene_to_ipy(self, scene):
-        from mayavi.tools.figure import gcf
-        from mayavi.tools.remote.ipy_remote import IPyRemoteWidget
         figure = gcf()
         sm = self.sm
         sid = sm.figure_to_id.get(figure)
