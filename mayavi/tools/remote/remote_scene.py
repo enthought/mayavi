@@ -8,8 +8,8 @@ from traits.api import (Any, Bool, Dict, Enum, Event, HasTraits,
 import vtk
 
 from tvtk.api import tvtk
-from mayavi.tools.figure import figure, gcf
-from mayavi.tools.engine_manager import options
+from ..figure import figure, gcf
+from ..engine_manager import options
 from tvtk.tvtk_base import global_disable_update
 
 options.offscreen = True

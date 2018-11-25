@@ -148,14 +148,3 @@ class RemoteWidget(object):
         elif self._wheelDelta <= -60:
             self.send('MouseWheelBackwardEvent')
             self._wheelDelta = 0
-
-
-def make_viewers(bridge, widget_cls):
-    bridge.run()
-    widgets = []
-    for id, scene in bridge.get_scenes().items():
-        w = widget_cls(scene, bridge)
-        w.show()
-        widgets.append(w)
-
-    return widgets
