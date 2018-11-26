@@ -9,11 +9,29 @@ Mayavi2.
 Using Mayavi in Jupyter notebooks
 ---------------------------------
 
-Mayavi can display either images or X3D_ elements on the notebook.
-The images are static and one cannot interact with them.  The X3D
-output produces a fully interactive 3D scene.  For information on how
-to interact with the scene, see here:
-http://www.x3dom.org/documentation/interaction/
+There are three different ways in which one can embed Mayavi
+visualizations in a Jupyter notebook.  The best way is to use the
+``'ipy'`` backend (which is the default).  This backend was first
+introduced in Mayavi 4.7.0.  This backend requires that the
+ipywidgets_ and ipyevents_ packages be installed.  It behaves almost
+exactly like a normal Mayavi UI window and supports any Mayavi/VTK
+visualization and is fully interactive.  This backend relies on VTK's
+off screen support and depending on how your VTK is configured may
+require a windowing system.
+
+.. _ipywidgets: https://ipywidgets.readthedocs.io
+.. _ipyevents: https://github.com/mwcraig/ipyevents
+
+There are two other backends, the simplest one is the ``'png'``
+backend which produces images that can be embedded in the notebook.
+These are static and not interactive.
+
+In between these two extremes is the ``'x3d'`` backend which displays
+X3D_ elements on the notebook.  The X3D output produces a fully
+interactive 3D scene, however, this will not support VTK's interactive
+widgets.  It does not support transparency and other advanced
+visualizations either.  For information on how to interact with the
+X3D scene, see here: http://www.x3dom.org/documentation/interaction/
 
 Mayavi ships with some javascript files that can be installed as::
 
@@ -43,14 +61,18 @@ objects so they can be rendered on the Jupyter notebook.
 .. note::
 
    One can call ``init_notebook`` multiple times if one wishes to
-   change the backend between ``png`` and ``x3d`` for some reason.
+   change the backend between ``ipy``, ``png``, and ``x3d`` for some
+   reason.
 
 There are several optional arguments to ``init_notebook``.
 
-- The first is the backend which defaults to ``'x3d'`` and can also
-  be set to ``'png'``.
-- One can set the pixel width and height of the figure to create
-  (as integers) (for example ``mlab.init_notebook('x3d',800,800)``).
+- The first is the backend which defaults to ``'ipy'``, and can also
+  be set to ``'x3d'`` or ``'png'``.
+- One can set the pixel width and height of the figure to create (as
+  integers) (for example ``mlab.init_notebook('x3d', 800, 800)``).
+  This only applies to the ``x3d`` backend.  For the ``ipy`` backend
+  this can be set when creating a new ``figure`` with the ``size``
+  keyword argument.
 - The last keyword argument ``local`` defaults to ``True``.
   When ``local=True`` it uses javascript files that are distributed
   along with Mayavi otherwise will require an internet connection
