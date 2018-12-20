@@ -342,7 +342,7 @@ class FullTreeGenerator(SimpleTreeGenerator):
         del methods[0]
 
         # using only the first set of indented values.
-        patn = re.compile("  \S")
+        patn = re.compile(r"  \S")
         for method in methods[:]:
             if patn.match(method):
                 if method.find(":") == -1:
@@ -369,10 +369,10 @@ class FullTreeGenerator(SimpleTreeGenerator):
             methods[i] = strng.split(":")
             method_names.append(methods[i][0])
 
-        if re.match("vtk\w*Renderer", vtk_obj.GetClassName()):
+        if re.match(r"vtk\w*Renderer", vtk_obj.GetClassName()):
             methods.append(["ActiveCamera", ""])
 
-        if re.match("vtk\w*Assembly", vtk_obj.GetClassName()):
+        if re.match(r"vtk\w*Assembly", vtk_obj.GetClassName()):
             methods.append(["Parts", ""])
             methods.append(["Volumes", ""])
             methods.append(["Actors", ""])
