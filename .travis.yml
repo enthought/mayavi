@@ -3,7 +3,7 @@ sudo: false
 
 env:
   global:
-    - INSTALL_EDM_VERSION=1.9.1
+    - INSTALL_EDM_VERSION=1.10.1
       PYTHONUNBUFFERED="1"
 
 matrix:
