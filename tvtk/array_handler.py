@@ -10,7 +10,7 @@ seems no unique one-to-one VTK data array type to map it to.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2015,  Enthought, Inc.
+# Copyright (c) 2004-2019,  Enthought, Inc.
 # License: BSD Style.
 
 import sys
@@ -191,6 +191,7 @@ def get_vtk_array_type(numeric_array_type):
         numpy.dtype(numpy.int16): vtkConstants.VTK_SHORT,
         numpy.dtype(numpy.int32): vtkConstants.VTK_INT,
         numpy.dtype(numpy.uint32): vtkConstants.VTK_UNSIGNED_INT,
+        numpy.dtype(numpy.uint64): vtkConstants.VTK_UNSIGNED_LONG,
         numpy.dtype(numpy.float32): vtkConstants.VTK_FLOAT,
         numpy.dtype(numpy.float64): vtkConstants.VTK_DOUBLE,
         numpy.dtype(numpy.complex64): vtkConstants.VTK_FLOAT,
@@ -297,7 +298,6 @@ def array2vtk(num_array, vtk_array=None):
        4. The types of the `vtk_array` and the `num_array` are not
           equivalent to each other.  For example if one is an integer
           array and the other a float.
-
 
     - vtk_array : `vtkDataArray` (default: `None`)
 
