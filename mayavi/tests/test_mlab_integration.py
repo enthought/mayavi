@@ -419,7 +419,7 @@ class TestMlabHelperFunctions(TestMlabNullEngine, UnittestTools):
     def test_imshow_colormap(self):
         # Check if the pipeline is refreshed when we change colormap.
         # See issue #262
-        a = np.random.random_integers(0, 10, (100, 100))
+        a = np.random.randint(0, 10 + 1, (100, 100))
 
         actor = mlab.imshow(a, colormap="cool")
 

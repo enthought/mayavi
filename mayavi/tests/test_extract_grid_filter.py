@@ -108,8 +108,7 @@ class TestExtractGridFilter(unittest.TestCase):
     def test_extract_grid_filter_sample(self):
         import sys
         if sys.platform != "darwin":
-            from nose import SkipTest
-            raise SkipTest("actor.bounds returns incorrect values")
+            raise unittest.SkipTest("actor.bounds returns incorrect values")
         "Test if the sample rate works."
         eg = self.eg
         gpx = self.gpx
@@ -145,8 +144,7 @@ class TestExtractGridFilter(unittest.TestCase):
     def test_voi(self):
         import sys
         if sys.platform != "darwin":
-            from nose import SkipTest
-            raise SkipTest("actor.bounds returns incorrect values")
+            raise unittest.SkipTest("actor.bounds returns incorrect values")
         "Test if setting the VOI works correctly."
         eg = self.eg
         gpx = self.gpx

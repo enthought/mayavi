@@ -46,11 +46,13 @@ class Child(HasTraits):
     def not_recordable(self):
         pass
 
+
 class Parent(HasTraits):
     children = List(Child, record=True)
     recorder = Instance(Recorder, record=False)
 
-class Test(HasTraits):
+
+class _Test(HasTraits):
     # This should be set.
     recorder = Instance(HasTraits)
 
@@ -290,7 +292,7 @@ class TestRecorder(unittest.TestCase):
 
     def test_recorder_and_ignored(self):
         "Test if recorder trait is set and private traits are ignored."
-        t = Test()
+        t = _Test()
         self.assertEqual(t.recorder, None)
         self.assertEqual(t._ignore, False)
         self.assertEqual(t.ignore_, False)

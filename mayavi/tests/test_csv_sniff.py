@@ -10,8 +10,8 @@ import os.path
 import sys
 import unittest
 import tempfile
+from unittest import SkipTest
 
-import nose
 from numpy import array, ndarray
 
 from mayavi.tools.data_wizards.csv_sniff import \
@@ -136,7 +136,7 @@ class Test_csv_py_files(Util):
             is the same as the array in csv_files/<name>.py
         """
         if skip_if_win and sys.platform.startswith('win'):
-            raise nose.SkipTest
+            raise SkipTest
 
         # Note: The files needed for the test are currently accessed directly.
         #       This assumes that the files are present, and not in a zipped
