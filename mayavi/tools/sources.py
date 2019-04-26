@@ -217,6 +217,8 @@ class MGlyphSource(MlabSource):
         else:
             # Modify existing one.
             pd = self.dataset
+        # First set the polys to None to avoid accessing invalid points.
+        pd.polys = None
         pd.trait_set(points=points)
         pd.trait_set(polys=polys)
 
@@ -719,6 +721,7 @@ class MGridSource(MlabSource):
             new_dataset = True
         else:
             pd = self.dataset
+        pd.trait_set(polys=None)
         pd.trait_set(points=points)
         pd.trait_set(polys=triangles)
 
@@ -822,12 +825,15 @@ class MTriangularMeshSource(MlabSource):
             pd = self.dataset
         # Set the points first, and the triangles after: so that the
         # polygone can refer to the right points, in the polydata.
+
+        # Set the polys to None so that when the points are set, the
+        # cells do not point to garbage.
+        pd.polys = None
         pd.trait_set(points=points)
         pd.trait_set(polys=triangles)
 
-        if (not 'scalars' in traits
-                    and scalars is not None
-                    and scalars.shape != x.shape):
+        if ('scalars' not in traits and scalars is not None
+           and scalars.shape != x.shape):
             # The scalars where set probably automatically to z, by the
             # factory. We need to reset them, as the size has changed.
             scalars = z
