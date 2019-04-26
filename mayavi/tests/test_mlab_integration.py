@@ -296,6 +296,54 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         )
 
 
+class TestSourceReset(TestMlabNullEngine):
+    def test_glyph_reset_twice_with_fewer_points(self):
+        # Given
+        x, y, z = np.random.random((3, 100))
+        g = mlab.quiver3d(x, y, z, x, y, z)
+        src = g.mlab_source
+
+        # When/Then
+        x, y, z = np.random.random((3, 5))
+        src.reset(x=x, y=y, z=z, u=x, v=y, w=z)
+
+    def test_lines_reset_twice_with_fewer_points(self):
+        # Given
+        t = np.linspace(0, 10, 100)
+        x, y = np.cos(t), np.sin(t)
+        l = mlab.plot3d(x, y, t, t)
+
+        # When/Then
+        t = np.linspace(0, 10, 5)
+        x, y = np.cos(t), np.sin(t)
+        # If this works without a segfault, we are good.
+        l.mlab_source.reset(x=x, y=y, z=t, scalars=t)
+
+    def test_mesh_reset_twice_with_fewer_points(self):
+        # Given
+        x, y = np.mgrid[0:1:10j, 0:1:10j]
+        surf = mlab.mesh(x, y, x+y)
+
+        # When/Then
+        x, y = np.mgrid[0:1:2j, 0:1:2j]
+        # If this works without a segfault, we are good.
+        surf.mlab_source.reset(x=x, y=y, z=x+y, scalars=(x+y))
+
+    def test_trimesh_reset_twice_with_fewer_points(self):
+        # Given
+        x, y, z = np.random.random((3, 100))
+        cells = np.random.randint(0, 100, 300)
+        cells.resize((100, 3))
+        surf = mlab.triangular_mesh(x, y, z, cells)
+
+        # When/Then
+        x, y, z = np.random.random((3, 5))
+        cells = np.random.randint(0, 5, 15)
+        cells.resize((5, 3))
+        # If this works without a segfault, we are good.
+        surf.mlab_source.reset(x=x, y=y, z=z, triangles=cells)
+
+
 class TestMlabPipeline(TestMlabNullEngine):
     """ Test the pipeline functions.
         For vtk versions greater than 5.10, widgets need
