@@ -15,7 +15,10 @@
 # Adding the current directory to the path, so that sphinx finds the
 # extensions.
 import os
-BASEDIR = os.path.dirname(os.path.abspath(__file__))
+try:
+    BASEDIR
+except NameError:
+    BASEDIR = os.path.dirname(os.path.abspath(__file__))
 
 # General configuration
 # ---------------------
