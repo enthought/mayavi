@@ -16,9 +16,9 @@
 # extensions.
 import os
 try:
-    BASEDIR
+    basedir
 except NameError:
-    BASEDIR = os.path.dirname(os.path.abspath(__file__))
+    basedir = os.path.dirname(os.path.abspath(__file__))
 
 # General configuration
 # ---------------------
@@ -43,7 +43,7 @@ copyright = u'2008-2018, Enthought Inc.'
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 d = {}
-fname = os.path.join(BASEDIR, '..', '..', '..', 'mayavi', '__init__.py')
+fname = os.path.join(basedir, '..', '..', '..', 'mayavi', '__init__.py')
 exec(compile(open(fname).read(), fname, 'exec'), d)
 version = release = d['__version__']
 
@@ -147,4 +147,4 @@ latex_logo = 'm2_about.jpg'
 ################################################################################
 # A hack:
 import shutil
-shutil.copyfile(os.path.join(BASEDIR, '../../CHANGES.txt'), os.path.join(BASEDIR, './auto/changes.rst'))
+shutil.copyfile(os.path.join(basedir, '../../CHANGES.txt'), os.path.join(basedir, './auto/changes.rst'))
