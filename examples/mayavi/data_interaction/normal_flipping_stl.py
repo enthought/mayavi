@@ -35,38 +35,14 @@ cellNormals = vtk_to_numpy(normals.GetOutput().GetCellData().GetNormals())
 my_mesh_normals = cellNormals
 
 fig = mlab.figure(bgcolor=(0, 0, 0))
-x, y, z, ordering, points = [], [], [], [], []  # cooridnates of points and
+x, y, z, ordering = [], [], [], []  # cooridnates of points and
 # connectivity information
 for i in range(len(my_mesh_vectors)):
-    order1, order2, order3 = -1, -1, -1
-    for m in range(np.shape(my_mesh_vectors[i])[0]):
-        point = [my_mesh_vectors[i][m][0],
-                 my_mesh_vectors[i][m][1],
-                 my_mesh_vectors[i][m][2]]
-        if point in points:
-            pass
-        else:
-            x.append(point[0])
-            y.append(point[1])
-            z.append(point[2])
-        if point in points:
-            if(m == 0):
-                order1 = points.index(point)
-            if(m == 1):
-                order2 = points.index(point)
-            if(m == 2):
-                order3 = points.index(point)
-        else:
-            if(m == 0):
-                order1 = len(points)
-                points.append(point)
-            if(m == 1):
-                order2 = len(points)
-                points.append(point)
-            if(m == 2):
-                order3 = len(points)
-                points.append(point)
-    ordering.append([order1, order2, order3])
+        for m in range(np.shape(my_mesh_vectors[i])[0]):
+            x.append(my_mesh_vectors[i][m][0])
+            y.append(my_mesh_vectors[i][m][1])
+            z.append(my_mesh_vectors[i][m][2])
+        ordering.append([3*i, 3*i+1, 3*i+2])
 
 # creates the given stl file
 triangles = mlab.triangular_mesh(x, y, z, ordering, figure=fig, opacity=0.6)
