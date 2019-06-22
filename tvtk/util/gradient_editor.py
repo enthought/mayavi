@@ -234,7 +234,7 @@ class GradientTable:
         return r, g, b, a
 
     def get_pos_color(self,f):
-        """return a Color object representing the color which is lies at
+        r"""return a Color object representing the color which is lies at
         position f \in [0..1] in the current gradient"""
         result = Color()
         e = self.get_color_hsva(f)
@@ -242,7 +242,7 @@ class GradientTable:
         return result
 
     def get_pos_rgba_color_lerped(self,f):
-        """return a (r,g,b,a) color representing the color which is lies at
+        r"""return a (r,g,b,a) color representing the color which is lies at
         position f \in [0..1] in the current gradient. if f is outside the
         [0..1] interval, the result will be clamped to this
         interval."""

@@ -43,8 +43,8 @@ install:
   - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '2.7' ]]; then edm install -y pyside; fi
   - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '3.6' ]]; then edm run -- pip install "pyqt5==5.10.1"; fi
   - edm run -- pip install -r ci/ci-requirements.txt
-  - if [[ ${VTK} == '8' ]]; then edm install -y vtk^=8 ; fi
-  - if [[ ${VTK} == '7' ]]; then edm install -y vtk^=7 ; fi
+  - if [[ ${VTK} == '8' ]]; then edm install -y vtk==8.0.0-2; fi
+  - if [[ ${VTK} != '8' ]]; then edm install -y vtk==7.0.0-3; fi
   - edm run -- python -c "import vtk; print(vtk.vtkVersion.GetVTKSourceVersion())"
   - edm run -- python setup.py develop
 

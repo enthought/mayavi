@@ -72,7 +72,7 @@ class Animator(HasTraits):
     ######################################################################
     # Initialize object
     def __init__(self, millisec, callable, *args, **kwargs):
-        """Constructor.
+        r"""Constructor.
 
         **Parameters**
 
