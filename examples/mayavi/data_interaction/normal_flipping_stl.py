@@ -101,13 +101,14 @@ f = tempfile.NamedTemporaryFile(mode="w", delete=False)
 f.write(cube_stl)
 f.close()
 
+
 def flip_normals(stl_fname):
     # reading the stl file and getting the triangle data
     reader = tvtk.STLReader()
     reader.file_name = stl_fname
     reader.update()
 
-    x, y, z= [], [], []
+    x, y, z = [], [], []
     ordering = []
     polydata = reader.output
     n = len(polydata.polys.data)
@@ -139,7 +140,9 @@ def flip_normals(stl_fname):
     fig = mlab.figure(bgcolor=(0, 0, 0))
 
     # renders the given stl file
-    triangles = mlab.triangular_mesh(x, y, z, ordering, figure=fig, opacity=0.6)
+    triangles = mlab.triangular_mesh(
+        x, y, z, ordering, figure=fig, opacity=0.6
+            )
 
     # coordinates of centroids of the trianlges
     centroids_x, centroids_y, centroids_z = [], [], []
@@ -156,19 +159,19 @@ def flip_normals(stl_fname):
     normals = mlab.quiver3d(centroids_x, centroids_y, centroids_z,
                             u, v, w, figure=fig)
     centroids = mlab.points3d(centroids_x, centroids_y, centroids_z,
-                            color=(0.2, 0.6, 0.1), resolution=15)
+                              color=(0.2, 0.6, 0.1), resolution=15)
 
     outline = mlab.outline(line_width=3)
     outline.outline_mode = "cornered"
     outline_size= centroids.glyph.glyph_source.glyph_source.radius * 0.3
     outline.bounds = (centroids_x[0]-outline_size, centroids_x[0]+outline_size,
-                    centroids_y[0]-outline_size, centroids_y[0]+outline_size,
-                    centroids_z[0]-outline_size, centroids_z[0]+outline_size)
+                      centroids_y[0]-outline_size, centroids_y[0]+outline_size,
+                      centroids_z[0]-outline_size, centroids_z[0]+outline_size)
 
-    ###############################################################################
+    ###########################################################################
 
-    # refer to examples/mayavi/data_interaction/select_red_balls.py for detailed
-    # information on using the callback
+    # refer to examples/mayavi/data_interaction/select_red_balls.py for
+    # detailed information on using the callback
     glyph_normals = centroids.glyph.glyph_source.glyph_source.output.points.\
         to_array()
 
@@ -183,8 +186,8 @@ def flip_normals(stl_fname):
                     -1*u[centroid_id], -1*v[centroid_id], -1*w[centroid_id]
                 normals.mlab_source.reset(u=u, v=v, w=w)
                 outline.bounds = (x-outline_size, x+outline_size,
-                                y-outline_size, y+outline_size,
-                                z-outline_size, z+outline_size)
+                                  y-outline_size, y+outline_size,
+                                  z-outline_size, z+outline_size)
 
     picker = fig.on_mouse_pick(picker_callback)
     picker.tolerance = 0.01
