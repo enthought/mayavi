@@ -115,8 +115,8 @@ def flip_normals(stl_fname):
     i = 0
     while(i < n):
         ordering.append([int(polydata.polys.data[i+1]),
-                        int(polydata.polys.data[i+2]),
-                        int(polydata.polys.data[i+3])])
+                         int(polydata.polys.data[i+2]),
+                         int(polydata.polys.data[i+3])])
         i = i + 4
 
     for i in range(len(polydata.points)):
@@ -134,9 +134,9 @@ def flip_normals(stl_fname):
     m = len(polydata_normals.cell_data.normals)
     u, v, w = [], [], []
     for i in range(m):
-        u.append(int(polydata_normals.cell_data.normals[i][0]))
-        v.append(int(polydata_normals.cell_data.normals[i][1]))
-        w.append(int(polydata_normals.cell_data.normals[i][2]))
+        u.append(polydata_normals.cell_data.normals[i][0])
+        v.append(polydata_normals.cell_data.normals[i][1])
+        w.append(polydata_normals.cell_data.normals[i][2])
     fig = mlab.figure(bgcolor=(0, 0, 0))
 
     # renders the given stl file
