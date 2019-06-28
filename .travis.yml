@@ -33,7 +33,6 @@ cache:
 
 before_install:
   - mkdir -p "${HOME}/.cache/download"
-  - export DISPLAY=:99.0
   - if [[ ${TRAVIS_OS_NAME} == 'linux' ]]; then ./ci/install-edm-linux.sh; export PATH="${HOME}/edm/bin:${PATH}"; fi
   - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then ./ci/install-edm-osx.sh; export PATH="${PATH}:/usr/local/bin"; fi
   - edm install --version ${RUNTIME} -y wheel numpy nose mock Sphinx coverage psutil
