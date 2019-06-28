@@ -1,0 +1,10 @@
+pillow
+mock
+Sphinx
+coverage
+psutil
+git@github.com:enthought/traits.git
+git@github.com:enthought/traitsui.git
+git@github.com:enthought/apptools.git
+git@github.com:enthought/pyface.git
+git@github.com:enthought/envisage.git
