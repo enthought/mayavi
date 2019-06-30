@@ -411,7 +411,7 @@ if __name__ == '__main__':
     setup(
         name='mayavi',
         version=info['__version__'],
-        author="Prabhu Ramachandran, et. al.",
+        author="Prabhu Ramachandran, et al.",
         author_email="prabhu@aero.iitb.ac.in",
         maintainer='ETS Developers',
         maintainer_email='mayavi-users@lists.sf.net',
