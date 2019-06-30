@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tips and Tricks &#8212; mayavi 4.6.2 documentation</title>
+    <title>Tips and Tricks &#8212; mayavi 4.7.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.6.2',
+        VERSION:     '4.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -72,7 +72,7 @@
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -87,11 +87,24 @@
 Mayavi2.</p>
 <div class="section" id="using-mayavi-in-jupyter-notebooks">
 <span id="jupyter-notebook"></span><h2>Using Mayavi in Jupyter notebooks<a class="headerlink" href="#using-mayavi-in-jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
-<p>Mayavi can display either images or <a class="reference external" href="http://www.x3dom.org">X3D</a> elements on the notebook.
-The images are static and one cannot interact with them.  The X3D
-output produces a fully interactive 3D scene.  For information on how
-to interact with the scene, see here:
-<a class="reference external" href="http://www.x3dom.org/documentation/interaction/">http://www.x3dom.org/documentation/interaction/</a></p>
+<p>There are three different ways in which one can embed Mayavi
+visualizations in a Jupyter notebook.  The best way is to use the
+<code class="docutils literal"><span class="pre">'ipy'</span></code> backend (which is the default).  This backend was first
+introduced in Mayavi 4.7.0.  This backend requires that the
+<a class="reference external" href="https://ipywidgets.readthedocs.io">ipywidgets</a> and <a class="reference external" href="https://github.com/mwcraig/ipyevents">ipyevents</a> packages be installed.  It behaves almost
+exactly like a normal Mayavi UI window and supports any Mayavi/VTK
+visualization and is fully interactive.  This backend relies on VTK&#8217;s
+off screen support and depending on how your VTK is configured may
+require a windowing system.</p>
+<p>There are two other backends, the simplest one is the <code class="docutils literal"><span class="pre">'png'</span></code>
+backend which produces images that can be embedded in the notebook.
+These are static and not interactive.</p>
+<p>In between these two extremes is the <code class="docutils literal"><span class="pre">'x3d'</span></code> backend which displays
+<a class="reference external" href="http://www.x3dom.org">X3D</a> elements on the notebook.  The X3D output produces a fully
+interactive 3D scene, however, this will not support VTK&#8217;s interactive
+widgets.  It does not support transparency and other advanced
+visualizations either.  For information on how to interact with the
+X3D scene, see here: <a class="reference external" href="http://www.x3dom.org/documentation/interaction/">http://www.x3dom.org/documentation/interaction/</a></p>
 <p>Mayavi ships with some javascript files that can be installed as:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ jupyter nbextension install --py mayavi --user</span>
 </pre></div>
@@ -116,14 +129,18 @@ objects so they can be rendered on the Jupyter notebook.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">One can call <code class="docutils literal"><span class="pre">init_notebook</span></code> multiple times if one wishes to
-change the backend between <code class="docutils literal"><span class="pre">png</span></code> and <code class="docutils literal"><span class="pre">x3d</span></code> for some reason.</p>
+change the backend between <code class="docutils literal"><span class="pre">ipy</span></code>, <code class="docutils literal"><span class="pre">png</span></code>, and <code class="docutils literal"><span class="pre">x3d</span></code> for some
+reason.</p>
 </div>
 <p>There are several optional arguments to <code class="docutils literal"><span class="pre">init_notebook</span></code>.</p>
 <ul class="simple">
-<li>The first is the backend which defaults to <code class="docutils literal"><span class="pre">'x3d'</span></code> and can also
-be set to <code class="docutils literal"><span class="pre">'png'</span></code>.</li>
-<li>One can set the pixel width and height of the figure to create
-(as integers) (for example <code class="docutils literal"><span class="pre">mlab.init_notebook('x3d',800,800)</span></code>).</li>
+<li>The first is the backend which defaults to <code class="docutils literal"><span class="pre">'ipy'</span></code>, and can also
+be set to <code class="docutils literal"><span class="pre">'x3d'</span></code> or <code class="docutils literal"><span class="pre">'png'</span></code>.</li>
+<li>One can set the pixel width and height of the figure to create (as
+integers) (for example <code class="docutils literal"><span class="pre">mlab.init_notebook('x3d',</span> <span class="pre">800,</span> <span class="pre">800)</span></code>).
+This only applies to the <code class="docutils literal"><span class="pre">x3d</span></code> backend.  For the <code class="docutils literal"><span class="pre">ipy</span></code> backend
+this can be set when creating a new <code class="docutils literal"><span class="pre">figure</span></code> with the <code class="docutils literal"><span class="pre">size</span></code>
+keyword argument.</li>
 <li>The last keyword argument <code class="docutils literal"><span class="pre">local</span></code> defaults to <code class="docutils literal"><span class="pre">True</span></code>.
 When <code class="docutils literal"><span class="pre">local=True</span></code> it uses javascript files that are distributed
 along with Mayavi otherwise will require an internet connection
@@ -510,7 +527,7 @@ connection.  It turns out there is a simple way to do this  if you have
 </div>
 <p>There is no need to call <code class="docutils literal"><span class="pre">mlab.show()</span></code> in the above.  The TCP server
 will listen on port 8007 by default in the above (this can be changed
-with suitable arguments to <code class="xref py py-func docutils literal"><span class="pre">serve_tcp()</span></code>).  Any data sent to the server
+with suitable arguments to <a class="reference internal" href="#mayavi.tools.server.serve_tcp" title="mayavi.tools.server.serve_tcp"><code class="xref py py-func docutils literal"><span class="pre">serve_tcp()</span></code></a>).  Any data sent to the server
 is simply exec&#8217;d, meaning you can do pretty much anything you want.  The
 names <code class="docutils literal"><span class="pre">engine</span></code>, <code class="docutils literal"><span class="pre">scene</span></code>, <code class="docutils literal"><span class="pre">camera</span></code> and <code class="docutils literal"><span class="pre">mlab</span></code> are all available
 and can be scripted with Python code.  For example after running the
@@ -528,7 +545,7 @@ above you can do this:</p>
 <p>The nice thing about this is that you do not loose any interactivity of
 the application and can continue to use its UI as before, any network
 commands will be simply run on top of this.  To serve on a UDP port use
-the <code class="xref py py-func docutils literal"><span class="pre">serve_udp()</span></code> function.  For more details on the <code class="docutils literal"><span class="pre">server</span></code> module
+the <a class="reference internal" href="#mayavi.tools.server.serve_udp" title="mayavi.tools.server.serve_udp"><code class="xref py py-func docutils literal"><span class="pre">serve_udp()</span></code></a> function.  For more details on the <code class="docutils literal"><span class="pre">server</span></code> module
 please look at the source code &#8211; it is thoroughly documented.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -538,9 +555,108 @@ connected to the server.</p>
 </div>
 <div class="section" id="tcp-server-the-serve-tcp-function">
 <h3>TCP server: the <cite>serve_tcp</cite> function<a class="headerlink" href="#tcp-server-the-serve-tcp-function" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="mayavi.tools.server.serve_tcp">
+<code class="descclassname">mayavi.tools.server.</code><code class="descname">serve_tcp</code><span class="sig-paren">(</span><em>engine=None</em>, <em>port=8007</em>, <em>logto=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='UTF-8'&gt;</em>, <em>max_connect=1</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.server.serve_tcp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serve the <cite>M2TCP</cite> protocol using the given <cite>engine</cite> on the
+specified <cite>port</cite> logging messages to given <cite>logto</cite> which is a
+file-like object.  This function will block till the service is
+closed.  There is no need to call <cite>mlab.show()</cite> after or before
+this.  The Mayavi UI will be fully responsive.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">engine:</th><td class="field-body">Mayavi engine to use. If this is <cite>None</cite>,
+<cite>mlab.get_engine()</cite> is used to find an appropriate engine.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">int: port to serve on.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">logto:</th><td class="field-body">file: File like object to log messages to.  If this is
+<cite>None</cite> it disables logging.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">max_connect:</th><td class="field-body">int: Maximum number of simultaneous connections to
+support.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Examples</strong></p>
+<p>Here is a very simple example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
+<span class="s2">from mayavi.tools import server</span>
+<span class="s2">mlab.test_plot3d()</span>
+<span class="s2">server.serve_tcp()</span>
+</pre></div>
+</div>
+<p>The TCP server will listen on port 8007 by default in the above.
+Any data sent to the server is simply exec&#8217;d, meaning you can do
+pretty much anything you want.  The <cite>engine</cite>, <cite>scene</cite>, <cite>camera</cite> and
+<cite>mlab</cite> are all available and can be used.  For example after running
+the above you can do this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ telnet localhost 8007</span>
+<span class="s2">Trying 127.0.0.1...</span>
+<span class="s2">Connected to localhost.</span>
+<span class="s2">Escape character is &#39;^]&#39;.</span>
+<span class="s2">scene.camera.azimuth(45)</span>
+<span class="s2">mlab.clf()</span>
+<span class="s2">mlab.test_contour3d()</span>
+<span class="s2">scene.camera.zoom(1.5)</span>
+</pre></div>
+</div>
+<p><strong>Warning</strong></p>
+<p>Data sent is exec&#8217;d so this is a security hole.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="udp-server-the-serve-udp-function">
 <h3>UDP server: the <cite>serve_udp</cite> function<a class="headerlink" href="#udp-server-the-serve-udp-function" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="mayavi.tools.server.serve_udp">
+<code class="descclassname">mayavi.tools.server.</code><code class="descname">serve_udp</code><span class="sig-paren">(</span><em>engine=None</em>, <em>port=9007</em>, <em>logto=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='UTF-8'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.server.serve_udp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serve the <cite>M2UDP</cite> protocol using the given <cite>engine</cite> on the
+specified <cite>port</cite> logging messages to given <cite>logto</cite> which is a
+file-like object.  This function will block till the service is
+closed.  There is no need to call <cite>mlab.show()</cite> after or before
+this.  The Mayavi UI will be fully responsive.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">engine:</th><td class="field-body">Mayavi engine to use. If this is <cite>None</cite>,
+<cite>mlab.get_engine()</cite> is used to find an appropriate engine.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">int: port to serve on.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">logto:</th><td class="field-body">file : File like object to log messages to.  If this is
+<cite>None</cite> it disables logging.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Examples</strong></p>
+<p>Here is a very simple example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
+<span class="s2">from mayavi.tools import server</span>
+<span class="s2">mlab.test_plot3d()</span>
+<span class="s2">server.serve_udp()</span>
+</pre></div>
+</div>
+<p>Test it like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import socket</span>
+<span class="s2">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span>
+<span class="s2">s.bind((&#39;&#39;, 9008))</span>
+<span class="s2">s.sendto(&#39;camera.azimuth(10)&#39;, (&#39;&#39;, 9007))</span>
+</pre></div>
+</div>
+<p><strong>Warning</strong></p>
+<p>Data sent is exec&#8217;d so this is a security hole.</p>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="animating-a-timeseries">
@@ -1057,12 +1173,12 @@ images.</p>
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.6.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Sep 02, 2018.
+      Last updated on Jul 01, 2019.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>

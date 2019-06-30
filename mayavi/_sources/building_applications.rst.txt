@@ -283,7 +283,7 @@ used by Traits to the Qt backend::
     os.environ['ETS_TOOLKIT'] = 'qt4'
 
 Also, as Traits runs with PyQt and PySide, if you use PyQt, you must make
-sure that you swith its binding in a mode that is compatible with PySide
+sure that you switch its binding in a mode that is compatible with PySide
 (internal string representation mode), **before you import any PyQt
 code**::
 
