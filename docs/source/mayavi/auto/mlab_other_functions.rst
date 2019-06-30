@@ -21,8 +21,7 @@ animate
 
     
     ::
-    A convenient decorator to animate a generator that performs an
-        animation.
+    A convenient decorator to animate a generator performing an animation.
     
         The `delay` parameter specifies the delay (in milliseconds) between calls
         to the decorated function. If `ui` is True, then a simple UI for the
@@ -151,13 +150,13 @@ get_engine
 init_notebook
 ~~~~~~~~~~~~~
 
-.. function:: init_notebook(backend='x3d', width=None, height=None, local=True)
+.. function:: init_notebook(backend='ipy', width=None, height=None, local=True)
 
     Initialize a suitable backend for Jupyter notebooks.
     
     **Parameters**
     
-    backend :str: one of ('png', 'x3d')
+    backend :str: one of ('png', 'x3d', 'ipy')
     width :int: suggested default width of the element
     height :int: suggested default height of the element
     local :bool: Use local copy of x3dom.js instead of online version.
