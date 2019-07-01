@@ -1,3 +1,111 @@
+Mayavi 4.7.0
+============
+
+Thanks to the following who contributed to this release (in alphabetical
+order): Eric Larson, Poruri Sai Rahul, Prabhu Ramachandran, Stefan Sandfeld,
+and Todd.
+
+Thanks to Enthought for funding the work that led to the significantly
+improved Jupyter notebook support.
+
+19 pull requests were merged.
+
+This release has one very powerful new feature -- jupyter notebook support
+with complete interactivity.
+
+Enhancements
+------------
+
+26 Nov 2018 `#739 <https://github.com/enthought/mayavi/pull/739>`_ (PR)
+
+   - New Jupyter notebook 'ipy' backend which is now the default and
+     requires that VTK's offscreen support work correctly. This backend
+     requires ipywidgets and ipyevents. It allows complete interactivity and
+     behaves almost exactly like a normal UI backend but inside a notebook.
+     Note that this will still require an xserver or windowing toolkit unless
+     VTK is compiled to be able to work without those.
+
+     Many thanks to Enthought for supporting this.
+
+09 Oct 2018 `#723 <https://github.com/enthought/mayavi/pull/723>`_ (PR)
+   - Improve offscreen window creation.
+     Creating a renderwindow in some configurations can actually make UI
+     calls.  So if EGL is available we try that.  Also, when we are using
+     offscreen rendering we only need a GenericRenderWindowInteractor.
+     Also add a convenient set method so one can set a different interactor if needed.
+
+08 Sep 2018 `#712 <https://github.com/enthought/mayavi/pull/712>`_ (prabhuramachandran)
+   - ENH: Feature to disable automatic updates.
+     This can be very handy at times when the automatic updates can trigger
+     several changes that are not desirable.  For example on certain VTK
+     calls, internal ModifiedEvents may be fired which will automatically
+     call the update_traits method which can be wired to other events
+     triggering problems.  In these cases one can use the
+     `global_disable_update` function to temporarily disable updates.
+
+
+Fixes
+-----
+
+30 Jun 2019 `#795 <https://github.com/enthought/mayavi/pull/795>`_ (rahulporuri)
+   - Test against ETS packages from source using travis cron jobs.
+
+23 Jun 2019 `#793 <https://github.com/enthought/mayavi/pull/793>`_ (rahulporuri)
+   - Use xenial linux instead of trusty
+
+19 Jun 2019 `#792 <https://github.com/enthought/mayavi/pull/792>`_ (ssandfeld)
+   - add fix for str conversion from bad bytes array
+     This fixes issue `#791 <https://github.com/enthought/mayavi/issues/791>`_.
+
+26 Apr 2019 `#771 <https://github.com/enthought/mayavi/pull/771>`_ (prabhuramachandran)
+   - Fix issue `#770 <https://github.com/enthought/mayavi/issues/770>`_
+     The issue arises in a few of the mlab sources where when we reset to a
+     polydata with a smaller number of points.
+
+26 Apr 2019 `#754 <https://github.com/enthought/mayavi/pull/754>`_ (larsoner)
+   - FIX: Fix nose leftovers in tests.
+
+26 Apr 2019 `#747 <https://github.com/enthought/mayavi/pull/747>`_ (larsoner)
+   - FIX: Escape chars in code.
+
+27 Nov 2018 `#740 <https://github.com/enthought/mayavi/pull/740>`_ (toddrme2178)
+   - Also catch exceptions in generating documentation
+
+15 Nov 2018 `#736 <https://github.com/enthought/mayavi/pull/736>`_ (PR)
+   - Some UI fixes for ivtk.
+     This fixes `#734 <https://github.com/enthought/mayavi/issues/734>`_.
+
+16 Nov 2018 `#735 <https://github.com/enthought/mayavi/pull/735>`_ (larsoner)
+   - FIX: Fix set_range causing lookup table errors.
+
+26 Oct 2018 `#731 <https://github.com/enthought/mayavi/pull/731>`_ (larsoner)
+   - FIX: Fix type check
+
+15 Nov 2018 `#729 <https://github.com/enthought/mayavi/pull/729>`_ (larsoner)
+   - FIX: Fix for VTKNoneArray
+
+11 Oct 2018 `#724 <https://github.com/enthought/mayavi/pull/724>`_ (PR)
+   - Try and fix `#477 <https://github.com/enthought/mayavi/issues/477>`_.
+     If OSMesa is available and user requests an offscreen window, use an
+     OSOpenGLRenderWindow, this will not require X and can be safely used on
+     a remote server.
+
+16 Nov 2018 `#722 <https://github.com/enthought/mayavi/pull/722>`_ (rahulporuri)
+   - Fix bug related to SurfaceSource.scalars This bug manifests when the
+     SurfaceSource object in question does not have a scalars attribute and
+     many of them do not have this.
+
+23 Sep 2018 `#716 <https://github.com/enthought/mayavi/pull/716>`_ (PR)
+   - Fix `#713 <https://github.com/enthought/mayavi/issues/713>`_ with pip
+     installs failing.
+
+23 Sep 2018 `#715 <https://github.com/enthought/mayavi/pull/715>`_ (prabhuramachandran)
+   - Fix detection of color transfer function.
+     The original code was written for very old VTK versions but ever since
+     5.x we have a get_node_value method that actually provides the values of
+     the nodes given an index.  We now use this instead of the earlier hack.
+
+
 Mayavi 4.6.2
 ============
 
