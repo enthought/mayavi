@@ -342,6 +342,7 @@ class GradientTable:
         for i in range(size):
             if has_nodes:
                 x = ctf.nodes[i]
+                r, g, b = ctf.get_color(x)
             else:
                 ctf.get_node_value(i, _ctf_data)
                 x, r, g, b = _ctf_data[:4]
