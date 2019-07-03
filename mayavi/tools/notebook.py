@@ -82,7 +82,8 @@ def _fix_x3d_header(x3d):
     if _height is not None:
         rep += 'height="%dpx" ' % _height
     rep += '>'
-
+    if isinstance(x3d, bytes):
+        x3d = x3d.decode("utf-8", "ignore") 
     x3d = x3d.replace(
         '<X3D profile="Immersive" version="3.0">',
         rep

@@ -1,5 +1,13 @@
 language: generic
-sudo: false
+
+dist: xenial
+services:
+  - xvfb
+
+addons:
+  apt:
+    packages:
+      - libglu1-mesa
 
 env:
   global:
@@ -25,8 +33,6 @@ cache:
 
 before_install:
   - mkdir -p "${HOME}/.cache/download"
-  - export DISPLAY=:99.0
-  - if [[ ${TRAVIS_OS_NAME} == "linux" ]] ; then sh -e /etc/init.d/xvfb start; fi
   - if [[ ${TRAVIS_OS_NAME} == 'linux' ]]; then ./ci/install-edm-linux.sh; export PATH="${HOME}/edm/bin:${PATH}"; fi
   - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then ./ci/install-edm-osx.sh; export PATH="${PATH}:/usr/local/bin"; fi
   - edm install --version ${RUNTIME} -y wheel numpy nose mock Sphinx coverage psutil
@@ -35,7 +41,11 @@ install:
   - if [[ ${ETS_TOOLKIT} == 'wx' ]]; then edm install -y wxpython; fi
   - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '2.7' ]]; then edm install -y pyside; fi
   - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '3.6' ]]; then edm run -- pip install "pyqt5==5.10.1"; fi
-  - edm run -- pip install -r ci/ci-requirements.txt
+  - if [[ ${TRAVIS_EVENT_TYPE} == "cron" ]] ; then
+        edm run -- pip install -r ci/ci-src-requirements.txt ;
+    else
+        edm run -- pip install -r ci/ci-requirements.txt ;
+    fi;
   - if [[ ${VTK} == '8' ]]; then edm run -- pip install vtk; fi
   - if [[ ${VTK} != '8' ]]; then edm install -y vtk==7.0.0-3; fi
   - edm run -- python -c "import vtk; print(vtk.vtkVersion.GetVTKSourceVersion())"
