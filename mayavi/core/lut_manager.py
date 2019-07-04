@@ -13,6 +13,7 @@ import warnings
 # Enthought library imports.
 from traits.api import Instance, Range, Bool, Array, \
      Str, Property, Enum, Button
+from traits.etsconfig.api import ETSConfig
 from traitsui.api import FileEditor, auto_close_message
 from apptools.persistence import state_pickler
 from tvtk.api import tvtk
@@ -483,8 +484,9 @@ class LUTManager(Base):
 
     def _create_lut_fired(self):
         from tvtk import util
+        tk = 'wx' if ETSConfig.toolkit.lower().startswith('wx') else 'qt'
         script = os.path.join(os.path.dirname(util.__file__),
-                              'wx_gradient_editor.py')
+                              tk + '_gradient_editor.py')
         subprocess.Popen([sys.executable, script])
         auto_close_message('Launching LUT editor in separate process ...')
 
