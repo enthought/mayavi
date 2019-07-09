@@ -146,6 +146,7 @@ class PolyDataReader(FileDataSource):
         return rd
 
     # Callable to check if the reader can actually read the file
+    @classmethod
     def can_read(cls,filename):
         """ Class method to check if the reader can actually
         read the file. Returns 'True' if it can read it succesfully
@@ -171,5 +172,3 @@ class PolyDataReader(FileDataSource):
             return False
 
         return None
-
-    can_read = classmethod(can_read)
