@@ -16,6 +16,8 @@
 # extensions.
 import os
 try:
+    # When translating the docs to another language, this variable is set 
+    # elsewhere, so if it is not set, set it to a suitable default.
     basedir
 except NameError:
     basedir = os.path.dirname(os.path.abspath(__file__))
