@@ -421,6 +421,7 @@ class TVTKBase(traits.HasStrictTraits):
     #################################################################
     # `HasTraits` interface.
     #################################################################
+    @classmethod
     def class_trait_view_elements(cls):
         """ Returns the ViewElements object associated with the class.
 
@@ -459,8 +460,6 @@ class TVTKBase(traits.HasStrictTraits):
         except Exception:
             pass
         return view_elements
-
-    class_trait_view_elements = classmethod(class_trait_view_elements)
 
     #################################################################
     # `TVTKBase` interface.
