@@ -1,3 +1,29 @@
+Mayavi 4.7.1
+============
+
+Thanks to the following who contributed to this release (in alphabetical
+order): Poruri Sai Rahul, Prabhu Ramachandran
+
+This is a bug-fix release.  3 pull-requests were merged.
+
+Fixes
+-----
+
+21 Jul 2019 `#807 <https://github.com/enthought/mayavi/pull/807>`_ (PR)
+   - Fix old pipeline errors in image actor.
+
+16 Jul 2019 `#804 <https://github.com/enthought/mayavi/pull/804>`_ (rahulporuri)
+   - Use the decorator for classmethod
+     Instead of explicitly calling it in the class definition
+
+04 Jul 2019 `#800 <https://github.com/enthought/mayavi/pull/800>`_ (PR)
+   - Misc bug fixes
+     Fixes 3 issues that affect the new release due to changes in traits, pyface etc.
+     - Fix issue with CTF editor not showing.
+     - Fix issue with lut editor not launching.
+     - Fix issue with cut/pasting tree nodes and drag drop onto shell.
+
+
 Mayavi 4.7.0
 ============
 
