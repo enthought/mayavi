@@ -30,7 +30,7 @@ class ImageActor(Module):
     # An ImageMapToColors TVTK filter to adapt datasets without color
     # information
     image_map_to_color = Instance(tvtk.ImageMapToColors, (),
-                                            allow_none=False, record=True)
+                                  allow_none=False, record=True)
 
     map_scalars_to_color = Bool
 
@@ -46,8 +46,8 @@ class ImageActor(Module):
                       Group(Item('map_scalars_to_color',
                             enabled_when='not _force_map_scalars_to_color')),
                       Item('image_map_to_color', style='custom',
-                            enabled_when='map_scalars_to_color',
-                            show_label=False),
+                           enabled_when='map_scalars_to_color',
+                           show_label=False),
                       label='Map Scalars',
                      ),
                 width=500,
@@ -73,15 +73,16 @@ class ImageActor(Module):
             return
         src = mm.source
         if self._force_map_scalars_to_color:
-            self.trait_set(map_scalars_to_color=True, trait_change_notify=False)
+            self.trait_set(map_scalars_to_color=True,
+                           trait_change_notify=False)
         if self.map_scalars_to_color:
             self.configure_connection(self.image_map_to_color, src)
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
             self.image_map_to_color.update()
-            self.configure_input_data(self.actor,
-                                      self.image_map_to_color.output)
+            self.configure_input(self.actor.mapper,
+                                 self.image_map_to_color)
         else:
-            self.configure_input_data(self.actor, src.outputs[0])
+            self.configure_input(self.actor.mapper, src.outputs[0])
         self.pipeline_changed = True
 
     def update_data(self):
