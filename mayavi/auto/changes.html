@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mayavi 4.7.0 &#8212; mayavi 4.7.0 documentation</title>
+    <title>Mayavi 4.7.1 &#8212; mayavi 4.7.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.7.0',
+        VERSION:     '4.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -68,7 +68,7 @@
         <li class="right" >
           <a href="../changes.html" title="Changelog"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../changes.html" accesskey="U">Changelog</a> &#187;</li> 
       </ul>
     </div>  
@@ -78,7 +78,38 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="mayavi-4-7-0">
+  <div class="section" id="mayavi-4-7-1">
+<h1>Mayavi 4.7.1<a class="headerlink" href="#mayavi-4-7-1" title="Permalink to this headline">¶</a></h1>
+<p>Thanks to the following who contributed to this release (in alphabetical
+order): Poruri Sai Rahul, Prabhu Ramachandran</p>
+<p>This is a bug-fix release.  3 pull-requests were merged.</p>
+<div class="section" id="fixes">
+<h2>Fixes<a class="headerlink" href="#fixes" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>21 Jul 2019 <a class="reference external" href="https://github.com/enthought/mayavi/pull/807">#807</a> (PR)</dt>
+<dd><ul class="first last simple">
+<li>Fix old pipeline errors in image actor.</li>
+</ul>
+</dd>
+<dt>16 Jul 2019 <a class="reference external" href="https://github.com/enthought/mayavi/pull/804">#804</a> (rahulporuri)</dt>
+<dd><ul class="first last simple">
+<li>Use the decorator for classmethod
+Instead of explicitly calling it in the class definition</li>
+</ul>
+</dd>
+<dt>04 Jul 2019 <a class="reference external" href="https://github.com/enthought/mayavi/pull/800">#800</a> (PR)</dt>
+<dd><ul class="first last simple">
+<li>Misc bug fixes
+Fixes 3 issues that affect the new release due to changes in traits, pyface etc.
+- Fix issue with CTF editor not showing.
+- Fix issue with lut editor not launching.
+- Fix issue with cut/pasting tree nodes and drag drop onto shell.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="mayavi-4-7-0">
 <h1>Mayavi 4.7.0<a class="headerlink" href="#mayavi-4-7-0" title="Permalink to this headline">¶</a></h1>
 <p>Thanks to the following who contributed to this release (in alphabetical
 order): Eric Larson, Poruri Sai Rahul, Prabhu Ramachandran, Stefan Sandfeld,
@@ -126,8 +157,8 @@ triggering problems.  In these cases one can use the
 </dd>
 </dl>
 </div>
-<div class="section" id="fixes">
-<h2>Fixes<a class="headerlink" href="#fixes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>Fixes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>30 Jun 2019 <a class="reference external" href="https://github.com/enthought/mayavi/pull/795">#795</a> (rahulporuri)</dt>
 <dd><ul class="first last simple">
@@ -228,8 +259,8 @@ Tziakos.</p>
 <p>11 pull requests were merged.</p>
 <p>This is largely a bugfix release with a few useful enhancements. This will be
 the last release to properly support VTK versions less than 7.0.</p>
-<div class="section" id="id24">
-<h2>Enhancements<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id28">
+<h2>Enhancements<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>03 Aug 2018 <a class="reference external" href="https://github.com/enthought/mayavi/pull/695">#695</a> (PR)</dt>
 <dd><ul class="first last simple">
@@ -276,8 +307,8 @@ instead of help for the trait metadata.</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id29">
-<h2>Fixes<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id33">
+<h2>Fixes<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>01 Aug 2018 <a class="reference external" href="https://github.com/enthought/mayavi/pull/693">#693</a> (PR)</dt>
 <dd><ul class="first last simple">
@@ -324,8 +355,8 @@ the extension is not in the <cite>meth_map</cite>.</li>
 <p>Thanks to the following who contributed to this release (in alphabetical
 order):  Eric Larson, Hongzhuo Liang, and Prabhu Ramachandran (PR).</p>
 <p>15 pull requests were merged.</p>
-<div class="section" id="id35">
-<h2>Enhancements<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id39">
+<h2>Enhancements<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>04 Jul 2018 <a class="reference external" href="https://github.com/enthought/mayavi/pull/669">#669</a> (PR)</dt>
 <dd><ul class="first last simple">
@@ -354,8 +385,8 @@ module.  For those who have a compiler, the extension is built.</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id40">
-<h2>Fixes<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id44">
+<h2>Fixes<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>04 Jul 2018 <a class="reference external" href="https://github.com/enthought/mayavi/pull/672">#672</a> (PR)</dt>
 <dd><ul class="first last simple">
@@ -405,8 +436,8 @@ needing numpy first.</li>
 Eric Larson, Federico Miorelli, James Booth, Krishna Wadhwani, Marijn van
 Vliet, Min RK, Nelle Varoquaux, Prabhu Ramachandran, Stefano Borini, solarjoe.</p>
 <p>48 pull requests were merged for this release.</p>
-<div class="section" id="id48">
-<h2>Enhancements<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id52">
+<h2>Enhancements<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h2>
 <p>Thanks to the VTK wheels now available on PyPI, this release is the first
 version of Mayavi that can be installed via <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mayavi</span></code>.</p>
 <dl class="docutils">
@@ -423,8 +454,8 @@ that <em>currently</em> works reliably with Python 3.x and ETS.</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id51">
-<h2>Fixes<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id55">
+<h2>Fixes<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>26 May 2018 <a class="reference external" href="https://github.com/enthought/mayavi/pull/646">#646</a> (PR)</dt>
 <dd><ul class="first last simple">
@@ -652,8 +683,8 @@ that <em>currently</em> works reliably with Python 3.x and ETS.</li>
 </div>
 <div class="section" id="mayavi-4-5-0">
 <h1>Mayavi 4.5.0<a class="headerlink" href="#mayavi-4-5-0" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id98">
-<h2>Enhancements<a class="headerlink" href="#id98" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id102">
+<h2>Enhancements<a class="headerlink" href="#id102" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>21 Jul 2016 <a class="reference external" href="https://github.com/enthought/mayavi/pull/415">#415</a> (PR)</dt>
 <dd><ul class="first last simple">
@@ -678,8 +709,8 @@ new viridis colormap.</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id102">
-<h2>Fixes<a class="headerlink" href="#id102" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id106">
+<h2>Fixes<a class="headerlink" href="#id106" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>01 Aug 2016 <a class="reference external" href="https://github.com/enthought/mayavi/pull/416">#416</a> (PR)</dt>
 <dd><ul class="first last simple">
@@ -898,8 +929,8 @@ call NMP.2013.1.4-1.</p>
 </div>
 <div class="section" id="mayavi-4-4-4">
 <h1>Mayavi 4.4.4<a class="headerlink" href="#mayavi-4-4-4" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id149">
-<h2>Enhancements<a class="headerlink" href="#id149" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id153">
+<h2>Enhancements<a class="headerlink" href="#id153" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>21 Jan 2016 (PR)</dt>
 <dd><ul class="first last simple">
@@ -908,8 +939,8 @@ call NMP.2013.1.4-1.</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="id150">
-<h2>Fixes<a class="headerlink" href="#id150" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id154">
+<h2>Fixes<a class="headerlink" href="#id154" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>27 Feb 2016 (PR)</dt>
 <dd><ul class="first last simple">
@@ -983,8 +1014,8 @@ machines</li>
 </div>
 <div class="section" id="mayavi-4-4-3">
 <h1>Mayavi 4.4.3<a class="headerlink" href="#mayavi-4-4-3" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id151">
-<h2>Enhancements<a class="headerlink" href="#id151" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id155">
+<h2>Enhancements<a class="headerlink" href="#id155" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>01 Jul 2015 (IT)</dt>
 <dd><ul class="first last simple">
@@ -1003,8 +1034,8 @@ machines</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id152">
-<h2>Fixes<a class="headerlink" href="#id152" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id156">
+<h2>Fixes<a class="headerlink" href="#id156" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>11 Aug 2015 (DS, IT, PR)</dt>
 <dd><ul class="first last simple">
@@ -1059,8 +1090,8 @@ VTK cell array</li>
 </div>
 <div class="section" id="mayavi-4-4-2">
 <h1>Mayavi 4.4.2<a class="headerlink" href="#mayavi-4-4-2" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id153">
-<h2>Enhancements<a class="headerlink" href="#id153" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id157">
+<h2>Enhancements<a class="headerlink" href="#id157" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>11 Jun 2015 (DS)</dt>
 <dd><ul class="first last simple">
@@ -1072,8 +1103,8 @@ VTK cell array</li>
 </div>
 <div class="section" id="mayavi-4-4-1">
 <h1>Mayavi 4.4.1<a class="headerlink" href="#mayavi-4-4-1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id154">
-<h2>Fixes<a class="headerlink" href="#id154" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id158">
+<h2>Fixes<a class="headerlink" href="#id158" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>23 Apr 2015 (DS)</dt>
 <dd><ul class="first last simple">
@@ -1085,8 +1116,8 @@ VTK cell array</li>
 </div>
 <div class="section" id="mayavi-4-4-0">
 <h1>Mayavi 4.4.0<a class="headerlink" href="#mayavi-4-4-0" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id155">
-<h2>Enhancements<a class="headerlink" href="#id155" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id159">
+<h2>Enhancements<a class="headerlink" href="#id159" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>22 Dec 2014 (DS)</dt>
 <dd><ul class="first last simple">
@@ -1101,8 +1132,8 @@ dragon, lucy) examples, and use new volume mapper for new pipeline.</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id156">
-<h2>Fixes<a class="headerlink" href="#id156" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id160">
+<h2>Fixes<a class="headerlink" href="#id160" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>22 Dec 2014 (DS)</dt>
 <dd><ul class="first last simple">
@@ -1150,8 +1181,8 @@ after upgrading to new pipeline.</li>
 </div>
 <div class="section" id="mayavi-4-3-1">
 <h1>Mayavi 4.3.1<a class="headerlink" href="#mayavi-4-3-1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id157">
-<h2>Enhancements<a class="headerlink" href="#id157" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id161">
+<h2>Enhancements<a class="headerlink" href="#id161" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>20 Jan 2014 (PR)</dt>
 <dd><ul class="first last simple">
@@ -1184,8 +1215,8 @@ display animations.</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id158">
-<h2>Fixes<a class="headerlink" href="#id158" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id162">
+<h2>Fixes<a class="headerlink" href="#id162" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>27 Jan 2014 (PR)</dt>
 <dd><ul class="first last simple">
@@ -1237,8 +1268,8 @@ components of vector data. Thanks to Senganal for this fix.</li>
 </div>
 <div class="section" id="mayavi-4-3-0">
 <h1>Mayavi 4.3.0<a class="headerlink" href="#mayavi-4-3-0" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id159">
-<h2>Enhancements<a class="headerlink" href="#id159" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id163">
+<h2>Enhancements<a class="headerlink" href="#id163" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>30 Oct 2012 (PR)</dt>
 <dd><ul class="first last simple">
@@ -1248,8 +1279,8 @@ Mayavi&#8217;s UI should be usable on Qt.</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id160">
-<h2>Fixes<a class="headerlink" href="#id160" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id164">
+<h2>Fixes<a class="headerlink" href="#id164" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>11 Mar 2013 (Aestrivex)</dt>
 <dd><ul class="first last simple">
@@ -1267,8 +1298,8 @@ full-screen and press escape/q/e.</li>
 </div>
 <div class="section" id="mayavi-4-2-1">
 <h1>Mayavi 4.2.1<a class="headerlink" href="#mayavi-4-2-1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id161">
-<h2>Enhancements<a class="headerlink" href="#id161" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id165">
+<h2>Enhancements<a class="headerlink" href="#id165" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>9 August 2012 (GV)</dt>
 <dd><ul class="first last simple">
@@ -1280,8 +1311,8 @@ full-screen and press escape/q/e.</li>
 </div>
 <div class="section" id="mayavi-3-4-0-oct-15-2010">
 <h1>Mayavi 3.4.0 (Oct 15, 2010)<a class="headerlink" href="#mayavi-3-4-0-oct-15-2010" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id162">
-<h2>Enhancements<a class="headerlink" href="#id162" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id166">
+<h2>Enhancements<a class="headerlink" href="#id166" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>22 July 2010 (GV)</dt>
 <dd><ul class="first last simple">
@@ -1298,8 +1329,8 @@ adjusted [25663].</li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id163">
-<h2>Fixes<a class="headerlink" href="#id163" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id167">
+<h2>Fixes<a class="headerlink" href="#id167" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>2 August 2010 (GV)</dt>
 <dd><ul class="first last simple">
@@ -1331,8 +1362,8 @@ pointing out the solution [25660].</li>
 </div>
 <div class="section" id="mayavi-3-3-2-may-25-2010">
 <h1>Mayavi 3.3.2 (May 25, 2010)<a class="headerlink" href="#mayavi-3-3-2-may-25-2010" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id164">
-<h2>Enhancements<a class="headerlink" href="#id164" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id168">
+<h2>Enhancements<a class="headerlink" href="#id168" title="Permalink to this headline">¶</a></h2>
 <p>DOCs: many docs and example improvements (GV).</p>
 <dl class="docutils">
 <dt>13 April 2010 (GV)</dt>
@@ -1354,8 +1385,8 @@ recent VTK versions colors look ugly when normals are not computed
 </dd>
 </dl>
 </div>
-<div class="section" id="id165">
-<h2>Fixes<a class="headerlink" href="#id165" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id169">
+<h2>Fixes<a class="headerlink" href="#id169" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>17 May 2010 (PR)</dt>
 <dd><ul class="first last simple">
@@ -1387,8 +1418,8 @@ work. [25430]</li>
 </div>
 <div class="section" id="mayavi-3-3-1-feb-24-2010">
 <h1>Mayavi 3.3.1 (Feb 24, 2010)<a class="headerlink" href="#mayavi-3-3-1-feb-24-2010" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id166">
-<h2>Enhancements<a class="headerlink" href="#id166" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id170">
+<h2>Enhancements<a class="headerlink" href="#id170" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>20 Dec, 2009 (GV):</dt>
 <dd><ul class="first last simple">
@@ -1554,8 +1585,8 @@ distribution.  This is necessary due to the use of namespace packages
 </dd>
 </dl>
 </div>
-<div class="section" id="id167">
-<h2>Fixes<a class="headerlink" href="#id167" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id171">
+<h2>Fixes<a class="headerlink" href="#id171" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>21 Feb, 2010 (GV)</dt>
 <dd><ul class="first last simple">
@@ -1709,8 +1740,8 @@ before resizing in order to avoid an offset bug [24427]</li>
 </div>
 <div class="section" id="mayavi-3-3-0-july-15-2009">
 <h1>Mayavi 3.3.0 (July 15, 2009)<a class="headerlink" href="#mayavi-3-3-0-july-15-2009" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id168">
-<h2>Enhancements<a class="headerlink" href="#id168" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id172">
+<h2>Enhancements<a class="headerlink" href="#id172" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>06 Jul, 2009 (PR):</dt>
 <dd><ul class="first last simple">
@@ -1869,8 +1900,8 @@ important core import [23520]</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id169">
-<h2>Fixes<a class="headerlink" href="#id169" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id173">
+<h2>Fixes<a class="headerlink" href="#id173" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>15 Jul, 2009 (PR):</dt>
 <dd><ul class="first last simple">
@@ -2887,86 +2918,90 @@ plugin API completely!</em></li>
             </a></p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Mayavi 4.7.0</a><ul>
-<li><a class="reference internal" href="#enhancements">Enhancements</a></li>
+<li><a class="reference internal" href="#">Mayavi 4.7.1</a><ul>
 <li><a class="reference internal" href="#fixes">Fixes</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#mayavi-4-7-0">Mayavi 4.7.0</a><ul>
+<li><a class="reference internal" href="#enhancements">Enhancements</a></li>
+<li><a class="reference internal" href="#id7">Fixes</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#mayavi-4-6-2">Mayavi 4.6.2</a><ul>
-<li><a class="reference internal" href="#id24">Enhancements</a></li>
-<li><a class="reference internal" href="#id29">Fixes</a></li>
+<li><a class="reference internal" href="#id28">Enhancements</a></li>
+<li><a class="reference internal" href="#id33">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-4-6-1">Mayavi 4.6.1</a><ul>
-<li><a class="reference internal" href="#id35">Enhancements</a></li>
-<li><a class="reference internal" href="#id40">Fixes</a></li>
+<li><a class="reference internal" href="#id39">Enhancements</a></li>
+<li><a class="reference internal" href="#id44">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-4-6-0">Mayavi 4.6.0</a><ul>
-<li><a class="reference internal" href="#id48">Enhancements</a></li>
-<li><a class="reference internal" href="#id51">Fixes</a></li>
+<li><a class="reference internal" href="#id52">Enhancements</a></li>
+<li><a class="reference internal" href="#id55">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-4-5-0">Mayavi 4.5.0</a><ul>
-<li><a class="reference internal" href="#id98">Enhancements</a></li>
-<li><a class="reference internal" href="#id102">Fixes</a></li>
+<li><a class="reference internal" href="#id102">Enhancements</a></li>
+<li><a class="reference internal" href="#id106">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-4-4-4">Mayavi 4.4.4</a><ul>
-<li><a class="reference internal" href="#id149">Enhancements</a></li>
-<li><a class="reference internal" href="#id150">Fixes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#mayavi-4-4-3">Mayavi 4.4.3</a><ul>
-<li><a class="reference internal" href="#id151">Enhancements</a></li>
-<li><a class="reference internal" href="#id152">Fixes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#mayavi-4-4-2">Mayavi 4.4.2</a><ul>
 <li><a class="reference internal" href="#id153">Enhancements</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#mayavi-4-4-1">Mayavi 4.4.1</a><ul>
 <li><a class="reference internal" href="#id154">Fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mayavi-4-4-0">Mayavi 4.4.0</a><ul>
+<li><a class="reference internal" href="#mayavi-4-4-3">Mayavi 4.4.3</a><ul>
 <li><a class="reference internal" href="#id155">Enhancements</a></li>
 <li><a class="reference internal" href="#id156">Fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mayavi-4-3-1">Mayavi 4.3.1</a><ul>
+<li><a class="reference internal" href="#mayavi-4-4-2">Mayavi 4.4.2</a><ul>
 <li><a class="reference internal" href="#id157">Enhancements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-4-4-1">Mayavi 4.4.1</a><ul>
 <li><a class="reference internal" href="#id158">Fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mayavi-4-3-0">Mayavi 4.3.0</a><ul>
+<li><a class="reference internal" href="#mayavi-4-4-0">Mayavi 4.4.0</a><ul>
 <li><a class="reference internal" href="#id159">Enhancements</a></li>
 <li><a class="reference internal" href="#id160">Fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mayavi-4-2-1">Mayavi 4.2.1</a><ul>
+<li><a class="reference internal" href="#mayavi-4-3-1">Mayavi 4.3.1</a><ul>
 <li><a class="reference internal" href="#id161">Enhancements</a></li>
+<li><a class="reference internal" href="#id162">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-4-3-0">Mayavi 4.3.0</a><ul>
+<li><a class="reference internal" href="#id163">Enhancements</a></li>
+<li><a class="reference internal" href="#id164">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-4-2-1">Mayavi 4.2.1</a><ul>
+<li><a class="reference internal" href="#id165">Enhancements</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-3-4-0-oct-15-2010">Mayavi 3.4.0 (Oct 15, 2010)</a><ul>
-<li><a class="reference internal" href="#id162">Enhancements</a></li>
-<li><a class="reference internal" href="#id163">Fixes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#mayavi-3-3-2-may-25-2010">Mayavi 3.3.2 (May 25, 2010)</a><ul>
-<li><a class="reference internal" href="#id164">Enhancements</a></li>
-<li><a class="reference internal" href="#id165">Fixes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#mayavi-3-3-1-feb-24-2010">Mayavi 3.3.1 (Feb 24, 2010)</a><ul>
 <li><a class="reference internal" href="#id166">Enhancements</a></li>
 <li><a class="reference internal" href="#id167">Fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mayavi-3-3-0-july-15-2009">Mayavi 3.3.0 (July 15, 2009)</a><ul>
+<li><a class="reference internal" href="#mayavi-3-3-2-may-25-2010">Mayavi 3.3.2 (May 25, 2010)</a><ul>
 <li><a class="reference internal" href="#id168">Enhancements</a></li>
 <li><a class="reference internal" href="#id169">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-3-3-1-feb-24-2010">Mayavi 3.3.1 (Feb 24, 2010)</a><ul>
+<li><a class="reference internal" href="#id170">Enhancements</a></li>
+<li><a class="reference internal" href="#id171">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-3-3-0-july-15-2009">Mayavi 3.3.0 (July 15, 2009)</a><ul>
+<li><a class="reference internal" href="#id172">Enhancements</a></li>
+<li><a class="reference internal" href="#id173">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-3-2-0-march-23-2009">Mayavi 3.2.0 (March 23, 2009)</a></li>
@@ -3038,13 +3073,13 @@ plugin API completely!</em></li>
         <li class="right" >
           <a href="../changes.html" title="Changelog"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../changes.html" >Changelog</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 01, 2019.
+      Last updated on Jul 21, 2019.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
