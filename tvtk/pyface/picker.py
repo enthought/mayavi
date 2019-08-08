@@ -32,7 +32,6 @@ from mayavi import mlab
 from tvtk.common import vtk_major_version
 import numpy as np
 
-
 ######################################################################
 # Utility functions.
 ######################################################################
@@ -57,17 +56,17 @@ class PickedData(HasTraits):
 
     # Was there a valid picked point?
     valid = Trait(false_bool_trait,
-                desc='specifies the validity of the pick event')
+                  desc='specifies the validity of the pick event')
     # Id of picked point (-1 implies none was picked)
     point_id = Long(-1, desc='the picked point ID')
     # Id of picked cell (-1 implies none was picked)
     cell_id = Long(-1, desc='the picked cell ID')
     # World pick -- this has no ID.
     world_pick = Trait(false_bool_trait,
-                    desc='specifies if the pick is a world pick.')
+                       desc='specifies if the pick is a world pick.')
     # Coordinate of picked point.
     coordinate = Array('d', (3,), labels=['x', 'y', 'z'], cols=3,
-                    desc='the coordinate of the picked point')
+                       desc='the coordinate of the picked point')
 
     # The picked data -- usually a tvtk.PointData or tvtk.CellData of
     # the object picked.  The user can use this data and extract any
@@ -91,7 +90,6 @@ class PickHandler(HasTraits):
 
         - data : `PickedData` instance.
         """
-
         pass
 
 ######################################################################
@@ -108,10 +106,10 @@ class DefaultPickHandler(PickHandler):
     scalar = Trait(None, None, Array, Float, desc='the scalar at picked point')
 
     vector = Trait(None, None, Array('d', (3,)),
-                desc='the vector at picked point')
+                  desc='the vector at picked point')
 
     tensor = Trait(None, None, Array('d', (3,3)),
-                desc='the tensor at picked point')
+                   desc='the tensor at picked point')
 
     # History of picked data.
     history = Str
@@ -261,7 +259,6 @@ class Picker(HasTraits):
         self.cellpicker = tvtk.CellPicker()
         self.worldpicker = tvtk.WorldPointPicker()
         self.probe_data = tvtk.PolyData()
-
         # Use a set of axis to show the picked point.
         self.p_source = tvtk.Axes()
         self.p_mapper = tvtk.PolyDataMapper()
@@ -303,6 +300,7 @@ class Picker(HasTraits):
 
         self.ui = None
         self.widgets = True
+        self._tolerance_changed(self.tolerance)
 
     def __get_pure_state__(self):
         d = self.__dict__.copy()
@@ -498,7 +496,7 @@ class Picker(HasTraits):
         self.slider_widget.set(interactor=self.interactor)
         self.slider_widget.set(representation=self.slider_rep)
         self.slider_widget.animation_mode = "animate"
-        self.slider_widget.add_observer("InteractionEvent", self._tolerance_changed)
+        self.slider_widget.add_observer("InteractionEvent", self.tolerance_changed)
 
     def button_setup(self):
         self.button_rep.set_number_of_states(1)
@@ -510,7 +508,7 @@ class Picker(HasTraits):
         self.button.set(center=(0,0,0))
         self.button.set(texture_style="fit_image")
 
-        reader.set(file_name="beach.jpg")
+        reader.set(file_name="amal.jpg")
         reader.update()
         image = reader._get_output()
         self.button_rep.set_button_texture(0,image)
@@ -537,10 +535,16 @@ class Picker(HasTraits):
         self.button_rep.visibility = 1
         self.ui = None
 
-    def _tolerance_changed(self, obj, event):
-        """ Trait handler for the tolerance trait."""
+    def tolerance_changed(self, obj, event):
         self.pointpicker.tolerance = self.slider_widget._get_representation().value
         self.cellpicker.tolerance = self.slider_widget._get_representation().value
+        self.tolerance = self.slider_widget._get_representation().value
+
+    def _tolerance_changed(self,val):
+        """ Trait handler for the tolerance trait."""
+        self.pointpicker.tolerance = val
+        self.cellpicker.tolerance =val
+        self.slider_widget._get_representation().set(value=val)
 
     def _update_actor(self, coordinate, bounds):
         """Updates the actor by setting its position and scale."""
