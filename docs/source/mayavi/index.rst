@@ -23,7 +23,7 @@ Mayavi: 3D scientific data visualization and plotting in Python
 
   <table class="contentstable" align="center" style="margin-left: 30px"><tr>
     <td width="45%" rowspan="4">
-      <img alt="Mayavi banner" src="_downloads/m2_about.jpg" 
+      <img alt="Mayavi banner" src="_static/m2_about.jpg" 
             width="100%" />
     </td>
     <td width="5%" rowspan="4"></td>
