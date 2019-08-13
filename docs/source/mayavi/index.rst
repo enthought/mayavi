@@ -102,8 +102,6 @@ Python**.
 
    <div style='visibility: hidden'>
 
-:download:`m2_about.jpg`
-
 .. raw:: html
 
    </div>
