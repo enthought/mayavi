@@ -28,7 +28,6 @@ from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
-from mayavi import mlab
 from tvtk.common import vtk_major_version
 import numpy as np
 
@@ -179,11 +178,14 @@ class DefaultPickHandler(PickHandler):
             text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s "
                     %(self.ID, x_coord, y_coord, z_coord, scalar))
         if  self.vector is not None and self.scalar is not None:
+            vector = np.zeros(3)
+            for i in range(3):
+                vector[i] = np.format_float_scientific(self.vector[i], precision = 3)
             text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s\nvector : %s "
-                    %(self.ID, x_coord, y_coord, z_coord, self.scalar, self.vector))
+                    %(self.ID, x_coord, y_coord, z_coord, scalar, vector))
         elif self.vector is not None and self.scalar is not None and self.tensor is not None:
             text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s\nvector : %s\ntensor : %s "
-                    %(self.ID, x_coord, y_coord, z_coord, self.scalar, self.vector, self.tensor))
+                    %(self.ID, x_coord, y_coord, z_coord, scalar, vector, self.tensor))
 
 
 #####################################################################
@@ -275,11 +277,9 @@ class Picker(HasTraits):
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]
         self.text_actor = tvtk.TextActor()
-        self.text_actor._get_position_coordinate().coordinate_system="normalized_display"
-        self.text_actor._get_position2_coordinate().coordinate_system="normalized_display"
-        self.text_actor._get_position_coordinate().set(value=(0.0,0.2,0))
-        #self.text_actor._get_position2_coordinate().set(value=(0.0,0.10,0))
-        self.text_actor._get_text_property().set(frame=1)
+        self.text_actor._get_text_property().set(frame=0)
+        self.text_coord = np.zeros(4)
+        self.text_widget = tvtk.TextWidget()
 
         self.data = PickedData()
 
@@ -288,15 +288,12 @@ class Picker(HasTraits):
         self.renwin.renderer.add_actor(self.p_actor)
         self.renwin.renderer.add_actor(self.text_actor)
 
-        self.slider_rep = tvtk.SliderRepresentation2D()
-        self.slider_widget = tvtk.SliderWidget()
-        self.slider_setup()
-
         self.button = tvtk.RectangularButtonSource()
         self.button_rep = tvtk.TexturedButtonRepresentation2D()
         self.b_mapper = tvtk.PolyDataMapper()
         self.button_widget = tvtk.ButtonWidget()
         self.button_setup()
+        self.text_setup()
 
         self.ui = None
         self.widgets = True
@@ -351,11 +348,10 @@ class Picker(HasTraits):
         if self.data.point_id == -1:
             self.close_picker()
         else:
-            self.slider_widget.enabled = 1
             self.button_widget.enabled = 1
+            self.text_widget.enabled = 1
             self.pick_handler.handle_pick(self.data, self.renwin, self.text_actor)
-
-
+            self.text_actor.get_bounding_box(self.renwin.renderer,self.text_coord)
 
     def pick_point(self, x, y):
         """ Picks the nearest point. Returns a `PickedData` instance."""
@@ -472,50 +468,35 @@ class Picker(HasTraits):
         self.renwin.renderer.remove_actor(self.p_actor)
         self.text_actor.visibility = 0
         self.renwin.renderer.remove_actor(self.text_actor)
-        self.slider_rep.visibility = 0
         self.button_rep.visibility = 0
-        self.slider_widget.enabled = 0
         self.button_widget.enabled = 0
+        self.text_widget.enabled = 0
         self.widgets = None
 
     #################################################################
     # Non-public interface.
     #################################################################
-    def slider_setup(self):
-        self.slider_rep.set(minimum_value=0.0)
-        self.slider_rep.set(maximum_value=0.1)
-        self.slider_rep.set(value=0.025)
-        self.slider_rep.set(title_text="Picker Tolerance")
-        self.slider_rep._get_point1_coordinate().coordinate_system = "normalized_display"
-        self.slider_rep._get_point2_coordinate().coordinate_system = "normalized_display"
-        self.slider_rep._get_point1_coordinate().set(value=(0.03,0.9,0))
-        self.slider_rep._get_point2_coordinate().set(value=(0.13,0.9,0))
-        self.slider_rep._get_cap_property().opacity = 0
-        self.slider_rep._get_slider_property().set(color=(0.3,0.2,1))
-        self.slider_rep.visibility = 0
-        self.slider_widget.set(interactor=self.interactor)
-        self.slider_widget.set(representation=self.slider_rep)
-        self.slider_widget.animation_mode = "animate"
-        self.slider_widget.add_observer("InteractionEvent", self.tolerance_changed)
+    def text_setup(self):
+        #self.text_actor._get_text_property().font_size = 20
+        self.text_widget.set(interactor = self.interactor)
+        self.text_widget.set(text_actor = self.text_actor)
+        self.text_widget.selectable = 0
+
 
     def button_setup(self):
         self.button_rep.set_number_of_states(1)
 
         image = tvtk.ImageData()
         reader = tvtk.JPEGReader()
-        self.button.set(width=1000)
-        self.button.set(height=50)
-        self.button.set(center=(0,0,0))
         self.button.set(texture_style="fit_image")
-
-        reader.set(file_name="amal.jpg")
+        reader.set(file_name="gui.jpg")
         reader.update()
         image = reader._get_output()
         self.button_rep.set_button_texture(0,image)
         configure_input(self.b_mapper, self.button)
-
         self.button_widget.set(interactor=self.interactor)
         self.button_widget.set(representation=self.button_rep)
+        self.button_rep.place_widget((-20,50,10,100,0,0))
         self.button_widget.add_observer("StateChangedEvent", self.button_callback)
 
     def button_callback(self, obj, event):
@@ -524,27 +505,19 @@ class Picker(HasTraits):
 
     def hide_widgets(self):
         self.text_actor.visibility = 0
-        self.slider_rep.visibility = 0
         self.button_rep.visibility = 0
 
     def on_ui_close(self):
         """This method makes the picker actor invisible when the GUI
         dialog is closed."""
         self.text_actor.visibility = 1
-        self.slider_rep.visibility = 1
         self.button_rep.visibility = 1
         self.ui = None
-
-    def tolerance_changed(self, obj, event):
-        self.pointpicker.tolerance = self.slider_widget._get_representation().value
-        self.cellpicker.tolerance = self.slider_widget._get_representation().value
-        self.tolerance = self.slider_widget._get_representation().value
 
     def _tolerance_changed(self,val):
         """ Trait handler for the tolerance trait."""
         self.pointpicker.tolerance = val
         self.cellpicker.tolerance =val
-        self.slider_widget._get_representation().set(value=val)
 
     def _update_actor(self, coordinate, bounds):
         """Updates the actor by setting its position and scale."""
@@ -556,7 +529,6 @@ class Picker(HasTraits):
         self.p_source.scale_factor = scale
         self.p_actor.visibility = 1
         self.text_actor.visibility = 1
-        self.slider_rep.visibility = 1
         self.button_rep.visibility = 1
 
     def _setup_gui(self):
@@ -578,5 +550,4 @@ class Picker(HasTraits):
         self.renwin.renderer.add_actor(self.text_actor)
         self.p_actor.visibility = 1
         self.text_actor.visibility = 1
-        self.slider_rep.visibility = 1
         self.widgets = True
