@@ -551,3 +551,8 @@ class Picker(HasTraits):
         self.p_actor.visibility = 1
         self.text_actor.visibility = 1
         self.widgets = True
+
+    def set_picker_props(self, pick_type, tolerance, auto_raise):
+        self.pick_type = pick_type
+        self.tolerance = tolerance
+        self.auto_raise = auto_raise

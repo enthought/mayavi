@@ -1179,3 +1179,9 @@ def test_triangular_mesh():
     t = np.r_[0, t]
 
     return triangular_mesh(x, y, z, triangles, scalars=t)
+############################################################
+
+def set_picker_props(figure, picker_type="point_picker",tolerance=0.025, auto_raise=False):
+    figure.scene.picker.set_picker_props(picker_type, tolerance,auto_raise)
+
+############################################################33

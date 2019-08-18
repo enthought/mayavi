@@ -45,7 +45,8 @@ from .tools.helper_functions import contour3d, test_contour3d, \
     test_simple_surf_anim, test_flow_anim, test_mesh_sphere_anim, \
     test_volume_slice_anim, \
     triangular_mesh, test_triangular_mesh, barchart, \
-    test_barchart, test_mesh_mask_custom_colors
+    test_barchart, test_mesh_mask_custom_colors, \
+    set_picker_props
 
 
 from .tools.decorations import colorbar, scalarbar, vectorbar, \
