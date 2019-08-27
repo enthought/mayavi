@@ -172,33 +172,24 @@ class DefaultPickHandler(PickHandler):
         x_coord = np.format_float_scientific(self.coordinate[0], precision = 3)
         y_coord = np.format_float_scientific(self.coordinate[1], precision = 3)
         z_coord = np.format_float_scientific(self.coordinate[2], precision = 3)
-        scalar = np.format_float_scientific(self.scalar, precision = 3)
 
-        if self.scalar is not None:
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s "
-                    %(self.ID, x_coord, y_coord, z_coord, scalar))
-        if  self.vector is not None and self.scalar is not None:
+        if self.vector is not None and self.scalar is not None and self.tensor is not None:
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s\nvector : %s\ntensor : %s "
+                    %(self.ID, x_coord, y_coord, z_coord, self.scalar, self.vector, self.tensor))
+        elif self.vector is not None and self.scalar is not None:
+            scalar = np.format_float_scientific(self.scalar, precision = 3)
             vector = np.zeros(3)
             for i in range(3):
                 vector[i] = np.format_float_scientific(self.vector[i], precision = 3)
             text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s\nvector : %s "
                     %(self.ID, x_coord, y_coord, z_coord, scalar, vector))
-        elif self.vector is not None and self.scalar is not None and self.tensor is not None:
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s\nvector : %s\ntensor : %s "
-                    %(self.ID, x_coord, y_coord, z_coord, scalar, vector, self.tensor))
-
-
-#####################################################################
-# `CloseHandler` class.
-######################################################################
-class CloseHandler(Handler):
-    """This class cleans up after the UI for the Picker is closed."""
-    def close(self, info, is_ok):
-        """This method is invoked when the user closes the UI."""
-        picker = info.object
-        picker.on_ui_close()
-        return True
-
+        elif self.scalar is not None:
+            scalar = np.format_float_scientific(self.scalar, precision = 3)
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s "
+                    %(self.ID, x_coord, y_coord, z_coord, scalar))
+        else:
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s "
+                    %(self.ID, x_coord, y_coord, z_coord))
 
 
 ######################################################################
@@ -242,12 +233,9 @@ class Picker(HasTraits):
                                     Item(name='tolerance'), show_border=True),
                             Group(Item(name='pick_handler', style='custom'),
                                     show_border=True, show_labels=False),
-                            Group(
-                                  Item(name='auto_raise'), show_border=True),
                             ),
                         resizable=True,
-                        buttons=['OK'],
-                        handler=CloseHandler())
+                        buttons=['OK'])
 
 
     #################################################################
@@ -276,28 +264,18 @@ class Picker(HasTraits):
         self.p_actor.mapper = self.p_mapper
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]
-        self.text_actor = tvtk.TextActor()
-        self.text_actor._get_text_property().set(frame=0)
-        self.text_coord = np.zeros(4)
-        self.text_widget = tvtk.TextWidget()
 
+        self.text_actor = tvtk.TextActor()
+        self.text_rep = tvtk.TextRepresentation()
+        self.text_widget = tvtk.TextWidget()
         self.data = PickedData()
 
         self.interactor = renwin.interactor
-
         self.renwin.renderer.add_actor(self.p_actor)
         self.renwin.renderer.add_actor(self.text_actor)
 
-        self.button = tvtk.RectangularButtonSource()
-        self.button_rep = tvtk.TexturedButtonRepresentation2D()
-        self.b_mapper = tvtk.PolyDataMapper()
-        self.button_widget = tvtk.ButtonWidget()
-        self.button_setup()
         self.text_setup()
-
-        self.ui = None
         self.widgets = True
-        self._tolerance_changed(self.tolerance)
 
     def __get_pure_state__(self):
         d = self.__dict__.copy()
@@ -348,10 +326,9 @@ class Picker(HasTraits):
         if self.data.point_id == -1:
             self.close_picker()
         else:
-            self.button_widget.enabled = 1
             self.text_widget.enabled = 1
             self.pick_handler.handle_pick(self.data, self.renwin, self.text_actor)
-            self.text_actor.get_bounding_box(self.renwin.renderer,self.text_coord)
+            self.text_actor._get_text_property().set(justification="left")
 
     def pick_point(self, x, y):
         """ Picks the nearest point. Returns a `PickedData` instance."""
@@ -450,26 +427,17 @@ class Picker(HasTraits):
         else:
             self.p_actor.visibility = 0
 
-
         self.renwin.render()
         return picked_data
 
-    def on_ui_close(self):
-        """This method makes the picker actor invisible when the GUI
-        dialog is closed."""
-        #self.p_actor.visibility = 0
-        #self.renwin.renderer.remove_actor(self.p_actor)
-        self.ui = None
 
     def close_picker(self):
-        """This method makes the picker actor invisible when the GUI
-        dialog is closed."""
+        """This method makes the picker actor invisible when a non
+        data point is selected"""
         self.p_actor.visibility = 0
         self.renwin.renderer.remove_actor(self.p_actor)
         self.text_actor.visibility = 0
         self.renwin.renderer.remove_actor(self.text_actor)
-        self.button_rep.visibility = 0
-        self.button_widget.enabled = 0
         self.text_widget.enabled = 0
         self.widgets = None
 
@@ -477,47 +445,18 @@ class Picker(HasTraits):
     # Non-public interface.
     #################################################################
     def text_setup(self):
-        #self.text_actor._get_text_property().font_size = 20
+        """Sets the property of the text widget"""
+        self.text_actor._get_text_property().font_size = 100
+        self.text_rep._get_position_coordinate().set(value=(.15,.15,0))
+        self.text_rep._get_position2_coordinate().set(value=(.3,.2,0))
+        self.text_actor._get_text_property().set(frame=0)
+        self.text_widget.set(representation=self.text_rep)
         self.text_widget.set(interactor = self.interactor)
         self.text_widget.set(text_actor = self.text_actor)
         self.text_widget.selectable = 0
 
-
-    def button_setup(self):
-        self.button_rep.set_number_of_states(1)
-
-        image = tvtk.ImageData()
-        reader = tvtk.JPEGReader()
-        self.button.set(texture_style="fit_image")
-        reader.set(file_name="gui.jpg")
-        reader.update()
-        image = reader._get_output()
-        self.button_rep.set_button_texture(0,image)
-        configure_input(self.b_mapper, self.button)
-        self.button_widget.set(interactor=self.interactor)
-        self.button_widget.set(representation=self.button_rep)
-        self.button_rep.place_widget((-20,50,10,100,0,0))
-        self.button_widget.add_observer("StateChangedEvent", self.button_callback)
-
-    def button_callback(self, obj, event):
-        self._setup_gui()
-        self.hide_widgets()
-
     def hide_widgets(self):
         self.text_actor.visibility = 0
-        self.button_rep.visibility = 0
-
-    def on_ui_close(self):
-        """This method makes the picker actor invisible when the GUI
-        dialog is closed."""
-        self.text_actor.visibility = 1
-        self.button_rep.visibility = 1
-        self.ui = None
-
-    def _tolerance_changed(self,val):
-        """ Trait handler for the tolerance trait."""
-        self.pointpicker.tolerance = val
-        self.cellpicker.tolerance =val
 
     def _update_actor(self, coordinate, bounds):
         """Updates the actor by setting its position and scale."""
@@ -529,30 +468,16 @@ class Picker(HasTraits):
         self.p_source.scale_factor = scale
         self.p_actor.visibility = 1
         self.text_actor.visibility = 1
-        self.button_rep.visibility = 1
-
-    def _setup_gui(self):
-        """Pops up the GUI control widget."""
-        # Popup the GUI control.
-        if self.ui is None:
-            self.ui = self.edit_traits()
-            # Note that we add actors to the renderer rather than to
-            # renwin to prevent event notifications on actor
-            # additions.
-        elif self.auto_raise:
-            try:
-                self.ui.control.Raise()
-            except AttributeError:
-                pass
 
     def setup_widgets(self):
+        """Sets up the picker actor and text actor"""
         self.renwin.renderer.add_actor(self.p_actor)
         self.renwin.renderer.add_actor(self.text_actor)
         self.p_actor.visibility = 1
         self.text_actor.visibility = 1
         self.widgets = True
 
-    def set_picker_props(self, pick_type, tolerance, auto_raise):
+    def set_picker_props(self, pick_type, tolerance):
+        """Lets you set the picker properties"""
         self.pick_type = pick_type
         self.tolerance = tolerance
-        self.auto_raise = auto_raise
