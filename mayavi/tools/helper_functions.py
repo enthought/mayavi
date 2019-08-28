@@ -1183,7 +1183,7 @@ def test_triangular_mesh():
     return triangular_mesh(x, y, z, triangles, scalars=t)
 ############################################################
 
-def set_picker_props(figure=gcf, picker_type="point_picker",tolerance=0.025):
-    figure().scene.picker.set_picker_props(picker_type, tolerance)
+def set_picker_props(figure=gcf, pick_type="point_picker",tolerance=0.025):
+    figure().scene.picker.set_picker_props(pick_type, tolerance)
 
 ############################################################

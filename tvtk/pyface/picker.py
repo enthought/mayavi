@@ -31,6 +31,7 @@ from apptools.persistence import state_pickler
 from tvtk.common import vtk_major_version
 import numpy as np
 
+
 ######################################################################
 # Utility functions.
 ######################################################################
@@ -46,6 +47,7 @@ def get_last_input(data):
         except AttributeError:
             tmp = None
     return inp
+
 
 ######################################################################
 # `PickedData` class.
@@ -91,6 +93,7 @@ class PickHandler(HasTraits):
         """
         pass
 
+
 ######################################################################
 # `DefaultPickerHandler` class.
 ######################################################################
@@ -100,14 +103,14 @@ class DefaultPickHandler(PickHandler):
     ID = Trait(None, None, Long, desc='the picked ID')
 
     coordinate = Trait(None, None, Array('d', (3,)),
-                    desc='the coordinate of the picked point')
+                       desc='the coordinate of the picked point')
 
     scalar = Trait(None, None, Array, Float, desc='the scalar at picked point')
 
     vector = Trait(None, None, Array('d', (3,)),
-                  desc='the vector at picked point')
+                   desc='the vector at picked point')
 
-    tensor = Trait(None, None, Array('d', (3,3)),
+    tensor = Trait(None, None, Array('d', (3, 3)),
                    desc='the tensor at picked point')
 
     # History of picked data.
@@ -124,13 +127,13 @@ class DefaultPickHandler(PickHandler):
     def __init__(self, **traits):
         super(DefaultPickHandler, self).__init__(**traits)
         # This saves all the data picked earlier.
-        self.data = {'ID':[], 'coordinate':[], 'scalar':[], 'vector':[],
-                    'tensor':[]}
+        self.data = {'ID': [], 'coordinate': [], 'scalar': [], 'vector': [],
+                     'tensor': []}
 
     #################################################################
     # `DefaultPickHandler` interface.
     #################################################################
-    def handle_pick(self, data, renwin,text_actor):
+    def handle_pick(self, data, renwin, text_actor):
         """Called when a pick event happens.
         """
         if data.valid_:
@@ -142,12 +145,12 @@ class DefaultPickHandler(PickHandler):
 
             if data.data:
                 array_data = {'scalar': data.data.scalars,
-                            'vector': data.data.vectors,
-                            'tensor': data.data.tensors}
+                              'vector': data.data.vectors,
+                              'tensor': data.data.tensors}
             else:
                 array_data = {'scalar': None,
-                            'vector': None,
-                            'tensor': None}
+                              'vector': None,
+                              'tensor': None}
             for name in array_data.keys():
                 if array_data[name]:
                     setattr(self, name, array_data[name][self.ID])
@@ -167,29 +170,33 @@ class DefaultPickHandler(PickHandler):
         for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
             value = getattr(self, name)
             self.data.get(name).append(getattr(self, name))
-            self.history += '%s: %r\n'%(name, value)
+            self.history += '%s: %r\n' % (name, value)
 
-        x_coord = np.format_float_scientific(self.coordinate[0], precision = 3)
-        y_coord = np.format_float_scientific(self.coordinate[1], precision = 3)
-        z_coord = np.format_float_scientific(self.coordinate[2], precision = 3)
+        x_coord = np.format_float_scientific(self.coordinate[0], precision=3)
+        y_coord = np.format_float_scientific(self.coordinate[1], precision=3)
+        z_coord = np.format_float_scientific(self.coordinate[2], precision=3)
 
-        if self.vector is not None and self.scalar is not None and self.tensor is not None:
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s\nvector : %s\ntensor : %s "
-                    %(self.ID, x_coord, y_coord, z_coord, self.scalar, self.vector, self.tensor))
+        if self.vector is not None and self.scalar is not None \
+           and self.tensor is not None:
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s \
+            \nscalar : %s\nvector : %s\ntensor : %s "
+                           % (self.ID, x_coord, y_coord, z_coord,
+                              self.scalar, self.vector, self.tensor))
         elif self.vector is not None and self.scalar is not None:
-            scalar = np.format_float_scientific(self.scalar, precision = 3)
+            scalar = np.format_float_scientific(self.scalar, precision=3)
             vector = np.zeros(3)
             for i in range(3):
-                vector[i] = np.format_float_scientific(self.vector[i], precision = 3)
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s\nvector : %s "
-                    %(self.ID, x_coord, y_coord, z_coord, scalar, vector))
+                vector[i] = np.format_float_scientific(self.vector[i], precision=3)
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s \
+            \nscalar : %s\nvector : %s "
+                           % (self.ID, x_coord, y_coord, z_coord, scalar, vector))
         elif self.scalar is not None:
-            scalar = np.format_float_scientific(self.scalar, precision = 3)
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s "
-                    %(self.ID, x_coord, y_coord, z_coord, scalar))
+            scalar = np.format_float_scientific(self.scalar, precision=3)
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s"
+                           % (self.ID, x_coord, y_coord, z_coord, scalar))
         else:
             text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s "
-                    %(self.ID, x_coord, y_coord, z_coord))
+                           % (self.ID, x_coord, y_coord, z_coord))
 
 
 ######################################################################
@@ -214,10 +221,10 @@ class Picker(HasTraits):
     # options are self-explanatory.  The 'world_picker' picks a point
     # using a WorldPointPicker and additionally uses a ProbeFilter to
     # probe the data at the picked point.
-    pick_type = Trait('point', TraitRevPrefixMap({'point_picker':1,
-                                                'cell_picker':2,
-                                                'world_picker':3}),
-                    desc='specifies the picker type to use')
+    pick_type = Trait('point', TraitRevPrefixMap({'point_picker': 1,
+                                                  'cell_picker': 2,
+                                                  'world_picker': 3}),
+                      desc='specifies the picker type to use')
 
     # The pick_handler.  Set this to your own subclass if you want do
     # do something different from the default.
@@ -227,16 +234,15 @@ class Picker(HasTraits):
     tolerance = Range(0.0, 0.1, 0.025)
 
     # Raise the GUI on pick ?
-    auto_raise = false(desc = "whether to raise the picker GUI on pick")
+    auto_raise = false(desc="whether to raise the picker GUI on pick")
 
     default_view = View(Group(Group(Item(name='pick_type'),
                                     Item(name='tolerance'), show_border=True),
-                            Group(Item(name='pick_handler', style='custom'),
+                              Group(Item(name='pick_handler', style='custom'),
                                     show_border=True, show_labels=False),
-                            ),
+                              ),
                         resizable=True,
                         buttons=['OK'])
-
 
     #################################################################
     # `object` interface.
@@ -252,7 +258,7 @@ class Picker(HasTraits):
         # Use a set of axis to show the picked point.
         self.p_source = tvtk.Axes()
         self.p_mapper = tvtk.PolyDataMapper()
-        self.p_actor = tvtk.Actor ()
+        self.p_actor = tvtk.Actor()
         self.p_source.symmetric = 1
         self.p_actor.pickable = 0
         self.p_actor.visibility = 0
@@ -354,15 +360,15 @@ class Picker(HasTraits):
         self.renwin.render()
         return picked_data
 
-    def pick_cell (self, x, y):
+    def pick_cell(self, x, y):
         """ Picks the nearest cell. Returns a `PickedData` instance."""
         try:
             self.cellpicker.pick(float(x), float(y), 0.0,
-                                self.renwin.renderer)
+                                 self.renwin.renderer)
         except TypeError:
             # On old versions of VTK, the signature used to be different
             self.cellpicker.pick((float(x), float(y), 0.0),
-                                self.renwin.renderer)
+                                 self.renwin.renderer)
 
         cp = self.cellpicker
         id = cp.cell_id
@@ -392,9 +398,9 @@ class Picker(HasTraits):
 
         # Use the cell picker to get the data that needs to be probed.
         try:
-            self.cellpicker.pick( (float(x), float(y), 0.0), self.renwin.renderer)
+            self.cellpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
         except TypeError:
-            self.cellpicker.pick( float(x), float(y), 0.0, self.renwin.renderer)
+            self.cellpicker.pick(float(x), float(y), 0.0, self.renwin.renderer)
 
         wp = self.worldpicker
         cp = self.cellpicker
@@ -430,7 +436,6 @@ class Picker(HasTraits):
         self.renwin.render()
         return picked_data
 
-
     def close_picker(self):
         """This method makes the picker actor invisible when a non
         data point is selected"""
@@ -445,25 +450,22 @@ class Picker(HasTraits):
     # Non-public interface.
     #################################################################
     def text_setup(self):
-        """Sets the property of the text widget"""
+        """Sets the properties of the text widget"""
         self.text_actor._get_text_property().font_size = 100
-        self.text_rep._get_position_coordinate().set(value=(.15,.15,0))
-        self.text_rep._get_position2_coordinate().set(value=(.3,.2,0))
+        self.text_rep._get_position_coordinate().set(value=(.15, .15, 0))
+        self.text_rep._get_position2_coordinate().set(value=(.3, .2, 0))
         self.text_actor._get_text_property().set(frame=0)
         self.text_widget.set(representation=self.text_rep)
-        self.text_widget.set(interactor = self.interactor)
-        self.text_widget.set(text_actor = self.text_actor)
+        self.text_widget.set(interactor=self.interactor)
+        self.text_widget.set(text_actor=self.text_actor)
         self.text_widget.selectable = 0
-
-    def hide_widgets(self):
-        self.text_actor.visibility = 0
 
     def _update_actor(self, coordinate, bounds):
         """Updates the actor by setting its position and scale."""
         dx = 0.3*(bounds[1]-bounds[0])
         dy = 0.3*(bounds[3]-bounds[2])
         dz = 0.3*(bounds[5]-bounds[4])
-        scale = max(dx,dy,dz)
+        scale = max(dx, dy, dz)
         self.p_source.origin = coordinate
         self.p_source.scale_factor = scale
         self.p_actor.visibility = 1
