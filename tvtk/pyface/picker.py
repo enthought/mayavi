@@ -454,7 +454,6 @@ class Picker(HasTraits):
         self.text_actor._get_text_property().font_size = 100
         self.text_rep._get_position_coordinate().set(value=(.15, .15, 0))
         self.text_rep._get_position2_coordinate().set(value=(.3, .2, 0))
-        self.text_actor._get_text_property().set(frame=0)
         self.text_widget.set(representation=self.text_rep)
         self.text_widget.set(interactor=self.interactor)
         self.text_widget.set(text_actor=self.text_actor)
