@@ -276,7 +276,7 @@ class Picker(HasTraits):
         self.text_widget = tvtk.TextWidget()
         self.data = PickedData()
 
-        self.interactor = renwin.interactor
+        self.interactor = self.renwin.interactor
         self.renwin.renderer.add_actor(self.p_actor)
         self.renwin.renderer.add_actor(self.text_actor)
 
