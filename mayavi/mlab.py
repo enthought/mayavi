@@ -58,6 +58,8 @@ from .tools.tools import start_recording, stop_recording
 
 from .tools.notebook import init as init_notebook
 
+from .tools.widgets import slider_widget
+
 if __name__ == "__main__":
     import numpy as np
 
