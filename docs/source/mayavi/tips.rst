@@ -211,7 +211,7 @@ in a hidden window.
     If you want to use Mayavi without the envisage UI or even a traits UI
     (i.e. with a pure TVTK window) and do off screen rendering with
     Python scripts you may be interested in the
-    :ref:`examples_offscreen`. This simple example shows how you can use
+    :ref:`example_offscreen`. This simple example shows how you can use
     Mayavi without using Envisage or the Mayavi envisage application and
     still do off screen rendering.
 
