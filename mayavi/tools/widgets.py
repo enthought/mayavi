@@ -6,28 +6,59 @@ class SliderWidget:
 
     slider_rep = tvtk.SliderRepresentation2D()
     slider_widget = tvtk.SliderWidget()
+    title = slider_rep._get_title_property()
+    label = slider_rep._get_label_property()
+    slider = slider_rep._get_slider_property()
+    cap = slider_rep._get_cap_property()
+    tube  = slider_rep._get_tube_property()
+    point1 = slider_rep._get_point1_coordinate()
+    point2 = slider_rep._get_point2_coordinate()
 
     def __init__(self):
-        self.value = Values()
-        self.title = Title()
-        self.slider = Slider()
-        self.label = Label()
-        self.cap = Cap()
-        self.tube = Tube()
-        self.position = Position()
-        self.slider_setup()
+        self.value_setup(0, 1)
+        self.title_setup("Slider", (0,0,0))
+        self.slider_setup((0.3,0.2,0.9), (1,0,0))
+        self.label_setup((1,1,1))
+        self.cap_setup((0,0,0), 0)
+        self.tube_setup((0,0,0), 1)
+        self.position_setup((0.8,0.9,0), (1,0.9,0))
 
-    def edit_slider_rep(self):
-        self.slider_rep.edit_traits()
-
-    def get_value(self):
+    def return_value(self):
         return self.slider_widget._get_representation().value
 
-    def position(self, point1=(0.8, 0.9, 0), point2=(1, 0.9, 0)):
-        self.slider_rep._get_point1_coordinate().coordinate_system = "normalized_display"
-        self.slider_rep._get_point2_coordinate().coordinate_system = "normalized_display"
+    def position_setup(self, point1, point2):
+        self.point1.coordinate_system = "normalized_display"
+        self.point1.value = point1
+        self.point2.coordinate_system = "normalized_display"
+        self.point2.value = point2
 
-    def _slider_setup(self, figure):
+    def value_setup(self, min_val, max_val):
+        self.slider_rep.minimum_value = min_val
+        self.slider_rep.maximum_value = max_val
+        self.slider_rep.value = min_val
+
+    def title_setup(self, title_text, color):
+        self.title.title_text = title_text
+        self.title.color = color
+        self.title.shadow = 0
+
+    def slider_setup(self, color1, color2):
+        self.slider.color = color1
+        self.slider_rep._get_selected_property().color = color2
+
+    def cap_setup(self, color, opacity):
+        self.cap.color = color
+        self.cap.opacity = opacity
+
+    def tube_setup(self, color, opacity):
+        self.tube.color = color
+        self.tube.opacity = opacity
+
+    def label_setup(self, color):
+        self.label.color = color
+        self.label.shadow = 0
+
+    def _widget_setup(self, figure):
         self.slider_widget.set(interactor=figure().scene.interactor)
         self.slider_widget.set(representation=self.slider_rep)
         self.slider_widget.animation_mode = "animate"
@@ -36,125 +67,11 @@ class SliderWidget:
     def callback(self, callback):
         self.slider_widget.add_observer("InteractionEvent", callback)
 
-
-class Values(SliderWidget):
-        def __init__(self):
-            self.minimum_value(0)
-            self.maximum_value(1)
-            self.value(0.1)
-
-        def minimum_value(self, min_val):
-            SliderWidget.slider_rep.minimum_value = min_val
-
-        def maximum_value(self, max_val):
-            SliderWidget.slider_rep.maximum_value = max_val
-
-        def value(self,value):
-            SliderWidget.slider_rep.value = value
-
-        def edit(self):
-            self.slider_rep.edit_traits()\
-
-
-class Title(SliderWidget):
-    def __init__(self):
-        self.color((1,1,1))
-        self.title_text("Slider")
-        SliderWidget.slider_rep._get_title_property().shadow = 0
-
-    def color(self, color):
-        SliderWidget.slider_rep._get_title_property().color = color
-
-    def title_text(self, text):
-        SliderWidget.slider_rep.title_text = text
-
-    def edit(self):
-        SliderWidget.slider_rep._get_title_property().edit_traits()
-
-
-class Slider(SliderWidget):
-    def __init__(self):
-        self.color((0.3,0.2,0.9))
-        self.selected_color((1,0,0))
-
-    def color(self, color):
-        SliderWidget.slider_rep._get_slider_property().color = color
-
-    def selected_color(self, color):
-        SliderWidget.slider_rep._get_selected_property().color = color
-
-    def edit(self):
-        SliderWidget.slider_rep._get_slider_property().edit_traits()
-
-    def selected_edit(self):
-        SliderWidget.slider_rep._get_selected_property().edit_traits()
-
-
-class Label(SliderWidget):
-    def __init__(self):
-        self.color((1,1,1))
-        self.opacity(1)
-        SliderWidget.slider_rep._get_label_property().shadow = 0
-
-    def color(self,color):
-        SliderWidget.slider_rep._get_label_property().color = color
-
-    def opacity(self, opacity):
-        SliderWidget.slider_rep._get_label_property().opacity = opacity
-
-    def edit(self):
-        SliderWidget.slider_rep._get_label_property().edit_traits()
-
-
-class Cab(SliderWidget):
-    def __init__(self):
-        self.color((1,1,1))
-        self.opacity(0)
-
-    def color(self, color):
-        SliderWidget.slider_rep._get_cap_property().color = color
-
-    def opacity(self, opacity);
-        SliderWidget.slider_rep._get_cap_property().opacity = opacity
-
-    def edit(self):
-        SliderWidget.slider_rep._get_cap_property().edit_traits()
-
-
-class Tube(SliderWidget):
-    def __init__(self):
-        self.color((0,0,0))
-        self.opacity(1)
-
-    def color(self, color):
-        SliderWidget.slider_rep._get_tube_property().color = color
-
-    def opacity(self, color):
-        SliderWidget.slider_rep._get_tube_property().opacity = opacity
-
-    def edit(self):
-        SliderWidget.slider_rep._get_tube_property().edit_traits()
-
-
-class Position(SliderWidget):
-    def __init__(self):
-        self.position((0.8, 0.9, 0))
-        self.position2((1, 0.9, 0))
-        SliderWidget.slider_rep._get_point1_coordinate().coordinate_system = "normalized_display"
-        SliderWidget.slider_rep._get_point2_coordinate().coordinate_system = "normalized_display"
-
-    def position(self, pos):
-        SliderWidget.slider_rep._get_point1_coordinate().value = pos
-
-    def position2(self, pos):
-        SliderWidget.slider_rep._get_point2_coordinate().value = pos
-
-
 def empty_call(event, observer):
     pass
 
 def slider_widget(figure=gcf, callback=empty_call):
     slider = SliderWidget()
-    slider._slider_setup(figure)
+    slider._widget_setup(figure)
     slider.callback(callback)
     return slider
