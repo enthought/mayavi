@@ -64,7 +64,7 @@ class SliderWidget:
         self.slider_widget.animation_mode = "animate"
         self.slider_widget.enabled = 1
 
-    def callback(self, callback):
+    def add_callback(self, callback):
         self.slider_widget.add_observer("InteractionEvent", callback)
 
 
@@ -79,9 +79,18 @@ class ButtonWidget:
         self.place_widget((-70,70,-70,70,0,0))
 
     def add_image(self, location):
-        reader = tvtk.JPEGReader()
-        if location[-3:] == "png":
-            reader = tvtk.PNGReader()
+        d = {'bmp':tvtk.BMPReader(),
+             'jpg':tvtk.JPEGReader(),
+             'png':tvtk.PNGReader(),
+             'pnm':tvtk.PNMReader(),
+             'dcm':tvtk.DICOMImageReader(),
+             'tiff':tvtk.TIFFReader(),
+             'ximg':tvtk.GESignaReader(),
+             'dem':tvtk.DEMReader(),
+             'mha':tvtk.MetaImageReader(),
+             'mhd':tvtk.MetaImageReader(),
+            }
+        reader = d[location[-3:]]
         reader.set(file_name = location)
         reader.update()
         image = tvtk.ImageData()
@@ -106,7 +115,7 @@ class ButtonWidget:
         self.button_widget.set(representation=self.button_rep)
         self.button_widget.enabled = 1
 
-    def callback(self, callback):
+    def add_callback(self, callback):
         self.button_widget.add_observer("StateChangedEvent", callback)
 
 
