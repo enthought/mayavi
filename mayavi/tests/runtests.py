@@ -121,17 +121,17 @@ def run(tests, verbose=1):
         out, err = pipe.communicate()
 
         # Calculate number of tests run, errors and failures based on output.
-        res = re.search('Ran\s*(\d*)\s*test', err)
+        res = re.search(r'Ran\s*(\d*)\s*test', err)
         nt = 1
         if res:
             nt = int(res.group(1))
         total += nt
-        res = re.search('failures=(\d*)', err)
+        res = re.search(r'failures=(\d*)', err)
         nfail = 0
         if res:
             nfail = int(res.group(1))
         nerr = 0
-        res = re.search('errors=(\d*)', err)
+        res = re.search(r'errors=(\d*)', err)
         if res:
             nerr = int(res.group(1))
 
