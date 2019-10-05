@@ -374,7 +374,7 @@ def configuration(parent_package=None, top_path=None):
 
 ###########################################################################
 # Similar to package_data, but installed before build
-build_package_data = {'mayavi.images': ['docs/source/mayavi/m2_about.jpg']}
+build_package_data = {'mayavi.images': ['docs/source/mayavi/_static/m2_about.jpg']}
 
 # Install our data files at build time. This is iffy,
 # but we need to do this before distutils kicks in.
