@@ -276,12 +276,8 @@ class Picker(HasTraits):
         self.text_widget = tvtk.TextWidget()
         self.data = PickedData()
 
-        self.interactor = self.renwin.interactor
-        self.renwin.renderer.add_actor(self.p_actor)
-        self.renwin.renderer.add_actor(self.text_actor)
-
         self.text_setup()
-        self.widgets = True
+        self.widgets = False
 
     def __get_pure_state__(self):
         d = self.__dict__.copy()
@@ -326,7 +322,7 @@ class Picker(HasTraits):
         elif self.pick_type_ == 3:
             self.data = self.pick_world(x, y)
 
-        if self.widgets is None:
+        if self.widgets is False:
             self.setup_widgets()
 
         if self.data.point_id == -1:
@@ -444,7 +440,7 @@ class Picker(HasTraits):
         self.text_actor.visibility = 0
         self.renwin.renderer.remove_actor(self.text_actor)
         self.text_widget.enabled = 0
-        self.widgets = None
+        self.widgets = False
 
     #################################################################
     # Non-public interface.
@@ -455,7 +451,6 @@ class Picker(HasTraits):
         self.text_rep._get_position_coordinate().set(value=(.15, .15, 0))
         self.text_rep._get_position2_coordinate().set(value=(.3, .2, 0))
         self.text_widget.set(representation=self.text_rep)
-        self.text_widget.set(interactor=self.interactor)
         self.text_widget.set(text_actor=self.text_actor)
         self.text_widget.selectable = 0
 
@@ -472,6 +467,7 @@ class Picker(HasTraits):
 
     def setup_widgets(self):
         """Sets up the picker actor and text actor"""
+        self.text_widget.set(interactor=self.renwin.interactor)
         self.renwin.renderer.add_actor(self.p_actor)
         self.renwin.renderer.add_actor(self.text_actor)
         self.p_actor.visibility = 1
