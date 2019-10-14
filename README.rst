@@ -5,6 +5,10 @@ Mayavi: 3D visualization of scientific data in Python
 Mayavi docs: http://docs.enthought.com/mayavi/mayavi/
 TVTK docs: http://docs.enthought.com/mayavi/tvtk
 
+.. image:: https://img.shields.io/pypi/v/mayavi.svg
+   :target: https://pypi.org/project/mayavi/
+   :alt: Package on PyPI
+
 .. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
    :target: https://travis-ci.org/enthought/mayavi
    :alt: Build status
