@@ -315,7 +315,7 @@ In 2D, this can be understood as a raster image. This is the data
 structure created by the `ArraySource` mayavi source, from a 3D numpy
 array, as well as the `mlab.pipeline.scalar_field` and
 `mlab.pipeline.vector_field` factory functions, if the `x`, `y` and
-`z` arrays are not explicitely specified.
+`z` arrays are not explicitly specified.
 
 .. image:: image_data.jpg
 

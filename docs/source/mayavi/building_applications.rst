@@ -46,7 +46,7 @@ Mayavi scene that can accept objects. This defines the `model`, i.e. the
 main `HasTraits` object in which the application logics is contained.
 
 A view of this object, as a dialog, can be created using the
-`.configure_traits` method of this object. If a view is explicitely
+`.configure_traits` method of this object. If a view is explicitly
 specified the embedded Mayavi scene can be represented with the usual
 widget for scene by specifying for it the `SceneEditor`::
 
