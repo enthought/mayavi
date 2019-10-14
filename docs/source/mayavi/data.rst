@@ -496,8 +496,8 @@ Creating a `tvtk.UnstructuredGrid` object from numpy arrays::
 .. topic:: Modifying the data
 
     If you want to modify the data of any of these low-level data
-    structures, you need to reasign data to the corresponding arrays, but
-    also reasign them a name. Once this is done, you should call the
+    structures, you need to reassign data to the corresponding arrays, but
+    also reassign them a name. Once this is done, you should call the
     'modified()' method of the object, to tell the pipeline that the data
     has been modified::
 
