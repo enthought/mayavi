@@ -154,7 +154,7 @@ your changes into the next stable release.
 .. _github: https://github.com/enthought/mayavi
 .. _issue tracker: https://github.com/enthought/mayavi/issues
 .. _pull request: https://help.github.com/articles/using-pull-requests
-.. _sphinx: https://sphinx.pocoo.org
+.. _sphinx: https://www.sphinx-doc.org
 .. _Travis: https://travis-ci.org/enthought/mayavi
 .. _Appveyor: https://ci.appveyor.com/project/itziakos/mayavi
 
