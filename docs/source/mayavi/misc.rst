@@ -172,6 +172,7 @@ There is `mayavi translation page`_ for mayavi (master) documentation.
 .. _Travis: https://travis-ci.org/enthought/mayavi
 .. _Appveyor: https://ci.appveyor.com/project/itziakos/mayavi
 .. _`mayavi translation page`: https://www.transifex.com/getfem-doc/mayavi/
+.. _Transifex: https://www.transifex.com/
 
 ..
    Local Variables:
