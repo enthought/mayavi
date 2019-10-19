@@ -9,7 +9,7 @@ Most of the complexity of this example comes from the code turning the
 PDB information into a list of 3D positions, with associated scalar
 and connection information.
 
-We assign a scalar value for the atoms to differenciate the different
+We assign a scalar value for the atoms to differentiate the different
 types of atoms, but it does not correspond to the atomic mass. The size
 and the color of the atom on the visualization is therefore not
 chemicaly-significant.
