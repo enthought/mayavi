@@ -12,7 +12,7 @@ and connection information.
 We assign a scalar value for the atoms to differentiate the different
 types of atoms, but it does not correspond to the atomic mass. The size
 and the color of the atom on the visualization is therefore not
-chemicaly-significant.
+chemically-significant.
 
 The atoms are plotted using mlab.points3d, and connections between atoms
 are added to the dataset, and visualized using a surface module.
