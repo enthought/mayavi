@@ -29,6 +29,7 @@ from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
 from tvtk.common import vtk_major_version
+from mayavi import mlab
 import numpy as np
 
 
@@ -162,10 +163,10 @@ class DefaultPickHandler(PickHandler):
 
         self._update_data(renwin, text_actor)
 
-
     #################################################################
     # Non-public interface.
     #################################################################
+
     def _update_data(self, renwin, text_actor):
         for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
             value = getattr(self, name)
@@ -176,24 +177,29 @@ class DefaultPickHandler(PickHandler):
         y_coord = np.format_float_scientific(self.coordinate[1], precision=3)
         z_coord = np.format_float_scientific(self.coordinate[2], precision=3)
 
-        if self.vector is not None and self.scalar is not None \
-           and self.tensor is not None:
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s \
-            \nscalar : %s\nvector : %s\ntensor : %s "
+        if(self.vector is not None and
+           self.scalar is not None and
+           self.tensor is not None):
+            text_actor.set(input=("ID : %s\nx : %s\ny : %s\nz : %s " +
+                           "\nscalar : %s\nvector : %s\ntensor : %s ")
                            % (self.ID, x_coord, y_coord, z_coord,
                               self.scalar, self.vector, self.tensor))
+
         elif self.vector is not None and self.scalar is not None:
             scalar = np.format_float_scientific(self.scalar, precision=3)
             vector = np.zeros(3)
             for i in range(3):
                 vector[i] = np.format_float_scientific(self.vector[i], precision=3)
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s \
-            \nscalar : %s\nvector : %s "
+
+            text_actor.set(input=("ID : %s\nx : %s\ny : %s\nz : %s" +
+                           "\nscalar : %s\nvector : %s ")
                            % (self.ID, x_coord, y_coord, z_coord, scalar, vector))
+
         elif self.scalar is not None:
             scalar = np.format_float_scientific(self.scalar, precision=3)
             text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s"
                            % (self.ID, x_coord, y_coord, z_coord, scalar))
+
         else:
             text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s "
                            % (self.ID, x_coord, y_coord, z_coord))
@@ -275,7 +281,6 @@ class Picker(HasTraits):
         self.text_rep = tvtk.TextRepresentation()
         self.text_widget = tvtk.TextWidget()
         self.data = PickedData()
-
         self.text_setup()
         self.widgets = False
 
@@ -331,6 +336,11 @@ class Picker(HasTraits):
             self.text_widget.enabled = 1
             self.pick_handler.handle_pick(self.data, self.renwin, self.text_actor)
             self.text_actor._get_text_property().set(justification="left")
+
+        if mlab.gcf().scene.background == (0.5, 0.5, 0.5):
+            pass
+        else:
+            self.set_text_color()
 
     def pick_point(self, x, y):
         """ Picks the nearest point. Returns a `PickedData` instance."""
@@ -478,3 +488,13 @@ class Picker(HasTraits):
         """Lets you set the picker properties"""
         self.pick_type = pick_type
         self.tolerance = tolerance
+
+    def set_text_color(self, color=None):
+        if color is None:
+            bgcolor = mlab.gcf().scene.background
+            tcolor = [0, 0, 0]
+            for i in range(3):
+                tcolor[i] = abs(bgcolor[i]-1)
+            self.text_actor._get_text_property().color = tuple(tcolor)
+        else:
+            self.text_actor._get_text_property().color = color
