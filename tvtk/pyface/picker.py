@@ -491,9 +491,9 @@ class Picker(HasTraits):
     def set_text_color(self, color=None):
         if color is None:
             bgcolor = self.renwin.background
-            tcolor = [0, 0, 0]
+            text_color = [0, 0, 0]
             for i in range(3):
                 tcolor[i] = abs(bgcolor[i]-1)
-            self.text_actor._get_text_property().color = tuple(tcolor)
+            self.text_actor._get_text_property().color = tuple(text_color)
         else:
             self.text_actor._get_text_property().color = color
