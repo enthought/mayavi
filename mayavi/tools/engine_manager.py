@@ -166,7 +166,7 @@ class EngineManager(HasTraits):
 
     def show_engine(self, engine=None, rich_view=True):
         """ Show a dialog with the mayavi pipeline. This dialog allows to
-            edit graphicaly the properties of the different objects on
+            edit graphically the properties of the different objects on
             the scenes.
         """
         if engine is None:
