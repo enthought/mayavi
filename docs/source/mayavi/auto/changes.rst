@@ -735,7 +735,7 @@ Fixes
     - Handle the non-Latin-1 keypresses.
 
 23 Sep 2014 (rkern)
-    - Prevent ndarray comparisions with None.
+    - Prevent ndarray comparisons with None.
 
 17 Jul 2014 (mdickinson)
     - Fix the trait error raised when the threshold range is updated.
