@@ -1628,7 +1628,7 @@ Mayavi 3.1.0
       arbitrary triangular connectivity. Also add a corresponding
       triangular_mesh_source mlab source. [22155]
     - ENH: Make mlab.points3d and other mlab functions accept scalars as
-      coordinnates, in addition to arrays. [22156]
+      coordinates, in addition to arrays. [22156]
 
 12 September, 2008 (PR)
     - NEW: Create a separate OffScreenEngine for use to reduce code

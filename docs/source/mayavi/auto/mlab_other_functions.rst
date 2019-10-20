@@ -385,7 +385,7 @@ text
     x, and y are the position of the origin of the text. If no z
     keyword argument is given, x and y are the 2D projection of the
     figure, they belong to [0, 1]. If a z keyword  argument is given, the
-    text is positionned in 3D, in figure coordinnates.
+    text is positionned in 3D, in figure coordinates.
     
     **Keyword arguments:**
     
@@ -424,7 +424,7 @@ text3d
         text3d(x, y, z, text, ...)
     
     x, y, and z are the position of the origin of the text. The
-    text is positionned in 3D, in figure coordinnates.
+    text is positionned in 3D, in figure coordinates.
     
     **Keyword arguments:**
     
