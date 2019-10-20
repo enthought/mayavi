@@ -301,7 +301,7 @@ def set_extent(module, extents):
         outline of the actors whose extent you modified. You should pass
         in the same "extents" parameter for this to work.You can have a
         look at the wigner.py example for a heavy use of this
-        functionnality.
+        functionality.
 
         **Note**
 
