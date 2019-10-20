@@ -1,8 +1,12 @@
 from tvtk.api import tvtk
 from .tools import gcf
+from mayavi.sources.widget_source import WidgetSource
+from mayavi import mlab
+from traits.api import RGBColor, Str, on_trait_change
+from traitsui.api import Group, View, Item
 
+class SliderWidget(WidgetSource):
 
-class SliderWidget:
 
     slider_rep = tvtk.SliderRepresentation2D()
     slider_widget = tvtk.SliderWidget()
@@ -14,9 +18,18 @@ class SliderWidget:
     point1 = slider_rep._get_point1_coordinate()
     point2 = slider_rep._get_point2_coordinate()
 
+    title_color = RGBColor((0,0,0))
+    title_text = Str("Slider")
+
+    traits_view = View(Group(Item(name = "title_color"),
+                             Item(name = "title_text"),
+                             label = "Title",
+                             ))
+
     def __init__(self):
+
         self.value_setup(0, 1)
-        self.title_setup("Slider", (0,0,0))
+        self.title_config()
         self.slider_setup((0.3,0.2,0.9), (1,0,0))
         self.label_setup((1,1,1))
         self.cap_setup((0,0,0), 0)
@@ -37,9 +50,12 @@ class SliderWidget:
         self.slider_rep.maximum_value = max_val
         self.slider_rep.value = min_val
 
-    def title_setup(self, title_text, color):
-        self.slider_rep.title_text = title_text
-        self.title.color = color
+    @on_trait_change("+title")
+    def title_config(self):
+        self.title.color = self.title_color
+        print(self.title_color)
+        self.slider_rep.title_text = self.title_text
+        print("shizz")
         self.title.shadow = 0
 
     def slider_setup(self, color1, color2):
@@ -67,11 +83,25 @@ class SliderWidget:
     def add_callback(self, callback):
         self.slider_widget.add_observer("InteractionEvent", callback)
 
+    def _update(self):
+        if self.scene is None:
+            return
+        self.widgets = [self.slider_widget]
 
-class ButtonWidget:
+    def _visible_changed(self, value):
+        if value:
+            if not self._actors_added:
+                self.scene.add_widgets(self.widgets)
+                self._actors_added = True
+        super(SliderWidget, self)._visible_changed(value)
+
+
+
+class ButtonWidget(WidgetSource):
 
     button_rep = tvtk.TexturedButtonRepresentation2D()
     button_widget = tvtk.ButtonWidget()
+    text_image = tvtk.ImageData()
 
     def __init__(self):
         self.button_rep.set_number_of_states(1)
@@ -118,13 +148,35 @@ class ButtonWidget:
     def add_callback(self, callback):
         self.button_widget.add_observer("StateChangedEvent", callback)
 
+    def _update(self):
+        if self.scene is None:
+            return
+        self.widgets = [self.button_widget]
+
+    def _visible_changed(self, value):
+        if value:
+            if not self._actors_added:
+                self.scene.add_widgets(self.widgets)
+                self._actors_added = True
+        super(ButtonWidget, self)._visible_changed(value)
+
+    def remove_actors(self):
+        """Removes `self.widgets` from the scene.
+        """
+        if self._actors_added:
+            self.scene.remove_widgets(self.widgets)
+            self._actors_added = False
+            self.button_rep.set_button_texture(0, self.text_image)
+            self.scene.render()
 
 def slider_widget(figure=gcf):
     slider = SliderWidget()
     slider._widget_setup(figure)
+    mlab.get_engine().add_source(slider)
     return slider
 
 def button_widget(figure=gcf):
     button = ButtonWidget()
     button._widget_setup(figure)
+    mlab.get_engine().add_source(button)
     return button
