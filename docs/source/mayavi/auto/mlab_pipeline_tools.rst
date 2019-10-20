@@ -37,8 +37,8 @@ add_dataset
             in which case the data is not added to the pipeline.
     
             If figure is False, a null engine is created. This null
-            engine does not create figures, and is mainly usefull for
-            tensting, or using the VTK algorithms without visualization.
+            engine does not create figures, and is mainly useful for
+            testing, or using the VTK algorithms without visualization.
     
     **Returns**
     
