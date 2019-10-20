@@ -478,7 +478,7 @@ class ImagePlaneWidgetFactory(DataModuleFactory):
     _target = Instance(modules.ImagePlaneWidget, ())
 
     slice_index = CInt(0, adapts='ipw.slice_index',
-                        help="""The index along wich the
+                        help="""The index along with the
                                             image is sliced.""")
 
     plane_opacity = Range(0.0, 1.0, 1.0, adapts='ipw.plane_property.opacity',
