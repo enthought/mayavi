@@ -29,7 +29,6 @@ from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
 from tvtk.common import vtk_major_version
-from mayavi import mlab
 import numpy as np
 
 
@@ -337,7 +336,7 @@ class Picker(HasTraits):
             self.pick_handler.handle_pick(self.data, self.renwin, self.text_actor)
             self.text_actor._get_text_property().set(justification="left")
 
-        if mlab.gcf().scene.background == (0.5, 0.5, 0.5):
+        if self.renwin.background == (0.5, 0.5, 0.5):
             pass
         else:
             self.set_text_color()
@@ -491,7 +490,7 @@ class Picker(HasTraits):
 
     def set_text_color(self, color=None):
         if color is None:
-            bgcolor = mlab.gcf().scene.background
+            bgcolor = self.renwin.background
             tcolor = [0, 0, 0]
             for i in range(3):
                 tcolor[i] = abs(bgcolor[i]-1)
