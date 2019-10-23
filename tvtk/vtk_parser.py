@@ -11,7 +11,6 @@ from __future__ import print_function
 import collections
 import re
 import types
-import ast
 
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
@@ -421,9 +420,9 @@ class VTKMethodParser:
             # Now quote the args and eval them.  Easy!
             try:
                 if ret:
-                    ret = ast.literal_eval(pat.sub('\"', ret))
+                    ret = eval(pat.sub('\"', ret))
                 if arg:
-                    arg = ast.literal_eval(pat.sub('\"', arg))
+                    arg = eval(pat.sub('\"', arg))
                     if type(arg) == type('str'):
                         arg = [arg]
             except SyntaxError:
