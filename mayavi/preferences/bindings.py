@@ -5,6 +5,7 @@ Code to setup the preferences for common objects.
 # Copyright (c) 2008-2015, Enthought Inc.
 # License: BSD Style.
 
+import ast
 from .preference_manager import preference_manager
 
 
@@ -12,11 +13,11 @@ def get_scene_preferences():
     """Return a dictionary of the scene's default preferences."""
     pref = preference_manager.preferences
     res = {}
-    res['stereo'] = eval(pref.get('tvtk.scene.stereo'))
+    res['stereo'] = ast.literal_eval(pref.get('tvtk.scene.stereo'))
     res['magnification'] = \
-            eval(pref.get('tvtk.scene.magnification'))
-    res['foreground'] = eval(pref.get('tvtk.scene.foreground_color'))
-    res['background'] = eval(pref.get('tvtk.scene.background_color'))
+            ast.literal_eval(pref.get('tvtk.scene.magnification'))
+    res['foreground'] = ast.literal_eval(pref.get('tvtk.scene.foreground_color'))
+    res['background'] = ast.literal_eval(pref.get('tvtk.scene.background_color'))
     return res
 
 def set_scene_preferences(scene, prefs_dict=None):

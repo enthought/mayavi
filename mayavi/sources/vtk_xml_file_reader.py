@@ -6,6 +6,7 @@
 
 # Standard library imports.
 from os.path import basename
+import ast
 
 # Enthought library imports.
 from traits.api import Instance, List, Str, Bool, Button
@@ -292,7 +293,7 @@ class VTKXMLFileReader(FileDataSource):
         else:
             if self.reader is None:
                 d_type = find_file_data_type(fpath.get())
-                self.reader = eval('tvtk.XML%sReader()'%d_type)
+                self.reader = ast.literal_eval('tvtk.XML%sReader()'%d_type)
             reader = self.reader
             reader.file_name = value
             reader.update()

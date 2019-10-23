@@ -4,6 +4,7 @@
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
+import ast
 
 # Enthought library imports.
 from apptools.preferences.api import get_default_preferences
@@ -82,16 +83,16 @@ class SceneEditor(Editor):
         """ Create a new decorated scene. """
 
         pref = get_default_preferences()
-        stereo = eval(pref.get('tvtk.scene.stereo'))
+        stereo = ast.literal_eval(pref.get('tvtk.scene.stereo'))
 
         scene = DecoratedScene(parent, stereo=stereo)
 
         # Set the scene's traits to preference values.
         scene.magnification = \
-                eval(pref.get('tvtk.scene.magnification'))
+                ast.literal_eval(pref.get('tvtk.scene.magnification'))
 
-        fg = eval(pref.get('tvtk.scene.foreground_color'))
-        bg = eval(pref.get('tvtk.scene.background_color'))
+        fg = ast.literal_eval(pref.get('tvtk.scene.foreground_color'))
+        bg = ast.literal_eval(pref.get('tvtk.scene.background_color'))
         scene.foreground = fg
         scene.background = bg
         # FIXME: This seems necessary for some strange reason, if not

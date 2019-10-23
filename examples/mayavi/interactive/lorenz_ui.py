@@ -12,6 +12,7 @@ with Mayavi, please refer to section :ref:`builing_applications`.
 # Copyright (c) 2008-2009, Enthought, Inc.
 # License: BSD Style.
 
+import ast
 import numpy as np
 import scipy
 
@@ -108,7 +109,7 @@ class Lorenz(HasTraits):
             g = scipy.__dict__
             x, y, z = self.points
             s, r, b = self.s, self.r, self.b
-            val = eval(func_str, g,
+            val = ast.literal_eval(func_str, g,
                         {'x': x, 'y': y, 'z': z,
                          's':s, 'r':r, 'b': b})
         except:

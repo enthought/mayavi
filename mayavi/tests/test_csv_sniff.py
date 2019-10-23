@@ -11,6 +11,7 @@ import sys
 import unittest
 import tempfile
 from unittest import SkipTest
+import ast
 
 from numpy import array, ndarray
 
@@ -154,7 +155,7 @@ class Test_csv_py_files(Util):
         if not sys.platform.startswith('win'):
             nan = float('nan') # must be in namespace for some .py files
 
-        d = eval(open(f_py).read())
+        d = ast.literal_eval(open(f_py).read())
 
         self.assertEqual(d['kwds'], s.kwds())
         self.assertNamedClose(d['array'], s.loadtxt())
