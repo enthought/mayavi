@@ -6,8 +6,6 @@ mayavi registry
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-import ast
-
 # Enthought library imports.
 from traits.api import HasTraits, Str, Callable, Either, List, Instance
 from mayavi.core.pipeline_info import PipelineInfo
@@ -26,7 +24,7 @@ def import_symbol(symbol_path):
         module_name, symbol_name = symbol_path.split(':')
 
         module = import_module(module_name)
-        symbol = ast.literal_eval(symbol_name, module.__dict__)
+        symbol = eval(symbol_name, module.__dict__)
 
     else:
         components = symbol_path.split('.')
