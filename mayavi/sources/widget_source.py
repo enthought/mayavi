@@ -1,9 +1,10 @@
 from mayavi import mlab
 from mayavi.core.source import Source
 
+
 class WidgetSource(Source):
     ##############################################
-    #'Pipeline Interface'#
+    # 'Pipeline Interface'#
     ##############################################
     def add_actors(self):
         """Adds `self.widgets` to the scene.
