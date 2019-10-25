@@ -163,6 +163,7 @@ There is `mayavi translation page`_ for mayavi (master) documentation.
 3. Click ``Request language`` and fill form.
 4. Wait acceptance by transifex mayavi translation maintainers.
 5. (After acceptance) Translate on transifex.
+6. You can see the translated document in `Read The Docs`_.
 
 .. _nose: https://nose.readthedocs.org
 .. _github: https://github.com/enthought/mayavi
@@ -173,6 +174,7 @@ There is `mayavi translation page`_ for mayavi (master) documentation.
 .. _Appveyor: https://ci.appveyor.com/project/itziakos/mayavi
 .. _`mayavi translation page`: https://www.transifex.com/getfem-doc/mayavi/
 .. _Transifex: https://www.transifex.com/
+.. _`Read The Docs`: https://mayavi.readthedocs.io/en/latest
 
 ..
    Local Variables:
