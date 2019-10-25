@@ -16,7 +16,7 @@ Another example of graph plotting, showing a different technique to plot
 the graph, can be seen on :ref:`example_delaunay_graph`.
 
 To simplify things we do not plot the connection on the surface of the
-Earth, but as straight lines going throught the Earth. As a result
+Earth, but as straight lines going through the Earth. As a result
 must use transparency to show the connection.
 
 Data source: http://www.777fleetpage.com/777fleetpage3.htm
@@ -146,7 +146,7 @@ continents = mlab.pipeline.surface(continents_src, color=(0, 0, 0))
 ###############################################################################
 # Display a semi-transparent sphere, for the surface of the Earth
 
-# We use a sphere Glyph, throught the points3d mlab function, rather than
+# We use a sphere Glyph, through the points3d mlab function, rather than
 # building the mesh ourselves, because it gives a better transparent
 # rendering.
 sphere = mlab.points3d(0, 0, 0, scale_mode='none',
