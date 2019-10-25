@@ -1,7 +1,6 @@
 from tvtk.api import tvtk
 from .tools import gcf
 from mayavi.sources.widget_source import WidgetSource
-from mayavi import mlab
 from traits.api import RGBColor, Str, on_trait_change, Array, Float, Int, File, Bool
 from traitsui.api import ArrayEditor
 from traitsui.api import Group, View, Item
@@ -13,8 +12,10 @@ class SliderWidget(WidgetSource):
     title_text = Str
     minimum_value = Float
     maximum_value = Float
-    position_1 = Array(dtype="float64", shape=(3, ), editor=ArrayEditor())
-    position_2 = Array(dtype="float64", shape=(3, ), editor=ArrayEditor())
+    position_1 = Array(dtype="float64", shape=(3, ), editor=ArrayEditor(),
+                       desc="x, y, z coordinates of the bottom left point")
+    position_2 = Array(dtype="float64", shape=(3, ), editor=ArrayEditor(),
+                       desc="x, y, z coordinates of the top right point")
 
     slider_color = RGBColor
     slider_color_2 = RGBColor(desc="color of the slider when it's picked")
@@ -68,14 +69,17 @@ class SliderWidget(WidgetSource):
 
     @on_trait_change('title+')
     def _title_config(self):
-        self.title.color = self.title_color
+        color = self.title_color
+        self.title.color = (color if color is not "white" else (1, 1, 1))
         self.slider_rep.title_text = self.title_text
         self.title.shadow = 0
 
     @on_trait_change('slider+')
     def _slider_config(self):
+        color = self.slider_color_2
         self.slider.color = self.slider_color
-        self.slider_rep._get_selected_property().color = self.slider_color_2
+        self.slider_rep._get_selected_property().color = \
+            (color if color is not "white" else (1, 1, 1))
 
     @on_trait_change("cap+")
     def cap_setup(self):
@@ -204,7 +208,8 @@ class ButtonWidget(WidgetSource):
     def add_text(self):
         free_type = tvtk.FreeTypeStringToImage()
         text_property = tvtk.TextProperty()
-        text_property.color = self.text_color
+        color = self.text_color
+        text_property.color = (color if color is not "white" else (1, 1, 1))
         text_property.font_size = self.text_font_size
         text_image = tvtk.ImageData()
         free_type.render_string(text_property, self.text, 0, text_image)
@@ -252,15 +257,17 @@ class ButtonWidget(WidgetSource):
             self.scene.render()
 
 
-def slider_widget(figure=gcf):
+def slider_widget(figure=None):
+    if figure is None:
+        figure = gcf
     slider = SliderWidget()
     slider._widget_setup(figure)
-    mlab.get_engine().add_source(slider)
     return slider
 
 
-def button_widget(figure=gcf):
+def button_widget(figure=None):
+    if figure is None:
+        figure = gcf
     button = ButtonWidget()
     button._widget_setup(figure)
-    mlab.get_engine().add_source(button)
     return button
