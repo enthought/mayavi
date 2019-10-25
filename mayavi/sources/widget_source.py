@@ -1,4 +1,3 @@
-from mayavi import mlab
 from mayavi.core.source import Source
 
 
