@@ -5,7 +5,7 @@ balls.
 The example uses the figure method 'on_mouse_pick', added in Mayavi
 3.4, to register a callback when the left mouse is pressed. The callback
 is called with a picker, enabling to identify the object selected.
-Specificaly, actors are selected, each object is represented on the scene
+Specifically, actors are selected, each object is represented on the scene
 via actors. The selected actors can be found in 'picker.actors'. In this
 example, we have plotted red balls and white ball. We want to select the
 red balls, and thus test if any actor in picker.actors corresponds to an
