@@ -294,7 +294,7 @@ Advanced mlab examples
 
 |0021|  :ref:`example_flight_graph`
          An example showing a graph display
-         between cities positionned on the Earth
+         between cities positioned on the Earth
          surface.
 
 ======= =============================================

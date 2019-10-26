@@ -966,7 +966,7 @@ Enhancements
 14 Aug, 2009 (GV):
   - ENH: Stop gap solution to limit the cost of auto-scaling the glyph
     size with large arrays in barchart, when the positioning is
-    implicite, and thus distance calculation is pointless [24526]
+    implicit, and thus distance calculation is pointless [24526]
   - ENH: Do not update the rendering of the scene when using mlab
     helper functions that build one object after another [24529]
   - ENH: Add an argument to barchart to avoid expensive scaling computation
@@ -1519,7 +1519,7 @@ Mayavi 3.1.0
     - API: Change defaults [22513]:
         - CellToPointData and PointToCellData filters to pass the existing
           dataset.
-        - The ouline of the implicite plane is no longer draggable by
+        - The ouline of the implicit plane is no longer draggable by
           default.
 
 15-16 November, 2008 (PR)

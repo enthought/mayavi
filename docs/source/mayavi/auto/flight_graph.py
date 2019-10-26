@@ -1,5 +1,5 @@
 """
-An example showing a graph display between cities positionned on the
+An example showing a graph display between cities positioned on the
 Earth surface.
 
 This graph displays the longest fligh routes operated by Boing
