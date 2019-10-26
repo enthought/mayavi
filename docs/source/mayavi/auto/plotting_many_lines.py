@@ -9,7 +9,7 @@ many lines.
 
 The underlying idea is the same as that used to plot graphes (see for
 instance :ref:`example_flight_graph`): create a set of points, and
-specify explicitely the connectivity between them. First we create the
+specify explicitly the connectivity between them. First we create the
 set of unconnected point (the underlying data structure is a
 :ref:`poly_data`) using `mlab.pipeline.scalar_scatter`. To add the
 connections, we need to keep track of which point is connected to which.

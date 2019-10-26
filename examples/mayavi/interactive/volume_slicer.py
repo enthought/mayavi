@@ -15,7 +15,7 @@ scene.activated, which is called after creation of the scene.
 Second, default values created via the '_xxx_default' callback are created
 lazyly, that is, when the attributes are accessed. As the establishement
 of the VTK pipeline can depend on the order in which it is built, we
-trigger these access by explicitely calling the attributes.
+trigger these access by explicitly calling the attributes.
 In particular, properties like scene background color, or interaction
 properties cannot be set before the scene is activated.
 

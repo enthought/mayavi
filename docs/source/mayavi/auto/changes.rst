@@ -1545,7 +1545,7 @@ Mayavi 3.1.0
       is also automatically converted from a tvtk dataset to a mayavi
       source, if needed. [22375], [22377]
     - ENH: [mlab] Make mlab.axes and mlab.outline use the extents of the
-      current object when none specified explicitely. [22372]
+      current object when none specified explicitly. [22372]
 
 24-27 October, 2008 (PR)
     - NEW: Adding an ImageChangeInformation filter to let users change
