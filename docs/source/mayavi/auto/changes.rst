@@ -1617,7 +1617,7 @@ Mayavi 3.1.0
 30 September, 2008 (GV):
     - API: mlab: Expose pipeline.add_dataset (former private function
       tools._data) [22162].
-    - API: The mlab source functions can now optionaly work without creating
+    - API: The mlab source functions can now optionally work without creating
       a figure (using figure=None) [22161].
     - API: The mlab source functions are more  robust to various
       input-argument shape (they accept lists, and 1D or 2D arrays when
