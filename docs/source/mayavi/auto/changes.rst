@@ -1519,7 +1519,7 @@ Mayavi 3.1.0
     - API: Change defaults [22513]:
         - CellToPointData and PointToCellData filters to pass the existing
           dataset.
-        - The ouline of the implicit plane is no longer draggable by
+        - The outline of the implicit plane is no longer draggable by
           default.
 
 15-16 November, 2008 (PR)
