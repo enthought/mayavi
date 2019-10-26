@@ -918,7 +918,7 @@ Enhancements
 ------------
 
 20 Dec, 2009 (GV):
-  - ENH: Merge in Scott Wart's patch to add an 'ImageChangeInformation
+  - ENH: Merge in Scott Wart's patch to add an 'ImageChangeInformation'
     filter to ArraySource, with additional work to get the tests to pass
     [25036], [25043]
 
@@ -965,7 +965,7 @@ Enhancements
 
 14 Aug, 2009 (GV):
   - ENH: Stop gap solution to limit the cost of auto-scaling the glyph
-    size with large arrays in barchart, when the positionning is
+    size with large arrays in barchart, when the positioning is
     implicite, and thus distance calculation is pointless [24526]
   - ENH: Do not update the rendering of the scene when using mlab
     helper functions that build one object after another [24529]
@@ -1060,7 +1060,7 @@ Fixes
   - BUG: Correct bug with visibility of OrientationAxes reported by Uche
     Mennel [25037]
   - BUG: Patch by Varun Hiremath to make build docs more robust [25039]
-  - BUG: Fix scalarbar positionning for VTK >= 5. [25040]
+  - BUG: Fix scalarbar positioning for VTK >= 5. [25040]
   - BUG: Avoid a segfault when enabling the OrientationAxes without an
     interactor [25044]
   - MISC: Disable the use of IPython by default, there are right now too many
