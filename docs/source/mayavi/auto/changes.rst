@@ -1541,7 +1541,7 @@ Mayavi 3.1.0
 27 October, 2008 (GV)
     - ENH: [mlab] If a module or filter is added to the pipeline using
       the mlab.pipeline functions, the source on which it is added
-      onto is automatically added to the scene if not alread present. It
+      onto is automatically added to the scene if not already present. It
       is also automatically converted from a tvtk dataset to a mayavi
       source, if needed. [22375], [22377]
     - ENH: [mlab] Make mlab.axes and mlab.outline use the extents of the
