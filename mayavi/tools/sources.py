@@ -1220,7 +1220,7 @@ def array2d_source(*args, **kwargs):
 
     If 3 positional arguments are passed the last one must be an array s,
     or a callable, f, that returns an array. x and y give the
-    coordinnates of positions corresponding to the s values.
+    coordinates of positions corresponding to the s values.
 
     x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
     numpy.mgrid), but the points should be located on an orthogonal grid

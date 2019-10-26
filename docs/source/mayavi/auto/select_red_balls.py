@@ -70,7 +70,7 @@ def picker_callback(picker):
         point_id = picker.point_id/glyph_points.shape[0]
         # If the no points have been selected, we have '-1'
         if point_id != -1:
-            # Retrieve the coordinnates coorresponding to that data
+            # Retrieve the coordinates coorresponding to that data
             # point
             x, y, z = x1[point_id], y1[point_id], z1[point_id]
             # Move the outline to the data point.
