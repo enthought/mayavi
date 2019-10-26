@@ -1204,7 +1204,7 @@ Enhancements
     larger than window size [23813]
   - ENH: Add a text3d module, for displaying text located in the 3D scene
     scaling and hiding as the other 3D actors [23809], [23810].
-  - ENH: Add a helper function to mlab to syncronize cameras on two
+  - ENH: Add a helper function to mlab to synchronize cameras on two
     scenes [23814]
 
 10 Jun, 2009 (PR):
