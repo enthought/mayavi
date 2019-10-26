@@ -15,7 +15,7 @@ approximates the initial regular grid.
 The initial grid is displayed in white, and the optimized grid is displayed in
 black, with the surface it creates. The initial grid can be seen
 disappearing as it goes under the surface of the approximated grid:
-although the decimated mesh follows closely the orginal, it is not
+although the decimated mesh follows closely the original, it is not
 exactly the same.
 
 One can see that the reduction in number of polygons is huge: the white
