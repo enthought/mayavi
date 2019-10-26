@@ -728,7 +728,7 @@ Fixes
     - Fix MRI brain data URL.
 
 13 Nov 2014 (DS)
-    - More fixes for connection topology, information request and tube filter
+    - More fixes for connection topology, information request and tube filtering
       after upgrading to new pipeline.
 
 24 Sep 2014 (pberkes)
@@ -1334,7 +1334,7 @@ Fixes
     application [23558]
 
 13 April, 2009 (PR):
-  - BUG: The trailing '|' in the wildcard breaks the file dialog's filterin
+  - BUG: The trailing '|' in the wildcard breaks the file dialog's filtering
     for user defined readers.  Thanks to B. P. Thrane for reporting the bug
 
 27 March, 2009 (GV):
