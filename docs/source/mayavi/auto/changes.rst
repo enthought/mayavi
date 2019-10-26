@@ -1530,7 +1530,7 @@ Mayavi 3.1.0
     - DOC: Updating advanced scripting chapter. [22495].
 
 13 November, 2008 (GV)
-    - ENH: [mlab]  Add keyword arguments to colobars to control label
+    - ENH: [mlab]  Add keyword arguments to colorbars to control label
       number and format, as well as colors number. [22489]
 
 10 November, 2008 (PR)
