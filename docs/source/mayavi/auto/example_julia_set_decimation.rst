@@ -6,7 +6,7 @@ Julia set decimation example
 --------------------------------------------------------------------
 
 
-The Julia set, but with a decimated mesh: unecessary triangles due to the
+The Julia set, but with a decimated mesh: unnecessary triangles due to the
 initial grid and not matching the geometry of the Julia set
 are removed.
 
