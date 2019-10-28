@@ -238,7 +238,7 @@ Advanced mlab examples
 
 |0010|  :ref:`example_julia_set_decimation`
          The Julia set, but with a decimated
-         mesh: unecessary triangles due to the
+         mesh: unnecessary triangles due to the
          initial grid and not matching the
          geometry of the Julia set are removed.
 
