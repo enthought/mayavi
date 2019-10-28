@@ -1433,7 +1433,7 @@ series.
 
 28 February, 2009 (PR)
     - BUG: Fixed some issues reported by Ondrej Certik regarding the use
-      Of mlab.options.offscreen, mlab.options.backend = 'test', removed cruft
+      of mlab.options.offscreen, mlab.options.backend = 'test', removed cruft
       from earlier 'null' backend, fixed bug with incorrect imports,
       add_dataset set no longer adds one new null engine each time figure=False
       is passed, added test case for the options.backend test. [23088]
