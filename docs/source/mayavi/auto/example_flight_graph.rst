@@ -9,7 +9,7 @@ Flight graph example
 An example showing a graph display between cities positioned on the
 Earth surface.
 
-This graph displays the longest fligh routes operated by Boing
+This graph displays the longest flight routes operated by Boing
 777. The two main interests of this example are that it shows how to
 build a graph of arbitrary connectivity, and that it shows how to
 position data on the surface of the Earth.
