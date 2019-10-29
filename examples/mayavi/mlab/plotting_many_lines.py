@@ -7,7 +7,7 @@ this, but it will create an object for each line, this will be
 inefficient. This example shows how to create one object comprised of
 many lines.
 
-The underlying idea is the same as that used to plot graphes (see for
+The underlying idea is the same as that used to plot graphs (see for
 instance :ref:`example_flight_graph`): create a set of points, and
 specify explicitly the connectivity between them. First we create the
 set of unconnected point (the underlying data structure is a
