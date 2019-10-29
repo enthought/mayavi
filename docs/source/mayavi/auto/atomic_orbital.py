@@ -14,7 +14,7 @@ The first step is to create a data source with two scalar datasets. The
 second step is to apply filters and modules, using the
 'set_active_attribute' filter to select on which data these apply.
 
-Creating a data source with two scalar datasets is actually slighlty
+Creating a data source with two scalar datasets is actually slightly
 tricky, as it requires some understanding of the layout of the datasets
 in TVTK. The reader is referred to :ref:`data-structures-used-by-mayavi`
 for more details.
