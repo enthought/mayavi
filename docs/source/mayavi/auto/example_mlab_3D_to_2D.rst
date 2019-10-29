@@ -74,7 +74,7 @@ similar to that of the far clipping plane. The sides of the frustum are
 determined by the aspect ratio of the camera (width/height) and its
 field-of-view. Any points not lying within the frustum are not mapped to
 the screen (as they would lie outside the viewable area). The
-perpspective transformation has the effect of scaling everything within
+perspective transformation has the effect of scaling everything within
 the frustum to fit within a cube defined in the range (-1,1)(-1,1)(-1,1)
 as represented by homogeneous coordinates. The last phrase there is
 important, the first 3 coordinates will not, in general, be within the
