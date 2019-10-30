@@ -146,6 +146,9 @@ latex_logo = 'm2_about.jpg'
 # If false, no module index is generated.
 #latex_use_modindex = True
 
+# To specify names to enable gettext extracting and translation applying for i18n additionally. You can specify below names:
+gettext_additional_targets = ['raw'] 
+
 ################################################################################
 # A hack:
 import shutil
