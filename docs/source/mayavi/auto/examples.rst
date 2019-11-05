@@ -450,7 +450,7 @@ applications.
          evolution of a superquadric (http://en.w
          ikipedia.org/wiki/Superquadrics), which
          are ellipsoidal surfaces parametrised by
-         two parameters,lpha and eta. The
+         two parameters,alpha and beta. The
          equations that are used to determine the
          superquadric are (in spherical-polar
          coordinates):

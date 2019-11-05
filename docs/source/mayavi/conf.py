@@ -137,7 +137,7 @@ latex_preamble = """
 """
 
 # A logo displayed on the cover page.
-latex_logo = 'm2_about.jpg'
+latex_logo = '_static/m2_about.jpg'
 
 
 # Documents to append as an appendix to all manuals.
