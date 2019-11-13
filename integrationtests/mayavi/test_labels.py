@@ -16,7 +16,6 @@ from common import TestCase, get_example_data
 
 
 class TestLabels(TestCase):
-
     def check(self, saved=False):
         """Does the checking, if saved is True it does not change the
         properties at first to see how those behave and only tests the
@@ -31,8 +30,8 @@ class TestLabels(TestCase):
             np = l.visible_points.get_output_dataset().number_of_points
             assert np < 35 and np > 20
             l.visible_points.enabled = True
-            l.mapper.label_mode = 'label_scalars'
-            l.label_format = '%.1f'
+            l.mapper.label_mode = "label_scalars"
+            l.label_format = "%.1f"
             l.number_of_labels = 45
             l.property.color = (0, 0, 0)
             l.property.italic = False
@@ -40,12 +39,14 @@ class TestLabels(TestCase):
         np = l.visible_points.get_output_dataset().number_of_points
         assert np < 60 and np > 25
         assert l.visible_points.enabled
-        assert l.visible_points.get_output_dataset() == \
-            l.visible_points.filter.filter.output
+        assert (
+            l.visible_points.get_output_dataset()
+            == l.visible_points.filter.filter.output
+        )
         assert l.property.color == (0, 0, 0)
         assert not l.property.italic
-        assert l.mapper.label_mode == 'label_scalars'
-        assert l.label_format == '%.1f'
+        assert l.mapper.label_mode == "label_scalars"
+        assert l.label_format == "%.1f"
 
     def test(self):
         self.main()
@@ -64,7 +65,7 @@ class TestLabels(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('fire_ug.vtu'))
+        r.initialize(get_example_data("fire_ug.vtu"))
         script.add_source(r)
 
         # Create the filters.
@@ -81,7 +82,7 @@ class TestLabels(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2')  # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
         f.seek(0)
 

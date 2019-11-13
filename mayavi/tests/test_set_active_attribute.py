@@ -23,20 +23,19 @@ from mayavi.tests.common import get_example_data
 
 
 class TestSetActiveAttribute(unittest.TestCase):
-
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
-        #e = Engine()
+        # e = Engine()
         e.start()
         e.new_scene()
-        self.e=e
+        self.e = e
 
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('pyramid_ug.vtu'))
+        r.initialize(get_example_data("pyramid_ug.vtu"))
         e.add_source(r)
-        r.point_scalars_name = 'temperature'
+        r.point_scalars_name = "temperature"
         o = Outline()
         e.add_module(o)
         c = Contour()
@@ -45,7 +44,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         e.add_filter(n)
         aa = SetActiveAttribute()
         e.add_filter(aa)
-        aa.point_scalars_name = 'pressure'
+        aa.point_scalars_name = "pressure"
         s = Surface()
         e.add_module(s)
         self.scene = e.current_scene
@@ -60,27 +59,27 @@ class TestSetActiveAttribute(unittest.TestCase):
         """Do the actual testing"""
         scene = self.scene
         src = scene.children[0]
-        self.assertEqual(src.point_scalars_name,'temperature')
+        self.assertEqual(src.point_scalars_name, "temperature")
         c = src.children[1]
         sc = get_output(c.outputs[0]).point_data.scalars
-        self.assertEqual(sc.name,'temperature')
+        self.assertEqual(sc.name, "temperature")
         # It is an iso-contour!
-        self.assertEqual(sc.range[0],sc.range[1])
+        self.assertEqual(sc.range[0], sc.range[1])
         aa = c.children[0].children[0]
-        self.assertEqual(aa.point_scalars_name,'pressure')
+        self.assertEqual(aa.point_scalars_name, "pressure")
         sc = get_output(aa.outputs[0]).point_data.scalars
-        self.assertEqual(sc.name, 'pressure')
-        self.assertEqual((abs(sc.range[0] - 70) < 1.0),True)
-        self.assertEqual((abs(sc.range[1] - 70) < 1.0),True)
+        self.assertEqual(sc.name, "pressure")
+        self.assertEqual((abs(sc.range[0] - 70) < 1.0), True)
+        self.assertEqual((abs(sc.range[1] - 70) < 1.0), True)
         s = aa.children[0].children[0]
 
     def test_set_active_attribute(self):
         "Test if the test fixture works"
-        #Now test.
+        # Now test.
         self.check()
 
-        #from mayavi.tools.show import show
-        #show()
+        # from mayavi.tools.show import show
+        # show()
 
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
@@ -89,9 +88,9 @@ class TestSetActiveAttribute(unittest.TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         engine.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
 
@@ -109,7 +108,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         # Test if the MayaVi2 visualization can be deep-copied.
 
         # Pop the source object.
-        s =  self.scene
+        s = self.scene
         source = s.children.pop()
         # Add it back to see if that works without error.
         s.children.append(source)
@@ -122,10 +121,9 @@ class TestSetActiveAttribute(unittest.TestCase):
         source1 = copy.deepcopy(source)
         s.children[0] = source1
         self.check()
-        #from mayavi.tools.show import show
-        #show()
+        # from mayavi.tools.show import show
+        # show()
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

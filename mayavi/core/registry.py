@@ -30,7 +30,7 @@ class Registry(HasTraits):
     """
 
     # The mayavi engines used.
-    engines = Dict(Str, Instance('mayavi.core.engine.Engine'))
+    engines = Dict(Str, Instance("mayavi.core.engine.Engine"))
 
     # The metadata for the sources.
     sources = List(Metadata)
@@ -44,7 +44,7 @@ class Registry(HasTraits):
     ######################################################################
     # `Registry` interface.
     ######################################################################
-    def register_engine(self, engine, name=''):
+    def register_engine(self, engine, name=""):
 
         """Registers a mayavi engine with an optional name.   Note that
         we allow registering an engine with the same name as another
@@ -52,10 +52,9 @@ class Registry(HasTraits):
 
         engines = self.engines
         if len(name) == 0:
-            name = '%s%d'%(engine.__class__.__name__,
-                           len(engines) + 1)
+            name = "%s%d" % (engine.__class__.__name__, len(engines) + 1)
 
-        logger.debug('Engine [%s] named %s registered', engine, name)
+        logger.debug("Engine [%s] named %s registered", engine, name)
         engines[name] = engine
 
     def unregister_engine(self, engine_or_name):
@@ -75,7 +74,7 @@ class Registry(HasTraits):
 
         if name:
             del engines[name]
-        logger.debug('Engine named %s unregistered', name)
+        logger.debug("Engine named %s unregistered", name)
 
     def get_file_reader(self, filename):
 
@@ -89,8 +88,7 @@ class Registry(HasTraits):
         result = []
         if len(ext) > 0:
             ext = ext[1:]
-            result = [src for src in self.sources \
-                      if ext in src.extensions]
+            result = [src for src in self.sources if ext in src.extensions]
 
         # 'result' contains list of all source metadata that can handle
         # the file.
@@ -131,13 +129,11 @@ class Registry(HasTraits):
                 sc = s.scene
                 if scene is sc:
                     return engine
-                elif hasattr(sc, 'scene_editor') and \
-                     scene is sc.scene_editor:
+                elif hasattr(sc, "scene_editor") and scene is sc.scene_editor:
                     # This check is needed for scene model objects.
                     return engine
         else:
             raise TypeError("Scene not attached to a mayavi engine.")
-
 
 
 # The global registry instance.
@@ -146,12 +142,15 @@ registry = Registry()
 # Import the metadata from the sources, modules and filters so they are
 # all registered.
 from mayavi.sources.metadata import sources
+
 registry.sources.extend(sources)
 
 from mayavi.filters.metadata import filters
+
 registry.filters.extend(filters)
 
 from mayavi.modules.metadata import modules
+
 registry.modules.extend(modules)
 
 # Do any customizations from either the `site_mayavi.py` or the

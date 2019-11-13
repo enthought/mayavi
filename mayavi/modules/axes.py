@@ -6,8 +6,7 @@
 
 # Enthought library imports.
 from traits.api import Instance, Property, true
-from traitsui.api import View, Group, HGroup, \
-        Item, BooleanEditor
+from traitsui.api import View, Group, HGroup, Item, BooleanEditor
 from tvtk.api import tvtk
 from apptools.persistence import state_pickler
 
@@ -27,52 +26,59 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
     # Automaticaly fit the bounds of the axes to the data
     use_data_bounds = true
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     ########################################
     # The view of this object.
 
-    traits_view = View(Group(
-                        Group(
-                            Item('visibility'),
-                            HGroup(
-                                 Item('x_axis_visibility', label='X axis'),
-                                 Item('y_axis_visibility', label='Y axis'),
-                                 Item('z_axis_visibility', label='Z axis'),
-                                ),
-                            show_border=True, label='Visibity'),
-                        Group(
-                            Item('use_ranges'),
-                            HGroup(
-                                 Item('ranges', enabled_when='use_ranges'),
-                                ),
-                            show_border=True),
-                        Group(
-                            Item('use_data_bounds'),
-                            HGroup(
-                                 Item('bounds',
-                                      enabled_when='not use_data_bounds'),
-                                ),
-                            show_border=True),
-                        Group(
-                            Item('x_label'),
-                            Item('y_label'),
-                            Item('z_label'),
-                            Item('label_format'),
-                            Item('number_of_labels'),
-                            Item('font_factor'),
-                            show_border=True),
-                        HGroup(Item('show_actual_bounds',
-                                    label='Use size bigger than screen',
-                                    editor=BooleanEditor())),
-                        Item('fly_mode'),
-                        Item('corner_offset'),
-                        Item('layer_number'),
-                       springy=True),
-                       scrollable=True,
-                       resizable=True)
+    traits_view = View(
+        Group(
+            Group(
+                Item("visibility"),
+                HGroup(
+                    Item("x_axis_visibility", label="X axis"),
+                    Item("y_axis_visibility", label="Y axis"),
+                    Item("z_axis_visibility", label="Z axis"),
+                ),
+                show_border=True,
+                label="Visibity",
+            ),
+            Group(
+                Item("use_ranges"),
+                HGroup(Item("ranges", enabled_when="use_ranges"),),
+                show_border=True,
+            ),
+            Group(
+                Item("use_data_bounds"),
+                HGroup(Item("bounds", enabled_when="not use_data_bounds"),),
+                show_border=True,
+            ),
+            Group(
+                Item("x_label"),
+                Item("y_label"),
+                Item("z_label"),
+                Item("label_format"),
+                Item("number_of_labels"),
+                Item("font_factor"),
+                show_border=True,
+            ),
+            HGroup(
+                Item(
+                    "show_actual_bounds",
+                    label="Use size bigger than screen",
+                    editor=BooleanEditor(),
+                )
+            ),
+            Item("fly_mode"),
+            Item("corner_offset"),
+            Item("layer_number"),
+            springy=True,
+        ),
+        scrollable=True,
+        resizable=True,
+    )
 
 
 ######################################################################
@@ -103,31 +109,43 @@ class Axes(Module):
     ########################################
     # The view of this object.
 
-    view = View(Group(Item(name='axes', style='custom', resizable=True),
-                      label='Axes',
-                      show_labels=False),
-                Group(Item(name='_property', style='custom',
-                           resizable=True),
-                      label='Property',
-                      show_labels=False),
-                Group(Item(name='_title_text_property', style='custom',
-                           resizable=True),
-                      label='Title Text',
-                      show_labels=False),
-                Group(Item(name='_label_text_property', style='custom',
-                           resizable=True),
-                      label='Label Text',
-                      show_labels=False),
-                scrollable=True, resizable=True,
-                width=500, height=600
-                )
+    view = View(
+        Group(
+            Item(name="axes", style="custom", resizable=True),
+            label="Axes",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="_property", style="custom", resizable=True),
+            label="Property",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="_title_text_property", style="custom", resizable=True),
+            label="Title Text",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="_label_text_property", style="custom", resizable=True),
+            label="Label Text",
+            show_labels=False,
+        ),
+        scrollable=True,
+        resizable=True,
+        width=500,
+        height=600,
+    )
 
     ######################################################################
     # `object` interface
     ######################################################################
     def __set_pure_state__(self, state):
-        for prop in ['axes', '_property', '_title_text_property',
-                     '_label_text_property']:
+        for prop in [
+            "axes",
+            "_property",
+            "_title_text_property",
+            "_label_text_property",
+        ]:
             obj = getattr(self, prop)
             state_pickler.set_state(obj, state[prop])
 
@@ -147,11 +165,13 @@ class Axes(Module):
         set the `actors` attribute up at this point.
         """
         # Create the axes and set things up.
-        axes = CubeAxesActor2D(number_of_labels=2,
-                               font_factor=1.5,
-                               fly_mode='outer_edges',
-                               corner_offset=0.0,
-                               scaling=False)
+        axes = CubeAxesActor2D(
+            number_of_labels=2,
+            font_factor=1.5,
+            fly_mode="outer_edges",
+            corner_offset=0.0,
+            scaling=False,
+        )
         axes.axis_title_text_property.shadow = False
         axes.axis_label_text_property.shadow = False
 
@@ -200,8 +220,12 @@ class Axes(Module):
 
     def _axes_changed(self, old, new):
         if old is not None:
-            for obj in (old, self._property, self._title_text_property,
-                        self._label_text_property):
+            for obj in (
+                old,
+                self._property,
+                self._title_text_property,
+                self._label_text_property,
+            ):
                 obj.on_trait_change(self.render, remove=True)
             self.actors.remove(old)
         # Setup the axes.
@@ -211,12 +235,15 @@ class Axes(Module):
 
         # Setup the private traits.
         self._property = new.property
-        for prop in ['_title_text_property',
-                     '_label_text_property']:
-            setattr(self,  prop, getattr(new, 'axis' + prop))
+        for prop in ["_title_text_property", "_label_text_property"]:
+            setattr(self, prop, getattr(new, "axis" + prop))
         # The handlers.
-        for obj in (new, self._property, self._title_text_property,
-                    self._label_text_property):
+        for obj in (
+            new,
+            self._property,
+            self._title_text_property,
+            self._label_text_property,
+        ):
             obj.on_trait_change(self.render)
         self.actors.append(new)
         if old is not None:

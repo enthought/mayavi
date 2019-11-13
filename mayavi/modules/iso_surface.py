@@ -29,8 +29,9 @@ class IsoSurface(Module):
     contour = Instance(Contour, record=True)
 
     # Specify if normals are to be computed to make a smoother surface.
-    compute_normals = Bool(True, desc='if normals are to be computed '\
-                           'to make the iso-surface smoother')
+    compute_normals = Bool(
+        True, desc="if normals are to be computed " "to make the iso-surface smoother"
+    )
 
     # The component that computes the normals.
     normals = Instance(PolyDataNormals, record=True)
@@ -38,14 +39,14 @@ class IsoSurface(Module):
     # The actor component that represents the iso-surface.
     actor = Instance(Actor, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['scalars'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["scalars"]
+    )
 
     ########################################
     # The view of this object.
     # Commented out, since we are now using the iso_surface_view.py version.
-    #view = View([Group(
+    # view = View([Group(
     #                 Item( name  = 'contour',
     #                       style = 'custom' ),
     #                 show_labels = False,
@@ -155,4 +156,3 @@ class IsoSurface(Module):
         if contour is not None:
             new.inputs = [contour]
         self._change_components(old, new)
-

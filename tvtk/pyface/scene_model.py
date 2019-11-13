@@ -14,8 +14,7 @@ Caveats:
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import Dict, Event, \
-                                 Instance, List, Property
+from traits.api import Dict, Event, Instance, List, Property
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.pyface.tvtk_scene import TVTKScene
 
@@ -65,36 +64,48 @@ class SceneModel(TVTKScene):
     # View related traits.
 
     # Render_window's view.
-    _stereo_view = Group(Item(name='stereo_render'),
-                         Item(name='stereo_type'),
-                         show_border=True,
-                         label='Stereo rendering',
-                         )
+    _stereo_view = Group(
+        Item(name="stereo_render"),
+        Item(name="stereo_type"),
+        show_border=True,
+        label="Stereo rendering",
+    )
 
     # The default view of this object.
-    default_view = View(Group(
-                            Group(Item(name='background'),
-                                  Item(name='foreground'),
-                                  Item(name='parallel_projection'),
-                                  Item(name='disable_render'),
-                                  Item(name='off_screen_rendering'),
-                                  Item(name='jpeg_quality'),
-                                  Item(name='jpeg_progressive'),
-                                  Item(name='magnification'),
-                                  Item(name='anti_aliasing_frames'),
-                                  ),
-                            Group(Item(name='render_window',
-                                       style='custom',
-                                       visible_when='object.stereo',
-                                       editor=InstanceEditor(view=View(_stereo_view)),                                       show_label=False),
-                                  ),
-                            label='Scene'),
-                        Group(Item(name='light_manager',
-                                   style='custom',
-                                   editor=InstanceEditor(),
-                                   show_label=False),
-                                   label='Lights')
-                        )
+    default_view = View(
+        Group(
+            Group(
+                Item(name="background"),
+                Item(name="foreground"),
+                Item(name="parallel_projection"),
+                Item(name="disable_render"),
+                Item(name="off_screen_rendering"),
+                Item(name="jpeg_quality"),
+                Item(name="jpeg_progressive"),
+                Item(name="magnification"),
+                Item(name="anti_aliasing_frames"),
+            ),
+            Group(
+                Item(
+                    name="render_window",
+                    style="custom",
+                    visible_when="object.stereo",
+                    editor=InstanceEditor(view=View(_stereo_view)),
+                    show_label=False,
+                ),
+            ),
+            label="Scene",
+        ),
+        Group(
+            Item(
+                name="light_manager",
+                style="custom",
+                editor=InstanceEditor(),
+                show_label=False,
+            ),
+            label="Lights",
+        ),
+    )
 
     ###################################
     # Private traits.
@@ -122,7 +133,7 @@ class SceneModel(TVTKScene):
     def add_actors(self, actors):
         """ Adds a single actor or a tuple or list of actors to the
         renderer."""
-        if hasattr(actors, '__iter__'):
+        if hasattr(actors, "__iter__"):
             self.actor_list.extend(actors)
         else:
             self.actor_list.append(actors)
@@ -131,7 +142,7 @@ class SceneModel(TVTKScene):
         """ Removes a single actor or a tuple or list of actors from
         the renderer."""
         my_actors = self.actor_list
-        if hasattr(actors, '__iter__'):
+        if hasattr(actors, "__iter__"):
             for actor in actors:
                 my_actors.remove(actor)
         else:
@@ -144,7 +155,7 @@ class SceneModel(TVTKScene):
     def add_widgets(self, widgets, enabled=True):
         """Adds widgets to the renderer.
         """
-        if not hasattr(widgets, '__iter__'):
+        if not hasattr(widgets, "__iter__"):
             widgets = [widgets]
         for widget in widgets:
             self.enabled_info[widget] = enabled
@@ -152,7 +163,7 @@ class SceneModel(TVTKScene):
 
     def remove_widgets(self, widgets):
         """Removes widgets from the renderer."""
-        if not hasattr(widgets, '__iter__'):
+        if not hasattr(widgets, "__iter__"):
             widgets = [widgets]
         self.remove_actors(widgets)
         for widget in widgets:
@@ -320,7 +331,7 @@ class SceneModel(TVTKScene):
     def _get_picker(self):
         """Getter for the picker."""
         se = self.scene_editor
-        if se is not None and hasattr(se, 'picker'):
+        if se is not None and hasattr(se, "picker"):
             return se.picker
         return None
 
@@ -337,4 +348,3 @@ class SceneModel(TVTKScene):
     def _get_scene(self):
         """Getter for the scene property."""
         return self
-

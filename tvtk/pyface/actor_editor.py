@@ -8,4 +8,5 @@
 
 # Import the toolkit specific version.
 from tvtk.pyface.toolkit import toolkit_object
-ActorEditor = toolkit_object('actor_editor:ActorEditor')
+
+ActorEditor = toolkit_object("actor_editor:ActorEditor")

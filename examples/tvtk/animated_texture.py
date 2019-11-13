@@ -15,8 +15,7 @@ from __future__ import print_function
 from numpy import arange, zeros, uint8, exp, sqrt, pi
 
 from tvtk.api import tvtk
-from tvtk.common import configure_input_data, configure_source_data, \
-                        is_old_pipeline
+from tvtk.common import configure_input_data, configure_source_data, is_old_pipeline
 
 # Source for glyph.  Note that you need to pick a source that has
 # texture co-ords already set.  If not you'll have to generate them.
@@ -30,14 +29,14 @@ cs = tvtk.CubeSource(x_length=2, y_length=1.0, z_length=0.5)
 
 # Create input for the glyph -- the sources are placed at these input
 # points.
-pts = [[1,1,1],[0,0,0], [-1,-1,-1]]
-pd = tvtk.PolyData(points=pts, polys=[[0],[1],[2]])
+pts = [[1, 1, 1], [0, 0, 0], [-1, -1, -1]]
+pd = tvtk.PolyData(points=pts, polys=[[0], [1], [2]])
 # Orientation/scaling is as per the vector attribute.
-vecs = [[1,0,0], [0,1,0], [0,0,1]]
+vecs = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 pd.point_data.vectors = vecs
 
 # Create the glyph3d and set up the pipeline.
-g = tvtk.Glyph3D(scale_mode='data_scaling_off', vector_mode = 'use_vector')
+g = tvtk.Glyph3D(scale_mode="data_scaling_off", vector_mode="use_vector")
 configure_input_data(g, pd)
 
 # Note that VTK's vtkGlyph.SetSource is special because it has two
@@ -59,6 +58,7 @@ a = tvtk.Actor(mapper=m)
 # you don't like this image, replace with your favorite -- any image
 # will do (you must use a suitable reader though).
 
+
 def image_from_array(ary):
     """ Create a VTK image object that references the data in ary.
         The array is either 2D or 3D with.  The last dimension
@@ -78,21 +78,21 @@ def image_from_array(ary):
 
     if dims == 2:
         # 1D array of pixels.
-        img.whole_extent = (0, sz[0]-1, 0, 0, 0, 0)
+        img.whole_extent = (0, sz[0] - 1, 0, 0, 0, 0)
         img.dimensions = sz[0], 1, 1
         img.point_data.scalars = ary
 
     elif dims == 3:
         # 2D array of pixels.
         if is_old_pipeline():
-            img.whole_extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
+            img.whole_extent = (0, sz[0] - 1, 0, sz[1] - 1, 0, 0)
         else:
-            img.extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
+            img.extent = (0, sz[0] - 1, 0, sz[1] - 1, 0, 0)
         img.dimensions = sz[0], sz[1], 1
 
         # create a 2d view of the array
         ary_2d = ary[:]
-        ary_2d.shape = sz[0]*sz[1],sz[2]
+        ary_2d.shape = sz[0] * sz[1], sz[2]
         img.point_data.scalars = ary_2d
 
     else:
@@ -100,11 +100,12 @@ def image_from_array(ary):
 
     return img
 
+
 sz = (256, 256, 3)
 array_3d = zeros(sz, uint8)
 img = image_from_array(array_3d)
 
-t = tvtk.Texture(interpolate = 1)
+t = tvtk.Texture(interpolate=1)
 configure_input_data(t, img)
 a.texture = t
 
@@ -117,20 +118,21 @@ ren.add_actor(a)
 rwi.initialize()
 
 # create a little wave to slide across the image.
-wave = 1/sqrt(2*pi)*exp(-arange(-2, 2, .05)**2/2)*255
+wave = 1 / sqrt(2 * pi) * exp(-arange(-2, 2, 0.05) ** 2 / 2) * 255
 # have to use += here because = doesn't respect broadcasting correctly.
-array_3d[:len(wave)] += wave.astype(uint8)[:,None,None]
+array_3d[: len(wave)] += wave.astype(uint8)[:, None, None]
 
 import time
+
 t1 = time.time()
 N = 256
 for i in range(N):
     array_3d[1:] = array_3d[:-1]
     img.modified()
     rwi.render()
-    #print i
+    # print i
 t2 = time.time()
-print('texture size:', array_3d.shape)
-print('fps:', N/(t2-t1))
+print("texture size:", array_3d.shape)
+print("fps:", N / (t2 - t1))
 
 rwi.start()

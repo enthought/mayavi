@@ -16,8 +16,7 @@ from tvtk.api import tvtk
 from mayavi.core.common import error
 from mayavi.core.file_data_source import FileDataSource
 from mayavi.core.trait_defs import DEnum
-from mayavi.core.pipeline_info import (PipelineInfo,
-        get_tvtk_dataset_name)
+from mayavi.core.pipeline_info import PipelineInfo, get_tvtk_dataset_name
 
 
 ######################################################################
@@ -29,7 +28,7 @@ def find_file_data_type(file_name):
     if r.test_read_file():
         return r.file_data_type
     else:
-        error("File %s is not a valid VTK XML file!"%(file_name))
+        error("File %s is not a valid VTK XML file!" % (file_name))
 
 
 def get_array_type(arr):
@@ -39,15 +38,15 @@ def get_array_type(arr):
     returns the empty string.
     """
     n = arr.number_of_components
-    ret = {1: 'scalars', 3: 'vectors', 4: 'scalars', 9:'tensors'}
-    return ret.get(n) or ''
+    ret = {1: "scalars", 3: "vectors", 4: "scalars", 9: "tensors"}
+    return ret.get(n) or ""
 
 
 def get_attribute_list(data):
     """ Gets scalar, vector and tensor information from the given data
     (either cell or point data).
     """
-    attr = {'scalars':[], 'vectors':[], 'tensors':[]}
+    attr = {"scalars": [], "vectors": [], "tensors": []}
     if data is not None:
         n = data.number_of_arrays
         for i in range(n):
@@ -111,47 +110,56 @@ class VTKXMLFileReader(FileDataSource):
     # the attribute is "deactivated".  This is useful when you have
     # both point and cell attributes and want to use cell data by
     # default.
-    point_scalars_name = DEnum(values_name='_point_scalars_list',
-                               desc='scalar point data attribute to use')
+    point_scalars_name = DEnum(
+        values_name="_point_scalars_list", desc="scalar point data attribute to use"
+    )
     # The active point vector name.
-    point_vectors_name = DEnum(values_name='_point_vectors_list',
-                               desc='vectors point data attribute to use')
+    point_vectors_name = DEnum(
+        values_name="_point_vectors_list", desc="vectors point data attribute to use"
+    )
     # The active point tensor name.
-    point_tensors_name = DEnum(values_name='_point_tensors_list',
-                               desc='tensor point data attribute to use')
+    point_tensors_name = DEnum(
+        values_name="_point_tensors_list", desc="tensor point data attribute to use"
+    )
 
     # The active cell scalar name.
-    cell_scalars_name = DEnum(values_name='_cell_scalars_list',
-                               desc='scalar cell data attribute to use')
+    cell_scalars_name = DEnum(
+        values_name="_cell_scalars_list", desc="scalar cell data attribute to use"
+    )
     # The active cell vector name.
-    cell_vectors_name = DEnum(values_name='_cell_vectors_list',
-                               desc='vectors cell data attribute to use')
+    cell_vectors_name = DEnum(
+        values_name="_cell_vectors_list", desc="vectors cell data attribute to use"
+    )
     # The active cell tensor name.
-    cell_tensors_name = DEnum(values_name='_cell_tensors_list',
-                               desc='tensor cell data attribute to use')
+    cell_tensors_name = DEnum(
+        values_name="_cell_tensors_list", desc="tensor cell data attribute to use"
+    )
     ########################################
 
     # The VTK data file reader.
     reader = Instance(tvtk.XMLReader)
 
-    refresh = Button('Update reader')
+    refresh = Button("Update reader")
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     # Our view.
-    view = View(Group(Include('time_step_group'),
-                      Item(name='point_scalars_name'),
-                      Item(name='point_vectors_name'),
-                      Item(name='point_tensors_name'),
-                      Item(name='cell_scalars_name'),
-                      Item(name='cell_vectors_name'),
-                      Item(name='cell_tensors_name'),
-                      Item(name='reader'),
-                      Item(name='refresh', show_label=False)
-                      ))
+    view = View(
+        Group(
+            Include("time_step_group"),
+            Item(name="point_scalars_name"),
+            Item(name="point_vectors_name"),
+            Item(name="point_tensors_name"),
+            Item(name="cell_scalars_name"),
+            Item(name="cell_vectors_name"),
+            Item(name="cell_tensors_name"),
+            Item(name="reader"),
+            Item(name="refresh", show_label=False),
+        )
+    )
 
     ########################################
     # Private traits.
@@ -169,8 +177,7 @@ class VTKXMLFileReader(FileDataSource):
     # object and will ensure that the pipeline is properly taken care
     # of.  Directly setting the array in the VTK object will not do
     # this.
-    _assign_attribute = Instance(tvtk.AssignAttribute, args=(),
-                                 allow_none=False)
+    _assign_attribute = Instance(tvtk.AssignAttribute, args=(), allow_none=False)
 
     # Toggles if this is the first time this object has been used.
     _first = Bool(True)
@@ -180,17 +187,22 @@ class VTKXMLFileReader(FileDataSource):
     ######################################################################
     def __get_pure_state__(self):
         d = super(VTKXMLFileReader, self).__get_pure_state__()
-        for name in ('_assign_attribute', '_first'):
+        for name in ("_assign_attribute", "_first"):
             d.pop(name, None)
         # Pickle the 'point_scalars_name' etc. since these are
         # properties and not in __dict__.
         attr = {}
-        for name in ('point_scalars', 'point_vectors',
-                     'point_tensors', 'cell_scalars',
-                     'cell_vectors', 'cell_tensors'):
-            d.pop('_' + name + '_list', None)
-            d.pop('_' + name + '_name', None)
-            x = name + '_name'
+        for name in (
+            "point_scalars",
+            "point_vectors",
+            "point_tensors",
+            "cell_scalars",
+            "cell_vectors",
+            "cell_tensors",
+        ):
+            d.pop("_" + name + "_list", None)
+            d.pop("_" + name + "_name", None)
+            x = name + "_name"
             attr[x] = getattr(self, x)
         d.update(attr)
         return d
@@ -226,7 +238,6 @@ class VTKXMLFileReader(FileDataSource):
         # Call the parent method to do its thing.
         super(VTKXMLFileReader, self).stop()
 
-
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
@@ -248,27 +259,28 @@ class VTKXMLFileReader(FileDataSource):
             `get_all_attributes` function and the data type
             (point/cell) data this will setup the object and the data.
             """
-            attrs = ['scalars', 'vectors', 'tensors']
+            attrs = ["scalars", "vectors", "tensors"]
             aa = obj._assign_attribute
-            data = getattr(obj.reader.output, '%s_data'%d_type)
+            data = getattr(obj.reader.output, "%s_data" % d_type)
             for attr in attrs:
                 values = attributes[attr]
-                values.append('')
-                setattr(obj, '_%s_%s_list'%(d_type, attr), values)
+                values.append("")
+                setattr(obj, "_%s_%s_list" % (d_type, attr), values)
                 if len(values) > 1:
-                    default = getattr(obj, '%s_%s_name'%(d_type, attr))
+                    default = getattr(obj, "%s_%s_name" % (d_type, attr))
                     if obj._first and len(default) == 0:
                         default = values[0]
-                    getattr(data, 'set_active_%s'%attr)(default)
-                    aa.assign(default, attr.upper(),
-                              d_type.upper() +'_DATA')
+                    getattr(data, "set_active_%s" % attr)(default)
+                    aa.assign(default, attr.upper(), d_type.upper() + "_DATA")
                     aa.update()
-                    kw = {'%s_%s_name'%(d_type, attr): default,
-                          'trait_change_notify': False}
+                    kw = {
+                        "%s_%s_name" % (d_type, attr): default,
+                        "trait_change_notify": False,
+                    }
                     obj.trait_set(**kw)
 
-        _setup_data_traits(self, cell_attr, 'cell')
-        _setup_data_traits(self, pnt_attr, 'point')
+        _setup_data_traits(self, cell_attr, "cell")
+        _setup_data_traits(self, pnt_attr, "point")
         if self._first:
             self._first = False
         # Propagate the data changed event.
@@ -292,7 +304,7 @@ class VTKXMLFileReader(FileDataSource):
         else:
             if self.reader is None:
                 d_type = find_file_data_type(fpath.get())
-                self.reader = eval('tvtk.XML%sReader()'%d_type)
+                self.reader = eval("tvtk.XML%sReader()" % d_type)
             reader = self.reader
             reader.file_name = value
             reader.update()
@@ -315,53 +327,53 @@ class VTKXMLFileReader(FileDataSource):
         reader_output = self.reader.output
         if len(value) == 0:
             # If the value is empty then we deactivate that attribute.
-            d = getattr(reader_output, attr_type + '_data')
-            method = getattr(d, 'set_active_%s'%data_type)
+            d = getattr(reader_output, attr_type + "_data")
+            method = getattr(d, "set_active_%s" % data_type)
             method(None)
             self.data_changed = True
             return
 
         aa = self._assign_attribute
         data = None
-        if attr_type == 'point':
+        if attr_type == "point":
             data = reader_output.point_data
-        elif attr_type == 'cell':
+        elif attr_type == "cell":
             data = reader_output.cell_data
 
-        method = getattr(data, 'set_active_%s'%data_type)
+        method = getattr(data, "set_active_%s" % data_type)
         method(value)
-        aa.assign(value, data_type.upper(), attr_type.upper() +'_DATA')
+        aa.assign(value, data_type.upper(), attr_type.upper() + "_DATA")
         aa.update()
         # Fire an event, so the changes propagate.
         self.data_changed = True
 
     def _point_scalars_name_changed(self, value):
-        self._set_data_name('scalars', 'point', value)
+        self._set_data_name("scalars", "point", value)
 
     def _point_vectors_name_changed(self, value):
-        self._set_data_name('vectors', 'point', value)
+        self._set_data_name("vectors", "point", value)
 
     def _point_tensors_name_changed(self, value):
-        self._set_data_name('tensors', 'point', value)
+        self._set_data_name("tensors", "point", value)
 
     def _cell_scalars_name_changed(self, value):
-        self._set_data_name('scalars', 'cell', value)
+        self._set_data_name("scalars", "cell", value)
 
     def _cell_vectors_name_changed(self, value):
-        self._set_data_name('vectors', 'cell', value)
+        self._set_data_name("vectors", "cell", value)
 
     def _cell_tensors_name_changed(self, value):
-        self._set_data_name('tensors', 'cell', value)
+        self._set_data_name("tensors", "cell", value)
 
     def _get_name(self):
         """ Gets the name to display on the tree view.
         """
         fname = basename(self.file_path.get())
-        ret = "VTK XML file (%s)"%fname
+        ret = "VTK XML file (%s)" % fname
         if len(self.file_list) > 1:
             ret += " (timeseries)"
-        if '[Hidden]' in self.name:
-            ret += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            ret += " [Hidden]"
 
         return ret
 

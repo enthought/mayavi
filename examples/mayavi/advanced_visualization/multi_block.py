@@ -5,7 +5,7 @@ from tvtk.api import tvtk
 
 def create_mb_dataset():
     mydir = os.path.dirname(__file__)
-    path = os.path.join(mydir, os.pardir, 'data', 'fire_ug.vtu')
+    path = os.path.join(mydir, os.pardir, "data", "fire_ug.vtu")
     r = tvtk.XMLUnstructuredGridReader(file_name=path)
     r.update()
     ug0 = r.output
@@ -32,5 +32,5 @@ def main():
     mlab.show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

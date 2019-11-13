@@ -60,10 +60,10 @@ def has_subclass(tvtk_class):
     Unfortunately because of the VTK API we cannot tell whether the
     subclass is abstract or not
     """
+
     def is_sub_class(x):
-        return (inspect.isclass(x) and
-                issubclass(x, tvtk_class) and
-                x is not tvtk_class)
+        return inspect.isclass(x) and issubclass(x, tvtk_class) and x is not tvtk_class
+
     # wish there was an iterator version of inspect.getmembers
     return bool(inspect.getmembers(tvtk, is_sub_class))
 
@@ -80,13 +80,14 @@ class TestTVTK(unittest.TestCase):
         """Test if the wrap_vtk function works."""
         o = vtk.vtkVolume()
         w = tvtk_helper.wrap_vtk(o)
-        self.assertEqual(w.__class__.__name__, 'Volume')
+        self.assertEqual(w.__class__.__name__, "Volume")
         w1 = tvtk_helper.wrap_vtk(w)
         self.assertEqual(w, w1)
         del w1, w, o
 
         class A:
             pass
+
         a = A()
         w = tvtk_helper.wrap_vtk(a)
         self.assertEqual(a, w)
@@ -97,16 +98,29 @@ class TestTVTK(unittest.TestCase):
         vtk.vtkObject.GlobalWarningDisplayOff()
         o = tvtk.ImageFFT()
         vtk_ver = vtk.vtkVersion().GetVTKVersion()
-        if vtk_ver[:3] in ['4.2', '4.4']:
-            cached = ['ImageFourierFilter', 'ImageDecomposeFilter',
-                      'ImageIterateFilter', 'ImageToImageFilter',
-                      'ImageSource', 'Source', 'ProcessObject',
-                      'Object', 'ObjectBase']
+        if vtk_ver[:3] in ["4.2", "4.4"]:
+            cached = [
+                "ImageFourierFilter",
+                "ImageDecomposeFilter",
+                "ImageIterateFilter",
+                "ImageToImageFilter",
+                "ImageSource",
+                "Source",
+                "ProcessObject",
+                "Object",
+                "ObjectBase",
+            ]
         else:
-            cached = ['ImageFourierFilter', 'ImageDecomposeFilter',
-                      'ImageIterateFilter', 'ThreadedImageAlgorithm',
-                      'ImageAlgorithm', 'Algorithm', 'Object',
-                      'ObjectBase']
+            cached = [
+                "ImageFourierFilter",
+                "ImageDecomposeFilter",
+                "ImageIterateFilter",
+                "ThreadedImageAlgorithm",
+                "ImageAlgorithm",
+                "Algorithm",
+                "Object",
+                "ObjectBase",
+            ]
 
         for i in cached:
             self.assertIn(i, tvtk_helper._cache)
@@ -118,20 +132,22 @@ class TestTVTK(unittest.TestCase):
         # First clear the cache. Another module may have already imported
         # the same class and this would compromise the test
         from tvtk.tvtk_classes import tvtk_helper
+
         tvtk_helper._cache.clear()
 
         # Hack to simulate a module inside tvtk.custom.
-        mod = types.ModuleType('xml_data_reader')
+        mod = types.ModuleType("xml_data_reader")
 
         class XMLDataReader:
             def f(self):
-                return 'f'
-        setattr(mod, 'XMLDataReader', XMLDataReader)
-        sys.modules['tvtk.custom.xml_data_reader'] = mod
+                return "f"
+
+        setattr(mod, "XMLDataReader", XMLDataReader)
+        sys.modules["tvtk.custom.xml_data_reader"] = mod
 
         # Now test if this is the one imported.
         r = tvtk.XMLDataReader()
-        self.assertEqual(r.f(), 'f')
+        self.assertEqual(r.f(), "f")
         if len(vtk.vtkObjectBase.__bases__) > 0:
             if vtk_major_version == 7 or PY_VER < 3:
                 expect = ()
@@ -143,7 +159,7 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(r.__class__.__bases__, expect)
 
         # Clean up.
-        del sys.modules['tvtk.custom.xml_data_reader']
+        del sys.modules["tvtk.custom.xml_data_reader"]
         tvtk_helper._cache.clear()
 
     def test_basic(self):
@@ -161,22 +177,22 @@ class TestTVTK(unittest.TestCase):
         a.mapper = m
         cs.resolution = 36
         p = a.property
-        p.representation = 'w'
+        p.representation = "w"
 
     def test_do_change(self):
         """Test if VTK object changes when trait is changed."""
         p = tvtk.Property()
         p.edge_visibility = not p.edge_visibility
-        p.representation = 'p'
-        p.interpolation = 'phong'
+        p.representation = "p"
+        p.interpolation = "phong"
         p.opacity = 0.5
         p.color = (0, 1, 0)
         p.diffuse_color = (1, 1, 1)
         p.specular_color = (1, 1, 0)
         for t, g in p._updateable_traits_:
             val = getattr(p._vtk_obj, g)()
-            if t in ['representation', 'interpolation']:
-                self.assertEqual(val, getattr(p, t + '_'))
+            if t in ["representation", "interpolation"]:
+                self.assertEqual(val, getattr(p, t + "_"))
             else:
                 self.assertEqual(val, getattr(p, t))
 
@@ -191,7 +207,7 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(p.opacity, 0.5)
 
         obj.SetRepresentationToPoints()
-        self.assertEqual(p.representation, 'points')
+        self.assertEqual(p.representation, "points")
 
         # color traits have been made non updateable
         if vtk_major_version <= 5 and vtk_minor_version < 10:
@@ -219,7 +235,7 @@ class TestTVTK(unittest.TestCase):
         """Test if the help attribute is correct."""
         n = tvtk.PolyDataNormals()
         t = n.traits()
-        test = t['splitting'].desc != t['non_manifold_traversal'].desc
+        test = t["splitting"].desc != t["non_manifold_traversal"].desc
         self.assertEqual(test, True)
 
     def test_object_cache(self):
@@ -227,7 +243,7 @@ class TestTVTK(unittest.TestCase):
         cs = tvtk.ConeSource()
         hash1 = hash(cs)
         o = cs.output
-        if hasattr(o, 'producer_port'):
+        if hasattr(o, "producer_port"):
             src = o.producer_port.producer
         else:
             src = cs.executive.algorithm
@@ -243,7 +259,7 @@ class TestTVTK(unittest.TestCase):
         # Now get another ConeSource and ensure the hash is different.
         cs = tvtk.ConeSource()
         o = cs.output
-        if hasattr(o, 'producer_port'):
+        if hasattr(o, "producer_port"):
             src = o.producer_port.producer
         else:
             src = cs.executive.algorithm
@@ -261,7 +277,7 @@ class TestTVTK(unittest.TestCase):
         r = tvtk.Renderer()
 
         def _get_props(obj):
-            if hasattr(obj, 'view_props'):
+            if hasattr(obj, "view_props"):
                 return obj.view_props
             else:
                 return obj.props
@@ -275,13 +291,13 @@ class TestTVTK(unittest.TestCase):
 
     def test_init_traits(self):
         """Test if the objects traits can be set in __init__."""
-        p = tvtk.Property(opacity=0.1, color=(1, 0, 0), representation='p')
+        p = tvtk.Property(opacity=0.1, color=(1, 0, 0), representation="p")
         self.assertEqual(p.opacity, 0.1)
         self.assertEqual(p.color, (1.0, 0.0, 0.0))
-        self.assertEqual(p.representation, 'points')
+        self.assertEqual(p.representation, "points")
 
         # Test case where the object traits are wrong.
-        self.assertRaises(TraitError, tvtk.Property, foo='bar')
+        self.assertRaises(TraitError, tvtk.Property, foo="bar")
 
         cs = tvtk.ConeSource(radius=0.1, height=0.5, resolution=32)
         self.assertEqual(cs.radius, 0.1)
@@ -294,13 +310,13 @@ class TestTVTK(unittest.TestCase):
     def test_matrix4x4(self):
         """Test if Matrix4x4 works nicely."""
         m = tvtk.Matrix4x4()
-        [m.set_element(i, j, i*4 + j) for i in range(4) for j in range(4)]
+        [m.set_element(i, j, i * 4 + j) for i in range(4) for j in range(4)]
         s = pickle.dumps(m)
         del m
         m = pickle.loads(s)
         for i in range(4):
             for j in range(4):
-                self.assertEqual(m.get_element(i, j), i*4 + j)
+                self.assertEqual(m.get_element(i, j), i * 4 + j)
         # Test the from/to_array functions.
         a = numpy.array(list(range(16)), dtype=float)
         a.shape = 4, 4
@@ -312,14 +328,14 @@ class TestTVTK(unittest.TestCase):
     def test_property(self):
         """Test if Property's color works ok in all circumstances."""
         p = tvtk.Property()
-        val = (0., 1., 0.)
+        val = (0.0, 1.0, 0.0)
         p.color = val
         p.specular = 1.0
         self.assertEqual(p.specular_color, val)
         self.assertEqual(p.diffuse_color, val)
         self.assertEqual(p.ambient_color, val)
 
-        sc = (1., 0., 1.)
+        sc = (1.0, 0.0, 1.0)
         p.specular_color = sc
         self.assertEqual(p.specular_color, sc)
         self.assertEqual(p.diffuse_color, val)
@@ -372,7 +388,7 @@ class TestTVTK(unittest.TestCase):
         a = tvtk.Actor()
         a_list.append(a)
         ac.append(a)
-        self.assertRaises(TypeError, ac.__getitem__, 's')
+        self.assertRaises(TypeError, ac.__getitem__, "s")
         self.assertEqual(len(ac), 1)
         a = tvtk.Actor()
         a_list.append(a)
@@ -390,7 +406,7 @@ class TestTVTK(unittest.TestCase):
         ac[1] = a_list[0]
         self.assertEqual(ac[0]._vtk_obj, a_list[1]._vtk_obj)
         self.assertEqual(ac[1]._vtk_obj, a_list[0]._vtk_obj)
-        self.assertRaises(TypeError, ac.__setitem__, 's', a_list[1])
+        self.assertRaises(TypeError, ac.__setitem__, "s", a_list[1])
 
         # Test __delitem__.
         del ac[-2]
@@ -401,7 +417,7 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(len(ac), 0)
 
         # Test __repr__.
-        self.assertEqual(repr(ac), '[]')
+        self.assertEqual(repr(ac), "[]")
 
         # test extend.
         ac.extend(a_list)
@@ -428,16 +444,16 @@ class TestTVTK(unittest.TestCase):
         """Test if vtkDataArrays behave in a Pythonic fashion."""
         # Check a 3D array.
         f = tvtk.FloatArray()
-        a = numpy.array([[0., 0, 0], [1, 1, 1]])
+        a = numpy.array([[0.0, 0, 0], [1, 1, 1]])
         f.from_array(a)
         self.assertEqual(f.number_of_components, 3)
         self.assertEqual(f.number_of_tuples, 2)
         self.assertEqual(mysum(f.to_array() - a), 0)
         for i, j in zip(a, f):
-            self.assertEqual(mysum(i-j), 0.0)
+            self.assertEqual(mysum(i - j), 0.0)
         self.assertEqual(f[0], (0.0, 0.0, 0.0))
-        self.assertEqual(f[-1], (1., 1., 1.))
-        self.assertEqual(repr(f), '[(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)]')
+        self.assertEqual(f[-1], (1.0, 1.0, 1.0))
+        self.assertEqual(repr(f), "[(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)]")
         f.append((2, 2, 2))
         f.extend([[3, 3, 3], [4, 4, 4]])
         self.assertEqual(len(f), 5)
@@ -449,21 +465,22 @@ class TestTVTK(unittest.TestCase):
         self.assertRaises(IndexError, f.__setitem__, 100, 100)
 
         # Check a 5D arrray
-        a = numpy.array([[0., 0, 0, 0, 0], [1, 1, 1, 1, 1]])
+        a = numpy.array([[0.0, 0, 0, 0, 0], [1, 1, 1, 1, 1]])
         f.from_array(a)
         self.assertEqual(mysum(f.to_array() - a), 0.0)
         for i, j in zip(a, f):
             self.assertEqual(mysum(i - j), 0.0)
         self.assertEqual(f[0], (0.0, 0.0, 0.0, 0.0, 0.0))
-        self.assertEqual(f[-1], (1., 1., 1., 1., 1.))
+        self.assertEqual(f[-1], (1.0, 1.0, 1.0, 1.0, 1.0))
         self.assertEqual(
-            repr(f), '[(0.0, 0.0, 0.0, 0.0, 0.0), (1.0, 1.0, 1.0, 1.0, 1.0)]')
+            repr(f), "[(0.0, 0.0, 0.0, 0.0, 0.0), (1.0, 1.0, 1.0, 1.0, 1.0)]"
+        )
         f.append((2, 2, 2, 2, 2))
         f.extend([[3, 3, 3, 3, 3], [4, 4, 4, 4, 4]])
         self.assertEqual(len(f), 5)
         self.assertEqual(f.number_of_components, 5)
         self.assertEqual(f.number_of_tuples, 5)
-        self.assertEqual(f[-1], (4., 4., 4., 4., 4.))
+        self.assertEqual(f[-1], (4.0, 4.0, 4.0, 4.0, 4.0))
         f[1] = [-1, -1, -1, -1, -1]
         self.assertEqual(f[1], (-1.0, -1.0, -1.0, -1.0, -1.0))
         self.assertRaises(IndexError, f.__getitem__, 100)
@@ -472,7 +489,7 @@ class TestTVTK(unittest.TestCase):
     def test_points(self):
         """Test if vtkPoints behaves in a Pythonic fashion."""
         f = tvtk.Points()
-        a = numpy.array([[0., 0, 0], [1, 1, 1]])
+        a = numpy.array([[0.0, 0, 0], [1, 1, 1]])
         f.from_array(a)
         self.assertEqual(mysum(f.to_array() - a), 0)
         for i, j in zip(a, f):
@@ -483,8 +500,8 @@ class TestTVTK(unittest.TestCase):
         # is deleted.
         del a
         self.assertEqual(f[0], (1.0, 0.0, 0.0))
-        self.assertEqual(f[-1], (1., 1., 1.))
-        self.assertEqual(repr(f), '[(1.0, 0.0, 0.0), (1.0, 1.0, 1.0)]')
+        self.assertEqual(f[-1], (1.0, 1.0, 1.0))
+        self.assertEqual(repr(f), "[(1.0, 0.0, 0.0), (1.0, 1.0, 1.0)]")
         f.append((2, 2, 2))
         f.extend([[3, 3, 3], [4, 4, 4]])
         self.assertEqual(len(f), 5)
@@ -503,12 +520,12 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(f[-1], 3)
         self.assertEqual(f[0], 0)
         if sys.version_info[0] > 2:
-            self.assertEqual(repr(f), '[0, 1, 2, 3]')
+            self.assertEqual(repr(f), "[0, 1, 2, 3]")
         else:
             if type(f[0]) is long:
-                self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
+                self.assertEqual(repr(f), "[0L, 1L, 2L, 3L]")
             else:
-                self.assertEqual(repr(f), '[0, 1, 2, 3]')
+                self.assertEqual(repr(f), "[0, 1, 2, 3]")
         f.append(4)
         f.extend([5, 6])
         self.assertEqual(len(f), 7)
@@ -521,7 +538,8 @@ class TestTVTK(unittest.TestCase):
         """Test if Numeric/VTK array conversion works."""
         # This is only a simple test.
         data = numpy.array(
-            [[0, 0, 0, 10], [1, 0, 0, 20], [0, 1, 0, 20], [0, 0, 1, 30]], 'f')
+            [[0, 0, 0, 10], [1, 0, 0, 20], [0, 1, 0, 20], [0, 0, 1, 30]], "f"
+        )
         triangles = numpy.array([[0, 1, 3], [0, 3, 2], [1, 2, 3], [0, 2, 1]])
         points = data[:, :3]
         temperature = data[:, -1]
@@ -538,7 +556,7 @@ class TestTVTK(unittest.TestCase):
     def test_append_poly_data_input(self):
         """Test if AppendPolyData has its get_input wrapped right."""
         a = tvtk.AppendPolyData()
-        self.assertEqual(hasattr(a, 'get_input'), True)
+        self.assertEqual(hasattr(a, "get_input"), True)
         self.assertEqual(a.input, None)
 
     def test_property_change_notification(self):
@@ -547,51 +565,50 @@ class TestTVTK(unittest.TestCase):
         class Junk:
             def f(self, obj, name, old, new):
                 self.data = obj, name, old, new
+
         z = Junk()
         cs = tvtk.ConeSource()
         m = tvtk.PolyDataMapper()
         if vtk_major_version < 6:
-            m.on_trait_change(z.f, 'input')
+            m.on_trait_change(z.f, "input")
             m.input = cs.output
-            self.assertEqual(z.data, (m, 'input', None, cs.output))
+            self.assertEqual(z.data, (m, "input", None, cs.output))
             m.input = None
-            self.assertEqual(z.data, (m, 'input', cs.output, None))
-            m.on_trait_change(z.f, 'input', remove=True)
+            self.assertEqual(z.data, (m, "input", cs.output, None))
+            m.on_trait_change(z.f, "input", remove=True)
             m.input = cs.output
         else:
-            m.on_trait_change(z.f, 'input_connection')
+            m.on_trait_change(z.f, "input_connection")
             m.input_connection = cs.output_port
-            self.assertEqual(
-                z.data, (m, 'input_connection', None, cs.output_port))
+            self.assertEqual(z.data, (m, "input_connection", None, cs.output_port))
             m.input_connection = None
-            self.assertEqual(
-                z.data, (m, 'input_connection', cs.output_port, None))
-            m.on_trait_change(z.f, 'input_connection', remove=True)
+            self.assertEqual(z.data, (m, "input_connection", cs.output_port, None))
+            m.on_trait_change(z.f, "input_connection", remove=True)
             m.input_connection = cs.output_port
         a = tvtk.Actor()
-        a.on_trait_change(z.f, 'mapper')
-        a.on_trait_change(z.f, 'property')
+        a.on_trait_change(z.f, "mapper")
+        a.on_trait_change(z.f, "property")
         a.mapper = m
-        self.assertEqual(z.data, (a, 'mapper', None, m))
+        self.assertEqual(z.data, (a, "mapper", None, m))
         old = a.property
         new = tvtk.Property()
         a.property = new
-        self.assertEqual(z.data, (a, 'property', old, new))
+        self.assertEqual(z.data, (a, "property", old, new))
 
         # Check if property notification occurs on add_input/remove_input
         a = tvtk.AppendPolyData()
         pd = tvtk.PolyData()
         if vtk_major_version < 6:
-            a.on_trait_change(z.f, 'input')
+            a.on_trait_change(z.f, "input")
             a.add_input(pd)
             old, new = None, pd
-            self.assertEqual(z.data, (a, 'input', old, new))
+            self.assertEqual(z.data, (a, "input", old, new))
             a.remove_input(pd)
             old, new = pd, None
-            self.assertEqual(z.data, (a, 'input', old, new))
+            self.assertEqual(z.data, (a, "input", old, new))
             a.remove_all_inputs()
             old, new = None, None
-            self.assertEqual(z.data, (a, 'input', old, new))
+            self.assertEqual(z.data, (a, "input", old, new))
         else:
             a.add_input_data(pd)
             self.assertEqual(a.input, pd)
@@ -623,8 +640,7 @@ class TestTVTK(unittest.TestCase):
 
     def test_parent_child_input(self):
         """Case where parent has GetInput and child SetInput."""
-        if (vtk_major_version >= 6 and vtk_minor_version > 1) or \
-            vtk_major_version >= 7:
+        if (vtk_major_version >= 6 and vtk_minor_version > 1) or vtk_major_version >= 7:
             vm = tvtk.SmartVolumeMapper()
         else:
             vm = tvtk.VolumeTextureMapper2D()
@@ -639,7 +655,8 @@ class TestTVTK(unittest.TestCase):
             spw.input_connection = None
 
     @unittest.skipIf(
-        vtk_major_version >= 6, "Setting scalar type is no longer supported on VTK 6")
+        vtk_major_version >= 6, "Setting scalar type is no longer supported on VTK 6"
+    )
     def test_image_data_scalar_type(self):
         """Does ImageData support all scalar types?.
         """
@@ -652,9 +669,8 @@ class TestTVTK(unittest.TestCase):
     def test_null_string_wrapper(self):
         "Check if a null string default is wrapped as a String trait."
         cap = tvtk.CaptionActor2D()
-        self.assertEqual(
-            ('caption', 'GetCaption') in cap._updateable_traits_, True)
-        self.assertEqual('caption' in cap._full_traitnames_list_, True)
+        self.assertEqual(("caption", "GetCaption") in cap._updateable_traits_, True)
+        self.assertEqual("caption" in cap._full_traitnames_list_, True)
 
     def test_spider_plot_actor_set_axis_label(self):
         """ Test SpiderPlotActor Get/SetAxisLabel works
@@ -663,14 +679,14 @@ class TestTVTK(unittest.TestCase):
         # that are of different type, we need to make sure they
         # are coded as is
         actor = tvtk.SpiderPlotActor()
-        actor.set_axis_label(1, 'ss')
-        self.assertEqual(actor.get_axis_label(1), 'ss')
+        actor.set_axis_label(1, "ss")
+        self.assertEqual(actor.get_axis_label(1), "ss")
 
     def test_image_convolve_kernel(self):
         """ Test that setting the kernels in ImageConvolve works
         """
         tvtk_filter = tvtk.ImageConvolve()
-        expected = numpy.arange(9.)
+        expected = numpy.arange(9.0)
 
         if vtk_major_version < 6:
             # Before VTK 6, the ImageConvolve.GetKernel3x3
@@ -706,7 +722,7 @@ class TestTVTK(unittest.TestCase):
             with self.assertRaises(TraitError):
                 tvtk_filter.kernel3x3 = range(2)
 
-    @skipUnlessTVTKHasattr('DistanceRepresentation2D')
+    @skipUnlessTVTKHasattr("DistanceRepresentation2D")
     def test_distance_representation_2d_point1_world_position(self):
         """ Test that Position attributes in DistanceRepresentation2D works
         """
@@ -750,7 +766,7 @@ class TestTVTK(unittest.TestCase):
             with self.assertRaises(TraitError):
                 tvtk_filter.point1_world_position = range(2)
 
-    @skipUnlessTVTKHasattr('XOpenGLRenderWindow')
+    @skipUnlessTVTKHasattr("XOpenGLRenderWindow")
     def test_xopengl_render_window(self):
         """ Test that setting the position to a render window works
         Issue #357
@@ -765,10 +781,11 @@ class TestTVTK(unittest.TestCase):
         with self.assertRaises(TraitError):
             window.position = 1
 
-    @unittest.skipIf(vtk_major_version < 6,
-                     ('vtkHardwareSelector.PropColorValue is not available '
-                      'for vtk version < 6'))
-    @skipUnlessTVTKHasattr('HardwareSelector')
+    @unittest.skipIf(
+        vtk_major_version < 6,
+        ("vtkHardwareSelector.PropColorValue is not available " "for vtk version < 6"),
+    )
+    @skipUnlessTVTKHasattr("HardwareSelector")
     def test_hardware_selector_prop_color_value(self):
         """ Test that PropColorValue of HardwareSelector works
         Issue #360
@@ -781,9 +798,9 @@ class TestTVTK(unittest.TestCase):
         # But setting to some invalid value outside of update_traits
         # should fail as long as Traits is doing its job
         with self.assertRaises(TraitError):
-            selector.prop_color_value = (-100., 10., 1.)
+            selector.prop_color_value = (-100.0, 10.0, 1.0)
 
-    @skipUnlessTVTKHasattr('AxesTransformRepresentation')
+    @skipUnlessTVTKHasattr("AxesTransformRepresentation")
     def test_axes_transform_representation_tolerance(self):
         """ Test the tolerance of AxesTransformRepresentation is set properly
         """
@@ -793,7 +810,7 @@ class TestTVTK(unittest.TestCase):
         self.assertTrue(tvtk_obj.tolerance <= vtk_obj.GetToleranceMaxValue())
         self.assertTrue(tvtk_obj.tolerance >= vtk_obj.GetToleranceMinValue())
 
-    @skipUnlessTVTKHasattr('ObjectFactory')
+    @skipUnlessTVTKHasattr("ObjectFactory")
     def test_object_factory_enableflag_api(self):
         """ Test ObjectFactory Get/SetEnableFlag API
         """
@@ -804,16 +821,20 @@ class TestTVTK(unittest.TestCase):
             # If we place this check as a unittest.skipIf decorator,
             # this would cause garbage collection tests in the test suite to fail
             # as the some classes are kept live
-            raise unittest.SkipTest(('ObjectFactory has a subclass. '
-                                     'This may cause the TVTK API to be different '
-                                     'from if it had not'))
+            raise unittest.SkipTest(
+                (
+                    "ObjectFactory has a subclass. "
+                    "This may cause the TVTK API to be different "
+                    "from if it had not"
+                )
+            )
 
         # The Set/Get methods require many args
         # they should be coded as such
-        self.assertTrue(hasattr(klass, 'set_enable_flag'))
-        self.assertTrue(hasattr(klass, 'get_enable_flag'))
+        self.assertTrue(hasattr(klass, "set_enable_flag"))
+        self.assertTrue(hasattr(klass, "get_enable_flag"))
 
-    @skipUnlessTVTKHasattr('ContextDevice2D')
+    @skipUnlessTVTKHasattr("ContextDevice2D")
     def test_contextdevice2d_matrix_api(self):
         """ Test ContextDevice2D Get/SetMatrix API
         """
@@ -824,25 +845,30 @@ class TestTVTK(unittest.TestCase):
             # If we place this check as a unittest.skipIf decorator,
             # this would cause garbage collection tests in the test suite to fail
             # as the some classes are kept live
-            raise unittest.SkipTest(('ContextDevice2D has a subclass. '
-                                     'This may cause the TVTK API to be different '
-                                     'from if it had not'))
+            raise unittest.SkipTest(
+                (
+                    "ContextDevice2D has a subclass. "
+                    "This may cause the TVTK API to be different "
+                    "from if it had not"
+                )
+            )
 
         # The Set/Get methods require many args
         # they should be coded as such
-        self.assertTrue(hasattr(klass, 'set_matrix'))
-        self.assertTrue(hasattr(klass, 'get_matrix'))
+        self.assertTrue(hasattr(klass, "set_matrix"))
+        self.assertTrue(hasattr(klass, "get_matrix"))
 
     def test_algorithm_methods_are_wrapped(self):
         x = tvtk.Algorithm()
-        self.assertTrue(hasattr(x, 'get_input_algorithm'))
+        self.assertTrue(hasattr(x, "get_input_algorithm"))
         self.assertTrue(callable(x.get_input_algorithm))
         # It should also expose input_algorithm as a property trait.
-        self.assertTrue(hasattr(x, 'input_algorithm'))
+        self.assertTrue(hasattr(x, "input_algorithm"))
 
     def test_vtk_python_algorithm_base_is_wrapped(self):
         from tvtk import vtk_module
-        name = 'VTKPythonAlgorithmBase'
+
+        name = "VTKPythonAlgorithmBase"
         if hasattr(vtk_module, name):
             self.assertTrue(hasattr(tvtk, name))
             # Should be able to instantiate this wrapped class.
@@ -854,7 +880,7 @@ class TestTVTK(unittest.TestCase):
         # When
         v = tvtk.to_vtk(x)
         # Then
-        self.assertEqual(v.GetClassName(), 'vtkContourFilter')
+        self.assertEqual(v.GetClassName(), "vtkContourFilter")
         self.assertTrue(v is x._vtk_obj)
 
     def test_to_tvtk_returns_tvtk_object(self):
@@ -863,7 +889,7 @@ class TestTVTK(unittest.TestCase):
         # When
         x = tvtk.to_tvtk(v)
         # Then
-        self.assertEqual(x.class_name, 'vtkContourFilter')
+        self.assertEqual(x.class_name, "vtkContourFilter")
         self.assertTrue(isinstance(x, tvtk_base.TVTKBase))
         self.assertTrue(isinstance(x, tvtk.ContourFilter))
         self.assertTrue(v is x._vtk_obj)
@@ -895,7 +921,6 @@ class TestTVTK(unittest.TestCase):
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.
 class TestTVTKModule(unittest.TestCase):
-
     def tearDown(self):
         tvtk_helper._cache.clear()
         vtk.vtkObject.GlobalWarningDisplayOn()
@@ -905,13 +930,12 @@ class TestTVTKModule(unittest.TestCase):
         self.names = []
         # Filter the ones that are abstract or not implemented
         for name in dir(vtk):
-            if (not name.startswith('vtk') or name.startswith('vtkQt') or
-                    len(name) <= 3):
+            if not name.startswith("vtk") or name.startswith("vtkQt") or len(name) <= 3:
                 continue
             vtk_klass = getattr(vtk, name)
             tvtk_klass_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_klass_name, None)
-            if hasattr(vtk_klass, '__bases__') and tvtk_klass is not None:
+            if hasattr(vtk_klass, "__bases__") and tvtk_klass is not None:
                 try:
                     obj = vtk_klass()
                 except (TypeError, NotImplementedError):
@@ -931,18 +955,21 @@ class TestTVTKModule(unittest.TestCase):
                 errors.append(traceback.format_exc())
         if len(errors) > 0:
             message = "Not all classes could be instantiated:\n{0}\n"
-            raise AssertionError(message.format(''.join(errors)))
+            raise AssertionError(message.format("".join(errors)))
 
     def test_trait_with_range(self):
-        '''Test if all the attributes with MinValue/MaxValue are traits
+        """Test if all the attributes with MinValue/MaxValue are traits
         with Range
-        '''
+        """
+
         def to_camel_case(text):
             """ Convert text to CamelCase"""
+
             def replace_func(matched):
                 word = matched.group(0).strip("_")
-                return word[0].upper()+word[1:].lower()
-            return re.sub(r'(_?[a-zA-Z]+)', replace_func, text)
+                return word[0].upper() + word[1:].lower()
+
+            return re.sub(r"(_?[a-zA-Z]+)", replace_func, text)
 
         def get_min_max_value(vtk_klass, vtk_attr_name):
             """ Return (min, max) of a VTK attribute
@@ -950,11 +977,13 @@ class TestTVTKModule(unittest.TestCase):
             If MaxValue or MinValue is not available
             (None, None) is returned
             """
-            get_min_method = 'Get' + vtk_attr_name + 'MinValue'
-            get_max_method = 'Get' + vtk_attr_name + 'MaxValue'
+            get_min_method = "Get" + vtk_attr_name + "MinValue"
+            get_max_method = "Get" + vtk_attr_name + "MaxValue"
             try:
-                return (getattr(vtk_klass(), get_min_method)(),
-                        getattr(vtk_klass(), get_max_method)())
+                return (
+                    getattr(vtk_klass(), get_min_method)(),
+                    getattr(vtk_klass(), get_max_method)(),
+                )
             except AttributeError:
                 return None, None
 
@@ -970,8 +999,7 @@ class TestTVTKModule(unittest.TestCase):
 
             for trait_name in obj.editable_traits():
                 vtk_attr_name = to_camel_case(trait_name)
-                min_value, max_value = get_min_max_value(vtk_klass,
-                                                         vtk_attr_name)
+                min_value, max_value = get_min_max_value(vtk_klass, vtk_attr_name)
 
                 # Explicitly checking for None instead of bool(value)
                 # since min_value/max_value could be int(0)
@@ -979,13 +1007,13 @@ class TestTVTKModule(unittest.TestCase):
                     # If max and min values are defined, setting the trait
                     # to outside this range should fail
                     with self.assertRaises(TraitError):
-                        setattr(obj, trait_name, (min_value-1, max_value))
+                        setattr(obj, trait_name, (min_value - 1, max_value))
                     with self.assertRaises(TraitError):
-                        setattr(obj, trait_name, (min_value, max_value+1))
+                        setattr(obj, trait_name, (min_value, max_value + 1))
 
     def test_no_trait_has_ptr_address_as_value(self):
-        '''Test if none of the TVTK classes' traits has a value of "*_p_void"
-        '''
+        """Test if none of the TVTK classes' traits has a value of "*_p_void"
+        """
         errors_trait_is_ptr = []
         for name in self.names:
             tvtk_klass_name = get_tvtk_name(name)
@@ -1006,19 +1034,19 @@ class TestTVTKModule(unittest.TestCase):
                 except (TypeError, TraitError):
                     pass  # this is tested in another test
                 else:
-                    if isinstance(trait, str) and trait.endswith('_p_void'):
-                        errors_trait_is_ptr.append(
-                            (tvtk_klass_name, trait_name, trait))
+                    if isinstance(trait, str) and trait.endswith("_p_void"):
+                        errors_trait_is_ptr.append((tvtk_klass_name, trait_name, trait))
 
         if errors_trait_is_ptr:
-            message = 'These traits are invalid:\n'
-            message += '\n'.join(('tvtk.{0}.{1} = {2!r}'.format(*error)
-                                  for error in errors_trait_is_ptr))
+            message = "These traits are invalid:\n"
+            message += "\n".join(
+                ("tvtk.{0}.{1} = {2!r}".format(*error) for error in errors_trait_is_ptr)
+            )
             self.fail(message)
 
     def test_all_traits_can_be_obtained(self):
-        '''Test if all of the traits can be obtained
-        '''
+        """Test if all of the traits can be obtained
+        """
         errors_getting_trait = []
         for name in self.names:
             tvtk_klass_name = get_tvtk_name(name)
@@ -1033,24 +1061,31 @@ class TestTVTKModule(unittest.TestCase):
                     trait = getattr(obj, trait_name)
                 except Exception as exception:
                     errors_getting_trait.append(
-                        (tvtk_klass_name, trait_name, str(exception)))
+                        (tvtk_klass_name, trait_name, str(exception))
+                    )
 
         if errors_getting_trait:
-            message = 'These traits cannot be obtained:\n'
-            message += '\n'.join(('tvtk.{0}.{1} : {2}'.format(*error)
-                                  for error in errors_getting_trait))
+            message = "These traits cannot be obtained:\n"
+            message += "\n".join(
+                ("tvtk.{0}.{1} : {2}".format(*error) for error in errors_getting_trait)
+            )
             self.fail(message)
 
     def test_import_tvtk_does_not_import_gui(self):
         from subprocess import check_output, STDOUT
 
         output = check_output(
-            [sys.executable, "-v", "-c",
-             "from tvtk.api import tvtk; p = tvtk.Property()"], stderr=STDOUT
+            [
+                sys.executable,
+                "-v",
+                "-c",
+                "from tvtk.api import tvtk; p = tvtk.Property()",
+            ],
+            stderr=STDOUT,
         )
-        output = output.decode('ascii')
-        self.assertFalse('QtCore' in output)
-        self.assertFalse('wx' in output)
+        output = output.decode("ascii")
+        self.assertFalse("QtCore" in output)
+        self.assertFalse("wx" in output)
 
     @unittest.skipIf(PY_VER > 2, "Irrelevant for python 3")
     def test_unicode_traits(self):
@@ -1058,6 +1093,7 @@ class TestTVTKModule(unittest.TestCase):
         self.assertIsInstance(reader.unicode_record_delimiters, unicode)
         self.assertIsInstance(reader.unicode_string_delimiters, unicode)
         self.assertIsInstance(reader.unicode_field_delimiters, unicode)
+
 
 if __name__ == "__main__":
     unittest.main()

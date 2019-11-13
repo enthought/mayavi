@@ -25,7 +25,6 @@ class Component(PipelineBase):
     # A list of sources for this component.
     sources = List(record=False)
 
-
     ######################################################################
     # `object` interface
     ######################################################################
@@ -38,7 +37,7 @@ class Component(PipelineBase):
     def __get_pure_state__(self):
         d = super(Component, self).__get_pure_state__()
         # Remove dynamically set things.
-        for x in ['inputs', 'sources']:
+        for x in ["inputs", "sources"]:
             d.pop(x, None)
         return d
 
@@ -146,10 +145,8 @@ class Component(PipelineBase):
 
     def _setup_events(self, removed, added):
         for object in removed:
-            object.on_trait_event(self.update_pipeline, 'pipeline_changed',
-                                  remove=True)
-            object.on_trait_event(self.update_data, 'data_changed',
-                                  remove=True)
+            object.on_trait_event(self.update_pipeline, "pipeline_changed", remove=True)
+            object.on_trait_event(self.update_data, "data_changed", remove=True)
         for object in added:
-            object.on_trait_event(self.update_pipeline, 'pipeline_changed')
-            object.on_trait_event(self.update_data, 'data_changed')
+            object.on_trait_event(self.update_pipeline, "pipeline_changed")
+            object.on_trait_event(self.update_data, "data_changed")

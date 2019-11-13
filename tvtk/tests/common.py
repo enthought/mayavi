@@ -9,6 +9,7 @@ import gc
 import unittest
 import weakref
 
+
 @contextlib.contextmanager
 def restore_gc_state():
     """Ensure that gc state is restored on exit of the with statement."""
@@ -20,6 +21,7 @@ def restore_gc_state():
             gc.enable()
         else:
             gc.disable()
+
 
 class TestGarbageCollection(unittest.TestCase):
     """ This is a base class to use when testing garbage collection.

@@ -1,4 +1,4 @@
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
 #
@@ -10,7 +10,7 @@
 #
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 """ An example of using a TVTK scene. """
 
 
@@ -24,17 +24,23 @@ from pyface.api import OK
 from pyface.api import PythonShell
 from pyface.api import SplitApplicationWindow
 from tvtk.pyface.api import Scene
-from tvtk.pyface.actors import arrow_actor, axes_actor, cone_actor, \
-                                         cube_actor, cylinder_actor, \
-                                         earth_actor, sphere_actor
-from pyface.action.api import Action, Group, MenuBarManager, \
-                                        MenuManager, Separator
+from tvtk.pyface.actors import (
+    arrow_actor,
+    axes_actor,
+    cone_actor,
+    cube_actor,
+    cylinder_actor,
+    earth_actor,
+    sphere_actor,
+)
+from pyface.action.api import Action, Group, MenuBarManager, MenuManager, Separator
 
 from traits.api import Float, Str, Instance
 
 
 class ExitAction(Action):
     """ Exits the application. """
+
     def __init__(self, window):
         """ Creates a new action. """
         self._window = window
@@ -47,23 +53,43 @@ class ExitAction(Action):
 
 class SaveImageAction(Action):
     """Saves the rendered scene to an image."""
+
     def __init__(self, window):
         self._window = window
         self.name = "S&ave Scene"
 
     def perform(self):
         """Pops up a dialog used to save the scene to an image."""
-        extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps',
-                 '*.eps', '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf',
-                 '*.vrml', '*.obj', '*.iv']
-        dlg = FileDialog(parent=self._window.control, action='save as',
-                wildcard='|'.join(extns), title="Save scene to image")
+        extns = [
+            "*.png",
+            "*.jpg",
+            "*.jpeg",
+            "*.tiff",
+            "*.bmp",
+            "*.ps",
+            "*.eps",
+            "*.tex",
+            "*.rib",
+            "*.wrl",
+            "*.oogl",
+            "*.pdf",
+            "*.vrml",
+            "*.obj",
+            "*.iv",
+        ]
+        dlg = FileDialog(
+            parent=self._window.control,
+            action="save as",
+            wildcard="|".join(extns),
+            title="Save scene to image",
+        )
         if dlg.open() == OK:
             self._window.scene.save(dlg.path)
 
 
 class SaveToClipboardAction(Action):
     """ Saves rendered scene to the Clipboard. """
+
     def __init__(self, window):
         """ Creates a new action. """
         self._window = window
@@ -76,6 +102,7 @@ class SaveToClipboardAction(Action):
 
 class SpecialViewAction(Action):
     """Sets the scene to a particular view."""
+
     def __init__(self, window, name, view):
         """ Creates a new action. """
         self._window = window
@@ -97,15 +124,20 @@ class ExampleWindow(SplitApplicationWindow):
 
     # The actors we can create.
     ACTORS = [
-        arrow_actor, axes_actor, cone_actor, cube_actor, cylinder_actor,
-        earth_actor, sphere_actor
+        arrow_actor,
+        axes_actor,
+        cone_actor,
+        cube_actor,
+        cylinder_actor,
+        earth_actor,
+        sphere_actor,
     ]
 
     # The ratio of the size of the left/top pane to the right/bottom pane.
     ratio = Float(0.75)
 
     # The direction in which the panel is split.
-    direction = Str('horizontal')
+    direction = Str("horizontal")
 
     # The `Scene` instance into which VTK renders.
     scene = Instance(Scene)
@@ -124,7 +156,6 @@ class ExampleWindow(SplitApplicationWindow):
 
         # Create the window's menu bar.
         self._create_my_menu_bar()
-
 
     ###########################################################################
     # Protected 'SplitApplicationWindow' interface.
@@ -163,11 +194,10 @@ class ExampleWindow(SplitApplicationWindow):
         """ Creates the right hand side or bottom depending on the style. """
 
         self.python_shell = PythonShell(parent)
-        self.python_shell.bind('scene', self.scene)
-        self.python_shell.bind('s', self.scene)
+        self.python_shell.bind("scene", self.scene)
+        self.python_shell.bind("s", self.scene)
 
         return self.python_shell.control
-
 
     ###########################################################################
     # Private interface.
@@ -178,38 +208,31 @@ class ExampleWindow(SplitApplicationWindow):
 
         self.menu_bar_manager = MenuBarManager(
             MenuManager(
-                SaveImageAction(self),
-                Separator(),
-                ExitAction(self),
-                name = '&File',
+                SaveImageAction(self), Separator(), ExitAction(self), name="&File",
             ),
+            MenuManager(SaveToClipboardAction(self), name="&Edit",),
             MenuManager(
-                SaveToClipboardAction(self),
-                name = '&Edit',
-            ),
-            MenuManager(
-                SpecialViewAction(self, "&Reset Zoom", 'reset_zoom'),
+                SpecialViewAction(self, "&Reset Zoom", "reset_zoom"),
                 Separator(),
-                SpecialViewAction(self, "&Isometric", 'isometric_view'),
-                SpecialViewAction(self, "&X positive", 'x_plus_view'),
-                SpecialViewAction(self, "X negative", 'x_minus_view'),
-                SpecialViewAction(self, "&Y positive", 'y_plus_view'),
-                SpecialViewAction(self, "Y negative", 'y_minus_view'),
-                SpecialViewAction(self, "&Z positive", 'z_plus_view'),
-                SpecialViewAction(self, "Z negative", 'z_minus_view'),
-                name = '&View',
-            )
+                SpecialViewAction(self, "&Isometric", "isometric_view"),
+                SpecialViewAction(self, "&X positive", "x_plus_view"),
+                SpecialViewAction(self, "X negative", "x_minus_view"),
+                SpecialViewAction(self, "&Y positive", "y_plus_view"),
+                SpecialViewAction(self, "Y negative", "y_minus_view"),
+                SpecialViewAction(self, "&Z positive", "z_plus_view"),
+                SpecialViewAction(self, "Z negative", "z_minus_view"),
+                name="&View",
+            ),
         )
 
 
-
 # Application entry point.
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Create the GUI.
     gui = GUI()
 
     # Create and open an application window.
-    window = ExampleWindow(size=(600,600))
+    window = ExampleWindow(size=(600, 600))
     window.open()
 
     # Start the GUI event loop!

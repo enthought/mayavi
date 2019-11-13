@@ -16,6 +16,7 @@ from mayavi.tests.common import get_example_data
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
+
 class TestVTKFileReader(unittest.TestCase):
     def setUp(self):
         # Read a VTK data file.
@@ -34,28 +35,29 @@ class TestVTKFileReader(unittest.TestCase):
         self.assertEqual(output.number_of_cells, n_cells)
 
     def test_structured_points_file(self):
-        self.src.initialize(get_example_data('texThres2.vtk'))
+        self.src.initialize(get_example_data("texThres2.vtk"))
         self.check(128, 127)
 
     def test_rectiliner_grid_file(self):
-        self.src.initialize(get_example_data('RectGrid2.vtk'))
+        self.src.initialize(get_example_data("RectGrid2.vtk"))
         self.check(17061, 14720)
 
     def test_polydata_file(self):
-        self.src.initialize(get_example_data('polyEx.vtk'))
+        self.src.initialize(get_example_data("polyEx.vtk"))
         self.check(8, 6)
 
     def test_structured_grid_file(self):
-        self.src.initialize(get_example_data('SampleStructGrid.vtk'))
+        self.src.initialize(get_example_data("SampleStructGrid.vtk"))
         self.check(24000, 21489)
 
     def test_unstructured_grid_file(self):
-        self.src.initialize(get_example_data('uGridEx.vtk'))
+        self.src.initialize(get_example_data("uGridEx.vtk"))
         self.check(27, 12)
 
     def test_field_file(self):
-        self.src.initialize(get_example_data('fieldfile.vtk'))
+        self.src.initialize(get_example_data("fieldfile.vtk"))
         self.check(18, 3)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

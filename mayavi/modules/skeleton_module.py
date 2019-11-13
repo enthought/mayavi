@@ -24,7 +24,6 @@ class MyModule(Module):
     ########################################
     # View related code.
 
-
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -45,10 +44,10 @@ class MyModule(Module):
         # Setup the actor suitably for this module.
 
         # Setup the components, actors and widgets. (sample code)
-        #self.components.extend([your_components, ...])
-        #self.actors.append(your_actor)
+        # self.components.extend([your_components, ...])
+        # self.actors.append(your_actor)
         # Note that self.actor.actor need not be added.
-        #self.widgets.append(your_widget)
+        # self.widgets.append(your_widget)
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline

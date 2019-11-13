@@ -42,7 +42,7 @@ def main():
     verts.shape = (1000, 1)
     pd.verts = verts
     pd.point_data.scalars = np.random.random(1000)
-    pd.point_data.scalars.name = 'scalars'
+    pd.point_data.scalars.name = "scalars"
 
     # Now visualize it using mayavi2.
     from mayavi.sources.vtk_data_source import VTKDataSource
@@ -56,8 +56,9 @@ def main():
     mayavi.add_module(Outline())
     s = Surface()
     mayavi.add_module(s)
-    s.actor.property.trait_set(representation='p', point_size=2)
+    s.actor.property.trait_set(representation="p", point_size=2)
     # You could also use glyphs to render the points via the Glyph module.
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

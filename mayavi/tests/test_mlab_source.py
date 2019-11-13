@@ -20,9 +20,9 @@ from mayavi.sources.vtk_data_source import VTKDataSource
 class TestMGlyphSource(unittest.TestCase):
     def setUp(self):
         self.x = x = np.ones(10, float)
-        self.y = y = np.ones(10, float)*2.0
+        self.y = y = np.ones(10, float) * 2.0
         self.z = z = np.linspace(0, 10, 10)
-        self.v = v = np.ones((10, 3), float)*10.0
+        self.v = v = np.ones((10, 3), float) * 10.0
         self.s = s = np.ones(10, float)
         src = sources.MGlyphSource()
         src.reset(x=x, y=y, z=z, u=v[:, 0], v=v[:, 1], w=v[:, 2], scalars=s)
@@ -38,12 +38,9 @@ class TestMGlyphSource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, z, v, s, src = self.get_data()
         # Check if points are set correctly.
-        self.assertEqual(np.alltrue(src.points[:, 0].ravel() == x.ravel()),
-                         True)
-        self.assertEqual(np.alltrue(src.points[:, 1].ravel() == y.ravel()),
-                         True)
-        self.assertEqual(np.alltrue(src.points[:, 2].ravel() == z.ravel()),
-                         True)
+        self.assertEqual(np.alltrue(src.points[:, 0].ravel() == x.ravel()), True)
+        self.assertEqual(np.alltrue(src.points[:, 1].ravel() == y.ravel()), True)
+        self.assertEqual(np.alltrue(src.points[:, 2].ravel() == z.ravel()), True)
         # Check the vectors and scalars.
         self.assertEqual(np.alltrue(src.vectors == v), True)
         self.assertEqual(np.alltrue(src.scalars == s), True)
@@ -83,14 +80,13 @@ class TestMGlyphSource(unittest.TestCase):
         # Call reset again with just a few things changed to see if it
         # works correctly.
 
-        self.x = x = np.ones(20, float)*30.0
-        self.y = y = np.ones(20, float)*30.0
-        self.z = z = np.ones(20, float)*30.0
+        self.x = x = np.ones(20, float) * 30.0
+        self.y = y = np.ones(20, float) * 30.0
+        self.z = z = np.ones(20, float) * 30.0
         self.s = s = np.ones(20, float)
-        self.v = v = np.ones((20, 3), float)*30.0
+        self.v = v = np.ones((20, 3), float) * 30.0
 
-        src.reset(x=x, y=y, z=z, u=v[:, 0], v=v[:, 1], w=v[:, 2],
-                  scalars=s)
+        src.reset(x=x, y=y, z=z, u=v[:, 0], v=v[:, 1], w=v[:, 2], scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -142,16 +138,16 @@ class TestMGlyphSource(unittest.TestCase):
         src.reset(x=x, y=y, z=z, u=u, v=vv, w=w, scalars=s)
 
         # modify variables in src to check handlers
-        self.x = src.x = 2*x
-        self.y = src.y = 2*y
-        self.z = src.z = 2*z
-        src.u = 2*z
-        src.v = 2*vv
-        src.w = 2*w
+        self.x = src.x = 2 * x
+        self.y = src.y = 2 * y
+        self.z = src.z = 2 * z
+        src.u = 2 * z
+        src.v = 2 * vv
+        src.w = 2 * w
         self.v[:, 0] = src.u.ravel()
         self.v[:, 1] = src.v.ravel()
         self.v[:, 2] = src.w.ravel()
-        self.s = src.scalars = 2*s
+        self.s = src.scalars = 2 * s
         self.check_traits()
         self.check_dataset()
 
@@ -175,17 +171,18 @@ class TestMGlyphSource(unittest.TestCase):
         src.trait_set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None)
         src.trait_set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)
 
-    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    @patch("mayavi.tools.engine_manager.options.backend", "test")
     def test_reset_changes_pipeline(self):
         # Given
         from mayavi import mlab
+
         x, y, z = np.random.random((3, 10))
-        g = mlab.points3d(x, y, z, x*x + y*y + z*z)
+        g = mlab.points3d(x, y, z, x * x + y * y + z * z)
         bounds = g.actor.actor.bounds
 
         # When
         x, y, z = np.random.random((3, 20))
-        g.mlab_source.reset(x=x, y=y, z=z, scalars=x*x + y*y + z*z)
+        g.mlab_source.reset(x=x, y=y, z=z, scalars=x * x + y * y + z * z)
 
         # Then
         self.assertFalse(np.allclose(bounds, g.actor.actor.bounds))
@@ -194,7 +191,7 @@ class TestMGlyphSource(unittest.TestCase):
 class TestMVerticalSource(unittest.TestCase):
     def setUp(self):
         self.x = x = np.ones(10, float)
-        self.y = y = np.ones(10, float)*2.0
+        self.y = y = np.ones(10, float) * 2.0
         self.z = z = np.linspace(0, 10, 10)
         self.s = s = np.ones(10, float)
         src = sources.MVerticalGlyphSource()
@@ -257,10 +254,10 @@ class TestMVerticalSource(unittest.TestCase):
         # Call reset again with just a few things changed to see if it
         # works correctly.
 
-        self.x = x = np.ones(20, float)*30.0
-        self.y = y = np.ones(20, float)*30.0
-        self.z = z = np.ones(20, float)*30.0
-        points = np.ones((20, 3), float)*30.0
+        self.x = x = np.ones(20, float) * 30.0
+        self.y = y = np.ones(20, float) * 30.0
+        self.z = z = np.ones(20, float) * 30.0
+        points = np.ones((20, 3), float) * 30.0
         self.s = s = np.ones(20, float)
 
         src.reset(x=x, y=y, z=z, scalars=s, points=points)
@@ -297,14 +294,12 @@ class TestMArraySource(unittest.TestCase):
         x, y, z = np.ogrid[-10:10:11j, -10:10:12j, -10:10:20j]
         self.x, self.y, self.z = x, y, z
         dims = (x.shape[0], y.shape[1], z.shape[2])
-        self.v = v = np.ones(dims + (3, ), float)
+        self.v = v = np.ones(dims + (3,), float)
         v[..., 2] = 2
         v[..., 2] = 3
         self.s = s = np.ones(dims, float)
         src = sources.MArraySource()
-        src.reset(
-            x=x, y=y, z=z, u=v[..., 0], v=v[..., 1], w=v[..., 2], scalars=s
-        )
+        src.reset(x=x, y=y, z=z, u=v[..., 0], v=v[..., 1], w=v[..., 2], scalars=s)
         self.src = src
 
     def tearDown(self):
@@ -374,20 +369,13 @@ class TestMArraySource(unittest.TestCase):
         self.x, self.y, self.z = x, y, z
 
         dims = (x.shape[0], y.shape[1], z.shape[2])
-        self.v = v = np.ones(dims + (3, ), float)
+        self.v = v = np.ones(dims + (3,), float)
         v[..., 2] = 2
         v[..., 2] = 3
         self.s = s = np.ones(dims, float)
         src = sources.MArraySource()
         src.reset(
-            x=x,
-            y=y,
-            z=z,
-            u=v[..., 0],
-            v=v[..., 1],
-            w=v[..., 2],
-            scalars=s,
-            vectors=v
+            x=x, y=y, z=z, u=v[..., 0], v=v[..., 1], w=v[..., 2], scalars=s, vectors=v
         )
         self.check_traits()
         self.check_dataset()
@@ -496,10 +484,10 @@ class TestMLineSource(unittest.TestCase):
         # Call reset again with just a few things changed to see if it
         # works correctly.
 
-        self.x = x = np.ones(20, float)*30.0
-        self.y = y = np.ones(20, float)*30.0
-        self.z = z = np.ones(20, float)*30.0
-        points = np.ones((20, 3), float)*30.0
+        self.x = x = np.ones(20, float) * 30.0
+        self.y = y = np.ones(20, float) * 30.0
+        self.z = z = np.ones(20, float) * 30.0
+        points = np.ones((20, 3), float) * 30.0
         self.s = s = np.ones(20, float)
         src.reset(x=x, y=y, z=z, scalars=s, points=points)
         self.check_traits()
@@ -535,10 +523,11 @@ class TestMLineSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
-    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    @patch("mayavi.tools.engine_manager.options.backend", "test")
     def test_reset_changes_pipeline(self):
         # Given
         from mayavi import mlab
+
         x = np.linspace(0, 1, 10)
         lines = mlab.plot3d(x, x, x, x)
         bounds = lines.actor.actor.bounds
@@ -558,13 +547,13 @@ class TestMLineSource(unittest.TestCase):
 
         # When
         src.m_data = VTKDataSource(data=src.dataset)
-        src.set(y=y+1)
+        src.set(y=y + 1)
 
         # Then
         self.assertTrue(np.allclose(src.y, y + 1))
 
         # When
-        src.reset(x=x, y=y+1, z=z+1)
+        src.reset(x=x, y=y + 1, z=z + 1)
 
         # Then
         self.assertTrue(np.allclose(src.y, y + 1))
@@ -697,15 +686,9 @@ class TestMGridSource(unittest.TestCase):
         x, y, z, s, src = self.get_data()
 
         # Check if points are set correctly.
-        self.assertEqual(
-            np.alltrue(src.points[:, 0].ravel() == x.ravel()), True
-        )
-        self.assertEqual(
-            np.alltrue(src.points[:, 1].ravel() == y.ravel()), True
-        )
-        self.assertEqual(
-            np.alltrue(src.points[:, 2].ravel() == z.ravel()), True
-        )
+        self.assertEqual(np.alltrue(src.points[:, 0].ravel() == x.ravel()), True)
+        self.assertEqual(np.alltrue(src.points[:, 1].ravel() == y.ravel()), True)
+        self.assertEqual(np.alltrue(src.points[:, 2].ravel() == z.ravel()), True)
         # Check the  scalars.
 
         self.assertEqual(np.alltrue(src.scalars == s), True)
@@ -762,19 +745,20 @@ class TestMGridSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
-    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    @patch("mayavi.tools.engine_manager.options.backend", "test")
     def test_reset_changes_pipeline(self):
         # Given
         from mayavi import mlab
+
         s = slice(0, 1, 10j)
         x, y = np.mgrid[s, s]
-        obj = mlab.mesh(x, y, x*y, scalars=x)
+        obj = mlab.mesh(x, y, x * y, scalars=x)
         bounds = obj.actor.actor.bounds
 
         # When
         s = slice(0, 5, 20j)
         x, y = np.mgrid[s, s]
-        obj.mlab_source.reset(x=x, y=y, z=x*y, scalars=x)
+        obj.mlab_source.reset(x=x, y=y, z=x * y, scalars=x)
 
         # Then
         self.assertFalse(np.allclose(bounds, obj.actor.actor.bounds))
@@ -818,7 +802,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
 
         else:
             nx, ny = s.shape
-            x1, y1 = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+            x1, y1 = np.mgrid[-nx / 2.0 : nx / 2, -ny / 2.0 : ny / 2]
             self.assertEqual(np.alltrue(src.x == x1), True)
             self.assertEqual(np.alltrue(src.y == y1), True)
 
@@ -833,7 +817,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         nx, ny = src.scalars.shape
 
         if x is None and y is None:
-            x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+            x, y = np.mgrid[-nx / 2.0 : nx / 2, -ny / 2.0 : ny / 2]
 
         x = np.atleast_2d(x.squeeze().T)[0, :].squeeze()
         y = np.atleast_2d(y.squeeze())[0, :].squeeze()
@@ -933,8 +917,9 @@ class TestMTriangularMeshSource(unittest.TestCase):
         """
         n = 100
         _, _, _, _, _, src = self.get_data()
-        triangles = np.c_[np.arange(n - 3),
-                          np.arange(n - 3) + 1, n - 1 - np.arange(n - 3)]
+        triangles = np.c_[
+            np.arange(n - 3), np.arange(n - 3) + 1, n - 1 - np.arange(n - 3)
+        ]
         x, y, z = np.random.random((3, n))
         src.reset(x=x, y=y, z=z, triangles=triangles)
 
@@ -966,10 +951,11 @@ class TestMTriangularMeshSource(unittest.TestCase):
 
         self.check_traits()
 
-    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    @patch("mayavi.tools.engine_manager.options.backend", "test")
     def test_reset_changes_pipeline(self):
         # Given
         from mayavi import mlab
+
         obj = mlab.triangular_mesh(
             self.x, self.y, self.z, self.triangles, scalars=self.s
         )
@@ -978,9 +964,9 @@ class TestMTriangularMeshSource(unittest.TestCase):
         # When
         n = 10
         x, y, z = np.random.random((3, n))
-        triangles = np.c_[np.arange(n-3),
-                          np.arange(n-3)+1,
-                          n-1-np.arange(n-3)]
+        triangles = np.c_[
+            np.arange(n - 3), np.arange(n - 3) + 1, n - 1 - np.arange(n - 3)
+        ]
 
         obj.mlab_source.reset(x=x, y=y, z=z, triangles=triangles, scalars=z)
 
@@ -988,5 +974,5 @@ class TestMTriangularMeshSource(unittest.TestCase):
         self.assertFalse(np.allclose(bounds, obj.actor.actor.bounds))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

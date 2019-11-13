@@ -17,7 +17,6 @@ from mayavi.sources.array_source import ArraySource
 
 
 class TestThresholdFilter(unittest.TestCase):
-
     def make_src(self, nan=False):
         data = np.empty((3, 3, 3))
         if nan:
@@ -30,12 +29,11 @@ class TestThresholdFilter(unittest.TestCase):
         TestCase before any other test method is invoked"""
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
-        #e = Engine()
+        # e = Engine()
         e.start()
         s = e.new_scene()
         self.e = e
         self.s = s
-
 
         self.scene = e.current_scene
         return
@@ -53,15 +51,11 @@ class TestThresholdFilter(unittest.TestCase):
         self.e.add_filter(threshold)
         self.assertEqual(
             np.nanmin(src.scalar_data),
-            np.nanmin(
-                threshold.get_output_dataset().point_data.scalars.to_array()
-            )
+            np.nanmin(threshold.get_output_dataset().point_data.scalars.to_array()),
         )
         self.assertEqual(
             np.nanmax(src.scalar_data),
-            np.nanmax(
-                threshold.get_output_dataset().point_data.scalars.to_array()
-            )
+            np.nanmax(threshold.get_output_dataset().point_data.scalars.to_array()),
         )
 
     def test_threshold_filter_threhsold(self):
@@ -69,11 +63,10 @@ class TestThresholdFilter(unittest.TestCase):
         self.e.add_source(src)
         threshold = Threshold()
         self.e.add_filter(threshold)
-        threshold.upper_threshold = 20.
+        threshold.upper_threshold = 20.0
         self.assertTrue(
-            20 >= np.nanmax(
-                threshold.get_output_dataset().point_data.scalars.to_array()
-            )
+            20
+            >= np.nanmax(threshold.get_output_dataset().point_data.scalars.to_array())
         )
         return
 
@@ -115,7 +108,7 @@ class TestThresholdFilter(unittest.TestCase):
     def test_threshold_with_other_filter_as_input(self):
         # Given
         x, y, z = np.mgrid[-1:1:10j, -1:1:10j, -1:1:10j]
-        s = x*x + y*y + z*z
+        s = x * x + y * y + z * z
 
         src = ArraySource(scalar_data=s)
         self.e.add_source(src)
@@ -126,18 +119,20 @@ class TestThresholdFilter(unittest.TestCase):
         threshold = Threshold()
         self.e.add_filter(threshold)
         threshold.trait_set(
-            lower_threshold=0.25, upper_threshold=0.75,
-            auto_reset_lower=False, auto_reset_upper=False
+            lower_threshold=0.25,
+            upper_threshold=0.75,
+            auto_reset_lower=False,
+            auto_reset_upper=False,
         )
 
         # Then
         output = threshold.get_output_dataset()
         self.assertTrue(output is not None)
-        self.assertTrue(output.is_a('vtkUnstructuredGrid'))
+        self.assertTrue(output.is_a("vtkUnstructuredGrid"))
         output_range = output.point_data.scalars.range
         self.assertTrue(output_range[0] >= 0.25)
         self.assertTrue(output_range[1] <= 0.75)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

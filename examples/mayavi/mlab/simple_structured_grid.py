@@ -36,8 +36,8 @@ pts[..., 2] = z
 scalars = x * x + y * y + z * z
 # Some vectors
 vectors = empty(z.shape + (3,), dtype=float)
-vectors[..., 0] = (4 - y * 2)
-vectors[..., 1] = (x * 3 - 12)
+vectors[..., 0] = 4 - y * 2
+vectors[..., 1] = x * 3 - 12
 vectors[..., 2] = sin(z * pi)
 
 # We reorder the points, scalars and vectors so this is as per VTK's
@@ -51,9 +51,9 @@ vectors.shape = vectors.size / 3, 3
 # Create the dataset.
 sg = tvtk.StructuredGrid(dimensions=x.shape, points=pts)
 sg.point_data.scalars = scalars.ravel()
-sg.point_data.scalars.name = 'temperature'
+sg.point_data.scalars.name = "temperature"
 sg.point_data.vectors = vectors
-sg.point_data.vectors.name = 'velocity'
+sg.point_data.vectors.name = "velocity"
 
 # Thats it!
 
@@ -61,9 +61,9 @@ sg.point_data.vectors.name = 'velocity'
 d = mlab.pipeline.add_dataset(sg)
 gx = mlab.pipeline.grid_plane(d)
 gy = mlab.pipeline.grid_plane(d)
-gy.grid_plane.axis = 'y'
+gy.grid_plane.axis = "y"
 gz = mlab.pipeline.grid_plane(d)
-gz.grid_plane.axis = 'z'
+gz.grid_plane.axis = "z"
 iso = mlab.pipeline.iso_surface(d)
 iso.contour.maximum_contour = 75.0
 vec = mlab.pipeline.vectors(d)

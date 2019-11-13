@@ -27,8 +27,9 @@ z = 100 * np.sin(x * y) / (x * y)
 
 # Visualize it with mlab.surf
 from mayavi import mlab
+
 mlab.figure(bgcolor=(1, 1, 1))
-surf = mlab.surf(z, colormap='cool')
+surf = mlab.surf(z, colormap="cool")
 
 # Retrieve the LUT of the surf object.
 lut = surf.module_manager.scalar_lut_manager.lut.table.to_array()

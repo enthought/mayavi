@@ -12,8 +12,7 @@ from os.path import split, join, isfile
 from glob import glob
 
 # Enthought library imports.
-from traits.api import (Any, Bool, Button, Float, List, Str, Instance, Int,
-                        Range)
+from traits.api import Any, Bool, Button, Float, List, Str, Instance, Int, Range
 from traitsui.api import Group, HGroup, Item, FileEditor, RangeEditor
 from apptools.persistence.state_pickler import set_state
 from apptools.persistence.file_path import FilePath
@@ -40,15 +39,15 @@ def get_file_list(file_name):
     # Find the head and tail of the file pattern.
     head = re.sub("[0-9]+[^0-9]*$", "", f_base)
     tail = re.sub("^.*[0-9]+", "", f_base)
-    pattern = head+"[0-9]*"+tail
+    pattern = head + "[0-9]*" + tail
     # Glob the files for the pattern.
     _files = glob(join(f_dir, pattern))
 
     # A simple function to get the index from the file.
     def _get_index(f, head=head, tail=tail):
         base = split(f)[1]
-        result = base.replace(head, '')
-        return float(result.replace(tail, ''))
+        result = base.replace(head, "")
+        return float(result.replace(tail, ""))
 
     # Before sorting make sure the files in the globbed series are
     # really part of a timeseries.  This can happen in cases like so:
@@ -74,7 +73,7 @@ def get_file_list(file_name):
         else:
             return 0
 
-    files.sort(key=lambda x:_get_index(x))
+    files.sort(key=lambda x: _get_index(x))
     return files
 
 
@@ -121,51 +120,55 @@ class FileDataSource(Source):
     __version__ = 0
 
     # The list of file names for the timeseries.
-    file_list = List(Str, desc='a list of files belonging to a time series')
+    file_list = List(Str, desc="a list of files belonging to a time series")
 
     # The current time step (starts with 0).  This trait is a dummy
     # and is dynamically changed when the `file_list` trait changes.
     # This is done so the timestep bounds are linked to the number of
     # the files in the file list.
-    timestep = Range(value=0,
-                     low='_min_timestep',
-                     high='_max_timestep',
-                     enter_set=True, auto_set=False,
-                     desc='the current time step')
+    timestep = Range(
+        value=0,
+        low="_min_timestep",
+        high="_max_timestep",
+        enter_set=True,
+        auto_set=False,
+        desc="the current time step",
+    )
 
-    sync_timestep = Bool(False, desc='if all dataset timesteps are synced')
+    sync_timestep = Bool(False, desc="if all dataset timesteps are synced")
 
-    play = Bool(False, desc='if timesteps are automatically updated')
-    play_delay = Float(0.2, desc='the delay between loading files')
-    loop = Bool(False, desc='if animation is looped')
+    play = Bool(False, desc="if timesteps are automatically updated")
+    play_delay = Float(0.2, desc="the delay between loading files")
+    loop = Bool(False, desc="if animation is looped")
 
-    update_files = Button('Rescan files')
+    update_files = Button("Rescan files")
 
-    base_file_name=Str('', desc="the base name of the file",
-                       enter_set=True, auto_set=False,
-                       editor=FileEditor())
+    base_file_name = Str(
+        "",
+        desc="the base name of the file",
+        enter_set=True,
+        auto_set=False,
+        editor=FileEditor(),
+    )
 
     # A timestep view group that may be included by subclasses.
     time_step_group = Group(
-                          Item(name='file_path', style='readonly'),
-                          Group(
-                              Item(name='timestep',
-                                   editor=RangeEditor(
-                                       low=0, high_name='_max_timestep',
-                                       mode='slider'
-                                   ),
-                              ),
-                              Item(name='sync_timestep'),
-                              HGroup(
-                                  Item(name='play'),
-                                  Item(name='play_delay',
-                                       label='Delay'),
-                                  Item(name='loop'),
-                              ),
-                              visible_when='len(object.file_list) > 1'
-                          ),
-                          Item(name='update_files', show_label=False),
-                      )
+        Item(name="file_path", style="readonly"),
+        Group(
+            Item(
+                name="timestep",
+                editor=RangeEditor(low=0, high_name="_max_timestep", mode="slider"),
+            ),
+            Item(name="sync_timestep"),
+            HGroup(
+                Item(name="play"),
+                Item(name="play_delay", label="Delay"),
+                Item(name="loop"),
+            ),
+            visible_when="len(object.file_list) > 1",
+        ),
+        Item(name="update_files", show_label=False),
+    )
 
     ##################################################
     # Private traits.
@@ -173,7 +176,7 @@ class FileDataSource(Source):
 
     # The current file name.  This is not meant to be touched by the
     # user.
-    file_path = Instance(FilePath, (), desc='the current file name')
+    file_path = Instance(FilePath, (), desc="the current file name")
 
     _min_timestep = Int(0)
     _max_timestep = Int(0)
@@ -186,7 +189,7 @@ class FileDataSource(Source):
     def __get_pure_state__(self):
         d = super(FileDataSource, self).__get_pure_state__()
         # These are obtained dynamically, so don't pickle them.
-        for x in ['file_list', 'timestep', 'play']:
+        for x in ["file_list", "timestep", "play"]:
             d.pop(x, None)
         return d
 
@@ -194,17 +197,17 @@ class FileDataSource(Source):
         # Use the saved path to initialize the file_list and timestep.
         fname = state.file_path.abs_pth
         if not isfile(fname):
-            msg = 'Could not find file at %s\n'%fname
-            msg += 'Please move the file there and try again.'
+            msg = "Could not find file at %s\n" % fname
+            msg += "Please move the file there and try again."
             raise IOError(msg)
 
         self.initialize(fname)
         # Now set the remaining state without touching the children.
-        set_state(self, state, ignore=['children', 'file_path'])
+        set_state(self, state, ignore=["children", "file_path"])
         # Setup the children.
         handle_children_state(self.children, state.children)
         # Setup the children's state.
-        set_state(self, state, first=['children'], ignore=['*'])
+        set_state(self, state, first=["children"], ignore=["*"])
 
     ######################################################################
     # `FileDataSource` interface
@@ -222,12 +225,12 @@ class FileDataSource(Source):
     def _file_list_changed(self, value):
         # Change the range of the timestep suitably to reflect new list.
         n_files = len(self.file_list)
-        timestep = max(min(self.timestep, n_files-1), 0)
+        timestep = max(min(self.timestep, n_files - 1), 0)
         if self.timestep == timestep:
             self._timestep_changed(timestep)
         else:
             self.timestep = timestep
-        self._max_timestep = max(n_files -1, 0)
+        self._max_timestep = max(n_files - 1, 0)
 
     def _file_list_items_changed(self, list_event):
         self._file_list_changed(self.file_list)
@@ -237,7 +240,7 @@ class FileDataSource(Source):
         if len(file_list) > 0:
             self.file_path = FilePath(file_list[value])
         else:
-            self.file_path = FilePath('')
+            self.file_path = FilePath("")
         if self.sync_timestep:
             for sibling in self._find_sibling_datasets():
                 sibling.timestep = value
@@ -250,7 +253,7 @@ class FileDataSource(Source):
             self.timestep = 0
 
     def _play_changed(self, value):
-        mm = getattr(self.scene, 'movie_maker', None)
+        mm = getattr(self.scene, "movie_maker", None)
         if value:
             if mm is not None:
                 mm.animation_start()
@@ -268,7 +271,7 @@ class FileDataSource(Source):
             self._play_changed(self.play)
 
     def _play_event(self):
-        mm = getattr(self.scene, 'movie_maker', None)
+        mm = getattr(self.scene, "movie_maker", None)
         nf = self._max_timestep
         pc = self.timestep
         pc += 1
@@ -288,15 +291,16 @@ class FileDataSource(Source):
     def _play_delay_changed(self):
         if self.play:
             self._timer.Stop()
-            self._timer.Start(self.play_delay*1000)
+            self._timer.Start(self.play_delay * 1000)
 
     def _make_play_timer(self):
         scene = self.scene
         if scene is None or scene.off_screen_rendering:
-            timer = NoUITimer(self.play_delay*1000, self._play_event)
+            timer = NoUITimer(self.play_delay * 1000, self._play_event)
         else:
             from pyface.timer.api import Timer
-            timer = Timer(self.play_delay*1000, self._play_event)
+
+            timer = Timer(self.play_delay * 1000, self._play_event)
         return timer
 
     def _find_sibling_datasets(self):

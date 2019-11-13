@@ -12,27 +12,28 @@ from mayavi.core import pipeline_info
 
 
 class TestPipelineInfoTest(unittest.TestCase):
-
     def test_tvtk_dataset_name(self):
         "Can tvtk datasets can be converted to names correctly."
-        datasets = [tvtk.ImageData(),
-                    tvtk.StructuredPoints(),
-                    tvtk.RectilinearGrid(),
-                    tvtk.StructuredGrid(),
-                    tvtk.PolyData(),
-                    tvtk.UnstructuredGrid(),
-                    tvtk.Property(), # Not a dataset!
-                    'foo', # Not a TVTK object.
-                    ]
-        expect = ['image_data',
-                  'image_data',
-                  'rectilinear_grid',
-                  'structured_grid',
-                  'poly_data',
-                  'unstructured_grid',
-                  'none',
-                  'none'
-                  ]
+        datasets = [
+            tvtk.ImageData(),
+            tvtk.StructuredPoints(),
+            tvtk.RectilinearGrid(),
+            tvtk.StructuredGrid(),
+            tvtk.PolyData(),
+            tvtk.UnstructuredGrid(),
+            tvtk.Property(),  # Not a dataset!
+            "foo",  # Not a TVTK object.
+        ]
+        expect = [
+            "image_data",
+            "image_data",
+            "rectilinear_grid",
+            "structured_grid",
+            "poly_data",
+            "unstructured_grid",
+            "none",
+            "none",
+        ]
         result = [pipeline_info.get_tvtk_dataset_name(d) for d in datasets]
         self.assertEqual(result, expect)
 
@@ -44,6 +45,5 @@ class TestPipelineInfoTest(unittest.TestCase):
         self.assertEqual(len(p.attributes), 0)
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

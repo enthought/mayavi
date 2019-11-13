@@ -81,12 +81,12 @@ def compute_delaunay_edges(x, y, z, visualize=False):
                           ...                         ]
     """
     if visualize:
-        vtk_source = mlab.points3d(x, y, z, opacity=0.3, mode='2dvertex')
+        vtk_source = mlab.points3d(x, y, z, opacity=0.3, mode="2dvertex")
         vtk_source.actor.property.point_size = 3
     else:
         vtk_source = mlab.pipeline.scalar_scatter(x, y, z, figure=False)
     delaunay = mlab.pipeline.delaunay3d(vtk_source)
-    delaunay.filter.offset = 999    # seems more reliable than the default
+    delaunay.filter.offset = 999  # seems more reliable than the default
     edges = mlab.pipeline.extract_edges(delaunay)
     if visualize:
         mlab.pipeline.surface(edges, opacity=0.3, line_width=3)
@@ -116,18 +116,20 @@ def graph_plot(x, y, z, start_idx, end_idx, edge_scalars=None, **kwargs):
         kwargs:
             extra keyword arguments are passed to quiver3d.
     """
-    vec = mlab.quiver3d(x[start_idx],
-                        y[start_idx],
-                        z[start_idx],
-                        x[end_idx] - x[start_idx],
-                        y[end_idx] - y[start_idx],
-                        z[end_idx] - z[start_idx],
-                        scalars=edge_scalars,
-                        mode='2ddash',
-                        scale_factor=1,
-                        **kwargs)
+    vec = mlab.quiver3d(
+        x[start_idx],
+        y[start_idx],
+        z[start_idx],
+        x[end_idx] - x[start_idx],
+        y[end_idx] - y[start_idx],
+        z[end_idx] - z[start_idx],
+        scalars=edge_scalars,
+        mode="2ddash",
+        scale_factor=1,
+        **kwargs
+    )
     if edge_scalars is not None:
-        vec.glyph.color_mode = 'color_by_scalar'
+        vec.glyph.color_mode = "color_by_scalar"
     return vec
 
 
@@ -158,13 +160,14 @@ def build_geometric_graph(x, y, z, edges):
         Instead the graph node is an index to the column.
     """
     xyz = np.array((x, y, z))
+
     def euclidean_dist(i, j):
-        d = xyz[:,i] - xyz[:,j]
+        d = xyz[:, i] - xyz[:, j]
         return np.sqrt(np.dot(d, d))
 
     g = nx.Graph()
     for i, j in edges:
-        if nx.__version__.split('.')[0] > '0':
+        if nx.__version__.split(".")[0] > "0":
             g.add_edge(i, j, weight=euclidean_dist(i, j))
         else:
             g.add_edge(i, j, euclidean_dist(i, j))
@@ -177,37 +180,38 @@ def points_on_sphere(N):
         Code by Chris Colbert from the numpy-discussion list.
     """
     phi = (1 + np.sqrt(5)) / 2  # the golden ratio
-    long_incr = 2*np.pi / phi   # how much to increment the longitude
+    long_incr = 2 * np.pi / phi  # how much to increment the longitude
 
-    dz = 2.0 / float(N)         # a unit sphere has diameter 2
-    bands = np.arange(N)        # each band will have one point placed on it
-    z = bands * dz - 1 + (dz/2) # the height z of each band/point
-    r = np.sqrt(1 - z*z)        # project onto xy-plane
-    az = bands * long_incr      # azimuthal angle of point modulo 2 pi
+    dz = 2.0 / float(N)  # a unit sphere has diameter 2
+    bands = np.arange(N)  # each band will have one point placed on it
+    z = bands * dz - 1 + (dz / 2)  # the height z of each band/point
+    r = np.sqrt(1 - z * z)  # project onto xy-plane
+    az = bands * long_incr  # azimuthal angle of point modulo 2 pi
     x = r * np.cos(az)
     y = r * np.sin(az)
     return x, y, z
 
 
 ################################################################################
-if __name__ == '__main__':
+if __name__ == "__main__":
     # generate some points
     x, y, z = points_on_sphere(50)
     # Avoid triangulation problems on the sphere
     z *= 1.01
 
-    mlab.figure(1, bgcolor=(0,0,0))
+    mlab.figure(1, bgcolor=(0, 0, 0))
     mlab.clf()
 
     # Now get the Delaunay Triangulation from vtk via mayavi mlab. Vtk stores
     # its points in a different order so overwrite ours to match the edges
     new_x, new_y, new_z, edges = compute_delaunay_edges(x, y, z, visualize=True)
-    assert(x.shape == new_x.shape)   # check triangulation got everything
+    assert x.shape == new_x.shape  # check triangulation got everything
     x, y, z = new_x, new_y, new_z
 
-    if nx.__version__ < '0.99':
-        raise ImportError('The version of NetworkX must be at least '
-                    '0.99 to run this example')
+    if nx.__version__ < "0.99":
+        raise ImportError(
+            "The version of NetworkX must be at least " "0.99 to run this example"
+        )
 
     # Make a NetworkX graph out of our point and edge data
     g = build_geometric_graph(x, y, z, edges)
@@ -217,15 +221,20 @@ if __name__ == '__main__':
     edges = nx.minimum_spanning_tree(g).edges(data=True)
     start_idx, end_idx, _ = np.array(list(edges)).T
     start_idx = start_idx.astype(np.int)
-    end_idx   = end_idx.astype(np.int)
+    end_idx = end_idx.astype(np.int)
 
     # Plot this with Mayavi
-    graph_plot(x, y, z, start_idx, end_idx,
-                edge_scalars=z[start_idx],
-                opacity=0.8,
-                colormap='summer',
-                line_width=4,
-                )
+    graph_plot(
+        x,
+        y,
+        z,
+        start_idx,
+        end_idx,
+        edge_scalars=z[start_idx],
+        opacity=0.8,
+        colormap="summer",
+        line_width=4,
+    )
 
     mlab.view(60, 46, 4)
     mlab.show()

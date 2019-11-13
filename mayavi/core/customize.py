@@ -56,13 +56,14 @@ except ImportError:
 # module names).
 
 home = get_home_directory()
-m2dir = join(home, '.mayavi2')
-user_module = join(m2dir, 'user_mayavi.py')
+m2dir = join(home, ".mayavi2")
+user_module = join(m2dir, "user_mayavi.py")
 if exists(user_module):
     # Add ~/.mayavi2 to sys.path.
     sys.path.append(m2dir)
     # Doing an import gives user information on any errors.
     import user_mayavi
+
     try:
         # Now try and import the user defined plugin extension.
         from user_mayavi import get_plugins as _get_user_plugins
@@ -73,12 +74,13 @@ if exists(user_module):
 #  Now handle any contributions that the user has chosen via the
 #  preferences.
 
+
 def _import_contrib(pkg):
     mod = None
     try:
-        components = pkg.split('.')
+        components = pkg.split(".")
         if len(components) > 1:
-            mod_name = '.'.join(components[:-1])
+            mod_name = ".".join(components[:-1])
             sym_name = components[-1]
             mod = __import__(mod_name, globals(), locals(), [sym_name], level=0)
             mod = getattr(mod, sym_name)
@@ -86,32 +88,35 @@ def _import_contrib(pkg):
             mod_name = components[0]
             mod = __import__(mod_name, globals(), locals(), [mod_name], level=0)
     except Exception:
-        print("*"*80)
+        print("*" * 80)
         traceback.print_exc(file=sys.stdout)
-        print("*"*80)
+        print("*" * 80)
     return mod
+
 
 def add_contributions():
     """Import any contributions that the user has selected via
     preferences."""
     for pkg in preference_manager.root.contrib_packages:
-        _import_contrib(pkg + '.user_mayavi')
+        _import_contrib(pkg + ".user_mayavi")
+
 
 def get_contrib_plugins():
     """Get plugins requested by different contributions."""
     plugins = []
     for pkg in preference_manager.root.contrib_packages:
-        mod = _import_contrib(pkg + '.user_mayavi')
-        if mod is not None and hasattr(mod, 'get_plugins'):
+        mod = _import_contrib(pkg + ".user_mayavi")
+        if mod is not None and hasattr(mod, "get_plugins"):
             plugins.extend(mod.get_plugins())
     return plugins
 
+
 # Import the contributions.
 add_contributions()
+
 
 def get_custom_plugins():
     """Convenience function that returns all customization plugins as a
     list.
     """
-    return _get_global_plugins() + _get_user_plugins() + \
-           get_contrib_plugins()
+    return _get_global_plugins() + _get_user_plugins() + get_contrib_plugins()

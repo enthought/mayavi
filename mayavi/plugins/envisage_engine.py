@@ -9,8 +9,7 @@ import logging
 
 # Enthought library imports.
 from traits.api import Instance, on_trait_change, Str
-from tvtk.plugins.scene.i_scene_manager import \
-            ISceneManager
+from tvtk.plugins.scene.i_scene_manager import ISceneManager
 from tvtk.plugins.scene.ui.actions import NewScene
 from tvtk.plugins.scene import scene_editor
 from pyface.api import GUI
@@ -34,14 +33,16 @@ class EnvisageEngine(Engine):
     window = Instance(WorkbenchWindow)
 
     # Our name.
-    name = Str('Mayavi Envisage Engine')
+    name = Str("Mayavi Envisage Engine")
 
     ######################################################################
     # `object` interface
     ######################################################################
     def __get_pure_state__(self):
         d = super(EnvisageEngine, self).__get_pure_state__()
-        for x in ['window',]:
+        for x in [
+            "window",
+        ]:
             d.pop(x, None)
         return d
 
@@ -63,13 +64,12 @@ class EnvisageEngine(Engine):
 
         # Setup a handler that is invoked when a new Scene is
         # added/removed.
-        scene_manager.on_trait_change(self._scene_editors_changed,
-                                      'scenes_items')
+        scene_manager.on_trait_change(self._scene_editors_changed, "scenes_items")
 
         # Call the parent start method.
         super(EnvisageEngine, self).start()
 
-        logger.debug ('--------- EnvisageEngine started ----------')
+        logger.debug("--------- EnvisageEngine started ----------")
 
     def stop(self):
         # Call the parent stop method.
@@ -118,16 +118,16 @@ class EnvisageEngine(Engine):
         for scene in list_event.added:
             self.add_scene(scene)
 
-    @on_trait_change('window:opened')
+    @on_trait_change("window:opened")
     def _on_window_opened(self, obj, trait_name, old, new):
         """We start the engine when the window is opened."""
-        if trait_name == 'opened':
+        if trait_name == "opened":
             self.start()
 
-    @on_trait_change('window:closed')
+    @on_trait_change("window:closed")
     def _on_window_closed(self, obj, trait_name, old, new):
         """We stop the engine when the window is closed."""
-        if trait_name == 'closed':
+        if trait_name == "closed":
             self.stop()
 
     def _window_changed(self, old, new):
@@ -139,19 +139,18 @@ class EnvisageEngine(Engine):
         if sm is not None:
             self.start()
 
-    @on_trait_change('window:editors[]')
+    @on_trait_change("window:editors[]")
     def _sync_scene_editor_name(self, obj, trait_name, old, new):
         """Synchronize the Mayavi scene's name trait with that of the
         editor's name."""
-        if trait_name.startswith('editors'):
+        if trait_name.startswith("editors"):
             scenes = list(self.scenes)
             scenes.reverse()
             for editor in new:
-                if not hasattr(editor, 'scene'):
+                if not hasattr(editor, "scene"):
                     continue
                 for scene in scenes:
                     if id(editor.scene) == id(scene.scene):
                         editor.name = scene.name
-                        scene.sync_trait('name', editor, 'name')
+                        scene.sync_trait("name", editor, "name")
                         break
-

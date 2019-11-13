@@ -19,15 +19,15 @@ class TestGridPlane(TestCase):
         s = script.engine.current_scene
         mm = s.children[0].children[0]
         gp1, gp2, gp3 = mm.children[1:]
-        assert gp1.grid_plane.axis == 'x'
+        assert gp1.grid_plane.axis == "x"
         assert gp1.grid_plane.position == 0
         assert gp1.actor.property.ambient == 1.0
 
-        assert gp2.grid_plane.axis == 'y'
+        assert gp2.grid_plane.axis == "y"
         assert gp2.grid_plane.position == 16
         assert gp2.actor.property.ambient == 1.0
 
-        assert gp3.grid_plane.axis == 'z'
+        assert gp3.grid_plane.axis == "z"
         assert gp3.grid_plane.position == 6
         assert gp3.actor.property.ambient == 1.0
 
@@ -48,7 +48,7 @@ class TestGridPlane(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(get_example_data('heart.vtk'))
+        r.initialize(get_example_data("heart.vtk"))
         script.add_source(r)
 
         # Create an outline for the data.
@@ -63,13 +63,13 @@ class TestGridPlane(TestCase):
         gp2 = GridPlane()
         # We'll test how robust things are by setting attributes
         # *before* we add it to the scene.
-        gp2.grid_plane.axis = 'y'
+        gp2.grid_plane.axis = "y"
         gp2.grid_plane.position = 16
         script.add_module(gp2)
         # Third normal to 'z' axis.
         gp3 = GridPlane()
         script.add_module(gp3)
-        gp3.grid_plane.axis = 'z'
+        gp3.grid_plane.axis = "z"
         gp3.grid_plane.position = 6
 
         for gp in (gp1, gp2, gp3):
@@ -85,9 +85,9 @@ class TestGridPlane(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine

@@ -19,11 +19,12 @@ def is_ui_running():
     """ Returns True if the UI event loop is running.
     """
     from .engine_manager import options
+
     if options.offscreen:
         return True
-    elif ETSConfig.toolkit == 'wx':
+    elif ETSConfig.toolkit == "wx":
         return guisupport.is_event_loop_running_wx()
-    elif ETSConfig.toolkit == 'qt4':
+    elif ETSConfig.toolkit == "qt4":
         return guisupport.is_event_loop_running_qt4()
     else:
         return False
@@ -37,16 +38,16 @@ class StopShow(HasTraits):
     ########################################
     # Traits
 
-    stop = Button('Stop interaction',
-                  desc='if the UI interaction is to be stopped')
+    stop = Button("Stop interaction", desc="if the UI interaction is to be stopped")
 
     # Private traits.
     # Stores a reference to the UI object so it can be disposed when the
     # interaction is stopped.
     _ui = Any
 
-    view = View(Group(Item('stop'), show_labels=False),
-                buttons=[], title='Control Show')
+    view = View(
+        Group(Item("stop"), show_labels=False), buttons=[], title="Control Show"
+    )
 
     ######################################################################
     # `object` interface.
@@ -137,7 +138,7 @@ def show(func=None, stop=False):
             return func(*args, **kw)
         else:
             g = GUI()
-            if tk == 'wx':
+            if tk == "wx":
                 # Create a dummy app so invoke later works on wx.
                 a = ApplicationWindow(size=(1, 1))
                 GUI.invoke_later(lambda: a.close())

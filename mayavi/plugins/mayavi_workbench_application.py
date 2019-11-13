@@ -28,22 +28,22 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
 
     # Turn this off if you don't want the workbench to start a GUI
     # event loop.
-    start_gui_event_loop = Bool(True, desc='start a GUI event loop')
+    start_gui_event_loop = Bool(True, desc="start a GUI event loop")
 
     #### 'IApplication' interface #############################################
 
     # The application's globally unique Id.
-    id = 'mayavi_e3'
+    id = "mayavi_e3"
 
     #### 'WorkbenchApplication' interface #####################################
 
     # Branding information.
     #
     # The icon used on window title bars etc.
-    icon = ImageResource('m2.ico', search_path=[IMG_DIR])
+    icon = ImageResource("m2.ico", search_path=[IMG_DIR])
 
     # The name of the application (also used on window title bars etc).
-    name = 'Mayavi2 - The 3D data visualizer'
+    name = "Mayavi2 - The 3D data visualizer"
 
     ###########################################################################
     # 'WorkbenchApplication' interface.
@@ -66,7 +66,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
 
         """
 
-        logger.debug('---------- workbench application ----------')
+        logger.debug("---------- workbench application ----------")
 
         # Make sure the GUI has been created (so that, if required, the splash
         # screen is shown).
@@ -81,7 +81,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
             window.open()
 
             # We stop the application when the workbench has exited.
-            self.workbench.on_trait_change(self._on_workbench_exited, 'exited')
+            self.workbench.on_trait_change(self._on_workbench_exited, "exited")
 
             # Start the GUI event loop if needed.
             if self.start_gui_event_loop:
@@ -90,7 +90,6 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
 
         return
 
-
     ######################################################################
     # Non-public interface.
     ######################################################################
@@ -98,16 +97,18 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
         """ Trait initializer. """
         from mayavi import api
         from vtk import vtkVersion
+
         vtk_version = vtkVersion().GetVTKVersion()
         about_dialog = AboutDialog(
-            parent = self.workbench.active_window.control,
-            image  = ImageResource('m2_about.jpg',
-                                   search_path=[IMG_DIR]),
-            additions = ['Authors: Prabhu Ramachandran',
-                            'and Gael Varoquaux',
-                            '',
-                            'Mayavi version %s \t - \t VTK version %s' %
-                            (api.__version__, vtk_version)],
+            parent=self.workbench.active_window.control,
+            image=ImageResource("m2_about.jpg", search_path=[IMG_DIR]),
+            additions=[
+                "Authors: Prabhu Ramachandran",
+                "and Gael Varoquaux",
+                "",
+                "Mayavi version %s \t - \t VTK version %s"
+                % (api.__version__, vtk_version),
+            ],
         )
 
         return about_dialog
@@ -116,12 +117,10 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
         """ Trait initializer. """
         if preference_manager.root.show_splash_screen:
             splash_screen = SplashScreen(
-                image             = ImageResource('m2_about.jpg',
-                                                  search_path=[IMG_DIR]),
-                show_log_messages = True,
+                image=ImageResource("m2_about.jpg", search_path=[IMG_DIR]),
+                show_log_messages=True,
             )
         else:
             splash_screen = None
 
         return splash_screen
-

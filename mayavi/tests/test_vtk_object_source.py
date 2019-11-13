@@ -24,8 +24,8 @@ class TestVTKObjectSource(TestMlabNullEngine):
         # Then
         self.assertEqual(src.outputs[0], ef)
         self.assertEqual(src.browser.root_object, [ef])
-        self.assertEqual(src.output_info.datasets, ['poly_data'])
-        self.assertEqual(src.name, 'VTK (ElevationFilter)')
+        self.assertEqual(src.output_info.datasets, ["poly_data"])
+        self.assertEqual(src.name, "VTK (ElevationFilter)")
 
         # When
         src.object = cs
@@ -33,8 +33,8 @@ class TestVTKObjectSource(TestMlabNullEngine):
         # Then
         self.assertEqual(src.outputs[0], cs)
         self.assertEqual(src.browser.root_object, [cs])
-        self.assertEqual(src.output_info.datasets, ['poly_data'])
-        self.assertEqual(src.name, 'VTK (ConeSource)')
+        self.assertEqual(src.output_info.datasets, ["poly_data"])
+        self.assertEqual(src.name, "VTK (ConeSource)")
 
     def test_data_changed_is_fired_when_object_is_modified(self):
         # Given
@@ -52,7 +52,7 @@ class TestVTKObjectSource(TestMlabNullEngine):
         def callback():
             self.count += 1
 
-        src.on_trait_change(callback, 'data_changed')
+        src.on_trait_change(callback, "data_changed")
         cs.height = 2.0
 
         # Then
@@ -77,7 +77,7 @@ class TestVTKObjectSource(TestMlabNullEngine):
 
         # Then
         self.assertEqual(src.object, a)
-        self.assertEqual(src.output_info.datasets, ['none'])
+        self.assertEqual(src.output_info.datasets, ["none"])
 
     def test_add_dataset_uses_vtk_object_source_for_objects(self):
         # Given
@@ -99,5 +99,5 @@ class TestVTKObjectSource(TestMlabNullEngine):
         self.assertTrue(isinstance(src, VTKObjectSource))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

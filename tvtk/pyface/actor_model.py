@@ -29,5 +29,3 @@ class ITVTKActorModel(HasTraits):
 
     # Send this event in order to force a rendering of the scene.
     do_render = Event()
-
-

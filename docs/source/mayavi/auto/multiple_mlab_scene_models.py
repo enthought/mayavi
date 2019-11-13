@@ -16,8 +16,7 @@ the examples :ref:`example_mlab_interactive_dialog`, and
 """
 import numpy as np
 
-from traits.api import HasTraits, Instance, Button, \
-    on_trait_change
+from traits.api import HasTraits, Instance, Button, on_trait_change
 from traitsui.api import View, Item, HSplit, Group
 
 from mayavi import mlab
@@ -29,14 +28,14 @@ class MyDialog(HasTraits):
     scene1 = Instance(MlabSceneModel, ())
     scene2 = Instance(MlabSceneModel, ())
 
-    button1 = Button('Redraw')
-    button2 = Button('Redraw')
+    button1 = Button("Redraw")
+    button2 = Button("Redraw")
 
-    @on_trait_change('button1')
+    @on_trait_change("button1")
     def redraw_scene1(self):
         self.redraw_scene(self.scene1)
 
-    @on_trait_change('button2')
+    @on_trait_change("button2")
     def redraw_scene2(self):
         self.redraw_scene(self.scene2)
 
@@ -48,24 +47,27 @@ class MyDialog(HasTraits):
         mlab.points3d(x, y, z, s, figure=scene.mayavi_scene)
 
     # The layout of the dialog created
-    view = View(HSplit(
-                  Group(
-                       Item('scene1',
-                            editor=SceneEditor(), height=250,
-                            width=300),
-                       'button1',
-                       show_labels=False,
-                  ),
-                  Group(
-                       Item('scene2',
-                            editor=SceneEditor(), height=250,
-                            width=300, show_label=False),
-                       'button2',
-                       show_labels=False,
-                  ),
+    view = View(
+        HSplit(
+            Group(
+                Item("scene1", editor=SceneEditor(), height=250, width=300),
+                "button1",
+                show_labels=False,
+            ),
+            Group(
+                Item(
+                    "scene2",
+                    editor=SceneEditor(),
+                    height=250,
+                    width=300,
+                    show_label=False,
                 ),
-                resizable=True,
-                )
+                "button2",
+                show_labels=False,
+            ),
+        ),
+        resizable=True,
+    )
 
 
 m = MyDialog()

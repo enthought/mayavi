@@ -7,23 +7,23 @@ from traits.api import List
 
 
 # This module's package.
-PKG = '.'.join(__name__.split('.')[:-1])
+PKG = ".".join(__name__.split(".")[:-1])
 
 
 class ScenePlugin(Plugin):
     """ The TVTK render window scene plugin. """
 
     # Extension point Ids.
-    PREFERENCES    = 'envisage.preferences'
-    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
+    PREFERENCES = "envisage.preferences"
+    SERVICE_OFFERS = "envisage.ui.workbench.service_offers"
 
     #### 'IPlugin' interface ##################################################
 
     # The plugin's name (suitable for displaying to the user).
-    name = 'TVTK Scene Plugin'
+    name = "TVTK Scene Plugin"
 
     # Our ID.
-    id = 'tvtk.scene'
+    id = "tvtk.scene"
 
     #### Extension points offered by this plugin ##############################
 
@@ -36,7 +36,7 @@ class ScenePlugin(Plugin):
     def _preferences_default(self):
         """ Trait initializer. """
 
-        return ['pkgfile://%s/preferences.ini' % PKG]
+        return ["pkgfile://%s/preferences.ini" % PKG]
 
     service_offers = List(contributes_to=SERVICE_OFFERS)
 
@@ -44,10 +44,11 @@ class ScenePlugin(Plugin):
         """ Trait initializer. """
 
         scene_manager_service_offer = ServiceOffer(
-            protocol = PKG + '.i_scene_manager.ISceneManager',
-            factory  = PKG + '.scene_manager.SceneManager',
+            protocol=PKG + ".i_scene_manager.ISceneManager",
+            factory=PKG + ".scene_manager.SceneManager",
         )
 
         return [scene_manager_service_offer]
+
 
 #### EOF ######################################################################

@@ -12,12 +12,15 @@ from mayavi.core.registry import registry
 from mayavi.core.metadata import Metadata
 from mayavi.core.pipeline_base import PipelineBase
 
+
 def new_class(name, bases, dict_):
     try:
         import new
+
         return new.classobj(name, bases, dict_)
     except ImportError:
         return type(name, bases, dict_)
+
 
 ######################################################################
 # `FilterAction` class.
@@ -27,7 +30,7 @@ class FilterAction(Action):
     # The Metadata associated with this particular action.
     metadata = Instance(Metadata)
 
-    mayavi = Instance('mayavi.plugins.script.Script')
+    mayavi = Instance("mayavi.plugins.script.Script")
 
     # We disable the actions by default since these are dynamically
     # enabled depending on the current selection or object.
@@ -35,9 +38,9 @@ class FilterAction(Action):
 
     def __init__(self, **traits):
         super(FilterAction, self).__init__(**traits)
-        self.mayavi.engine.on_trait_change(self._update_enabled,
-                                           ['current_selection',
-                                            'current_object'])
+        self.mayavi.engine.on_trait_change(
+            self._update_enabled, ["current_selection", "current_object"]
+        )
 
     ###########################################################################
     # 'Action' interface.
@@ -64,8 +67,6 @@ class FilterAction(Action):
 ######################################################################
 # Creating the filter actions automatically.
 for filter in registry.filters:
-    d = {'tooltip': filter.tooltip,
-         'description': filter.desc,
-         'metadata': filter}
+    d = {"tooltip": filter.tooltip, "description": filter.desc, "metadata": filter}
     action = new_class(filter.id, (FilterAction,), d)
     globals()[filter.id] = action

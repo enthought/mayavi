@@ -25,11 +25,10 @@ class Tube(FilterBase):
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.TubeFilter, args=(), allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['poly_data'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['poly_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
-
+    output_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )

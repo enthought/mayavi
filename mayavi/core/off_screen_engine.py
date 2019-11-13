@@ -20,6 +20,7 @@ def off_screen_viewer_factory(size=(400, 350)):
     win.scene.set_size(size)
     return win
 
+
 ################################################################################
 # `OffScreenEngine` class.
 ################################################################################
@@ -28,4 +29,4 @@ class OffScreenEngine(Engine):
     scene_factory = Callable(off_screen_viewer_factory)
 
     # Our name.
-    name = Str('Mayavi offscreen Engine')
+    name = Str("Mayavi offscreen Engine")

@@ -10,8 +10,7 @@
 import numpy as np
 
 # Enthought library imports.
-from traits.api import Instance, Range, Float, Bool, \
-                                 Property, Enum
+from traits.api import Instance, Range, Float, Bool, Property, Enum
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 
@@ -34,62 +33,83 @@ class Threshold(Filter):
 
     # The filter type to use, specifies if the cells or the points are
     # cells filtered via a threshold.
-    filter_type = Enum('cells', 'points',
-                       desc='if thresholding is done on cells or points')
+    filter_type = Enum(
+        "cells", "points", desc="if thresholding is done on cells or points"
+    )
 
     # Lower threshold (this is a dynamic trait that is changed when
     # input data changes).
-    lower_threshold = Range(value=-1.0e20,
-                            low='_data_min',
-                            high='_data_max',
-                            enter_set=True,
-                            auto_set=False,
-                            desc='the lower threshold of the filter')
+    lower_threshold = Range(
+        value=-1.0e20,
+        low="_data_min",
+        high="_data_max",
+        enter_set=True,
+        auto_set=False,
+        desc="the lower threshold of the filter",
+    )
 
     # Upper threshold (this is a dynamic trait that is changed when
     # input data changes).
-    upper_threshold = Range(value=1.0e20,
-                            low='_data_min',
-                            high='_data_max',
-                            enter_set=True,
-                            auto_set=False,
-                            desc='the upper threshold of the filter')
+    upper_threshold = Range(
+        value=1.0e20,
+        low="_data_min",
+        high="_data_max",
+        enter_set=True,
+        auto_set=False,
+        desc="the upper threshold of the filter",
+    )
 
     # Automatically reset the lower threshold when the upstream data
     # changes.
-    auto_reset_lower = Bool(True, desc='if the lower threshold is '
-                            'automatically reset when upstream '
-                            'data changes')
+    auto_reset_lower = Bool(
+        True,
+        desc="if the lower threshold is "
+        "automatically reset when upstream "
+        "data changes",
+    )
 
     # Automatically reset the upper threshold when the upstream data
     # changes.
-    auto_reset_upper = Bool(True, desc='if the upper threshold is '
-                            'automatically reset when upstream '
-                            'data changes')
+    auto_reset_upper = Bool(
+        True,
+        desc="if the upper threshold is "
+        "automatically reset when upstream "
+        "data changes",
+    )
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['poly_data',
-                                         'unstructured_grid'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["poly_data", "unstructured_grid"],
+        attribute_types=["any"],
+        attributes=["any"],
+    )
 
     # Our view.
-    view = View(Group(Group(Item(name='filter_type'),
-                            Item(name='lower_threshold'),
-                            Item(name='auto_reset_lower'),
-                            Item(name='upper_threshold'),
-                            Item(name='auto_reset_upper')),
-                      Item(name='_'),
-                      Group(Item(name='threshold_filter',
-                                 show_label=False,
-                                 visible_when='object.filter_type == "cells"',
-                                 style='custom', resizable=True)),
-                      ),
-                resizable=True
+    view = View(
+        Group(
+            Group(
+                Item(name="filter_type"),
+                Item(name="lower_threshold"),
+                Item(name="auto_reset_lower"),
+                Item(name="upper_threshold"),
+                Item(name="auto_reset_upper"),
+            ),
+            Item(name="_"),
+            Group(
+                Item(
+                    name="threshold_filter",
+                    show_label=False,
+                    visible_when='object.filter_type == "cells"',
+                    style="custom",
+                    resizable=True,
                 )
+            ),
+        ),
+        resizable=True,
+    )
 
     ########################################
     # Private traits.
@@ -114,7 +134,7 @@ class Threshold(Filter):
     def __get_pure_state__(self):
         d = super(Threshold, self).__get_pure_state__()
         # These traits are dynamically created.
-        for name in ('_first', '_data_min', '_data_max'):
+        for name in ("_first", "_data_min", "_data_max"):
             d.pop(name, None)
 
         return d
@@ -123,10 +143,13 @@ class Threshold(Filter):
     # `Filter` interface.
     ######################################################################
     def setup_pipeline(self):
-        attrs = ['all_scalars', 'attribute_mode',
-                 'component_mode', 'selected_component']
-        self._threshold.on_trait_change(self._threshold_filter_edited,
-                                        attrs)
+        attrs = [
+            "all_scalars",
+            "attribute_mode",
+            "component_mode",
+            "selected_component",
+        ]
+        self._threshold.on_trait_change(self._threshold_filter_edited, attrs)
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -206,8 +229,7 @@ class Threshold(Filter):
             if self.auto_reset_lower:
                 self._data_min = dr[0]
                 notify = not self.auto_reset_upper
-                self.trait_set(lower_threshold = dr[0],
-                               trait_change_notify=notify)
+                self.trait_set(lower_threshold=dr[0], trait_change_notify=notify)
             if self.auto_reset_upper:
                 self._data_max = dr[1]
                 self.upper_threshold = dr[1]
@@ -215,8 +237,7 @@ class Threshold(Filter):
             if self.auto_reset_upper:
                 self._data_max = dr[1]
                 notify = not self.auto_reset_lower
-                self.trait_set(upper_threshold = dr[1],
-                         trait_change_notify=notify)
+                self.trait_set(upper_threshold=dr[1], trait_change_notify=notify)
             if self.auto_reset_lower:
                 self._data_min = dr[0]
                 self.lower_threshold = dr[0]
@@ -224,11 +245,11 @@ class Threshold(Filter):
     def _get_data_range(self):
         """Returns the range of the input scalar data."""
         dsh = DataSetHelper(self.inputs[0].outputs[0])
-        name, rng = dsh.get_range('scalars', 'point')
+        name, rng = dsh.get_range("scalars", "point")
         if name is not None:
             return rng
         else:
-            name, rng = dsh.get_range('scalars', 'cell')
+            name, rng = dsh.get_range("scalars", "cell")
             if name is None:
                 return []
             else:
@@ -251,27 +272,26 @@ class Threshold(Filter):
             self.upper_threshold = dr[1]
 
     def _get_threshold_filter(self):
-        if self.filter_type == 'cells':
+        if self.filter_type == "cells":
             return self._threshold
         else:
             return self._threshold_points
 
     def _filter_type_changed(self, value):
-        if value == 'cells':
+        if value == "cells":
             old = self._threshold_points
             new = self._threshold
         else:
             old = self._threshold
             new = self._threshold_points
-        self.trait_property_changed('threshold_filter', old, new)
+        self.trait_property_changed("threshold_filter", old, new)
 
     def _threshold_filter_changed(self, old, new):
         if len(self.inputs) == 0:
             return
         fil = new
         self.configure_connection(fil, self.inputs[0].outputs[0])
-        fil.threshold_between(self.lower_threshold,
-                              self.upper_threshold)
+        fil.threshold_between(self.lower_threshold, self.upper_threshold)
         fil.update()
         self._set_outputs([fil])
 

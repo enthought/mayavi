@@ -15,7 +15,8 @@ import traceback
 # Enthought library imports.
 from apptools.persistence.state_pickler import create_instance
 from traits.etsconfig.api import ETSConfig
-if (ETSConfig.toolkit in ('null', '')) or os.environ.get('CI'):
+
+if (ETSConfig.toolkit in ("null", "")) or os.environ.get("CI"):
     pyface = None
 else:
     from pyface import api as pyface
@@ -50,7 +51,7 @@ def error(msg, parent=None):
         pyface.error(parent, msg)
 
 
-def exception(msg='Exception', parent=None):
+def exception(msg="Exception", parent=None):
     """This function handles any exception derived from Exception and
     prints out an error.  The optional `parent` argument is passed
     along to the dialog box.  The optional `msg` is printed and sent
@@ -59,16 +60,21 @@ def exception(msg='Exception', parent=None):
     try:
         type, value, tb = sys.exc_info()
         info = traceback.extract_tb(tb)
-        filename, lineno, function, text = info[-1] # last line only
-        exc_msg = "%s\nIn %s:%d\n%s: %s (in %s)" %\
-                  (msg, filename, lineno, type.__name__, str(value),
-                   function)
+        filename, lineno, function, text = info[-1]  # last line only
+        exc_msg = "%s\nIn %s:%d\n%s: %s (in %s)" % (
+            msg,
+            filename,
+            lineno,
+            type.__name__,
+            str(value),
+            function,
+        )
         # Log and display the message.
         logger.exception(msg)
         if pyface is not None:
-            pyface.error(parent, exc_msg, title='Exception')
+            pyface.error(parent, exc_msg, title="Exception")
     finally:
-        type = value = tb = None # clean up
+        type = value = tb = None  # clean up
 
 
 def process_ui_events():
@@ -87,6 +93,7 @@ def get_engine(obj):
     the engine is found.
     """
     from mayavi.core.engine import Engine
+
     while obj is not None:
         if isinstance(obj, Engine):
             return obj
@@ -98,35 +105,36 @@ def get_engine(obj):
 def get_output(obj):
     """Given an object, extracts the output object, hiding differences
     between old and new pipeline."""
-    if obj.is_a('vtkDataSet'):
+    if obj.is_a("vtkDataSet"):
         return obj
     else:
         return obj.output
 
 
-def get_object_path(object, parent, path='engine'):
+def get_object_path(object, parent, path="engine"):
     """Given a mayavi object on the tree view, this should find its
     "path" with respect to the parent object that contains it.
     """
+
     def _get_child_trait(obj):
-        if hasattr(obj, 'scenes'):
-            return 'scenes'
-        elif hasattr(obj, 'children'):
-            return 'children'
-        return ''
+        if hasattr(obj, "scenes"):
+            return "scenes"
+        elif hasattr(obj, "children"):
+            return "children"
+        return ""
 
     def _finder(obj, to_find, path):
         if obj is to_find:
             return path
         else:
             child_t = _get_child_trait(obj)
-            if child_t == '':
-                return ''
+            if child_t == "":
+                return ""
             for i, o in enumerate(getattr(obj, child_t)):
-                pth = _finder(o, to_find, '%s.%s[%d]'%(path, child_t, i))
+                pth = _finder(o, to_find, "%s.%s[%d]" % (path, child_t, i))
                 if len(pth) > 0:
                     return pth
-        return ''
+        return ""
 
     return _finder(parent, object, path)
 
@@ -141,7 +149,7 @@ def handle_children_state(children, kids):
     # each time.
     m_children = list(children)
 
-    n_child, n_kid = len(m_children),  len(kids)
+    n_child, n_kid = len(m_children), len(kids)
     # Remove extra children we have.
     for i in range(n_child - n_kid):
         m_children.pop()
@@ -150,8 +158,9 @@ def handle_children_state(children, kids):
     for i in range(n_child):
         child, kid = m_children[i], kids[i]
         md = kid.__metadata__
-        if (child.__module__ != md['module']) \
-               or (child.__class__.__name__ != md['class_name']):
+        if (child.__module__ != md["module"]) or (
+            child.__class__.__name__ != md["class_name"]
+        ):
             m_children[i] = create_instance(kid)
     # Add any extra kids.
     for i in range(n_kid - n_child):

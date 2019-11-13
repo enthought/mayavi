@@ -5,6 +5,7 @@
 # Copyright (c) 2004-2015, Enthought, Inc.
 
 import unittest
+
 try:
     import cStringIO
 except ImportError:
@@ -17,18 +18,19 @@ class TestIndent(unittest.TestCase):
     def test_basic(self):
         """Simple tests for indenter."""
         id = indenter.Indent()
-        self.assertEqual(str(id), '')
+        self.assertEqual(str(id), "")
         id.incr()
-        self.assertEqual(str(id), '    ')
+        self.assertEqual(str(id), "    ")
         id.incr()
-        self.assertEqual(str(id), '        ')
+        self.assertEqual(str(id), "        ")
         id.decr()
-        self.assertEqual(str(id), '    ')
+        self.assertEqual(str(id), "    ")
         id.decr()
-        self.assertEqual(str(id), '')
-        id.incr(); id.incr()
+        self.assertEqual(str(id), "")
+        id.incr()
+        id.incr()
         id.reset()
-        self.assertEqual(str(id), '')
+        self.assertEqual(str(id), "")
 
     def test_format(self):
         """Tests if formatting works ok."""
@@ -37,11 +39,11 @@ class TestIndent(unittest.TestCase):
         # test one liner with trailing newlines
         txt = """class foo:\n\n   \n   \n"""
         t1 = id.format(txt)
-        self.assertEqual(t1, '    class foo:\n')
+        self.assertEqual(t1, "    class foo:\n")
         # test one liner with no trailing newline.
         txt = """class foo:"""
         t1 = id.format(txt)
-        self.assertEqual(t1, '    class foo:\n')
+        self.assertEqual(t1, "    class foo:\n")
 
         # test multi-line text.
         txt = """print "hi!"
@@ -57,57 +59,68 @@ class TestIndent(unittest.TestCase):
                 pass
             def _get_a(self):
                 return self._a"""
-        res = """    class Foo:
+        res = (
+            """    class Foo:
         def __init__(self):
             pass
         def _get_a(self):
-            return self._a""" + '\n'
+            return self._a"""
+            + "\n"
+        )
         self.assertEqual(id.format(txt), res)
 
 
 class TestVTKDocMassager(unittest.TestCase):
     def test_doc_massage(self):
         """Test massage method."""
-        doc = "This is a test.  All VTK classes and vtk classes\n"\
-              "are named like this: vtkActor, vtkLODProperty,\n"\
-              "vtkXMLDataReader, vtk3DSImporter etc.  The methods \n"\
-              "of a VTK object are like GetData, GetOutput, \n"\
-              "SetRepresentationToWireframe.  Ivars are named like\n"\
-              "SpecularColor, Write3DPropsAsRasterImage etc."
-        ret = "This is a test.  All VTK classes and vtk classes\n"\
-              "are named like this: Actor, LODProperty,\n"\
-              "XMLDataReader, ThreeDSImporter etc.  The methods \n"\
-              "of a VTK object are like get_data, get_output, \n"\
-              "set_representation_to_wireframe.  Ivars are named like\n"\
-              "specular_color, write3d_props_as_raster_image etc."
+        doc = (
+            "This is a test.  All VTK classes and vtk classes\n"
+            "are named like this: vtkActor, vtkLODProperty,\n"
+            "vtkXMLDataReader, vtk3DSImporter etc.  The methods \n"
+            "of a VTK object are like GetData, GetOutput, \n"
+            "SetRepresentationToWireframe.  Ivars are named like\n"
+            "SpecularColor, Write3DPropsAsRasterImage etc."
+        )
+        ret = (
+            "This is a test.  All VTK classes and vtk classes\n"
+            "are named like this: Actor, LODProperty,\n"
+            "XMLDataReader, ThreeDSImporter etc.  The methods \n"
+            "of a VTK object are like get_data, get_output, \n"
+            "set_representation_to_wireframe.  Ivars are named like\n"
+            "specular_color, write3d_props_as_raster_image etc."
+        )
         dm = indenter.VTKDocMassager()
         self.assertEqual(dm.massage(doc), ret)
 
     def test_rename_class(self):
         """Test if VTK classes are renamed correctly."""
         dm = indenter.VTKDocMassager()
-        t = 'vtkFooBar vtkXMLDataReader vtk3DSReader vtk2000Bug'
+        t = "vtkFooBar vtkXMLDataReader vtk3DSReader vtk2000Bug"
         r = dm._rename_class(t)
-        correct = 'FooBar XMLDataReader ThreeDSReader Two000Bug'
+        correct = "FooBar XMLDataReader ThreeDSReader Two000Bug"
         self.assertEqual(r, correct)
 
     def test_remove_sig(self):
         """Test if function signature is removed correctly."""
         dm = indenter.VTKDocMassager()
-        t = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-            'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-            'V.GetOutput() -> vtkStructuredPoints\n'\
-            'C++: vtkStructuredPoints *GetOutput ();\n\n'\
-            ' Set/Get the output of this reader.\n'
+        t = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+            " Set/Get the output of this reader.\n"
+        )
         r = dm._remove_sig(t)
-        correct = ' Set/Get the output of this reader.\n'
+        correct = " Set/Get the output of this reader.\n"
         self.assertEqual(r, correct)
-        t = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-            'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-            'V.GetOutput() -> vtkStructuredPoints\n'\
-            'C++: vtkStructuredPoints *GetOutput ();\n\n'
+        t = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+        )
         r = dm._remove_sig(t)
-        correct = ''
+        correct = ""
         self.assertEqual(r, correct)
 
     def test_class_doc(self):
@@ -115,8 +128,10 @@ class TestVTKDocMassager(unittest.TestCase):
         dm = indenter.VTKDocMassager()
         indent = indenter.Indent()
         out = cStringIO.StringIO()
-        doc = "vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n"\
-              "SetRepresentationToWireframe, Write3DPropsAsRasterImage"
+        doc = (
+            "vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n"
+            "SetRepresentationToWireframe, Write3DPropsAsRasterImage"
+        )
         dm.write_class_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
@@ -124,8 +139,8 @@ class TestVTKDocMassager(unittest.TestCase):
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
-        #print ret
-        #print correct
+        # print ret
+        # print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc
@@ -141,12 +156,14 @@ class TestVTKDocMassager(unittest.TestCase):
         dm = indenter.VTKDocMassager()
         indent = indenter.Indent()
         out = cStringIO.StringIO()
-        doc = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-              'V.GetOutput() -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput ();\n\n'\
-              'vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n'\
-              'SetRepresentationToWireframe, Write3DPropsAsRasterImage'
+        doc = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+            "vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n"
+            "SetRepresentationToWireframe, Write3DPropsAsRasterImage"
+        )
         dm.write_trait_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
@@ -154,16 +171,18 @@ class TestVTKDocMassager(unittest.TestCase):
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
-        #print ret
-        #print correct
+        # print ret
+        # print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc.
         out = cStringIO.StringIO()
-        doc = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-              'V.GetOutput() -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput ();\n\n'
+        doc = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+        )
         dm.write_trait_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
@@ -174,12 +193,14 @@ class TestVTKDocMassager(unittest.TestCase):
         dm = indenter.VTKDocMassager()
         indent = indenter.Indent()
         out = cStringIO.StringIO()
-        doc = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-              'V.GetOutput() -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput ();\n\n'\
-              'vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n'\
-              'SetRepresentationToWireframe, Write3DPropsAsRasterImage'
+        doc = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+            "vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n"
+            "SetRepresentationToWireframe, Write3DPropsAsRasterImage"
+        )
         dm.write_method_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
@@ -190,16 +211,18 @@ class TestVTKDocMassager(unittest.TestCase):
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
-        #print ret
-        #print correct
+        # print ret
+        # print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc.
         out = cStringIO.StringIO()
-        doc = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-              'V.GetOutput() -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput ();\n\n'
+        doc = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+        )
         dm.write_method_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
@@ -207,38 +230,45 @@ class TestVTKDocMassager(unittest.TestCase):
     V.get_output(int) -> StructuredPoints
     V.get_output() -> StructuredPoints
     """\n'''
-        #print ret
-        #print correct
+        # print ret
+        # print correct
         self.assertEqual(ret, correct)
-
 
     def test_get_method_doc(self):
         """Test if get_method_doc works correctly."""
         dm = indenter.VTKDocMassager()
-        doc = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-              'V.GetOutput() -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput ();\n\n'\
-              'vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n'\
-              'SetRepresentationToWireframe, Write3DPropsAsRasterImage'
+        doc = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+            "vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n"
+            "SetRepresentationToWireframe, Write3DPropsAsRasterImage"
+        )
         ret = dm.get_method_doc(doc)
-        correct = 'V.get_output(int) -> StructuredPoints\n'\
-                  'V.get_output() -> StructuredPoints\n\n'\
-                  'LODProperty, XMLDataReader, ThreeDSImporter\n'\
-                  'set_representation_to_wireframe, '\
-                  'write3d_props_as_raster_image'
-        #print ret
-        #print correct
+        correct = (
+            "V.get_output(int) -> StructuredPoints\n"
+            "V.get_output() -> StructuredPoints\n\n"
+            "LODProperty, XMLDataReader, ThreeDSImporter\n"
+            "set_representation_to_wireframe, "
+            "write3d_props_as_raster_image"
+        )
+        # print ret
+        # print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc (only signature exists).
-        doc = 'V.GetOutput(int) -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput (int idx);\n'\
-              'V.GetOutput() -> vtkStructuredPoints\n'\
-              'C++: vtkStructuredPoints *GetOutput ();\n\n'
+        doc = (
+            "V.GetOutput(int) -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput (int idx);\n"
+            "V.GetOutput() -> vtkStructuredPoints\n"
+            "C++: vtkStructuredPoints *GetOutput ();\n\n"
+        )
         ret = dm.get_method_doc(doc)
-        correct = 'V.get_output(int) -> StructuredPoints\n'\
-                  'V.get_output() -> StructuredPoints\n'
+        correct = (
+            "V.get_output(int) -> StructuredPoints\n"
+            "V.get_output() -> StructuredPoints\n"
+        )
         self.assertEqual(ret, correct)
 
 

@@ -47,17 +47,25 @@ class Collection(Filter):
     ######################################################################
     def default_traits_view(self):
         """Returns the default traits view for this object."""
-        le = ListEditor(use_notebook=True,
-                        deletable=False,
-                        export='DockWindowShell',
-                        page_name='.name')
-        view = View(Group(Item(name='filters',
-                               style='custom',
-                               show_label=False,
-                               editor=le,
-                               resizable=True),
-                              show_labels=False),
-                    resizable=True)
+        le = ListEditor(
+            use_notebook=True,
+            deletable=False,
+            export="DockWindowShell",
+            page_name=".name",
+        )
+        view = View(
+            Group(
+                Item(
+                    name="filters",
+                    style="custom",
+                    show_label=False,
+                    editor=le,
+                    resizable=True,
+                ),
+                show_labels=False,
+            ),
+            resizable=True,
+        )
         return view
 
     ######################################################################
@@ -118,7 +126,7 @@ class Collection(Filter):
             # Hook up the others to each other.
             for i in range(1, len(filters)):
                 filter = filters[i]
-                filter.inputs = [filters[i-1]]
+                filter.inputs = [filters[i - 1]]
             self._pipeline_ready = True
         # Start filters.
         for filter in filters:
@@ -133,8 +141,7 @@ class Collection(Filter):
 
     def _filters_items_changed(self, list_event):
         """Static traits handler."""
-        self._handle_filters_changed(list_event.removed,
-                                     list_event.added)
+        self._handle_filters_changed(list_event.removed, list_event.added)
 
     def _scene_changed(self, old, new):
         """Static traits handler."""
@@ -163,10 +170,10 @@ class Collection(Filter):
         self._set_outputs(self.filters[-1].outputs)
 
     def _setup_events(self, obj, remove=False):
-        obj.on_trait_change(self.update_data, 'data_changed',
-                            remove=remove)
-        obj.on_trait_change(self._fire_pipeline_changed,
-                            'pipeline_changed', remove=remove)
+        obj.on_trait_change(self.update_data, "data_changed", remove=remove)
+        obj.on_trait_change(
+            self._fire_pipeline_changed, "pipeline_changed", remove=remove
+        )
 
     def _visible_changed(self, value):
         for filter in self.filters:

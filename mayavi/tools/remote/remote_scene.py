@@ -3,8 +3,18 @@ import base64
 from collections import namedtuple
 import time
 
-from traits.api import (Any, Bool, Dict, Enum, Event, HasTraits,
-                        Instance, Int, List, Callable)
+from traits.api import (
+    Any,
+    Bool,
+    Dict,
+    Enum,
+    Event,
+    HasTraits,
+    Instance,
+    Int,
+    List,
+    Callable,
+)
 import vtk
 
 from tvtk.api import tvtk
@@ -14,15 +24,16 @@ from tvtk.tvtk_base import global_disable_update
 
 options.offscreen = True
 
-encode_func = getattr(base64, 'encodebytes', getattr(base64, 'encodestring'))
+encode_func = getattr(base64, "encodebytes", getattr(base64, "encodestring"))
 
-EventInfo = namedtuple('EventInfo', ['id', 'name', 'event', 'data'])
+EventInfo = namedtuple("EventInfo", ["id", "name", "event", "data"])
 
 
-if hasattr(vtk, 'vtkOSOpenGLRenderWindow'):
+if hasattr(vtk, "vtkOSOpenGLRenderWindow"):
     # Needed for VTK's vtkglew to be able to load the OSMesa.so. See:
     # https://www.vtk.org/pipermail/vtk-developers/2017-November/035592.html
     import ctypes
+
     osm = ctypes.CDLL("libOSMesa.so", ctypes.RTLD_GLOBAL)
 
 
@@ -30,7 +41,7 @@ class ImageEncoder(HasTraits):
     scene = Any
     w2if = Instance(tvtk.WindowToImageFilter)
     writer = Instance(tvtk.ImageWriter)
-    image_type = Enum('png', 'jpeg')
+    image_type = Enum("png", "jpeg")
     quality = Int(60)
     compress = Bool(False)
 
@@ -39,8 +50,8 @@ class ImageEncoder(HasTraits):
 
     # ---- Public protocol -------
     def get_raw_image(self):
-        '''Returns the raw bytes of the image.
-        '''
+        """Returns the raw bytes of the image.
+        """
         self.w2if.modified()
         w = self.writer
         w.update()
@@ -58,7 +69,7 @@ class ImageEncoder(HasTraits):
         return self._get_writer(self.image_type)
 
     def _get_writer(self, image_type):
-        if image_type == 'png':
+        if image_type == "png":
             writer = self._png_writer
         else:
             writer = self._jpg_writer
@@ -84,9 +95,9 @@ class ImageEncoder(HasTraits):
 
     def _compress_changed(self, value):
         if value:
-            self.image_type = 'jpeg'
+            self.image_type = "jpeg"
         else:
-            self.image_type = 'png'
+            self.image_type = "png"
 
 
 class RemoteScene(HasTraits):
@@ -115,11 +126,11 @@ class RemoteScene(HasTraits):
         self.rw = tvtk.to_vtk(self.trw)
         self.ren = tvtk.to_vtk(self.scene.renderer)
         self.id = id(self)
-        self._last_image = ''
+        self._last_image = ""
         self._last_render = 0
         self._time_to_render = 0
         self._time_for_image = 0
-        self._render_size = 200*200
+        self._render_size = 200 * 200
         self._pending_render = False
         self._doing_render = False
         self._timer_enabled = True
@@ -136,10 +147,10 @@ class RemoteScene(HasTraits):
 
     def get_image(self):
         data = self.get_raw_image()
-        return encode_func(data).decode('ascii')
+        return encode_func(data).decode("ascii")
 
     def call_rwi(self, method, *args):
-        if method == 'SetSize':
+        if method == "SetSize":
             # This is an issue with the way TVTK is setup and how VTK resizes
             # an offscreen window. It basically releases all graphics resources
             # and this job is passed on to the various mappers. When the mapper
@@ -155,9 +166,9 @@ class RemoteScene(HasTraits):
                 self.trw.size = args
                 self.trw.render()
 
-        if 'PressEvent' in method:
+        if "PressEvent" in method:
             self.image_encoder.compress = True
-        if 'ReleaseEvent' in method:
+        if "ReleaseEvent" in method:
             self.image_encoder.compress = False
 
         getattr(self.rwi, method)(*args)
@@ -172,8 +183,7 @@ class RemoteScene(HasTraits):
         self.event = EventInfo(self.id, obj.GetClassName(), evt, None)
 
     def _required_time_to_render(self):
-        return (self._time_for_image + self._time_to_render +
-                self._render_size/1e6)
+        return self._time_for_image + self._time_to_render + self._render_size / 1e6
 
     def _ok_to_send_render_event(self):
         required_time = self._required_time_to_render()
@@ -209,7 +219,7 @@ class RemoteScene(HasTraits):
 
     def _send_render_event(self):
         self._pending_render = False
-        event = 'RenderEvent'
+        event = "RenderEvent"
         start = time.time()
         img = self.get_image()
         self._render_size = len(img)
@@ -221,20 +231,22 @@ class RemoteScene(HasTraits):
         if img != self._last_image:
             self._last_image = img
             format = self.image_encoder.image_type.upper()
-            data = dict(data=img, type='image', format=format,
-                        time=self._time_for_image,
-                        render_time=self._time_to_render)
-            self.event = EventInfo(
-                self.id, self.rw.GetClassName(), event, data
+            data = dict(
+                data=img,
+                type="image",
+                format=format,
+                time=self._time_for_image,
+                render_time=self._time_to_render,
             )
+            self.event = EventInfo(self.id, self.rw.GetClassName(), event, data)
 
     def _setup_scene(self):
         self.trwi.interactor_style.set_current_style_to_trackball_camera()
-        self.rwi.AddObserver('CreateTimerEvent', self._on_create_timer)
-        self.rwi.AddObserver('DestroyTimerEvent', self._on_destroy_timer)
+        self.rwi.AddObserver("CreateTimerEvent", self._on_create_timer)
+        self.rwi.AddObserver("DestroyTimerEvent", self._on_destroy_timer)
         rw = self.rw
-        rw.AddObserver('RenderEvent', self._on_render_event)
-        rw.AddObserver('CursorChangedEvent', self._on_cursor_changed_event)
+        rw.AddObserver("RenderEvent", self._on_render_event)
+        rw.AddObserver("CursorChangedEvent", self._on_cursor_changed_event)
 
     def _image_encoder_default(self):
         return ImageEncoder(scene=self.scene, quality=60)
@@ -254,20 +266,20 @@ class SceneManager(HasTraits):
     call_later = Callable
 
     def add_client(self, client):
-        '''All the client needs to do is to provide a method called
+        """All the client needs to do is to provide a method called
         `handle_event` which is given the event data from the scenes
         and route that to the appropriate recipient.
 
         The event data is basically an `EventInfo` instance.
-        '''
+        """
         self.clients.append(client)
 
     def remove_client(self, client):
         self.clients.remove(client)
 
     def register_figure(self, figure):
-        '''Given an existing figure, set it up for remote visualization.
-        '''
+        """Given an existing figure, set it up for remote visualization.
+        """
         remote = RemoteScene(figure=figure)
         r_id = id(remote)
         self.figure_to_id[figure] = r_id
@@ -278,25 +290,25 @@ class SceneManager(HasTraits):
         return r_id
 
     def figure(self, *args, **kw):
-        '''Create a figure and manage it as a remote figure. Any args
+        """Create a figure and manage it as a remote figure. Any args
         and kwargs are passed on to the `mlab.figure` function.
 
-        '''
+        """
         f = figure(*args, **kw)
         return self.register_figure(f)
 
     def message(self, obj_id, method_name, *args, **kw):
-        '''Call a method with given args but do not return any responses.
+        """Call a method with given args but do not return any responses.
 
         This is meant to be used for passing messages to the scenes.
-        '''
+        """
         self.call(obj_id, method_name, *args, **kw)
 
     def call(self, obj_id, method_name, *args, **kw):
-        '''Call a method and also return the response of the method.
+        """Call a method and also return the response of the method.
 
         Used for synchronous calls to the scenes.
-        '''
+        """
         scene = self.scenes[obj_id]
         method = getattr(scene, method_name)
         return method(*args, **kw)
@@ -304,7 +316,7 @@ class SceneManager(HasTraits):
     # ## Private protocol ####
 
     def _setup_events(self, obj):
-        obj.on_trait_change(self._forward_event, 'event')
+        obj.on_trait_change(self._forward_event, "event")
 
     def _forward_event(self, event):
         # Override this to change the default if needed.

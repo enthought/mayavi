@@ -14,8 +14,11 @@ from tvtk.api import tvtk
 # Color transfer function related utility code from MayaVi1.
 ##########################################################################
 def _err_msg(obj, cls_name):
-    return '%s %s does not have either a "nodes" attribute or a '\
-           '"get_node_value" method'%(cls_name, str(obj))
+    return (
+        '%s %s does not have either a "nodes" attribute or a '
+        '"get_node_value" method' % (cls_name, str(obj))
+    )
+
 
 def save_ctfs(volume_property):
     """Given a `tvtk.VolumeProperty` it saves the state of the RGB and
@@ -31,36 +34,37 @@ def save_ctfs(volume_property):
     # The RGB values.
     nc = ctf.size
     rgb = []
-    if hasattr(ctf, 'nodes'):
+    if hasattr(ctf, "nodes"):
         for i in range(nc):
             x = ctf.nodes[i]
             r, g, b = ctf.get_color(x)
             rgb.append([x, r, g, b])
-    elif hasattr(ctf, 'get_node_value'):
-        val = [0]*6
+    elif hasattr(ctf, "get_node_value"):
+        val = [0] * 6
         for i in range(nc):
             ctf.get_node_value(i, val)
             rgb.append(val[:4])
     else:
-        raise TypeError(_err_msg(ctf, 'ColorTransferFunction'))
+        raise TypeError(_err_msg(ctf, "ColorTransferFunction"))
 
     # The Alpha values.
     na = otf.size
     a = []
-    if hasattr(otf, 'nodes'):
+    if hasattr(otf, "nodes"):
         for i in range(na):
             x = otf.nodes[i]
             val = otf.get_value(x)
             a.append([x, val])
-    elif hasattr(otf, 'get_node_value'):
-        val = [0]*4
+    elif hasattr(otf, "get_node_value"):
+        val = [0] * 4
         for i in range(na):
             otf.get_node_value(i, val)
             a.append(val[:2])
     else:
-        raise TypeError(_err_msg(otf, 'PiecewiseFunction'))
+        raise TypeError(_err_msg(otf, "PiecewiseFunction"))
 
-    return {'range': (s1, s2), 'rgb':rgb, 'alpha':a}
+    return {"range": (s1, s2), "rgb": rgb, "alpha": a}
+
 
 def load_ctfs(saved_data, volume_property):
     """ Given the saved data produced via `save_ctfs`, this sets the
@@ -68,8 +72,8 @@ def load_ctfs(saved_data, volume_property):
 
     It returns the new color transfer function and piecewise function.
     """
-    rgb = saved_data['rgb']
-    a = saved_data['alpha']
+    rgb = saved_data["rgb"]
+    a = saved_data["alpha"]
 
     # The new_ctf/otf shenanigans are necessary because if the ctf/otf
     # go out of scope we loose the node information.  This is because
@@ -89,7 +93,7 @@ def load_ctfs(saved_data, volume_property):
     if new_ctf:
         volume_property.set_color(ctf)
     try:
-        ctf.range = saved_data['range']
+        ctf.range = saved_data["range"]
     except Exception:
         # VTK versions < 5.2 don't seem to need this.
         pass
@@ -108,6 +112,7 @@ def load_ctfs(saved_data, volume_property):
         volume_property.set_scalar_opacity(otf)
     return ctf, otf
 
+
 def rescale_ctfs(volume_property, new_range):
     """ Given the volume_property with a new_range for the data while
     using the same transfer functions, this function rescales the
@@ -118,28 +123,31 @@ def rescale_ctfs(volume_property, new_range):
     ctf = volume_property.rgb_transfer_function
     otf = volume_property.get_scalar_opacity()
     old_range = ctf.range
+
     def _rescale_value(x, old, new):
-        nx = (x - old[0])/(old[1] - old[0])
-        return new[0] + nx*(new[1] - new[0])
+        nx = (x - old[0]) / (old[1] - old[0])
+        return new[0] + nx * (new[1] - new[0])
+
     if new_range[0] != old_range[0] and new_range[1] != old_range[1]:
         s_d = save_ctfs(volume_property)
         # Set the new range making sure that they are in the right order.
         s1, s2 = new_range
         if s1 > s2:
-            s_d['range'] = (s2, s1)
+            s_d["range"] = (s2, s1)
         else:
-            s_d['range'] = (s1, s2)
+            s_d["range"] = (s1, s2)
         # Rescale the RGB values.
-        rgb = s_d['rgb']
+        rgb = s_d["rgb"]
         for v in rgb:
             v[0] = _rescale_value(v[0], old_range, new_range)
         # Rescale the alpha values.
-        alpha = s_d['alpha']
+        alpha = s_d["alpha"]
         for v in alpha:
             v[0] = _rescale_value(v[0], old_range, new_range)
         # Now load the rescaled values.
         ctf, otf = load_ctfs(s_d, volume_property)
     return ctf, otf
+
 
 def set_lut(lut, volume_property):
     """Given a `tvtk.LookupTable` and a `tvtk.VolumeProperty` it saves
@@ -152,11 +160,12 @@ def set_lut(lut, volume_property):
     otf = vp.get_scalar_opacity()
     s1, s2 = ctf.range
     nc = lut.number_of_colors
-    ds = float(s2-s1)/(nc - 1)
+    ds = float(s2 - s1) / (nc - 1)
     for i in range(nc):
-        r, g, b = ctf.get_color(s1 + i*ds)
-        a = otf.get_value(s1 + i*ds)
+        r, g, b = ctf.get_color(s1 + i * ds)
+        a = otf.get_value(s1 + i * ds)
         lut.set_table_value(i, r, g, b, a)
+
 
 def set_ctf_from_lut(lut, volume_property):
     """Given a `tvtk.LookupTable` and a `tvtk.VolumeProperty` it loads
@@ -168,11 +177,11 @@ def set_ctf_from_lut(lut, volume_property):
     ctf = vp.rgb_transfer_function
     s1, s2 = ctf.range
     nc = lut.number_of_colors
-    ds = float(s2-s1)/(nc - 1)
+    ds = float(s2 - s1) / (nc - 1)
     ctf = ColorTransferFunction()
     otf = PiecewiseFunction()
     for i in range(nc):
-        v = s1 + i*ds
+        v = s1 + i * ds
         r, g, b, a = lut.get_table_value(i)
         ctf.add_rgb_point(v, r, g, b)
         otf.add_point(v, a)

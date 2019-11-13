@@ -31,6 +31,7 @@ N = 300
 t = np.linspace(-2 * np.pi, 2 * np.pi, N)
 
 from mayavi import mlab
+
 mlab.figure(1, size=(400, 400), bgcolor=(0, 0, 0))
 mlab.clf()
 
@@ -48,18 +49,19 @@ index = 0
 # Create each line one after the other in a loop
 for i in range(50):
     x.append(np.sin(t))
-    y.append(np.cos((2 + .02 * i) * t))
-    z.append(np.cos((3 + .02 * i) * t))
+    y.append(np.cos((2 + 0.02 * i) * t))
+    z.append(np.cos((3 + 0.02 * i) * t))
     s.append(t)
     # This is the tricky part: in a line, each point is connected
     # to the one following it. We have to express this with the indices
     # of the final set of points once all lines have been combined
     # together, this is why we need to keep track of the total number of
     # points already created (index)
-    connections.append(np.vstack(
-                       [np.arange(index,   index + N - 1.5),
-                        np.arange(index + 1, index + N - .5)]
-                            ).T)
+    connections.append(
+        np.vstack(
+            [np.arange(index, index + N - 1.5), np.arange(index + 1, index + N - 0.5)]
+        ).T
+    )
     index += N
 
 # Now collapse all positions, scalars and connections in big arrays
@@ -80,9 +82,9 @@ src.update()
 lines = mlab.pipeline.stripper(src)
 
 # Finally, display the set of lines
-mlab.pipeline.surface(lines, colormap='Accent', line_width=1, opacity=.4)
+mlab.pipeline.surface(lines, colormap="Accent", line_width=1, opacity=0.4)
 
 # And choose a nice view
-mlab.view(33.6, 106, 5.5, [0, 0, .05])
+mlab.view(33.6, 106, 5.5, [0, 0, 0.05])
 mlab.roll(125)
 mlab.show()

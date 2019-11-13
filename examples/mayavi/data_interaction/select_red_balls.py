@@ -35,20 +35,23 @@ figure.scene.disable_render = True
 # Creates two set of points using mlab.points3d: red point and
 # white points
 x1, y1, z1 = np.random.random((3, 10))
-red_glyphs = mlab.points3d(x1, y1, z1, color=(1, 0, 0),
-                resolution=20)
+red_glyphs = mlab.points3d(x1, y1, z1, color=(1, 0, 0), resolution=20)
 
 x2, y2, z2 = np.random.random((3, 10))
-white_glyphs = mlab.points3d(x2, y2, z2, color=(0.9, 0.9, 0.9),
-                resolution=20)
+white_glyphs = mlab.points3d(x2, y2, z2, color=(0.9, 0.9, 0.9), resolution=20)
 
 # Add an outline to show the selected point and center it on the first
 # data point.
 outline = mlab.outline(line_width=3)
-outline.outline_mode = 'cornered'
-outline.bounds = (x1[0]-0.1, x1[0]+0.1,
-                  y1[0]-0.1, y1[0]+0.1,
-                  z1[0]-0.1, z1[0]+0.1)
+outline.outline_mode = "cornered"
+outline.bounds = (
+    x1[0] - 0.1,
+    x1[0] + 0.1,
+    y1[0] - 0.1,
+    y1[0] + 0.1,
+    z1[0] - 0.1,
+    z1[0] + 0.1,
+)
 
 # Every object has been created, we can reenable the rendering.
 figure.scene.disable_render = False
@@ -67,16 +70,14 @@ def picker_callback(picker):
         # Find which data point corresponds to the point picked:
         # we have to account for the fact that each data point is
         # represented by a glyph with several points
-        point_id = picker.point_id//glyph_points.shape[0]
+        point_id = picker.point_id // glyph_points.shape[0]
         # If the no points have been selected, we have '-1'
         if point_id != -1:
             # Retrieve the coordinnates coorresponding to that data
             # point
             x, y, z = x1[point_id], y1[point_id], z1[point_id]
             # Move the outline to the data point.
-            outline.bounds = (x-0.1, x+0.1,
-                              y-0.1, y+0.1,
-                              z-0.1, z+0.1)
+            outline.bounds = (x - 0.1, x + 0.1, y - 0.1, y + 0.1, z - 0.1, z + 0.1)
 
 
 picker = figure.on_mouse_pick(picker_callback)
@@ -85,6 +86,6 @@ picker = figure.on_mouse_pick(picker_callback)
 # point.
 picker.tolerance = 0.01
 
-mlab.title('Click on red balls')
+mlab.title("Click on red balls")
 
 mlab.show()

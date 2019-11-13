@@ -18,20 +18,20 @@ from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from mayavi.modules.api import ContourGridPlane
 from mayavi.filters.image_data_probe import ImageDataProbe
 
-class TestImageDataProbe(unittest.TestCase):
 
+class TestImageDataProbe(unittest.TestCase):
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
-        #e = Engine()
+        # e = Engine()
         e.start()
         e.new_scene()
-        self.e=e
+        self.e = e
 
         # Read a VTK (old style) data file.
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('pyramid_ug.vtu'))
+        r.initialize(get_example_data("pyramid_ug.vtu"))
         e.add_source(r)
 
         # Create the filters.
@@ -40,7 +40,7 @@ class TestImageDataProbe(unittest.TestCase):
         e.add_filter(idp)
         cgp = ContourGridPlane(enable_contours=False)
         e.add_module(cgp)
-        cgp.grid_plane.axis = 'z'
+        cgp.grid_plane.axis = "z"
         cgp.grid_plane.position = 1
         self.scene = e.current_scene
         return
@@ -57,27 +57,24 @@ class TestImageDataProbe(unittest.TestCase):
         idp = src.children[0]
         mm = idp.children[0]
 
-        self.assertEqual(src.get_output_dataset().is_a('vtkUnstructuredGrid'),True)
-        self.assertEqual(idp.get_output_dataset().is_a('vtkImageData'),True)
+        self.assertEqual(src.get_output_dataset().is_a("vtkUnstructuredGrid"), True)
+        self.assertEqual(idp.get_output_dataset().is_a("vtkImageData"), True)
         sc = idp.get_output_dataset().point_data.scalars
         vc = idp.get_output_dataset().point_data.vectors
-        self.assertEqual(sc.name,idp.rescaled_scalar_name)
-        self.assertEqual(vc.name,'velocity')
-        self.assertEqual(mm.scalar_lut_manager.data_name,
-                                                idp.rescaled_scalar_name)
-        self.assertEqual((abs(sc.range[0]) < 1e-2),True)
-        self.assertEqual( abs(sc.range[1] - 65535.0) < 1.e-2,True)
-        self.assertEqual((idp.get_output_dataset().dimensions == (3, 3, 2)).all(),True)
-
-
+        self.assertEqual(sc.name, idp.rescaled_scalar_name)
+        self.assertEqual(vc.name, "velocity")
+        self.assertEqual(mm.scalar_lut_manager.data_name, idp.rescaled_scalar_name)
+        self.assertEqual((abs(sc.range[0]) < 1e-2), True)
+        self.assertEqual(abs(sc.range[1] - 65535.0) < 1.0e-2, True)
+        self.assertEqual((idp.get_output_dataset().dimensions == (3, 3, 2)).all(), True)
 
     def test_image_data_probe(self):
         "Test if the test fixture works"
-        #Now test.
+        # Now test.
         self.check()
 
-        #from mayavi.tools.show import show
-        #show()
+        # from mayavi.tools.show import show
+        # show()
 
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
@@ -87,9 +84,9 @@ class TestImageDataProbe(unittest.TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         engine.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
 
@@ -101,14 +98,13 @@ class TestImageDataProbe(unittest.TestCase):
 
         self.check()
 
-
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 
         # Pop the source object.
-        s =  self.scene
+        s = self.scene
         source = s.children.pop()
         # Add it back to see if that works without error.
         s.children.append(source)
@@ -122,9 +118,9 @@ class TestImageDataProbe(unittest.TestCase):
         source1 = copy.deepcopy(source)
         s.children[0] = source1
         self.check()
-        #from mayavi.tools.show import show
-        #show()
+        # from mayavi.tools.show import show
+        # show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

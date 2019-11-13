@@ -29,7 +29,7 @@ class TestStreamline(TestCase):
         s = numpy.reshape(s, (10, 10, 10))
         s = numpy.transpose(s)
 
-        v = numpy.zeros(3000, 'd')
+        v = numpy.zeros(3000, "d")
         v[::3] = 1.0
         v = numpy.reshape(v, (10, 10, 10, 3))
         return s, v
@@ -37,9 +37,8 @@ class TestStreamline(TestCase):
     def test(self):
         if is_running_with_nose():
             import unittest
-            raise unittest.SkipTest(
-                'This test Segfaults after passing or fails.'
-            )
+
+            raise unittest.SkipTest("This test Segfaults after passing or fails.")
         self.main()
 
     def do(self):
@@ -69,25 +68,25 @@ class TestStreamline(TestCase):
         st = Streamline()
         script.add_module(st)
         widget = st.seed.widget
-        widget.trait_set(radius=1.0, center=(-4.0, -4.0, -4.0),
-                         theta_resolution=4, phi_resolution=4)
+        widget.trait_set(
+            radius=1.0, center=(-4.0, -4.0, -4.0), theta_resolution=4, phi_resolution=4
+        )
 
-        st = Streamline(streamline_type='ribbon')
+        st = Streamline(streamline_type="ribbon")
         seed = st.seed
         seed.widget = seed.widget_list[1]
         script.add_module(st)
-        seed.widget.trait_set(point1=(-5.0, -4.5, -4.0),
-                              point2=(-5.0, -4.5, 4.0))
+        seed.widget.trait_set(point1=(-5.0, -4.5, -4.0), point2=(-5.0, -4.5, 4.0))
         st.ribbon_filter.width = 0.25
 
-        st = Streamline(streamline_type='tube')
+        st = Streamline(streamline_type="tube")
         seed = st.seed
         seed.widget = seed.widget_list[2]
         script.add_module(st)
         seed.widget.trait_set(center=(-5.0, 1.5, -2.5))
         st.tube_filter.radius = 0.15
 
-        st = Streamline(streamline_type='tube')
+        st = Streamline(streamline_type="tube")
         seed = st.seed
         seed.widget = seed.widget_list[3]
         script.add_module(st)
@@ -107,7 +106,7 @@ class TestStreamline(TestCase):
             child.update_streamlines = True
 
         # Now compare the image.
-        self.compare_image(s, 'images/test_streamline.png')
+        self.compare_image(s, "images/test_streamline.png")
 
         ############################################################
         # Test if the modules respond correctly when the components
@@ -127,7 +126,7 @@ class TestStreamline(TestCase):
 
         s.render()
         # Now compare the image.
-        self.compare_image(s, 'images/test_streamline.png')
+        self.compare_image(s, "images/test_streamline.png")
         s.render()
 
         ############################################################
@@ -136,7 +135,7 @@ class TestStreamline(TestCase):
         bg = s.scene.background
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2')  # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
         f.seek(0)
 
@@ -164,7 +163,7 @@ class TestStreamline(TestCase):
         GUI.process_events()
 
         # Now compare the image.
-        self.compare_image(s, 'images/test_streamline.png')
+        self.compare_image(s, "images/test_streamline.png")
 
         ############################################################
         # Test if the MayaVi2 visualization can be deepcopied.
@@ -177,7 +176,7 @@ class TestStreamline(TestCase):
 
         s.scene.reset_zoom()
         # Now compare the image.
-        self.compare_image(s, 'images/test_streamline.png')
+        self.compare_image(s, "images/test_streamline.png")
 
         # Now deepcopy the source and replace the existing one with
         # the copy.  This basically simulates cutting/copying the
@@ -186,7 +185,7 @@ class TestStreamline(TestCase):
         sources1 = copy.deepcopy(sources)
         s.children[:] = sources
         s.scene.reset_zoom()
-        self.compare_image(s, 'images/test_streamline.png')
+        self.compare_image(s, "images/test_streamline.png")
 
         # If we have come this far, we are golden!
 

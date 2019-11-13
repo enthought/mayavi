@@ -15,16 +15,16 @@ class SceneUIPlugin(Plugin):
     """
 
     # Extension point Ids.
-    ACTION_SETS       = 'envisage.ui.workbench.action_sets'
-    PREFERENCES_PAGES = 'envisage.ui.workbench.preferences_pages'
+    ACTION_SETS = "envisage.ui.workbench.action_sets"
+    PREFERENCES_PAGES = "envisage.ui.workbench.preferences_pages"
 
     #### 'IPlugin' interface ##################################################
 
     # The plugin's name (suitable for displaying to the user).
-    name = 'TVTK Scene UI Plugin'
+    name = "TVTK Scene UI Plugin"
 
     # Our ID.
-    id = 'tvtk.scene_ui'
+    id = "tvtk.scene_ui"
 
     #### Extension points offered by this plugin ##############################
 
@@ -37,9 +37,7 @@ class SceneUIPlugin(Plugin):
     def _action_sets_default(self):
         """ Trait initializer. """
 
-        from tvtk.plugins.scene.ui.scene_ui_action_set import (
-            SceneUIActionSet
-        )
+        from tvtk.plugins.scene.ui.scene_ui_action_set import SceneUIActionSet
 
         return [SceneUIActionSet]
 
@@ -48,10 +46,9 @@ class SceneUIPlugin(Plugin):
     def _preferences_pages_default(self):
         """ Trait initializer. """
 
-        from tvtk.plugins.scene.ui.scene_preferences_page import (
-            ScenePreferencesPage
-        )
+        from tvtk.plugins.scene.ui.scene_preferences_page import ScenePreferencesPage
 
         return [ScenePreferencesPage]
+
 
 #### EOF ######################################################################

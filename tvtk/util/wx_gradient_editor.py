@@ -16,7 +16,10 @@ import wx
 
 # Local imports
 from tvtk.util.gradient_editor import (
-    ColorControlPoint, ChannelBase, FunctionControl, GradientEditorWidget
+    ColorControlPoint,
+    ChannelBase,
+    FunctionControl,
+    GradientEditorWidget,
 )
 
 ##########################################################################
@@ -25,18 +28,23 @@ from tvtk.util.gradient_editor import (
 class wxGradientControl(wx.Panel):
     """Widget which displays the gradient represented by an GradientTable
     object (and does nothing beyond that)"""
-    def __init__(self, masterPanel, gradient_table, width, height ):
+
+    def __init__(self, masterPanel, gradient_table, width, height):
         """master: panel in which to place the control. GradientTable is the
         Table to which to attach."""
-        wx.Panel.__init__(self, masterPanel, size=wx.Size(width, height),
-                          style=wx.RAISED_BORDER,
-                          name="Colormap Panel")
+        wx.Panel.__init__(
+            self,
+            masterPanel,
+            size=wx.Size(width, height),
+            style=wx.RAISED_BORDER,
+            name="Colormap Panel",
+        )
 
-        self.SetBackgroundColour(wx.Colour(255,255,255))
+        self.SetBackgroundColour(wx.Colour(255, 255, 255))
         self.width = width
         self.height = height
         self.gradient_table = gradient_table
-        assert( gradient_table.size == width )
+        assert gradient_table.size == width
         # ^- currently only able to use gradient tables in the same size as the canvas width
 
         # bind paint event to redraw  when resizing/creating window...
@@ -50,9 +58,9 @@ class wxGradientControl(wx.Panel):
 
     def update(self):
         """Repaint the control."""
-        #self.canvas.delete(tk.ALL) # clears all lines contained.
+        # self.canvas.delete(tk.ALL) # clears all lines contained.
         dc = wx.ClientDC(self)
-        dc.SetBackground(wx.Brush(wx.Colour(0,0,0), wx.SOLID))
+        dc.SetBackground(wx.Brush(wx.Colour(0, 0, 0), wx.SOLID))
         dc.Clear()
 
         width, height = self.GetSize()
@@ -70,23 +78,27 @@ class wxGradientControl(wx.Panel):
         if xform:
             # if a scaling transformation is provided, paint the original
             # gradient under the scaled gradient.
-            start_y = height/2
+            start_y = height / 2
 
         # paint the original gradient as it stands in the table.
         dc.BeginDrawing()
         for x in range(width):
-            (r,g,b,a) = self.gradient_table.get_pos_rgba_color_lerped(float(x)/(width-1))
-            dc.SetPen(wx.Pen(wx.Colour(int(255*r),int(255*g),int(255*b))))
-            dc.SetBrush(wx.Brush((int(255*r),int(255*g),int(255*b)), wx.SOLID))
+            (r, g, b, a) = self.gradient_table.get_pos_rgba_color_lerped(
+                float(x) / (width - 1)
+            )
+            dc.SetPen(wx.Pen(wx.Colour(int(255 * r), int(255 * g), int(255 * b))))
+            dc.SetBrush(wx.Brush((int(255 * r), int(255 * g), int(255 * b)), wx.SOLID))
             dc.DrawLine(x, start_y, x, end_y)
         if xform:
             # paint the scaled gradient below
             end_y = start_y
             start_y = 0
             for x in range(width):
-                f = float(x)/(width-1)
-                (r,g,b,a) = self.gradient_table.get_pos_rgba_color_lerped(xform(f))
-                dc.SetBrush(wx.Brush((int(255*r),int(255*g),int(255*b)), wx.SOLID))
+                f = float(x) / (width - 1)
+                (r, g, b, a) = self.gradient_table.get_pos_rgba_color_lerped(xform(f))
+                dc.SetBrush(
+                    wx.Brush((int(255 * r), int(255 * g), int(255 * b)), wx.SOLID)
+                )
                 dc.DrawLine(x, start_y, x, end_y)
         dc.EndDrawing()
 
@@ -111,28 +123,30 @@ class Channel(ChannelBase):
         ]
         dc.BeginDrawing()
         # lines between control points
-        dc.SetPen(wx.Pen(self.rgb_color,1))
-        #dc.SetBrush(wx.Brush((255,255,255), wx.SOLID))
-        dc.SetBrush(wx.Brush((255,255,255), wx.SOLID))
-        for k in range( len(relevant_control_points) - 1 ):
+        dc.SetPen(wx.Pen(self.rgb_color, 1))
+        # dc.SetBrush(wx.Brush((255,255,255), wx.SOLID))
+        dc.SetBrush(wx.Brush((255, 255, 255), wx.SOLID))
+        for k in range(len(relevant_control_points) - 1):
             cur_point = relevant_control_points[k]
-            next_point = relevant_control_points[1+k]
+            next_point = relevant_control_points[1 + k]
 
-            dc.DrawLine( self.get_pos_index(cur_point.pos),
-                    self.get_value_index(cur_point.color),
-                    self.get_pos_index(next_point.pos),
-                    self.get_value_index(next_point.color))
+            dc.DrawLine(
+                self.get_pos_index(cur_point.pos),
+                self.get_value_index(cur_point.color),
+                self.get_pos_index(next_point.pos),
+                self.get_value_index(next_point.color),
+            )
 
         # control points themself.
-        dc.SetPen(wx.Pen("BLACK",1))
-        dc.SetBrush(wx.Brush((255,255,255), wx.SOLID))
+        dc.SetPen(wx.Pen("BLACK", 1))
+        dc.SetBrush(wx.Brush((255, 255, 255), wx.SOLID))
         for control_point in relevant_control_points:
-            x = self.get_pos_index( control_point.pos )
-            y = self.get_value_index( control_point.color )
-            radius=6
-            #print(x,y)
-            dc.DrawRectangle(x-(radius/2.0), y-(radius/2.0),radius,radius)
-            dc.DrawRectangle(100,80,6,6)
+            x = self.get_pos_index(control_point.pos)
+            y = self.get_value_index(control_point.color)
+            radius = 6
+            # print(x,y)
+            dc.DrawRectangle(x - (radius / 2.0), y - (radius / 2.0), radius, radius)
+            dc.DrawRectangle(100, 80, 6, 6)
         dc.EndDrawing()
 
 
@@ -172,11 +186,13 @@ class wxFunctionControl(wx.Panel, FunctionControl):
         set_status_text: a callback used to set the status text
              when using the editor.
         """
-        FunctionControl.__init__(self, master, gradient_table, color_space,
-                                 width, height)
+        FunctionControl.__init__(
+            self, master, gradient_table, color_space, width, height
+        )
 
-        wx.Panel.__init__(self, master, size=wx.Size(width, height),
-                          name="RGBHSVA Editor")
+        wx.Panel.__init__(
+            self, master, size=wx.Size(width, height), name="RGBHSVA Editor"
+        )
 
         self.update()
 
@@ -191,11 +207,11 @@ class wxFunctionControl(wx.Panel, FunctionControl):
     ######################################################################
     # wxPython event methods.
     ######################################################################
-    def update(self, event = None):
+    def update(self, event=None):
         """Repaint the control."""
         dc = wx.ClientDC(self)
-        #if we have a custom background, we *must* set the background brush *BEFORE* clearing...
-        dc.SetBackground(wx.Brush(wx.Colour(255,255,255), wx.SOLID))
+        # if we have a custom background, we *must* set the background brush *BEFORE* clearing...
+        dc.SetBackground(wx.Brush(wx.Colour(255, 255, 255), wx.SOLID))
         dc.Clear()
 
         for channel in self.channels:
@@ -206,11 +222,11 @@ class wxFunctionControl(wx.Panel, FunctionControl):
         self.update()
 
     def on_left_button_down(self, event):
-        self.cur_drag = self.find_control_point( event.GetX(), event.GetY() )
+        self.cur_drag = self.find_control_point(event.GetX(), event.GetY())
 
     def on_left_button_up(self, event):
         if self.cur_drag:
-            self.table_config_changed( final_update = True )
+            self.table_config_changed(final_update=True)
             self.cur_drag = None
 
     def on_leave_window(self, event):
@@ -227,7 +243,7 @@ class wxFunctionControl(wx.Panel, FunctionControl):
         if cur_control_point:
             # found a marker at the click position. delete it and return,
             # unless it is a fixed marker (at pos 0 or 1)..
-            if ( cur_control_point[1].fixed ):
+            if cur_control_point[1].fixed:
                 # in this case do nothing. Fixed markers cannot be deleted.
                 return
             self.table.control_points.remove(cur_control_point[1])
@@ -235,15 +251,17 @@ class wxFunctionControl(wx.Panel, FunctionControl):
         else:
             # since there was no marker to remove at the point, we assume
             # that we should place one there
-            new_control_point = ColorControlPoint(active_channels = self.active_channels_string)
+            new_control_point = ColorControlPoint(
+                active_channels=self.active_channels_string
+            )
             new_control_point.set_pos(self.channels[0].get_index_pos(event.GetX()))
 
             # set new control point color to the color currently present
             # at its designated position
             new_control_point.color = self.table.get_pos_color(new_control_point.pos)
 
-            self.table.insert_control_point( new_control_point )
-            self.table_config_changed( final_update = True )
+            self.table.insert_control_point(new_control_point)
+            self.table_config_changed(final_update=True)
 
     def on_mouse_move(self, event):
         # currently dragging a control point?
@@ -252,12 +270,12 @@ class wxFunctionControl(wx.Panel, FunctionControl):
         if self.cur_drag:
             channel = self.cur_drag[0]
             point = self.cur_drag[1]
-            if ( not point.fixed ):
-                point.set_pos( channel.get_index_pos(event.GetX()) )
-                point.activate_channels( self.active_channels_string )
+            if not point.fixed:
+                point.set_pos(channel.get_index_pos(event.GetX()))
+                point.activate_channels(self.active_channels_string)
                 self.table.sort_control_points()
-            channel.set_value_index( point.color, event.GetY() )
-            self.table_config_changed( final_update = False )
+            channel.set_value_index(point.color, event.GetY())
+            self.table_config_changed(final_update=False)
 
         screenX = event.GetX()
         screenY = event.GetY()
@@ -266,13 +284,13 @@ class wxFunctionControl(wx.Panel, FunctionControl):
         s1, s2 = master.get_table_range()
         if channel is not None:
             name = self.text_map[channel.name]
-            pos = s1 + (s2 - s1)*point.pos
+            pos = s1 + (s2 - s1) * point.pos
             val = channel.get_value(point.color)
-            txt = '%s: (%.3f, %.3f)'%(name, pos, val)
+            txt = "%s: (%.3f, %.3f)" % (name, pos, val)
         else:
-            x = s1 + (s2 - s1)*float(screenX)/(width-1)
-            y = 1.0 - float(screenY)/(height-1)
-            txt = "position: (%.3f, %.3f)"%(x, y)
+            x = s1 + (s2 - s1) * float(screenX) / (width - 1)
+            y = 1.0 - float(screenY) / (height - 1)
+            txt = "position: (%.3f, %.3f)" % (x, y)
 
         self.master.set_status_text(txt)
 
@@ -283,8 +301,8 @@ class wxFunctionControl(wx.Panel, FunctionControl):
 class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
     """A Gradient Editor widget that can be used anywhere.
     """
-    def __init__(self, master, vtk_table, on_change_color_table=None,
-                 colors=None):
+
+    def __init__(self, master, vtk_table, on_change_color_table=None, colors=None):
         """
 
         Parameters:
@@ -308,8 +326,9 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
                  'h', 's', 'v', 'r', 'g', 'b', 'a' separately
                  specified creates different panels for each.
         """
-        GradientEditorWidget.__init__(self, master, vtk_table,
-                                      on_change_color_table, colors)
+        GradientEditorWidget.__init__(
+            self, master, vtk_table, on_change_color_table, colors
+        )
         wx.Panel.__init__(self, master)
 
         gradient_preview_width = self.gradient_preview_width
@@ -322,39 +341,44 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
         sizer = wx.GridBagSizer(2, 2)
 
         # "Gradient Viewer" panel, in position (0,1) for sizer
-        self.gradient_control = wxGradientControl(self,
-                                                  self.gradient_table,
-                                                  gradient_preview_width,
-                                                  gradient_preview_height)
-        tt = wx.ToolTip('Right click for menu')
+        self.gradient_control = wxGradientControl(
+            self, self.gradient_table, gradient_preview_width, gradient_preview_height
+        )
+        tt = wx.ToolTip("Right click for menu")
         self.gradient_control.Bind(wx.EVT_CONTEXT_MENU, self.on_gradient_menu)
         self.gradient_control.SetToolTip(tt)
-        sizer.Add(self.gradient_control, pos=(0,1))
+        sizer.Add(self.gradient_control, pos=(0, 1))
 
         # Add the function controls:
         function_controls = self.function_controls
-
 
         editor_data = self.editor_data
         row = 1
         for color in self.colors:
             data = editor_data[color]
-            control = wxFunctionControl(self, self.gradient_table, color,
-                                        channel_function_width,
-                                        channel_function_height)
+            control = wxFunctionControl(
+                self,
+                self.gradient_table,
+                color,
+                channel_function_width,
+                channel_function_height,
+            )
             txt = data[0] + self.tooltip_text
             control.SetToolTip(wx.ToolTip(txt))
             # Add name of editor (to left side of editor)
-            sizer.Add(wx.StaticText(self, -1, data[1]), pos=(row, 0),
-                      flag=wx.ALIGN_CENTER|wx.ALL)
+            sizer.Add(
+                wx.StaticText(self, -1, data[1]),
+                pos=(row, 0),
+                flag=wx.ALIGN_CENTER | wx.ALL,
+            )
             # Add the "RGB" control point editor
             sizer.Add(control, pos=(row, 1))
             function_controls.append(control)
             row += 1
 
         # The status text.
-        self.text = wx.StaticText(self, -1, 'status')
-        sizer.Add(self.text, (row,0), (row,2))
+        self.text = wx.StaticText(self, -1, "status")
+        sizer.Add(self.text, (row, 0), (row, 2))
         row += 1
 
         # set the appropriate sizer.
@@ -374,7 +398,7 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
     # wxPython event methods.
     ######################################################################
     def on_gradient_menu(self, event):
-        if not hasattr(self, 'save_menuid'):
+        if not hasattr(self, "save_menuid"):
             # Do this only the first time.
             self.save_menuid = wx.NewId()
             self.load_menuid = wx.NewId()
@@ -394,10 +418,9 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
         and ``*.jpg`` (image of the gradient)
         """
         dlg = wx.FileDialog(self, "Save LUT to...", style=wx.SAVE)
-        wildcard = "Gradient Files (.grad)|*.grad|"   \
-                   "All files (*.*)|*.*"
+        wildcard = "Gradient Files (.grad)|*.grad|" "All files (*.*)|*.*"
         dlg.SetWildcard(wildcard)
-        if (dlg.ShowModal() == wx.ID_OK):
+        if dlg.ShowModal() == wx.ID_OK:
             file_name = dlg.GetPath()
             if file_name:
                 self.save(file_name)
@@ -408,10 +431,9 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
         """
         style = wx.OPEN | wx.HIDE_READONLY
         dlg = wx.FileDialog(self, "Open a file", style=style)
-        wildcard = "Gradient Files (.grad)|*.grad|"   \
-                   "All files (*.*)|*.*"
+        wildcard = "Gradient Files (.grad)|*.grad|" "All files (*.*)|*.*"
         dlg.SetWildcard(wildcard)
-        if (dlg.ShowModal() == wx.ID_OK):
+        if dlg.ShowModal() == wx.ID_OK:
             file_name = dlg.GetPath()
             if file_name:
                 self.load(file_name)
@@ -425,7 +447,8 @@ class wxGradientEditor(wx.Frame):
     i.e. the thing that contains the gradient display, the function
     controls and the buttons.
     """
-    def __init__(self, vtk_table, on_change_color_table = None, colors=None):
+
+    def __init__(self, vtk_table, on_change_color_table=None, colors=None):
         """Initialize the gradient editor window.
 
         Parameters
@@ -437,12 +460,13 @@ class wxGradientEditor(wx.Frame):
             requested.
         """
 
-        wx.Frame.__init__(self, None, -1, "Color Gradient Editor",
-                          wx.DefaultPosition, [350, 400])
+        wx.Frame.__init__(
+            self, None, -1, "Color Gradient Editor", wx.DefaultPosition, [350, 400]
+        )
 
-        self.widget = wxGradientEditorWidget(self, vtk_table,
-                                             on_change_color_table,
-                                             colors)
+        self.widget = wxGradientEditorWidget(
+            self, vtk_table, on_change_color_table, colors
+        )
 
         # draw the rest of the GUI (i.e. statusbar, menubar, etc.
         self.SetupMenuBar()
@@ -455,13 +479,13 @@ class wxGradientEditor(wx.Frame):
         ## Set up the MenuBar
         MenuBar = wx.MenuBar()
 
-        #FILE Menu....
+        # FILE Menu....
         file_menu = wx.Menu()
-        item = file_menu.Append(-1, "&Save","Save CTF")
+        item = file_menu.Append(-1, "&Save", "Save CTF")
         self.Bind(wx.EVT_MENU, self.widget.on_save, item)
-        item = file_menu.Append(-1, "&Load","Load CTF")
+        item = file_menu.Append(-1, "&Load", "Load CTF")
         self.Bind(wx.EVT_MENU, self.widget.on_load, item)
-        item = file_menu.Append(-1, "&Close","Close this frame")
+        item = file_menu.Append(-1, "&Close", "Close this frame")
         self.Bind(wx.EVT_MENU, self.OnQuit, item)
         MenuBar.Append(file_menu, "&File")
 
@@ -479,23 +503,25 @@ class wxGradientEditor(wx.Frame):
 
     def OnHelp(self, event):
         """ Help defining the mouse interactions """
-        message = "Right click to add control points.  Left click to move control points"
-        dlg = wx.MessageDialog(self, message,
-                               'About wxGradientEditor',
-                               wx.OK | wx.ICON_INFORMATION
-                               )
+        message = (
+            "Right click to add control points.  Left click to move control points"
+        )
+        dlg = wx.MessageDialog(
+            self, message, "About wxGradientEditor", wx.OK | wx.ICON_INFORMATION
+        )
         dlg.ShowModal()
         dlg.Destroy()
 
     def OnAbout(self, event):
         """ Who wrote the program?"""
-        message = 'tk Gradient Editor for MayaVi1: Gerald Knizia (cgk.d@gmx.net)\n'\
-                  'wxPython port: Pete Schmitt (schmitt@colorado.edu)\n'\
-                  'Enhanced for MayaVi2: Prabhu Ramachandran'
-        dlg = wx.MessageDialog(self, message,
-                               'About wxGradientEditor',
-                               wx.OK | wx.ICON_INFORMATION
-                               )
+        message = (
+            "tk Gradient Editor for MayaVi1: Gerald Knizia (cgk.d@gmx.net)\n"
+            "wxPython port: Pete Schmitt (schmitt@colorado.edu)\n"
+            "Enhanced for MayaVi2: Prabhu Ramachandran"
+        )
+        dlg = wx.MessageDialog(
+            self, message, "About wxGradientEditor", wx.OK | wx.ICON_INFORMATION
+        )
         dlg.ShowModal()
         dlg.Destroy()
 
@@ -505,6 +531,7 @@ class wxGradientEditor(wx.Frame):
 ##########################################################################
 def main():
     from tvtk.util.traitsui_gradient_editor import make_test_table
+
     table, ctf, otf = make_test_table(lut=False)
     # the actual gradient editor code.
     def on_color_table_changed():
@@ -512,10 +539,9 @@ def main():
         print("Update Render Window")
 
     app = wx.PySimpleApp()
-    editor = wxGradientEditor(table,
-                              on_color_table_changed,
-                              colors=['rgb', 'a', 'h', 's', 'v'],
-                              )
+    editor = wxGradientEditor(
+        table, on_color_table_changed, colors=["rgb", "a", "h", "s", "v"],
+    )
     editor.Show()
     app.MainLoop()
 

@@ -23,21 +23,22 @@ class PointLoad(Source):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    point_load = Instance(tvtk.PointLoad, args=(), allow_none=False,
-                          record=True)
+    point_load = Instance(tvtk.PointLoad, args=(), allow_none=False, record=True)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['image_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["image_data"], attribute_types=["any"], attributes=["any"]
+    )
 
     # Create the UI for the traits.
-    view = View(Group(Item(name='point_load',
-                           style='custom',
-                           resizable=True),
-                      label='PointLoad',
-                      show_labels=False),
-                resizable=True)
+    view = View(
+        Group(
+            Item(name="point_load", style="custom", resizable=True),
+            label="PointLoad",
+            show_labels=False,
+        ),
+        resizable=True,
+    )
 
     ######################################################################
     # `object` interface

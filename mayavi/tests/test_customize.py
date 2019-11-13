@@ -12,13 +12,10 @@ from mayavi.core import customize
 class TestCustomize(unittest.TestCase):
     def test_import_contrib(self):
         """Test the import_contrib function."""
-        for mname in ('mayavi.api',
-                      'mayavi',
-                      'mayavi.core',
-                      'mayavi.core.base'):
+        for mname in ("mayavi.api", "mayavi", "mayavi.core", "mayavi.core.base"):
             mod = customize._import_contrib(mname)
             self.assertEqual(mod.__name__, mname)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

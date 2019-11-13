@@ -12,12 +12,12 @@ def get_scene_preferences():
     """Return a dictionary of the scene's default preferences."""
     pref = preference_manager.preferences
     res = {}
-    res['stereo'] = eval(pref.get('tvtk.scene.stereo'))
-    res['magnification'] = \
-            eval(pref.get('tvtk.scene.magnification'))
-    res['foreground'] = eval(pref.get('tvtk.scene.foreground_color'))
-    res['background'] = eval(pref.get('tvtk.scene.background_color'))
+    res["stereo"] = eval(pref.get("tvtk.scene.stereo"))
+    res["magnification"] = eval(pref.get("tvtk.scene.magnification"))
+    res["foreground"] = eval(pref.get("tvtk.scene.foreground_color"))
+    res["background"] = eval(pref.get("tvtk.scene.background_color"))
     return res
+
 
 def set_scene_preferences(scene, prefs_dict=None):
     """Setup the preferences for a scene given a scene and an optional

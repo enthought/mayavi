@@ -17,15 +17,16 @@ class CutPlane(Collection):
     any dataset.  It also provides a 3D widget interface to position and
     move the slice interactively.
     """
+
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
-    output_info = PipelineInfo(datasets=['poly_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
+    output_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )
 
     ######################################################################
     # `Filter` interface.
@@ -35,4 +36,3 @@ class CutPlane(Collection):
         ip = ImplicitPlane()
         cut = Cutter(cut_function=ip.plane)
         self.filters = [ip, cut]
-

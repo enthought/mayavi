@@ -11,8 +11,8 @@ import numpy
 from mayavi.core.null_engine import NullEngine
 from mayavi.modules.outline import Outline
 
-class DataReaderTestBase(unittest.TestCase):
 
+class DataReaderTestBase(unittest.TestCase):
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -31,7 +31,7 @@ class DataReaderTestBase(unittest.TestCase):
 
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
-        #e = Engine()
+        # e = Engine()
         e.start()
         self.e = e
         s = e.new_scene()
@@ -46,7 +46,7 @@ class DataReaderTestBase(unittest.TestCase):
         self.e.stop()
         return
 
-    def check(self, scene, bounds, error = 1.01e-02):
+    def check(self, scene, bounds, error=1.01e-02):
         """Do the actual testing."""
 
         src = scene.children[0]
@@ -55,16 +55,16 @@ class DataReaderTestBase(unittest.TestCase):
 
         # Check the outline bounds
         got = ot.get_output_dataset().bounds
-        msg = "Got: %s; expected: %s"%(got, bounds)
+        msg = "Got: %s; expected: %s" % (got, bounds)
         self.assertEqual(numpy.allclose(got, bounds, atol=error), True, msg)
 
-    def check_saving(self, engine, scene, bounds, error = 1.01e-02):
+    def check_saving(self, engine, scene, bounds, error=1.01e-02):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         engine.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine.close_scene(scene)
@@ -72,9 +72,9 @@ class DataReaderTestBase(unittest.TestCase):
         # Load visualization
         engine.load_visualization(f)
         self.scene = engine.current_scene
-        self.check(scene,bounds,error)
+        self.check(scene, bounds, error)
 
-    def check_deepcopying(self, scene, bounds, error = 1.01e-02):
+    def check_deepcopying(self, scene, bounds, error=1.01e-02):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
 

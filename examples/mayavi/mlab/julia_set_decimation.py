@@ -46,8 +46,7 @@ for i in range(50):
 mlab.figure(size=(400, 300))
 
 # Create the mesh
-mesh = mlab.pipeline.warp_scalar(mlab.pipeline.array2d_source(julia),
-                                 warp_scale=100)
+mesh = mlab.pipeline.warp_scalar(mlab.pipeline.array2d_source(julia), warp_scale=100)
 
 # The decimate_pro filter works only on triangles. We need to apply the
 # triangle_filter before applying decimate_pro.
@@ -57,14 +56,13 @@ dec.filter.feature_angle = 1
 dec.filter.target_reduction = 0.5
 
 # We display the lines of decimated mesh in white
-mlab.pipeline.surface(dec, representation='wireframe', line_width=3,
-                           color=(1, 1, 1))
+mlab.pipeline.surface(dec, representation="wireframe", line_width=3, color=(1, 1, 1))
 # The decimated mesh itself.
-mlab.pipeline.surface(dec, colormap='gist_earth', vmin=-0.1, vmax=0.4)
+mlab.pipeline.surface(dec, colormap="gist_earth", vmin=-0.1, vmax=0.4)
 
 # The lines of the non-decimated mesh, in black, for comparisation.
-mlab.pipeline.surface(mesh, representation='wireframe',  color=(0, 0, 0))
+mlab.pipeline.surface(mesh, representation="wireframe", color=(0, 0, 0))
 
-mlab.view(-66, 25, 9.7, [-5.8, -54.5,  18.4])
+mlab.view(-66, 25, 9.7, [-5.8, -54.5, 18.4])
 
 mlab.show()

@@ -15,10 +15,11 @@ from pyface.api import GUI
 # Local imports.
 from common import TestCase
 
+
 def is_timer_running(timer):
     """Written to work around a pyface bug.
     """
-    if hasattr(timer, 'isActive'):
+    if hasattr(timer, "isActive"):
         # The Qt backend's IsRunning does not work correctly.
         return timer.isActive()
     else:
@@ -32,10 +33,10 @@ def run_mlab_examples():
     ############################################################
     # run all the "test_foobar" functions in the mlab module.
     for name, func in getmembers(mlab):
-        if not callable(func) or not name[:4] in ('test', 'Test'):
+        if not callable(func) or not name[:4] in ("test", "Test"):
             continue
 
-        if sys.platform == 'win32' and name == 'test_mesh_mask_custom_colors':
+        if sys.platform == "win32" and name == "test_mesh_mask_custom_colors":
             # fixme: This test does not seem to work on win32, disabling for now.
             continue
 
@@ -58,7 +59,6 @@ def run_mlab_examples():
 
 
 class TestMlab(TestCase):
-
     def test(self):
         self.main()
 
@@ -79,9 +79,10 @@ class TestMlab(TestCase):
         ############################################################
         # Test some specific corner-cases
         import numpy
+
         x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
         u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
-        s = numpy.sqrt(u**2 + v**2)
+        s = numpy.sqrt(u ** 2 + v ** 2)
 
         mlab.clf()
         # Test the extra argument "scalars"
@@ -89,7 +90,7 @@ class TestMlab(TestCase):
 
         # Test surf with strange-shaped inputs
         X, Y = numpy.ogrid[-10:10, -10:10]
-        Z = X**2 + Y**2
+        Z = X ** 2 + Y ** 2
         mlab.surf(X, Y, Z)
         mlab.surf(X.ravel(), Y.ravel(), Z)
 
@@ -98,6 +99,7 @@ class TestMlab(TestCase):
 
         # Test glyphs with number-only coordinnates
         mlab.points3d(0, 0, 0, resolution=50)
+
 
 if __name__ == "__main__":
     t = TestMlab()

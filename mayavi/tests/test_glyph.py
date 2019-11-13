@@ -22,7 +22,6 @@ from mayavi.modules.vector_cut_plane import VectorCutPlane
 
 
 class TestGlyph(unittest.TestCase):
-
     def make_data(self):
         """Trivial data -- creates an elementatry scalar field and a
         constant vector field along the 'x' axis."""
@@ -30,7 +29,7 @@ class TestGlyph(unittest.TestCase):
         s = numpy.reshape(s, (10, 10, 10))
         s = numpy.transpose(s)
 
-        v = numpy.zeros(3000, 'd')
+        v = numpy.zeros(3000, "d")
         v[1::3] = 1.0
         v = numpy.reshape(v, (10, 10, 10, 3))
         return s, v
@@ -61,8 +60,8 @@ class TestGlyph(unittest.TestCase):
         # Glyphs for the scalars
         g = Glyph()
         e.add_module(g)
-        g.glyph.glyph_source.glyph_position = 'center'
-        g.glyph.glyph.vector_mode = 'use_normal'
+        g.glyph.glyph_source.glyph_position = "center"
+        g.glyph.glyph.vector_mode = "use_normal"
         g.glyph.glyph.scale_factor = 0.5
         g.glyph.mask_points.on_ratio = 20
         g.actor.property.line_width = 1.0
@@ -70,7 +69,7 @@ class TestGlyph(unittest.TestCase):
         v = VectorCutPlane()
         glyph = v.glyph
         gs = glyph.glyph_source
-        gs.glyph_position = 'tail'
+        gs.glyph_position = "tail"
         gs.glyph_source = gs.glyph_list[1]
         e.add_module(v)
         v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, 3, 0))
@@ -79,11 +78,11 @@ class TestGlyph(unittest.TestCase):
         glyph = v.glyph
         gs = glyph.glyph_source
         gs.glyph_source = gs.glyph_list[2]
-        gs.glyph_position = 'head'
+        gs.glyph_position = "head"
         e.add_module(v)
         v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, -2, 0))
-        self.g=g
-        self.v=v
+        self.g = g
+        self.v = v
         self.scene = e.current_scene
         return
 
@@ -99,8 +98,8 @@ class TestGlyph(unittest.TestCase):
         s = self.scene
         src = s.children[0]
         g = src.children[0].children[1]
-        self.assertEqual(g.glyph.glyph_source.glyph_position, 'center')
-        self.assertEqual(g.glyph.glyph.vector_mode, 'use_normal')
+        self.assertEqual(g.glyph.glyph_source.glyph_position, "center")
+        self.assertEqual(g.glyph.glyph.vector_mode, "use_normal")
         self.assertEqual(g.glyph.glyph.scale_factor, 0.5)
         self.assertEqual(g.actor.property.line_width, 1.0)
         # Test masking
@@ -112,32 +111,31 @@ class TestGlyph(unittest.TestCase):
                 self.assertLessEqual(n_glyph_input_points, n_output_points)
             else:
                 on_ratio = g.glyph.mask_points.on_ratio
-                self.assertEqual(n_glyph_input_points,
-                                 n_output_points / on_ratio)
+                self.assertEqual(n_glyph_input_points, n_output_points / on_ratio)
         else:
             self.assertEqual(n_glyph_input_points, n_output_points)
 
         v = src.children[0].children[2]
         glyph = v.glyph
         gs = glyph.glyph_source
-        self.assertEqual(gs.glyph_position, 'tail')
+        self.assertEqual(gs.glyph_position, "tail")
         self.assertEqual(gs.glyph_source, gs.glyph_list[1])
-        self.assertEqual(numpy.allclose(v.implicit_plane.normal,
-                                        (0., 1., 0.)), True)
+        self.assertEqual(numpy.allclose(v.implicit_plane.normal, (0.0, 1.0, 0.0)), True)
 
         v = src.children[0].children[3]
         glyph = v.glyph
         gs = glyph.glyph_source
         self.assertEqual(gs.glyph_source, gs.glyph_list[2])
-        self.assertEqual(gs.glyph_position, 'head')
-        self.assertEqual(numpy.allclose(v.implicit_plane.normal,
-                                        (0., 1., 0.)), True)
+        self.assertEqual(gs.glyph_position, "head")
+        self.assertEqual(numpy.allclose(v.implicit_plane.normal, (0.0, 1.0, 0.0)), True)
 
     def test_glyph(self):
         "Test if the test fixture works"
         self.check()
 
-    @unittest.skipIf(platform.system() == "Darwin", "Test crashes on OSX. See issue #373")
+    @unittest.skipIf(
+        platform.system() == "Darwin", "Test crashes on OSX. See issue #373"
+    )
     def test_mask_input_points_with_random_mode(self):
         """Test if masking input points works with random mode.
            Tests Issue #165"""
@@ -184,7 +182,7 @@ class TestGlyph(unittest.TestCase):
         scene = self.scene
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2')  # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         engine.save_visualization(f)
         f.seek(0)  # So we can read this saved data.
 
@@ -204,7 +202,7 @@ class TestGlyph(unittest.TestCase):
         # Test if the MayaVi2 visualization can be deep-copied.
 
         # Pop the source object.
-        s =  self.scene
+        s = self.scene
         sources = s.children
         s.children = []
         # Add it back to see if that works without error.
@@ -220,5 +218,6 @@ class TestGlyph(unittest.TestCase):
         s.children[:] = sources1
         self.check()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

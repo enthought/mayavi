@@ -24,21 +24,23 @@ class GridPlane(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    grid_plane = Instance(grid_plane.GridPlane, allow_none=False,
-                          record=True)
+    grid_plane = Instance(grid_plane.GridPlane, allow_none=False, record=True)
 
     actor = Instance(Actor, allow_non=False, record=True)
 
-    input_info = PipelineInfo(datasets=['image_data',
-                                        'structured_grid',
-                                        'rectilinear_grid'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["image_data", "structured_grid", "rectilinear_grid"],
+        attribute_types=["any"],
+        attributes=["any"],
+    )
 
-
-    view = View(Group(Item(name='grid_plane', style='custom'),
-                      Item(name='actor', style='custom'),
-                      show_labels=False))
+    view = View(
+        Group(
+            Item(name="grid_plane", style="custom"),
+            Item(name="actor", style="custom"),
+            show_labels=False,
+        )
+    )
 
     ######################################################################
     # `Module` interface
@@ -61,8 +63,7 @@ class GridPlane(Module):
 
         # Setup the actor suitably for this module.
         prop = self.actor.property
-        prop.trait_set(backface_culling=0, frontface_culling=0,
-                 representation='w')
+        prop.trait_set(backface_culling=0, frontface_culling=0, representation="w")
         self.actor.mapper.scalar_visibility = 0
 
     def update_pipeline(self):
@@ -108,4 +109,3 @@ class GridPlane(Module):
         if gp is not None:
             new.inputs = [gp]
         self._change_components(old, new)
-

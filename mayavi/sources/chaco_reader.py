@@ -24,30 +24,29 @@ class ChacoReader(Source):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    base_name = Str('', desc='basename of the Chaco files')
+    base_name = Str("", desc="basename of the Chaco files")
 
     # The VTK data file reader.
-    reader = Instance(tvtk.ChacoReader, args=(), allow_none=False,
-                      record=True)
+    reader = Instance(tvtk.ChacoReader, args=(), allow_none=False, record=True)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['unstructured_grid'])
+    output_info = PipelineInfo(datasets=["unstructured_grid"])
 
     ########################################
     # View related code.
     # Our view.
-    view = View(Group(Item(name='reader', style='custom',
-                           resizable=True),
-                      show_labels=False),
-                resizable=True)
+    view = View(
+        Group(Item(name="reader", style="custom", resizable=True), show_labels=False),
+        resizable=True,
+    )
 
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
-    def __init__(self, base_name='', configure=True, **traits):
+    def __init__(self, base_name="", configure=True, **traits):
         super(ChacoReader, self).__init__(**traits)
         if configure:
-            self.reader.edit_traits(kind='livemodal')
+            self.reader.edit_traits(kind="livemodal")
         self.base_name = self.reader.base_name
 
     def update(self):

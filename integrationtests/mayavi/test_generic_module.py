@@ -15,7 +15,6 @@ from common import TestCase, get_example_data
 
 
 class TestGenericModule(TestCase):
-
     def test(self):
         self.main()
 
@@ -38,23 +37,23 @@ class TestGenericModule(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('fire_ug.vtu'))
+        r.initialize(get_example_data("fire_ug.vtu"))
         script.add_source(r)
 
         # We now create the complete equivalent of a ScalarCutPlane in
         # the next block!
         cp = CutPlane()
         w = WarpScalar()
-        warper = Optional(filter=w, label_text='Enable warping', enabled=False)
+        warper = Optional(filter=w, label_text="Enable warping", enabled=False)
         c = Contour()
-        ctr = Optional(filter=c, label_text='Enable contours', enabled=False)
-        p = PolyDataNormals(name='Normals')
-        normals = Optional(filter=p, label_text='Compute normals', enabled=False)
+        ctr = Optional(filter=c, label_text="Enable contours", enabled=False)
+        p = PolyDataNormals(name="Normals")
+        normals = Optional(filter=p, label_text="Compute normals", enabled=False)
         a = Actor()
         components = [cp, warper, ctr, normals, a]
-        m = GenericModule(name='ScalarCutPlane',
-                          components=components,
-                          contour=c, actor=a)
+        m = GenericModule(
+            name="ScalarCutPlane", components=components, contour=c, actor=a
+        )
 
         script.add_module(m)
         s.scene.isometric_view()
@@ -84,7 +83,7 @@ class TestGenericModule(TestCase):
             assert rng[0] < rng[1]
             # Check if pipeline_changed is correctly propagated.
             old = get_output(normals.outputs[0])
-            assert a.mapper.scalar_mode == 'default'
+            assert a.mapper.scalar_mode == "default"
             c.filled_contours = True
             n_output = get_output(normals.outputs[0])
             c_output = get_output(c.outputs[0])
@@ -92,11 +91,11 @@ class TestGenericModule(TestCase):
             assert n_output is c_output
             # Check if the actor responds correctly to the
             # filled_contour change.
-            assert a.mapper.scalar_mode == 'use_cell_data'
+            assert a.mapper.scalar_mode == "use_cell_data"
 
             # Set back everything to original state.
             c.filled_contours = False
-            assert a.mapper.scalar_mode == 'default'
+            assert a.mapper.scalar_mode == "default"
             c.number_of_contours = 1
             c.auto_contours = False
             ctr.enabled = False
@@ -109,9 +108,9 @@ class TestGenericModule(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine
@@ -150,6 +149,7 @@ class TestGenericModule(TestCase):
         check(m)
 
         # If we have come this far, we are golden!
+
 
 if __name__ == "__main__":
     t = TestGenericModule()

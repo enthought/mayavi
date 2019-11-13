@@ -17,6 +17,7 @@ import sys
 
 import vtk
 from vtk.util import vtkConstants
+
 try:
     from vtk.util import numpy_support
 except ImportError:
@@ -27,6 +28,7 @@ import numpy
 # Enthought library imports.
 try:
     from tvtk.array_ext import set_id_type_array
+
     HAS_ARRAY_EXT = True
 except ImportError:
     HAS_ARRAY_EXT = False
@@ -55,7 +57,7 @@ if sys.version_info[0] > 2:
 
 
 def getbuffer(array):
-    return getattr(numpy, 'getbuffer', memoryview)(array)
+    return getattr(numpy, "getbuffer", memoryview)(array)
 
 
 def set_id_type_array_py(id_array, out_array):
@@ -72,14 +74,15 @@ def set_id_type_array_py(id_array, out_array):
 
     """
     assert numpy.issubdtype(id_array.dtype, numpy.signedinteger)
-    assert out_array.flags.contiguous == 1, \
-        "out_array must be contiguous."
+    assert out_array.flags.contiguous == 1, "out_array must be contiguous."
     shp = id_array.shape
     assert len(shp) == 2, "id_array must be a two dimensional array."
     sz = out_array.size
-    e_sz = shp[0]*(shp[1]+1)
-    assert sz == e_sz, \
-        "out_array size is incorrect, expected: %s, given: %s" % (e_sz, sz)
+    e_sz = shp[0] * (shp[1] + 1)
+    assert sz == e_sz, "out_array size is incorrect, expected: %s, given: %s" % (
+        e_sz,
+        sz,
+    )
 
     # we are guaranteed contiguous, so these just change the view (no copy)
     out_shp = out_array.shape
@@ -133,7 +136,7 @@ class ArrayCache(object):
         # receive the object (it will receive `None`) and thus there
         # is no way to know which array reference one has to remove.
         vtk_arr.AddObserver(
-            'DeleteEvent', lambda o, e, key=key: self._remove_array(key)
+            "DeleteEvent", lambda o, e, key=key: self._remove_array(key)
         )
 
         # Cache the array
@@ -165,10 +168,10 @@ class ArrayCache(object):
 
 _dummy = None
 # This makes the cache work even when the module is reloaded.
-for name in ['array_handler', 'tvtk.array_handler']:
+for name in ["array_handler", "tvtk.array_handler"]:
     if name in sys.modules:
         mod = sys.modules[name]
-        if hasattr(mod, '_array_cache'):
+        if hasattr(mod, "_array_cache"):
             _dummy = mod._array_cache
         del mod
         break
@@ -212,9 +215,7 @@ def get_vtk_array_type(numeric_array_type):
         for key in _arr_vtk:
             if numpy.issubdtype(numeric_array_type, key):
                 return _arr_vtk[key]
-    raise TypeError(
-        "Couldn't translate array's type to VTK %s" % numeric_array_type
-    )
+    raise TypeError("Couldn't translate array's type to VTK %s" % numeric_array_type)
 
 
 def get_vtk_to_numeric_typemap():
@@ -231,7 +232,7 @@ def get_vtk_to_numeric_typemap():
         vtkConstants.VTK_UNSIGNED_LONG: ULONG_TYPE_CODE,
         vtkConstants.VTK_ID_TYPE: ID_TYPE_CODE,
         vtkConstants.VTK_FLOAT: numpy.float32,
-        vtkConstants.VTK_DOUBLE: numpy.float64
+        vtkConstants.VTK_DOUBLE: numpy.float64,
     }
     return _vtk_arr
 
@@ -255,7 +256,7 @@ def get_sizeof_vtk_array(vtk_array_type):
         vtkConstants.VTK_UNSIGNED_LONG: VTK_LONG_TYPE_SIZE,
         vtkConstants.VTK_ID_TYPE: VTK_ID_TYPE_SIZE,
         vtkConstants.VTK_FLOAT: 4,
-        vtkConstants.VTK_DOUBLE: 8
+        vtkConstants.VTK_DOUBLE: 8,
     }
     return _size_dict[vtk_array_type]
 
@@ -310,12 +311,12 @@ def array2vtk(num_array, vtk_array=None):
     z = numpy.asarray(num_array)
 
     shape = z.shape
-    assert len(shape) < 3, \
-        "Only arrays of dimensionality 2 or lower are allowed!"
-    assert not numpy.issubdtype(z.dtype, numpy.complexfloating), \
-        "Complex numpy arrays cannot be converted to vtk arrays."\
-        "Use real() or imag() to get a component of the array before"\
+    assert len(shape) < 3, "Only arrays of dimensionality 2 or lower are allowed!"
+    assert not numpy.issubdtype(z.dtype, numpy.complexfloating), (
+        "Complex numpy arrays cannot be converted to vtk arrays."
+        "Use real() or imag() to get a component of the array before"
         " passing it to vtk."
+    )
 
     # First create an array of the right type by using the typecode.
     # Bit arrays need special casing.
@@ -389,11 +390,9 @@ def vtk2array(vtk_array):
 
     """
     typ = vtk_array.GetDataType()
-    assert typ in get_vtk_to_numeric_typemap().keys(), \
-        "Unsupported array type %s" % typ
+    assert typ in get_vtk_to_numeric_typemap().keys(), "Unsupported array type %s" % typ
 
-    shape = (vtk_array.GetNumberOfTuples(),
-             vtk_array.GetNumberOfComponents())
+    shape = (vtk_array.GetNumberOfTuples(), vtk_array.GetNumberOfComponents())
     if shape[0] == 0:
         dtype = get_numeric_array_type(typ)
         return numpy.array([], dtype)
@@ -404,7 +403,7 @@ def vtk2array(vtk_array):
     if vtk_array in _array_cache:
         arr = _array_cache.get(vtk_array)
         if shape[1] == 1:
-            shape = (shape[0], )
+            shape = (shape[0],)
         if arr.size == numpy.prod(shape):
             arr = numpy.reshape(arr, shape)
             return arr
@@ -414,7 +413,7 @@ def vtk2array(vtk_array):
         dtype = get_numeric_array_type(typ)
         result = numpy.frombuffer(vtk_array, dtype=dtype)
         if shape[1] == 1:
-            shape = (shape[0], )
+            shape = (shape[0],)
         result.shape = shape
         return result
 
@@ -466,12 +465,12 @@ def vtk2array(vtk_array):
         exp.SetInputData(img_data)
 
     # Create an array of the right size and export the image into it.
-    im_arr = numpy.empty((shape[0]*shape[1],), r_dtype)
+    im_arr = numpy.empty((shape[0] * shape[1],), r_dtype)
     exp.Export(im_arr)
 
     # Now reshape it.
     if shape[1] == 1:
-        shape = (shape[0], )
+        shape = (shape[0],)
     im_arr = numpy.reshape(im_arr, shape)
     return im_arr
 
@@ -530,8 +529,9 @@ def array2vtkCellArray(num_array, vtk_array=None):
         cells = vtk_array
     else:
         cells = vtk.vtkCellArray()
-    assert cells.GetClassName() == 'vtkCellArray', \
-        'Second argument must be a `vtkCellArray` instance.'
+    assert (
+        cells.GetClassName() == "vtkCellArray"
+    ), "Second argument must be a `vtkCellArray` instance."
 
     if len(num_array) == 0:
         return cells
@@ -558,10 +558,13 @@ def array2vtkCellArray(num_array, vtk_array=None):
         vtk_arr = vtk.vtkIdTypeArray()
         array2vtk(id_typ_arr, vtk_arr)
         cells.SetCells(n_cells, vtk_arr)
+
     ########################################
 
-    msg = "Invalid argument.  Valid types are a Python list of lists,"\
-          " a Python list of numpy arrays, or a numpy array."
+    msg = (
+        "Invalid argument.  Valid types are a Python list of lists,"
+        " a Python list of numpy arrays, or a numpy array."
+    )
 
     if issubclass(type(num_array), (list, tuple)):
         assert len(num_array[0]) > 0, "Input array must be 2D."
@@ -576,7 +579,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
             for arr in num_array:
                 assert len(arr.shape) == 2, "Each array must be 2D"
                 shp = arr.shape
-                tot_size += shp[0]*(shp[1] + 1)
+                tot_size += shp[0] * (shp[1] + 1)
                 n_cells += shp[0]
             # Create an empty array.
             id_typ_arr = numpy.empty((tot_size,), ID_TYPE_CODE)
@@ -585,8 +588,8 @@ def array2vtkCellArray(num_array, vtk_array=None):
             for arr in num_array:
                 tmp_arr = _get_tmp_array(arr)
                 shp = arr.shape
-                sz = shp[0]*(shp[1] + 1)
-                set_id_type_array(tmp_arr, id_typ_arr[count:count+sz])
+                sz = shp[0] * (shp[1] + 1)
+                set_id_type_array(tmp_arr, id_typ_arr[count : count + sz])
                 count += sz
             # Now set them cells.
             _set_cells(cells, n_cells, id_typ_arr)
@@ -597,7 +600,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
         assert len(num_array.shape) == 2, "Input array must be 2D."
         tmp_arr = _get_tmp_array(num_array)
         shp = tmp_arr.shape
-        id_typ_arr = numpy.empty((shp[0]*(shp[1] + 1),), ID_TYPE_CODE)
+        id_typ_arr = numpy.empty((shp[0] * (shp[1] + 1),), ID_TYPE_CODE)
         set_id_type_array(tmp_arr, id_typ_arr)
         _set_cells(cells, shp[0], id_typ_arr)
         return cells
@@ -672,6 +675,7 @@ def array2vtkIdList(num_array, vtk_idlist=None):
 # Array argument handling functions.
 ######################################################################
 
+
 def is_array(arr):
     """Returns True if the passed `arr` is a numpy array or a List."""
     if issubclass(type(arr), (numpy.ndarray, list)):
@@ -692,13 +696,15 @@ def convert_array(arr, vtk_typ=None):
 
     """
     if vtk_typ:
-        conv = {'vtkCellArray': array2vtkCellArray,
-                'vtkPoints': array2vtkPoints,
-                'vtkIdList': array2vtkIdList}
+        conv = {
+            "vtkCellArray": array2vtkCellArray,
+            "vtkPoints": array2vtkPoints,
+            "vtkIdList": array2vtkIdList,
+        }
         if vtk_typ in conv.keys():
             vtk_arr = getattr(vtk, vtk_typ)()
             return conv[vtk_typ](arr, vtk_arr)
-        elif vtk_typ.find('Array') > -1:
+        elif vtk_typ.find("Array") > -1:
             try:
                 vtk_arr = getattr(vtk, vtk_typ)()
             except TypeError:  # vtk_typ == 'vtkDataArray'
@@ -715,7 +721,7 @@ def is_array_sig(s):
     """Given a signature, return if the signature has an array."""
     if not isinstance(s, (unicode, str)):
         return False
-    arr_types = ['Array', 'vtkPoints', 'vtkIdList']
+    arr_types = ["Array", "vtkPoints", "vtkIdList"]
     for i in arr_types:
         if s.find(i) > -1:
             return True
@@ -729,7 +735,7 @@ def is_array_or_vtkarray(arg):
     if is_array(arg):
         return True
     else:
-        if hasattr(arg, '_vtk_obj'):
+        if hasattr(arg, "_vtk_obj"):
             if is_array_sig(arg._vtk_obj.__class__.__name__):
                 return True
     return False
@@ -754,8 +760,10 @@ def get_correct_sig(args, sigs):
         count = len(candidate_sigs)
         if count == 0:
             # No sig has the right number of args.
-            msg = "Insufficient number of arguments to method."\
-                  "Valid arguments are:\n%s" % sigs
+            msg = (
+                "Insufficient number of arguments to method."
+                "Valid arguments are:\n%s" % sigs
+            )
             raise TypeError(msg)
         elif count == 1:
             # If only one of the sigs has the right number of args,
@@ -764,8 +772,7 @@ def get_correct_sig(args, sigs):
         else:
             # More than one sig has the same number of args.
             # Check if args need conversion at all.
-            array_idx = [i for i, a in enumerate(args)
-                         if is_array_or_vtkarray(a)]
+            array_idx = [i for i, a in enumerate(args) if is_array_or_vtkarray(a)]
             n_arr = len(array_idx)
             if n_arr == 0:
                 # No conversion necessary so signature info is
@@ -794,7 +801,7 @@ def deref_vtk(obj):
     is duplicated from `tvtk_base.py` because I'd like to keep this
     module independent of `tvtk_base.py`.
     """
-    if hasattr(obj, '_vtk_obj'):
+    if hasattr(obj, "_vtk_obj"):
         return obj._vtk_obj
     else:
         return obj

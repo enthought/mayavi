@@ -16,9 +16,11 @@ from traits.api import HasTraits, Any, Event, Callable
 
 from mayavi.core.engine import Engine
 
+
 def dummy_viewer_factory():
     """Factory function for the dummy viewer."""
     return DummyViewer()
+
 
 ################################################################################
 # `NullEngine` class.
@@ -32,6 +34,7 @@ class NullEngine(Engine):
 
     This engine does not allow for rendring.
     """
+
     scene_factory = Callable(dummy_viewer_factory)
 
 
@@ -44,4 +47,3 @@ class DummyViewer(HasTraits):
     scene = Any
     closing = Event
     activated = Event
-

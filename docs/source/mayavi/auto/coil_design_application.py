@@ -38,12 +38,17 @@ import numpy as np
 from scipy import linalg, special
 
 # Enthought library imports:
-from traits.api import HasTraits, Array, CFloat, List, \
-   Instance, on_trait_change, Property
-from traitsui.api import Item, View, ListEditor, \
-        HSplit, VSplit
-from mayavi.core.ui.api import EngineView, MlabSceneModel, \
-        SceneEditor
+from traits.api import (
+    HasTraits,
+    Array,
+    CFloat,
+    List,
+    Instance,
+    on_trait_change,
+    Property,
+)
+from traitsui.api import Item, View, ListEditor, HSplit, VSplit
+from mayavi.core.ui.api import EngineView, MlabSceneModel, SceneEditor
 
 ##############################################################################
 # Module-level variables
@@ -62,72 +67,79 @@ class Loop(HasTraits):
     """ A current loop class.
     """
 
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # Public traits
-    #-------------------------------------------------------------------------
-    direction = Array(float, value=(0, 0, 1), cols=3,
-                    shape=(3,), desc='directing vector of the loop',
-                    enter_set=True, auto_set=False)
+    # -------------------------------------------------------------------------
+    direction = Array(
+        float,
+        value=(0, 0, 1),
+        cols=3,
+        shape=(3,),
+        desc="directing vector of the loop",
+        enter_set=True,
+        auto_set=False,
+    )
 
-    radius    = CFloat(0.1, desc='radius of the loop',
-                    enter_set=True, auto_set=False)
+    radius = CFloat(0.1, desc="radius of the loop", enter_set=True, auto_set=False)
 
-    position  = Array(float, value=(0, 0, 0), cols=3,
-                    shape=(3,), desc='position of the center of the loop',
-                    enter_set=True, auto_set=False)
+    position = Array(
+        float,
+        value=(0, 0, 0),
+        cols=3,
+        shape=(3,),
+        desc="position of the center of the loop",
+        enter_set=True,
+        auto_set=False,
+    )
 
-    _plot      = None
+    _plot = None
 
-    Bnorm   = Property(depends_on='direction,position,radius')
+    Bnorm = Property(depends_on="direction,position,radius")
 
-    view = View('position', 'direction', 'radius', '_')
+    view = View("position", "direction", "radius", "_")
 
-
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # Loop interface
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     def base_vectors(self):
         """ Returns 3 orthognal base vectors, the first one colinear to
             the axis of the loop.
         """
         # normalize n
-        n = self.direction / (self.direction**2).sum(axis=-1)
+        n = self.direction / (self.direction ** 2).sum(axis=-1)
 
         # choose two vectors perpendicular to n
         # choice is arbitrary since the coil is symetric about n
-        if  np.abs(n[0])==1 :
+        if np.abs(n[0]) == 1:
             l = np.r_[n[2], 0, -n[0]]
         else:
             l = np.r_[0, n[2], -n[1]]
 
-        l /= (l**2).sum(axis=-1)
+        l /= (l ** 2).sum(axis=-1)
         m = np.cross(n, l)
         return n, l, m
 
-
-    @on_trait_change('Bnorm')
+    @on_trait_change("Bnorm")
     def redraw(self):
-        if hasattr(self, 'app') and self.app.scene._renderer is not None:
+        if hasattr(self, "app") and self.app.scene._renderer is not None:
             self.display()
             self.app.visualize_field()
-
 
     def display(self):
         """
         Display the coil in the 3D view.
         """
         n, l, m = self.base_vectors()
-        theta = np.linspace(0, 2*np.pi, 30)[..., np.newaxis]
-        coil = self.radius*(np.sin(theta)*l + np.cos(theta)*m)
+        theta = np.linspace(0, 2 * np.pi, 30)[..., np.newaxis]
+        coil = self.radius * (np.sin(theta) * l + np.cos(theta) * m)
         coil += self.position
         coil_x, coil_y, coil_z = coil.T
         if self._plot is None:
-            self._plot = self.app.scene.mlab.plot3d(coil_x, coil_y, coil_z,
-                                    tube_radius=0.007, color=(0, 0, 1),
-                                    name='Coil')
+            self._plot = self.app.scene.mlab.plot3d(
+                coil_x, coil_y, coil_z, tube_radius=0.007, color=(0, 0, 1), name="Coil"
+            )
         else:
             self._plot.mlab_source.trait_set(x=coil_x, y=coil_y, z=coil_z)
-
 
     def _get_Bnorm(self):
         """
@@ -136,15 +148,15 @@ class Loop(HasTraits):
         """
         ### Translate the coordinates in the coil's frame
         n, l, m = self.base_vectors()
-        R       = self.radius
-        r0      = self.position
-        r       = np.c_[np.ravel(X), np.ravel(Y), np.ravel(Z)]
+        R = self.radius
+        r0 = self.position
+        r = np.c_[np.ravel(X), np.ravel(Y), np.ravel(Z)]
 
         # transformation matrix coil frame to lab frame
         trans = np.vstack((l, m, n))
 
-        r -= r0   #point location from center of coil
-        r = np.dot(r, linalg.inv(trans) )           #transform vector to coil frame
+        r -= r0  # point location from center of coil
+        r = np.dot(r, linalg.inv(trans))  # transform vector to coil frame
 
         #### calculate field
 
@@ -152,24 +164,26 @@ class Loop(HasTraits):
         x = r[:, 0]
         y = r[:, 1]
         z = r[:, 2]
-        rho = np.sqrt(x**2 + y**2)
+        rho = np.sqrt(x ** 2 + y ** 2)
         theta = np.arctan2(x, y)
 
-        E = special.ellipe((4 * R * rho)/( (R + rho)**2 + z**2))
-        K = special.ellipk((4 * R * rho)/( (R + rho)**2 + z**2))
-        Bz =  1/np.sqrt((R + rho)**2 + z**2) * (
-                    K
-                  + E * (R**2 - rho**2 - z**2)/((R - rho)**2 + z**2)
-                )
-        Brho = z/(rho*np.sqrt((R + rho)**2 + z**2)) * (
-                -K
-                + E * (R**2 + rho**2 + z**2)/((R - rho)**2 + z**2)
-                )
+        E = special.ellipe((4 * R * rho) / ((R + rho) ** 2 + z ** 2))
+        K = special.ellipk((4 * R * rho) / ((R + rho) ** 2 + z ** 2))
+        Bz = (
+            1
+            / np.sqrt((R + rho) ** 2 + z ** 2)
+            * (K + E * (R ** 2 - rho ** 2 - z ** 2) / ((R - rho) ** 2 + z ** 2))
+        )
+        Brho = (
+            z
+            / (rho * np.sqrt((R + rho) ** 2 + z ** 2))
+            * (-K + E * (R ** 2 + rho ** 2 + z ** 2) / ((R - rho) ** 2 + z ** 2))
+        )
         # On the axis of the coil we get a divided by zero here. This returns a
         # NaN, where the field is actually zero :
         Brho[np.isnan(Brho)] = 0
 
-        B = np.c_[np.cos(theta)*Brho, np.sin(theta)*Brho, Bz ]
+        B = np.c_[np.cos(theta) * Brho, np.sin(theta) * Brho, Bz]
 
         # Rotate the field back in the lab's frame
         B = np.dot(B, trans)
@@ -179,7 +193,7 @@ class Loop(HasTraits):
         By = np.reshape(By, X.shape)
         Bz = np.reshape(Bz, X.shape)
 
-        Bnorm = np.sqrt(Bx**2 + By**2 + Bz**2)
+        Bnorm = np.sqrt(Bx ** 2 + By ** 2 + Bz ** 2)
 
         # We need to threshold ourselves, rather than with VTK, to be able
         # to use an ImageData
@@ -205,15 +219,15 @@ class Application(HasTraits):
     # The mayavi engine view.
     engine_view = Instance(EngineView)
 
-    coils = List(Instance(Loop, (), allow_none=False),
-                        editor=ListEditor(style='custom'),
-                        value=[ Loop(position=(0, 0, -0.05), ),
-                                 Loop(position=(0, 0,  0.05), ), ])
+    coils = List(
+        Instance(Loop, (), allow_none=False),
+        editor=ListEditor(style="custom"),
+        value=[Loop(position=(0, 0, -0.05),), Loop(position=(0, 0, 0.05),),],
+    )
 
-
-    Bx    = Array(value=np.zeros_like(X))
-    By    = Array(value=np.zeros_like(X))
-    Bz    = Array(value=np.zeros_like(X))
+    Bx = Array(value=np.zeros_like(X))
+    By = Array(value=np.zeros_like(X))
+    Bz = Array(value=np.zeros_like(X))
     Bnorm = Array(value=np.zeros_like(X))
 
     vector_field = None
@@ -222,8 +236,7 @@ class Application(HasTraits):
         HasTraits.__init__(self, **traits)
         self.engine_view = EngineView(engine=self.scene.engine)
 
-
-    @on_trait_change('scene.activated,coils')
+    @on_trait_change("scene.activated,coils")
     def init_view(self):
         if self.scene._renderer is not None:
             self.scene.scene_editor.background = (0, 0, 0)
@@ -234,9 +247,9 @@ class Application(HasTraits):
             self.visualize_field()
 
     def visualize_field(self):
-        self.Bx    = np.zeros_like(X)
-        self.By    = np.zeros_like(X)
-        self.Bz    = np.zeros_like(X)
+        self.Bx = np.zeros_like(X)
+        self.By = np.zeros_like(X)
+        self.Bz = np.zeros_like(X)
         self.Bnorm = np.zeros_like(X)
         self.scene.scene.disable_render = True
         for coil in self.coils:
@@ -244,49 +257,52 @@ class Application(HasTraits):
             self.By += coil.By
             self.Bz += coil.Bz
 
-        self.Bnorm = np.sqrt(self.Bx**2 + self.By**2 + self.Bz**2)
+        self.Bnorm = np.sqrt(self.Bx ** 2 + self.By ** 2 + self.Bz ** 2)
 
         if self.vector_field is None:
             self.vector_field = self.scene.mlab.pipeline.vector_field(
-                                    X, Y, Z, self.Bx, self.By, self.Bz,
-                                    scalars=self.Bnorm,
-                                    name='B field')
-            vectors = self.scene.mlab.pipeline.vectors(self.vector_field,
-                                    mode='arrow', resolution=10,
-                                    mask_points=6, colormap='YlOrRd',
-                                    scale_factor=2*np.abs(X[0,0,0]
-                                                          -X[1,1,1]) )
+                X, Y, Z, self.Bx, self.By, self.Bz, scalars=self.Bnorm, name="B field"
+            )
+            vectors = self.scene.mlab.pipeline.vectors(
+                self.vector_field,
+                mode="arrow",
+                resolution=10,
+                mask_points=6,
+                colormap="YlOrRd",
+                scale_factor=2 * np.abs(X[0, 0, 0] - X[1, 1, 1]),
+            )
             vectors.module_manager.vector_lut_manager.reverse_lut = True
             vectors.glyph.mask_points.random_mode = False
             self.scene.mlab.axes()
             self.scp = self.scene.mlab.pipeline.scalar_cut_plane(
-                                                      self.vector_field,
-                                                      colormap='hot')
+                self.vector_field, colormap="hot"
+            )
         else:
             # Modify in place the data source. The visualization will
             # update automaticaly
             self.vector_field.mlab_source.trait_set(
-                u=self.Bx, v=self.By, w=self.Bz, scalars=self.Bnorm)
+                u=self.Bx, v=self.By, w=self.Bz, scalars=self.Bnorm
+            )
         self.scene.scene.disable_render = False
 
-
-    view = View(HSplit(
-                    VSplit(Item(name='engine_view',
-                                   style='custom',
-                                   resizable=True),
-                            Item('coils', springy=True),
-                        show_labels=False),
-                        'scene',
-                        show_labels=False),
-                    resizable=True,
-                    title='Coils...',
-                    height=0.8,
-                    width=0.8,
-                )
+    view = View(
+        HSplit(
+            VSplit(
+                Item(name="engine_view", style="custom", resizable=True),
+                Item("coils", springy=True),
+                show_labels=False,
+            ),
+            "scene",
+            show_labels=False,
+        ),
+        resizable=True,
+        title="Coils...",
+        height=0.8,
+        width=0.8,
+    )
 
 
 ##############################################################################
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = Application()
     app.configure_traits()
-

@@ -9,7 +9,7 @@
 from os.path import basename
 
 # Enthought imports.
-from traits.api import Instance, Str,Dict
+from traits.api import Instance, Str, Dict
 from traitsui.api import View, Item, Group, Include
 from tvtk.api import tvtk
 
@@ -31,27 +31,27 @@ class PolyDataReader(FileDataSource):
     __version__ = 0
 
     # The PolyData file reader
-    reader = Instance(tvtk.Object, allow_none=False,
-                      record=True)
+    reader = Instance(tvtk.Object, allow_none=False, record=True)
 
     ######################################################################
     # Private Traits
     _reader_dict = Dict(Str, Instance(tvtk.Object))
 
     # Our View.
-    view = View(Group(Include('time_step_group'),
-                      Item(name='base_file_name'),
-                      Item(name='reader',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False),
-                resizable=True)
+    view = View(
+        Group(
+            Include("time_step_group"),
+            Item(name="base_file_name"),
+            Item(name="reader", style="custom", resizable=True),
+            show_labels=False,
+        ),
+        resizable=True,
+    )
 
-    #output_info = PipelineInfo(datasets=['none'])
-    output_info = PipelineInfo(datasets=['poly_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
-
+    # output_info = PipelineInfo(datasets=['none'])
+    output_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )
 
     ######################################################################
     # `object` interface
@@ -88,14 +88,14 @@ class PolyDataReader(FileDataSource):
             return
 
         # Extract the file extension
-        splitname = value.strip().split('.')
+        splitname = value.strip().split(".")
         extension = splitname[-1].lower()
         # Select polydata reader based on file type
         old_reader = self.reader
         if extension in self._reader_dict:
             self.reader = self._reader_dict[extension]
         else:
-            error('Invalid extension for file: %s'%value)
+            error("Invalid extension for file: %s" % value)
             return
 
         old_fname = self.reader.file_name
@@ -119,48 +119,50 @@ class PolyDataReader(FileDataSource):
         this is not a property getter.
         """
         fname = basename(self.file_path.get())
-        ret = "%s"%fname
+        ret = "%s" % fname
         if len(self.file_list) > 1:
             ret += " (timeseries)"
-        if '[Hidden]' in self.name:
-            ret += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            ret += " [Hidden]"
 
         return ret
 
     def __reader_dict_default(self):
         """Default value for reader dict."""
-        rd = {'stl':tvtk.STLReader(),
-             'stla':tvtk.STLReader(),
-             'stlb':tvtk.STLReader(),
-             'txt':tvtk.SimplePointsReader(),
-             'raw':tvtk.ParticleReader(),
-             'ply':tvtk.PLYReader(),
-             'pdb':tvtk.PDBReader(),
-             'slc':tvtk.SLCReader(),
-             'xyz':tvtk.XYZMolReader(),
-             'obj':tvtk.OBJReader(),
-             'facet':tvtk.FacetReader(),
-             'cube':tvtk.GaussianCubeReader(),
-             'g':tvtk.BYUReader(),
-            }
+        rd = {
+            "stl": tvtk.STLReader(),
+            "stla": tvtk.STLReader(),
+            "stlb": tvtk.STLReader(),
+            "txt": tvtk.SimplePointsReader(),
+            "raw": tvtk.ParticleReader(),
+            "ply": tvtk.PLYReader(),
+            "pdb": tvtk.PDBReader(),
+            "slc": tvtk.SLCReader(),
+            "xyz": tvtk.XYZMolReader(),
+            "obj": tvtk.OBJReader(),
+            "facet": tvtk.FacetReader(),
+            "cube": tvtk.GaussianCubeReader(),
+            "g": tvtk.BYUReader(),
+        }
         return rd
 
     # Callable to check if the reader can actually read the file
     @classmethod
-    def can_read(cls,filename):
+    def can_read(cls, filename):
         """ Class method to check if the reader can actually
         read the file. Returns 'True' if it can read it succesfully
         else 'False'
         """
         # Extract the file extension
-        splitname = filename.strip().split('.')
+        splitname = filename.strip().split(".")
         extension = splitname[-1].lower()
 
-        if extension == 'xyz':
+        if extension == "xyz":
             from vtk import vtkObject
+
             o = vtkObject
             w = o.GetGlobalWarningDisplay()
-            o.SetGlobalWarningDisplay(0) # Turn it off.
+            o.SetGlobalWarningDisplay(0)  # Turn it off.
 
             r = tvtk.XYZMolReader()
             r.file_name = filename

@@ -16,31 +16,34 @@ from mayavi import mlab
 # A global counter, for subsitutions.
 global_counter = itertools.count()
 
-EXAMPLE_DIR = '../../examples/mayavi'
+EXAMPLE_DIR = "../../examples/mayavi"
+
 
 def is_mlab_example(filename):
     tokens = tokenize.generate_tokens(open(filename).readline)
-    code_only = ''.join([tok_content
-                            for tok_type, tok_content, _, _, _  in tokens
-                            if not token.tok_name[tok_type] in ('COMMENT',
-                                                                'STRING')])
-    return ('mlab.show()' in code_only)
+    code_only = "".join(
+        [
+            tok_content
+            for tok_type, tok_content, _, _, _ in tokens
+            if not token.tok_name[tok_type] in ("COMMENT", "STRING")
+        ]
+    )
+    return "mlab.show()" in code_only
 
 
 def run_mlab_file(filename, image_file):
     ## XXX: Monkey-patch mlab.show, so that we keep control of the
     ## the mainloop
     old_show = mlab.show
+
     def my_show(func=None):
         pass
+
     mlab.show = my_show
     mlab.clf()
     e = mlab.get_engine()
     e.close_scene(mlab.gcf())
-    exec(
-        compile(open(filename).read(), filename, 'exec'),
-        {'__name__': '__main__'}
-    )
+    exec(compile(open(filename).read(), filename, "exec"), {"__name__": "__main__"})
     mlab.savefig(image_file)
     size = mlab.gcf().scene.get_size()
     for scene in e.scenes:
@@ -52,29 +55,30 @@ def extract_docstring(filename):
     # Extract a module-level docstring, if any
     lines = open(filename).readlines()
     start_row = 0
-    if lines[0].startswith('#!'):
+    if lines[0].startswith("#!"):
         lines.pop(0)
         start_row = 1
 
-    docstring = ''
-    first_par = ''
+    docstring = ""
+    first_par = ""
     li = lines.__iter__()
-    li_next = li.__next__ if hasattr(li, '__next__') else li.next
+    li_next = li.__next__ if hasattr(li, "__next__") else li.next
     tokens = tokenize.generate_tokens(li_next)
     for tok_type, tok_content, _, (erow, _), _ in tokens:
         tok_type = token.tok_name[tok_type]
-        if tok_type in ('NEWLINE', 'COMMENT', 'NL', 'INDENT', 'DEDENT'):
+        if tok_type in ("NEWLINE", "COMMENT", "NL", "INDENT", "DEDENT"):
             continue
-        elif tok_type == 'STRING':
+        elif tok_type == "STRING":
             docstring = eval(tok_content)
             # If the docstring is formatted with several paragraphs, extract
             # the first one:
-            paragraphs = '\n'.join(line.rstrip()
-                                for line in docstring.split('\n')).split('\n\n')
+            paragraphs = "\n".join(
+                line.rstrip() for line in docstring.split("\n")
+            ).split("\n\n")
             if len(paragraphs) > 0:
                 first_par = paragraphs[0]
         break
-    return docstring, first_par, erow+1+start_row
+    return docstring, first_par, erow + 1 + start_row
 
 
 ################################################################################
@@ -83,6 +87,7 @@ def extract_docstring(filename):
 class ExampleLister(object):
     """ Builds a rst-formatted list of examples from a list of files.
     """
+
     # Header template, for the example gallery.
     header_tpl = """
 %(title)s
@@ -118,17 +123,16 @@ class ExampleLister(object):
     """
 
     # The title of the corresponding section in the example gallery.
-    title = ''
+    title = ""
 
     # The introductory text of the subsection
-    intro =''
+    intro = ""
 
     def __init__(self, **kwargs):
         # Cheap unique hash for substitutions
         self._unique_hash = next(global_counter)
         for name, value in kwargs.items():
             setattr(self, name, value)
-
 
     def render_all(self, stream, file_list):
         """ Render the example list to the given
@@ -137,15 +141,24 @@ class ExampleLister(object):
         self._stream = stream
         files_details = self.render_header(file_list)
         for index, file_details in enumerate(files_details):
-            filename, short_file_name, short_desc, title, docstring, \
-                                                    end_row = file_details
-            self.render_example_page(open(os.path.join(self.out_dir,
-                                            'example_%s.rst') %
-                                     short_file_name, 'w'), index, file_details)
+            (
+                filename,
+                short_file_name,
+                short_desc,
+                title,
+                docstring,
+                end_row,
+            ) = file_details
+            self.render_example_page(
+                open(
+                    os.path.join(self.out_dir, "example_%s.rst") % short_file_name, "w"
+                ),
+                index,
+                file_details,
+            )
             self.gallery_entry(index, file_details)
 
         del self._stream
-
 
     def render_header(self, filenames):
         files_details = list()
@@ -154,44 +167,39 @@ class ExampleLister(object):
         for filename in filenames:
             docstring, short_desc, end_row = extract_docstring(filename)
             short_file_name = os.path.basename(filename)[:-3]
-            title = short_file_name.replace('_', ' ')
+            title = short_file_name.replace("_", " ")
             title = title[0].upper() + title[1:]
-            shutil.copy(filename,
-                        os.path.join(self.out_dir, os.path.basename(filename)))
-
+            shutil.copy(
+                filename, os.path.join(self.out_dir, os.path.basename(filename))
+            )
 
             toctree.append("""   example_%s.rst""" % short_file_name)
-            files_details.append((filename, short_file_name, short_desc,
-                                        title, docstring, end_row))
+            files_details.append(
+                (filename, short_file_name, short_desc, title, docstring, end_row)
+            )
 
-        toctree = '\n'.join(toctree)
+        toctree = "\n".join(toctree)
 
         title = self.title
         intro = self.intro
         self._stream.write(self.header_tpl % locals())
         return files_details
 
-
     def render_example_page(self, stream, index, file_details):
         """ Render an individual example page.
         """
-        filename, short_file_name, short_desc, title, docstring, end_row \
-                                                                = file_details
+        filename, short_file_name, short_desc, title, docstring, end_row = file_details
         stream.write(self.example_rst_file_tpl % locals())
-
 
     def gallery_entry(self, index, file_details):
         """ Write the entry in the main example gallery file
             corresponding to the given file details.
         """
-        filename, short_file_name, short_desc, title, docstring, \
-                                end_row = file_details
-        self._stream.write(
-                "\n* :ref:`example_%(short_file_name)s`\n" % locals()
-            )
+        filename, short_file_name, short_desc, title, docstring, end_row = file_details
+        self._stream.write("\n* :ref:`example_%(short_file_name)s`\n" % locals())
         short_desc = short_desc.lstrip().rstrip()
-        for line in short_desc.split('\n'):
-            self._stream.write(4*" " + line.lstrip() + "\n")
+        for line in short_desc.split("\n"):
+            self._stream.write(4 * " " + line.lstrip() + "\n")
 
 
 ################################################################################
@@ -202,81 +210,94 @@ class ImagesExampleLister(ExampleLister):
     """
 
     # Relative directory to images
-    images_dir = 'mayavi/images/'
+    images_dir = "mayavi/images/"
 
     def render_all(self, stream, file_list):
         self._stream = stream
         files_details = self.render_header(file_list)
         unique_hash = self._unique_hash
-        for index, (filename, short_file_name, _, _, _, _) in \
-                                        enumerate(files_details):
-            image_file = os.path.join(self.images_dir,
-                        'example_%(short_file_name)s.jpg' % locals())
+        for index, (filename, short_file_name, _, _, _, _) in enumerate(files_details):
+            image_file = os.path.join(
+                self.images_dir, "example_%(short_file_name)s.jpg" % locals()
+            )
             if os.path.exists(image_file):
-                short_image_file = os.path.join(*(
-                                    image_file.split(os.sep)[1:]))
-                self._stream.write("""
+                short_image_file = os.path.join(*(image_file.split(os.sep)[1:]))
+                self._stream.write(
+                    """
 .. |%(unique_hash)02i%(index)02i| image:: ../%(short_image_file)s
     :width: 150
 
-            """ % locals())
+            """
+                    % locals()
+                )
             else:
-                self._stream.write("""
+                self._stream.write(
+                    """
 .. |%(unique_hash)02i%(index)02i| raw:: html
 
     <br/>
 
-            """ % locals())
+            """
+                    % locals()
+                )
 
-        self._stream.write(2*('\n' + 7*"=" + " " + 45*"="))
+        self._stream.write(2 * ("\n" + 7 * "=" + " " + 45 * "="))
 
         for index, file_details in enumerate(files_details):
-            filename, short_file_name, short_desc, title, docstring, end_row = \
-                                                                file_details
-            self.render_example_page(open(os.path.join(self.out_dir,
-                                        'example_%s.rst') %
-                                     short_file_name, 'w'), index, file_details)
+            (
+                filename,
+                short_file_name,
+                short_desc,
+                title,
+                docstring,
+                end_row,
+            ) = file_details
+            self.render_example_page(
+                open(
+                    os.path.join(self.out_dir, "example_%s.rst") % short_file_name, "w"
+                ),
+                index,
+                file_details,
+            )
             self.gallery_entry(index, file_details)
 
-        self._stream.write("\n"+7*"=" + " " + 45*"=" + '\n')
+        self._stream.write("\n" + 7 * "=" + " " + 45 * "=" + "\n")
 
         del self._stream
-
 
     def render_example_page(self, stream, index, file_details):
         """ Hijack this method to, optionally, render images.
         """
         # Jump one step up, and do not call ImagesExampleLister
-        filename, short_file_name, short_desc, title, docstring, end_row = \
-                                                                file_details
-        image_file = os.path.join(self.images_dir,
-                        'example_%(short_file_name)s.jpg' % locals())
+        filename, short_file_name, short_desc, title, docstring, end_row = file_details
+        image_file = os.path.join(
+            self.images_dir, "example_%(short_file_name)s.jpg" % locals()
+        )
         if os.path.exists(image_file):
             docstring += """
 
 .. image:: ../%s
     :align: center
 
-""" % os.path.join(*(image_file.split(os.sep)[1:]))
+""" % os.path.join(
+                *(image_file.split(os.sep)[1:])
+            )
 
-        file_details = \
-            filename, short_file_name, short_desc, title, docstring, end_row
+        file_details = filename, short_file_name, short_desc, title, docstring, end_row
 
         stream.write(self.example_rst_file_tpl % locals())
 
-
-
     def gallery_entry(self, index, file_details):
-        filename, short_file_name, short_desc, title, docstring, end_row = \
-                                                                file_details
+        filename, short_file_name, short_desc, title, docstring, end_row = file_details
         short_desc = textwrap.wrap(short_desc, width=40)
         unique_hash = self._unique_hash
         self._stream.write(
-                ("\n|%(unique_hash)02i%(index)02i|" % locals()).ljust(9) +
-                ":ref:`example_%(short_file_name)s`\n" % locals()
-            )
+            ("\n|%(unique_hash)02i%(index)02i|" % locals()).ljust(9)
+            + ":ref:`example_%(short_file_name)s`\n" % locals()
+        )
         for line in short_desc:
-            self._stream.write(9*" " + line.lstrip() + "\n")
+            self._stream.write(9 * " " + line.lstrip() + "\n")
+
 
 ################################################################################
 # class `MlabExampleLister`
@@ -378,52 +399,55 @@ Advanced mlab examples
 
     render_images = False
 
-    images_dir = 'mayavi/generated_images'
+    images_dir = "mayavi/generated_images"
 
     def render_example_page(self, stream, index, file_details):
         """ Hijack this method to, optionally, render images.
         """
-        filename, short_file_name, short_desc, title, docstring, end_row = \
-                                                            file_details
+        filename, short_file_name, short_desc, title, docstring, end_row = file_details
         if self.render_images:
             print("Generating images for %s" % filename)
-            image_file = os.path.join(self.images_dir, 'example_%s.jpg' \
-                                    % short_file_name)
+            image_file = os.path.join(
+                self.images_dir, "example_%s.jpg" % short_file_name
+            )
             run_mlab_file(filename, image_file=image_file)
-        ImagesExampleLister.render_example_page(self, stream,
-                                                index, file_details)
-
+        ImagesExampleLister.render_example_page(self, stream, index, file_details)
 
 
 ################################################################################
 # Main entry point
-def render_examples(render_images=False, out_dir='mayavi/auto'):
+def render_examples(render_images=False, out_dir="mayavi/auto"):
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
-    example_gallery_file = open(os.path.join(out_dir, 'examples.rst'), 'w')
+    example_gallery_file = open(os.path.join(out_dir, "examples.rst"), "w")
 
-    example_gallery_file.write("""
+    example_gallery_file.write(
+        """
 
 .. _example_gallery:
 
 Example gallery
 =================
 
-""")
+"""
+    )
 
     ##########################################################################
     # Mlab examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'mlab', '*.py'))
-                    if is_mlab_example(filename)]
+    example_files = [
+        filename
+        for filename in glob.glob(os.path.join(EXAMPLE_DIR, "mlab", "*.py"))
+        if is_mlab_example(filename)
+    ]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, "r").readlines()))
 
-    mlab_example_lister = MlabExampleLister(render_images=render_images,
-                                        out_dir=out_dir,
-                                        images_dir='mayavi/generated_images')
+    mlab_example_lister = MlabExampleLister(
+        render_images=render_images,
+        out_dir=out_dir,
+        images_dir="mayavi/generated_images",
+    )
     if render_images:
         pass
         # XXX: Add logics to deal with rerendering examples cleverly
@@ -432,73 +456,80 @@ Example gallery
 
     ##########################################################################
     # Interactive application examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'interactive', '*.py'))]
+    example_files = [
+        filename
+        for filename in glob.glob(os.path.join(EXAMPLE_DIR, "interactive", "*.py"))
+    ]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, "r").readlines()))
     example_lister = ImagesExampleLister(
-            title="Interactive examples",
-            out_dir=out_dir,
-            intro="""
+        title="Interactive examples",
+        out_dir=out_dir,
+        intro="""
 
 Examples showing how to use the interactive features of Mayavi, either
 via the mayavi2 application, or via specially-crafted dialogs and
 applications.
-    """)
+    """,
+    )
     example_lister.render_all(example_gallery_file, example_files)
 
     ##########################################################################
     # Advanced visualization examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'advanced_visualization', '*.py'))]
+    example_files = [
+        filename
+        for filename in glob.glob(
+            os.path.join(EXAMPLE_DIR, "advanced_visualization", "*.py")
+        )
+    ]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, "r").readlines()))
     example_lister = ExampleLister(
-            title="Advanced visualization examples",
-            out_dir=out_dir,
-            intro="""
+        title="Advanced visualization examples",
+        out_dir=out_dir,
+        intro="""
 Data visualization using the core Mayavi API, object-oriented, and with
 more fine control than mlab.
 
-    """)
+    """,
+    )
     example_lister.render_all(example_gallery_file, example_files)
 
     ##########################################################################
     # Data interaction examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'data_interaction', '*.py'))]
+    example_files = [
+        filename
+        for filename in glob.glob(os.path.join(EXAMPLE_DIR, "data_interaction", "*.py"))
+    ]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, "r").readlines()))
     example_lister = ExampleLister(
-            title="Data interaction examples",
-            out_dir=out_dir,
-            intro="""
+        title="Data interaction examples",
+        out_dir=out_dir,
+        intro="""
 Examples showing how you can query and interact with the data.
 
-    """)
+    """,
+    )
     example_lister.render_all(example_gallery_file, example_files)
 
     ##########################################################################
     # The remaining files
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        '*.py'))]
+    example_files = [
+        filename for filename in glob.glob(os.path.join(EXAMPLE_DIR, "*.py"))
+    ]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
-    example_lister = ExampleLister(title="Misc examples",
-                                   out_dir=out_dir)
+    example_files.sort(key=lambda name: len(open(name, "r").readlines()))
+    example_lister = ExampleLister(title="Misc examples", out_dir=out_dir)
     example_lister.render_all(example_gallery_file, example_files)
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     render_examples()
     import shutil
-    shutil.copyfile('../CHANGES.txt', './mayavi/auto/changes.rst')
+
+    shutil.copyfile("../CHANGES.txt", "./mayavi/auto/changes.rst")

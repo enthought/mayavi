@@ -17,7 +17,7 @@ from optparse import OptionParser
 
 # Enthought library imports
 from traits.etsconfig.api import ETSConfig
-from traits.api import  Any, Bool, Instance
+from traits.api import Any, Bool, Instance
 from pyface.api import GUI
 from tvtk.api import tvtk
 from tvtk.common import configure_input
@@ -36,20 +36,23 @@ def off_screen_viewer():
     win = TVTKWindow(off_screen_rendering=True)
     # Need to set some non-zero size for the off screen window.  If
     # not we get VTK errors on Linux.
-    win.scene.set_size((300,300))
+    win.scene.set_size((300, 300))
     return win
 
 
 class MayaviTestError(Exception):
     pass
 
+
 ###########################################################################
 # `MemoryAssistant` class.
 ###########################################################################
 
+
 class MemoryAssistant(object):
     """ Assistant methods to assert memory usage and memory leaks.
     """
+
     def assertMemoryUsage(self, process, usage, slack=0, msg=None):
         """ Assert that the memory usage does not exceed the provided limit.
 
@@ -74,14 +77,15 @@ class MemoryAssistant(object):
         """
         current_usage = self._memory_usage(process)
         hard_limit = usage * (1 + slack)
-        if  hard_limit < current_usage:
+        if hard_limit < current_usage:
             if msg is None:
                 difference = (current_usage - usage) / usage
                 msg = "Memory leak of {:.2%}".format(difference)
             raise AssertionError(msg)
 
-    def assertReturnsMemory(self, function, args=None, iterations=100,
-                            slack=0.0, msg=None):
+    def assertReturnsMemory(
+        self, function, args=None, iterations=100, slack=0.0, msg=None
+    ):
         """ Assert that the function does not retain memory over a number of
         runs.
 
@@ -122,16 +126,16 @@ class MemoryAssistant(object):
 
         gc.collect()
         baseline = self._memory_usage(process)
-        samples_msg   = "Samples           : {}"
+        samples_msg = "Samples           : {}"
         mem_usage_msg = "Memory growth (MB): {:5.1f} to {:5.1f}"
-        mem_leak_msg =  "Memory leak   (%) : {:5.1f}"
+        mem_leak_msg = "Memory leak   (%) : {:5.1f}"
 
         try:
-            print('Profiling', end=' ')
+            print("Profiling", end=" ")
             sys.stdout.flush()
             for index in range(iterations):
                 test_function()
-                print('.', end=' ')
+                print(".", end=" ")
                 sys.stdout.flush()
                 gc.collect()
                 self.assertMemoryUsage(process, baseline, slack=slack)
@@ -148,11 +152,11 @@ class MemoryAssistant(object):
             final = self._memory_usage(process)
             leak = (final - baseline) / baseline
             if msg is None:
-                msg = 'Memory Leak!!!\n'
+                msg = "Memory Leak!!!\n"
                 msg += samples_msg.format(index + 1)
-                msg += '\n'
+                msg += "\n"
                 msg += mem_usage_msg.format(baseline, final)
-                msg += '\n'
+                msg += "\n"
                 msg += mem_leak_msg.format(leak * 100.0, index + 1)
                 raise AssertionError(msg)
             else:
@@ -160,6 +164,7 @@ class MemoryAssistant(object):
 
     def _memory_usage(self, process):
         return float(process.get_memory_info().rss) / (1024 ** 2)
+
 
 ######################################################################
 # Image comparison utility functions.
@@ -169,11 +174,14 @@ class MemoryAssistant(object):
 # Much of this code is translated from `vtk.test.Testing`.
 def _print_image_error(img_err, err_index, img_base):
     """Prints out image related error information."""
-    msg = """Failed image test with error: %(img_err)f
+    msg = (
+        """Failed image test with error: %(img_err)f
              Baseline image, error index: %(img_base)s, %(err_index)s
              Test image:  %(img_base)s.test.small.jpg
              Difference image: %(img_base)s.diff.small.jpg
-             Valid image: %(img_base)s.small.jpg"""%locals()
+             Valid image: %(img_base)s.small.jpg"""
+        % locals()
+    )
     logger.error(msg)
     if VERBOSE:
         print(msg)
@@ -181,7 +189,7 @@ def _print_image_error(img_err, err_index, img_base):
 
 def _print_image_success(img_err, err_index):
     "Prints XML data for Dart when image test succeeded."
-    msg = "Image Error, image_index: %s, %s"%(img_err, err_index)
+    msg = "Image Error, image_index: %s, %s" % (img_err, err_index)
     logger.debug(msg)
     if VERBOSE:
         print(msg)
@@ -203,7 +211,7 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     if sz[1] <= 250.0:
         mag = 1.0
     else:
-        mag = 250.0/sz[1]
+        mag = 250.0 / sz[1]
 
     shrink = tvtk.ImageResample(interpolate=1)
     configure_input(shrink, idiff.output)
@@ -213,8 +221,7 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     gamma = tvtk.ImageShiftScale(shift=0, scale=10)
     configure_input(gamma, shrink)
 
-    jpegw = tvtk.JPEGWriter(file_name=f_base + ".diff.small.jpg",
-                            quality=85)
+    jpegw = tvtk.JPEGWriter(file_name=f_base + ".diff.small.jpg", quality=85)
     configure_input(jpegw, gamma)
     jpegw.write()
 
@@ -243,28 +250,27 @@ def _set_scale(r1, r2):
     image.
     """
     img1, img2 = r1.input, r2.input
-    if hasattr(img1, 'whole_extent'):
+    if hasattr(img1, "whole_extent"):
         ex1 = img1.whole_extent
     else:
         ex1 = img1.extent
     w1, h1 = ex1[1] + 1, ex1[3] + 1
-    if hasattr(img2, 'whole_extent'):
+    if hasattr(img2, "whole_extent"):
         ex2 = img2.whole_extent
     else:
         ex2 = img2.extent
     w2, h2 = ex2[1] + 1, ex2[3] + 1
     w = min(w1, w2)
     h = min(h1, h2)
-    r1.set_axis_magnification_factor(0, float(w)/w1)
-    r1.set_axis_magnification_factor(1, float(h)/h1)
+    r1.set_axis_magnification_factor(0, float(w) / w1)
+    r1.set_axis_magnification_factor(1, float(h) / h1)
     r1.update()
-    r2.set_axis_magnification_factor(0, float(w)/w2)
-    r2.set_axis_magnification_factor(1, float(h)/h2)
+    r2.set_axis_magnification_factor(0, float(w) / w2)
+    r2.set_axis_magnification_factor(1, float(h) / h2)
     r2.update()
 
 
-def compare_image_with_saved_image(src_img, img_fname, threshold=10,
-                                   allow_resize=True):
+def compare_image_with_saved_image(src_img, img_fname, threshold=10, allow_resize=True):
     """Compares a source image (src_img, which is a tvtk.ImageData)
     with the saved image file whose name is given in the second
     argument.  If the image file does not exist the image is generated
@@ -280,30 +286,28 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
         pngw = tvtk.PNGWriter(file_name=img_fname, input=src_img)
         pngw.write()
         if VERBOSE:
-            print("Creating baseline image '%s'."%img_fname)
+            print("Creating baseline image '%s'." % img_fname)
         return
 
     pngr = tvtk.PNGReader(file_name=img_fname)
     pngr.update()
 
     if allow_resize:
-        src_resample = tvtk.ImageResample(interpolate=1,
-                                          interpolation_mode='cubic')
+        src_resample = tvtk.ImageResample(interpolate=1, interpolation_mode="cubic")
         configure_input(src_resample, src_img)
-        img_resample = tvtk.ImageResample(interpolate=1,
-                                          interpolation_mode='cubic')
+        img_resample = tvtk.ImageResample(interpolate=1, interpolation_mode="cubic")
         configure_input(img_resample, pngr)
         _set_scale(src_resample, img_resample)
         idiff = tvtk.ImageDifference()
         configure_input(idiff, src_resample.output)
-        if hasattr(idiff, 'set_image_data'):
+        if hasattr(idiff, "set_image_data"):
             idiff.set_image_data(img_resample.output)
         else:
             idiff.image = img_resample.output
     else:
         idiff = tvtk.ImageDifference()
         configure_input(idiff, src_img)
-        if hasattr(idiff, 'set_image_data'):
+        if hasattr(idiff, "set_image_data"):
             idiff.set_image_data(pngr.output)
         else:
             idiff.image = pngr.output
@@ -319,8 +323,8 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
         count = 1
         test_failed = 1
         err_index = -1
-        while 1: # keep trying images till we get the best match.
-            new_fname = f_base + "_%d.png"%count
+        while 1:  # keep trying images till we get the best match.
+            new_fname = f_base + "_%d.png" % count
             if not os.path.exists(new_fname):
                 # no other image exists.
                 break
@@ -353,7 +357,7 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
         if test_failed:
             _handle_failed_image(idiff, src_img, pngr, best_img)
             _print_image_error(img_err, err_index, f_base)
-            msg = "Failed image test: %f\n"%idiff.thresholded_error
+            msg = "Failed image test: %f\n" % idiff.thresholded_error
             raise AssertionError(msg)
     # output the image error even if a test passed
     _print_image_success(img_err, err_index)
@@ -373,8 +377,9 @@ def compare_image_raw(renwin, img_fname, threshold=10, allow_resize=True):
 
     w2if = tvtk.WindowToImageFilter(read_front_buffer=False, input=renwin)
     w2if.update()
-    return compare_image_with_saved_image(w2if.output, img_fname,
-                                          threshold, allow_resize)
+    return compare_image_with_saved_image(
+        w2if.output, img_fname, threshold, allow_resize
+    )
 
 
 def compare_image_offscreen(scene, img_path):
@@ -420,7 +425,7 @@ def compare_image(scene, img_path):
     s.disable_render = True
     ren = s.renderer
     s.render_window.remove_renderer(ren)
-    rw = tvtk.RenderWindow(size=(300,300))
+    rw = tvtk.RenderWindow(size=(300, 300))
     rw.add_renderer(ren)
     ren.reset_camera()
     rw.render()
@@ -441,8 +446,8 @@ def is_running_with_nose():
     `python -m nose.core`.
     """
     argv0 = sys.argv[0]
-    nose_core = os.path.join('nose', 'core.py')
-    if argv0.endswith('nosetests') or argv0.endswith(nose_core):
+    nose_core = os.path.join("nose", "core.py")
+    if argv0.endswith("nosetests") or argv0.endswith(nose_core):
         return True
     return False
 
@@ -470,9 +475,9 @@ class TestCase(Mayavi):
     # application.
     standalone = Bool(True)
 
-    app_window = Instance('pyface.api.ApplicationWindow')
+    app_window = Instance("pyface.api.ApplicationWindow")
 
-    gui = Instance('pyface.gui.GUI')
+    gui = Instance("pyface.gui.GUI")
 
     # An exception info if an exception was raised by a test.
     exception_info = Any
@@ -499,14 +504,15 @@ class TestCase(Mayavi):
     def setup_logger(self):
         """Overridden logger setup."""
         if self.standalone:
-            path = os.path.join(ETSConfig.application_data,
-                                'mayavi_e3', 'mayavi-test.log')
+            path = os.path.join(
+                ETSConfig.application_data, "mayavi_e3", "mayavi-test.log"
+            )
             path = os.path.abspath(path)
             log_path = os.path.dirname(path)
             if not os.path.exists(log_path):
                 os.makedirs(log_path)
         else:
-            path = 'mayavi-test.log'
+            path = "mayavi-test.log"
         setup_logger(logger, path, mode=self.log_mode)
 
     def run_standalone(self):
@@ -543,8 +549,7 @@ class TestCase(Mayavi):
         try:
             if self.profile:
                 memory_assistant = MemoryAssistant()
-                memory_assistant.assertReturnsMemory(self.do_profile,
-                                                     slack = 1.0)
+                memory_assistant.assertReturnsMemory(self.do_profile, slack=1.0)
             else:
                 self.do()
         except Exception as e:
@@ -553,13 +558,18 @@ class TestCase(Mayavi):
                 self.exception_info = type, value, tb
             else:
                 # To mimic behavior of unittest.
-                sys.stderr.write('\nfailures=1\n')
+                sys.stderr.write("\nfailures=1\n")
                 info = traceback.extract_tb(tb)
-                filename, lineno, function, text = info[-1] # last line only
-                exc_msg = "%s\nIn %s:%d\n%s: %s (in %s)" %\
-                        ('Exception', filename, lineno, type.__name__, str(value),
-                        function)
-                sys.stderr.write(exc_msg + '\n')
+                filename, lineno, function, text = info[-1]  # last line only
+                exc_msg = "%s\nIn %s:%d\n%s: %s (in %s)" % (
+                    "Exception",
+                    filename,
+                    lineno,
+                    type.__name__,
+                    str(value),
+                    function,
+                )
+                sys.stderr.write(exc_msg + "\n")
                 # Log the message.
                 logger.exception(exc_msg)
                 if not self.interact:
@@ -587,23 +597,47 @@ class TestCase(Mayavi):
         """Parse command line options."""
         usage = "usage: %prog [options]"
         parser = OptionParser(usage)
-        parser.add_option("-v", "--verbose", action="store_true",
-                          dest="verbose", help="Print verbose output")
-        parser.add_option("-i", "--interact", action="store_true",
-                          dest="interact", default=False,
-                          help="Allow interaction after test (default: False)")
-        parser.add_option("-p", "--profile", action="store_true",
-                          dest="profile", default=False,
-                          help="Profile for memory usage and leaks "\
-                               "(default:False). [Long Running] ")
-        parser.add_option("-s", "--nostandalone", action="store_true",
-                          dest="standalone", default=False,
-                          help="Run test using envisage without standalone "\
-                          "(default: False)")
-        parser.add_option("-o", "--offscreen", action="store_true",
-                          dest="offscreen", default=False,
-                          help="Always use offscreen rendering when "\
-                               "generating images (default: False)")
+        parser.add_option(
+            "-v",
+            "--verbose",
+            action="store_true",
+            dest="verbose",
+            help="Print verbose output",
+        )
+        parser.add_option(
+            "-i",
+            "--interact",
+            action="store_true",
+            dest="interact",
+            default=False,
+            help="Allow interaction after test (default: False)",
+        )
+        parser.add_option(
+            "-p",
+            "--profile",
+            action="store_true",
+            dest="profile",
+            default=False,
+            help="Profile for memory usage and leaks "
+            "(default:False). [Long Running] ",
+        )
+        parser.add_option(
+            "-s",
+            "--nostandalone",
+            action="store_true",
+            dest="standalone",
+            default=False,
+            help="Run test using envisage without standalone " "(default: False)",
+        )
+        parser.add_option(
+            "-o",
+            "--offscreen",
+            action="store_true",
+            dest="offscreen",
+            default=False,
+            help="Always use offscreen rendering when "
+            "generating images (default: False)",
+        )
 
         (options, args) = parser.parse_args(argv)
         global VERBOSE
@@ -692,11 +726,12 @@ class TestCase(Mayavi):
         except excClass:
             return
         else:
-            if hasattr(excClass,'__name__'):
+            if hasattr(excClass, "__name__"):
                 excName = excClass.__name__
             else:
                 excName = str(excClass)
             raise MayaviTestError(excName)
+
     assertRaises = failUnlessRaises
 
 
@@ -712,8 +747,7 @@ def get_example_data(fname):
     """Given a relative path to data inside the examples directory,
     obtains the full path to the file.
     """
-    p = os.path.join(os.pardir, os.pardir,
-                     'examples', 'mayavi', 'data', fname)
+    p = os.path.join(os.pardir, os.pardir, "examples", "mayavi", "data", fname)
     return os.path.abspath(fixpath(p))
 
 
@@ -721,17 +755,19 @@ def test(function):
     """A decorator to make a simple mayavi2 script function into a
     test case.  Note that this will not work with nosetests.
     """
+
     class MyTest(TestCase):
         def do(self):
-            g = sys.modules['__main__'].__dict__
-            if 'mayavi' not in g:
-                g['mayavi'] = self.script
-            if 'application' not in g:
-                g['application'] = self.application
+            g = sys.modules["__main__"].__dict__
+            if "mayavi" not in g:
+                g["mayavi"] = self.script
+            if "application" not in g:
+                g["application"] = self.application
             # Call the test.
             function()
+
         def __call__(self):
-           self.main()
+            self.main()
 
     test = MyTest()
     return test

@@ -14,7 +14,6 @@ from tvtk.tests.common import restore_gc_state
 
 
 class TestTVTKScene(unittest.TestCase):
-
     def test_tvtk_scene_garbage_collected(self):
 
         # given

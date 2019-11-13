@@ -21,20 +21,20 @@ from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 # Local imports.
 from mayavi.tests.common import get_example_data
 
-class TestVTKXMLReader(unittest.TestCase):
 
+class TestVTKXMLReader(unittest.TestCase):
     def setUp(self):
 
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
-        #e = Engine()
+        # e = Engine()
         e.start()
         e.new_scene()
-        self.e=e
+        self.e = e
 
         # Read a VTK XML data file.
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('cube.vti'))
+        r.initialize(get_example_data("cube.vti"))
         e.add_source(r)
 
         # Create an outline for the data.
@@ -51,7 +51,7 @@ class TestVTKXMLReader(unittest.TestCase):
         cgp2 = ContourGridPlane()
         cgp2.contour.filled_contours = True
         # Set the axis and position to the middle of the data.
-        cgp2.grid_plane.axis = 'y'
+        cgp2.grid_plane.axis = "y"
         cgp2.grid_plane.position = 1
         e.add_module(cgp2)
 
@@ -59,14 +59,14 @@ class TestVTKXMLReader(unittest.TestCase):
         cp = ScalarCutPlane()
         e.add_module(cp)
         ip = cp.implicit_plane
-        ip.normal = 0,0,1
+        ip.normal = 0, 0, 1
         ip.origin = 0.5, 0.5, 1.0
         # Since this is running offscreen this seems necessary.
         ip.widget.origin = 0.5, 0.5, 1.0
         ip.widget.enabled = False
         self.scene = e.current_scene
-        self.cgp2=cgp2
-        self.cp=cp
+        self.cgp2 = cgp2
+        self.cp = cp
         return
 
     def tearDown(self):
@@ -80,28 +80,26 @@ class TestVTKXMLReader(unittest.TestCase):
         src = scene.children[0]
         mm = src.children[0]
         cgp1 = mm.children[1]
-        self.assertEqual(cgp1.grid_plane.position,1)
+        self.assertEqual(cgp1.grid_plane.position, 1)
 
         cgp2 = mm.children[2]
-        self.assertEqual(cgp2.contour.filled_contours,True)
-        self.assertEqual(cgp2.grid_plane.axis, 'y')
-        self.assertEqual(cgp2.grid_plane.position,1)
+        self.assertEqual(cgp2.contour.filled_contours, True)
+        self.assertEqual(cgp2.grid_plane.axis, "y")
+        self.assertEqual(cgp2.grid_plane.position, 1)
 
         cp = mm.children[3]
         ip = cp.implicit_plane
-        self.assertAlmostEqual(numpy.sum(ip.normal - (0,0,1)) , 1e-16)
+        self.assertAlmostEqual(numpy.sum(ip.normal - (0, 0, 1)), 1e-16)
         self.assertAlmostEqual(numpy.sum(ip.origin - (0.5, 0.5, 1.0)), 0.0)
-        self.assertEqual(ip.widget.enabled,False)
-
-
+        self.assertEqual(ip.widget.enabled, False)
 
     def test_vtk_xml_reader(self):
         "Test if the test fixture works"
-        #Now test.
+        # Now test.
         self.check()
 
-        #from mayavi.tools.show import show
-        #show()
+        # from mayavi.tools.show import show
+        # show()
 
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
@@ -110,9 +108,9 @@ class TestVTKXMLReader(unittest.TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         engine.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
 
@@ -124,14 +122,13 @@ class TestVTKXMLReader(unittest.TestCase):
 
         self.check()
 
-
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 
         # Pop the source object.
-        s =  self.scene
+        s = self.scene
         source = s.children.pop()
         # Add it back to see if that works without error.
         s.children.append(source)
@@ -149,8 +146,9 @@ class TestVTKXMLReader(unittest.TestCase):
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()
-        #from mayavi.tools.show import show
-        #show()
+        # from mayavi.tools.show import show
+        # show()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

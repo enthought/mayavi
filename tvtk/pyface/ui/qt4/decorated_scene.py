@@ -31,11 +31,12 @@ class DecoratedScene(Scene):
     allows the user to set the camera view, turn on the axes indicator
     etc.
     """
+
     #######################################################################
     # Traits
     #######################################################################
 
-    if hasattr(tvtk, 'OrientationMarkerWidget'):
+    if hasattr(tvtk, "OrientationMarkerWidget"):
         # The tvtk orientation marker widget.  This only exists in VTK
         # 5.x.
         marker = Instance(tvtk.OrientationMarkerWidget, ())
@@ -64,7 +65,7 @@ class DecoratedScene(Scene):
         # The control attribute is not picklable since it is a VTK
         # object so we remove it.
         d = super(DecoratedScene, self).__get_pure_state__()
-        for x in ['_content', '_panel', '_tool_bar', 'actions']:
+        for x in ["_content", "_panel", "_tool_bar", "actions"]:
             d.pop(x, None)
         return d
 
@@ -101,13 +102,13 @@ class DecoratedScene(Scene):
         axes.trait_set(
             normalized_tip_length=(0.4, 0.4, 0.4),
             normalized_shaft_length=(0.6, 0.6, 0.6),
-            shaft_type='cylinder'
-            )
+            shaft_type="cylinder",
+        )
 
         p = axes.x_axis_caption_actor2d.caption_text_property
         axes.y_axis_caption_actor2d.caption_text_property = p
         axes.z_axis_caption_actor2d.caption_text_property = p
-        p.trait_set(color=(1,1,1), shadow=False, italic=False)
+        p.trait_set(color=(1, 1, 1), shadow=False, italic=False)
         self._background_changed(self.background)
 
         self.marker.trait_set(key_press_activation=False)
@@ -116,9 +117,8 @@ class DecoratedScene(Scene):
     def _get_tool_bar_manager(self):
         """ Returns the tool_bar_manager for this scene.
         """
-        tbm = ToolBarManager( *self.actions )
+        tbm = ToolBarManager(*self.actions)
         return tbm
-
 
     def _get_image_path(self):
         """Returns the directory which contains the images used by the
@@ -182,110 +182,110 @@ class DecoratedScene(Scene):
             m = self.marker
             s = value[0] + value[1] + value[2]
             if s <= 1.0:
-                p.color = (1,1,1)
-                m.set_outline_color(1,1,1)
+                p.color = (1, 1, 1)
+                m.set_outline_color(1, 1, 1)
             else:
-                p.color = (0,0,0)
-                m.set_outline_color(0,0,0)
+                p.color = (0, 0, 0)
+                m.set_outline_color(0, 0, 0)
             self.render()
 
     def _actions_default(self):
         return [
             Group(
                 Action(
-                    image = ImageResource('16x16/x-axis',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "View along the -X axis",
-                    on_perform = self.x_minus_view,
+                    image=ImageResource(
+                        "16x16/x-axis", search_path=[self._get_image_path()],
                     ),
-                Action(
-                    image = ImageResource('16x16/x-axis',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "View along the +X axis",
-                    on_perform = self.x_plus_view,
-                    ),
-                Action(
-                    image = ImageResource('16x16/y-axis',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "View along the -Y axis",
-                    on_perform = self.y_minus_view,
-                    ),
-                Action(
-                    image = ImageResource('16x16/y-axis',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "View along the +Y axis",
-                    on_perform = self.y_plus_view,
-                    ),
-                Action(
-                    image = ImageResource('16x16/z-axis',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "View along the -Z axis",
-                    on_perform = self.z_minus_view,
-                    ),
-                Action(
-                    image = ImageResource('16x16/z-axis',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "View along the +Z axis",
-                    on_perform = self.z_plus_view,
-                    ),
-                Action(
-                    image = ImageResource('16x16/isometric',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "Obtain an isometric view",
-                    on_perform = self.isometric_view,
-                    ),
+                    tooltip="View along the -X axis",
+                    on_perform=self.x_minus_view,
                 ),
+                Action(
+                    image=ImageResource(
+                        "16x16/x-axis", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="View along the +X axis",
+                    on_perform=self.x_plus_view,
+                ),
+                Action(
+                    image=ImageResource(
+                        "16x16/y-axis", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="View along the -Y axis",
+                    on_perform=self.y_minus_view,
+                ),
+                Action(
+                    image=ImageResource(
+                        "16x16/y-axis", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="View along the +Y axis",
+                    on_perform=self.y_plus_view,
+                ),
+                Action(
+                    image=ImageResource(
+                        "16x16/z-axis", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="View along the -Z axis",
+                    on_perform=self.z_minus_view,
+                ),
+                Action(
+                    image=ImageResource(
+                        "16x16/z-axis", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="View along the +Z axis",
+                    on_perform=self.z_plus_view,
+                ),
+                Action(
+                    image=ImageResource(
+                        "16x16/isometric", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="Obtain an isometric view",
+                    on_perform=self.isometric_view,
+                ),
+            ),
             Group(
                 Action(
-                    image = ImageResource('16x16/parallel',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = 'Toggle parallel projection',
-                    style="toggle",
-                    on_perform = self._toggle_projection,
-                    checked = self.parallel_projection,
+                    image=ImageResource(
+                        "16x16/parallel", search_path=[self._get_image_path()],
                     ),
+                    tooltip="Toggle parallel projection",
+                    style="toggle",
+                    on_perform=self._toggle_projection,
+                    checked=self.parallel_projection,
+                ),
                 Action(
-                    image = ImageResource('16x16/origin_glyph',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = 'Toggle axes indicator',
+                    image=ImageResource(
+                        "16x16/origin_glyph", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="Toggle axes indicator",
                     style="toggle",
                     enabled=(self.marker is not None),
-                    on_perform = self._toggle_axes,
-                    checked = self.show_axes,
-                    ),
-                Action(
-                    image = ImageResource('16x16/fullscreen',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = 'Full Screen (press "q" or "e" or Esc to exit fullscreen)',
-                    style="push",
-                    on_perform = self._full_screen_fired,
-                    ),
+                    on_perform=self._toggle_axes,
+                    checked=self.show_axes,
                 ),
+                Action(
+                    image=ImageResource(
+                        "16x16/fullscreen", search_path=[self._get_image_path()],
+                    ),
+                    tooltip='Full Screen (press "q" or "e" or Esc to exit fullscreen)',
+                    style="push",
+                    on_perform=self._full_screen_fired,
+                ),
+            ),
             Group(
                 Action(
-                    image = ImageResource('16x16/save',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = "Save a snapshot of this scene",
-                    on_perform = self._save_snapshot,
+                    image=ImageResource(
+                        "16x16/save", search_path=[self._get_image_path()],
                     ),
-                Action(
-                    image = ImageResource('16x16/configure',
-                        search_path = [self._get_image_path()],
-                        ),
-                    tooltip = 'Configure the scene',
-                    style="push",
-                    on_perform = self._configure_scene,
-                    ),
+                    tooltip="Save a snapshot of this scene",
+                    on_perform=self._save_snapshot,
                 ),
-            ]
+                Action(
+                    image=ImageResource(
+                        "16x16/configure", search_path=[self._get_image_path()],
+                    ),
+                    tooltip="Configure the scene",
+                    style="push",
+                    on_perform=self._configure_scene,
+                ),
+            ),
+        ]

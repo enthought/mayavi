@@ -19,30 +19,27 @@ class ScenePreferencesPage(PreferencesPage):
 
     # The page's category (e.g. 'General/Appearance'). The empty string means
     # that this is a top-level page.
-    category = ''
+    category = ""
 
     # The page's help identifier (optional). If a help Id *is* provided then
     # there will be a 'Help' button shown on the preference page.
-    help_id = ''
+    help_id = ""
 
     # The page name (this is what is shown in the preferences dialog.
-    name = 'TVTK Scene'
+    name = "TVTK Scene"
 
     # The path to the preferences node that contains the preferences.
-    preferences_path = 'tvtk.scene'
+    preferences_path = "tvtk.scene"
 
     #### Preferences ##########################################################
 
     # Turn on/off stereo rendering. Note that this is useful only at startup
     # and not at runtime.
-    stereo = false_bool_trait(
-        desc='specifies if stereo rendering is turned on'
-    )
+    stereo = false_bool_trait(desc="specifies if stereo rendering is turned on")
 
     # The magnification to use when dumping the screen to an image.
     magnification = Range(
-        1, 2048, 1,
-        desc='specifies the magnification to use while generating images'
+        1, 2048, 1, desc="specifies the magnification to use while generating images"
     )
 
     # The background color of the renderer.
@@ -55,11 +52,12 @@ class ScenePreferencesPage(PreferencesPage):
 
     traits_view = View(
         Group(
-            Item(name='background_color'),
-            Item(name='foreground_color'),
-            Item(name='stereo'),
-            Item(name='magnification')
+            Item(name="background_color"),
+            Item(name="foreground_color"),
+            Item(name="stereo"),
+            Item(name="magnification"),
         )
     )
+
 
 #### EOF ######################################################################

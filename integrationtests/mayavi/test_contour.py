@@ -27,7 +27,7 @@ class TestContour(TestCase):
 
         cgp2 = mm.children[2]
         assert cgp2.contour.filled_contours == True
-        assert cgp2.grid_plane.axis == 'y'
+        assert cgp2.grid_plane.axis == "y"
         assert cgp2.grid_plane.position == 15
 
         iso = mm.children[3]
@@ -40,8 +40,8 @@ class TestContour(TestCase):
 
         cp = mm.children[4]
         ip = cp.implicit_plane
-        assert abs(numpy.sum(ip.normal - (0,0,1))) < 1e-16
-        assert abs(numpy.sum(ip.origin - (0,0,5))) < 1e-16
+        assert abs(numpy.sum(ip.normal - (0, 0, 1))) < 1e-16
+        assert abs(numpy.sum(ip.origin - (0, 0, 5))) < 1e-16
         assert ip.widget.enabled == False
 
     def test(self):
@@ -54,8 +54,7 @@ class TestContour(TestCase):
         from mayavi.sources.vtk_file_reader import VTKFileReader
         from mayavi.modules.outline import Outline
         from mayavi.modules.iso_surface import IsoSurface
-        from mayavi.modules.contour_grid_plane \
-             import ContourGridPlane
+        from mayavi.modules.contour_grid_plane import ContourGridPlane
         from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
         ############################################################
@@ -64,7 +63,7 @@ class TestContour(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(get_example_data('heart.vtk'))
+        r.initialize(get_example_data("heart.vtk"))
 
         script.add_source(r)
 
@@ -82,7 +81,7 @@ class TestContour(TestCase):
         cgp2 = ContourGridPlane()
         cgp2.contour.filled_contours = True
         # Set the axis and position to the middle of the data.
-        cgp2.grid_plane.axis = 'y'
+        cgp2.grid_plane.axis = "y"
         cgp2.grid_plane.position = 15
         script.add_module(cgp2)
 
@@ -95,8 +94,8 @@ class TestContour(TestCase):
         cp = ScalarCutPlane()
         script.add_module(cp)
         ip = cp.implicit_plane
-        ip.normal = 0,0,1
-        ip.origin = 0,0,5
+        ip.normal = 0, 0, 1
+        ip.origin = 0, 0, 5
         ip.widget.enabled = False
 
         # Set the scene to an isometric view.
@@ -131,15 +130,14 @@ class TestContour(TestCase):
         # Now check.
         self.check()
 
-
         ############################################################
         # Test if saving a visualization and restoring it works.
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine
@@ -185,8 +183,7 @@ class TestContour(TestCase):
         from mayavi.sources.vtk_file_reader import VTKFileReader
         from mayavi.modules.outline import Outline
         from mayavi.modules.iso_surface import IsoSurface
-        from mayavi.modules.contour_grid_plane \
-             import ContourGridPlane
+        from mayavi.modules.contour_grid_plane import ContourGridPlane
         from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
         ############################################################
@@ -196,7 +193,7 @@ class TestContour(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(get_example_data('heart.vtk'))
+        r.initialize(get_example_data("heart.vtk"))
 
         script.add_source(r)
 
@@ -214,7 +211,7 @@ class TestContour(TestCase):
         cgp2 = ContourGridPlane()
         cgp2.contour.filled_contours = True
         # Set the axis and position to the middle of the data.
-        cgp2.grid_plane.axis = 'y'
+        cgp2.grid_plane.axis = "y"
         cgp2.grid_plane.position = 15
         script.add_module(cgp2)
 
@@ -227,8 +224,8 @@ class TestContour(TestCase):
         cp = ScalarCutPlane()
         script.add_module(cp)
         ip = cp.implicit_plane
-        ip.normal = 0,0,1
-        ip.origin = 0,0,5
+        ip.normal = 0, 0, 1
+        ip.origin = 0, 0, 5
         ip.widget.enabled = False
 
         # Set the scene to an isometric view.
@@ -239,6 +236,7 @@ class TestContour(TestCase):
         # Remove existing scene.
         engine = script.engine
         engine.close_scene(s)
+
 
 if __name__ == "__main__":
     t = TestContour()

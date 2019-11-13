@@ -23,10 +23,8 @@ import inspect
 import sys
 
 # Enthought library imports.
-from traits.api import HasTraits, Property, List, Str, \
-                                 Instance, Button, Int
-from traitsui.api import View, Group, Item, EnumEditor,\
-                                    ListEditor, TextEditor
+from traits.api import HasTraits, Property, List, Str, Instance, Button, Int
+from traitsui.api import View, Group, Item, EnumEditor, ListEditor, TextEditor
 from tvtk.api import tvtk
 from tvtk.common import get_tvtk_name
 
@@ -48,7 +46,7 @@ def get_tvtk_class_names():
     # Shut of VTK warnings for the time being.
     o = vtk.vtkObject
     w = o.GetGlobalWarningDisplay()
-    o.SetGlobalWarningDisplay(0) # Turn it off.
+    o.SetGlobalWarningDisplay(0)  # Turn it off.
 
     old_stdout = sys.stdout
     old_stderr = sys.stderr
@@ -58,7 +56,7 @@ def get_tvtk_class_names():
     filter = []
     sink = []
     for name in dir(vtk):
-        if name.startswith('vtk') and not name.startswith('vtkQt'):
+        if name.startswith("vtk") and not name.startswith("vtkQt"):
             klass = getattr(vtk, name)
             try:
                 c = klass()
@@ -73,10 +71,10 @@ def get_tvtk_class_names():
             tvtk_name = get_tvtk_name(name)
             all.append(tvtk_name)
             has_input = has_output = False
-            if hasattr(klass, 'GetNumberOfInputPorts'):
+            if hasattr(klass, "GetNumberOfInputPorts"):
                 if c.GetNumberOfInputPorts() > 0:
                     has_input = True
-            if hasattr(klass, 'GetNumberOfOutputPorts'):
+            if hasattr(klass, "GetNumberOfOutputPorts"):
                 if c.GetNumberOfOutputPorts() > 0:
                     has_output = True
 
@@ -96,6 +94,7 @@ def get_tvtk_class_names():
 
     return result
 
+
 def get_func_doc(func, fname):
     """Returns function documentation."""
     if inspect.isfunction(func):
@@ -103,37 +102,39 @@ def get_func_doc(func, fname):
     elif inspect.ismethod(func):
         func_obj = func.__func__
     else:
-        return ''
+        return ""
     args, vargs, vkw = inspect.getargs(func_obj.__code__)
     defaults = func_obj.__defaults__
     doc = fname + inspect.formatargspec(args, vargs, vkw, defaults)
     d = inspect.getdoc(func)
     if d is not None:
-        doc += '\n\n' + d + '\n\n'
+        doc += "\n\n" + d + "\n\n"
     return doc
+
 
 def get_tvtk_class_doc(obj):
     """Return's the objects documentation."""
-    doc = obj.__doc__ + '\nTraits:\n-------------------\n\n'
+    doc = obj.__doc__ + "\nTraits:\n-------------------\n\n"
 
-    ignore = ['trait_added', 'trait_modified']
+    ignore = ["trait_added", "trait_modified"]
     for key, trait in obj.traits().items():
-        if key.startswith('_') or key.endswith('_') or key in ignore:
+        if key.startswith("_") or key.endswith("_") or key in ignore:
             continue
-        doc += '\n%s: %s'%(key, trait.tooltip or trait.desc or trait.help)
+        doc += "\n%s: %s" % (key, trait.tooltip or trait.desc or trait.help)
 
-    doc += '\nMethods:\n----------------------\n\n'
+    doc += "\nMethods:\n----------------------\n\n"
     traits = obj.trait_names()
     for name in dir(obj):
-        if name in traits or name.startswith('_'):
+        if name in traits or name.startswith("_"):
             continue
-        if name.find('trait') > -1 and name != 'update_traits':
+        if name.find("trait") > -1 and name != "update_traits":
             continue
         func = getattr(obj, name)
         if callable(func):
-            doc += '\n' + get_func_doc(func, name)
+            doc += "\n" + get_func_doc(func, name)
 
     return doc
+
 
 # GLOBALS
 TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = get_tvtk_class_names()
@@ -161,10 +162,10 @@ class DocSearch(object):
             self._setup_data()
 
     def _setup_data(self):
-        self.vtk_classes = [x for x in dir(vtk) if x.startswith('vtk')]
+        self.vtk_classes = [x for x in dir(vtk) if x.startswith("vtk")]
         n = len(self.vtk_classes)
         # Store the class docs in the list given below.
-        self.vtk_c_doc = ['']*n
+        self.vtk_c_doc = [""] * n
 
         # setup the data.
         for i in range(n):
@@ -186,8 +187,7 @@ class DocSearch(object):
         ----------
             word -- name to search for.
         """
-        assert type(word) is str, \
-               "Sorry, passed argument, %s is not a string."%word
+        assert type(word) is str, "Sorry, passed argument, %s is not a string." % word
         if len(word.strip()) == 0:
             return []
 
@@ -197,18 +197,18 @@ class DocSearch(object):
         prev = ""
         for w in tmp_list:
             z = w.strip()
-            if z in ('and', 'or'):
-                if prev and prev not in ('and', 'or'):
+            if z in ("and", "or"):
+                if prev and prev not in ("and", "or"):
                     wlist.append(prev)
                     wlist.append(z)
                     prev = z
             else:
-                if prev and prev not in ('and', 'or'):
-                    prev = prev + ' ' + z
+                if prev and prev not in ("and", "or"):
+                    prev = prev + " " + z
                 else:
                     prev = z
 
-        if prev in ('and', 'or'):
+        if prev in ("and", "or"):
             del wlist[-1]
         elif prev:
             wlist.append(prev)
@@ -220,19 +220,19 @@ class DocSearch(object):
         N = len(vtk_classes)
         while i < N:
             stored_test = 0
-            do_test = ''
+            do_test = ""
             for w in wlist:
-                if w == 'and':
-                    do_test = 'and'
-                elif w == 'or':
-                    do_test = 'or'
+                if w == "and":
+                    do_test = "and"
+                elif w == "or":
+                    do_test = "or"
                 else:
-                    test = (vtk_c_doc[i].find(w) > -1)
-                    if do_test == 'and':
+                    test = vtk_c_doc[i].find(w) > -1
+                    if do_test == "and":
                         stored_test = stored_test and test
-                    elif do_test == 'or':
+                    elif do_test == "or":
                         stored_test = stored_test or test
-                    elif do_test == '':
+                    elif do_test == "":
                         stored_test = test
             if stored_test:
                 ret.append(vtk_classes[i])
@@ -240,7 +240,8 @@ class DocSearch(object):
 
         return [get_tvtk_name(x) for x in ret]
 
-_search_help_doc =  """
+
+_search_help_doc = """
                         Help on Searching
            ---------------------------------------
 
@@ -273,14 +274,17 @@ class TVTKClassChooser(HasTraits):
     object = Property
 
     # The TVTK class name to choose.
-    class_name = Str('', desc='class name of TVTK class (case sensitive)')
+    class_name = Str("", desc="class name of TVTK class (case sensitive)")
 
     # The string to search for in the class docs -- the search supports
     # 'and' and 'or' keywords.
-    search = Str('', desc='string to search in TVTK class documentation '\
-                          'supports the "and" and "or" keywords. '\
-                          'press <Enter> to start search. '\
-                          'This is case insensitive.')
+    search = Str(
+        "",
+        desc="string to search in TVTK class documentation "
+        'supports the "and" and "or" keywords. '
+        "press <Enter> to start search. "
+        "This is case insensitive.",
+    )
 
     clear_search = Button
 
@@ -303,34 +307,23 @@ class TVTKClassChooser(HasTraits):
     ########################################
     # View related traits.
 
-    view = View(Group(Item(name='class_name',
-                           editor=EnumEditor(name='available')),
-                      Item(name='class_name',
-                           has_focus=True
-                           ),
-                      Item(name='search',
-                           editor=TextEditor(enter_set=True,
-                                             auto_set=False)
-                           ),
-                      Item(name='clear_search',
-                           show_label=False),
-                      Item('_'),
-                      Item(name='completions',
-                           editor=ListEditor(columns=3),
-                           style='readonly'
-                           ),
-                      Item(name='doc',
-                           resizable=True,
-                           label='Documentation',
-                           style='custom')
-                      ),
-                id='tvtk_doc',
-                resizable=True,
-                width=800,
-                height=600,
-                title='TVTK class chooser',
-                buttons = ["OK", "Cancel"]
-                )
+    view = View(
+        Group(
+            Item(name="class_name", editor=EnumEditor(name="available")),
+            Item(name="class_name", has_focus=True),
+            Item(name="search", editor=TextEditor(enter_set=True, auto_set=False)),
+            Item(name="clear_search", show_label=False),
+            Item("_"),
+            Item(name="completions", editor=ListEditor(columns=3), style="readonly"),
+            Item(name="doc", resizable=True, label="Documentation", style="custom"),
+        ),
+        id="tvtk_doc",
+        resizable=True,
+        width=800,
+        height=600,
+        title="TVTK class chooser",
+        buttons=["OK", "Cancel"],
+    )
     ######################################################################
     # `object` interface.
     ######################################################################
@@ -353,7 +346,7 @@ class TVTKClassChooser(HasTraits):
     def _class_name_changed(self, value):
         av = self.available
         comp = [x for x in av if x.startswith(value)]
-        self.completions = comp[:self.n_completion]
+        self.completions = comp[: self.n_completion]
         if len(comp) == 1 and value != comp[0]:
             self.class_name = comp[0]
 
@@ -367,7 +360,7 @@ class TVTKClassChooser(HasTraits):
         return DocSearch()
 
     def _clear_search_fired(self):
-        self.search = ''
+        self.search = ""
 
     def _search_changed(self, value):
         if len(value) < 3:
@@ -382,7 +375,7 @@ class TVTKClassChooser(HasTraits):
             self.class_name = result[0]
         else:
             self.available = result
-            self.completions = result[:self.n_completion]
+            self.completions = result[: self.n_completion]
 
 
 ################################################################################
@@ -391,11 +384,13 @@ class TVTKClassChooser(HasTraits):
 class TVTKSourceChooser(TVTKClassChooser):
     available = List(TVTK_SOURCES)
 
+
 ################################################################################
 # `TVTKFilterChooser` class.
 ################################################################################
 class TVTKFilterChooser(TVTKClassChooser):
     available = List(TVTK_FILTERS)
+
 
 ################################################################################
 # `TVTKSinkChooser` class.
@@ -411,5 +406,6 @@ def main():
     s = TVTKClassChooser()
     s.configure_traits()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

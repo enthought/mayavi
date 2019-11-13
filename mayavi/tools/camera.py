@@ -12,10 +12,13 @@ import sys
 try:
     import numpy as np
 except ImportError as m:
-    msg = '''%s\n%s\nPlease check your numpy installation. If you need numpy,
+    msg = """%s\n%s\nPlease check your numpy installation. If you need numpy,
 'easy_install numpy' will install it.
 http://numpy.scipy.org
-        ''' % (m, '_' * 80)
+        """ % (
+        m,
+        "_" * 80,
+    )
     raise ImportError(msg)
 from numpy import pi
 
@@ -96,12 +99,12 @@ _roll = roll
 
 def rad2deg(rad):
     """Converts radians to degrees."""
-    return rad * 180. / pi
+    return rad * 180.0 / pi
 
 
 def deg2rad(deg):
     """Converts degrees to radians."""
-    return deg * pi / 180.
+    return deg * pi / 180.0
 
 
 def get_camera_direction(cam):
@@ -132,12 +135,14 @@ def get_outline_bounds(figure=None):
 
     # Lazy import, to avoid circular imports
     from .figure import screenshot
+
     red, green, blue = scene.background
 
     # Use mode='rgba' to have float values, as with fig.scene.background
-    outline = screenshot(mode='rgba')
+    outline = screenshot(mode="rgba")
     outline = (
-        (outline[..., 0] != red) + (outline[..., 1] != green)
+        (outline[..., 0] != red)
+        + (outline[..., 1] != green)
         + (outline[..., 2] != blue)
     )
     outline_x = outline.sum(axis=0)
@@ -150,20 +155,27 @@ def get_outline_bounds(figure=None):
     outline_y = np.where(outline_y)[0]
 
     if len(outline_x) == 0:
-        x_min = x_max = .5 * width
+        x_min = x_max = 0.5 * width
     else:
         x_min = outline_x.min()
         x_max = outline_x.max()
     if len(outline_y) == 0:
-        y_min = y_max = .5 * height
+        y_min = y_max = 0.5 * height
     else:
         y_min = outline_y.min()
         y_max = outline_y.max()
     return x_min, x_max, y_min, y_max, width, height
 
 
-def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
-         roll=None, reset_roll=True, figure=None):
+def view(
+    azimuth=None,
+    elevation=None,
+    distance=None,
+    focalpoint=None,
+    roll=None,
+    reset_roll=True,
+    figure=None,
+):
     """ Sets/Gets the view point for the camera::
 
      view(azimuth=None, elevation=None, distance=None, focalpoint=None,
@@ -266,8 +278,13 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     r, theta, phi, fp = get_camera_direction(cam)
 
     # If no arguments were specified, just return the current view.
-    if azimuth is None and elevation is None and distance is None \
-            and focalpoint is None and roll is None:
+    if (
+        azimuth is None
+        and elevation is None
+        and distance is None
+        and focalpoint is None
+        and roll is None
+    ):
         return rad2deg(phi), rad2deg(theta), r, fp
 
     # Convert radians to
@@ -285,14 +302,16 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     # bounds.
     bounds = np.array(ren.compute_visible_prop_bounds())
     if distance is not None and not (
-            isinstance(distance, string_types) and distance == 'auto'):
+        isinstance(distance, string_types) and distance == "auto"
+    ):
         r = distance
     else:
         r = max(bounds[1::2] - bounds[::2]) * 2.0
 
     cen = (bounds[1::2] + bounds[::2]) * 0.5
     if focalpoint is not None and not (
-            isinstance(focalpoint, string_types) and focalpoint == 'auto'):
+        isinstance(focalpoint, string_types) and focalpoint == "auto"
+    ):
         cen = np.asarray(focalpoint)
 
     # Find camera position.
@@ -313,21 +332,22 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
         # close to the 'z' axis, the view plane normal is parallel to the
         # camera which is unacceptable, so we use a different view up.
         view_up = [0, 0, 1]
-        if abs(elevation) < 5. or abs(elevation) > 175.:
+        if abs(elevation) < 5.0 or abs(elevation) > 175.0:
             view_up = [sin(phi), cos(phi), 0]
         cam.view_up = view_up
 
-    if distance == 'auto':
+    if distance == "auto":
         # Reset the zoom, to have the full extents:
         scene.reset_zoom()
         x_min, x_max, y_min, y_max, w, h = get_outline_bounds(figure=figure)
-        x_focus, y_focus = world_to_display(cen[0], cen[1], cen[2],
-                                            figure=figure)
+        x_focus, y_focus = world_to_display(cen[0], cen[1], cen[2], figure=figure)
 
-        ratio = 1.1 * max((x_focus - x_min) / x_focus,
-                          (x_max - x_focus) / (w - x_focus),
-                          (y_focus - y_min) / y_focus,
-                          (y_max - y_focus) / (h - y_focus))
+        ratio = 1.1 * max(
+            (x_focus - x_min) / x_focus,
+            (x_max - x_focus) / (w - x_focus),
+            (y_focus - y_min) / y_focus,
+            (y_max - y_focus) / (h - y_focus),
+        )
 
         distance = get_camera_direction(cam)[0]
         r = distance * ratio
@@ -429,7 +449,7 @@ def move(forward=None, right=None, up=None):
     v = np.zeros(3)
 
     # view plane vetor points behind viewing direction, so we invert it
-    yhat = -1. * np.array(cam.view_plane_normal)
+    yhat = -1.0 * np.array(cam.view_plane_normal)
     zhat = cam.view_up
     xhat = np.cross(yhat, zhat)
 

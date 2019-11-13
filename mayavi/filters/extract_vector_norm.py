@@ -26,13 +26,13 @@ class ExtractVectorNorm(FilterBase):
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.VectorNorm, args=(), allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['vectors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["vectors"]
+    )
 
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     ######################################################################
     # `Filter` interface.
@@ -82,6 +82,6 @@ class ExtractVectorNorm(FilterBase):
         cd = o.cell_data
         cs = cd.scalars
         if (ps is not None) and (not ps.name):
-            ps.name = pd.vectors.name + ' magnitude'
+            ps.name = pd.vectors.name + " magnitude"
         elif (cs is not None) and (not cs.name):
-            cs.name = cd.vectors.name + ' magnitude'
+            cs.name = cd.vectors.name + " magnitude"

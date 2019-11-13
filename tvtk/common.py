@@ -50,11 +50,20 @@ def get_tvtk_name(vtk_name):
       'XMLDataReader'
 
     """
-    if vtk_name[:3] == 'vtk':
+    if vtk_name[:3] == "vtk":
         name = vtk_name[3:]
-        dig2name = {'1': 'One', '2': 'Two', '3': 'Three', '4': 'Four',
-                    '5': 'Five', '6': 'Six', '7': 'Seven', '8': 'Eight',
-                    '9': 'Nine', '0': 'Zero'}
+        dig2name = {
+            "1": "One",
+            "2": "Two",
+            "3": "Three",
+            "4": "Four",
+            "5": "Five",
+            "6": "Six",
+            "7": "Seven",
+            "8": "Eight",
+            "9": "Nine",
+            "0": "Zero",
+        }
 
         if name[0] in string.digits:
             return dig2name[name[0]] + name[1:]
@@ -82,7 +91,7 @@ def is_version_58():
 
 def configure_connection(obj, inp):
     """ Configure topology for vtk pipeline obj."""
-    if hasattr(inp, 'output_port'):
+    if hasattr(inp, "output_port"):
         obj.input_connection = inp.output_port
     elif inp.has_output_port():
         obj.input_connection = inp.get_output_object()
@@ -109,29 +118,29 @@ def configure_port_input_data(obj, port, data):
 def configure_input(inp, op):
     """ Configure the inp using op."""
     if is_old_pipeline():
-        if op.is_a('vtkDataSet'):
+        if op.is_a("vtkDataSet"):
             inp.input = op
         else:
             inp.input = op.output
     else:
-        if hasattr(op, 'output_port'):
-            if hasattr(inp, 'input_connection'):
+        if hasattr(op, "output_port"):
+            if hasattr(inp, "input_connection"):
                 inp.input_connection = op.output_port
-            elif hasattr(inp, 'set_input_connection'):
+            elif hasattr(inp, "set_input_connection"):
                 inp.set_input_connection(op.output_port)
-        elif op.is_a('vtkAlgorithmOutput'):
+        elif op.is_a("vtkAlgorithmOutput"):
             inp.input_connection = op
-        elif op.is_a('vtkDataSet'):
+        elif op.is_a("vtkDataSet"):
             inp.set_input_data(op)
         else:
-            raise ValueError('Unknown input type for object %s' % op)
+            raise ValueError("Unknown input type for object %s" % op)
 
 
 def configure_outputs(obj, tvtk_obj):
     if is_old_pipeline():
         obj.outputs = [tvtk_obj.output]
     else:
-        if hasattr(tvtk_obj, 'output_port'):
+        if hasattr(tvtk_obj, "output_port"):
             obj.outputs = [tvtk_obj.output_port]
         else:
             obj.outputs = [tvtk_obj]
@@ -142,9 +151,9 @@ def configure_source_data(obj, data):
     if is_old_pipeline():
         obj.source = data
     else:
-        if data.is_a('vtkAlgorithmOutput'):
+        if data.is_a("vtkAlgorithmOutput"):
             obj.set_source_connection(data)
-        elif hasattr(data, 'output_port'):
+        elif hasattr(data, "output_port"):
             obj.set_source_connection(data.output_port)
         else:
             obj.set_source_data(data)
@@ -162,13 +171,13 @@ class _Camel2Enthought:
     """
 
     def __init__(self):
-        self.patn = re.compile(r'([A-Z0-9]+)([a-z0-9]*)')
-        self.nd_patn = re.compile(r'(\D[123])_D')
+        self.patn = re.compile(r"([A-Z0-9]+)([a-z0-9]*)")
+        self.nd_patn = re.compile(r"(\D[123])_D")
 
     def __call__(self, name):
         ret = self.patn.sub(self._repl, name)
-        ret = self.nd_patn.sub(r'\1d', ret)
-        if ret[0] == '_':
+        ret = self.nd_patn.sub(r"\1d", ret)
+        if ret[0] == "_":
             ret = ret[1:]
         return ret.lower()
 
@@ -177,11 +186,11 @@ class _Camel2Enthought:
         g2 = m.group(2)
         if len(g1) > 1:
             if g2:
-                return '_' + g1[:-1] + '_' + g1[-1] + g2
+                return "_" + g1[:-1] + "_" + g1[-1] + g2
             else:
-                return '_' + g1
+                return "_" + g1
         else:
-            return '_' + g1 + g2
+            return "_" + g1 + g2
 
 
 # Instantiate a converter.

@@ -12,8 +12,7 @@ streamlines.
 from math import sqrt
 
 # Enthought library imports.
-from traits.api import Instance, Bool, TraitPrefixList, Trait, \
-                             Delegate, Button
+from traits.api import Instance, Bool, TraitPrefixList, Trait, Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 
@@ -33,40 +32,38 @@ class Streamline(Module):
     __version__ = 0
 
     # The streamline generator.
-    stream_tracer = Instance(tvtk.StreamTracer, allow_none=False,
-                             record=True)
+    stream_tracer = Instance(tvtk.StreamTracer, allow_none=False, record=True)
 
     # The seed for the streamlines.
     seed = Instance(SourceWidget, allow_none=False, record=True)
 
     # The update mode of the seed -- this is delegated to the
     # SourceWidget.
-    update_mode = Delegate('seed', modify=True)
+    update_mode = Delegate("seed", modify=True)
 
     # Determines if the streamlines are shown as lines or ribbons or
     # tubes.
-    streamline_type = Trait('line', TraitPrefixList(['line', 'ribbon',
-                                                      'tube']),
-                            desc='draw streamlines as lines/ribbons/tubes')
+    streamline_type = Trait(
+        "line",
+        TraitPrefixList(["line", "ribbon", "tube"]),
+        desc="draw streamlines as lines/ribbons/tubes",
+    )
 
     # The ribbon filter.
-    ribbon_filter = Instance(tvtk.RibbonFilter, allow_none=False,
-                             record=True)
+    ribbon_filter = Instance(tvtk.RibbonFilter, allow_none=False, record=True)
 
     # The tube filter.
-    tube_filter = Instance(tvtk.TubeFilter, allow_none=False,
-                           record=True)
+    tube_filter = Instance(tvtk.TubeFilter, allow_none=False, record=True)
 
     # The clean poly data filter
-    clean_filter = Instance(tvtk.CleanPolyData, allow_none=False,
-                           record=True)
+    clean_filter = Instance(tvtk.CleanPolyData, allow_none=False, record=True)
 
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['vectors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["vectors"]
+    )
 
     ########################################
     # Private traits.
@@ -77,52 +74,62 @@ class Streamline(Module):
     # View related code.
 
     # A button to update the streamlines.
-    update_streamlines = Button('Update Streamlines')
+    update_streamlines = Button("Update Streamlines")
 
-    _tube_group = Group(Item(name='capping'),
-                        Item(name='sides_share_vertices'),
-                        Item(name='vary_radius'),
-                        Item(name='number_of_sides'),
-                        Item(name='radius'),
-                        Item(name='radius_factor'),
-                        Item(name='offset'),
-                        Item(name='on_ratio')
-                        )
+    _tube_group = Group(
+        Item(name="capping"),
+        Item(name="sides_share_vertices"),
+        Item(name="vary_radius"),
+        Item(name="number_of_sides"),
+        Item(name="radius"),
+        Item(name="radius_factor"),
+        Item(name="offset"),
+        Item(name="on_ratio"),
+    )
 
-    _ribbon_group = Group(Item(name='vary_width'),
-                          Item(name='width'),
-                          Item(name='width_factor'),
-                          Item(name='angle')
-                          )
+    _ribbon_group = Group(
+        Item(name="vary_width"),
+        Item(name="width"),
+        Item(name="width_factor"),
+        Item(name="angle"),
+    )
 
-    view = View(Group(Group(Item(name='update_mode'),
-                            ),
-                      Group(Item(name='update_streamlines'),
-                            show_labels=False,
-                            ),
-                      Group(Item(name='streamline_type'),
-                            Item(name='ribbon_filter', style='custom',
-                                 visible_when='object.streamline_type == "ribbon"',
-                                 editor=InstanceEditor(view=View(_ribbon_group))),
-                            Item(name='tube_filter', style='custom',
-                                 visible_when='object.streamline_type == "tube"',
-                                 editor=InstanceEditor(view=View(_tube_group))),
-                            show_labels=False,
-                            label='Streamline'
-                            ),
-                      label='Streamline'
-                      ),
-                Group(Item(name='seed', style='custom', resizable=True),
-                      label='Seed',
-                      show_labels=False),
-                Group(Item(name='stream_tracer', style='custom', resizable=True),
-                      label='StreamTracer',
-                      show_labels=False),
-                Group(Item(name='actor', style='custom'),
-                      label='Actor',
-                      show_labels=False),
-                resizable=True
-                )
+    view = View(
+        Group(
+            Group(Item(name="update_mode"),),
+            Group(Item(name="update_streamlines"), show_labels=False,),
+            Group(
+                Item(name="streamline_type"),
+                Item(
+                    name="ribbon_filter",
+                    style="custom",
+                    visible_when='object.streamline_type == "ribbon"',
+                    editor=InstanceEditor(view=View(_ribbon_group)),
+                ),
+                Item(
+                    name="tube_filter",
+                    style="custom",
+                    visible_when='object.streamline_type == "tube"',
+                    editor=InstanceEditor(view=View(_tube_group)),
+                ),
+                show_labels=False,
+                label="Streamline",
+            ),
+            label="Streamline",
+        ),
+        Group(
+            Item(name="seed", style="custom", resizable=True),
+            label="Seed",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="stream_tracer", style="custom", resizable=True),
+            label="StreamTracer",
+            show_labels=False,
+        ),
+        Group(Item(name="actor", style="custom"), label="Actor", show_labels=False),
+        resizable=True,
+    )
 
     ######################################################################
     # `Module` interface
@@ -141,11 +148,12 @@ class Streamline(Module):
         """
         # Create and setup the default objects.
         self.seed = SourceWidget()
-        self.stream_tracer = tvtk.StreamTracer(maximum_propagation=50,
-                                               integration_direction='forward',
-                                               compute_vorticity=True,
-                                               integrator_type='runge_kutta4',
-                                               )
+        self.stream_tracer = tvtk.StreamTracer(
+            maximum_propagation=50,
+            integration_direction="forward",
+            compute_vorticity=True,
+            integrator_type="runge_kutta4",
+        )
         self.ribbon_filter = tvtk.RibbonFilter()
         self.tube_filter = tvtk.TubeFilter()
         self.clean_filter = tvtk.CleanPolyData()
@@ -174,10 +182,10 @@ class Streamline(Module):
         if self._first:
             dsh = DataSetHelper(src.outputs[0])
             b = dsh.get_bounds()
-            l = [(b[1]-b[0]), (b[3]-b[2]), (b[5]-b[4])]
-            length = sqrt(l[0]*l[0] + l[1]*l[1] + l[2]*l[2])
-            self.ribbon_filter.width = length*0.0075
-            self.tube_filter.radius = length*0.0075
+            l = [(b[1] - b[0]), (b[3] - b[2]), (b[5] - b[4])]
+            length = sqrt(l[0] * l[0] + l[1] * l[1] + l[2] * l[2])
+            self.ribbon_filter.width = length * 0.0075
+            self.tube_filter.radius = length * 0.0075
             self._first = False
 
         self._streamline_type_changed(self.streamline_type)
@@ -206,12 +214,12 @@ class Streamline(Module):
         st = self.stream_tracer
         rf = self.ribbon_filter
         tf = self.tube_filter
-        if value == 'line':
+        if value == "line":
             self.outputs = [st]
-        elif value == 'ribbon':
+        elif value == "ribbon":
             self.configure_connection(rf, st)
             self.outputs = [rf]
-        elif value == 'tube':
+        elif value == "tube":
             # Without a clean poly data filter, tube filter will throw could
             # not generate normals warning
             cf = self.clean_filter

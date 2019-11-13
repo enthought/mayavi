@@ -27,11 +27,10 @@ class WarpVector(PolyDataNormals):
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.WarpVector, args=(), allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['vectors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["vectors"]
+    )
 
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
-
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )

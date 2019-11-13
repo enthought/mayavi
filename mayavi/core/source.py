@@ -17,8 +17,7 @@ from mayavi.core.base import Base
 from mayavi.core.pipeline_base import PipelineBase
 from mayavi.core.module import Module
 from mayavi.core.module_manager import ModuleManager
-from mayavi.core.common import handle_children_state, \
-                                         exception, error
+from mayavi.core.common import handle_children_state, exception, error
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.adder_node import ModuleFilterAdderNode
 
@@ -27,6 +26,7 @@ from mayavi.core.adder_node import ModuleFilterAdderNode
 ######################################################################
 def is_filter(object):
     from mayavi.core.filter import Filter
+
     return isinstance(object, Filter)
 
 
@@ -45,16 +45,16 @@ class Source(PipelineBase):
     children = List(Base, record=True)
 
     # The icon
-    icon = 'source.ico'
+    icon = "source.ico"
 
     # The human-readable type for this object
-    type = Str(' data source')
+    type = Str(" data source")
 
     # Information about what this object can consume.
-    input_info = PipelineInfo(datasets=['none'])
+    input_info = PipelineInfo(datasets=["none"])
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'])
+    output_info = PipelineInfo(datasets=["any"])
 
     # The adder node dialog class
     _adder_node_class = ModuleFilterAdderNode
@@ -64,12 +64,11 @@ class Source(PipelineBase):
     ######################################################################
     def __set_pure_state__(self, state):
         # Do everything but our kids.
-        set_state(self, state, ignore=['children'])
+        set_state(self, state, ignore=["children"])
         # Setup children.
         handle_children_state(self.children, state.children)
         # Now setup the children.
-        set_state(self, state, first=['children'], ignore=['*'])
-
+        set_state(self, state, first=["children"], ignore=["*"])
 
     ######################################################################
     # `Source` interface
@@ -91,8 +90,9 @@ class Source(PipelineBase):
             self.children.append(mm)
             if self.recorder is not None:
                 index = len(self.children) - 1
-                self.recorder.register(mm, parent=self,
-                                       trait_name_on_parent='children[%d]'%index)
+                self.recorder.register(
+                    mm, parent=self, trait_name_on_parent="children[%d]" % index
+                )
         mm.children.append(module)
 
     @recordable
@@ -104,7 +104,7 @@ class Source(PipelineBase):
         if len(self.outputs) > 0:
             write_data(self.get_output_dataset(), fname)
         else:
-            error('Object has no outputs to save!')
+            error("Object has no outputs to save!")
 
     ######################################################################
     # `Base` interface
@@ -172,23 +172,20 @@ class Source(PipelineBase):
         """ Returns whether a given object is droppable on the node.
         """
         from mayavi.core.filter import Filter
+
         try:
-            if issubclass(add_object, Filter) or \
-                   issubclass(add_object, ModuleManager):
+            if issubclass(add_object, Filter) or issubclass(add_object, ModuleManager):
                 return True
         except TypeError:
-            if isinstance(add_object, Filter) or \
-                   isinstance(add_object, ModuleManager):
+            if isinstance(add_object, Filter) or isinstance(add_object, ModuleManager):
                 return True
         return False
 
     def tno_drop_object(self, node, dropped_object):
         """ Returns a droppable version of a specified object.
         """
-        if is_filter(dropped_object) or \
-               isinstance(dropped_object, ModuleManager):
+        if is_filter(dropped_object) or isinstance(dropped_object, ModuleManager):
             return dropped_object
-
 
     ######################################################################
     # Non-public interface
@@ -222,21 +219,24 @@ class Source(PipelineBase):
         for obj in self.children:
             obj.scene = new
 
-    def _visible_changed(self,value):
+    def _visible_changed(self, value):
         for c in self.children:
             c.visible = value
 
-        super(Source,self)._visible_changed(value)
+        super(Source, self)._visible_changed(value)
 
     def _menu_helper_default(self):
         from mayavi.core.traits_menu import FilterMenuHelper
+
         return FilterMenuHelper(object=self)
 
     def _extra_menu_items(self):
         """Return a save output menu action."""
-        save_output = Action(name='Save output to file',
-                             action='object._save_output_action',
-                             enabled_when='len(object.outputs) > 0')
+        save_output = Action(
+            name="Save output to file",
+            action="object._save_output_action",
+            enabled_when="len(object.outputs) > 0",
+        )
         return [save_output]
 
     def _save_output_action(self):
@@ -244,17 +244,20 @@ class Source(PipelineBase):
         # FIXME: in a refactor this should all go in a separate view
         # related object.
         from pyface.api import FileDialog, OK
-        wildcard = 'All files (*.*)|*.*|'\
-                   'VTK XML files (*.xml)|*.xml|'\
-                   'Image Data (*.vti)|*.vti|'\
-                   'Poly Data (*.vtp)|*.vtp|'\
-                   'Rectilinear Grid (*.vtr)|*.vtr|'\
-                   'Structured Grid (*.vts)|*.vts|'\
-                   'Unstructured Grid (*.vtu)|*.vtu|'\
-                   'Old-style VTK files (*.vtk)|*.vtk'
 
-        dialog = FileDialog(title='Save output to file',
-                            action='save as', wildcard=wildcard
-                            )
+        wildcard = (
+            "All files (*.*)|*.*|"
+            "VTK XML files (*.xml)|*.xml|"
+            "Image Data (*.vti)|*.vti|"
+            "Poly Data (*.vtp)|*.vtp|"
+            "Rectilinear Grid (*.vtr)|*.vtr|"
+            "Structured Grid (*.vts)|*.vts|"
+            "Unstructured Grid (*.vtu)|*.vtu|"
+            "Old-style VTK files (*.vtk)|*.vtk"
+        )
+
+        dialog = FileDialog(
+            title="Save output to file", action="save as", wildcard=wildcard
+        )
         if dialog.open() == OK:
             self.save_output(dialog.path)

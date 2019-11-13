@@ -33,16 +33,21 @@ class VTKFileReader(VTKXMLFileReader):
     __version__ = 0
 
     # The VTK data file reader.
-    reader = Instance(tvtk.DataSetReader, args=(),
-                      kw={'read_all_scalars':True,
-                          'read_all_vectors': True,
-                          'read_all_tensors': True,
-                          'read_all_fields': True} )
+    reader = Instance(
+        tvtk.DataSetReader,
+        args=(),
+        kw={
+            "read_all_scalars": True,
+            "read_all_vectors": True,
+            "read_all_tensors": True,
+            "read_all_fields": True,
+        },
+    )
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     ######################################################################
     # `FileDataSource` interface
@@ -62,7 +67,7 @@ class VTKFileReader(VTKXMLFileReader):
     def _file_path_changed(self, fpath):
         value = fpath.get()
         if len(value) == 0:
-            self.name = 'No VTK file'
+            self.name = "No VTK file"
             return
         else:
             self.reader.file_name = value
@@ -88,10 +93,10 @@ class VTKFileReader(VTKXMLFileReader):
         """ Gets the name to display on the tree view.
         """
         fname = basename(self.file_path.get())
-        ret = "VTK file (%s)"%fname
+        ret = "VTK file (%s)" % fname
         if len(self.file_list) > 1:
             ret += " (timeseries)"
-        if '[Hidden]' in self.name:
-            ret += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            ret += " [Hidden]"
 
         return ret

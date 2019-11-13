@@ -20,7 +20,5 @@ class ISceneManager(Interface):
     # per workbench window).
     window = Instance(WorkbenchWindow)
 
+
 #### EOF ######################################################################
-
-
-

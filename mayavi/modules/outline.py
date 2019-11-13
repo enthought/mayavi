@@ -9,8 +9,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import Instance, Enum, Property, Bool, \
-    DelegatesTo
+from traits.api import Instance, Enum, Property, Bool, DelegatesTo
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk.common import is_old_pipeline
@@ -32,53 +31,61 @@ class Outline(Module):
     # `OutlineFilter` or `OutlineCornerFilter`. The `ObjectBase` class
     # is the superclass of both the `OutlineFilter` and the
     # `OutlineCornerFilter`.
-    outline_filter = Property(Instance(tvtk.ObjectBase,
-                                        allow_none=False), record=True)
+    outline_filter = Property(Instance(tvtk.ObjectBase, allow_none=False), record=True)
 
     # Enum to set the outline type.
-    outline_mode = Enum('full', 'cornered',
-                        desc='if outline mode is "full" or "cornered"')
+    outline_mode = Enum(
+        "full", "cornered", desc='if outline mode is "full" or "cornered"'
+    )
 
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     # An outline source, optionally used to choose the bounds of the
     # outline.
     outline_source = Instance(tvtk.OutlineSource, ())
 
-    bounds = DelegatesTo('outline_source',
-                desc="the bounds of the outline: xmin, xmax, ymin, ymax")
+    bounds = DelegatesTo(
+        "outline_source", desc="the bounds of the outline: xmin, xmax, ymin, ymax"
+    )
 
     manual_bounds = Bool(
-                desc="whether the bounds are automatically inferred from "
-                     "the data source")
+        desc="whether the bounds are automatically inferred from " "the data source"
+    )
 
     # Create the UI for the traits.
 
     # The controls for the outline_filter should be enabled only when the
     # Cornered Outline Filter is selected.
-    view = View(Group(
-                    Group(
-                        Item(name='outline_mode'),
-                        Item(name='outline_filter',
-                                style='custom',
-                                enabled_when='outline_mode == "cornered"',
-                                visible_when='outline_mode == "cornered"',
-                                resizable=True,
-                                show_label=False),
-                    label='Outline',
-                    show_labels=False),
-                    Group('manual_bounds',
-                            Item('bounds', enabled_when='manual_bounds'),
-                            label='Bounds',
-                            ),
-                    Item(name='actor', style='custom'),
-                    layout='tabbed',
-                    show_labels=False),
-                resizable=True)
+    view = View(
+        Group(
+            Group(
+                Item(name="outline_mode"),
+                Item(
+                    name="outline_filter",
+                    style="custom",
+                    enabled_when='outline_mode == "cornered"',
+                    visible_when='outline_mode == "cornered"',
+                    resizable=True,
+                    show_label=False,
+                ),
+                label="Outline",
+                show_labels=False,
+            ),
+            Group(
+                "manual_bounds",
+                Item("bounds", enabled_when="manual_bounds"),
+                label="Bounds",
+            ),
+            Item(name="actor", style="custom"),
+            layout="tabbed",
+            show_labels=False,
+        ),
+        resizable=True,
+    )
 
     ########################################
     # Private traits.
@@ -86,10 +93,8 @@ class Outline(Module):
     # We make these private traits and cache them because if we create
     # these anew each time the `outline_mode` changes, then we loose
     # any settings the user changed on the previous mode.
-    _full_outline = Instance(tvtk.OutlineFilter, args=(),
-                             allow_none=False)
-    _cornered_outline = Instance(tvtk.OutlineCornerFilter, args=(),
-                                 allow_none=False)
+    _full_outline = Instance(tvtk.OutlineFilter, args=(), allow_none=False)
+    _cornered_outline = Instance(tvtk.OutlineCornerFilter, args=(), allow_none=False)
 
     ######################################################################
     # `Module` interface
@@ -159,7 +164,7 @@ class Outline(Module):
         old = self._cornered_outline
         if new is self._full_outline:
             old = self._cornered_outline
-        self.trait_property_changed('outline_filter', old, new)
+        self.trait_property_changed("outline_filter", old, new)
 
         mm = self.module_manager
         if mm is None:
@@ -173,7 +178,7 @@ class Outline(Module):
         self.outputs = [self.outline_filter]
 
     def _get_outline_filter(self):
-        if self.outline_mode == 'full':
+        if self.outline_mode == "full":
             return self._full_outline
         else:
             return self._cornered_outline

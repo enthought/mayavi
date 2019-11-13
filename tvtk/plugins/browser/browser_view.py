@@ -17,23 +17,21 @@ class BrowserView(View):
     #### 'IWorkbenchPart' interface ###########################################
 
     # The part's name (displayed to the user).
-    name = 'TVTK Pipeline Browser'
+    name = "TVTK Pipeline Browser"
 
     #### 'IView' interface ####################################################
 
     # The position of the view relative to the item specified in the
     # 'relative_to' trait.
-    position = 'left'
+    position = "left"
 
     #### 'BrowserView' interface ##############################################
 
     # The pipeline browser instance that we are a view of.
-    browser = Instance('tvtk.pipeline.browser.PipelineBrowser')
+    browser = Instance("tvtk.pipeline.browser.PipelineBrowser")
 
     # The scene manager.
-    scene_manager = Instance(
-        'tvtk.plugins.scene.i_scene_manager.ISceneManager'
-    )
+    scene_manager = Instance("tvtk.plugins.scene.i_scene_manager.ISceneManager")
 
     ###########################################################################
     # 'IWorkbenchPart' interface.
@@ -55,7 +53,7 @@ class BrowserView(View):
 
     #### Trait change handlers ################################################
 
-    @on_trait_change('scene_manager:scenes_items')
+    @on_trait_change("scene_manager:scenes_items")
     def _on_scenes_changed(self, event):
         """ Dynamic trait change handler.
 
@@ -90,5 +88,6 @@ class BrowserView(View):
             self.browser.root_object.remove(scene.render_window)
 
         return
+
 
 #### EOF ######################################################################

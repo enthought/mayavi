@@ -16,7 +16,7 @@ def make_mock_scene():
     """Mocks a scene suitable for testing the movie generation.
     """
     s = mock.Mock(spec=TVTKScene)
-    s.foreground = (1,0,0)
+    s.foreground = (1, 0, 0)
     s.off_screen_rendering = True
     mm = mock.MagicMock(spec=MovieMaker)
     s.movie_maker = mm
@@ -27,12 +27,12 @@ class TestFileDataSourceTimestep(unittest.TestCase):
     def setUp(self):
 
         self.root = tempfile.mkdtemp()
-        abc1 = os.path.join(self.root, 'abc_1.vti')
-        abc2 = os.path.join(self.root, 'abc_2.vti')
-        def1 = os.path.join(self.root, 'def_1.vti')
-        def2 = os.path.join(self.root, 'def_2.vti')
-        xyz1 = os.path.join(self.root, 'xyz_1.vti')
-        cube = get_example_data('cube.vti')
+        abc1 = os.path.join(self.root, "abc_1.vti")
+        abc2 = os.path.join(self.root, "abc_2.vti")
+        def1 = os.path.join(self.root, "def_1.vti")
+        def2 = os.path.join(self.root, "def_2.vti")
+        xyz1 = os.path.join(self.root, "xyz_1.vti")
+        cube = get_example_data("cube.vti")
         self.abc1, self.abc2 = abc1, abc2
         self.def1, self.def2 = def1, def2
         self.xyz1 = xyz1
@@ -42,7 +42,7 @@ class TestFileDataSourceTimestep(unittest.TestCase):
 
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
-        #e = Engine()
+        # e = Engine()
         e.start()
         e.new_scene()
         self.engine = e
@@ -119,12 +119,14 @@ class TestFileDataSourceTimestep(unittest.TestCase):
         e.add_module(o)
 
         values = []
+
         def callback(new):
             values.append(new)
             # Shut off so only one loop is done.
             if new == 0:
                 r.loop = False
-        r.on_trait_change(callback, 'timestep')
+
+        r.on_trait_change(callback, "timestep")
 
         # When
         r.loop = True
@@ -174,7 +176,7 @@ class TestFileDataSourceTimestep(unittest.TestCase):
         self.assertEqual(len(r.file_list), 2)
 
         # When
-        shutil.copy(self.abc1, os.path.join(self.root, 'abc_3.vti'))
+        shutil.copy(self.abc1, os.path.join(self.root, "abc_3.vti"))
         r.update_files = True
 
         # Then
@@ -199,8 +201,8 @@ class TestFileDataSourceTimestep(unittest.TestCase):
         self.assertEqual(len(r.file_list), 2)
 
         # When
-        shutil.copy(self.abc1, os.path.join(self.root, 'abc_3.vti'))
-        shutil.copy(self.def1, os.path.join(self.root, 'def_3.vti'))
+        shutil.copy(self.abc1, os.path.join(self.root, "abc_3.vti"))
+        shutil.copy(self.def1, os.path.join(self.root, "def_3.vti"))
         r.update_files = True
 
         # Then
@@ -210,5 +212,5 @@ class TestFileDataSourceTimestep(unittest.TestCase):
         self.assertEqual(len(r2.file_list), 3)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

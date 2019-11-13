@@ -42,25 +42,28 @@ http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html
 # License: BSD Style.
 
 # The pdb code for the protein.
-protein_code = '2q09'
+protein_code = "2q09"
 
 # Retrieve the file from the protein database #################################
 import os
-if not os.path.exists('pdb%s.ent.gz' % protein_code):
+
+if not os.path.exists("pdb%s.ent.gz" % protein_code):
     # Download the data
     try:
         from urllib import urlopen
     except ImportError:
         from urllib.request import urlopen
-    print('Downloading protein data, please wait')
+    print("Downloading protein data, please wait")
     opener = urlopen(
-      'ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
-      % protein_code)
-    open('pdb%s.ent.gz' % protein_code, 'wb').write(opener.read())
+        "ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz"
+        % protein_code
+    )
+    open("pdb%s.ent.gz" % protein_code, "wb").write(opener.read())
 
 # Parse the pdb file ##########################################################
 import gzip
-infile = gzip.GzipFile('pdb%s.ent.gz' % protein_code, 'rb')
+
+infile = gzip.GzipFile("pdb%s.ent.gz" % protein_code, "rb")
 
 # A graph represented by a dictionary associating nodes with keys
 # (numbers), and edges (pairs of node keys).
@@ -73,7 +76,7 @@ last_atom_label = None
 last_chain_label = None
 for line in infile:
     line = line.split()
-    if line[0] in ('ATOM', 'HETATM'):
+    if line[0] in ("ATOM", "HETATM"):
         nodes[line[1]] = (line[2], line[6], line[7], line[8])
         atoms.add(line[2])
         chain_label = line[5]
@@ -81,7 +84,7 @@ for line in infile:
             edges.append((line[1], last_atom_label))
         last_atom_label = line[1]
         last_chain_label = chain_label
-    elif line[0] == 'CONECT':
+    elif line[0] == "CONECT":
         for start, stop in zip(line[1:-1], line[2:]):
             edges.append((start, stop))
 
@@ -111,6 +114,7 @@ for start, stop in edges:
     connections.append((labels[start], labels[stop]))
 
 import numpy as np
+
 x = np.array(x)
 y = np.array(y)
 z = np.array(z)
@@ -118,18 +122,20 @@ scalars = np.array(scalars)
 
 # Visualize the data ##########################################################
 from mayavi import mlab
+
 mlab.figure(1, bgcolor=(0, 0, 0))
 mlab.clf()
 
-pts = mlab.points3d(x, y, z, 1.5 * scalars.max() - scalars,
-                                    scale_factor=0.015, resolution=10)
+pts = mlab.points3d(
+    x, y, z, 1.5 * scalars.max() - scalars, scale_factor=0.015, resolution=10
+)
 pts.mlab_source.dataset.lines = np.array(connections)
 
 # Use a tube fiter to plot tubes on the link, varying the radius with the
 # scalar value
 tube = mlab.pipeline.tube(pts, tube_radius=0.15)
-tube.filter.radius_factor = 1.
-tube.filter.vary_radius = 'vary_radius_by_scalar'
+tube.filter.radius_factor = 1.0
+tube.filter.vary_radius = "vary_radius_by_scalar"
 mlab.pipeline.surface(tube, color=(0.8, 0.8, 0))
 
 # Visualize the local atomic density

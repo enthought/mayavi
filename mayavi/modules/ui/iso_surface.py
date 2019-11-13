@@ -15,39 +15,46 @@ importing.
 from traitsui.api import Item, Group, View, InstanceEditor
 from mayavi.components.ui.actor import actor_view, texture_view
 
-view = View(Group(
-                Group(
-                     Item( name  = 'contour',
-                           style = 'custom' ),
-                     show_labels = False,
-                     show_border = True,
-                     label       = 'Contours' ),
-                 Group(
-                     Item( name = 'compute_normals' ),
-                     Item( name         = 'normals',
-                           style        = 'custom',
-                           show_label   = False,
-                           enabled_when = 'compute_normals' ),
-                     show_border = True,
-                     label       = 'Normals' ),
-                 label='Contours',
-             ),
-             Group(Item('actor',
-                        resizable=True,
-                        style='custom',
-                        editor=InstanceEditor(view=actor_view)
-                        ),
-                   label='Actor',
-                   show_labels=False,
-             ),
-             Group(Item('actor',
-                        resizable=True,
-                        style='custom',
-                        editor=InstanceEditor(view=texture_view)
-                    ),
-                    label='Texturing',
-                    show_labels=False,
-                ),
-            resizable=True
-            )
-
+view = View(
+    Group(
+        Group(
+            Item(name="contour", style="custom"),
+            show_labels=False,
+            show_border=True,
+            label="Contours",
+        ),
+        Group(
+            Item(name="compute_normals"),
+            Item(
+                name="normals",
+                style="custom",
+                show_label=False,
+                enabled_when="compute_normals",
+            ),
+            show_border=True,
+            label="Normals",
+        ),
+        label="Contours",
+    ),
+    Group(
+        Item(
+            "actor",
+            resizable=True,
+            style="custom",
+            editor=InstanceEditor(view=actor_view),
+        ),
+        label="Actor",
+        show_labels=False,
+    ),
+    Group(
+        Item(
+            "actor",
+            resizable=True,
+            style="custom",
+            editor=InstanceEditor(view=texture_view),
+        ),
+        label="Texturing",
+        show_labels=False,
+    ),
+    resizable=True,
+)

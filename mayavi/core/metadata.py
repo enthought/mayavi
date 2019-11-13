@@ -20,25 +20,24 @@ def import_symbol(symbol_path):
     Copied from envisage's import manager.
     """
 
-    if ':' in symbol_path:
-        module_name, symbol_name = symbol_path.split(':')
+    if ":" in symbol_path:
+        module_name, symbol_name = symbol_path.split(":")
 
         module = import_module(module_name)
         symbol = eval(symbol_name, module.__dict__)
 
     else:
-        components = symbol_path.split('.')
+        components = symbol_path.split(".")
 
-        module_name = '.'.join(components[:-1])
+        module_name = ".".join(components[:-1])
         symbol_name = components[-1]
 
-        module = __import__(
-            module_name, globals(), locals(), [symbol_name]
-        )
+        module = __import__(module_name, globals(), locals(), [symbol_name])
 
         symbol = getattr(module, symbol_name)
 
     return symbol
+
 
 def import_module(module_name):
 
@@ -49,12 +48,11 @@ def import_module(module_name):
 
     module = __import__(module_name)
 
-    components = module_name.split('.')
+    components = module_name.split(".")
     for component in components[1:]:
         module = getattr(module, component)
 
     return module
-
 
 
 ################################################################################
@@ -122,11 +120,13 @@ class Metadata(HasTraits):
 class ModuleMetadata(Metadata):
     pass
 
+
 ################################################################################
 # `FilterMetadata` class.
 ################################################################################
 class FilterMetadata(Metadata):
     pass
+
 
 ################################################################################
 # `SourceMetadata` class.

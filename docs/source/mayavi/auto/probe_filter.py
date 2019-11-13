@@ -48,16 +48,16 @@ from tvtk.api import tvtk
 from tvtk.common import configure_source_data, configure_input
 
 # The angular par of the spherical harmonic (3, 2)
-x, y, z = np.mgrid[-.5:.5:100j, -.5:.5:100j, -.5:.5:100j]
-Phi = np.angle((x+y*1j)**2*z)
+x, y, z = np.mgrid[-0.5:0.5:100j, -0.5:0.5:100j, -0.5:0.5:100j]
+Phi = np.angle((x + y * 1j) ** 2 * z)
 
 field = mlab.pipeline.scalar_field(x, y, z, Phi)
 ipw = mlab.pipeline.image_plane_widget(field)
 mlab.outline(field)
 
 surface = mlab.pipeline.builtin_surface()
-surface.source = 'sphere'
-surface.data_source.radius = .4
+surface.source = "sphere"
+surface.data_source.radius = 0.4
 surface.data_source.phi_resolution = 200
 surface.data_source.theta_resolution = 200
 probe_filter = tvtk.ProbeFilter()
@@ -75,8 +75,8 @@ fig = mlab.gcf()
 # Note that for Mayavi version < 3.4.1, there is a bug in the
 # PipelineBrowser preventing a good display of this pipeline.
 from tvtk.pipeline.browser import PipelineBrowser
+
 browser = PipelineBrowser(fig.scene)
 browser.show()
 
 mlab.show()
-

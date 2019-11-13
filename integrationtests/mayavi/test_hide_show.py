@@ -14,7 +14,6 @@ from common import TestCase, get_example_data
 
 
 class TestHideShow(TestCase):
-
     def check(self, saved=False):
         """Does the checking, if saved is True it does not change the
         properties at first to see how those behave and only tests the
@@ -40,7 +39,7 @@ class TestHideShow(TestCase):
             scp.visible = False
             assert scp.actor.actor.visibility == False
             assert scp.implicit_plane.widget.enabled == False
-            assert scp.name == 'ScalarCutPlane [Hidden]'
+            assert scp.name == "ScalarCutPlane [Hidden]"
             # Reenable it and check widget state.
             scp.visible = True
             assert scp.actor.actor.visibility == True
@@ -54,14 +53,13 @@ class TestHideShow(TestCase):
         # Check final state.
         for a in wrl.actors:
             assert a.visibility == False
-        assert wrl.name.find('[Hidden]') > -1
+        assert wrl.name.find("[Hidden]") > -1
 
         assert scp.actor.actor.visibility == False
         assert scp.implicit_plane.widget.enabled == False
-        assert scp.name == 'ScalarCutPlane [Hidden]'
-        assert iso.name == 'IsoSurface [Hidden]'
+        assert scp.name == "ScalarCutPlane [Hidden]"
+        assert iso.name == "IsoSurface [Hidden]"
         assert iso.actor.actor.visibility == False
-
 
     def test(self):
         self.main()
@@ -69,10 +67,8 @@ class TestHideShow(TestCase):
     def do(self):
         ############################################################
         # Imports.
-        from mayavi.sources.api import VTKXMLFileReader,\
-                VRMLImporter
-        from mayavi.modules.api import ScalarCutPlane,\
-                IsoSurface
+        from mayavi.sources.api import VTKXMLFileReader, VRMLImporter
+        from mayavi.modules.api import ScalarCutPlane, IsoSurface
 
         ############################################################
         # Create a new scene and set up the visualization.
@@ -81,12 +77,12 @@ class TestHideShow(TestCase):
 
         # Read a VRML file.
         w = VRMLImporter()
-        w.initialize(get_example_data('room_vis.wrl'))
+        w.initialize(get_example_data("room_vis.wrl"))
         script.add_source(w)
 
         # Read a VTK data file.
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('fire_ug.vtu'))
+        r.initialize(get_example_data("fire_ug.vtu"))
         script.add_source(r)
 
         # Create the modules.
@@ -104,9 +100,9 @@ class TestHideShow(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine
@@ -144,7 +140,7 @@ class TestHideShow(TestCase):
 
         # If we have come this far, we are golden!
 
+
 if __name__ == "__main__":
     t = TestHideShow()
     t.test()
-

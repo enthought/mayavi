@@ -10,18 +10,18 @@ from os.path import join
 
 # Enthought library imports.
 from traits.api import List
-from apptools.preferences.ui.api import PreferencesManager, \
-    PreferencesPage
+from apptools.preferences.ui.api import PreferencesManager, PreferencesPage
 from pyface.api import ImageResource
 from pyface.resource.api import resource_path
 from apptools.preferences.ui.preferences_node import PreferencesNode
 
 # Local imports.
-from mayavi.preferences.mayavi_preferences_page import \
-    MayaviRootPreferencesPage, MayaviMlabPreferencesPage
+from mayavi.preferences.mayavi_preferences_page import (
+    MayaviRootPreferencesPage,
+    MayaviMlabPreferencesPage,
+)
 
-from mayavi.preferences.preference_manager import \
-    preference_manager
+from mayavi.preferences.preference_manager import preference_manager
 
 ################################################################################
 # `PreferenceManagerView` class
@@ -32,21 +32,21 @@ class PreferenceManagerView(PreferencesManager):
     """
 
     # Path used to search for images
-    _image_path = [join(resource_path(), 'images'), ]
+    _image_path = [
+        join(resource_path(), "images"),
+    ]
 
     # The icon of the dialog
-    icon = ImageResource('preferences.ico', search_path=_image_path)
+    icon = ImageResource("preferences.ico", search_path=_image_path)
 
     # The preference pages displayed
     pages = List(PreferencesPage)
 
     def _pages_default(self):
         return [
-                MayaviRootPreferencesPage(
-                    preferences=preference_manager.root.preferences),
-                MayaviMlabPreferencesPage(
-                    preferences=preference_manager.mlab.preferences),
-                ]
+            MayaviRootPreferencesPage(preferences=preference_manager.root.preferences),
+            MayaviMlabPreferencesPage(preferences=preference_manager.mlab.preferences),
+        ]
 
     def dialog_view(self):
         """ Poor-man's subclassing of view to overload size.
@@ -54,12 +54,11 @@ class PreferenceManagerView(PreferencesManager):
         view = self.trait_view()
         view.width = 0.7
         view.height = 0.5
-        view.title = 'Mayavi preferences'
+        view.title = "Mayavi preferences"
         view.icon = self.icon
         ui = self.edit_traits(
-                view=view,
-                scrollable=True,
-                id='mayavi.preferences.preference_view')
+            view=view, scrollable=True, id="mayavi.preferences.preference_view"
+        )
         return ui
 
     def _get_root(self):
@@ -78,5 +77,3 @@ class PreferenceManagerView(PreferencesManager):
 
 
 preference_manager_view = PreferenceManagerView()
-
-

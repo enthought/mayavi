@@ -31,22 +31,22 @@ from .figure import gcf
 
 def _get_engine_from_kwarg(kwargs):
     engine = None
-    if 'figure' not in kwargs:
+    if "figure" not in kwargs:
         # No figure has been specified, retrieve the default one.
         gcf()
         engine = get_engine()
-    elif kwargs['figure'] is False:
+    elif kwargs["figure"] is False:
         # Get a null engine that we can use.
         engine = get_null_engine()
-    elif kwargs['figure'] is not None:
-        figure = kwargs['figure']
+    elif kwargs["figure"] is not None:
+        figure = kwargs["figure"]
         engine = engine_manager.find_figure_engine(figure)
         engine.current_scene = figure
 
     return engine
 
 
-def add_dataset(dataset, name='', **kwargs):
+def add_dataset(dataset, name="", **kwargs):
     """Add a dataset object to the Mayavi pipeline.
 
     **Parameters**
@@ -88,8 +88,8 @@ def add_dataset(dataset, name='', **kwargs):
         d = dataset
     else:
         raise TypeError(
-              "first argument should be either a TVTK object"
-              " or a mayavi source")
+            "first argument should be either a TVTK object" " or a mayavi source"
+        )
 
     if len(name) > 0:
         d.name = name
@@ -154,20 +154,18 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
         object 'mayavi_object' should already be added to the pipeline.
     """
     if isinstance(mayavi_object, tvtk.Object):
-        if mayavi_object.is_a('vtkDataSet'):
+        if mayavi_object.is_a("vtkDataSet"):
             # We have been passed a tvtk source
             return [mayavi_object]
-        elif hasattr(mayavi_object, 'output'):
+        elif hasattr(mayavi_object, "output"):
             return [mayavi_object.output]
-    if not (hasattr(mayavi_object, 'parent')
-            or isinstance(mayavi_object, Source)):
-        raise TypeError('Cannot find data source for given object %s' % (
-                                            mayavi_object))
+    if not (hasattr(mayavi_object, "parent") or isinstance(mayavi_object, Source)):
+        raise TypeError("Cannot find data source for given object %s" % (mayavi_object))
     while True:
         # XXX: If the pipeline is not a DAG, this is an infinite loop
         if isinstance(mayavi_object, Source):
             if stop_at_filter or not isinstance(mayavi_object, Filter):
-                get_output = lambda x: x if x.is_a('vtkDataSet') else x.output
+                get_output = lambda x: x if x.is_a("vtkDataSet") else x.output
                 return [get_output(x) for x in mayavi_object.outputs]
         mayavi_object = mayavi_object.parent
 
@@ -215,7 +213,7 @@ def _find_module_manager(object=None, data_type=None):
     if object is None:
         for object in _traverse(gcf()):
             if isinstance(object, ModuleManager):
-                if data_type == 'scalar':
+                if data_type == "scalar":
                     if not _has_scalar_data(object):
                         continue
                     try:
@@ -223,17 +221,19 @@ def _find_module_manager(object=None, data_type=None):
                             continue
                     except AttributeError:
                         pass
-                if data_type == 'vector' and not _has_vector_data(object):
+                if data_type == "vector" and not _has_vector_data(object):
                     continue
-                if data_type == 'tensor' and not _has_tensor_data(object):
+                if data_type == "tensor" and not _has_tensor_data(object):
                     continue
                 return object
     else:
-        if hasattr(object, 'module_manager'):
-            if ((data_type == 'scalar' and _has_scalar_data(object))
-               or (data_type == 'vector' and _has_vector_data(object))
-               or (data_type == 'tensor' and _has_tensor_data(object))
-                or data_type is None):
+        if hasattr(object, "module_manager"):
+            if (
+                (data_type == "scalar" and _has_scalar_data(object))
+                or (data_type == "vector" and _has_vector_data(object))
+                or (data_type == "tensor" and _has_tensor_data(object))
+                or data_type is None
+            ):
                 return object.module_manager
             else:
                 print("This object has no %s data" % data_type)
@@ -248,9 +248,10 @@ def _typical_distance(data_obj):
         by the cubic root of the number of points.
     """
     x_min, x_max, y_min, y_max, z_min, z_max = data_obj.bounds
-    distance = numpy.sqrt(((x_max - x_min) ** 2 + (y_max - y_min) ** 2 +
-                           (z_max - z_min) ** 2) / (4 *
-                           data_obj.number_of_points ** (0.33)))
+    distance = numpy.sqrt(
+        ((x_max - x_min) ** 2 + (y_max - y_min) ** 2 + (z_max - z_min) ** 2)
+        / (4 * data_obj.number_of_points ** (0.33))
+    )
     if distance == 0:
         return 1
     else:
@@ -262,10 +263,11 @@ def _min_distance(x, y, z):
         This is done by brute force calculation of all the distances
         between particle couples.
     """
-    distances = numpy.sqrt((x.reshape((-1,)) - x.reshape((1, -1))) ** 2
-                           + (y.reshape((-1,)) - y.reshape((1, -1))) ** 2
-                           + (z.reshape((-1,)) - z.reshape((1, -1))) ** 2
-                          )
+    distances = numpy.sqrt(
+        (x.reshape((-1,)) - x.reshape((1, -1))) ** 2
+        + (y.reshape((-1,)) - y.reshape((1, -1))) ** 2
+        + (z.reshape((-1,)) - z.reshape((1, -1))) ** 2
+    )
     return distances[distances != 0].min()
 
 
@@ -275,12 +277,14 @@ def _min_axis_distance(x, y, z):
         This is done by brute force calculation of all the distances with
         norm infinity between particle couples.
     """
+
     def axis_min(a):
         a = numpy.abs(a.reshape((-1,)) - a.reshape((-1, 1)))
         a = a[a > 0]
         if a.size == 0:
             return numpy.inf
         return a.min()
+
     distances = min(axis_min(x), axis_min(y), axis_min(z))
     if distances == numpy.inf:
         return 1
@@ -310,11 +314,11 @@ def set_extent(module, extents):
         extent keyword argument of mlab.pipeline.outline and
         mlab.pipeline.axes.
     """
-    if numpy.all(extents == 0.):
+    if numpy.all(extents == 0.0):
         # That the default setting.
         return
-    if not hasattr(module, 'actor'):
-        print('Cannot set extents for %s' % module)
+    if not hasattr(module, "actor"):
+        print("Cannot set extents for %s" % module)
         return
     xmin, xmax, ymin, ymax, zmin, zmax = extents
     xo = 0.5 * (xmax + xmin)
@@ -326,7 +330,7 @@ def set_extent(module, extents):
 
     # Extract the actor, checking either module.actor.actor
     # or module.actor as a fallback
-    actor = getattr(module.actor, 'actor', module.actor)
+    actor = getattr(module.actor, "actor", module.actor)
 
     # Now the actual bounds.
     xmin, xmax, ymin, ymax, zmin, zmax = actor.bounds
@@ -355,11 +359,9 @@ def set_extent(module, extents):
     ycenter = 0.5 * (ymax + ymin)
     zcenter = 0.5 * (zmax + zmin)
     # Center the object
-    actor.origin = (0.,  0.,  0.)
+    actor.origin = (0.0, 0.0, 0.0)
     xpos, ypos, zpos = actor.position
-    actor.position = (xpos + xo - xcenter,
-                      ypos + yo - ycenter,
-                      zpos + zo - zcenter)
+    actor.position = (xpos + xo - xcenter, ypos + yo - ycenter, zpos + zo - zcenter)
 
 
 def start_recording(ui=True):
@@ -371,6 +373,7 @@ def start_recording(ui=True):
         The `Recorder` instance created.
     """
     from apptools.scripting.api import start_recording as start
+
     e = get_engine()
     msg = "Current engine, %s, is already being recorded." % (e)
     assert e.recorder is None, msg
@@ -388,13 +391,14 @@ def stop_recording(file=None):
 
     """
     from apptools.scripting.api import stop_recording as stop
+
     e = get_engine()
     r = e.recorder
     if r is not None:
         stop(e, save=False)
         if type(file) is str:
-            f = open(file, 'w')
+            f = open(file, "w")
             r.save(f)
             f.close()
-        elif hasattr(file, 'write') and hasattr(file, 'flush'):
+        elif hasattr(file, "write") and hasattr(file, "flush"):
             r.save(file)

@@ -14,8 +14,7 @@ class TestSources(unittest.TestCase):
     def test_convert_to_arrays(self):
         """Test if the convert_to_arrays routine works properly"""
 
-        values = convert_to_arrays(
-            (1, 2, 3, np.float(4), np.float64(5), np.array([6])))
+        values = convert_to_arrays((1, 2, 3, np.float(4), np.float64(5), np.array([6])))
 
         all_dims = set(x.shape for x in values)
 
@@ -23,5 +22,5 @@ class TestSources(unittest.TestCase):
         self.assertIn((1,), all_dims)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

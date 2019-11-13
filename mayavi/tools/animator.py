@@ -7,8 +7,10 @@ Simple utility code for animations.
 
 import types
 from functools import wraps
+
 try:
     from decorator import decorator
+
     HAS_DECORATOR = True
 except ImportError:
     HAS_DECORATOR = False
@@ -50,10 +52,9 @@ class Animator(HasTraits):
     ########################################
     # Traits.
 
-    start = Button('Start Animation')
-    stop = Button('Stop Animation')
-    delay = Range(10, 100000, 500,
-                  desc='frequency with which timer is called')
+    start = Button("Start Animation")
+    stop = Button("Stop Animation")
+    delay = Range(10, 100000, 500, desc="frequency with which timer is called")
 
     # The internal timer we manage.
     timer = Any
@@ -61,13 +62,13 @@ class Animator(HasTraits):
     ######################################################################
     # User interface view
 
-    traits_view = View(Group(Item('start'),
-                             Item('stop'),
-                             show_labels=False),
-                       Item('_'),
-                       Item(name='delay'),
-                       title='Animation Controller',
-                       buttons=['OK'])
+    traits_view = View(
+        Group(Item("start"), Item("stop"), show_labels=False),
+        Item("_"),
+        Item(name="delay"),
+        title="Animation Controller",
+        buttons=["OK"],
+    )
 
     ######################################################################
     # Initialize object
@@ -125,6 +126,7 @@ class Animator(HasTraits):
 
 ###############################################################################
 # Decorators.
+
 
 def animate(func=None, delay=500, ui=True, support_movie=True):
     """A convenient decorator to animate a generator performing an animation.
@@ -206,7 +208,7 @@ def animate(func=None, delay=500, ui=True, support_movie=True):
             else:
                 f = self.func(*args, **kw)
             if isinstance(f, types.GeneratorType):
-                _next = f.next if hasattr(f, 'next') else f.__next__
+                _next = f.next if hasattr(f, "next") else f.__next__
                 self._next = _next
                 self._movie_maker = None
                 a = Animator(self.delay, self._step)
@@ -214,8 +216,9 @@ def animate(func=None, delay=500, ui=True, support_movie=True):
                     a.show()
                 return a
             else:
-                msg = 'The function "%s" must be a generator '\
-                      '(use yield)!' % (self.func.__name__)
+                msg = 'The function "%s" must be a generator ' "(use yield)!" % (
+                    self.func.__name__
+                )
                 raise TypeError(msg)
 
         def _step(self):
@@ -231,6 +234,7 @@ def animate(func=None, delay=500, ui=True, support_movie=True):
         def _update_movie_maker(self):
             if self._movie_maker is None:
                 from .engine_manager import get_engine
+
                 scene = get_engine().current_scene.scene
                 self._movie_maker = scene.movie_maker
                 self._movie_maker.animation_start()
@@ -239,7 +243,6 @@ def animate(func=None, delay=500, ui=True, support_movie=True):
 
         def decorator_call(self, func, *args, **kw):
             return self(*args, **kw)
-
 
     def _wrapper(function):
         # Needed to create the Wrapper in the right scope.

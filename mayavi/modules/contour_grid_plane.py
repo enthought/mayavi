@@ -31,7 +31,7 @@ class ContourGridPlane(Module):
     grid_plane = Instance(GridPlane, allow_none=False, record=True)
 
     # Specifies if contouring is to be done or not.
-    enable_contours = Bool(True, desc='if contours are generated')
+    enable_contours = Bool(True, desc="if contours are generated")
 
     # The contour component that contours the data.
     contour = Instance(Contour, allow_none=False, record=True)
@@ -39,21 +39,27 @@ class ContourGridPlane(Module):
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['image_data',
-                                        'structured_grid',
-                                        'rectilinear_grid'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["image_data", "structured_grid", "rectilinear_grid"],
+        attribute_types=["any"],
+        attributes=["any"],
+    )
 
-    view = View([Group(Item(name='grid_plane', style='custom'),
-                       show_labels=False),
-                 Group(Item(name='enable_contours')),
-                 Group(Item(name='contour', style='custom',
-                            enabled_when='object.enable_contours'),
-                       Item(name='actor', style='custom'),
-                       show_labels=False)
-                 ]
-                )
+    view = View(
+        [
+            Group(Item(name="grid_plane", style="custom"), show_labels=False),
+            Group(Item(name="enable_contours")),
+            Group(
+                Item(
+                    name="contour",
+                    style="custom",
+                    enabled_when="object.enable_contours",
+                ),
+                Item(name="actor", style="custom"),
+                show_labels=False,
+            ),
+        ]
+    )
 
     ######################################################################
     # `Module` interface
@@ -118,9 +124,9 @@ class ContourGridPlane(Module):
         mode.
         """
         if value:
-            self.actor.mapper.scalar_mode = 'use_cell_data'
+            self.actor.mapper.scalar_mode = "use_cell_data"
         else:
-            self.actor.mapper.scalar_mode = 'default'
+            self.actor.mapper.scalar_mode = "default"
         self.render()
 
     def _enable_contours_changed(self, value):
@@ -130,10 +136,10 @@ class ContourGridPlane(Module):
         if value:
             self.actor.inputs = [self.contour]
             if self.contour.filled_contours:
-                self.actor.mapper.scalar_mode = 'use_cell_data'
+                self.actor.mapper.scalar_mode = "use_cell_data"
         else:
             self.actor.inputs = [self.grid_plane]
-            self.actor.mapper.scalar_mode = 'default'
+            self.actor.mapper.scalar_mode = "default"
         self.render()
 
     def _grid_plane_changed(self, old, new):
@@ -144,11 +150,10 @@ class ContourGridPlane(Module):
 
     def _contour_changed(self, old, new):
         if old is not None:
-            old.on_trait_change(self._filled_contours_changed,
-                                'filled_contours',
-                                remove=True)
-        new.on_trait_change(self._filled_contours_changed,
-                            'filled_contours')
+            old.on_trait_change(
+                self._filled_contours_changed, "filled_contours", remove=True
+            )
+        new.on_trait_change(self._filled_contours_changed, "filled_contours")
         # Setup the contours input.
         gp = self.grid_plane
         if gp is not None:

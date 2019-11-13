@@ -17,14 +17,15 @@ from tvtk.common import suppress_vtk_warnings
 class TestMisc(unittest.TestCase):
     def setUp(self):
 
-        datasets = [tvtk.ImageData(),
-                    tvtk.StructuredPoints(),
-                    tvtk.RectilinearGrid(),
-                    tvtk.StructuredGrid(),
-                    tvtk.PolyData(),
-                    tvtk.UnstructuredGrid(),
-                    ]
-        exts = ['.vti', '.vti', '.vtr', '.vts', '.vtp', '.vtu']
+        datasets = [
+            tvtk.ImageData(),
+            tvtk.StructuredPoints(),
+            tvtk.RectilinearGrid(),
+            tvtk.StructuredGrid(),
+            tvtk.PolyData(),
+            tvtk.UnstructuredGrid(),
+        ]
+        exts = [".vti", ".vti", ".vtr", ".vts", ".vtp", ".vtu"]
         self.datasets = datasets
         self.exts = exts
 
@@ -50,7 +51,7 @@ class TestMisc(unittest.TestCase):
         datasets = self.datasets
 
         for d in datasets:
-            fh, fname = tempfile.mkstemp('.xml')
+            fh, fname = tempfile.mkstemp(".xml")
             os.close(fh)
             os.remove(fname)
             self.assertEqual(os.path.exists(fname), False)
@@ -69,7 +70,7 @@ class TestMisc(unittest.TestCase):
             os.close(fh)
             os.remove(fname)
             # Test if passing extra keyword args is supported.
-            write_data(d, fbase, compressor=None, data_mode='ascii')
+            write_data(d, fbase, compressor=None, data_mode="ascii")
             self.assertEqual(os.path.exists(fname), True)
             os.remove(fname)
 
@@ -78,7 +79,7 @@ class TestMisc(unittest.TestCase):
         datasets = self.datasets
 
         for d in datasets:
-            fh, fname = tempfile.mkstemp('.vtk')
+            fh, fname = tempfile.mkstemp(".vtk")
             os.close(fh)
             os.remove(fname)
             self.assertEqual(os.path.exists(fname), False)
@@ -97,5 +98,5 @@ class TestMisc(unittest.TestCase):
         self.assertEqual(obj.GetGlobalWarningDisplay(), 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

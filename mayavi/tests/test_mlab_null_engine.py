@@ -16,6 +16,7 @@ from mayavi.tests.common import get_example_data
 class TestMlabNullEngineBase(unittest.TestCase):
     """ Base class to test mlab with the null engine
     """
+
     def setUp(self):
         e = Engine()
         e.start()
@@ -50,11 +51,12 @@ class TestRealMlabNullEngine(unittest.TestCase):
 
     def test_test_backend(self):
         """Test if setting the backend to 'test' works."""
-        mlab.options.backend = 'test'
+        mlab.options.backend = "test"
         mlab.test_contour3d()
         mlab.clf()
-        mlab.pipeline.open(get_example_data('cube.vti'))
+        mlab.pipeline.open(get_example_data("cube.vti"))
         mlab.clf()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

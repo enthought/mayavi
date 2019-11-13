@@ -18,8 +18,7 @@ from traits.api import HasTraits, Instance, on_trait_change
 from traitsui.api import View, Group, Item
 
 from mayavi.core.api import Engine
-from mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
-            SceneEditor
+from mayavi.core.ui.api import MayaviScene, MlabSceneModel, SceneEditor
 
 ################################################################################
 class MyApp(HasTraits):
@@ -48,24 +47,35 @@ class MyApp(HasTraits):
 
     # We populate the scenes only when it is activated, to avoid problems
     # with VTK objects that expect an active scene
-    @on_trait_change('scene1.activated')
+    @on_trait_change("scene1.activated")
     def populate_scene1(self):
         self.scene1.mlab.test_surf()
 
-    @on_trait_change('scene2.activated')
+    @on_trait_change("scene2.activated")
     def populate_scene2(self):
         self.scene2.mlab.test_mesh()
 
     # The layout of the view
-    view = View(Group(Item('scene1',
-                        editor=SceneEditor(scene_class=MayaviScene),
-                        width=480, height=480)),
-                Group(Item('scene2',
-                        editor=SceneEditor(scene_class=MayaviScene),
-                        width=480, height=480)),
-                resizable=True)
+    view = View(
+        Group(
+            Item(
+                "scene1",
+                editor=SceneEditor(scene_class=MayaviScene),
+                width=480,
+                height=480,
+            )
+        ),
+        Group(
+            Item(
+                "scene2",
+                editor=SceneEditor(scene_class=MayaviScene),
+                width=480,
+                height=480,
+            )
+        ),
+        resizable=True,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     MyApp().configure_traits()
-

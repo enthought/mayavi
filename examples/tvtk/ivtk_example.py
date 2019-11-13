@@ -32,13 +32,15 @@ gui = GUI()
 # PyCrust.  If you don't want all these you can choose between the
 # following classes in ivtk -- IVTK, IVTKWithCrust, IVTKWithBrowser
 # and IVTKWithCrustAndBrowser.
-window = ivtk.IVTKWithCrustAndBrowser(size=(800,600))  # Size is optional.
+window = ivtk.IVTKWithCrustAndBrowser(size=(800, 600))  # Size is optional.
 
 # Open the window.
 window.open()
 
+
 class EarthActor(HasTraits):
     position = Tuple
+
     def __init__(self):
         earth = actors.earth_actor()
         earth.property.color = actors.colors.green
@@ -54,8 +56,11 @@ class EarthActor(HasTraits):
 # and generate actors randomly.
 
 # Get all the functions in the actors module that end with '_actors'.
-ACTORS = [getattr(actors, x) for x in dir(actors)
-        if x.endswith('_actor') and not x.startswith('earth')]
+ACTORS = [
+    getattr(actors, x)
+    for x in dir(actors)
+    if x.endswith("_actor") and not x.startswith("earth")
+]
 ACTORS.append(EarthActor)
 
 # Now create the actors with these functions.

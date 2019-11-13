@@ -10,7 +10,7 @@ from tvtk.api import tvtk
 class ActorModel(ITVTKActorModel):
 
     # A simple trait to change the actors/widgets.
-    actor_type = Enum('cone', 'sphere', 'plane_widget', 'box_widget')
+    actor_type = Enum("cone", "sphere", "plane_widget", "box_widget")
 
     #########################
     # ITVTKView Model traits.
@@ -23,14 +23,17 @@ class ActorModel(ITVTKActorModel):
     actor_map = Dict()
 
     ######################
-    view = View(Item(name='actor_type'),
-                Item(name='actor_map',
-                     editor=ActorEditor(scene_kwds={'background':(0.2,0.2,0.2)}),
-                     show_label=False,
-                     resizable=True,
-                     height=500,
-                     width=500)
-                )
+    view = View(
+        Item(name="actor_type"),
+        Item(
+            name="actor_map",
+            editor=ActorEditor(scene_kwds={"background": (0.2, 0.2, 0.2)}),
+            show_label=False,
+            resizable=True,
+            height=500,
+            width=500,
+        ),
+    )
 
     def __init__(self, **traits):
         super(ActorModel, self).__init__(**traits)
@@ -39,20 +42,20 @@ class ActorModel(ITVTKActorModel):
     ####################################
     # Private traits.
     def _actor_type_changed(self, value):
-        if value == 'cone':
+        if value == "cone":
             a = actors.cone_actor()
-            self.actor_map = {'cone': a}
-        elif value == 'sphere':
+            self.actor_map = {"cone": a}
+        elif value == "sphere":
             a = actors.sphere_actor()
-            self.actor_map = {'sphere': a}
-        elif value == 'plane_widget':
+            self.actor_map = {"sphere": a}
+        elif value == "plane_widget":
             w = tvtk.PlaneWidget()
-            self.actor_map = {'plane_widget': w}
-        elif value == 'box_widget':
+            self.actor_map = {"plane_widget": w}
+        elif value == "box_widget":
             w = tvtk.BoxWidget()
-            self.actor_map = {'box_widget': w}
+            self.actor_map = {"box_widget": w}
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     a = ActorModel()
     a.configure_traits()

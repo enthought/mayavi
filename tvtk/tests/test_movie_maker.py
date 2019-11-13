@@ -70,16 +70,16 @@ class TestMovieMaker(unittest.TestCase):
             mm.animation_step()
 
         # Then
-        self.assertEqual(mm._subdir, 'movie001')
+        self.assertEqual(mm._subdir, "movie001")
 
         # When.
-        os.makedirs(os.path.join(self.root, mm._subdir, 'movie001'))
+        os.makedirs(os.path.join(self.root, mm._subdir, "movie001"))
         with mm.record_movie():
             mm.animation_step()
 
         # Then
-        self.assertEqual(mm._subdir, 'movie002')
+        self.assertEqual(mm._subdir, "movie002")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

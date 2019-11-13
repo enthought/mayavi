@@ -20,7 +20,7 @@ def _get_extent(inp):
     """Get the extents from the given input.
     """
     d = inp.dimensions
-    return [0, d[0]-1, 0, d[1]-1, 0, d[2]-1]
+    return [0, d[0] - 1, 0, d[1] - 1, 0, d[2] - 1]
 
 
 ######################################################################
@@ -35,12 +35,10 @@ class GridPlane(Component):
     plane = Instance(tvtk.Object)
 
     # The axis which is normal to the plane chosen.
-    axis = Enum('x', 'y', 'z',
-                desc='specifies the axis normal to the grid plane')
+    axis = Enum("x", "y", "z", desc="specifies the axis normal to the grid plane")
 
     # The position of the grid plane.
-    position = Range(value=0, low='_low', high='_high',
-                     enter_set=True, auto_set=False)
+    position = Range(value=0, low="_low", high="_high", enter_set=True, auto_set=False)
 
     ########################################
     # Private traits.
@@ -59,9 +57,9 @@ class GridPlane(Component):
     # View related traits.
 
     # The View for this object.
-    view = View(Group(Item(name='axis'),
-                      Item(name='position', enabled_when='_high > 0'))
-                )
+    view = View(
+        Group(Item(name="axis"), Item(name="position", enabled_when="_high > 0"))
+    )
 
     ######################################################################
     # `object` interface
@@ -69,7 +67,7 @@ class GridPlane(Component):
     def __get_pure_state__(self):
         d = super(GridPlane, self).__get_pure_state__()
         # These traits are dynamically created.
-        for name in ('plane', '_low', '_high'):
+        for name in ("plane", "_low", "_high"):
             d.pop(name, None)
 
         return d
@@ -105,15 +103,16 @@ class GridPlane(Component):
             return
         input = self.inputs[0].get_output_dataset()
         plane = None
-        if input.is_a('vtkStructuredGrid'):
+        if input.is_a("vtkStructuredGrid"):
             plane = tvtk.StructuredGridGeometryFilter()
-        elif input.is_a('vtkStructuredPoints') or input.is_a('vtkImageData'):
+        elif input.is_a("vtkStructuredPoints") or input.is_a("vtkImageData"):
             plane = tvtk.ImageDataGeometryFilter()
-        elif input.is_a('vtkRectilinearGrid'):
+        elif input.is_a("vtkRectilinearGrid"):
             plane = tvtk.RectilinearGridGeometryFilter()
         else:
-            msg = "The GridPlane component does not support the %s dataset."\
-                  % (input.class_name)
+            msg = "The GridPlane component does not support the %s dataset." % (
+                input.class_name
+            )
             error(msg)
             raise TypeError(msg)
 
@@ -126,9 +125,9 @@ class GridPlane(Component):
         # If the data is 2D make sure that we default to the
         # appropriate axis.
         extents = list(_get_extent(input))
-        diff = [y-x for x, y in zip(extents[::2], extents[1::2])]
+        diff = [y - x for x, y in zip(extents[::2], extents[1::2])]
         if diff.count(0) > 0:
-            self.axis = ['x', 'y', 'z'][diff.index(0)]
+            self.axis = ["x", "y", "z"][diff.index(0)]
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -154,15 +153,15 @@ class GridPlane(Component):
     # Non-public methods.
     ######################################################################
     def _get_axis_index(self):
-        return {'x': 0, 'y': 1, 'z': 2}[self.axis]
+        return {"x": 0, "y": 1, "z": 2}[self.axis]
 
     def _update_extents(self):
         inp = self.plane.input
         extents = list(_get_extent(inp))
         pos = self.position
         axis = self._get_axis_index()
-        extents[2*axis] = pos
-        extents[2*axis+1] = pos
+        extents[2 * axis] = pos
+        extents[2 * axis + 1] = pos
         try:
             self.plane.set_extent(extents)
         except AttributeError:
@@ -171,8 +170,8 @@ class GridPlane(Component):
     def _update_limits(self):
         extents = _get_extent(self.plane.input)
         axis = self._get_axis_index()
-        pos = min(self.position, extents[2*axis+1])
-        self._high = extents[2*axis+1]
+        pos = min(self.position, extents[2 * axis + 1])
+        self._high = extents[2 * axis + 1]
         return pos
 
     def _axis_changed(self, val):

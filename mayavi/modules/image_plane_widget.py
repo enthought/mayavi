@@ -26,21 +26,21 @@ class ImagePlaneWidget(Module):
 
     ipw = Instance(tvtk.ImagePlaneWidget, allow_none=False, record=True)
 
-    use_lookup_table = Bool(True,
-            help='Use a lookup table to map input scalars to colors')
+    use_lookup_table = Bool(
+        True, help="Use a lookup table to map input scalars to colors"
+    )
 
-    input_info = PipelineInfo(datasets=['image_data'],
-                              attribute_types=['any'],
-                              attributes=['scalars'])
+    input_info = PipelineInfo(
+        datasets=["image_data"], attribute_types=["any"], attributes=["scalars"]
+    )
 
-    view = View(Group(Item(name='ipw', style='custom', resizable=True),
-                      show_labels=False
-                      ),
-                width=600,
-                height=600,
-                resizable=True,
-                scrollable=True
-                )
+    view = View(
+        Group(Item(name="ipw", style="custom", resizable=True), show_labels=False),
+        width=600,
+        height=600,
+        resizable=True,
+        scrollable=True,
+    )
 
     ######################################################################
     # `Module` interface
@@ -58,13 +58,14 @@ class ImagePlaneWidget(Module):
         set the `actors` attribute up at this point.
         """
         # Create the various objects for this module.
-        self.ipw = tvtk.ImagePlaneWidget(display_text=1,
-                                         key_press_activation=0,
-                                         left_button_action=1,
-                                         middle_button_action=0,
-                                         user_controlled_lookup_table=True)
+        self.ipw = tvtk.ImagePlaneWidget(
+            display_text=1,
+            key_press_activation=0,
+            left_button_action=1,
+            middle_button_action=0,
+            user_controlled_lookup_table=True,
+        )
         self.setup_lut()
-
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -80,10 +81,8 @@ class ImagePlaneWidget(Module):
         # Data is available, so set the input for the IPW.
         input = mod_mgr.source.outputs[0]
         dataset = mod_mgr.source.get_output_dataset()
-        if not (dataset.is_a('vtkStructuredPoints') \
-                or dataset.is_a('vtkImageData')):
-            msg = 'ImagePlaneWidget only supports structured points or '\
-                  'image data.'
+        if not (dataset.is_a("vtkStructuredPoints") or dataset.is_a("vtkImageData")):
+            msg = "ImagePlaneWidget only supports structured points or " "image data."
             error(msg)
             raise TypeError(msg)
 
@@ -100,14 +99,12 @@ class ImagePlaneWidget(Module):
         # Just set data_changed, the component should do the rest.
         self.data_changed = True
 
-
-    @on_trait_change('use_lookup_table')
+    @on_trait_change("use_lookup_table")
     def setup_lut(self):
         # Set the LUT for the IPW.
         if self.use_lookup_table:
             if self.module_manager is not None:
-                self.ipw.lookup_table = \
-                                self.module_manager.scalar_lut_manager.lut
+                self.ipw.lookup_table = self.module_manager.scalar_lut_manager.lut
         else:
             self.ipw.color_map.lookup_table = None
         self.render()

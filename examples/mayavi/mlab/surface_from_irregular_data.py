@@ -35,13 +35,15 @@ y = 4 * (np.random.random(500) - 0.5)
 def f(x, y):
     return np.exp(-(x ** 2 + y ** 2))
 
+
 z = f(x, y)
 
 from mayavi import mlab
+
 mlab.figure(1, fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))
 
 # Visualize the points
-pts = mlab.points3d(x, y, z, z, scale_mode='none', scale_factor=0.2)
+pts = mlab.points3d(x, y, z, z, scale_mode="none", scale_factor=0.2)
 
 # Create and visualize the mesh
 mesh = mlab.pipeline.delaunay2d(pts)

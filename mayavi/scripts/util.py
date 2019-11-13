@@ -9,7 +9,8 @@ mayavi.
 import sys
 from os.path import join, abspath, dirname, isdir
 
-def get_data_dir( example_filename ):
+
+def get_data_dir(example_filename):
     """ Get the data directory while running an example script.
 
         Parameters:
@@ -19,17 +20,15 @@ def get_data_dir( example_filename ):
 
     """
 
-    if 'mayavi2' in sys.argv[0]:
-        if isdir('data'):
-            return 'data'
+    if "mayavi2" in sys.argv[0]:
+        if isdir("data"):
+            return "data"
         filename = sys.argv[-1]
-        dir_name = join(dirname(abspath(filename)), 'data')
+        dir_name = join(dirname(abspath(filename)), "data")
         if isdir(dir_name):
             return dir_name
 
-        raise Exception('Run example from the example directory')
+        raise Exception("Run example from the example directory")
 
     else:
-        return join(dirname(example_filename), 'data')
-
-
+        return join(dirname(example_filename), "data")

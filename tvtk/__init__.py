@@ -9,7 +9,7 @@ from os.path import exists, join, dirname, isdir
 import logging
 
 # use a null handler when used as a library
-logging.getLogger('tvtk').addHandler(logging.NullHandler())
+logging.getLogger("tvtk").addHandler(logging.NullHandler())
 
 # The tvtk wrapper code is all typically inside one zip file.  We try to
 # find this file and put it in __path__ and then create the 'tvtk' module
@@ -23,8 +23,8 @@ logging.getLogger('tvtk').addHandler(logging.NullHandler())
 # We add the path to the local __path__ here, in the __init__, so that
 # the unpickler can directly unpickle the TVTK classes.
 
-_zip = join(dirname(__file__), 'tvtk_classes.zip')
-tvtk_class_dir = join(dirname(__file__), 'tvtk_classes')
+_zip = join(dirname(__file__), "tvtk_classes.zip")
+tvtk_class_dir = join(dirname(__file__), "tvtk_classes")
 
 if exists(tvtk_class_dir) and isdir(tvtk_class_dir):
     # Nothing to do, it will imported anyhow.

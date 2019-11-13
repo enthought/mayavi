@@ -30,27 +30,29 @@ class ScalarCutPlane(Module):
     __version__ = 0
 
     # The implicit plane widget used to place the implicit function.
-    implicit_plane = Instance(ImplicitPlane, allow_none=False,
-                              record=True)
+    implicit_plane = Instance(ImplicitPlane, allow_none=False, record=True)
 
     # The cutter.  Takes a cut of the data on the implicit plane.
     cutter = Instance(Cutter, allow_none=False, record=True)
 
     # Specifies if contouring is to be done or not.
-    enable_contours = Bool(False, desc='if contours are generated')
+    enable_contours = Bool(False, desc="if contours are generated")
 
     # The Contour component that contours the data.
     contour = Instance(Contour, allow_none=False, record=True)
 
     # Specifies if scalar warping is to be done or not.
-    enable_warp_scalar = Bool(False, desc='if scalar warping is enabled')
+    enable_warp_scalar = Bool(False, desc="if scalar warping is enabled")
 
     # The WarpScalarCutPlane component that warps the data.
     warp_scalar = Instance(WarpScalar, allow_none=False, record=True)
 
     # Specify if scalar normals are to be computed to make a smoother surface.
-    compute_normals = Bool(False, desc='if normals are to be computed '\
-                           'to make the warped scalar surface smoother')
+    compute_normals = Bool(
+        False,
+        desc="if normals are to be computed "
+        "to make the warped scalar surface smoother",
+    )
 
     # The component that computes the scalar normals.
     normals = Instance(PolyDataNormals, allow_none=False, record=True)
@@ -58,54 +60,65 @@ class ScalarCutPlane(Module):
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['scalars'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["scalars"]
+    )
 
     ########################################
     # View related code.
 
-    _warp_group = Group(Item(name='filter',
-                             style='custom',
-                             editor=\
-                             InstanceEditor(view=
-                                            View(Item('scale_factor')))),
-                        show_labels=False)
+    _warp_group = Group(
+        Item(
+            name="filter",
+            style="custom",
+            editor=InstanceEditor(view=View(Item("scale_factor"))),
+        ),
+        show_labels=False,
+    )
 
-    view = View(Group(Item(name='implicit_plane',
-                           style='custom'),
-                      label='ImplicitPlane',
-                      show_labels=False),
-                Group(Group(Item(name='enable_contours')),
-                      Group(Item(name='contour',
-                                 style='custom',
-                                 enabled_when='object.enable_contours'),
-                            show_labels=False),
-                      label='Contours',
-                      show_labels=False),
-                Group(Item(name='enable_warp_scalar'),
-                      Group(Item(name='warp_scalar',
-                                 enabled_when='enable_warp_scalar',
-                                 style='custom',
-                                 editor=InstanceEditor(view=
-                                                       View(_warp_group))
-                                 ),
-                            show_labels=False,
-                            ),
-                      Item(name='_'),
-                      Item(name='compute_normals',
-                           enabled_when='enable_warp_scalar'),
-                      Item(name='normals',
-                           style='custom',
-                           show_label=False,
-                           enabled_when='compute_normals and enable_warp_scalar'),
-                      label='WarpScalar',
-                      show_labels=True),
-                Group(Item(name='actor',
-                           style='custom'),
-                      label='Actor',
-                      show_labels=False)
-                )
+    view = View(
+        Group(
+            Item(name="implicit_plane", style="custom"),
+            label="ImplicitPlane",
+            show_labels=False,
+        ),
+        Group(
+            Group(Item(name="enable_contours")),
+            Group(
+                Item(
+                    name="contour",
+                    style="custom",
+                    enabled_when="object.enable_contours",
+                ),
+                show_labels=False,
+            ),
+            label="Contours",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="enable_warp_scalar"),
+            Group(
+                Item(
+                    name="warp_scalar",
+                    enabled_when="enable_warp_scalar",
+                    style="custom",
+                    editor=InstanceEditor(view=View(_warp_group)),
+                ),
+                show_labels=False,
+            ),
+            Item(name="_"),
+            Item(name="compute_normals", enabled_when="enable_warp_scalar"),
+            Item(
+                name="normals",
+                style="custom",
+                show_label=False,
+                enabled_when="compute_normals and enable_warp_scalar",
+            ),
+            label="WarpScalar",
+            show_labels=True,
+        ),
+        Group(Item(name="actor", style="custom"), label="Actor", show_labels=False),
+    )
 
     ######################################################################
     # `Module` interface
@@ -203,9 +216,9 @@ class ScalarCutPlane(Module):
         mode.
         """
         if value:
-            self.actor.mapper.scalar_mode = 'use_cell_data'
+            self.actor.mapper.scalar_mode = "use_cell_data"
         else:
-            self.actor.mapper.scalar_mode = 'default'
+            self.actor.mapper.scalar_mode = "default"
         self.render()
 
     def _enable_warp_scalar_changed(self, value):
@@ -243,11 +256,11 @@ class ScalarCutPlane(Module):
             self.contour.inputs = [self._get_warp_output()]
             actor.inputs = [self._get_contour_output()]
             if self.contour.filled_contours:
-                actor.mapper.scalar_mode = 'use_cell_data'
+                actor.mapper.scalar_mode = "use_cell_data"
         else:
             self.contour.inputs = []
             actor.inputs = [self._get_warp_output()]
-            actor.mapper.scalar_mode = 'default'
+            actor.mapper.scalar_mode = "default"
         self.render()
 
     def _normals_changed(self, old, new):
@@ -266,8 +279,8 @@ class ScalarCutPlane(Module):
             self._enable_warp_scalar_changed(self.enable_warp_scalar)
         # Hook up events to set the normals of the warp filter.
         if old is not None:
-            old.widget.on_trait_change(self._update_normal, 'normal', remove=True)
-        new.widget.on_trait_change(self._update_normal, 'normal')
+            old.widget.on_trait_change(self._update_normal, "normal", remove=True)
+        new.widget.on_trait_change(self._update_normal, "normal")
         self._change_components(old, new)
 
     def _cutter_changed(self, old, new):
@@ -300,4 +313,3 @@ class ScalarCutPlane(Module):
         ws = self.warp_scalar
         if ws is not None:
             ws.filter.normal = self.implicit_plane.widget.normal
-

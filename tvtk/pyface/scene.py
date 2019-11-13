@@ -1,4 +1,4 @@
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
 #
@@ -10,7 +10,7 @@
 #
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 """A VTK interactor scene widget for the PyFace wxPython backend.  See
 the class docs for more details.
 
@@ -22,4 +22,5 @@ the class docs for more details.
 
 # Import the toolkit specific version.
 from tvtk.pyface.toolkit import toolkit_object
-Scene = toolkit_object('scene:Scene')
+
+Scene = toolkit_object("scene:Scene")

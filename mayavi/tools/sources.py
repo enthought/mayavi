@@ -20,9 +20,17 @@ from mayavi.core.trait_defs import ArrayNumberOrNone, ArrayOrNone
 from . import tools
 from .engine_manager import get_null_engine, engine_manager
 
-__all__ = ['vector_scatter', 'vector_field', 'scalar_scatter',
-    'scalar_field', 'line_source', 'array2d_source', 'grid_source',
-    'open', 'triangular_mesh_source', 'vertical_vectors_source',
+__all__ = [
+    "vector_scatter",
+    "vector_field",
+    "scalar_scatter",
+    "scalar_field",
+    "line_source",
+    "array2d_source",
+    "grid_source",
+    "open",
+    "triangular_mesh_source",
+    "vertical_vectors_source",
 ]
 
 
@@ -70,11 +78,10 @@ class MlabSource(HasTraits):
             self.dataset.modified()
             md = self.m_data
             if md is not None:
-                aa = getattr(md, '_assign_attribute', None)
-                vectors = getattr(self, 'vectors', None)
-                scalars = getattr(self, 'scalars', None)
-                if aa is not None and (scalars is not None or
-                                       vectors is not None):
+                aa = getattr(md, "_assign_attribute", None)
+                vectors = getattr(self, "vectors", None)
+                scalars = getattr(self, "scalars", None)
+                if aa is not None and (scalars is not None or vectors is not None):
                     aa.update()
                 md.data_changed = True
 
@@ -113,8 +120,8 @@ class MlabSource(HasTraits):
     # Non-public interface.
     ######################################################################
     def _m_data_changed(self, ds):
-        if not hasattr(ds, 'mlab_source'):
-            ds.add_trait('mlab_source', Instance(MlabSource))
+        if not hasattr(ds, "mlab_source"):
+            ds.add_trait("mlab_source", Instance(MlabSource))
         ds.mlab_source = self
 
 
@@ -148,7 +155,7 @@ class MGlyphSource(MlabSource):
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
         # First convert numbers to arrays.
-        for name in ('x', 'y', 'z', 'u', 'v', 'w', 'scalars'):
+        for name in ("x", "y", "z", "u", "v", "w", "scalars"):
             if name in traits and traits[name] is not None:
                 traits[name] = np.atleast_1d(traits[name])
 
@@ -164,7 +171,7 @@ class MGlyphSource(MlabSource):
         y = np.atleast_1d(y)
         z = np.atleast_1d(z)
 
-        if 'points' in traits:
+        if "points" in traits:
             x = points[:, 0].ravel()
             y = points[:, 1].ravel()
             z = points[:, 2].ravel()
@@ -181,12 +188,11 @@ class MGlyphSource(MlabSource):
             v = np.atleast_1d(v)
             w = np.atleast_1d(w)
             if len(u) > 0:
-                vectors = np.c_[u.ravel(), v.ravel(),
-                                w.ravel()].ravel()
+                vectors = np.c_[u.ravel(), v.ravel(), w.ravel()].ravel()
                 vectors.shape = (-1, 3)
                 self.trait_set(vectors=vectors, trait_change_notify=False)
 
-        if 'vectors' in traits:
+        if "vectors" in traits:
             u = vectors[:, 0].ravel()
             v = vectors[:, 1].ravel()
             w = vectors[:, 2].ravel()
@@ -194,8 +200,7 @@ class MGlyphSource(MlabSource):
 
         else:
             if u is not None and len(u) > 0:
-                vectors = np.c_[u.ravel(), v.ravel(),
-                                w.ravel()].ravel()
+                vectors = np.c_[u.ravel(), v.ravel(), w.ravel()].ravel()
                 vectors.shape = (-1, 3)
                 self.trait_set(vectors=vectors, trait_change_notify=False)
 
@@ -207,7 +212,7 @@ class MGlyphSource(MlabSource):
                 assert len(points) == len(scalars.ravel())
 
         # Create the dataset.
-        polys = np.arange(0, len(points), 1, 'l')
+        polys = np.arange(0, len(points), 1, "l")
         polys = np.reshape(polys, (len(points), 1))
         new_dataset = False
         if self.dataset is None:
@@ -224,10 +229,10 @@ class MGlyphSource(MlabSource):
 
         if self.vectors is not None:
             pd.point_data.vectors = self.vectors
-            pd.point_data.vectors.name = 'vectors'
+            pd.point_data.vectors.name = "vectors"
         if self.scalars is not None:
             pd.point_data.scalars = self.scalars.ravel()
-            pd.point_data.scalars.name = 'scalars'
+            pd.point_data.scalars.name = "scalars"
 
         self.dataset = pd
         if not new_dataset:
@@ -274,16 +279,16 @@ class MGlyphSource(MlabSource):
     def _scalars_changed(self, s):
         if s is None:
             self.dataset.point_data.scalars = None
-            self.dataset.point_data.remove_array('scalars')
+            self.dataset.point_data.remove_array("scalars")
         else:
             s = np.atleast_1d(s)
             self.dataset.point_data.scalars = s.ravel()
-            self.dataset.point_data.scalars.name = 'scalars'
+            self.dataset.point_data.scalars.name = "scalars"
         self.update()
 
     def _vectors_changed(self, v):
         self.dataset.point_data.vectors = v
-        self.dataset.point_data.vectors.name = 'vectors'
+        self.dataset.point_data.vectors.name = "vectors"
         self.update()
 
 
@@ -300,19 +305,17 @@ class MVerticalGlyphSource(MGlyphSource):
 
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
-        if 'scalars' in traits:
-            s = traits['scalars']
+        if "scalars" in traits:
+            s = traits["scalars"]
             if s is not None:
-                traits['u'] = traits['v'] = np.ones_like(s),
-                traits['w'] = s
+                traits["u"] = traits["v"] = (np.ones_like(s),)
+                traits["w"] = s
         super(MVerticalGlyphSource, self).reset(**traits)
 
     def _scalars_changed(self, s):
         self.dataset.point_data.scalars = s
-        self.dataset.point_data.scalars.name = 'scalars'
-        self.trait_set(vectors=np.c_[np.ones_like(s),
-                               np.ones_like(s),
-                               s])
+        self.dataset.point_data.scalars.name = "scalars"
+        self.trait_set(vectors=np.c_[np.ones_like(s), np.ones_like(s), s])
         self.update()
 
 
@@ -354,7 +357,7 @@ class MArraySource(MlabSource):
         x, y, z = [np.atleast_3d(a) for a in (self.x, self.y, self.z)]
 
         u, v, w = self.u, self.v, self.w
-        if 'vectors' in traits:
+        if "vectors" in traits:
             u = vectors[:, 0].ravel()
             v = vectors[:, 1].ravel()
             w = vectors[:, 2].ravel()
@@ -362,12 +365,11 @@ class MArraySource(MlabSource):
 
         else:
             if u is not None and len(u) > 0:
-                #vectors = np.concatenate([u[..., np.newaxis],
+                # vectors = np.concatenate([u[..., np.newaxis],
                 #                             v[..., np.newaxis],
                 #                             w[..., np.newaxis] ],
                 #                axis=3)
-                vectors = np.c_[u.ravel(), v.ravel(),
-                                   w.ravel()].ravel()
+                vectors = np.c_[u.ravel(), v.ravel(), w.ravel()].ravel()
                 vectors.shape = (u.shape[0], u.shape[1], w.shape[2], 3)
                 self.trait_set(vectors=vectors, trait_change_notify=False)
 
@@ -392,10 +394,12 @@ class MArraySource(MlabSource):
         else:
             ds = self.m_data
         old_scalar = ds.scalar_data
-        ds.trait_set(vector_data=vectors,
-               origin=[x.min(), y.min(), z.min()],
-               spacing=[dx, dy, dz],
-               scalar_data=scalars)
+        ds.trait_set(
+            vector_data=vectors,
+            origin=[x.min(), y.min(), z.min()],
+            spacing=[dx, dy, dz],
+            scalar_data=scalars,
+        )
         if scalars is old_scalar:
             ds._scalar_data_changed(scalars)
 
@@ -405,7 +409,7 @@ class MArraySource(MlabSource):
     ######################################################################
     # Non-public interface.
     ######################################################################
-    @on_trait_change('[x, y, z]')
+    @on_trait_change("[x, y, z]")
     def _xyz_changed(self):
         x, y, z = self.x, self.y, self.z
         dx = x[1, 0, 0] - x[0, 0, 0]
@@ -472,7 +476,7 @@ class MLineSource(MlabSource):
         scalars = self.scalars
         x, y, z = self.x, self.y, self.z
 
-        if 'points' in traits:
+        if "points" in traits:
             x = points[:, 0].ravel()
             y = points[:, 1].ravel()
             z = points[:, 2].ravel()
@@ -485,9 +489,9 @@ class MLineSource(MlabSource):
 
         # Create the dataset.
         n_pts = len(points) - 1
-        lines = np.zeros((n_pts, 2), 'l')
-        lines[:, 0] = np.arange(0, n_pts - 0.5, 1, 'l')
-        lines[:, 1] = np.arange(1, n_pts + 0.5, 1, 'l')
+        lines = np.zeros((n_pts, 2), "l")
+        lines[:, 0] = np.arange(0, n_pts - 0.5, 1, "l")
+        lines[:, 1] = np.arange(1, n_pts + 0.5, 1, "l")
         new_dataset = False
         if self.dataset is None:
             pd = tvtk.PolyData()
@@ -504,7 +508,7 @@ class MLineSource(MlabSource):
         if scalars is not None and len(scalars) > 0:
             assert len(x) == len(scalars)
             pd.point_data.scalars = np.ravel(scalars)
-            pd.point_data.scalars.name = 'scalars'
+            pd.point_data.scalars.name = "scalars"
 
         self.dataset = pd
         if not new_dataset:
@@ -531,7 +535,7 @@ class MLineSource(MlabSource):
 
     def _scalars_changed(self, s):
         self.dataset.point_data.scalars = s.ravel()
-        self.dataset.point_data.scalars.name = 'scalars'
+        self.dataset.point_data.scalars.name = "scalars"
         self.update()
 
 
@@ -572,14 +576,14 @@ class MArray2DSource(MlabSource):
         # which case we set them from the shape of scalars.
         nx, ny = scalars.shape
 
-        #Build X and Y from shape of Scalars if they are none
+        # Build X and Y from shape of Scalars if they are none
         if x is None and y is None:
-            x, y = np.mgrid[-nx / 2.:nx / 2, -ny / 2.:ny / 2]
+            x, y = np.mgrid[-nx / 2.0 : nx / 2, -ny / 2.0 : ny / 2]
 
         if mask is not None and len(mask) > 0:
-            scalars[mask.astype('bool')] = np.nan
+            scalars[mask.astype("bool")] = np.nan
             # The NaN trick only works with floats.
-            scalars = scalars.astype('float')
+            scalars = scalars.astype("float")
             self.trait_set(scalars=scalars, trait_change_notify=False)
 
         z = np.array([0])
@@ -604,9 +608,9 @@ class MArray2DSource(MlabSource):
         else:
             ds = self.m_data
         old_scalar = ds.scalar_data
-        ds.trait_set(origin=[x.min(), y.min(), 0],
-               spacing=[dx, dy, 1],
-               scalar_data=scalars)
+        ds.trait_set(
+            origin=[x.min(), y.min(), 0], spacing=[dx, dy, 1], scalar_data=scalars
+        )
         if old_scalar is scalars:
             ds._scalar_data_changed(scalars)
 
@@ -616,14 +620,14 @@ class MArray2DSource(MlabSource):
     #####################################################################
     # Non-public interface.
     #####################################################################
-    @on_trait_change('[x, y]')
+    @on_trait_change("[x, y]")
     def _xy_changed(self):
         x, y, scalars = self.x, self.y, self.scalars
 
         nx, ny = scalars.shape
 
         if x is None or y is None:
-            x, y = np.mgrid[-nx / 2.:nx / 2, -ny / 2.:ny / 2]
+            x, y = np.mgrid[-nx / 2.0 : nx / 2, -ny / 2.0 : ny / 2]
 
         self.trait_setq(x=x, y=y)
         x = np.atleast_2d(x.squeeze().T)[0, :].squeeze()
@@ -640,9 +644,9 @@ class MArray2DSource(MlabSource):
     def _scalars_changed(self, s):
         mask = self.mask
         if mask is not None and len(mask) > 0:
-            s[mask.astype('bool')] = np.nan
+            s[mask.astype("bool")] = np.nan
             # The NaN tric only works with floats.
-            s = s.astype('float')
+            s = s.astype("float")
             self.trait_set(scalars=s, trait_change_notify=False)
         old = self.m_data.scalar_data
         self.m_data.scalar_data = s
@@ -686,9 +690,9 @@ class MGridSource(MlabSource):
         x, y, z, mask = self.x, self.y, self.z, self.mask
 
         if mask is not None and len(mask) > 0:
-            scalars[mask.astype('bool')] = np.nan
+            scalars[mask.astype("bool")] = np.nan
             # The NaN trick only works with floats.
-            scalars = scalars.astype('float')
+            scalars = scalars.astype("float")
             self.trait_set(scalars=scalars, trait_change_notify=False)
 
         assert len(x.shape) == 2, "Array x must be 2 dimensional."
@@ -706,12 +710,12 @@ class MGridSource(MlabSource):
         points.shape = (nx * ny, 3)
         self.trait_set(points=points, trait_change_notify=False)
 
-        i, j = np.mgrid[0:nx - 1, 0:ny - 1]
+        i, j = np.mgrid[0 : nx - 1, 0 : ny - 1]
         i, j = np.ravel(i), np.ravel(j)
         t1 = i * ny + j, (i + 1) * ny + j, (i + 1) * ny + (j + 1)
         t2 = (i + 1) * ny + (j + 1), i * ny + (j + 1), i * ny + j
         nt = len(t1[0])
-        triangles = np.zeros((nt * 2, 3), 'l')
+        triangles = np.zeros((nt * 2, 3), "l")
         triangles[0:nt, 0], triangles[0:nt, 1], triangles[0:nt, 2] = t1
         triangles[nt:, 0], triangles[nt:, 1], triangles[nt:, 2] = t2
 
@@ -731,7 +735,7 @@ class MGridSource(MlabSource):
                 self.trait_set(scalars=scalars, trait_change_notify=False)
             assert x.shape == scalars.shape
             pd.point_data.scalars = scalars.ravel()
-            pd.point_data.scalars.name = 'scalars'
+            pd.point_data.scalars.name = "scalars"
 
         self.dataset = pd
         if not new_dataset:
@@ -762,13 +766,13 @@ class MGridSource(MlabSource):
     def _scalars_changed(self, s):
         mask = self.mask
         if mask is not None and len(mask) > 0:
-            s[mask.astype('bool')] = np.nan
+            s[mask.astype("bool")] = np.nan
             # The NaN tric only works with floats.
-            s = s.astype('float')
+            s = s.astype("float")
             self.trait_set(scalars=s, trait_change_notify=False)
 
         self.dataset.point_data.scalars = s.ravel()
-        self.dataset.point_data.scalars.name = 'scalars'
+        self.dataset.point_data.scalars.name = "scalars"
         self.update()
 
 
@@ -810,12 +814,13 @@ class MTriangularMeshSource(MlabSource):
         self.trait_set(points=points, trait_change_notify=False)
 
         triangles = self.triangles
-        assert triangles.shape[1] == 3, \
-            "The shape of the triangles array must be (X, 3)"
-        assert triangles.max() < len(points), \
-            "The triangles indices must be smaller that the number of points"
-        assert triangles.min() >= 0, \
-            "The triangles indices must be positive or null"
+        assert (
+            triangles.shape[1] == 3
+        ), "The shape of the triangles array must be (X, 3)"
+        assert triangles.max() < len(
+            points
+        ), "The triangles indices must be smaller that the number of points"
+        assert triangles.min() >= 0, "The triangles indices must be positive or null"
 
         new_dataset = False
         if self.dataset is None:
@@ -832,8 +837,7 @@ class MTriangularMeshSource(MlabSource):
         pd.trait_set(points=points)
         pd.trait_set(polys=triangles)
 
-        if ('scalars' not in traits and scalars is not None
-           and scalars.shape != x.shape):
+        if "scalars" not in traits and scalars is not None and scalars.shape != x.shape:
             # The scalars where set probably automatically to z, by the
             # factory. We need to reset them, as the size has changed.
             scalars = z
@@ -844,7 +848,7 @@ class MTriangularMeshSource(MlabSource):
                 self.trait_set(scalars=scalars, trait_change_notify=False)
             assert x.shape == scalars.shape
             pd.point_data.scalars = scalars.ravel()
-            pd.point_data.scalars.name = 'scalars'
+            pd.point_data.scalars.name = "scalars"
 
         self.dataset = pd
         if not new_dataset:
@@ -874,15 +878,16 @@ class MTriangularMeshSource(MlabSource):
 
     def _scalars_changed(self, s):
         self.dataset.point_data.scalars = s.ravel()
-        self.dataset.point_data.scalars.name = 'scalars'
+        self.dataset.point_data.scalars.name = "scalars"
         self.update()
 
     def _triangles_changed(self, triangles):
         if triangles.min() < 0:
-            raise ValueError('The triangles array has negative values')
+            raise ValueError("The triangles array has negative values")
         if triangles.max() > self.x.size:
-            raise ValueError('The triangles array has values larger than' \
-                                        'the number of points')
+            raise ValueError(
+                "The triangles array has values larger than" "the number of points"
+            )
         self.dataset.polys = triangles
         self.update()
 
@@ -891,6 +896,7 @@ class MTriangularMeshSource(MlabSource):
 # Argument processing
 ############################################################################
 
+
 def convert_to_arrays(args):
     """ Converts a list of iterables to a list of arrays or callables,
         if needed.
@@ -898,13 +904,15 @@ def convert_to_arrays(args):
     args = list(args)
     for index, arg in enumerate(args):
         if not callable(arg):
-            if not hasattr(arg, 'shape'):
+            if not hasattr(arg, "shape"):
                 arg = np.array(arg)
             arg = np.atleast_1d(arg)
             if np.any(np.isinf(arg)):
-                raise ValueError("""Input array contains infinite values
+                raise ValueError(
+                    """Input array contains infinite values
                 You can remove them using: a[np.isinf(a)] = np.nan
-                """)
+                """
+                )
             args[index] = arg
     return args
 
@@ -921,17 +929,20 @@ def process_regular_vectors(*args):
     elif len(args) == 4:
         x, y, z, f = args
         if not callable(f):
-            raise ValueError("When 4 arguments are provided, the fourth must "
-                             "be a callable")
+            raise ValueError(
+                "When 4 arguments are provided, the fourth must " "be a callable"
+            )
         u, v, w = f(x, y, z)
     else:
         raise ValueError("wrong number of arguments")
 
-    assert (x.shape == y.shape and
-            y.shape == z.shape and
-            u.shape == z.shape and
-            v.shape == u.shape and
-            w.shape == v.shape), "argument shape are not equal"
+    assert (
+        x.shape == y.shape
+        and y.shape == z.shape
+        and u.shape == z.shape
+        and v.shape == u.shape
+        and w.shape == v.shape
+    ), "argument shape are not equal"
 
     return x, y, z, u, v, w
 
@@ -953,10 +964,9 @@ def process_regular_scalars(*args):
     else:
         raise ValueError("wrong number of arguments")
 
-    assert (x.shape == y.shape and
-            y.shape == z.shape and
-            (s is None
-               or s.shape == z.shape)), "argument shape are not equal"
+    assert (
+        x.shape == y.shape and y.shape == z.shape and (s is None or s.shape == z.shape)
+    ), "argument shape are not equal"
 
     return x, y, z, s
 
@@ -979,11 +989,11 @@ def process_regular_2d_scalars(*args, **kwargs):
         raise ValueError("wrong number of arguments")
     assert len(s.shape) == 2, "2D array required"
 
-    if 'mask' in kwargs:
-        mask = kwargs['mask']
-        s[mask.astype('bool')] = np.nan
+    if "mask" in kwargs:
+        mask = kwargs["mask"]
+        s[mask.astype("bool")] = np.nan
         # The NaN tric only works with floats.
-        s = s.astype('float')
+        s = s.astype("float")
 
     return x, y, s
 
@@ -991,6 +1001,7 @@ def process_regular_2d_scalars(*args, **kwargs):
 ############################################################################
 # Sources
 ############################################################################
+
 
 def vector_scatter(*args, **kwargs):
     """ Creates scattered vector data.
@@ -1022,10 +1033,10 @@ def vector_scatter(*args, **kwargs):
                  visualization."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
-    scalars = kwargs.pop('scalars', None)
+    scalars = kwargs.pop("scalars", None)
     if scalars is not None:
         scalars = np.ravel(scalars)
-    name = kwargs.pop('name', 'VectorScatter')
+    name = kwargs.pop("name", "VectorScatter")
 
     data_source = MGlyphSource()
     data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars)
@@ -1071,15 +1082,14 @@ def vector_field(*args, **kwargs):
         x = y = z = np.atleast_3d(1)
         u, v, w = [np.atleast_3d(a) for a in args]
     else:
-        x, y, z, u, v, w = [np.atleast_3d(a)
-                        for a in process_regular_vectors(*args)]
+        x, y, z, u, v, w = [np.atleast_3d(a) for a in process_regular_vectors(*args)]
 
-    scalars = kwargs.pop('scalars', None)
+    scalars = kwargs.pop("scalars", None)
     if scalars is not None:
         scalars = np.atleast_3d(scalars)
     data_source = MArraySource()
     data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars)
-    name = kwargs.pop('name', 'VectorField')
+    name = kwargs.pop("name", "VectorField")
     return tools.add_dataset(data_source.m_data, name, **kwargs)
 
 
@@ -1119,7 +1129,7 @@ def scalar_scatter(*args, **kwargs):
     data_source = MGlyphSource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
-    name = kwargs.pop('name', 'ScalarScatter')
+    name = kwargs.pop("name", "ScalarScatter")
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
@@ -1167,7 +1177,7 @@ def scalar_field(*args, **kwargs):
     data_source = MArraySource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
-    name = kwargs.pop('name', 'ScalarField')
+    name = kwargs.pop("name", "ScalarField")
     return tools.add_dataset(data_source.m_data, name, **kwargs)
 
 
@@ -1202,7 +1212,7 @@ def line_source(*args, **kwargs):
     data_source = MLineSource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
-    name = kwargs.pop('name', 'LineSource')
+    name = kwargs.pop("name", "LineSource")
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
@@ -1246,7 +1256,7 @@ def array2d_source(*args, **kwargs):
         :mask: Mask points specified in a boolean masking array.
     """
     data_source = MArray2DSource()
-    mask = kwargs.pop('mask', None)
+    mask = kwargs.pop("mask", None)
     if len(args) == 1:
         args = convert_to_arrays(args)
         s = np.atleast_2d(args[0])
@@ -1255,7 +1265,7 @@ def array2d_source(*args, **kwargs):
         x, y, s = process_regular_2d_scalars(*args, **kwargs)
         data_source.reset(x=x, y=y, scalars=s, mask=mask)
 
-    name = kwargs.pop('name', 'Array2DSource')
+    name = kwargs.pop("name", "Array2DSource")
     return tools.add_dataset(data_source.m_data, name, **kwargs)
 
 
@@ -1287,16 +1297,16 @@ def grid_source(x, y, z, **kwargs):
         :mask: Mask points specified in a boolean masking array.
 
         """
-    scalars = kwargs.pop('scalars', None)
+    scalars = kwargs.pop("scalars", None)
     if scalars is None:
         scalars = z
-    mask = kwargs.pop('mask', None)
+    mask = kwargs.pop("mask", None)
 
     x, y, z, scalars = convert_to_arrays((x, y, z, scalars))
     data_source = MGridSource()
     data_source.reset(x=x, y=y, z=z, scalars=scalars, mask=mask)
 
-    name = kwargs.pop('name', 'GridSource')
+    name = kwargs.pop("name", "GridSource")
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
@@ -1357,7 +1367,7 @@ def vertical_vectors_source(*args, **kwargs):
     data_source = MVerticalGlyphSource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
-    name = kwargs.pop('name', 'VerticalVectorsSource')
+    name = kwargs.pop("name", "VerticalVectorsSource")
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
@@ -1389,18 +1399,19 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
     x, y, z, triangles = convert_to_arrays((x, y, z, triangles))
 
     if triangles.min() < 0:
-        raise ValueError('The triangles array has negative values')
+        raise ValueError("The triangles array has negative values")
     if triangles.max() > x.size:
-        raise ValueError('The triangles array has values larger than' \
-                                    'the number of points')
-    scalars = kwargs.pop('scalars', None)
+        raise ValueError(
+            "The triangles array has values larger than" "the number of points"
+        )
+    scalars = kwargs.pop("scalars", None)
     if scalars is None:
         scalars = z
 
     data_source = MTriangularMeshSource()
     data_source.reset(x=x, y=y, z=z, triangles=triangles, scalars=scalars)
 
-    name = kwargs.pop('name', 'TriangularMeshSource')
+    name = kwargs.pop("name", "TriangularMeshSource")
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
@@ -1444,7 +1455,7 @@ def _make_functions(namespace):
     for src in registry.sources:
         if len(src.extensions) == 0:
             func_name = camel2enthought(src.id)
-            if func_name.endswith('_source'):
+            if func_name.endswith("_source"):
                 func_name = func_name[:-7]
             func = lambda metadata=src: _create_data_source(metadata)
             func.__doc__ = src.help
@@ -1452,5 +1463,6 @@ def _make_functions(namespace):
             # Inject function into the namespace and __all__.
             namespace[func_name] = func
             __all__.append(func_name)
+
 
 _make_functions(locals())

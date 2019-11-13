@@ -26,12 +26,12 @@ class Delaunay2D(FilterBase):
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.Delaunay2D, args=(), allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['structured_grid', 'poly_data',
-                                        'unstructured_grid'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["structured_grid", "poly_data", "unstructured_grid"],
+        attribute_types=["any"],
+        attributes=["any"],
+    )
 
-    output_info = PipelineInfo(datasets=['poly_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
-
+    output_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )

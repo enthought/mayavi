@@ -10,33 +10,34 @@ from os.path import join
 from mayavi import mlab
 
 ### Download the bunny data, if not already on disk ############################
-if not os.path.exists('bunny.tar.gz'):
+if not os.path.exists("bunny.tar.gz"):
     # Download the data
     try:
         from urllib import urlopen
     except ImportError:
         from urllib.request import urlopen
     print("Downloading bunny model, Please Wait (3MB)")
-    opener = urlopen(
-                'http://graphics.stanford.edu/pub/3Dscanrep/bunny.tar.gz')
-    open('bunny.tar.gz', 'wb').write(opener.read())
+    opener = urlopen("http://graphics.stanford.edu/pub/3Dscanrep/bunny.tar.gz")
+    open("bunny.tar.gz", "wb").write(opener.read())
 
 # Extract the data
 import tarfile
-bunny_tar_file = tarfile.open('bunny.tar.gz')
+
+bunny_tar_file = tarfile.open("bunny.tar.gz")
 try:
-    os.mkdir('bunny_data')
+    os.mkdir("bunny_data")
 except:
     pass
-bunny_tar_file.extractall('bunny_data')
+bunny_tar_file.extractall("bunny_data")
 bunny_tar_file.close()
 
 # Path to the bunny ply file
-bunny_ply_file = join('bunny_data', 'bunny', 'reconstruction', 'bun_zipper.ply')
+bunny_ply_file = join("bunny_data", "bunny", "reconstruction", "bun_zipper.ply")
 
 # Render the bunny ply file
 mlab.pipeline.surface(mlab.pipeline.open(bunny_ply_file))
 mlab.show()
 
 import shutil
-shutil.rmtree('bunny_data')
+
+shutil.rmtree("bunny_data")

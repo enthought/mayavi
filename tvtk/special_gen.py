@@ -20,6 +20,7 @@ from .common import get_tvtk_name
 # `SpecialGenerator` class.
 ######################################################################
 
+
 class SpecialGenerator:
     """Generates special code for some of the TVTK classes.
 
@@ -56,7 +57,7 @@ class SpecialGenerator:
 
         """
         tname = get_tvtk_name(name)
-        writer = '_write_%s'%tname
+        writer = "_write_%s" % tname
         if hasattr(self, writer):
             getattr(self, writer)(out)
 
@@ -458,9 +459,11 @@ class SpecialGenerator:
         """
         out.write(self.indent.format(code))
 
+
 ######################################################################
 # `HelperGenerator` class.
 ######################################################################
+
 
 class HelperGenerator:
     """Writes out the tvtk_helper.py file that makes it easy to use
@@ -481,7 +484,8 @@ class HelperGenerator:
         v = vtk.vtkVersion()
         vtk_version = v.GetVTKVersion()[:3]
         vtk_src_version = v.GetVTKSourceVersion()
-        code = """
+        code = (
+            """
         import vtk
         from tvtk import tvtk_base
         from tvtk.common import get_tvtk_name, camel2enthought
@@ -556,7 +560,9 @@ class HelperGenerator:
             to_tvtk = staticmethod(wrap_vtk)
             to_vtk = staticmethod(tvtk_base.deref_vtk)
 
-        """%locals()
+        """
+            % locals()
+        )
         out.write(indent.format(code))
         indent.incr()
 
@@ -564,7 +570,10 @@ class HelperGenerator:
         """Add a tvtk class with name, `name` as a property to the
         helper class output file-like object, `out`.
         """
-        code = """
+        code = (
+            """
         %(name)s = property(lambda self: get_class('%(name)s'))
-        """%locals()
+        """
+            % locals()
+        )
         out.write(self.indent.format(code))

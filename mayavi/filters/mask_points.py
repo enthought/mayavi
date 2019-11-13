@@ -28,13 +28,13 @@ class MaskPoints(FilterBase):
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.MaskPoints, args=(), allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['poly_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )
 
     ######################################################################
     # `Filter` interface.
@@ -44,8 +44,7 @@ class MaskPoints(FilterBase):
         # allocates memory for maximum_number_of_points which is impossibly
         # large,  so we set it to the number of points in the input
         # for safety.
-        self.filter.maximum_number_of_points = \
-            self._find_number_of_points_in_input()
+        self.filter.maximum_number_of_points = self._find_number_of_points_in_input()
         super(MaskPoints, self).update_pipeline()
 
     ######################################################################

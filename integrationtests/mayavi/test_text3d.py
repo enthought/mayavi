@@ -16,7 +16,6 @@ from common import TestCase
 
 
 class TestText3DUnitTest(unittest.TestCase):
-
     def setUp(self):
         # Make a temporary directory for saved figures
         self.temp_dir = tempfile.mkdtemp()
@@ -37,11 +36,11 @@ class TestText3DUnitTest(unittest.TestCase):
         # attaching the text3d module.  Opacity is set to
         # zero so that the image should only show
         # the text3d and we look for the pixels
-        mlab.points3d(0., 0., 0., opacity=0.)
+        mlab.points3d(0.0, 0.0, 0.0, opacity=0.0)
 
         self.addCleanup(self.mlab_close_all)
 
-        mlab.text3d(0., 0., 0., "X")
+        mlab.text3d(0.0, 0.0, 0.0, "X")
         mlab.savefig(self.filename)
 
         self.check()
@@ -57,13 +56,11 @@ class TestText3DUnitTest(unittest.TestCase):
 
 
 class TestText3D(TestCase):
-
     def test(self):
         self.main()
 
     def do(self):
-        suite = unittest.TestLoader().loadTestsFromTestCase(
-            TestText3DUnitTest)
+        suite = unittest.TestLoader().loadTestsFromTestCase(TestText3DUnitTest)
 
         result = unittest.TextTestRunner().run(suite)
 

@@ -14,31 +14,30 @@ importing.
 
 from traitsui.api import Item, Group, View
 
-view = View(Group(Item(name='filled_contours',
-                       defined_when='show_filled_contours'),
-                  Item(name='auto_contours'),
-
-                  # One group or the other, but not both.
-                  Group(
-                       Item(name='contours',
-                            style='custom',
-                            visible_when='not auto_contours',
-                            show_label=False),
-                  ),
-                  Group(
-                      Item(name='number_of_contours'),
-                      Item(name='minimum_contour'),
-                      Item(name='maximum_contour'),
-                      visible_when='auto_contours',
-                  ),
-
-                  Item(name='auto_update_range'),
-                  Group(
-                        Item(name='_data_min',
-                             label='Data minimum'),
-                        Item(name='_data_max',
-                             label='Data maximum'),
-                             visible_when='not auto_update_range',
-                  )
-               )
-           )
+view = View(
+    Group(
+        Item(name="filled_contours", defined_when="show_filled_contours"),
+        Item(name="auto_contours"),
+        # One group or the other, but not both.
+        Group(
+            Item(
+                name="contours",
+                style="custom",
+                visible_when="not auto_contours",
+                show_label=False,
+            ),
+        ),
+        Group(
+            Item(name="number_of_contours"),
+            Item(name="minimum_contour"),
+            Item(name="maximum_contour"),
+            visible_when="auto_contours",
+        ),
+        Item(name="auto_update_range"),
+        Group(
+            Item(name="_data_min", label="Data minimum"),
+            Item(name="_data_max", label="Data maximum"),
+            visible_when="not auto_update_range",
+        ),
+    )
+)

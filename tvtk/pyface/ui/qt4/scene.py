@@ -1,4 +1,4 @@
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
 #
@@ -10,7 +10,7 @@
 #
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 """A VTK interactor scene widget for the PyFace PyQt backend.  See the class
 docs for more details.
@@ -46,6 +46,7 @@ from .QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
     """ This is a thin wrapper around the standard VTK PyQt interactor.
     """
+
     def __init__(self, scene, parent, **kwargs):
         QVTKRenderWindowInteractor.__init__(self, parent, **kwargs)
 
@@ -75,10 +76,10 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             renwin = scene._renwin
             renwin.update_traits()
             vtk_rw = tvtk.to_vtk(renwin)
-            renwin.add_observer('StartEvent', messenger.send)
-            messenger.connect(vtk_rw, 'StartEvent', self._start_event_callback)
-            renwin.add_observer('EndEvent', messenger.send)
-            messenger.connect(vtk_rw, 'EndEvent', self._end_event_callback)
+            renwin.add_observer("StartEvent", messenger.send)
+            messenger.connect(vtk_rw, "StartEvent", self._start_event_callback)
+            renwin.add_observer("EndEvent", messenger.send)
+            messenger.connect(vtk_rw, "EndEvent", self._end_event_callback)
 
     def keyPressEvent(self, e):
         """ This method is overridden to prevent the 's'/'w'/'e'/'q' keys from
@@ -94,13 +95,13 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         if key in [QtCore.Qt.Key_Minus]:
             camera.zoom(0.8)
             scene.render()
-            scene._record_methods('camera.zoom(0.8)\nrender()')
+            scene._record_methods("camera.zoom(0.8)\nrender()")
             return
 
         if key in [QtCore.Qt.Key_Equal, QtCore.Qt.Key_Plus]:
             camera.zoom(1.25)
             scene.render()
-            scene._record_methods('camera.zoom(1.25)\nrender()')
+            scene._record_methods("camera.zoom(1.25)\nrender()")
             return
 
         if key in [QtCore.Qt.Key_E, QtCore.Qt.Key_Q, QtCore.Qt.Key_Escape]:
@@ -111,27 +112,28 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             return
 
         if key in [QtCore.Qt.Key_R]:
-            scene._record_methods('reset_zoom()')
+            scene._record_methods("reset_zoom()")
             return
 
         if key in [QtCore.Qt.Key_P] and modifiers == QtCore.Qt.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            scene.picker.pick(x*self._pixel_ratio, y*self._pixel_ratio)
+            scene.picker.pick(x * self._pixel_ratio, y * self._pixel_ratio)
             return
 
         if key in [QtCore.Qt.Key_F] and modifiers == QtCore.Qt.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            data = scene.picker.pick_world(x*self._pixel_ratio, y*self._pixel_ratio)
+            data = scene.picker.pick_world(x * self._pixel_ratio, y * self._pixel_ratio)
             coord = data.coordinate
             if coord is not None:
                 camera.focal_point = coord
                 scene.render()
-                scene._record_methods('camera.focal_point = %r\n'\
-                                      'render()'%list(coord))
+                scene._record_methods(
+                    "camera.focal_point = %r\n" "render()" % list(coord)
+                )
             return
 
         if key in [QtCore.Qt.Key_L] and modifiers == QtCore.Qt.NoModifier:
@@ -144,56 +146,56 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
                 self._scene.save(fname)
             return
 
-        shift = ((modifiers & QtCore.Qt.ShiftModifier) == QtCore.Qt.ShiftModifier)
+        shift = (modifiers & QtCore.Qt.ShiftModifier) == QtCore.Qt.ShiftModifier
 
         if key == QtCore.Qt.Key_Left:
             if shift:
                 camera.yaw(-5)
-                scene._record_methods('camera.yaw(-5)')
+                scene._record_methods("camera.yaw(-5)")
             else:
                 camera.azimuth(5)
-                scene._record_methods('camera.azimuth(5)')
+                scene._record_methods("camera.azimuth(5)")
 
             scene.render()
-            scene._record_methods('render()')
+            scene._record_methods("render()")
             return
 
         if key == QtCore.Qt.Key_Right:
             if shift:
                 camera.yaw(5)
-                scene._record_methods('camera.yaw(5)')
+                scene._record_methods("camera.yaw(5)")
             else:
                 camera.azimuth(-5)
-                scene._record_methods('camera.azimuth(-5)')
+                scene._record_methods("camera.azimuth(-5)")
 
             scene.render()
-            scene._record_methods('render()')
+            scene._record_methods("render()")
             return
 
         if key == QtCore.Qt.Key_Up:
             if shift:
                 camera.pitch(-5)
-                scene._record_methods('camera.pitch(-5)')
+                scene._record_methods("camera.pitch(-5)")
             else:
                 camera.elevation(-5)
-                scene._record_methods('camera.elevation(-5)')
+                scene._record_methods("camera.elevation(-5)")
 
             camera.orthogonalize_view_up()
             scene.render()
-            scene._record_methods('camera.orthogonalize_view_up()\nrender()')
+            scene._record_methods("camera.orthogonalize_view_up()\nrender()")
             return
 
         if key == QtCore.Qt.Key_Down:
             if shift:
                 camera.pitch(5)
-                scene._record_methods('camera.pitch(5)')
+                scene._record_methods("camera.pitch(5)")
             else:
                 camera.elevation(5)
-                scene._record_methods('camera.elevation(5)')
+                scene._record_methods("camera.elevation(5)")
 
             camera.orthogonalize_view_up()
             scene.render()
-            scene._record_methods('camera.orthogonalize_view_up()\nrender()')
+            scene._record_methods("camera.orthogonalize_view_up()\nrender()")
             return
 
         QVTKRenderWindowInteractor.keyPressEvent(self, e)
@@ -219,7 +221,6 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             return
         else:
             self._scene.busy = False
-
 
 
 ######################################################################
@@ -259,7 +260,7 @@ class Scene(TVTKScene, Widget):
     ###########################################################################
 
     # Turn on full-screen rendering.
-    full_screen = Button('Full Screen')
+    full_screen = Button("Full Screen")
 
     # The picker handles pick events.
     picker = Instance(picker.Picker)
@@ -267,44 +268,47 @@ class Scene(TVTKScene, Widget):
     ########################################
 
     # Render_window's view.
-    _stereo_view = Group(Item(name='stereo_render'),
-                         Item(name='stereo_type'),
-                         show_border=True,
-                         label='Stereo rendering',
-                         )
+    _stereo_view = Group(
+        Item(name="stereo_render"),
+        Item(name="stereo_type"),
+        show_border=True,
+        label="Stereo rendering",
+    )
 
     # The default view of this object.
-    default_view = View(Group(
-                            Group(Item(name='background'),
-                                  Item(name='foreground'),
-                                  Item(name='parallel_projection'),
-                                  Item(name='disable_render'),
-                                  Item(name='off_screen_rendering'),
-                                  Item(name='jpeg_quality'),
-                                  Item(name='jpeg_progressive'),
-                                  Item(name='magnification'),
-                                  Item(name='anti_aliasing_frames'),
-                                  Item(name='full_screen',
-                                       show_label=False),
-                                  ),
-                            Group(Item(name='render_window',
-                                       style='custom',
-                                       visible_when='object.stereo',
-                                       editor=InstanceEditor(view=View(_stereo_view)),
-                                       show_label=False),
-                                  ),
-                            label='Scene'),
-                         Group( Item(name='light_manager',
-                                style='custom', show_label=False),
-                                label='Lights'),
-                         Group(
-                             Item(
-                                 name='movie_maker',
-                                 style='custom', show_label=False
-                             ),
-                             label='Movie'),
-                         buttons=['OK', 'Cancel']
-                        )
+    default_view = View(
+        Group(
+            Group(
+                Item(name="background"),
+                Item(name="foreground"),
+                Item(name="parallel_projection"),
+                Item(name="disable_render"),
+                Item(name="off_screen_rendering"),
+                Item(name="jpeg_quality"),
+                Item(name="jpeg_progressive"),
+                Item(name="magnification"),
+                Item(name="anti_aliasing_frames"),
+                Item(name="full_screen", show_label=False),
+            ),
+            Group(
+                Item(
+                    name="render_window",
+                    style="custom",
+                    visible_when="object.stereo",
+                    editor=InstanceEditor(view=View(_stereo_view)),
+                    show_label=False,
+                ),
+            ),
+            label="Scene",
+        ),
+        Group(
+            Item(name="light_manager", style="custom", show_label=False), label="Lights"
+        ),
+        Group(
+            Item(name="movie_maker", style="custom", show_label=False), label="Movie"
+        ),
+        buttons=["OK", "Cancel"],
+    )
 
     ########################################
     # Private traits.
@@ -334,7 +338,7 @@ class Scene(TVTKScene, Widget):
         # The control attribute is not picklable since it is a VTK
         # object so we remove it.
         d = super(Scene, self).__get_pure_state__()
-        for x in ['_vtk_control', '_fullscreen', '_cursor']:
+        for x in ["_vtk_control", "_fullscreen", "_cursor"]:
             d.pop(x, None)
         return d
 
@@ -394,16 +398,19 @@ class Scene(TVTKScene, Widget):
 
         # Create the VTK widget.
         self._vtk_control = window = _VTKRenderWindowInteractor(
-            self, parent, stereo=self.stereo)
+            self, parent, stereo=self.stereo
+        )
 
         # Switch the default interaction style to the trackball one.
         window.GetInteractorStyle().SetCurrentStyleToTrackballCamera()
 
         # Grab the renderwindow.
         renwin = self._renwin = tvtk.to_tvtk(window.GetRenderWindow())
-        renwin.trait_set(point_smoothing=self.point_smoothing,
-                   line_smoothing=self.line_smoothing,
-                   polygon_smoothing=self.polygon_smoothing)
+        renwin.trait_set(
+            point_smoothing=self.point_smoothing,
+            line_smoothing=self.line_smoothing,
+            polygon_smoothing=self.polygon_smoothing,
+        )
         # Create a renderer and add it to the renderwindow
         self._renderer = tvtk.Renderer()
         renwin.add_renderer(self._renderer)
@@ -413,16 +420,16 @@ class Scene(TVTKScene, Widget):
 
         # Sync various traits.
         self._renderer.background = self.background
-        self.sync_trait('background', self._renderer)
-        self.renderer.on_trait_change(self.render, 'background')
+        self.sync_trait("background", self._renderer)
+        self.renderer.on_trait_change(self.render, "background")
         renwin.off_screen_rendering = self.off_screen_rendering
         self._camera.parallel_projection = self.parallel_projection
-        self.sync_trait('parallel_projection', self._camera)
-        self.sync_trait('off_screen_rendering', self._renwin)
-        self.render_window.on_trait_change(self.render, 'off_screen_rendering')
-        self.render_window.on_trait_change(self.render, 'stereo_render')
-        self.render_window.on_trait_change(self.render, 'stereo_type')
-        self.camera.on_trait_change(self.render, 'parallel_projection')
+        self.sync_trait("parallel_projection", self._camera)
+        self.sync_trait("off_screen_rendering", self._renwin)
+        self.render_window.on_trait_change(self.render, "off_screen_rendering")
+        self.render_window.on_trait_change(self.render, "stereo_render")
+        self.render_window.on_trait_change(self.render, "stereo_type")
+        self.camera.on_trait_change(self.render, "parallel_projection")
 
         self._interactor = tvtk.to_tvtk(window._Iren)
 

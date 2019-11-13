@@ -6,8 +6,7 @@ handle transformation.
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
 
 # Enthought library imports.
-from traits.api import (Instance, List, Trait, Bool,
-                        TraitPrefixList, Property, Dict)
+from traits.api import Instance, List, Trait, Bool, TraitPrefixList, Property, Dict
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from tvtk.common import camel2enthought
@@ -32,17 +31,18 @@ class GlyphSource(Component):
     # only if you do not mess with the source glyph's basic size.  For
     # example if you use a ConeSource and set its height != 1, then the
     # 'head' and 'tail' options will not work correctly.
-    glyph_position = Trait('center', TraitPrefixList(['head', 'tail',
-                                                      'center']),
-                           desc='position of glyph w.r.t. data point')
+    glyph_position = Trait(
+        "center",
+        TraitPrefixList(["head", "tail", "center"]),
+        desc="position of glyph w.r.t. data point",
+    )
 
     # The Source to use for the glyph.  This is chosen from
     # `self._glyph_list` or `self.glyph_dict`.
     glyph_source = Instance(tvtk.Object, allow_none=False, record=True)
 
     # A dict of glyphs to use.
-    glyph_dict = Dict(desc='the glyph sources to select from',
-                      record=False)
+    glyph_dict = Dict(desc="the glyph sources to select from", record=False)
 
     # A list of predefined glyph sources that can be used.
     glyph_list = Property(List(tvtk.Object), record=False)
@@ -61,17 +61,19 @@ class GlyphSource(Component):
 
     view = View(
         Group(
-            Group(Item(name='glyph_position')),
+            Group(Item(name="glyph_position")),
             Group(
                 Item(
-                    name='glyph_source',
-                    style='custom',
+                    name="glyph_source",
+                    style="custom",
                     resizable=True,
-                    editor=InstanceEditor(name='glyph_list'),
+                    editor=InstanceEditor(name="glyph_list"),
                 ),
-                label='Glyph Source',
-                show_labels=False)),
-        resizable=True
+                label="Glyph Source",
+                show_labels=False,
+            ),
+        ),
+        resizable=True,
     )
 
     ######################################################################
@@ -79,15 +81,15 @@ class GlyphSource(Component):
     ######################################################################
     def __get_pure_state__(self):
         d = super(GlyphSource, self).__get_pure_state__()
-        for attr in ('_updating', 'glyph_list'):
+        for attr in ("_updating", "glyph_list"):
             d.pop(attr, None)
         return d
 
     def __set_pure_state__(self, state):
-        if 'glyph_dict' in state:
+        if "glyph_dict" in state:
             # Set their state.
-            set_state(self, state, first=['glyph_dict'], ignore=['*'])
-            ignore = ['glyph_dict']
+            set_state(self, state, first=["glyph_dict"], ignore=["*"])
+            ignore = ["glyph_dict"]
         else:
             # Set the dict state using the persisted list.
             gd = self.glyph_dict
@@ -99,8 +101,8 @@ class GlyphSource(Component):
                     gd[name] = g
                 # Set the glyph source's state.
                 set_state(g, gs)
-            ignore = ['glyph_list']
-        g_name = state.glyph_source.__metadata__['class_name']
+            ignore = ["glyph_list"]
+        g_name = state.glyph_source.__metadata__["class_name"]
         name = camel2enthought(g_name)
         # Set the correct glyph_source.
         self.glyph_source = self.glyph_dict[name]
@@ -124,7 +126,7 @@ class GlyphSource(Component):
 
         self._trfm.transform = tvtk.Transform()
         # Setup the glyphs.
-        self.glyph_source = self.glyph_dict['glyph_source2d']
+        self.glyph_source = self.glyph_dict["glyph_source2d"]
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -166,12 +168,12 @@ class GlyphSource(Component):
         recorder = self.recorder
         if recorder is not None:
             name = recorder.get_script_id(self)
-            lhs = '%s.glyph_source' % name
-            rhs = '%s.glyph_dict[%r]' % (name, value_cls)
-            recorder.record('%s = %s' % (lhs, rhs))
+            lhs = "%s.glyph_source" % name
+            rhs = "%s.glyph_dict[%r]" % (name, value_cls)
+            recorder.record("%s = %s" % (lhs, rhs))
 
         name = value.__class__.__name__
-        if name == 'GlyphSource2D':
+        if name == "GlyphSource2D":
             self.outputs = [value]
         else:
             self.configure_input(self._trfm, value)
@@ -194,42 +196,42 @@ class GlyphSource(Component):
         g = self.glyph_source
         name = g.__class__.__name__
         # Compute transformation factor
-        if name == 'CubeSource':
-            tr_factor = g.x_length/2.0
-        elif name == 'CylinderSource':
-            tr_factor = -g.height/2.0
-        elif name == 'ConeSource':
-            tr_factor = g.height/2.0
-        elif name == 'SphereSource':
+        if name == "CubeSource":
+            tr_factor = g.x_length / 2.0
+        elif name == "CylinderSource":
+            tr_factor = -g.height / 2.0
+        elif name == "ConeSource":
+            tr_factor = g.height / 2.0
+        elif name == "SphereSource":
             tr_factor = g.radius
         else:
-            tr_factor = 1.
+            tr_factor = 1.0
         # Translate the glyph
-        if value == 'tail':
-            if name == 'GlyphSource2D':
+        if value == "tail":
+            if name == "GlyphSource2D":
                 g.center = 0.5, 0.0, 0.0
-            elif name == 'ArrowSource':
+            elif name == "ArrowSource":
                 pass
-            elif name == 'CylinderSource':
+            elif name == "CylinderSource":
                 g.center = 0, tr_factor, 0.0
-            elif hasattr(g, 'center'):
+            elif hasattr(g, "center"):
                 g.center = tr_factor, 0.0, 0.0
-        elif value == 'head':
-            if name == 'GlyphSource2D':
+        elif value == "head":
+            if name == "GlyphSource2D":
                 g.center = -0.5, 0.0, 0.0
-            elif name == 'ArrowSource':
+            elif name == "ArrowSource":
                 tr.translate(-1, 0, 0)
-            elif name == 'CylinderSource':
+            elif name == "CylinderSource":
                 g.center = 0, -tr_factor, 0.0
             else:
                 g.center = -tr_factor, 0.0, 0.0
         else:
-            if name == 'ArrowSource':
+            if name == "ArrowSource":
                 tr.translate(-0.5, 0, 0)
-            elif name != 'Axes':
+            elif name != "Axes":
                 g.center = 0.0, 0.0, 0.0
 
-        if name == 'CylinderSource':
+        if name == "CylinderSource":
             tr.rotate_z(90)
 
         self._updating = False
@@ -238,9 +240,15 @@ class GlyphSource(Component):
     def _get_glyph_list(self):
         # Return the glyph list as per the original order in earlier
         # implementation.
-        order = ['glyph_source2d', 'arrow_source', 'cone_source',
-                 'cylinder_source', 'sphere_source', 'cube_source',
-                 'axes']
+        order = [
+            "glyph_source2d",
+            "arrow_source",
+            "cone_source",
+            "cylinder_source",
+            "sphere_source",
+            "cube_source",
+            "axes",
+        ]
         gd = self.glyph_dict
         for key in gd:
             if key not in order:
@@ -248,14 +256,15 @@ class GlyphSource(Component):
         return [gd[key] for key in order]
 
     def _glyph_dict_default(self):
-        g = {'glyph_source2d': tvtk.GlyphSource2D(glyph_type='arrow',
-                                                  filled=False),
-             'arrow_source': tvtk.ArrowSource(),
-             'cone_source': tvtk.ConeSource(height=1.0, radius=0.2,
-                                            resolution=15),
-             'cylinder_source': tvtk.CylinderSource(height=1.0, radius=0.15,
-                                                    resolution=10),
-             'sphere_source': tvtk.SphereSource(),
-             'cube_source': tvtk.CubeSource(),
-             'axes': tvtk.Axes(symmetric=1)}
+        g = {
+            "glyph_source2d": tvtk.GlyphSource2D(glyph_type="arrow", filled=False),
+            "arrow_source": tvtk.ArrowSource(),
+            "cone_source": tvtk.ConeSource(height=1.0, radius=0.2, resolution=15),
+            "cylinder_source": tvtk.CylinderSource(
+                height=1.0, radius=0.15, resolution=10
+            ),
+            "sphere_source": tvtk.SphereSource(),
+            "cube_source": tvtk.CubeSource(),
+            "axes": tvtk.Axes(symmetric=1),
+        }
         return g

@@ -28,8 +28,7 @@ class Module(PipelineBase):
     # always a child of a ModuleManager.  When the module is added to
     # the mayavi pipeline (as a child of the module manager), the
     # module manager automatically sets this trait.
-    module_manager = Instance('mayavi.core.module_manager.ModuleManager',
-                               record=False)
+    module_manager = Instance("mayavi.core.module_manager.ModuleManager", record=False)
 
     # The (optional) components used by this module.  NOTE: This is
     # not pickled.  It is the developers responsibility to setup the
@@ -37,16 +36,16 @@ class Module(PipelineBase):
     components = List(record=False)
 
     # The icon
-    icon = Str('module.ico')
+    icon = Str("module.ico")
 
     # The human-readable type for this object
-    type = Str(' module')
+    type = Str(" module")
 
     # Information about what this object can consume.
-    input_info = PipelineInfo(datasets=['any'])
+    input_info = PipelineInfo(datasets=["any"])
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['none'])
+    output_info = PipelineInfo(datasets=["none"])
 
     ######################################################################
     # `object` interface.
@@ -59,10 +58,9 @@ class Module(PipelineBase):
 
     def __get_pure_state__(self):
         d = super(Module, self).__get_pure_state__()
-        for x in ('module_manager', 'components'):
+        for x in ("module_manager", "components"):
             d.pop(x, None)
         return d
-
 
     ######################################################################
     # `Module` interface.
@@ -100,7 +98,6 @@ class Module(PipelineBase):
         # By default, just invoke render and set data_changed.
         self.data_changed = True
         self.render()
-
 
     ######################################################################
     # `Base` interface
@@ -196,19 +193,16 @@ class Module(PipelineBase):
     def _setup_event_handlers(self):
         mm = self.module_manager
         src = mm.source
-        mm.on_trait_change(self.update_pipeline, 'source')
-        src.on_trait_event(self.update_pipeline, 'pipeline_changed')
-        src.on_trait_event(self.update_data, 'data_changed')
+        mm.on_trait_change(self.update_pipeline, "source")
+        src.on_trait_event(self.update_pipeline, "pipeline_changed")
+        src.on_trait_event(self.update_data, "data_changed")
 
     def _teardown_event_handlers(self):
         mm = self.module_manager
         src = mm.source
-        mm.on_trait_change(self.update_pipeline, 'source',
-                           remove=True)
-        src.on_trait_event(self.update_pipeline, 'pipeline_changed',
-                           remove=True)
-        src.on_trait_event(self.update_data, 'data_changed',
-                           remove=True)
+        mm.on_trait_change(self.update_pipeline, "source", remove=True)
+        src.on_trait_event(self.update_pipeline, "pipeline_changed", remove=True)
+        src.on_trait_event(self.update_data, "data_changed", remove=True)
 
     def _scene_changed(self, old_scene, new_scene):
         for component in self.components:
@@ -232,12 +226,13 @@ class Module(PipelineBase):
             if self.running:
                 component.start()
 
-    def _visible_changed(self,value):
+    def _visible_changed(self, value):
         for c in self.components:
             c.visible = value
 
-        super(Module,self)._visible_changed(value)
+        super(Module, self)._visible_changed(value)
 
     def _menu_helper_default(self):
         from mayavi.core.traits_menu import ModuleMenuHelper
+
         return ModuleMenuHelper(object=self.module_manager)

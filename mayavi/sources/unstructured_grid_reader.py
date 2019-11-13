@@ -30,21 +30,22 @@ class UnstructuredGridReader(FileDataSource):
     reader = Instance(tvtk.Object, allow_none=False, record=True)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['unstructured_grid'])
+    output_info = PipelineInfo(datasets=["unstructured_grid"])
 
     ######################################################################
     # Private Traits
     _reader_dict = Dict(Str, Instance(tvtk.Object))
 
     # Our view.
-    view = View(Group(Include('time_step_group'),
-                      Item(name='base_file_name'),
-                      Item(name='reader',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False),
-                resizable=True)
-
+    view = View(
+        Group(
+            Include("time_step_group"),
+            Item(name="base_file_name"),
+            Item(name="reader", style="custom", resizable=True),
+            show_labels=False,
+        ),
+        resizable=True,
+    )
 
     ######################################################################
     # `object` interface
@@ -80,14 +81,14 @@ class UnstructuredGridReader(FileDataSource):
         if len(value) == 0:
             return
         # Extract the file extension
-        splitname = value.strip().split('.')
+        splitname = value.strip().split(".")
         extension = splitname[-1].lower()
         # Select UnstructuredGridreader based on file type
         old_reader = self.reader
         if extension in self._reader_dict:
             self.reader = self._reader_dict[extension]
         else:
-            error('Invalid file extension for file: %s'%value)
+            error("Invalid file extension for file: %s" % value)
             return
 
         old_fname = self.reader.file_name
@@ -95,9 +96,9 @@ class UnstructuredGridReader(FileDataSource):
         self.reader.update_information()
         if isinstance(self.reader, tvtk.ExodusIIReader):
             # Make sure the point fields are read during Update().
-            for k in range(self.reader.number_of_point_result_arrays ):
-                arr_name = self.reader.get_point_result_array_name( k )
-                self.reader.set_point_result_array_status( arr_name, 1 )
+            for k in range(self.reader.number_of_point_result_arrays):
+                arr_name = self.reader.get_point_result_array_name(k)
+                self.reader.set_point_result_array_status(arr_name, 1)
         self.reader.update()
 
         if old_reader is not None:
@@ -117,25 +118,27 @@ class UnstructuredGridReader(FileDataSource):
         this is not a property getter.
         """
         fname = basename(self.file_path.get())
-        ret = "%s"%fname
+        ret = "%s" % fname
         if len(self.file_list) > 1:
             ret += " (timeseries)"
-        if '[Hidden]' in self.name:
-            ret += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            ret += " [Hidden]"
 
         return ret
 
     def __reader_dict_default(self):
         """Default value for reader dict."""
         if is_old_pipeline():
-            rd = {'inp':tvtk.AVSucdReader(),
-                 'neu':tvtk.GAMBITReader(),
-                 'exii':tvtk.ExodusReader()
-                }
+            rd = {
+                "inp": tvtk.AVSucdReader(),
+                "neu": tvtk.GAMBITReader(),
+                "exii": tvtk.ExodusReader(),
+            }
         else:
-            rd = {'inp':tvtk.AVSucdReader(),
-                 'neu':tvtk.GAMBITReader(),
-                 'ex2':tvtk.ExodusIIReader()
-                }
+            rd = {
+                "inp": tvtk.AVSucdReader(),
+                "neu": tvtk.GAMBITReader(),
+                "ex2": tvtk.ExodusIIReader(),
+            }
 
         return rd

@@ -18,8 +18,8 @@ from mayavi.core.module import Module
 from mayavi.core.common import error
 from mayavi.core.pipeline_info import PipelineInfo
 
-if not hasattr(tvtk, 'OrientationMarkerWidget'):
-    msg = 'The OrientationAxes module requires VTK version >= 4.5'
+if not hasattr(tvtk, "OrientationMarkerWidget"):
+    msg = "The OrientationAxes module requires VTK version >= 4.5"
     error(msg)
     raise ImportError(msg)
 
@@ -39,9 +39,9 @@ class OrientationAxes(Module):
     # The property of the axes (color etc.).
     text_property = Property(record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     ########################################
     # Private traits.
@@ -50,46 +50,56 @@ class OrientationAxes(Module):
     ########################################
     # The view of this object.
 
-    _marker_group = Group(Item(name='enabled'),
-                          Item(name='interactive'),
-                          show_border=True,
-                          label='Widget')
-    _axes_group = Group(Item(name='axis_labels'),
-                        Item(name='visibility'),
-                        Item(name='x_axis_label_text'),
-                        Item(name='y_axis_label_text'),
-                        Item(name='z_axis_label_text'),
-                        Item(name='cone_radius'),
-                        Item(name='cone_resolution'),
-                        Item(name='cylinder_radius'),
-                        Item(name='cylinder_resolution'),
-                        Item(name='normalized_label_position'),
-                        Item(name='normalized_shaft_length'),
-                        Item(name='normalized_tip_length'),
-                        Item(name='total_length'),
-                        show_border=True,
-                        label='Axes')
+    _marker_group = Group(
+        Item(name="enabled"), Item(name="interactive"), show_border=True, label="Widget"
+    )
+    _axes_group = Group(
+        Item(name="axis_labels"),
+        Item(name="visibility"),
+        Item(name="x_axis_label_text"),
+        Item(name="y_axis_label_text"),
+        Item(name="z_axis_label_text"),
+        Item(name="cone_radius"),
+        Item(name="cone_resolution"),
+        Item(name="cylinder_radius"),
+        Item(name="cylinder_resolution"),
+        Item(name="normalized_label_position"),
+        Item(name="normalized_shaft_length"),
+        Item(name="normalized_tip_length"),
+        Item(name="total_length"),
+        show_border=True,
+        label="Axes",
+    )
 
-    view = View(Group(Item(name='marker', style='custom',
-                           editor=InstanceEditor(view=View(_marker_group))),
-                      Item(name='axes', style='custom',
-                           editor=InstanceEditor(view=View(_axes_group))),
-                      label='Widget/Axes',
-                      show_labels=False),
-                Group(Item(name='_text_property', style='custom',
-                           resizable=True),
-                      label='Text Property',
-                      show_labels=False),
-                )
+    view = View(
+        Group(
+            Item(
+                name="marker",
+                style="custom",
+                editor=InstanceEditor(view=View(_marker_group)),
+            ),
+            Item(
+                name="axes",
+                style="custom",
+                editor=InstanceEditor(view=View(_axes_group)),
+            ),
+            label="Widget/Axes",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="_text_property", style="custom", resizable=True),
+            label="Text Property",
+            show_labels=False,
+        ),
+    )
 
     ######################################################################
     # `object` interface
     ######################################################################
     def __set_pure_state__(self, state):
-        for prop in ['axes', 'marker', '_text_property']:
+        for prop in ["axes", "marker", "_text_property"]:
             obj = getattr(self, prop)
             state_pickler.set_state(obj, state[prop])
-
 
     ######################################################################
     # `Module` interface
@@ -107,10 +117,12 @@ class OrientationAxes(Module):
         set the `actors` attribute up at this point.
         """
         # Setup the default objects.
-        self.axes = tvtk.AxesActor(normalized_tip_length=(0.4, 0.4, 0.4),
-                                   normalized_shaft_length=(0.6, 0.6, 0.6),
-                                   shaft_type='cylinder')
-        self.text_property.trait_set(color=(1,1,1), shadow=False, italic=False)
+        self.axes = tvtk.AxesActor(
+            normalized_tip_length=(0.4, 0.4, 0.4),
+            normalized_shaft_length=(0.6, 0.6, 0.6),
+            shaft_type="cylinder",
+        )
+        self.text_property.trait_set(color=(1, 1, 1), shadow=False, italic=False)
 
         self.marker = tvtk.OrientationMarkerWidget(key_press_activation=False)
 

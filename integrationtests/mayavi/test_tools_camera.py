@@ -15,8 +15,7 @@ from common import TestCase
 
 @contextmanager
 def check_attrs_change(test_case, obj, attrs):
-    old_attrs = {attr: array(getattr(obj, attr))
-                 for attr in attrs}
+    old_attrs = {attr: array(getattr(obj, attr)) for attr in attrs}
 
     try:
         yield
@@ -36,8 +35,7 @@ def check_attrs_change(test_case, obj, attrs):
 
 @contextmanager
 def check_attrs_do_not_change(test_case, obj, attrs):
-    old_attrs = {attr: array(getattr(obj, attr))
-                 for attr in attrs}
+    old_attrs = {attr: array(getattr(obj, attr)) for attr in attrs}
 
     try:
         yield
@@ -47,20 +45,19 @@ def check_attrs_do_not_change(test_case, obj, attrs):
         for attr, old_value in old_attrs.items():
             new_value = array(getattr(obj, attr))
 
-            if any((new_value - old_value) > 1.e-5):
+            if any((new_value - old_value) > 1.0e-5):
                 changed.append((attr, old_value, new_value))
 
-        msg = ("'{0}' changed: \n"
-               "old value: {1}  New value: {2}")
+        msg = "'{0}' changed: \n" "old value: {1}  New value: {2}"
 
         if changed:
-            all_messages = "\n".join([msg.format(attr, old, new)
-                                      for attr, old, new in changed])
+            all_messages = "\n".join(
+                [msg.format(attr, old, new) for attr, old, new in changed]
+            )
             test_case.fail(all_messages)
 
 
 class TestCameraUnitTest(unittest.TestCase):
-
     def setUp(self, figure=None):
         self.engine = mlab.get_engine()
         fig = mlab.figure()
@@ -73,27 +70,29 @@ class TestCameraUnitTest(unittest.TestCase):
     def test_move_with_forward(self):
         camera = self.engine.current_scene.scene.camera
 
-        with check_attrs_change(self, camera,
-                                ("focal_point", "position", "clipping_range")):
-            camera_tools.move(forward=20.)
+        with check_attrs_change(
+            self, camera, ("focal_point", "position", "clipping_range")
+        ):
+            camera_tools.move(forward=20.0)
 
     def test_camera_move_with_right(self):
         camera = self.engine.current_scene.scene.camera
 
-        with check_attrs_change(self, camera, ("focal_point", "position")), \
-                check_attrs_do_not_change(self, camera, ("clipping_range",)):
-            camera_tools.move(right=20.)
+        with check_attrs_change(
+            self, camera, ("focal_point", "position")
+        ), check_attrs_do_not_change(self, camera, ("clipping_range",)):
+            camera_tools.move(right=20.0)
 
     def test_camera_move_with_up(self):
         camera = self.engine.current_scene.scene.camera
 
-        with check_attrs_change(self, camera,
-                                ("focal_point", "position", "clipping_range")):
-            camera_tools.move(up=20.)
+        with check_attrs_change(
+            self, camera, ("focal_point", "position", "clipping_range")
+        ):
+            camera_tools.move(up=20.0)
 
 
 class TestCamera(TestCase):
-
     def test(self):
         self.main()
 

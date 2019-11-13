@@ -3,28 +3,28 @@ from collections import defaultdict
 
 class Bridge(object):
     def add_widget(self, scene_id, widget):
-        '''Add widget corresponding to a given scene id.
-        '''
+        """Add widget corresponding to a given scene id.
+        """
         pass
 
     def remove_widget(self, scene_id, widget):
-        '''Remove a widget corresponding to a given scene_id.
-        '''
+        """Remove a widget corresponding to a given scene_id.
+        """
         pass
 
     def get_scenes(self):
-        '''Returns a list of the available scenes.
-        '''
+        """Returns a list of the available scenes.
+        """
         pass
 
     def handle_event(self, event_data):
-        '''Handle an event sent by the server.
-        '''
+        """Handle an event sent by the server.
+        """
         pass
 
     def run(self):
-        '''Run any code for the bridge to do its job.
-        '''
+        """Run any code for the bridge to do its job.
+        """
         pass
 
 
@@ -37,21 +37,21 @@ class LocalBridge(Bridge):
         self.widgets = defaultdict(list)
 
     def add_widget(self, scene_id, widget):
-        '''Add widget corresponding to a given scene id.
-        '''
+        """Add widget corresponding to a given scene id.
+        """
         self.widgets[scene_id].append(widget)
 
     def remove_widget(self, scene_id, widget):
-        '''Remove a widget corresponding to a given scene_id.
-        '''
+        """Remove a widget corresponding to a given scene_id.
+        """
         w = self.widgets[scene_id]
         w.remove(widget)
         if len(w) == 0:
             del self.widgets[scene_id]
 
     def get_scenes(self):
-        '''Returns a list of the available scenes.
-        '''
+        """Returns a list of the available scenes.
+        """
         return self.scene_manager.scenes
 
     def handle_event(self, event_data):

@@ -25,18 +25,17 @@ class CellDerivatives(FilterBase):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.CellDerivatives, args=(),
-                      allow_none=False, record=True)
+    filter = Instance(tvtk.CellDerivatives, args=(), allow_none=False, record=True)
 
     # Information about what this object can consume.
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     def has_output_port(self):
         """ The filter has an output port."""

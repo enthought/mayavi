@@ -7,32 +7,36 @@ Tests for traits defined in mayavi.core.traits
 
 import unittest
 import numpy
-from traits.api import (HasTraits, Either, Array, Any,
-                TraitError, Float, Int)
-from mayavi.core.trait_defs import (ArrayNumberOrNone, ArrayOrNone,
-    ShadowProperty)
+from traits.api import HasTraits, Either, Array, Any, TraitError, Float, Int
+from mayavi.core.trait_defs import ArrayNumberOrNone, ArrayOrNone, ShadowProperty
 
 
 class DataNotSmart(HasTraits):
     x = ShadowProperty(ArrayOrNone, smart_notify=False)
     # Test attribute.
     _test = Any
+
     def _x_changed(self, value):
         self._test = value.copy()
+
 
 class DataSmart(HasTraits):
     x = ShadowProperty(ArrayOrNone, smart_notify=True)
     # Test attribute.
     _test = Any
+
     def _x_changed(self, value):
         self._test = value.copy()
+
 
 class Simple(HasTraits):
     x = ShadowProperty(Float)
     # Test attribute.
     _test = Int(0)
+
     def _x_changed(self, value):
         self._test += 1
+
 
 class HasArrays(HasTraits):
     x = ArrayOrNone
@@ -61,7 +65,7 @@ class TestShadowProperty(unittest.TestCase):
         s.x = 20.0
         self.assertEqual(s._test, 2)
         self.assertEqual(s.x, 20.0)
-        self.assertRaises(TraitError, s.__setattr__, 'x', 'hey')
+        self.assertRaises(TraitError, s.__setattr__, "x", "hey")
 
     def test_shadow_property_smart(self):
         "Test if the shadow property trait type works correctly."
@@ -95,7 +99,7 @@ class TestShadowProperty(unittest.TestCase):
         "Test if the validation works correctly."
         x = numpy.linspace(0, 1)
         d = DataNotSmart(x=x)
-        self.assertRaises(TraitError, d.__setattr__, 'x', 'hey')
+        self.assertRaises(TraitError, d.__setattr__, "x", "hey")
 
     def test_set_trait_change_notify(self):
         "If trait_change_notify is honored."
@@ -114,7 +118,6 @@ class TestShadowProperty(unittest.TestCase):
 
 
 class TestArrayOrNone(unittest.TestCase):
-
     def test_default(self):
         a = HasArrays()
         self.assertIsNone(a.x)
@@ -142,6 +145,5 @@ class TestArrayOrNone(unittest.TestCase):
         self.assertEqual(a._test_y, 4)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
-

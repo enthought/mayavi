@@ -7,11 +7,11 @@ from traits.util.home_directory import get_home_directory
 
 
 class MovieMaker(HasTraits):
-    record = Bool(False, desc='if a movie should be recorded')
-    scene = Instance('tvtk.pyface.tvtk_scene.TVTKScene', record=False)
+    record = Bool(False, desc="if a movie should be recorded")
+    scene = Instance("tvtk.pyface.tvtk_scene.TVTKScene", record=False)
     directory = Directory
-    filename = Str('anim%05d.png')
-    anti_alias = Bool(True, desc='if the saved images should be anti-aliased')
+    filename = Str("anim%05d.png")
+    anti_alias = Bool(True, desc="if the saved images should be anti-aliased")
 
     ##################
     # Private traits
@@ -20,11 +20,9 @@ class MovieMaker(HasTraits):
 
     def default_traits_view(self):
         from traitsui.api import Item, View
+
         view = View(
-            Item('record'),
-            Item('anti_alias'),
-            Item('filename'),
-            Item('directory'),
+            Item("record"), Item("anti_alias"), Item("filename"), Item("directory"),
         )
         return view
 
@@ -71,7 +69,7 @@ class MovieMaker(HasTraits):
         if not os.path.exists(dir):
             os.makedirs(dir)
 
-        fname = os.path.join(dir, self.filename%count)
+        fname = os.path.join(dir, self.filename % count)
         if not self.anti_alias:
             orig_aa = self.scene.anti_aliasing_frames
         self.scene.save(fname)
@@ -80,13 +78,13 @@ class MovieMaker(HasTraits):
 
     def _directory_default(self):
         home = get_home_directory()
-        return os.path.join(home, 'Documents', 'mayavi_movies')
+        return os.path.join(home, "Documents", "mayavi_movies")
 
     def _update_subdir(self):
-        pattern = os.path.join(self.directory, 'movie*')
+        pattern = os.path.join(self.directory, "movie*")
         existing = sorted([x for x in glob(pattern) if os.path.isdir(x)])
         last_index = 1
         if existing:
             last = existing[-1]
             last_index = int(last[-3:]) + 1
-        self._subdir = 'movie%03d'%last_index
+        self._subdir = "movie%03d" % last_index

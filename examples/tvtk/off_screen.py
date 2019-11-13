@@ -18,7 +18,7 @@ from tvtk.common import configure_input_data
 cs = tvtk.ConeSource(height=3.0, radius=1.0, resolution=36)
 
 # Print the traits of the cone.
-#cs.print_traits()
+# cs.print_traits()
 
 # Setup the rest of the pipeline.
 m = tvtk.PolyDataMapper()
@@ -42,8 +42,8 @@ ren.add_actor(a)
 ren.reset_camera()
 
 # Create a RenderWindow, add the renderer and set its size.
-rw = tvtk.RenderWindow(size=(300,300))
-rw.off_screen_rendering=1
+rw = tvtk.RenderWindow(size=(300, 300))
+rw.off_screen_rendering = 1
 rw.add_renderer(ren)
 
 w2if = tvtk.WindowToImageFilter()

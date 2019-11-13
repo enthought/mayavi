@@ -9,8 +9,7 @@ tables.
 import numpy
 
 # Enthought library imports.
-from traits.api import List, Instance, Trait, TraitPrefixList, \
-                                 HasTraits, Str
+from traits.api import List, Instance, Trait, TraitPrefixList, HasTraits, Str
 from apptools.persistence.state_pickler import set_state
 
 # Local imports
@@ -33,7 +32,7 @@ class DataAttributes(HasTraits):
     __version__ = 0
 
     # The name of the input data array.
-    name = Str('')
+    name = Str("")
 
     # The range of the data array.
     range = List
@@ -43,18 +42,18 @@ class DataAttributes(HasTraits):
         data_has_nan = numpy.isnan(data_array).any()
         return data_array, data_has_nan
 
-    def compute_scalar(self, helper, mode='point'):
+    def compute_scalar(self, helper, mode="point"):
         """Compute the scalar range from given VTK data array.  Mode
         can be 'point' or 'cell'."""
-        name, rng = helper.get_range(attr='scalars', mode=mode)
+        name, rng = helper.get_range(attr="scalars", mode=mode)
         if name:
             self.name = name
             self.range = rng
 
-    def compute_vector(self, helper, mode='point'):
+    def compute_vector(self, helper, mode="point"):
         """Compute the vector range from given VTK data array.  Mode
         can be 'point' or 'cell'."""
-        name, rng = helper.get_range(attr='vectors', mode=mode)
+        name, rng = helper.get_range(attr="vectors", mode=mode)
         if name:
             self.name = name
             self.range = rng
@@ -70,7 +69,7 @@ class DataAttributes(HasTraits):
 
 
 # Constant for a ModuleManager class and it's View.
-LUT_DATA_MODE_TYPES = ['auto', 'point data', 'cell data']
+LUT_DATA_MODE_TYPES = ["auto", "point data", "cell data"]
 
 
 ######################################################################
@@ -94,9 +93,9 @@ class ModuleManager(Base):
     # data for the LUT and if set to 'cell data' it uses the input
     # cell data.
     lut_data_mode = Trait(
-        'auto',
+        "auto",
         TraitPrefixList(LUT_DATA_MODE_TYPES),
-        desc='specify the data type used by the lookup tables',
+        desc="specify the data type used by the lookup tables",
     )
 
     # The scalar lookup table manager.
@@ -106,19 +105,19 @@ class ModuleManager(Base):
     vector_lut_manager = Instance(LUTManager, args=(), record=True)
 
     # The name of the ModuleManager.
-    name = Str('Colors and legends')
+    name = Str("Colors and legends")
 
     # The icon
-    icon = Str('modulemanager.ico')
+    icon = Str("modulemanager.ico")
 
     # The human-readable type for this object
-    type = Str(' colors and legends')
+    type = Str(" colors and legends")
 
     # Information about what this object can consume.
-    input_info = PipelineInfo(datasets=['any'])
+    input_info = PipelineInfo(datasets=["any"])
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'])
+    output_info = PipelineInfo(datasets=["any"])
 
     ######################################################################
     # `object` interface
@@ -126,16 +125,16 @@ class ModuleManager(Base):
     def __get_pure_state__(self):
         d = super(ModuleManager, self).__get_pure_state__()
         # Source is setup dynamically, don't pickle it.
-        d.pop('source', None)
+        d.pop("source", None)
         return d
 
     def __set_pure_state__(self, state):
         # Do everything but our kids.
-        set_state(self, state, ignore=['children'])
+        set_state(self, state, ignore=["children"])
         # Setup children.
         handle_children_state(self.children, state.children)
         # Now setup the children.
-        set_state(self, state, first=['children'], ignore=['*'])
+        set_state(self, state, first=["children"], ignore=["*"])
         self.update()
 
     ######################################################################
@@ -263,13 +262,13 @@ class ModuleManager(Base):
 
     def _setup_event_handlers(self):
         src = self.source
-        src.on_trait_event(self.update, 'pipeline_changed')
-        src.on_trait_event(self.update, 'data_changed')
+        src.on_trait_event(self.update, "pipeline_changed")
+        src.on_trait_event(self.update, "data_changed")
 
     def _teardown_event_handlers(self):
         src = self.source
-        src.on_trait_event(self.update, 'pipeline_changed', remove=True)
-        src.on_trait_event(self.update, 'data_changed', remove=True)
+        src.on_trait_event(self.update, "pipeline_changed", remove=True)
+        src.on_trait_event(self.update, "data_changed", remove=True)
 
     def _scene_changed(self, value):
         for obj in self.children:
@@ -283,39 +282,39 @@ class ModuleManager(Base):
     def _setup_scalar_data(self, helper):
         """Computes the scalar range and an appropriate name for the
         lookup table."""
-        data_attr = DataAttributes(name='No scalars')
-        point_data_attr = DataAttributes(name='No scalars')
-        point_data_attr.compute_scalar(helper, 'point')
-        cell_data_attr = DataAttributes(name='No scalars')
-        cell_data_attr.compute_scalar(helper, 'cell')
+        data_attr = DataAttributes(name="No scalars")
+        point_data_attr = DataAttributes(name="No scalars")
+        point_data_attr.compute_scalar(helper, "point")
+        cell_data_attr = DataAttributes(name="No scalars")
+        cell_data_attr.compute_scalar(helper, "cell")
 
-        if self.lut_data_mode == 'auto':
+        if self.lut_data_mode == "auto":
             if len(point_data_attr.range) > 0:
                 data_attr.copy_traits(point_data_attr)
             elif len(cell_data_attr.range) > 0:
                 data_attr.copy_traits(cell_data_attr)
-        elif self.lut_data_mode == 'point data':
+        elif self.lut_data_mode == "point data":
             data_attr.copy_traits(point_data_attr)
-        elif self.lut_data_mode == 'cell data':
+        elif self.lut_data_mode == "cell data":
             data_attr.copy_traits(cell_data_attr)
 
         data_attr.config_lut(self.scalar_lut_manager)
 
     def _setup_vector_data(self, helper):
-        data_attr = DataAttributes(name='No vectors')
-        point_data_attr = DataAttributes(name='No vectors')
-        point_data_attr.compute_vector(helper, 'point')
-        cell_data_attr = DataAttributes(name='No vectors')
-        cell_data_attr.compute_vector(helper, 'cell')
+        data_attr = DataAttributes(name="No vectors")
+        point_data_attr = DataAttributes(name="No vectors")
+        point_data_attr.compute_vector(helper, "point")
+        cell_data_attr = DataAttributes(name="No vectors")
+        cell_data_attr.compute_vector(helper, "cell")
 
-        if self.lut_data_mode == 'auto':
+        if self.lut_data_mode == "auto":
             if len(point_data_attr.range) > 0:
                 data_attr.copy_traits(point_data_attr)
             elif len(cell_data_attr.range) > 0:
                 data_attr.copy_traits(cell_data_attr)
-        elif self.lut_data_mode == 'point data':
+        elif self.lut_data_mode == "point data":
             data_attr.copy_traits(point_data_attr)
-        elif self.lut_data_mode == 'cell data':
+        elif self.lut_data_mode == "cell data":
             data_attr.copy_traits(cell_data_attr)
 
         data_attr.config_lut(self.vector_lut_manager)
@@ -330,4 +329,5 @@ class ModuleManager(Base):
 
     def _menu_helper_default(self):
         from mayavi.core.traits_menu import ModuleMenuHelper
+
         return ModuleMenuHelper(object=self)

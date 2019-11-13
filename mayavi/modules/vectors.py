@@ -21,7 +21,9 @@ class Vectors(Glyph):
     ######################################################################
     def setup_pipeline(self):
         super(Vectors, self).setup_pipeline()
-        self.glyph.trait_set(scale_mode='scale_by_vector',
-                       color_mode='color_by_vector',
-                       show_scale_mode=False)
-        self.glyph.glyph_source.glyph_position='tail'
+        self.glyph.trait_set(
+            scale_mode="scale_by_vector",
+            color_mode="color_by_vector",
+            show_scale_mode=False,
+        )
+        self.glyph.glyph_source.glyph_position = "tail"

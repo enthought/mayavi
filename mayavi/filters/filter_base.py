@@ -28,11 +28,14 @@ class FilterBase(Filter):
 
     # The view of these filters.
 
-    view = View(Group(Item(name='filter', style='custom', resizable=True,
-                      show_label=False), springy=True),
-                scrollable=True,
-                resizable=True
-                )
+    view = View(
+        Group(
+            Item(name="filter", style="custom", resizable=True, show_label=False),
+            springy=True,
+        ),
+        scrollable=True,
+        resizable=True,
+    )
 
     ######################################################################
     # `Filter` interface.

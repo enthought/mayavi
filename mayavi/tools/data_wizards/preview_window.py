@@ -24,13 +24,15 @@ class PreviewWindow(HasTraits):
 
     _scene = Instance(SceneModel, ())
 
-    view = View(Item('_scene', editor=SceneEditor(scene_class=Scene),
-                        show_label=False),
-                width=500, height=500)
+    view = View(
+        Item("_scene", editor=SceneEditor(scene_class=Scene), show_label=False),
+        width=500,
+        height=500,
+    )
 
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     # Public API
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
 
     def add_source(self, src):
         self._engine.add_source(src)
@@ -46,9 +48,9 @@ class PreviewWindow(HasTraits):
         self._engine.current_scene.children[:] = []
         self._engine.current_scene.scene.disable_render = False
 
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     # Private API
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
 
     def __engine_default(self):
         e = Engine()
@@ -56,10 +58,12 @@ class PreviewWindow(HasTraits):
         e.new_scene(self._scene)
         return e
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     from pyface.api import GUI
     from mayavi.sources.api import ParametricSurface
     from mayavi.modules.api import Outline, Surface
+
     pw = PreviewWindow()
     pw.add_source(ParametricSurface())
     pw.add_module(Outline())

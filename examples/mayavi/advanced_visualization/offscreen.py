@@ -40,16 +40,15 @@ def main():
 
     # Now setup a normal MayaVi pipeline.
     src = VTKXMLFileReader()
-    src.initialize(join(get_data_dir(dirname(abspath(__file__))),
-                        'fire_ug.vtu'))
+    src.initialize(join(get_data_dir(dirname(abspath(__file__))), "fire_ug.vtu"))
     e.add_source(src)
     e.add_module(Outline())
     e.add_module(ScalarCutPlane())
     e.add_module(Streamline())
     win.scene.isometric_view()
     # Change the size argument to anything you want.
-    win.scene.save('offscreen.png', size=(800, 800))
+    win.scene.save("offscreen.png", size=(800, 800))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -26,39 +26,37 @@ class SelectOutput(Filter):
     """
 
     # The output index in the input to choose from.
-    output_index = Range(value=0,
-                         enter_set=True,
-                         auto_set=False,
-                         low='_min_index',
-                         high='_max_index')
+    output_index = Range(
+        value=0, enter_set=True, auto_set=False, low="_min_index", high="_max_index"
+    )
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     # The minimum output index of our input.
-    _min_index = Int(0, desc='the minimum output index')
+    _min_index = Int(0, desc="the minimum output index")
     # The maximum output index of our input.
-    _max_index = Int(0, desc='the maximum output index')
+    _max_index = Int(0, desc="the maximum output index")
 
     _my_input = Any(transient=True)
 
     ########################################
     # Traits View.
 
-    view = View(Group(Item('output_index',
-                           enabled_when='_max_index > 0')),
-                resizable=True)
+    view = View(
+        Group(Item("output_index", enabled_when="_max_index > 0")), resizable=True
+    )
 
     ######################################################################
     # `object` interface.
     def __get_pure_state__(self):
         d = super(SelectOutput, self).__get_pure_state__()
-        d['output_index'] = self.output_index
+        d["output_index"] = self.output_index
         return d
 
     def __set_pure_state__(self, state):
@@ -78,7 +76,7 @@ class SelectOutput(Filter):
         # Set the maximum index.
         obj = get_new_output(inputs[0].outputs[0])
         self._my_input = obj
-        if hasattr(obj, 'number_of_blocks'):
+        if hasattr(obj, "number_of_blocks"):
             self._max_index = obj.number_of_blocks - 1
         else:
             self._max_index = len(inputs[0].outputs) - 1
@@ -93,7 +91,7 @@ class SelectOutput(Filter):
     def _setup_output(self, value):
         obj = self._my_input
         tp = tvtk.TrivialProducer()
-        if hasattr(obj, 'number_of_blocks'):
+        if hasattr(obj, "number_of_blocks"):
             tp.set_output(obj.get_block(value))
         else:
             tp.set_output(self.inputs[0].outputs[value])

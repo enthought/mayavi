@@ -37,16 +37,18 @@ class ImageReader(FileDataSource):
     reader = Instance(tvtk.Object, allow_none=False, record=True)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['image_data'])
+    output_info = PipelineInfo(datasets=["image_data"])
 
     # Our view.
-    view = View(Group(Include('time_step_group'),
-                      Item(name='base_file_name'),
-                      Item(name='reader',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False),
-                resizable=True)
+    view = View(
+        Group(
+            Include("time_step_group"),
+            Item(name="base_file_name"),
+            Item(name="reader", style="custom", resizable=True),
+            show_labels=False,
+        ),
+        resizable=True,
+    )
 
     ######################################################################
     # Private Traits
@@ -56,21 +58,22 @@ class ImageReader(FileDataSource):
     # `object` interface
     ######################################################################
     def __init__(self, **traits):
-        d = {'bmp':tvtk.BMPReader(),
-             'jpg':tvtk.JPEGReader(),
-             'png':tvtk.PNGReader(),
-             'pnm':tvtk.PNMReader(),
-             'dcm':tvtk.DICOMImageReader(),
-             'tiff':tvtk.TIFFReader(),
-             'ximg':tvtk.GESignaReader(),
-             'dem':tvtk.DEMReader(),
-             'mha':tvtk.MetaImageReader(),
-             'mhd':tvtk.MetaImageReader(),
-            }
+        d = {
+            "bmp": tvtk.BMPReader(),
+            "jpg": tvtk.JPEGReader(),
+            "png": tvtk.PNGReader(),
+            "pnm": tvtk.PNMReader(),
+            "dcm": tvtk.DICOMImageReader(),
+            "tiff": tvtk.TIFFReader(),
+            "ximg": tvtk.GESignaReader(),
+            "dem": tvtk.DEMReader(),
+            "mha": tvtk.MetaImageReader(),
+            "mhd": tvtk.MetaImageReader(),
+        }
         # Account for pre 5.2 VTk versions, without MINC reader
-        if hasattr(tvtk, 'MINCImageReader'):
-            d['mnc'] = tvtk.MINCImageReader()
-        d['jpeg'] = d['jpg']
+        if hasattr(tvtk, "MINCImageReader"):
+            d["mnc"] = tvtk.MINCImageReader()
+        d["jpeg"] = d["jpg"]
         self._image_reader_dict = d
         # Call parent class' init.
         super(ImageReader, self).__init__(**traits)
@@ -106,7 +109,7 @@ class ImageReader(FileDataSource):
         if len(value) == 0:
             return
         # Extract the file extension
-        splitname = value.strip().split('.')
+        splitname = value.strip().split(".")
         extension = splitname[-1].lower()
         # Select image reader based on file type
         old_reader = self.reader
@@ -133,10 +136,10 @@ class ImageReader(FileDataSource):
         this is not a property getter.
         """
         fname = basename(self.file_path.get())
-        ret = "%s"%fname
+        ret = "%s" % fname
         if len(self.file_list) > 1:
             ret += " (timeseries)"
-        if '[Hidden]' in self.name:
-            ret += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            ret += " [Hidden]"
 
         return ret

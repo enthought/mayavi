@@ -29,6 +29,7 @@ class Sniff(object):
                                           # higher
             b = loadtxt('mydata.csv', **s.kwds())
     """
+
     def __init__(self, filename):
         self._filename = filename
         self._lines = self._read_few_lines()
@@ -46,21 +47,19 @@ class Sniff(object):
         self._datatypes = self._datatypes_of_line(self._reallines[-1])
 
     def _get_comment(self):
-        self._comment = '#'
+        self._comment = "#"
         line0 = self._reallines[0]
-        if line0.startswith('#') or line0.startswith('%'):
+        if line0.startswith("#") or line0.startswith("%"):
             self._comment = line0[0]
-            self._reallines[0] = self._dialect.delimiter.join(
-                                        line0.split()[1:])
+            self._reallines[0] = self._dialect.delimiter.join(line0.split()[1:])
             for i in range(1, len(self._reallines)):
-                self._reallines[i] = \
-                    self._reallines[i].split(self._comment)[0]
+                self._reallines[i] = self._reallines[i].split(self._comment)[0]
 
     def _read_few_lines(self):
         res = []
-        f = open(self._filename, 'rb')
+        f = open(self._filename, "rb")
         for line in f:
-            line = line.strip().decode('utf-8')
+            line = line.strip().decode("utf-8")
             res.append(line)
             if len(res) > 20:
                 break
@@ -80,18 +79,21 @@ class Sniff(object):
                     continue
                 if self._datatypes_of_line(line) != self._numcols * (str,):
                     continue
-                return tuple(t.strip('"\' \t') for t in self._split(line))
+                return tuple(t.strip("\"' \t") for t in self._split(line))
 
-        return tuple('Column %i' % (i + 1) for i in range(self._numcols))
+        return tuple("Column %i" % (i + 1) for i in range(self._numcols))
 
     def _formats(self):
         res = []
         for c, t in enumerate(self._datatypes):
             if t == str:
-                items = [len(self._split(l)[c]) for l in self._reallines[1:]
-                         if self._datatypes_of_line(l) == self._datatypes]
+                items = [
+                    len(self._split(l)[c])
+                    for l in self._reallines[1:]
+                    if self._datatypes_of_line(l) == self._datatypes
+                ]
                 items.append(1)
-                res.append('S%i' % max(items))
+                res.append("S%i" % max(items))
 
             elif t == float:
                 res.append(t)
@@ -102,7 +104,6 @@ class Sniff(object):
         return tuple(res)
 
     def _datatypes_of_line(self, line):
-
         def isFloat(s):
             try:
                 float(s)
@@ -120,15 +121,15 @@ class Sniff(object):
         return tuple(res)
 
     def _debug(self):
-        print('===== Sniffed information for file %r:' % self._filename)
-        print('delimiter = %r' % self.delimiter())
-        print('comments  = %r' % self.comments())
-        print('dtype     = %r' % self.dtype())
-        print('skiprows  = %r' % self.skiprows())
+        print("===== Sniffed information for file %r:" % self._filename)
+        print("delimiter = %r" % self.delimiter())
+        print("comments  = %r" % self.comments())
+        print("dtype     = %r" % self.dtype())
+        print("skiprows  = %r" % self.skiprows())
 
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     # Public API:
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
 
     def comments(self):
         """ Return the character used for comments (usually '#').
@@ -156,16 +157,17 @@ class Sniff(object):
         """ Return a dict suitable to be used as the dtype keyword
             argument of loadtxt.
         """
-        return {'names': self._names(),
-                'formats': self._formats()}
+        return {"names": self._names(), "formats": self._formats()}
 
     def kwds(self):
         """ Return a dict of the keyword argument needed by numpy.loadtxt
         """
-        return {'comments': self.comments(),
-                'delimiter': self.delimiter(),
-                'skiprows': self.skiprows(),
-                'dtype': self.dtype()}
+        return {
+            "comments": self.comments(),
+            "delimiter": self.delimiter(),
+            "skiprows": self.skiprows(),
+            "dtype": self.dtype(),
+        }
 
     def loadtxt(self):
         """ Return the array (by using numpy.loadtxt), using the sniffed

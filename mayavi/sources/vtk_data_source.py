@@ -15,8 +15,7 @@ import numpy as np
 # Enthought library imports.
 from traits.api import Instance, List, Str, Bool, Int
 from traitsui.api import View, Group, Item
-from apptools.persistence.state_pickler \
-     import gzip_string, gunzip_string, set_state
+from apptools.persistence.state_pickler import gzip_string, gunzip_string, set_state
 
 # Local imports.
 from tvtk.api import tvtk
@@ -26,8 +25,7 @@ from tvtk.common import is_old_pipeline, configure_input_data
 from mayavi.core.source import Source
 from mayavi.core.common import handle_children_state
 from mayavi.core.trait_defs import DEnum
-from mayavi.core.pipeline_info import (PipelineInfo,
-                                       get_tvtk_dataset_name)
+from mayavi.core.pipeline_info import PipelineInfo, get_tvtk_dataset_name
 from .utils import has_attributes
 from .vtk_xml_file_reader import get_all_attributes
 
@@ -49,8 +47,9 @@ def write_dataset_to_string(data):
         # grid datasets and produce empty output.  We work around this
         # by writing to a file and then reading that output.
         w.write_to_output_string = 0
-        fh, fname = tempfile.mkstemp('.vtk')
-        os.close(fh); os.remove(fname)
+        fh, fname = tempfile.mkstemp(".vtk")
+        os.close(fh)
+        os.remove(fname)
         w.file_name = fname
         w.write()
         # Read the data and delete the file.
@@ -84,45 +83,54 @@ class VTKDataSource(Source):
     data = Instance(tvtk.DataSet, allow_none=False)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     ########################################
     # Dynamic traits: These traits are dynamic and are updated on the
     # _update_data method.
 
     # The active point scalar name.
-    point_scalars_name = DEnum(values_name='_point_scalars_list',
-                               desc='scalar point data attribute to use')
+    point_scalars_name = DEnum(
+        values_name="_point_scalars_list", desc="scalar point data attribute to use"
+    )
     # The active point vector name.
-    point_vectors_name = DEnum(values_name='_point_vectors_list',
-                               desc='vectors point data attribute to use')
+    point_vectors_name = DEnum(
+        values_name="_point_vectors_list", desc="vectors point data attribute to use"
+    )
     # The active point tensor name.
-    point_tensors_name = DEnum(values_name='_point_tensors_list',
-                               desc='tensor point data attribute to use')
+    point_tensors_name = DEnum(
+        values_name="_point_tensors_list", desc="tensor point data attribute to use"
+    )
 
     # The active cell scalar name.
-    cell_scalars_name = DEnum(values_name='_cell_scalars_list',
-                               desc='scalar cell data attribute to use')
+    cell_scalars_name = DEnum(
+        values_name="_cell_scalars_list", desc="scalar cell data attribute to use"
+    )
     # The active cell vector name.
-    cell_vectors_name = DEnum(values_name='_cell_vectors_list',
-                               desc='vectors cell data attribute to use')
+    cell_vectors_name = DEnum(
+        values_name="_cell_vectors_list", desc="vectors cell data attribute to use"
+    )
     # The active cell tensor name.
-    cell_tensors_name = DEnum(values_name='_cell_tensors_list',
-                               desc='tensor cell data attribute to use')
+    cell_tensors_name = DEnum(
+        values_name="_cell_tensors_list", desc="tensor cell data attribute to use"
+    )
 
     ########################################
     # Our view.
 
-    view = View(Group(Item(name='point_scalars_name'),
-                      Item(name='point_vectors_name'),
-                      Item(name='point_tensors_name'),
-                      Item(name='cell_scalars_name'),
-                      Item(name='cell_vectors_name'),
-                      Item(name='cell_tensors_name'),
-                      Item(name='data'),
-                      ))
+    view = View(
+        Group(
+            Item(name="point_scalars_name"),
+            Item(name="point_vectors_name"),
+            Item(name="point_tensors_name"),
+            Item(name="cell_scalars_name"),
+            Item(name="cell_vectors_name"),
+            Item(name="cell_tensors_name"),
+            Item(name="data"),
+        )
+    )
 
     ########################################
     # Private traits.
@@ -140,8 +148,7 @@ class VTKDataSource(Source):
     # object and will ensure that the pipeline is properly taken care
     # of.  Directly setting the array in the VTK object will not do
     # this.
-    _assign_attribute = Instance(tvtk.AssignAttribute, args=(),
-                                 allow_none=False)
+    _assign_attribute = Instance(tvtk.AssignAttribute, args=(), allow_none=False)
 
     # Toggles if this is the first time this object has been used.
     _first = Bool(True)
@@ -154,43 +161,47 @@ class VTKDataSource(Source):
     ######################################################################
     def __get_pure_state__(self):
         d = super(VTKDataSource, self).__get_pure_state__()
-        for name in ('_assign_attribute', '_first', '_observer'):
+        for name in ("_assign_attribute", "_first", "_observer"):
             d.pop(name, None)
-        for name in ('point_scalars', 'point_vectors',
-                     'point_tensors', 'cell_scalars',
-                     'cell_vectors', 'cell_tensors'):
-            d.pop('_' + name + '_list', None)
-            d.pop('_' + name + '_name', None)
+        for name in (
+            "point_scalars",
+            "point_vectors",
+            "point_tensors",
+            "cell_scalars",
+            "cell_vectors",
+            "cell_tensors",
+        ):
+            d.pop("_" + name + "_list", None)
+            d.pop("_" + name + "_name", None)
         data = self.data
         if data is not None:
             sdata = write_dataset_to_string(data)
             if sys.version_info[0] > 2:
-                z = gzip_string(sdata.encode('ascii'))
+                z = gzip_string(sdata.encode("ascii"))
             else:
                 z = gzip_string(sdata)
-            d['data'] = z
+            d["data"] = z
         return d
 
     def __set_pure_state__(self, state):
         z = state.data
         if z is not None:
             if sys.version_info[0] > 2:
-                d = gunzip_string(z).decode('ascii')
+                d = gunzip_string(z).decode("ascii")
             else:
                 d = gunzip_string(z)
-            r = tvtk.DataSetReader(read_from_input_string=1,
-                                   input_string=d)
+            r = tvtk.DataSetReader(read_from_input_string=1, input_string=d)
             warn = r.global_warning_display
             r.global_warning_display = 0
             r.update()
             r.global_warning_display = warn
             self.data = r.output
         # Now set the remaining state without touching the children.
-        set_state(self, state, ignore=['children', 'data'])
+        set_state(self, state, ignore=["children", "data"])
         # Setup the children.
         handle_children_state(self.children, state.children)
         # Setup the children's state.
-        set_state(self, state, first=['children'], ignore=['*'])
+        set_state(self, state, first=["children"], ignore=["*"])
 
     ######################################################################
     # `Base` interface
@@ -221,7 +232,7 @@ class VTKDataSource(Source):
         if has_attributes(self.data):
             self._assign_attribute.update()
 
-    def add_attribute(self, array, name, category='point'):
+    def add_attribute(self, array, name, category="point"):
         """Add an attribute to the dataset to specified category ('point' or
         'cell').
 
@@ -242,42 +253,45 @@ class VTKDataSource(Source):
         """
         array = np.asarray(array)
         assert len(array.shape) <= 2, "Only 2D arrays can be added."
-        data = getattr(self.data, '%s_data' % category)
+        data = getattr(self.data, "%s_data" % category)
         if len(array.shape) == 2:
-            assert array.shape[1] in [1, 3, 4, 9], \
-                    "Only Nxm arrays where (m in [1,3,4,9]) are supported"
+            assert array.shape[1] in [
+                1,
+                3,
+                4,
+                9,
+            ], "Only Nxm arrays where (m in [1,3,4,9]) are supported"
             va = tvtk.to_tvtk(array2vtk(array))
             va.name = name
             data.add_array(va)
-            mapping = {1: 'scalars', 3: 'vectors', 4: 'scalars',
-                       9: 'tensors'}
-            attribute = '_%s_%s_list' % (category, mapping[array.shape[1]])
+            mapping = {1: "scalars", 3: "vectors", 4: "scalars", 9: "tensors"}
+            attribute = "_%s_%s_list" % (category, mapping[array.shape[1]])
         else:
             va = tvtk.to_tvtk(array2vtk(array))
             va.name = name
             data.add_array(va)
-            attribute = '_%s_scalars_list' % category
+            attribute = "_%s_scalars_list" % category
         names = set(getattr(self, attribute) + [name])
         setattr(self, attribute, sorted(names))
 
-    def remove_attribute(self, name, category='point'):
+    def remove_attribute(self, name, category="point"):
         """Remove an attribute by its name and optional category (point and
         cell).  Returns the removed array.
         """
         type = self._find_array_list(name, category)
-        data = getattr(self.data, '%s_data' % category)
+        data = getattr(self.data, "%s_data" % category)
         data.remove_array(name)
-        attr_list = getattr(self, '_%s_%s_list' % (category, type))
+        attr_list = getattr(self, "_%s_%s_list" % (category, type))
         return attr_list.remove(name)
 
-    def rename_attribute(self, name1, name2, category='point'):
+    def rename_attribute(self, name1, name2, category="point"):
         """Rename a particular attribute from `name1` to `name2`.
         """
         type = self._find_array_list(name1, category)
-        data = getattr(self.data, '%s_data' % category)
+        data = getattr(self.data, "%s_data" % category)
         arr = data.get_array(name1)
         arr.name = name2
-        attribute = '_%s_%s_list' % (category, type)
+        attribute = "_%s_%s_list" % (category, type)
         attr_list = getattr(self, attribute)
         attr_list.remove(name1)
         attr_list.append(name2)
@@ -307,11 +321,9 @@ class VTKDataSource(Source):
         # tvtk.messenger module documentation for details.
         if old is not None:
             old.remove_observer(self._observer_id)
-        self._observer_id = new.add_observer('ModifiedEvent',
-                                             messenger.send)
+        self._observer_id = new.add_observer("ModifiedEvent", messenger.send)
         new_vtk = tvtk.to_vtk(new)
-        messenger.connect(new_vtk, 'ModifiedEvent',
-                          self._fire_data_changed)
+        messenger.connect(new_vtk, "ModifiedEvent", self._fire_data_changed)
 
         # Change our name so that our label on the tree is updated.
         self.name = self._get_name()
@@ -327,25 +339,25 @@ class VTKDataSource(Source):
         dataset = self.data
         if len(value) == 0:
             # If the value is empty then we deactivate that attribute.
-            d = getattr(dataset, attr_type + '_data')
-            method = getattr(d, 'set_active_%s'%data_type)
+            d = getattr(dataset, attr_type + "_data")
+            method = getattr(d, "set_active_%s" % data_type)
             method(None)
             self.data_changed = True
             return
 
         aa = self._assign_attribute
         data = None
-        if attr_type == 'point':
+        if attr_type == "point":
             data = dataset.point_data
-        elif attr_type == 'cell':
+        elif attr_type == "cell":
             data = dataset.cell_data
-        method = getattr(data, 'set_active_%s'%data_type)
+        method = getattr(data, "set_active_%s" % data_type)
         method(value)
-        aa.assign(value, data_type.upper(), attr_type.upper() +'_DATA')
-        if data_type == 'scalars' and dataset.is_a('vtkImageData'):
+        aa.assign(value, data_type.upper(), attr_type.upper() + "_DATA")
+        if data_type == "scalars" and dataset.is_a("vtkImageData"):
             # Set the scalar_type for image data, if not you can either
             # get garbage rendered or worse.
-            s = getattr(dataset, attr_type + '_data').scalars
+            s = getattr(dataset, attr_type + "_data").scalars
             r = s.range
             if is_old_pipeline():
                 dataset.scalar_type = s.data_type
@@ -355,22 +367,22 @@ class VTKDataSource(Source):
         self.data_changed = True
 
     def _point_scalars_name_changed(self, value):
-        self._set_data_name('scalars', 'point', value)
+        self._set_data_name("scalars", "point", value)
 
     def _point_vectors_name_changed(self, value):
-        self._set_data_name('vectors', 'point', value)
+        self._set_data_name("vectors", "point", value)
 
     def _point_tensors_name_changed(self, value):
-        self._set_data_name('tensors', 'point', value)
+        self._set_data_name("tensors", "point", value)
 
     def _cell_scalars_name_changed(self, value):
-        self._set_data_name('scalars', 'cell', value)
+        self._set_data_name("scalars", "cell", value)
 
     def _cell_vectors_name_changed(self, value):
-        self._set_data_name('vectors', 'cell', value)
+        self._set_data_name("vectors", "cell", value)
 
     def _cell_tensors_name_changed(self, value):
-        self._set_data_name('tensors', 'cell', value)
+        self._set_data_name("tensors", "cell", value)
 
     def _update_data(self):
         if self.data is None:
@@ -379,7 +391,7 @@ class VTKDataSource(Source):
 
         pd = self.data.point_data
         scalars = pd.scalars
-        if self.data.is_a('vtkImageData') and scalars is not None:
+        if self.data.is_a("vtkImageData") and scalars is not None:
             # For some reason getting the range of the scalars flushes
             # the data through to prevent some really strange errors
             # when using an ImagePlaneWidget.
@@ -393,27 +405,28 @@ class VTKDataSource(Source):
             `get_all_attributes` function and the data type
             (point/cell) data this will setup the object and the data.
             """
-            attrs = ['scalars', 'vectors', 'tensors']
+            attrs = ["scalars", "vectors", "tensors"]
             aa = obj._assign_attribute
-            data = getattr(obj.data, '%s_data'%d_type)
+            data = getattr(obj.data, "%s_data" % d_type)
             for attr in attrs:
                 values = sorted(attributes[attr])
-                values.append('')
-                setattr(obj, '_%s_%s_list'%(d_type, attr), values)
+                values.append("")
+                setattr(obj, "_%s_%s_list" % (d_type, attr), values)
                 if len(values) > 1:
-                    default = getattr(obj, '%s_%s_name'%(d_type, attr))
+                    default = getattr(obj, "%s_%s_name" % (d_type, attr))
                     if obj._first and len(default) == 0:
                         default = values[0]
-                    getattr(data, 'set_active_%s'%attr)(default)
-                    aa.assign(default, attr.upper(),
-                              d_type.upper() +'_DATA')
+                    getattr(data, "set_active_%s" % attr)(default)
+                    aa.assign(default, attr.upper(), d_type.upper() + "_DATA")
                     aa.update()
-                    kw = {'%s_%s_name'%(d_type, attr): default,
-                          'trait_change_notify': False}
+                    kw = {
+                        "%s_%s_name" % (d_type, attr): default,
+                        "trait_change_notify": False,
+                    }
                     obj.trait_set(**kw)
 
-        _setup_data_traits(self, pnt_attr, 'point')
-        _setup_data_traits(self, cell_attr, 'cell')
+        _setup_data_traits(self, pnt_attr, "point")
+        _setup_data_traits(self, cell_attr, "cell")
         if self._first:
             self._first = False
         # Propagate the data changed event.
@@ -426,18 +439,17 @@ class VTKDataSource(Source):
         if self.data is not None:
             typ = self.data.__class__.__name__
             ret = "VTK Data (%s)" % typ
-        if '[Hidden]' in self.name:
-            ret += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            ret += " [Hidden]"
         return ret
 
-    def _find_array_list(self, name, category='point'):
+    def _find_array_list(self, name, category="point"):
         """Return information on which kind of attribute contains the
         specified named array in a particular category."""
-        types = ['scalars', 'vectors', 'tensors']
+        types = ["scalars", "vectors", "tensors"]
         for type in types:
-            attr = '_%s_%s_list' % (category, type)
+            attr = "_%s_%s_list" % (category, type)
             names = getattr(self, attr)
             if name in names:
                 return type
-        raise KeyError('No %s array named %s available in dataset'
-                       % (category, name))
+        raise KeyError("No %s array named %s available in dataset" % (category, name))

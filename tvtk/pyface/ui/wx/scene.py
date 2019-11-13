@@ -1,4 +1,4 @@
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Copyright (c) 2005-2016, Enthought, Inc.
 # All rights reserved.
 #
@@ -10,7 +10,7 @@
 #
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 """A VTK interactor scene widget for the PyFace wxPython backend.  See
 the class docs for more details.
 
@@ -52,6 +52,7 @@ class FullScreen(object):
     than 5.1 where there was a bug with reparenting a window.
 
     """
+
     def __init__(self, scene):
         self.scene = scene
         self.old_rw = scene.render_window
@@ -63,21 +64,20 @@ class FullScreen(object):
 
         # Creates renderwindow tha should be used ONLY for
         # visualization in full screen
-        full_rw = tvtk.RenderWindow(stereo_capable_window=True,
-                                    full_screen=True
-                                    )
+        full_rw = tvtk.RenderWindow(stereo_capable_window=True, full_screen=True)
         # add the current visualization
         full_rw.add_renderer(self.ren)
 
         # Under OS X there is no support for creating a full screen
         # window so we set the size of the window here.
-        if sys.platform  == 'darwin':
+        if sys.platform == "darwin":
             full_rw.size = tuple(wx.GetDisplaySize())
 
         # provides a simple interactor
         style = tvtk.InteractorStyleTrackballCamera()
-        self.iren = tvtk.RenderWindowInteractor(render_window=full_rw,
-                                                interactor_style=style)
+        self.iren = tvtk.RenderWindowInteractor(
+            render_window=full_rw, interactor_style=style
+        )
 
         # Gets parameters for stereo visualization
         if self.old_rw.stereo_render:
@@ -106,6 +106,7 @@ class PopupScene(object):
     screen view with *complete* interactivity (including widget
     interaction).
     """
+
     def __init__(self, scene):
         self.orig_parent = None
         self.orig_size = None
@@ -132,9 +133,9 @@ class PopupScene(object):
         orig_disable_render = scene.disable_render
         scene.disable_render = True
         orig_render = vc.Render
-        vc.Render = lambda : None
+        vc.Render = lambda: None
         rw = vc.GetRenderWindow()
-        if sys.platform != 'darwin' and wx.Platform != '__WXMSW__':
+        if sys.platform != "darwin" and wx.Platform != "__WXMSW__":
             rw.SetNextWindowInfo(str(widget.GetHandle()))
             rw.WindowRemap()
         vc.Reparent(widget)
@@ -221,7 +222,7 @@ class Scene(TVTKScene, Widget):
     ###########################################################################
 
     # Turn on full-screen rendering.
-    full_screen = Button('Full Screen')
+    full_screen = Button("Full Screen")
 
     # The picker handles pick events.
     picker = Instance(picker.Picker)
@@ -229,44 +230,47 @@ class Scene(TVTKScene, Widget):
     ########################################
 
     # Render_window's view.
-    _stereo_view = Group(Item(name='stereo_render'),
-                         Item(name='stereo_type'),
-                         show_border=True,
-                         label='Stereo rendering',
-                         )
+    _stereo_view = Group(
+        Item(name="stereo_render"),
+        Item(name="stereo_type"),
+        show_border=True,
+        label="Stereo rendering",
+    )
 
     # The default view of this object.
-    default_view = View(Group(
-                            Group(Item(name='background'),
-                                  Item(name='foreground'),
-                                  Item(name='parallel_projection'),
-                                  Item(name='disable_render'),
-                                  Item(name='off_screen_rendering'),
-                                  Item(name='jpeg_quality'),
-                                  Item(name='jpeg_progressive'),
-                                  Item(name='magnification'),
-                                  Item(name='anti_aliasing_frames'),
-                                  Item(name='full_screen',
-                                       show_label=False),
-                                  ),
-                            Group(Item(name='render_window',
-                                       style='custom',
-                                       visible_when='object.stereo',
-                                       editor=InstanceEditor(view=View(_stereo_view)),
-                                       show_label=False),
-                                  ),
-                            label='Scene'),
-                         Group( Item(name='light_manager',
-                                style='custom', show_label=False),
-                                label='Lights'),
-                         Group(
-                             Item(
-                                 name='movie_maker',
-                                 style='custom', show_label=False
-                             ),
-                             label='Movie'),
-                         buttons=['OK', 'Cancel']
-                        )
+    default_view = View(
+        Group(
+            Group(
+                Item(name="background"),
+                Item(name="foreground"),
+                Item(name="parallel_projection"),
+                Item(name="disable_render"),
+                Item(name="off_screen_rendering"),
+                Item(name="jpeg_quality"),
+                Item(name="jpeg_progressive"),
+                Item(name="magnification"),
+                Item(name="anti_aliasing_frames"),
+                Item(name="full_screen", show_label=False),
+            ),
+            Group(
+                Item(
+                    name="render_window",
+                    style="custom",
+                    visible_when="object.stereo",
+                    editor=InstanceEditor(view=View(_stereo_view)),
+                    show_label=False,
+                ),
+            ),
+            label="Scene",
+        ),
+        Group(
+            Item(name="light_manager", style="custom", show_label=False), label="Lights"
+        ),
+        Group(
+            Item(name="movie_maker", style="custom", show_label=False), label="Movie"
+        ),
+        buttons=["OK", "Cancel"],
+    )
 
     ########################################
     # Private traits.
@@ -287,13 +291,12 @@ class Scene(TVTKScene, Widget):
         # Setup the default picker.
         self.picker = picker.Picker(self)
 
-
     def __get_pure_state__(self):
         """Allows us to pickle the scene."""
         # The control attribute is not picklable since it is a VTK
         # object so we remove it.
         d = super(Scene, self).__get_pure_state__()
-        for x in ['_vtk_control', '_fullscreen', '_interacting']:
+        for x in ["_vtk_control", "_fullscreen", "_interacting"]:
             d.pop(x, None)
         return d
 
@@ -351,25 +354,25 @@ class Scene(TVTKScene, Widget):
         camera = self.camera
         if keycode < 256:
             key = chr(keycode)
-            if key == '-':
+            if key == "-":
                 camera.zoom(0.8)
                 self.render()
-                self._record_methods('camera.zoom(0.8)\nrender()')
+                self._record_methods("camera.zoom(0.8)\nrender()")
                 return
-            if key in ['=', '+']:
+            if key in ["=", "+"]:
                 camera.zoom(1.25)
                 self.render()
-                self._record_methods('camera.zoom(1.25)\nrender()')
+                self._record_methods("camera.zoom(1.25)\nrender()")
                 return
-            if key.lower() in ['q', 'e'] or keycode == wx.WXK_ESCAPE:
+            if key.lower() in ["q", "e"] or keycode == wx.WXK_ESCAPE:
                 self._disable_fullscreen()
-            if key.lower() in ['w']:
+            if key.lower() in ["w"]:
                 event.Skip()
                 return
-            if key.lower() in ['r']:
-                self._record_methods('reset_zoom()')
+            if key.lower() in ["r"]:
+                self._record_methods("reset_zoom()")
             # Handle picking.
-            if key.lower() in ['p']:
+            if key.lower() in ["p"]:
                 # In wxPython-2.6, there appears to be a bug in
                 # EVT_CHAR so that event.GetX() and event.GetY() are
                 # not correct.  Therefore the picker is called on
@@ -377,14 +380,14 @@ class Scene(TVTKScene, Widget):
                 event.Skip()
                 return
             # Camera focal point.
-            if key.lower() in ['f']:
+            if key.lower() in ["f"]:
                 event.Skip()
                 return
             # Light configuration.
-            if key.lower() in ['l'] and not modifiers:
+            if key.lower() in ["l"] and not modifiers:
                 self.light_manager.configure()
                 return
-            if key.lower() in ['s'] and not modifiers:
+            if key.lower() in ["s"] and not modifiers:
                 parent = self._vtk_control.GetParent()
                 fname = popup_save(parent)
                 if len(fname) != 0:
@@ -395,44 +398,44 @@ class Scene(TVTKScene, Widget):
         if keycode == wx.WXK_LEFT:
             if shift:
                 camera.yaw(-5)
-                self._record_methods('camera.yaw(-5)')
+                self._record_methods("camera.yaw(-5)")
             else:
                 camera.azimuth(5)
-                self._record_methods('camera.azimuth(5)')
+                self._record_methods("camera.azimuth(5)")
             self.render()
-            self._record_methods('render()')
+            self._record_methods("render()")
             return
         elif keycode == wx.WXK_RIGHT:
             if shift:
                 camera.yaw(5)
-                self._record_methods('camera.yaw(5)')
+                self._record_methods("camera.yaw(5)")
             else:
                 camera.azimuth(-5)
-                self._record_methods('camera.azimuth(-5)')
+                self._record_methods("camera.azimuth(-5)")
             self.render()
-            self._record_methods('render()')
+            self._record_methods("render()")
             return
         elif keycode == wx.WXK_UP:
             if shift:
                 camera.pitch(-5)
-                self._record_methods('camera.pitch(-5)')
+                self._record_methods("camera.pitch(-5)")
             else:
                 camera.elevation(-5)
-                self._record_methods('camera.elevation(-5)')
+                self._record_methods("camera.elevation(-5)")
             camera.orthogonalize_view_up()
             self.render()
-            self._record_methods('camera.orthogonalize_view_up()\nrender()')
+            self._record_methods("camera.orthogonalize_view_up()\nrender()")
             return
         elif keycode == wx.WXK_DOWN:
             if shift:
                 camera.pitch(5)
-                self._record_methods('camera.pitch(5)')
+                self._record_methods("camera.pitch(5)")
             else:
                 camera.elevation(5)
-                self._record_methods('camera.elevation(5)')
+                self._record_methods("camera.elevation(5)")
             camera.orthogonalize_view_up()
             self.render()
-            self._record_methods('camera.orthogonalize_view_up()\nrender()')
+            self._record_methods("camera.orthogonalize_view_up()\nrender()")
             return
 
         self._vtk_control.OnKeyDown(event)
@@ -453,13 +456,13 @@ class Scene(TVTKScene, Widget):
         modifiers = event.HasModifiers()
         if keycode < 256:
             key = chr(keycode)
-            if key.lower() in ['s', 'w', 'e', 'q']:
+            if key.lower() in ["s", "w", "e", "q"]:
                 event.Skip()
                 return
             # Set camera focal point.
-            if key.lower() in ['f']:
+            if key.lower() in ["f"]:
                 if not modifiers:
-                    if sys.platform == 'darwin':
+                    if sys.platform == "darwin":
                         x, y = self._interactor.event_position
                     else:
                         x = event.GetX()
@@ -469,13 +472,14 @@ class Scene(TVTKScene, Widget):
                     if coord is not None:
                         self.camera.focal_point = coord
                         self.render()
-                        self._record_methods('camera.focal_point = %r\n'\
-                                             'render()'%list(coord))
+                        self._record_methods(
+                            "camera.focal_point = %r\n" "render()" % list(coord)
+                        )
                         return
             # Handle picking.
-            if key.lower() in ['p']:
+            if key.lower() in ["p"]:
                 if not modifiers:
-                    if sys.platform == 'darwin':
+                    if sys.platform == "darwin":
                         x, y = self._interactor.event_position
                     else:
                         x = event.GetX()
@@ -489,7 +493,7 @@ class Scene(TVTKScene, Widget):
                     event.Skip()
                     return
             # Light configuration.
-            if key.lower() in ['l']:
+            if key.lower() in ["l"]:
                 event.Skip()
                 return
 
@@ -523,13 +527,13 @@ class Scene(TVTKScene, Widget):
         renwin.update_traits()
 
         vtk_rw = tvtk.to_vtk(renwin)
-        renwin.add_observer('StartEvent', messenger.send)
-        messenger.connect(vtk_rw, 'StartEvent', self._start_event_callback)
-        renwin.add_observer('EndEvent', messenger.send)
-        messenger.connect(vtk_rw, 'EndEvent', self._end_event_callback)
+        renwin.add_observer("StartEvent", messenger.send)
+        messenger.connect(vtk_rw, "StartEvent", self._start_event_callback)
+        renwin.add_observer("EndEvent", messenger.send)
+        messenger.connect(vtk_rw, "EndEvent", self._end_event_callback)
 
         # Reset the event handler to the default since our job is done.
-        self._vtk_control.Bind(wx.EVT_PAINT, None) # Remove the default handler.
+        self._vtk_control.Bind(wx.EVT_PAINT, None)  # Remove the default handler.
         self._vtk_control.Bind(wx.EVT_PAINT, self._vtk_control.OnPaint)
 
     def OnSize(self, event):
@@ -565,26 +569,25 @@ class Scene(TVTKScene, Widget):
         """ Create the toolkit-specific control that represents the widget. """
 
         # Create the VTK widget.
-        self._vtk_control = window = wxVTKRenderWindowInteractor(parent, -1,
-                                                                 stereo=self.stereo)
+        self._vtk_control = window = wxVTKRenderWindowInteractor(
+            parent, -1, stereo=self.stereo
+        )
 
         # Override these handlers.
-        window.Bind(wx.EVT_CHAR, None) # Remove the default handler.
+        window.Bind(wx.EVT_CHAR, None)  # Remove the default handler.
         window.Bind(wx.EVT_CHAR, self.OnKeyDown)
-        window.Bind(wx.EVT_KEY_UP, None) # Remove the default handler.
+        window.Bind(wx.EVT_KEY_UP, None)  # Remove the default handler.
         window.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
-        window.Bind(wx.EVT_PAINT, None) # Remove the default handler.
+        window.Bind(wx.EVT_PAINT, None)  # Remove the default handler.
         window.Bind(wx.EVT_PAINT, self.OnPaint)
-        window.Bind(wx.EVT_SIZE, None) # Remove the default handler.
+        window.Bind(wx.EVT_SIZE, None)  # Remove the default handler.
         window.Bind(wx.EVT_SIZE, self.OnSize)
         # Override the button down and up handlers as well to note the
         # interaction.  This is to toggle the busy status nicely.
-        for evt in (wx.EVT_LEFT_DOWN, wx.EVT_RIGHT_DOWN,
-                    wx.EVT_MIDDLE_DOWN):
+        for evt in (wx.EVT_LEFT_DOWN, wx.EVT_RIGHT_DOWN, wx.EVT_MIDDLE_DOWN):
             window.Bind(evt, None)
             window.Bind(evt, self.OnButtonDown)
-        for evt in (wx.EVT_LEFT_UP, wx.EVT_RIGHT_UP,
-                    wx.EVT_MIDDLE_UP):
+        for evt in (wx.EVT_LEFT_UP, wx.EVT_RIGHT_UP, wx.EVT_MIDDLE_UP):
             window.Bind(evt, None)
             window.Bind(evt, self.OnButtonUp)
 
@@ -595,9 +598,11 @@ class Scene(TVTKScene, Widget):
 
         # Grab the renderwindow.
         renwin = self._renwin = tvtk.to_tvtk(window.GetRenderWindow())
-        renwin.trait_set(point_smoothing=self.point_smoothing,
-                   line_smoothing=self.line_smoothing,
-                   polygon_smoothing=self.polygon_smoothing)
+        renwin.trait_set(
+            point_smoothing=self.point_smoothing,
+            line_smoothing=self.line_smoothing,
+            polygon_smoothing=self.polygon_smoothing,
+        )
         # Create a renderer and add it to the renderwindow
         self._renderer = tvtk.Renderer()
         renwin.add_renderer(self._renderer)
@@ -607,16 +612,16 @@ class Scene(TVTKScene, Widget):
 
         # Sync various traits.
         self._renderer.background = self.background
-        self.sync_trait('background', self._renderer)
-        self.renderer.on_trait_change(self.render, 'background')
+        self.sync_trait("background", self._renderer)
+        self.renderer.on_trait_change(self.render, "background")
         self._camera.parallel_projection = self.parallel_projection
-        self.sync_trait('parallel_projection', self._camera)
+        self.sync_trait("parallel_projection", self._camera)
         renwin.off_screen_rendering = self.off_screen_rendering
-        self.sync_trait('off_screen_rendering', self._renwin)
-        self.render_window.on_trait_change(self.render, 'off_screen_rendering')
-        self.render_window.on_trait_change(self.render, 'stereo_render')
-        self.render_window.on_trait_change(self.render, 'stereo_type')
-        self.camera.on_trait_change(self.render, 'parallel_projection')
+        self.sync_trait("off_screen_rendering", self._renwin)
+        self.render_window.on_trait_change(self.render, "off_screen_rendering")
+        self.render_window.on_trait_change(self.render, "stereo_render")
+        self.render_window.on_trait_change(self.render, "stereo_type")
+        self.camera.on_trait_change(self.render, "parallel_projection")
 
         def _show_parent_hack(window, parent):
             """A hack to get the VTK scene properly setup for use."""
@@ -631,7 +636,7 @@ class Scene(TVTKScene, Widget):
             wx.GetApp().Yield(True)
             window.Render()
 
-        if wx.Platform == '__WXMSW__':
+        if wx.Platform == "__WXMSW__":
             _show_parent_hack(window, parent)
         else:
             if (wx.VERSION[0] == 2) and (wx.VERSION[1] < 5):
@@ -650,7 +655,7 @@ class Scene(TVTKScene, Widget):
             w = wx.GetTopLevelParent(window)
             # Force a resize
             sz = w.GetSize()
-            w.SetSize((sz[0]-1, sz[1]-1))
+            w.SetSize((sz[0] - 1, sz[1] - 1))
             w.SetSize(sz)
             window._idle_count -= 1
             if window._idle_count < 1:
@@ -701,13 +706,13 @@ class Scene(TVTKScene, Widget):
         elif fs is None:
             ver = tvtk.Version()
             popup = False
-            if wx.Platform == '__WXMSW__':
+            if wx.Platform == "__WXMSW__":
                 popup = True
             elif ver.vtk_major_version > 5:
                 popup = True
-            elif (ver.vtk_major_version == 5) and \
-                 ((ver.vtk_minor_version >= 1) or \
-                  (ver.vtk_build_version > 2)):
+            elif (ver.vtk_major_version == 5) and (
+                (ver.vtk_minor_version >= 1) or (ver.vtk_build_version > 2)
+            ):
                 popup = True
             if popup:
                 # There is a bug with earlier versions of VTK that
@@ -718,7 +723,7 @@ class Scene(TVTKScene, Widget):
                 f.fullscreen()
             else:
                 f = FullScreen(self)
-                f.run() # This will block.
+                f.run()  # This will block.
                 self._fullscreen = None
 
     def _disable_fullscreen(self):

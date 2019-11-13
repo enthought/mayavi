@@ -23,7 +23,6 @@ from mayavi.tests import datasets
 
 
 class TestVTKDataSource(unittest.TestCase):
-
     def setUp(self):
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
@@ -50,7 +49,7 @@ class TestVTKDataSource(unittest.TestCase):
         cgp2 = ContourGridPlane()
         cgp2.contour.filled_contours = True
         # Set the axis and position to the middle of the data.
-        cgp2.grid_plane.axis = 'y'
+        cgp2.grid_plane.axis = "y"
         cgp2.grid_plane.position = 15
         e.add_module(cgp2)
 
@@ -85,7 +84,7 @@ class TestVTKDataSource(unittest.TestCase):
 
         cgp2 = mm.children[2]
         self.assertEqual(cgp2.contour.filled_contours, True)
-        self.assertEqual(cgp2.grid_plane.axis, 'y')
+        self.assertEqual(cgp2.grid_plane.axis, "y")
         self.assertEqual(cgp2.grid_plane.position, 15)
 
         iso = mm.children[3]
@@ -95,7 +94,6 @@ class TestVTKDataSource(unittest.TestCase):
         rng = iso.actor.mapper.input.point_data.scalars.range
         self.assertEqual(rng[0], 5.0)
         self.assertEqual(rng[1], 5.0)
-
 
         cp = mm.children[4]
         ip = cp.implicit_plane
@@ -117,7 +115,7 @@ class TestVTKDataSource(unittest.TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2')  # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         engine.save_visualization(f)
         f.seek(0)  # So we can read this saved data.
 
@@ -174,31 +172,31 @@ class TestVTKDataSourceAttributes(unittest.TestCase):
         sgrid = self.sgrid
         s1 = numpy.ones(4)
         sgrid.point_data.scalars = s1
-        sgrid.point_data.scalars.name = 's1'
+        sgrid.point_data.scalars.name = "s1"
         src = VTKDataSource(data=sgrid)
-        self.assertEqual(src.point_scalars_name, 's1')
-        self.assertEqual(sorted(src._point_scalars_list), ['', 's1'])
+        self.assertEqual(src.point_scalars_name, "s1")
+        self.assertEqual(sorted(src._point_scalars_list), ["", "s1"])
 
         # When
         s2 = s1 + 1.0
-        src.add_attribute(s2, 's2')
+        src.add_attribute(s2, "s2")
         v1 = numpy.ones((4, 3))
-        src.add_attribute(v1, 'v1')
+        src.add_attribute(v1, "v1")
         t1 = numpy.ones((4, 9))
-        src.add_attribute(t1, 't1')
+        src.add_attribute(t1, "t1")
 
         # Then
-        self.assertEqual(src._point_scalars_list, ['', 's1', 's2'])
+        self.assertEqual(src._point_scalars_list, ["", "s1", "s2"])
         self.assertTrue(
-            numpy.allclose(src.data.point_data.get_array('s2').to_array(), s2)
+            numpy.allclose(src.data.point_data.get_array("s2").to_array(), s2)
         )
-        self.assertEqual(src._point_vectors_list, ['', 'v1'])
+        self.assertEqual(src._point_vectors_list, ["", "v1"])
         self.assertTrue(
-            numpy.allclose(src.data.point_data.get_array('v1').to_array(), v1)
+            numpy.allclose(src.data.point_data.get_array("v1").to_array(), v1)
         )
-        self.assertEqual(src._point_tensors_list, ['', 't1'])
+        self.assertEqual(src._point_tensors_list, ["", "t1"])
         self.assertTrue(
-            numpy.allclose(src.data.point_data.get_array('t1').to_array(), t1)
+            numpy.allclose(src.data.point_data.get_array("t1").to_array(), t1)
         )
 
     def test_add_attribute_works_for_cell_data(self):
@@ -206,31 +204,31 @@ class TestVTKDataSourceAttributes(unittest.TestCase):
         sgrid = self.sgrid
         s1 = numpy.ones(4)
         sgrid.cell_data.scalars = s1
-        sgrid.cell_data.scalars.name = 's1'
+        sgrid.cell_data.scalars.name = "s1"
         src = VTKDataSource(data=sgrid)
-        self.assertEqual(src.cell_scalars_name, 's1')
-        self.assertEqual(sorted(src._cell_scalars_list), ['', 's1'])
+        self.assertEqual(src.cell_scalars_name, "s1")
+        self.assertEqual(sorted(src._cell_scalars_list), ["", "s1"])
 
         # When
         s2 = s1 + 1.0
-        src.add_attribute(s2, 's2', category='cell')
+        src.add_attribute(s2, "s2", category="cell")
         v1 = numpy.ones((4, 3))
-        src.add_attribute(v1, 'v1', category='cell')
+        src.add_attribute(v1, "v1", category="cell")
         t1 = numpy.ones((4, 9))
-        src.add_attribute(t1, 't1', category='cell')
+        src.add_attribute(t1, "t1", category="cell")
 
         # Then
-        self.assertEqual(src._cell_scalars_list, ['', 's1', 's2'])
+        self.assertEqual(src._cell_scalars_list, ["", "s1", "s2"])
         self.assertTrue(
-            numpy.allclose(src.data.cell_data.get_array('s2').to_array(), s2)
+            numpy.allclose(src.data.cell_data.get_array("s2").to_array(), s2)
         )
-        self.assertEqual(src._cell_vectors_list, ['', 'v1'])
+        self.assertEqual(src._cell_vectors_list, ["", "v1"])
         self.assertTrue(
-            numpy.allclose(src.data.cell_data.get_array('v1').to_array(), v1)
+            numpy.allclose(src.data.cell_data.get_array("v1").to_array(), v1)
         )
-        self.assertEqual(src._cell_tensors_list, ['', 't1'])
+        self.assertEqual(src._cell_tensors_list, ["", "t1"])
         self.assertTrue(
-            numpy.allclose(src.data.cell_data.get_array('t1').to_array(), t1)
+            numpy.allclose(src.data.cell_data.get_array("t1").to_array(), t1)
         )
 
     def test_add_attribute_raises_errors(self):
@@ -238,58 +236,58 @@ class TestVTKDataSourceAttributes(unittest.TestCase):
         sgrid = self.sgrid
         s1 = numpy.ones(4)
         sgrid.point_data.scalars = s1
-        sgrid.point_data.scalars.name = 's1'
+        sgrid.point_data.scalars.name = "s1"
         src = VTKDataSource(data=sgrid)
 
         # When/Then
         data = numpy.ones((4, 3, 3))
-        self.assertRaises(AssertionError, src.add_attribute, data, 's2')
+        self.assertRaises(AssertionError, src.add_attribute, data, "s2")
 
         data = numpy.ones((4, 5))
-        self.assertRaises(AssertionError, src.add_attribute, data, 's2')
+        self.assertRaises(AssertionError, src.add_attribute, data, "s2")
 
     def test_remove_attribute(self):
         # Given
         sgrid = self.sgrid
         s1 = numpy.ones(4)
         sgrid.point_data.scalars = s1
-        sgrid.point_data.scalars.name = 's1'
+        sgrid.point_data.scalars.name = "s1"
         src = VTKDataSource(data=sgrid)
-        self.assertEqual(src.point_scalars_name, 's1')
-        self.assertEqual(sorted(src._point_scalars_list), ['', 's1'])
+        self.assertEqual(src.point_scalars_name, "s1")
+        self.assertEqual(sorted(src._point_scalars_list), ["", "s1"])
 
         # When
         s2 = s1 + 1.0
-        src.add_attribute(s2, 's2')
+        src.add_attribute(s2, "s2")
 
         # Then
-        self.assertEqual(sorted(src._point_scalars_list), ['', 's1', 's2'])
+        self.assertEqual(sorted(src._point_scalars_list), ["", "s1", "s2"])
 
         # When
-        src.remove_attribute('s2')
+        src.remove_attribute("s2")
 
         # Then
-        self.assertEqual(sorted(src._point_scalars_list), ['', 's1'])
-        self.assertEqual(src.data.point_data.get_array('s2'), None)
+        self.assertEqual(sorted(src._point_scalars_list), ["", "s1"])
+        self.assertEqual(src.data.point_data.get_array("s2"), None)
 
     def test_rename_attribute(self):
         # Given
         sgrid = self.sgrid
         s1 = numpy.ones(4)
         sgrid.point_data.scalars = s1
-        sgrid.point_data.scalars.name = 's1'
+        sgrid.point_data.scalars.name = "s1"
         src = VTKDataSource(data=sgrid)
-        self.assertEqual(src.point_scalars_name, 's1')
-        self.assertEqual(sorted(src._point_scalars_list), ['', 's1'])
+        self.assertEqual(src.point_scalars_name, "s1")
+        self.assertEqual(sorted(src._point_scalars_list), ["", "s1"])
 
         # When
-        src.rename_attribute('s1', 's2')
+        src.rename_attribute("s1", "s2")
 
         # Then
-        self.assertEqual(sorted(src._point_scalars_list), ['', 's2'])
-        self.assertTrue(numpy.all(src.data.point_data.get_array('s2') == s1))
-        self.assertEqual(src.data.point_data.get_array('s1'), None)
+        self.assertEqual(sorted(src._point_scalars_list), ["", "s2"])
+        self.assertTrue(numpy.all(src.data.point_data.get_array("s2") == s1))
+        self.assertEqual(src.data.point_data.get_array("s1"), None)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

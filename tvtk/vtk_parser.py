@@ -114,7 +114,7 @@ class VTKMethodParser:
             self._tree.create()
         else:
             self._tree = None
-        self._state_patn = re.compile('To[A-Z0-9]')
+        self._state_patn = re.compile("To[A-Z0-9]")
         self._initialize()
 
     #################################################################
@@ -140,7 +140,7 @@ class VTKMethodParser:
           use.
 
         """
-        if not hasattr(obj, '__bases__'):
+        if not hasattr(obj, "__bases__"):
             klass = obj.__class__
         else:
             klass = obj
@@ -150,7 +150,7 @@ class VTKMethodParser:
         if no_warn:
             # Save warning setting and shut it off before parsing.
             warn = vtk.vtkObject.GetGlobalWarningDisplay()
-            if klass.__name__ != 'vtkObject':
+            if klass.__name__ != "vtkObject":
                 vtk.vtkObject.GlobalWarningDisplayOff()
 
         self._organize_methods(klass, methods)
@@ -172,7 +172,7 @@ class VTKMethodParser:
     def get_methods(self, klass):
         """Returns all the relevant methods of the given VTK class."""
         methods = dir(klass)[:]
-        if hasattr(klass, '__members__'):
+        if hasattr(klass, "__members__"):
             # Only VTK versions < 4.5 have these.
             for m in klass.__members__:
                 methods.remove(m)
@@ -180,13 +180,15 @@ class VTKMethodParser:
         ignore = self._get_parent_methods(klass)
 
         # Skip some of the ignores.
-        skip = ['GetInput', 'SetInput']
+        skip = ["GetInput", "SetInput"]
         # Sometimes the child has only GetInput while the parent has
         # SetInput.
-        if hasattr(klass, 'SetInput') and \
-            'SetInput' not in methods and \
-            'GetInput' in methods:
-            methods.append('SetInput')
+        if (
+            hasattr(klass, "SetInput")
+            and "SetInput" not in methods
+            and "GetInput" in methods
+        ):
+            methods.append("SetInput")
 
         # Get/set pairs that are overridden.  Basically, if a parent
         # class has a 'GetThing' and the child overrides/has a
@@ -200,48 +202,50 @@ class VTKMethodParser:
         # any Get/Set pair that is not a State or Toggle should be redefined.
         for m in methods:
             check = False
-            if m.startswith('Get'):
-                m1 = 'Set' + m[3:]
+            if m.startswith("Get"):
+                m1 = "Set" + m[3:]
                 check = True
-            elif m.startswith('Set'):
-                m1 = 'Get' + m[3:]
+            elif m.startswith("Set"):
+                m1 = "Get" + m[3:]
                 check = True
             if check:
                 if m1 in methods and (m1 in ignore or m in ignore):
                     skip_method = True
-                    if hasattr(klass, 'mro'):
+                    if hasattr(klass, "mro"):
                         # New in VTK 6.3.x with Python 3 support.  In this
                         # case  dir(klass) produces all methods so we check if
                         # the definition is the same as the parent.
                         base_cls = klass.__bases__[0]
-                        if getattr(klass, m) is getattr(base_cls, m, None) \
-                            and getattr(klass, m1) is getattr(base_cls, m1, None):
+                        if getattr(klass, m) is getattr(base_cls, m, None) and getattr(
+                            klass, m1
+                        ) is getattr(base_cls, m1, None):
                             skip_method = False
 
                     if skip_method:
                         # Skips are stored as Set followed by Get.
-                        skip.extend(['Set' +m[3:], 'Get'+m[3:]])
+                        skip.extend(["Set" + m[3:], "Get" + m[3:]])
 
         for m in skip[:]:
-            if m.startswith('Set'):
+            if m.startswith("Set"):
                 base = m[3:]
-                mg, ms = 'Get' + base, 'Set' + base
-                m_st = 'Set' + base + 'To'
-                m_t = base + 'Off'
+                mg, ms = "Get" + base, "Set" + base
+                m_st = "Set" + base + "To"
+                m_t = base + "Off"
                 for method in methods:
                     if m_st in method or m_t == method:
                         skip.remove(ms)
                         skip.remove(mg)
                         break
 
-        if 'GetViewProp' in methods and 'GetProp' in methods:
-            ignore.extend(['GetProp', 'SetProp'])
-        if 'GetViewProps' in methods and 'GetProps' in methods:
-            ignore.extend(['GetProps', 'SetProps'])
+        if "GetViewProp" in methods and "GetProp" in methods:
+            ignore.extend(["GetProp", "SetProp"])
+        if "GetViewProps" in methods and "GetProps" in methods:
+            ignore.extend(["GetProps", "SetProps"])
         # Remove any deprecated traits.
-        if 'GetScaledText' in methods and 'GetTextScaleMode' in methods:
-            ignore.extend(['GetScaledText', 'SetScaledText',
-                           'ScaledTextOn', 'ScaledTextOff'])
+        if "GetScaledText" in methods and "GetTextScaleMode" in methods:
+            ignore.extend(
+                ["GetScaledText", "SetScaledText", "ScaledTextOn", "ScaledTextOff"]
+            )
 
         # Now we can safely remove the methods.
         for m in methods[:]:
@@ -324,18 +328,18 @@ class VTKMethodParser:
         doc = method.__doc__
         if doc is None:
             return None
-        doc = doc[:doc.find('\n\n')]
+        doc = doc[: doc.find("\n\n")]
         sig = []
-        c_sig = [] # The C++ signature
+        c_sig = []  # The C++ signature
         in_sig = False
         in_c_sig = False
         counter = 0
-        for line in doc.split('\n'):
-            if line.startswith('V.'):
+        for line in doc.split("\n"):
+            if line.startswith("V."):
                 in_sig = True
                 in_c_sig = False
                 sig.append(line.strip())
-            elif line.startswith('C++:'):
+            elif line.startswith("C++:"):
                 in_sig = False
                 in_c_sig = True
                 c_sig.append(line.strip())
@@ -343,25 +347,24 @@ class VTKMethodParser:
             elif in_sig:
                 sig[counter] = sig[counter] + line.strip()
             elif in_c_sig:
-                c_sig[counter-1] = c_sig[counter-1] + line.strip()
-
+                c_sig[counter - 1] = c_sig[counter - 1] + line.strip()
 
         # Remove the V.<method_name>
-        sig = [x.replace('V.' + method.__name__, '') for x in sig]
-        c_sig = [x[x.find('('):] for x in c_sig]
+        sig = [x.replace("V." + method.__name__, "") for x in sig]
+        c_sig = [x[x.find("(") :] for x in c_sig]
 
-        pat = re.compile(r'\b')
+        pat = re.compile(r"\b")
 
         # Split into [return_value, arguments] after processing them.
         tmp = list(sig)
         sig = []
         for sig_idx, i in enumerate(tmp):
             # Split to get return values.
-            x = i.split('->')
+            x = i.split("->")
             # Strip each part.
             x = [y.strip() for y in x]
 
-            if len(x) == 1: # No return value
+            if len(x) == 1:  # No return value
                 x = [None, x[0]]
             else:
                 x.reverse()
@@ -372,8 +375,8 @@ class VTKMethodParser:
             arg = arg[1:-1]
             if not arg:
                 arg = None
-            if arg and arg[-1] in [')', ']']:
-                arg = arg + ','
+            if arg and arg[-1] in [")", "]"]:
+                arg = arg + ","
 
             # Check if we are able to parse all the arguments -- some
             # unstable versions of VTK have problems generating the
@@ -381,49 +384,52 @@ class VTKMethodParser:
             # docstring signature.
 
             n_arg = 0
-            arg_map = {'unsigned int': 'int', 'unsigned char': 'int',
-                    'unsigned long': 'long', 'unsigned short': 'int'}
+            arg_map = {
+                "unsigned int": "int",
+                "unsigned char": "int",
+                "unsigned long": "long",
+                "unsigned short": "int",
+            }
             if arg is not None and c_sig:
-                n_arg = arg.count(',') + 1
+                n_arg = arg.count(",") + 1
                 # The carguments have parenthesis like: (int, int)
-                carg = c_sig[sig_idx][1:-1].split(',')
+                carg = c_sig[sig_idx][1:-1].split(",")
                 if n_arg > 0:
                     args = []
                     if len(carg) == n_arg:
-                        for idx, x in enumerate(arg.split(',')):
+                        for idx, x in enumerate(arg.split(",")):
                             if len(x.strip()) == 0:
                                 carg_val = carg[idx].strip()
-                                if 'unsigned' in carg_val and \
-                                    carg_val in arg_map:
+                                if "unsigned" in carg_val and carg_val in arg_map:
                                     args.append(arg_map[carg_val])
-                                elif 'void' in carg_val:
+                                elif "void" in carg_val:
                                     args.append("string")
                                 else:
                                     args.append(x)
                             else:
                                 args.append(x)
-                        arg = ', '.join(args)
+                        arg = ", ".join(args)
 
-            if ret is not None and ret.startswith('(') and '...' in ret:
+            if ret is not None and ret.startswith("(") and "..." in ret:
                 # A tuple (new in VTK-5.7)
                 ret = "tuple"
 
             if arg is not None:
-                if '[float, ...]' in arg:
-                    arg = arg.replace('[float, ...]', 'tuple')
-                elif '(float, ...)' in arg:
-                    arg = arg.replace('(float, ...)', 'tuple')
+                if "[float, ...]" in arg:
+                    arg = arg.replace("[float, ...]", "tuple")
+                elif "(float, ...)" in arg:
+                    arg = arg.replace("(float, ...)", "tuple")
 
-            if ret == '(, )':
+            if ret == "(, )":
                 ret = None
 
             # Now quote the args and eval them.  Easy!
             try:
                 if ret:
-                    ret = eval(pat.sub('\"', ret))
+                    ret = eval(pat.sub('"', ret))
                 if arg:
-                    arg = eval(pat.sub('\"', arg))
-                    if type(arg) == type('str'):
+                    arg = eval(pat.sub('"', arg))
+                    if type(arg) == type("str"):
                         arg = [arg]
             except SyntaxError:
                 pass
@@ -474,8 +480,7 @@ class VTKMethodParser:
         meths = self._find_get_set_methods(klass, meths)
         meths = self._find_get_methods(klass, meths)
         self.other_meths = [
-            x for x in meths \
-            if isinstance(getattr(klass, x), collections.Callable)
+            x for x in meths if isinstance(getattr(klass, x), collections.Callable)
         ]
 
     def _remove_method(self, meths, method):
@@ -492,31 +497,35 @@ class VTKMethodParser:
         meths = methods[:]
         tm = self.toggle_meths
         klass_name = klass.__name__
-        problem_methods = ['CopyVectors', 'CopyTensors',
-                           'CopyTCoords', 'CopyScalars',
-                           'CopyNormals', 'CopyGlobalIds',
-                           'CopyPedigreeIds']
+        problem_methods = [
+            "CopyVectors",
+            "CopyTensors",
+            "CopyTCoords",
+            "CopyScalars",
+            "CopyNormals",
+            "CopyGlobalIds",
+            "CopyPedigreeIds",
+        ]
         for method in meths[:]:
-            if klass_name == 'vtkDataSetAttributes' and \
-               method[:-2] in problem_methods:
+            if klass_name == "vtkDataSetAttributes" and method[:-2] in problem_methods:
                 continue
-            elif method[:-2] == 'AlphaBitPlanes':
+            elif method[:-2] == "AlphaBitPlanes":
                 continue
-            if method[-2:] == 'On':
+            if method[-2:] == "On":
                 key = method[:-2]
-                if (key + 'Off') in meths and ('Get' + key) in meths:
+                if (key + "Off") in meths and ("Get" + key) in meths:
                     tm[key] = None
                     meths.remove(method)
-                    meths.remove(key + 'Off')
-                    self._remove_method(meths, 'Set' + key)
-                    self._remove_method(meths, 'Get' + key)
+                    meths.remove(key + "Off")
+                    self._remove_method(meths, "Set" + key)
+                    self._remove_method(meths, "Get" + key)
         # get defaults
         if tm:
             obj = self._get_instance(klass)
             if obj:
                 for key in tm:
                     try:
-                        tm[key] = getattr(obj, 'Get%s'%key)()
+                        tm[key] = getattr(obj, "Get%s" % key)()
                     except (TypeError, AttributeError):
                         print(klass.__name__, key)
         return meths
@@ -529,35 +538,36 @@ class VTKMethodParser:
 
         """
         # These ignored ones are really not state methods.
-        ignore = ['SetUpdateExtentToWholeExtent',
-                  'SetDataExtentToWholeExtent',
-                  'SetOutputSpacingToDefault', # In vtkImageReslice.
-                  'SetOutputOriginToDefault', # In vtkImageReslice
-                  'SetOutputExtentToDefault' # In vtkImageReslice
-                  ]
+        ignore = [
+            "SetUpdateExtentToWholeExtent",
+            "SetDataExtentToWholeExtent",
+            "SetOutputSpacingToDefault",  # In vtkImageReslice.
+            "SetOutputOriginToDefault",  # In vtkImageReslice
+            "SetOutputExtentToDefault",  # In vtkImageReslice
+        ]
         meths = methods[:]
         sm = self.state_meths
         for method in meths[:]:
-            if method not in ignore and method[:3] == 'Set':
+            if method not in ignore and method[:3] == "Set":
                 # Methods of form Set<Prop>To<Value>
                 match = self._state_patn.search(method)
                 # Second cond. ensures that this is not an accident.
-                if match and (('Get'+method[3:]) not in meths):
-                    key = method[3:match.start()] # The <Prop> part.
-                    if (('Get' + key) in methods):
-                        val = method[match.start()+2:] # <Value> part.
+                if match and (("Get" + method[3:]) not in meths):
+                    key = method[3 : match.start()]  # The <Prop> part.
+                    if ("Get" + key) in methods:
+                        val = method[match.start() + 2 :]  # <Value> part.
                         meths.remove(method)
                         if key in sm:
                             sm[key].append([val, None])
                         else:
                             sm[key] = [[val, None]]
-                            meths.remove('Get'+ key)
-                            self._remove_method(meths, 'Set'+ key)
-                            if ('Get' + key + 'MaxValue') in meths:
-                                meths.remove('Get' + key + 'MaxValue')
-                                meths.remove('Get' + key + 'MinValue')
+                            meths.remove("Get" + key)
+                            self._remove_method(meths, "Set" + key)
+                            if ("Get" + key + "MaxValue") in meths:
+                                meths.remove("Get" + key + "MaxValue")
+                                meths.remove("Get" + key + "MinValue")
                             try:
-                                meths.remove('Get' + key + 'AsString')
+                                meths.remove("Get" + key + "AsString")
                             except ValueError:
                                 pass
         # Find the values for each of the states, i.e. find that
@@ -566,23 +576,23 @@ class VTKMethodParser:
         if sm:
             obj = self._get_instance(klass)
             klass_name = klass.__name__
-            if obj and not klass_name.endswith('Viewer'):
+            if obj and not klass_name.endswith("Viewer"):
                 # We do not try to inspect viewers, because they'll
                 # trigger segfaults during the inspection
                 for key, values in sm.items():
-                    default = getattr(obj, 'Get%s'%key)()
+                    default = getattr(obj, "Get%s" % key)()
                     for x in values[:]:
                         try:
-                            getattr(obj, 'Set%sTo%s'%(key, x[0]))()
+                            getattr(obj, "Set%sTo%s" % (key, x[0]))()
                         except TypeError:
                             # vtkRenderedGraphRepresentation has some of
                             # its SetIvarToState methods that have
                             # non-standard arguments, this throws off
                             # the parser and we ignore these.
-                            #print(klass.__name__, key)
+                            # print(klass.__name__, key)
                             pass
                         else:
-                            val = getattr(obj, 'Get%s'%key)()
+                            val = getattr(obj, "Get%s" % key)()
                             x[1] = val
                             if val == default:
                                 values.insert(0, [x[0], val])
@@ -605,37 +615,40 @@ class VTKMethodParser:
 
         for method in meths[:]:
             # Methods of the Set/Get form.
-            if method in ['Get', 'Set']:
+            if method in ["Get", "Set"]:
                 # This occurs with the vtkInformation class.
                 continue
-            elif klass_name == 'vtkProp' and method[3:] == 'AllocatedRenderTime':
+            elif klass_name == "vtkProp" and method[3:] == "AllocatedRenderTime":
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
-            elif klass_name == 'vtkGenericAttributeCollection' and \
-                method[3:] == 'AttributesToInterpolate':
+            elif (
+                klass_name == "vtkGenericAttributeCollection"
+                and method[3:] == "AttributesToInterpolate"
+            ):
                 continue
-            elif klass_name == 'vtkOverlappingAMR' and method[3:] == 'Origin':
+            elif klass_name == "vtkOverlappingAMR" and method[3:] == "Origin":
                 continue
-            elif (klass_name == 'vtkOrientationMarkerWidget'
-                  and method[3:] in ['OutlineColor', 'Viewport']):
+            elif klass_name == "vtkOrientationMarkerWidget" and method[3:] in [
+                "OutlineColor",
+                "Viewport",
+            ]:
                 continue
-            elif (klass_name == 'vtkImageDataGeometryFilter'
-                  and method[3:] == 'Extent'):
+            elif klass_name == "vtkImageDataGeometryFilter" and method[3:] == "Extent":
                 continue
-            elif (klass_name == 'vtkVolumeMapper'
-                  and method[3:] == 'CroppingRegionPlanes'):
+            elif (
+                klass_name == "vtkVolumeMapper" and method[3:] == "CroppingRegionPlanes"
+            ):
                 continue
-            elif (klass_name == 'vtkContextMouseEvent'
-                  and method[3:] == 'Interactor'):
+            elif klass_name == "vtkContextMouseEvent" and method[3:] == "Interactor":
                 pass
-            elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
+            elif (method[:3] == "Set") and ("Get" + method[3:]) in methods:
                 key = method[3:]
-                meths.remove('Set' + key)
-                meths.remove('Get' + key)
-                if ('Get' + key + 'MaxValue') in meths:
-                    meths.remove('Get' + key + 'MaxValue')
-                    meths.remove('Get' + key + 'MinValue')
+                meths.remove("Set" + key)
+                meths.remove("Get" + key)
+                if ("Get" + key + "MaxValue") in meths:
+                    meths.remove("Get" + key + "MaxValue")
+                    meths.remove("Get" + key + "MinValue")
                     gsm[key] = 1
                 else:
                     gsm[key] = None
@@ -645,27 +658,25 @@ class VTKMethodParser:
             obj = self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
-                    if klass_name in ['vtkPolyData', 'vtkContext2D']:
+                    if klass_name in ["vtkPolyData", "vtkContext2D"]:
                         # Evil hack, these classes segfault!
                         default = None
-                    elif klass_name == 'vtkHyperOctree' and \
-                            key == 'Dimension':
+                    elif klass_name == "vtkHyperOctree" and key == "Dimension":
                         # This class breaks standard VTK conventions.
                         gsm[key] = (3, (1, 3))
                         continue
-                    elif (klass_name == 'vtkContextMouseEvent' and
-                          key == 'Interactor'):
+                    elif klass_name == "vtkContextMouseEvent" and key == "Interactor":
                         # On VTK 8.1.0 this segfaults when uninitialized.
                         default = None
                     else:
                         try:
-                            default = getattr(obj, 'Get%s' % key)()
+                            default = getattr(obj, "Get%s" % key)()
                         except TypeError:
                             default = None
 
                     if value:
-                        low = getattr(obj, 'Get%sMinValue' % key)()
-                        high = getattr(obj, 'Get%sMaxValue' % key)()
+                        low = getattr(obj, "Get%sMinValue" % key)()
+                        high = getattr(obj, "Get%sMaxValue" % key)()
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
@@ -685,10 +696,10 @@ class VTKMethodParser:
         meths = methods[:]
         gm = self.get_meths
         for method in meths[:]:
-            if method == 'Get':
+            if method == "Get":
                 # Occurs with vtkInformation
                 continue
-            elif method[:3] == 'Get':
+            elif method[:3] == "Get":
                 gm.append(method)
                 meths.remove(method)
         return meths

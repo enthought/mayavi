@@ -29,20 +29,20 @@ class TensorGlyph(Module):
     # The actor.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['tensors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["tensors"]
+    )
 
     # Create the UI for the traits.
-    view = View(Group(Item(name='actor', style='custom'),
-                      show_labels=False,
-                      label='Actor'),
-                Group(Item(name='glyph', style='custom',
-                           resizable=True),
-                      label='Tensor Glyph',
-                      selected=True,
-                      show_labels=False
-                      ))
+    view = View(
+        Group(Item(name="actor", style="custom"), show_labels=False, label="Actor"),
+        Group(
+            Item(name="glyph", style="custom", resizable=True),
+            label="Tensor Glyph",
+            selected=True,
+            show_labels=False,
+        ),
+    )
 
     ######################################################################
     # `Module` interface
@@ -60,7 +60,7 @@ class TensorGlyph(Module):
         set the `actors` attribute up at this point.
         """
         # Setup the glyphs.
-        self.glyph = glyph.Glyph(glyph_type='tensor')
+        self.glyph = glyph.Glyph(glyph_type="tensor")
         self.glyph.glyph_source.glyph_source = self.glyph.glyph_source.glyph_list[4]
         self.actor = Actor()
 
@@ -100,10 +100,9 @@ class TensorGlyph(Module):
             actor.inputs = [new]
         self._change_components(old, new)
 
-
     def _actor_changed(self, old, new):
         new.scene = self.scene
-        #new.inputs = [self]
+        # new.inputs = [self]
         g = self.glyph
         if g is not None:
             new.inputs = [g]

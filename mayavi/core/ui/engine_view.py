@@ -9,10 +9,16 @@
 from os.path import join
 
 # Enthought library imports.
-from traits.api import Instance, HasTraits, Any, Delegate, \
-        List, Either
-from traitsui.api import (Item, TreeEditor, TreeNode,
-        ObjectTreeNode, View, Handler, UIInfo)
+from traits.api import Instance, HasTraits, Any, Delegate, List, Either
+from traitsui.api import (
+    Item,
+    TreeEditor,
+    TreeNode,
+    ObjectTreeNode,
+    View,
+    Handler,
+    UIInfo,
+)
 from traitsui.menu import ToolBar, Action, Separator
 from pyface.resource.resource_path import resource_path
 from pyface.image_resource import ImageResource
@@ -21,10 +27,16 @@ from apptools.scripting.api import start_recording, stop_recording
 # Local imports.
 from mayavi.core.engine import Engine
 from mayavi.core.base import Base
-from mayavi.core.adder_node import ModuleFilterAdderNode, \
-        SourceAdderNode, ModuleAdderNode, FilterAdderNode, \
-        SceneAdderNode, AdderNode
+from mayavi.core.adder_node import (
+    ModuleFilterAdderNode,
+    SourceAdderNode,
+    ModuleAdderNode,
+    FilterAdderNode,
+    SceneAdderNode,
+    AdderNode,
+)
 from mayavi.action.help import open_help_index, open_tvtk_docs
+
 
 class EngineViewHandler(Handler):
     """ A handler for the EngineView object.
@@ -39,15 +51,13 @@ class EngineViewHandler(Handler):
         self.info = info
         return
 
-
     def _on_dclick(self, object):
         """ Called when a node in the tree editor is double-clicked.
         """
         if isinstance(object, SceneAdderNode):
             self.info.object._perform_new_scene()
         else:
-            object.edit_traits(view=object.dialog_view(),
-                               parent=self.info.ui.control)
+            object.edit_traits(view=object.dialog_view(), parent=self.info.ui.control)
 
     def _on_select(self, object):
         """ Called when a node in the tree editor is selected.
@@ -59,15 +69,15 @@ class AdderTreeNode(TreeNode):
     """ TreeNode for the adder nodes.
     """
 
-    children=''
-    label='label'
-    auto_open=True
-    copy=False
-    delete_me=False
-    rename_me=False
-    tooltip='tooltip'
-    icon_path=resource_path()
-    icon_item='add.ico'
+    children = ""
+    label = "label"
+    auto_open = True
+    copy = False
+    delete_me = False
+    rename_me = False
+    tooltip = "tooltip"
+    icon_path = resource_path()
+    icon_item = "add.ico"
 
 
 ##############################################################################
@@ -80,10 +90,12 @@ class EngineView(HasTraits):
     engine = Instance(Engine, allow_none=True)
 
     # Path used to search for images
-    _image_path = [join(resource_path(), 'images'), ]
+    _image_path = [
+        join(resource_path(), "images"),
+    ]
 
     # The icon of the dialog
-    icon = ImageResource('mv2.ico', search_path=_image_path)
+    icon = ImageResource("mv2.ico", search_path=_image_path)
 
     # Nodes on the tree.
     nodes = Any
@@ -98,15 +110,14 @@ class EngineView(HasTraits):
     actions = List(Either(Action, Separator))
 
     # Some delegates, for the toolbar to update
-    scenes = Delegate('engine')
-    current_selection = Delegate('engine')
+    scenes = Delegate("engine")
+    current_selection = Delegate("engine")
 
     ###########################################################################
     # `object` interface.
     ###########################################################################
     def __init__(self, **traits):
         super(EngineView, self).__init__(**traits)
-
 
     ###########################################################################
     # `HasTraits` interface.
@@ -115,69 +126,71 @@ class EngineView(HasTraits):
         """The default traits view of the Engine View.
         """
 
-        view = View(Item(name='engine',
-                               id='engine',
-                               editor=self.tree_editor,
-                               resizable=True,
-                               show_label=False),
-                    id='mayavi.engine',
-                    help=False,
-                    resizable=True,
-                    scrollable=True,
-                    undo=False,
-                    revert=False,
-                    ok=False,
-                    cancel=False,
-                    icon=self.icon,
-                    title = 'Mayavi pipeline',
-                    toolbar=self.toolbar,
-                    handler=EngineViewHandler)
+        view = View(
+            Item(
+                name="engine",
+                id="engine",
+                editor=self.tree_editor,
+                resizable=True,
+                show_label=False,
+            ),
+            id="mayavi.engine",
+            help=False,
+            resizable=True,
+            scrollable=True,
+            undo=False,
+            revert=False,
+            ok=False,
+            cancel=False,
+            icon=self.icon,
+            title="Mayavi pipeline",
+            toolbar=self.toolbar,
+            handler=EngineViewHandler,
+        )
         return view
-
 
     def _nodes_default(self):
         """ The default value of the cached nodes list.
         """
         # Now setup the view.
-        nodes = [TreeNode(node_for=[Engine],
-                          children='children_ui_list',
-                          label='=Mayavi',
-                          auto_open=False,
-                          copy=False,
-                          delete=False,
-                          rename=True,
-                          ),
-                 ObjectTreeNode(node_for=[Base],
-                                children='children_ui_list',
-                                label='name',
-                                auto_open=True,
-                                copy=True,
-                                delete=True,
-                                rename=True,
-                                tooltip='=Right click for more options',
-                                ),
-                 AdderTreeNode(node_for=[SceneAdderNode],
-                               icon_item='add_scene.png',
-                               ),
-                 AdderTreeNode(node_for=[SourceAdderNode],
-                               icon_item='add_source.png',
-                               ),
-                 AdderTreeNode(node_for=[ModuleFilterAdderNode],
-                               icon_item='add_module.png',
-                               ),
-                 ]
+        nodes = [
+            TreeNode(
+                node_for=[Engine],
+                children="children_ui_list",
+                label="=Mayavi",
+                auto_open=False,
+                copy=False,
+                delete=False,
+                rename=True,
+            ),
+            ObjectTreeNode(
+                node_for=[Base],
+                children="children_ui_list",
+                label="name",
+                auto_open=True,
+                copy=True,
+                delete=True,
+                rename=True,
+                tooltip="=Right click for more options",
+            ),
+            AdderTreeNode(node_for=[SceneAdderNode], icon_item="add_scene.png",),
+            AdderTreeNode(node_for=[SourceAdderNode], icon_item="add_source.png",),
+            AdderTreeNode(
+                node_for=[ModuleFilterAdderNode], icon_item="add_module.png",
+            ),
+        ]
         return nodes
 
-
     def _tree_editor_default(self):
-        return TreeEditor(editable=False,
-                                 hide_root=True,
-                                 on_dclick='handler._on_dclick',
-                                 on_select='handler._on_select',
-                                 orientation='vertical',
-                                 selected='object.engine.current_selection',
-                                 nodes=self.nodes
-                        )
+        return TreeEditor(
+            editable=False,
+            hide_root=True,
+            on_dclick="handler._on_dclick",
+            on_select="handler._on_select",
+            orientation="vertical",
+            selected="object.engine.current_selection",
+            nodes=self.nodes,
+        )
 
     def _toolbar_default(self):
         toolbar = ToolBar(*self.actions)
@@ -187,97 +200,89 @@ class EngineView(HasTraits):
         return toolbar
 
     def _actions_default(self):
-        add_scene = \
-            Action(
-                image=ImageResource('add_scene.png',
-                                            search_path=self._image_path),
-                tooltip="Create a new scene",
-                defined_when='True',
-                enabled_when='True',
-                perform=self._perform_new_scene,
-            )
+        add_scene = Action(
+            image=ImageResource("add_scene.png", search_path=self._image_path),
+            tooltip="Create a new scene",
+            defined_when="True",
+            enabled_when="True",
+            perform=self._perform_new_scene,
+        )
 
-        add_source = \
-            Action(
-                image=ImageResource('add_source.png',
-                                            search_path=self._image_path),
-                tooltip="Add a data source",
-                defined_when='True',
-                enabled_when='len(scenes) > 0',
-                perform=self._perform_add_source,
-            )
+        add_source = Action(
+            image=ImageResource("add_source.png", search_path=self._image_path),
+            tooltip="Add a data source",
+            defined_when="True",
+            enabled_when="len(scenes) > 0",
+            perform=self._perform_add_source,
+        )
 
-        add_module = \
-            Action(
-                image=ImageResource('add_module.png',
-                                            search_path=self._image_path),
-                tooltip="Add a visualization module",
-                defined_when='True',
-                # isinstance doesn't work in enabled_when
-                enabled_when=\
-                    'current_selection is not None and'
-                    '( hasattr(current_selection, "output_info")'
-                    'or current_selection.__class__.__name__ =='
-                    '"ModuleFilterAdderNode")',
-                perform=self._perform_add_module,
-            )
+        add_module = Action(
+            image=ImageResource("add_module.png", search_path=self._image_path),
+            tooltip="Add a visualization module",
+            defined_when="True",
+            # isinstance doesn't work in enabled_when
+            enabled_when="current_selection is not None and"
+            '( hasattr(current_selection, "output_info")'
+            "or current_selection.__class__.__name__ =="
+            '"ModuleFilterAdderNode")',
+            perform=self._perform_add_module,
+        )
 
-        add_filter = \
-            Action(
-                image=ImageResource('add_filter.png',
-                                            search_path=self._image_path),
-                tooltip="Add a processing filter",
-                defined_when='True',
-                enabled_when=\
-                    'current_selection is not None and'
-                    '( ( hasattr(current_selection, "output_info")'
-                    ' and not current_selection.type in (" module", '
-                    ' " module manager"))'
-                    'or current_selection.__class__.__name__ =='
-                    '"ModuleFilterAdderNode")',
-                perform=self._perform_add_filter,
-             )
+        add_filter = Action(
+            image=ImageResource("add_filter.png", search_path=self._image_path),
+            tooltip="Add a processing filter",
+            defined_when="True",
+            enabled_when="current_selection is not None and"
+            '( ( hasattr(current_selection, "output_info")'
+            ' and not current_selection.type in (" module", '
+            ' " module manager"))'
+            "or current_selection.__class__.__name__ =="
+            '"ModuleFilterAdderNode")',
+            perform=self._perform_add_filter,
+        )
 
-        help = \
-            Action(
-                image=ImageResource('help-action.png',
-                                            search_path=self._image_path),
-                tooltip="Help on the Mayavi pipeline",
-                defined_when='True',
-                enabled_when='True',
-                perform=open_help_index,
-            )
+        help = Action(
+            image=ImageResource("help-action.png", search_path=self._image_path),
+            tooltip="Help on the Mayavi pipeline",
+            defined_when="True",
+            enabled_when="True",
+            perform=open_help_index,
+        )
 
-        tvtk_docs = \
-            Action(
-                image=ImageResource('reader.png',
-                                            search_path=self._image_path),
-                tooltip="Search the VTK class browser",
-                defined_when='True',
-                enabled_when='True',
-                perform=open_tvtk_docs,
-            )
+        tvtk_docs = Action(
+            image=ImageResource("reader.png", search_path=self._image_path),
+            tooltip="Search the VTK class browser",
+            defined_when="True",
+            enabled_when="True",
+            perform=open_tvtk_docs,
+        )
 
-        record = \
-            Action(
-                image=ImageResource('record.png',
-                                     search_path=self._image_path),
-                tooltip="Start/Stop script recording",
-                style='toggle',
-                checked=False,
-                defined_when='True',
-                enabled_when='engine is not None',
-                perform=self._perform_record,
-            )
+        record = Action(
+            image=ImageResource("record.png", search_path=self._image_path),
+            tooltip="Start/Stop script recording",
+            style="toggle",
+            checked=False,
+            defined_when="True",
+            enabled_when="engine is not None",
+            perform=self._perform_record,
+        )
 
         # Check the record icon if the engine already has a recorder
         # set.
         if self.engine is not None and self.engine.recorder is not None:
             record.checked = True
 
-        return [tvtk_docs, Separator(), add_scene, add_source, add_module,
-                add_filter, Separator(), help, record]
-
+        return [
+            tvtk_docs,
+            Separator(),
+            add_scene,
+            add_source,
+            add_module,
+            add_filter,
+            Separator(),
+            help,
+            record,
+        ]
 
     ###########################################################################
     # Private interface.
@@ -289,7 +294,6 @@ class EngineView(HasTraits):
     def _perform_add_source(self):
         adder = SourceAdderNode(object=self.engine.current_scene)
         adder.edit_traits(view=adder.dialog_view())
-
 
     def _perform_add_module(self):
         object = self.engine.current_selection
@@ -308,7 +312,7 @@ class EngineView(HasTraits):
     def _perform_record(self):
         e = self.engine
         if e.recorder is None:
-            start_recording(e, known=True, script_id='engine')
+            start_recording(e, known=True, script_id="engine")
         else:
             stop_recording(e, save=False)
 
@@ -321,8 +325,7 @@ class EngineView(HasTraits):
         """
         record_action = None
         for action in self.actions:
-            if hasattr(action, 'tooltip') and \
-               action.tooltip.endswith('recording'):
+            if hasattr(action, "tooltip") and action.tooltip.endswith("recording"):
                 record_action = action
                 break
 

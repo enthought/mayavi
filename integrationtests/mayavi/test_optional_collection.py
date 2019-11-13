@@ -14,7 +14,6 @@ from common import TestCase, get_example_data
 
 
 class TestOptionalCollection(TestCase):
-
     def test(self):
         self.main()
 
@@ -35,14 +34,14 @@ class TestOptionalCollection(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(get_example_data('heart.vtk'))
+        r.initialize(get_example_data("heart.vtk"))
         script.add_source(r)
 
         c = Contour()
         # `name` is used for the notebook tabs.
-        n = PolyDataNormals(name='Normals')
-        o = Optional(filter=n, label_text='Compute normals')
-        coll = Collection(filters=[c, o], name='IsoSurface')
+        n = PolyDataNormals(name="Normals")
+        o = Optional(filter=n, label_text="Compute normals")
+        coll = Collection(filters=[c, o], name="IsoSurface")
         script.add_filter(coll)
         s = Surface()
         script.add_module(s)
@@ -63,14 +62,14 @@ class TestOptionalCollection(TestCase):
             assert coll.get_output_dataset() is n.get_output_dataset()
             # disable the optional filter and check.
             o.enabled = False
-            assert 'disabled' in o.name
+            assert "disabled" in o.name
             assert coll.get_output_dataset() is c.get_output_dataset()
             # Set back everything to original state.
             c.contours.pop()
             o.enabled = True
             assert coll.get_output_dataset().point_data.scalars.range == (127.5, 127.5)
             assert coll.get_output_dataset() is n.get_output_dataset()
-            assert 'disabled' not in o.name
+            assert "disabled" not in o.name
 
         check(coll)
 
@@ -79,9 +78,9 @@ class TestOptionalCollection(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine
@@ -117,6 +116,7 @@ class TestOptionalCollection(TestCase):
         check(coll)
 
         # If we have come this far, we are golden!
+
 
 if __name__ == "__main__":
     t = TestOptionalCollection()

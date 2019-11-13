@@ -15,7 +15,7 @@ from tvtk.common import configure_input_data
 cs = tvtk.ConeSource(height=3.0, radius=1.0, resolution=36)
 
 # Print the traits of the cone.
-#cs.print_traits()
+# cs.print_traits()
 
 # Setup the rest of the pipeline.
 m = tvtk.PolyDataMapper()
@@ -38,16 +38,16 @@ ren = tvtk.Renderer(background=(0.1, 0.2, 0.4))
 ren.add_actor(a)
 
 # Create a RenderWindow, add the renderer and set its size.
-rw = tvtk.RenderWindow(size=(300,300))
+rw = tvtk.RenderWindow(size=(300, 300))
 rw.add_renderer(ren)
 
 # Create the RenderWindowInteractor
 rwi = tvtk.RenderWindowInteractor(render_window=rw)
 
 # Setup a box widget.
-bw = tvtk.BoxWidget(interactor=rwi, place_factor=1.25,
-                    prop3d=a)
+bw = tvtk.BoxWidget(interactor=rwi, place_factor=1.25, prop3d=a)
 bw.place_widget()
+
 
 def callback(widget, event):
     """This callback sets the transformation of the cone using that
@@ -55,6 +55,7 @@ def callback(widget, event):
     t = tvtk.Transform()
     bw.get_transform(t)
     bw.prop3d.user_transform = t
+
 
 # Add an observer
 bw.add_observer("InteractionEvent", callback)

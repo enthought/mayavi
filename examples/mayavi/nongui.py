@@ -26,6 +26,7 @@ from os.path import join, abspath
 from mayavi.scripts.util import get_data_dir
 from mayavi.plugins.app import Mayavi, get_non_gui_plugins
 
+
 class MyApp(Mayavi):
     def run(self):
         """This is executed once the application GUI has started.
@@ -49,12 +50,11 @@ class MyApp(Mayavi):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(join(get_data_dir(abspath(__file__)),
-                          'heart.vtk'))
+        r.initialize(join(get_data_dir(abspath(__file__)), "heart.vtk"))
         script.add_source(r)
 
         # Put up some text.
-        t = Text(text='MayaVi rules!', x_position=0.2, y_position=0.9, width=0.8)
+        t = Text(text="MayaVi rules!", x_position=0.2, y_position=0.9, width=0.8)
         t.property.color = 1, 1, 0  # Bright yellow, yeah!
         script.add_module(t)
 
@@ -72,12 +72,12 @@ class MyApp(Mayavi):
         script.add_module(gp)
         # Second normal to 'y' axis.
         gp = GridPlane()
-        gp.grid_plane.axis = 'y'
+        gp.grid_plane.axis = "y"
         script.add_module(gp)
         # Third normal to 'z' axis.
         gp = GridPlane()
         script.add_module(gp)
-        gp.grid_plane.axis = 'z'
+        gp.grid_plane.axis = "z"
 
         # Create one ImagePlaneWidget.
         ipw = ImagePlaneWidget()
@@ -89,7 +89,7 @@ class MyApp(Mayavi):
         cgp = ContourGridPlane()
         script.add_module(cgp)
         # Set the position to the middle of the data.
-        cgp.grid_plane.axis = 'y'
+        cgp.grid_plane.axis = "y"
         cgp.grid_plane.position = 15
 
         # An isosurface module.
@@ -105,7 +105,7 @@ class MyApp(Mayavi):
         s.render()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     m = MyApp()
     # Get the default non GUI plugins.
     plugins = get_non_gui_plugins()

@@ -25,20 +25,22 @@ class ExtractVectorComponents(FilterBase):
     filter = Instance(tvtk.ExtractVectorComponents, args=(), allow_none=False)
 
     # The Vector Component to be extracted
-    component = Enum('x-component', 'y-component', 'z-component',
-                     desc='component of the vector to be extracted')
+    component = Enum(
+        "x-component",
+        "y-component",
+        "z-component",
+        desc="component of the vector to be extracted",
+    )
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['vectors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["vectors"]
+    )
 
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
-    view = View(Group(Item(name='component')),
-                resizable=True
-                )
+    view = View(Group(Item(name="component")), resizable=True)
 
     ######################################################################
     # `Filter` interface.
@@ -64,10 +66,10 @@ class ExtractVectorComponents(FilterBase):
         if len(self.inputs) == 0 or len(self.inputs[0].outputs) == 0:
             return
 
-        if value == 'x-component':
+        if value == "x-component":
             self._set_outputs([self.filter.vx_component])
-        elif value == 'y-component':
+        elif value == "y-component":
             self._set_outputs([self.filter.vy_component])
-        elif value == 'z-component':
+        elif value == "z-component":
             self._set_outputs([self.filter.vz_component])
         self.render()

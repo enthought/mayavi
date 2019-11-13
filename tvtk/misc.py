@@ -26,17 +26,19 @@ def write_data(dataset, fname, **kwargs):
     Any additional keyword arguments are passed to the writer used.
     """
 
-    err_msg = "Can only write tvtk.DataSet instances "\
-              "'got %s instead"%(dataset.__class__.__name__)
+    err_msg = "Can only write tvtk.DataSet instances " "'got %s instead" % (
+        dataset.__class__.__name__
+    )
     assert isinstance(dataset, tvtk.DataSet), err_msg
 
     # Mapping to determine appropriate extension and writer.
-    d2r = {'vtkImageData': ('.vti', tvtk.StructuredPointsWriter),
-           'vtkRectilinearGrid': ('.vtr', tvtk.RectilinearGridWriter),
-           'vtkStructuredGrid': ('.vts', tvtk.StructuredGridWriter),
-           'vtkPolyData': ('.vtp', tvtk.PolyDataWriter),
-           'vtkUnstructuredGrid': ('.vtu', tvtk.UnstructuredGridWriter)
-           }
+    d2r = {
+        "vtkImageData": (".vti", tvtk.StructuredPointsWriter),
+        "vtkRectilinearGrid": (".vtr", tvtk.RectilinearGridWriter),
+        "vtkStructuredGrid": (".vts", tvtk.StructuredGridWriter),
+        "vtkPolyData": (".vtp", tvtk.PolyDataWriter),
+        "vtkUnstructuredGrid": (".vtu", tvtk.UnstructuredGridWriter),
+    }
 
     for type in d2r:
         if dataset.is_a(type):
@@ -44,7 +46,7 @@ def write_data(dataset, fname, **kwargs):
             break
 
     ext = splitext(fname)[1]
-    if ext == '.vtk':
+    if ext == ".vtk":
         file_name = fname
         writer = datatype[1]
     elif len(ext) == 0:
@@ -57,4 +59,3 @@ def write_data(dataset, fname, **kwargs):
     w = writer(file_name=file_name, **kwargs)
     configure_input_data(w, dataset)
     w.write()
-

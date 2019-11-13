@@ -33,8 +33,7 @@ class WarpVectorCutPlane(Module):
     __version__ = 0
 
     # The implicit plane widget used to place the implicit function.
-    implicit_plane = Instance(ImplicitPlane, allow_none=False,
-                              record=True)
+    implicit_plane = Instance(ImplicitPlane, allow_none=False, record=True)
 
     # The cutter.  Takes a cut of the data on the implicit plane.
     cutter = Instance(Cutter, allow_none=False, record=True)
@@ -43,8 +42,10 @@ class WarpVectorCutPlane(Module):
     warp_vector = Instance(WarpVector, allow_none=False, record=True)
 
     # Specify if vector normals are to be computed to make a smoother surface.
-    compute_normals = Bool(False, desc='if normals are to be computed '\
-                           'to make the warped surface smoother')
+    compute_normals = Bool(
+        False,
+        desc="if normals are to be computed " "to make the warped surface smoother",
+    )
 
     # The component that computes the normals.
     normals = Instance(PolyDataNormals, record=True)
@@ -52,44 +53,54 @@ class WarpVectorCutPlane(Module):
     # The Actor component.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['vectors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["vectors"]
+    )
 
     ########################################
     # View related traits.
 
-    _warp_group = Group(Item(name='filter',
-                             style='custom',
-                             editor=\
-                             InstanceEditor(view=
-                                            View(Item('scale_factor')))),
-                        show_labels=False)
+    _warp_group = Group(
+        Item(
+            name="filter",
+            style="custom",
+            editor=InstanceEditor(view=View(Item("scale_factor"))),
+        ),
+        show_labels=False,
+    )
 
-    view = View(Group(Item(name='implicit_plane', style='custom'),
-                      label='ImplicitPlane',
-                      show_labels=False),
-                Group(Group(Item(name='warp_vector',
-                                 style='custom',
-                                 resizable=True,
-                                 show_label=False,
-                                 editor=InstanceEditor(view=View(_warp_group))
-                                 ),
-                            ),
-                      Item(name='_'),
-                      Item(name='compute_normals'),
-                      Group(Item(name='normals',
-                                 style='custom',
-                                 show_label=False,
-                                 enabled_when = 'compute_normals'),
-                            ),
-                      label='WarpVector',
-                      show_labels=True),
-                Group(Item(name='actor', style='custom'),
-                      label='Actor',
-                      show_labels=False),
-                resizable=True,
-                )
+    view = View(
+        Group(
+            Item(name="implicit_plane", style="custom"),
+            label="ImplicitPlane",
+            show_labels=False,
+        ),
+        Group(
+            Group(
+                Item(
+                    name="warp_vector",
+                    style="custom",
+                    resizable=True,
+                    show_label=False,
+                    editor=InstanceEditor(view=View(_warp_group)),
+                ),
+            ),
+            Item(name="_"),
+            Item(name="compute_normals"),
+            Group(
+                Item(
+                    name="normals",
+                    style="custom",
+                    show_label=False,
+                    enabled_when="compute_normals",
+                ),
+            ),
+            label="WarpVector",
+            show_labels=True,
+        ),
+        Group(Item(name="actor", style="custom"), label="Actor", show_labels=False),
+        resizable=True,
+    )
 
     ######################################################################
     # `Module` interface
@@ -194,4 +205,3 @@ class WarpVectorCutPlane(Module):
     def _actor_changed(self, old, new):
         self._compute_normals_changed(self.compute_normals)
         self._change_components(old, new)
-

@@ -24,19 +24,26 @@ class ImplicitPlane(Component):
     __version__ = 0
 
     # The widget that controls the plane.
-    widget = Instance(tvtk.ImplicitPlaneWidget, args=(),
-                      kw={'key_press_activation': False,
-                          'place_factor':1.2,
-                          'draw_plane':False,
-                          'outline_translation':False},
-                      record=True)
+    widget = Instance(
+        tvtk.ImplicitPlaneWidget,
+        args=(),
+        kw={
+            "key_press_activation": False,
+            "place_factor": 1.2,
+            "draw_plane": False,
+            "outline_translation": False,
+        },
+        record=True,
+    )
 
     # The plane that the widget controls.  Do not change the
     # attributes of the plane, do it via the widget.
-    plane = Instance(tvtk.Plane, args=(),
-                     kw={'origin':(0.0, 0.0, 0.0),
-                         'normal':(0,0,1)},
-                     record=True)
+    plane = Instance(
+        tvtk.Plane,
+        args=(),
+        kw={"origin": (0.0, 0.0, 0.0), "normal": (0, 0, 1)},
+        record=True,
+    )
 
     # Convenience property for the normal delegated to the widget.
     normal = Property
@@ -54,34 +61,42 @@ class ImplicitPlane(Component):
     ########################################
     # View related traits.
 
-    if VTK_VER[:3] in ['4.2', '4.4']:
-        _widget_group = Group(Item(name='enabled'),
-                              Item(name='normal_to_x_axis'),
-                              Item(name='normal_to_y_axis'),
-                              Item(name='normal_to_z_axis'),
-                              Item(name='outline_translation'),
-                              Item(name='tubing'),
-                              Item(name='draw_plane'),
-                              Item(name='normal'),
-                              Item(name='origin')
-                              )
+    if VTK_VER[:3] in ["4.2", "4.4"]:
+        _widget_group = Group(
+            Item(name="enabled"),
+            Item(name="normal_to_x_axis"),
+            Item(name="normal_to_y_axis"),
+            Item(name="normal_to_z_axis"),
+            Item(name="outline_translation"),
+            Item(name="tubing"),
+            Item(name="draw_plane"),
+            Item(name="normal"),
+            Item(name="origin"),
+        )
     else:
-        _widget_group = Group(Item(name='enabled'),
-                              Item(name='normal_to_x_axis'),
-                              Item(name='normal_to_y_axis'),
-                              Item(name='normal_to_z_axis'),
-                              Item(name='outline_translation'),
-                              Item(name='scale_enabled'),
-                              Item(name='tubing'),
-                              Item(name='draw_plane'),
-                              Item(name='normal'),
-                              Item(name='origin')
-                              )
+        _widget_group = Group(
+            Item(name="enabled"),
+            Item(name="normal_to_x_axis"),
+            Item(name="normal_to_y_axis"),
+            Item(name="normal_to_z_axis"),
+            Item(name="outline_translation"),
+            Item(name="scale_enabled"),
+            Item(name="tubing"),
+            Item(name="draw_plane"),
+            Item(name="normal"),
+            Item(name="origin"),
+        )
 
-    view = View(Group(Item(name='widget', style='custom',
-                           editor=InstanceEditor(view=View(_widget_group))),
-                      show_labels=False)
-                )
+    view = View(
+        Group(
+            Item(
+                name="widget",
+                style="custom",
+                editor=InstanceEditor(view=View(_widget_group)),
+            ),
+            show_labels=False,
+        )
+    )
 
     ######################################################################
     # `Component` interface
@@ -159,17 +174,18 @@ class ImplicitPlane(Component):
         w = self.widget
         old = w.normal
         w.normal = value
-        self.trait_property_changed('normal', old, value)
+        self.trait_property_changed("normal", old, value)
         self.update_plane()
 
     def _get_origin(self):
         return self.widget.origin
+
     def _set_origin(self, value):
         # Ugly, but needed.
         w = tvtk.to_vtk(self.widget)
         old = w.GetOrigin()
         w.SetOrigin(list(value))
-        self.trait_property_changed('origin', old, value)
+        self.trait_property_changed("origin", old, value)
         self.update_plane()
 
     def _on_interaction_event(self, obj, event):
@@ -186,11 +202,10 @@ class ImplicitPlane(Component):
     def _connect(self):
         """Wires up all the event handlers."""
         w = self.widget
-        w.add_observer('InteractionEvent',
-                       self._on_interaction_event)
-        w.on_trait_change(self._on_normal_set, 'normal_to_x_axis')
-        w.on_trait_change(self._on_normal_set, 'normal_to_y_axis')
-        w.on_trait_change(self._on_normal_set, 'normal_to_z_axis')
+        w.add_observer("InteractionEvent", self._on_interaction_event)
+        w.on_trait_change(self._on_normal_set, "normal_to_x_axis")
+        w.on_trait_change(self._on_normal_set, "normal_to_y_axis")
+        w.on_trait_change(self._on_normal_set, "normal_to_z_axis")
         w.on_trait_change(self._on_interaction_event)
 
         for obj in (self.plane, w):

@@ -38,7 +38,9 @@ import numpy as np
 x, y, z = np.ogrid[0:1:40j, 0:1:40j, 0:1:40j]
 sig = 0.5
 center = 0.5
-g = np.exp(-((x-center)**2 + (y-center)**2 + (z-center)**2)/(2*sig**2))
+g = np.exp(
+    -((x - center) ** 2 + (y - center) ** 2 + (z - center) ** 2) / (2 * sig ** 2)
+)
 
 ################################################################################
 
@@ -46,7 +48,7 @@ mlab.figure(fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))
 
 # Define the cursor
 s = mlab.pipeline.scalar_field(g)
-cursor = mlab.pipeline.user_defined(s, filter='ImageCursor3D')
+cursor = mlab.pipeline.user_defined(s, filter="ImageCursor3D")
 
 # The TVTK filter used by Mayavi is accessible as the '.filter'
 # attribute of the Mayavi filtered returned by user_defined.
@@ -68,8 +70,9 @@ cursor.filter.cursor_radius = 10
 
 # Display data and cursor using an image_plane_widget that intersects the
 # cursor.
-ipw = mlab.pipeline.image_plane_widget(cursor, plane_orientation='x_axes',
-            slice_index=20)
+ipw = mlab.pipeline.image_plane_widget(
+    cursor, plane_orientation="x_axes", slice_index=20
+)
 
 # View
 mlab.colorbar()

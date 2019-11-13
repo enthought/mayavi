@@ -37,26 +37,24 @@ class Scene(Base):
     children = List(Source, record=True)
 
     # The name of this scene.
-    name = Str('TVTK Scene')
+    name = Str("TVTK Scene")
 
     # The icon
-    icon = Str('scene.ico')
+    icon = Str("scene.ico")
 
     # The human-readable type for this object
-    type = Str(' scene')
+    type = Str(" scene")
 
     # The objects view.
-    view = View(Group(Item(name='scene', style='custom'),
-                           show_labels=False)
-               )
+    view = View(Group(Item(name="scene", style="custom"), show_labels=False))
 
     # The adder node dialog class
     _adder_node_class = SourceAdderNode
 
     # The dispatch, to register callbacks on mouse pick
     _mouse_pick_dispatcher = Instance(
-        'mayavi.core.mouse_pick_dispatcher.MousePickDispatcher',
-        record=False)
+        "mayavi.core.mouse_pick_dispatcher.MousePickDispatcher", record=False
+    )
 
     ######################################################################
     # `object` interface
@@ -64,8 +62,8 @@ class Scene(Base):
     def __get_pure_state__(self):
         # Base removes the scene, but we need to save it!
         d = super(Scene, self).__get_pure_state__()
-        d['scene'] = self.scene
-        d.pop('_mouse_pick_dispatcher', None)
+        d["scene"] = self.scene
+        d.pop("_mouse_pick_dispatcher", None)
         return d
 
     def __set_pure_state__(self, state):
@@ -83,17 +81,16 @@ class Scene(Base):
         # All we do is set the _saved_light_manager_state and the scene
         # will take care of the rest.
         if self.scene is not None and self.scene.light_manager is None:
-            lm_state = state['scene'].pop('light_manager', None)
+            lm_state = state["scene"].pop("light_manager", None)
             self.scene._saved_light_manager_state = lm_state
 
-        set_state(self, state, last=['scene'])
+        set_state(self, state, last=["scene"])
 
     ######################################################################
     # `Scene` interface
     ######################################################################
 
-    def on_mouse_pick(self, callback, type='point', button='Left',
-                            remove=False):
+    def on_mouse_pick(self, callback, type="point", button="Left", remove=False):
         """ Add a picking callback on mouse click.
 
             When the mouse button is press, object picking is called, and
@@ -126,7 +123,6 @@ class Scene(Base):
         else:
             self._mouse_pick_dispatcher.callbacks.append(key)
         return self._mouse_pick_dispatcher._active_pickers[type]
-
 
     ######################################################################
     # `Base` interface
@@ -233,9 +229,10 @@ class Scene(Base):
 
     def _menu_helper_default(self):
         from mayavi.core.traits_menu import SourceMenuHelper
+
         return SourceMenuHelper(object=self)
 
     def __mouse_pick_dispatcher_default(self):
-        from mayavi.core.mouse_pick_dispatcher import \
-                        MousePickDispatcher
+        from mayavi.core.mouse_pick_dispatcher import MousePickDispatcher
+
         return MousePickDispatcher(scene=self)

@@ -9,8 +9,7 @@ import unittest
 
 from mayavi.core.common import get_object_path, get_engine
 from mayavi.core.file_data_source import NoUITimer
-from mayavi.sources.parametric_surface import \
-    ParametricSurface
+from mayavi.sources.parametric_surface import ParametricSurface
 from mayavi.modules.outline import Outline
 
 from mayavi.core.null_engine import NullEngine
@@ -40,27 +39,23 @@ class TestCoreCommon(unittest.TestCase):
         e, scene, s, o, o1 = self.e, self.scene, self.s, self.o, self.o1
 
         value = get_object_path(scene, e)
-        self.assertEqual(value, 'engine.scenes[0]')
+        self.assertEqual(value, "engine.scenes[0]")
         value = get_object_path(s, e)
-        self.assertEqual(value, 'engine.scenes[0].children[0]')
+        self.assertEqual(value, "engine.scenes[0].children[0]")
         value = get_object_path(o.module_manager, e)
-        self.assertEqual(value,
-                        'engine.scenes[0].children[0].children[0]')
+        self.assertEqual(value, "engine.scenes[0].children[0].children[0]")
         value = get_object_path(o, e)
-        self.assertEqual(value,
-                        'engine.scenes[0].children[0].children[0].children[0]')
+        self.assertEqual(value, "engine.scenes[0].children[0].children[0].children[0]")
         value = get_object_path(o1, e)
-        self.assertEqual(value,
-                        'engine.scenes[0].children[0].children[0].children[1]')
+        self.assertEqual(value, "engine.scenes[0].children[0].children[0].children[1]")
         # With respect to the scene.
-        value = get_object_path(o, scene, 'scene')
-        self.assertEqual(value,
-                         'scene.children[0].children[0].children[0]')
+        value = get_object_path(o, scene, "scene")
+        self.assertEqual(value, "scene.children[0].children[0].children[0]")
         # With respect to the source.
-        value = get_object_path(o, s, 's')
-        self.assertEqual(value, 's.children[0].children[0]')
-        value = get_object_path(o1, s, 's')
-        self.assertEqual(value, 's.children[0].children[1]')
+        value = get_object_path(o, s, "s")
+        self.assertEqual(value, "s.children[0].children[0]")
+        value = get_object_path(o1, s, "s")
+        self.assertEqual(value, "s.children[0].children[1]")
 
     def test_get_engine(self):
         e, scene, s, o, o1 = self.e, self.scene, self.s, self.o, self.o1
@@ -86,15 +81,15 @@ class TestCoreCommon(unittest.TestCase):
         self.assertEqual(o1.parent, mm)
 
 
-
 class TestNoUITimer(unittest.TestCase):
     def test_simple_timer(self):
         class A(object):
             def __init__(self):
                 self.count = 0
                 self.timer = NoUITimer(10, self.step)
+
             def step(self):
-                self.count +=1
+                self.count += 1
                 if self.count > 10:
                     self.timer.Stop()
 
@@ -108,9 +103,10 @@ class TestNoUITimer(unittest.TestCase):
             def __init__(self):
                 self.count = 0
                 self.timer = NoUITimer(10, self.step)
+
             def step(self):
-                self.count +=1
-                raise(RuntimeError('Oops'))
+                self.count += 1
+                raise (RuntimeError("Oops"))
 
         a = A()
         self.assertRaises(RuntimeError, a.timer.Start)
@@ -122,10 +118,11 @@ class TestNoUITimer(unittest.TestCase):
             def __init__(self):
                 self.count = 0
                 self.timer = NoUITimer(10, self.step)
+
             def step(self):
-                self.count +=1
+                self.count += 1
                 if self.count > 10:
-                    raise(StopIteration('Stop'))
+                    raise (StopIteration("Stop"))
 
         a = A()
         a.timer.Start()
@@ -133,5 +130,5 @@ class TestNoUITimer(unittest.TestCase):
         self.assertFalse(a.timer.IsRunning())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

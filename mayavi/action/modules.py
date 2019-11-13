@@ -34,23 +34,25 @@ class ModuleAction(FilterAction):
 class AddModuleManager(ModuleAction):
     """ An action that adds a ModuleManager to the tree. """
 
-    tooltip       = "Add a ModuleManager to the current source/filter"
+    tooltip = "Add a ModuleManager to the current source/filter"
 
-    description   = "Add a ModuleManager to the current source/filter"
+    description = "Add a ModuleManager to the current source/filter"
 
-    metadata = ModuleMetadata(id="AddModuleManager",
-                class_name="mayavi.core.module_manager.ModuleManager",
-                menu_name="&Add ModuleManager",
-                tooltip="Add a ModuleManager to the current source/filter",
-                description="Add a ModuleManager to the current source/filter",
-                input_info = PipelineInfo(datasets=['any'],
-                                  attribute_types=['any'],
-                                  attributes=['any'])
-                )
+    metadata = ModuleMetadata(
+        id="AddModuleManager",
+        class_name="mayavi.core.module_manager.ModuleManager",
+        menu_name="&Add ModuleManager",
+        tooltip="Add a ModuleManager to the current source/filter",
+        description="Add a ModuleManager to the current source/filter",
+        input_info=PipelineInfo(
+            datasets=["any"], attribute_types=["any"], attributes=["any"]
+        ),
+    )
 
     def perform(self, event):
         """ Performs the action. """
         from mayavi.core.module_manager import ModuleManager
+
         mm = ModuleManager()
         mv = self.mayavi
         mv.add_module(mm)
@@ -60,8 +62,6 @@ class AddModuleManager(ModuleAction):
 ######################################################################
 # Creating the module actions automatically.
 for module in registry.modules:
-    d = {'tooltip': module.tooltip,
-         'description': module.desc,
-         'metadata': module}
+    d = {"tooltip": module.tooltip, "description": module.desc, "metadata": module}
     action = new_class(module.id, (ModuleAction,), d)
     globals()[module.id] = action

@@ -14,8 +14,7 @@ except ImportError:
     import pickle as cPickle
 
 # Enthought library imports.
-from traits.api import Instance, Property, Bool, Int, \
-     Trait, TraitMap, Button
+from traits.api import Instance, Property, Bool, Int, Trait, TraitMap, Button
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from apptools.persistence import state_pickler
@@ -48,22 +47,28 @@ class TransformData(Filter):
     transform = Property
 
     # Update the data immediately or at the end of the interaction.
-    update_mode = Trait('semi-interactive',
-                        TraitMap({'interactive':'InteractionEvent',
-                                  'semi-interactive': 'EndInteractionEvent'}),
-                        desc='speed at which the data should be updated')
+    update_mode = Trait(
+        "semi-interactive",
+        TraitMap(
+            {
+                "interactive": "InteractionEvent",
+                "semi-interactive": "EndInteractionEvent",
+            }
+        ),
+        desc="speed at which the data should be updated",
+    )
 
-    input_info = PipelineInfo(datasets=['poly_data',
-                                        'structured_grid',
-                                        'unstructured_grid'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["poly_data", "structured_grid", "unstructured_grid"],
+        attribute_types=["any"],
+        attributes=["any"],
+    )
 
-    output_info = PipelineInfo(datasets=['poly_data',
-                                         'structured_grid',
-                                         'unstructured_grid'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["poly_data", "structured_grid", "unstructured_grid"],
+        attribute_types=["any"],
+        attributes=["any"],
+    )
 
     ########################################
     # View related code.
@@ -71,15 +76,17 @@ class TransformData(Filter):
     # Reset the transformation.
     reset = Button("Reset Transformation")
 
-    view = View(Group(Group(Item('update_mode'),
-                            ),
-                      Group(Item('reset'),
-                            Item(name='widget', style='custom', resizable=True),
-                            show_labels=False
-                            )
-                      ),
-                resizable=True
-                )
+    view = View(
+        Group(
+            Group(Item("update_mode"),),
+            Group(
+                Item("reset"),
+                Item(name="widget", style="custom", resizable=True),
+                show_labels=False,
+            ),
+        ),
+        resizable=True,
+    )
 
     ########################################
     # Private traits.
@@ -94,13 +101,13 @@ class TransformData(Filter):
     ######################################################################
     def __get_pure_state__(self):
         d = super(TransformData, self).__get_pure_state__()
-        for name in ('_first', '_observer_id'):
+        for name in ("_first", "_observer_id"):
             d.pop(name, None)
-        d['matrix'] = cPickle.dumps(self._transform.matrix)
+        d["matrix"] = cPickle.dumps(self._transform.matrix)
         return d
 
     def __set_pure_state__(self, state):
-        mat = state.pop('matrix')
+        mat = state.pop("matrix")
         super(TransformData, self).__set_pure_state__(state)
         state_pickler.set_state(self, state)
         self._transform.set_matrix(cPickle.loads(mat))
@@ -122,9 +129,11 @@ class TransformData(Filter):
             return
 
         inp = inputs[0].get_output_dataset()
-        if inp.is_a('vtkImageData') or inp.is_a('vtkRectilinearGrid'):
-            error('Transformation not supported for '\
-                  'ImageData/StructuredPoints/RectilinearGrid')
+        if inp.is_a("vtkImageData") or inp.is_a("vtkRectilinearGrid"):
+            error(
+                "Transformation not supported for "
+                "ImageData/StructuredPoints/RectilinearGrid"
+            )
             return
 
         # Set the input for the widget and place it if this hasn't
@@ -168,13 +177,11 @@ class TransformData(Filter):
         recorder = self.recorder
         if recorder is not None:
             state = {}
-            state['elements'] = tfm.matrix.__getstate__()['elements']
+            state["elements"] = tfm.matrix.__getstate__()["elements"]
             name = recorder.get_script_id(self)
-            recorder.record('%s.transform.matrix.__setstate__(%s)'\
-                            %(name, state))
-            recorder.record('%s.widget.set_transform(%s.transform)'\
-                            %(name, name))
-            recorder.record('%s.filter.update()'%name)
+            recorder.record("%s.transform.matrix.__setstate__(%s)" % (name, state))
+            recorder.record("%s.widget.set_transform(%s.transform)" % (name, name))
+            recorder.record("%s.filter.update()" % name)
 
     def _widget_changed(self, old, new):
         if old is not None:
@@ -182,8 +189,9 @@ class TransformData(Filter):
             old.remove_observer(self._observer_id)
             self.widgets.remove(old)
         new.on_trait_change(self.render)
-        self._observer_id = new.add_observer(self.update_mode_,
-                                             self._on_interaction_event)
+        self._observer_id = new.add_observer(
+            self.update_mode_, self._on_interaction_event
+        )
         self.widgets.append(new)
         if len(self.inputs) > 0:
             self.configure_input(new, self.inputs[0].outputs[0])
@@ -209,6 +217,7 @@ class TransformData(Filter):
         w = self.widget
         if w is not None:
             w.remove_observer(self._observer_id)
-            self._observer_id = w.add_observer(self.update_mode_,
-                                               self._on_interaction_event)
+            self._observer_id = w.add_observer(
+                self.update_mode_, self._on_interaction_event
+            )
             self.render()

@@ -1,8 +1,11 @@
 import unittest
 
 from tvtk.api import tvtk
-from tvtk.pipeline.browser import (SimpleTreeGenerator, FullTreeGenerator,
-                                   PipelineBrowser)
+from tvtk.pipeline.browser import (
+    SimpleTreeGenerator,
+    FullTreeGenerator,
+    PipelineBrowser,
+)
 
 
 class TestSimpleTreeGenerator(unittest.TestCase):
@@ -46,24 +49,24 @@ class TestSimpleTreeGenerator(unittest.TestCase):
 
         kids = tg.get_children(self.m)
         self.assertEqual(len(kids), 2)
-        self.assertEqual(kids['input'], [self.ef])
-        self.assertEqual(kids['lookup_table'], self.m.lookup_table)
+        self.assertEqual(kids["input"], [self.ef])
+        self.assertEqual(kids["lookup_table"], self.m.lookup_table)
 
         kids = tg.get_children(self.a)
         self.assertEqual(len(kids), 3)
-        self.assertEqual(kids['mapper'], self.m)
-        self.assertEqual(kids['property'], self.a.property)
-        self.assertEqual(kids['texture'], None)
+        self.assertEqual(kids["mapper"], self.m)
+        self.assertEqual(kids["property"], self.a.property)
+        self.assertEqual(kids["texture"], None)
 
         kids = tg.get_children(self.ren)
         self.assertEqual(len(kids), 2)
-        self.assertEqual(kids['view_props'][0], self.a)
-        self.assertEqual(len(kids['view_props']), 1)
-        self.assertTrue(kids['active_camera'].is_a('vtkCamera'))
+        self.assertEqual(kids["view_props"][0], self.a)
+        self.assertEqual(len(kids["view_props"]), 1)
+        self.assertTrue(kids["active_camera"].is_a("vtkCamera"))
 
         kids = tg.get_children(self.renwin)
         self.assertEqual(len(kids), 1)
-        self.assertEqual(kids['renderers'][0], self.ren)
+        self.assertEqual(kids["renderers"][0], self.ren)
 
 
 class TestFullTreeGenrator(TestSimpleTreeGenerator):
@@ -97,26 +100,26 @@ class TestFullTreeGenrator(TestSimpleTreeGenerator):
 
         kids = tg.get_children(self.m)
         self.assertEqual(len(kids), 3)
-        self.assertEqual(kids['input'], [self.ef])
-        self.assertEqual(kids['lookup_table'], self.m.lookup_table)
+        self.assertEqual(kids["input"], [self.ef])
+        self.assertEqual(kids["lookup_table"], self.m.lookup_table)
 
         kids = tg.get_children(self.a)
         self.assertEqual(len(kids), 7)
-        self.assertEqual(kids['mapper'], self.m)
-        self.assertEqual(kids['property'], self.a.property)
-        self.assertEqual(kids['texture'], None)
-        self.assertEqual(kids['user_transform'], None)
-        self.assertEqual(kids['user_matrix'], None)
+        self.assertEqual(kids["mapper"], self.m)
+        self.assertEqual(kids["property"], self.a.property)
+        self.assertEqual(kids["texture"], None)
+        self.assertEqual(kids["user_transform"], None)
+        self.assertEqual(kids["user_matrix"], None)
 
         kids = tg.get_children(self.ren)
         self.assertTrue(len(kids) in [6, 7])
-        self.assertEqual(kids['view_props'][0], self.a)
-        self.assertEqual(len(kids['view_props']), 1)
-        self.assertTrue(kids['active_camera'].is_a('vtkCamera'))
+        self.assertEqual(kids["view_props"][0], self.a)
+        self.assertEqual(len(kids["view_props"]), 1)
+        self.assertTrue(kids["active_camera"].is_a("vtkCamera"))
 
         kids = tg.get_children(self.renwin)
         self.assertTrue(len(kids) > 0 and len(kids) < 3)
-        self.assertEqual(kids['renderers'][0], self.ren)
+        self.assertEqual(kids["renderers"][0], self.ren)
 
     def test_glyph_pipeline(self):
         # Given
@@ -136,12 +139,12 @@ class TestFullTreeGenrator(TestSimpleTreeGenerator):
 
         kids = tg.get_children(g)
         self.assertEqual(len(kids), 2)
-        self.assertEqual(kids['input'], [rta, cs])
+        self.assertEqual(kids["input"], [rta, cs])
 
         kids = tg.get_children(m)
         self.assertEqual(len(kids), 3)
-        self.assertEqual(kids['input'], [g])
-        self.assertEqual(kids['lookup_table'], m.lookup_table)
+        self.assertEqual(kids["input"], [g])
+        self.assertEqual(kids["lookup_table"], m.lookup_table)
 
 
 class TestPipelineBrowser(unittest.TestCase):
@@ -156,10 +159,10 @@ class TestPipelineBrowser(unittest.TestCase):
         # Then
         self.assertEqual(len(p._root.children), 1)
         kids = list(p._root.children)
-        self.assertEqual(kids[0].name, 'ElevationFilter')
+        self.assertEqual(kids[0].name, "ElevationFilter")
         gk = list(kids[0].children)
         self.assertEqual(len(gk), 1)
-        self.assertEqual(gk[0].name, 'ConeSource')
+        self.assertEqual(gk[0].name, "ConeSource")
         ggk = list(gk[0].children)
         self.assertEqual(len(ggk), 0)
 
@@ -173,7 +176,7 @@ class TestPipelineBrowser(unittest.TestCase):
         def callback():
             self.count += 1
 
-        p.on_trait_change(callback, 'object_edited')
+        p.on_trait_change(callback, "object_edited")
         p._on_select(gk[0])
         cs.height = 2.0
 
@@ -181,5 +184,5 @@ class TestPipelineBrowser(unittest.TestCase):
         self.assertTrue(self.count > 0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

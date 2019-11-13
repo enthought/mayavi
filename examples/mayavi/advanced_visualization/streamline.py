@@ -17,6 +17,7 @@ from mayavi.modules.outline import Outline
 from mayavi.modules.streamline import Streamline
 from mayavi.modules.iso_surface import IsoSurface
 
+
 def setup_data(fname):
     """Given a VTK XML file name `fname`, this creates a mayavi2
     reader for it and adds it to the pipeline.  It returns the reader
@@ -27,6 +28,7 @@ def setup_data(fname):
     mayavi.add_source(r)
     return r
 
+
 def show_vrml(fname):
     """Given a VRML file name it imports it into the scene.
     """
@@ -35,6 +37,7 @@ def show_vrml(fname):
     mayavi.add_source(r)
     return r
 
+
 def streamline():
     """Sets up the mayavi pipeline for the visualization.
     """
@@ -42,9 +45,9 @@ def streamline():
     o = Outline()
     mayavi.add_module(o)
 
-    s = Streamline(streamline_type='tube')
+    s = Streamline(streamline_type="tube")
     mayavi.add_module(s)
-    s.stream_tracer.integration_direction = 'both'
+    s.stream_tracer.integration_direction = "both"
     s.seed.widget.center = 3.5, 0.625, 1.25
     s.module_manager.scalar_lut_manager.show_scalar_bar = True
 
@@ -53,18 +56,19 @@ def streamline():
     i.contour.contours[0] = 550
     i.actor.property.opacity = 0.5
 
+
 @mayavi2.standalone
 def main():
     mayavi.new_scene()
 
     data_dir = mayavi2.get_data_dir(dirname(abspath(__file__)))
-    vrml_fname = join(data_dir, 'room_vis.wrl')
+    vrml_fname = join(data_dir, "room_vis.wrl")
     r = show_vrml(vrml_fname)
 
-    fname = join(data_dir, 'fire_ug.vtu')
+    fname = join(data_dir, "fire_ug.vtu")
     r = setup_data(fname)
     streamline()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

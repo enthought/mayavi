@@ -9,6 +9,7 @@ raise PyDeadObjectErrors.
 
 from common import TestCase
 
+
 class TestCloseScene(TestCase):
     def test(self):
         self.main()
@@ -22,6 +23,7 @@ class TestCloseScene(TestCase):
         engine.close_scene(s1)
         # Neither should this.
         engine.close_scene(s2)
+
 
 if __name__ == "__main__":
     t = TestCloseScene()

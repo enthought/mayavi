@@ -1,4 +1,4 @@
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 #
 #  DEnum: is a 'dynamic enum' trait whose values are obtained from
 #  another trait on the object.
@@ -14,17 +14,25 @@
 #
 #  (c) Copyright 2006-2008 by Enthought, Inc.
 #
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
-from traits.api import (CArray, Int, NO_COMPARE, Property, TraitError,
-    TraitFactory, TraitType)
+from traits.api import (
+    CArray,
+    Int,
+    NO_COMPARE,
+    Property,
+    TraitError,
+    TraitFactory,
+    TraitType,
+)
 from traitsui.api import EnumEditor
 from traits.traits import trait_cast
 import numbers
 
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 #  Utility functions:
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
 
 def super_getattr(object, name, *args):
     """Works the same way as getattr, except that name can be of the
@@ -41,8 +49,8 @@ def super_getattr(object, name, *args):
     >>> super_getattr(a.b, 'c')
     1
     """
-    if '.' in name:
-        attrs = name.split('.')
+    if "." in name:
+        attrs = name.split(".")
         last = attrs.pop()
         obj = object
         for attr in attrs:
@@ -50,6 +58,7 @@ def super_getattr(object, name, *args):
         return getattr(obj, last, *args)
     else:
         return getattr(object, name, *args)
+
 
 def super_setattr(object, name, value):
     """Works the same way as setattr, except that name can be of the
@@ -64,8 +73,8 @@ def super_setattr(object, name, value):
     >>> a.b.c
     1
     """
-    if '.' in name:
-        attrs = name.split('.')
+    if "." in name:
+        attrs = name.split(".")
         last = attrs.pop()
         obj = object
         for attr in attrs:
@@ -75,9 +84,9 @@ def super_setattr(object, name, value):
         setattr(object, name, value)
 
 
-#--------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
 # Helper class for DEnum trait.
-#--------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
 class DEnumHelper(object):
     """Defines a bunch of staticmethods that collect all the helper
     functions needed for the DEnum trait.
@@ -85,52 +94,56 @@ class DEnumHelper(object):
 
     ######################################################################
     # Get/Set functions for the property.
-    def get_value ( object, name ):
+    def get_value(object, name):
         return super_getattr(object, DEnumHelper._init_listeners(object, name))
+
     get_value = staticmethod(get_value)
 
-    def set_value ( object, name, value ):
-        _name = DEnumHelper._init_listeners( object, name )
-        trait = object.trait( name )
+    def set_value(object, name, value):
+        _name = DEnumHelper._init_listeners(object, name)
+        trait = object.trait(name)
         values = super_getattr(object, trait.values_name)
         if value not in values:
-            raise TraitError(object, name,"one of %s"%values, value)
+            raise TraitError(object, name, "one of %s" % values, value)
         old = super_getattr(object, _name)
-        super_setattr( object, _name, value )
+        super_setattr(object, _name, value)
         object.trait_property_changed(name, old, value)
+
     set_value = staticmethod(set_value)
 
     ######################################################################
     #  Makes a default EnumEditor for the trait:
-    def make_editor ( trait = None ):
-        return EnumEditor( name=trait.values_name )
+    def make_editor(trait=None):
+        return EnumEditor(name=trait.values_name)
+
     make_editor = staticmethod(make_editor)
 
     ######################################################################
     # Ensures that the listeners are initialized.
-    def _init_listeners ( object, name ):
-        _name = '_' + name
-        if not hasattr( object, _name ):
-            trait = object.trait( name )
-            DEnumHelper._add_listeners( object, name, trait.values_name)
-            default = trait.default or ''
-            values = super_getattr( object, trait.values_name )
+    def _init_listeners(object, name):
+        _name = "_" + name
+        if not hasattr(object, _name):
+            trait = object.trait(name)
+            DEnumHelper._add_listeners(object, name, trait.values_name)
+            default = trait.default or ""
+            values = super_getattr(object, trait.values_name)
             if values:
                 if default is None or default not in values:
                     default = values[0]
-            super_setattr( object, _name, default )
+            super_setattr(object, _name, default)
 
         return _name
+
     _init_listeners = staticmethod(_init_listeners)
 
-    def _add_listeners ( object, name, values_name ):
+    def _add_listeners(object, name, values_name):
         def check_values(object, values_name, old, new):
             cur_choice = super_getattr(object, name)
             if cur_choice not in new:
                 if new:
                     super_setattr(object, name, new[0])
                 else:
-                    super_setattr(object, name, '')
+                    super_setattr(object, name, "")
 
         def check_values_items(object, values_name, list_event):
             cur_choice = super_getattr(object, name)
@@ -139,20 +152,23 @@ class DEnumHelper(object):
                 if values:
                     super_setattr(object, name, values[0])
                 else:
-                    super_setattr(object, name, '')
+                    super_setattr(object, name, "")
 
-        object.on_trait_change( check_values,  values_name )
-        object.on_trait_change( check_values_items, values_name + '_items' )
+        object.on_trait_change(check_values, values_name)
+        object.on_trait_change(check_values_items, values_name + "_items")
+
     _add_listeners = staticmethod(_add_listeners)
 
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 #  Defines the DEnum property:
-#-------------------------------------------------------------------------------
-DEnum = Property(DEnumHelper.get_value, DEnumHelper.set_value,
-                 values_name = 'values',
-                 editor  = (DEnumHelper.make_editor, {'trait': None})
-                 )
+# -------------------------------------------------------------------------------
+DEnum = Property(
+    DEnumHelper.get_value,
+    DEnumHelper.set_value,
+    values_name="values",
+    editor=(DEnumHelper.make_editor, {"trait": None}),
+)
 
 DEnum = TraitFactory(DEnum)
 
@@ -195,7 +211,7 @@ class ShadowProperty(TraitType):
         """Validates that a specified value is valid for this trait.
         """
         trt = self.trait_type
-        if trt is not None and hasattr(trt, 'validate'):
+        if trt is not None and hasattr(trt, "validate"):
             value = trt.validate(object, name, value)
         return value
 
@@ -223,23 +239,24 @@ class ShadowProperty(TraitType):
 
     def _get_shadow(self, name):
         """Get the shadow attribute name to use."""
-        return '_' + name
+        return "_" + name
 
     def _check_notification(self, object):
         """Checks to see if notifications are allowed or not i.e. has
         the trait been set via:
          object.trait_set(name=value, trait_change_notify=False)
         """
-        if hasattr(object, '_get_trait_change_notify'):
+        if hasattr(object, "_get_trait_change_notify"):
             return object._get_trait_change_notify()
         else:
             # Traits won't tell us so we find out by adding a dynamic
             # trait, changing it and then seeing if the callback was
             # called, sigh!
-            attr = '_testing_Notification_handlers_tmp_dont_touch'
+            attr = "_testing_Notification_handlers_tmp_dont_touch"
 
             def callback(value):
                 callback.value = value
+
             callback.value = -1
             object.add_trait(attr, Int)
             object.on_trait_change(callback, attr)
@@ -257,7 +274,7 @@ class ArrayOrNone(CArray):
     """
 
     def __init__(self, *args, **metadata):
-        metadata['comparison_mode'] = NO_COMPARE
+        metadata["comparison_mode"] = NO_COMPARE
         super(ArrayOrNone, self).__init__(*args, **metadata)
 
     def validate(self, object, name, value):
@@ -274,7 +291,7 @@ class ArrayNumberOrNone(CArray):
     """
 
     def __init__(self, *args, **metadata):
-        metadata['comparison_mode'] = NO_COMPARE
+        metadata["comparison_mode"] = NO_COMPARE
         super(ArrayNumberOrNone, self).__init__(*args, **metadata)
 
     def validate(self, object, name, value):
@@ -283,6 +300,7 @@ class ArrayNumberOrNone(CArray):
         elif isinstance(value, numbers.Number):
             # Local import to avoid explicit dependency.
             import numpy
+
             value = numpy.atleast_1d(value)
         return super(ArrayNumberOrNone, self).validate(object, name, value)
 

@@ -31,8 +31,7 @@ class VectorCutPlane(Module):
     __version__ = 0
 
     # The implicit plane widget used to place the implicit function.
-    implicit_plane = Instance(ImplicitPlane, allow_none=False,
-                              record=True)
+    implicit_plane = Instance(ImplicitPlane, allow_none=False, record=True)
 
     # The cutter.  Takes a cut of the data on the implicit plane.
     cutter = Instance(Cutter, allow_none=False, record=True)
@@ -43,23 +42,26 @@ class VectorCutPlane(Module):
     # The Glyph component.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['vectors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["vectors"]
+    )
 
     ########################################
     # View related traits.
 
-    view = View(Group(Item(name='implicit_plane', style='custom'),
-                      label='ImplicitPlane',
-                      show_labels=False),
-                Group(Item(name='glyph', style='custom', resizable=True),
-                      label='Glyph',
-                      show_labels=False),
-                Group(Item(name='actor', style='custom'),
-                      label='Actor',
-                      show_labels=False),
-                )
+    view = View(
+        Group(
+            Item(name="implicit_plane", style="custom"),
+            label="ImplicitPlane",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="glyph", style="custom", resizable=True),
+            label="Glyph",
+            show_labels=False,
+        ),
+        Group(Item(name="actor", style="custom"), label="Actor", show_labels=False),
+    )
 
     ######################################################################
     # `Module` interface
@@ -79,15 +81,18 @@ class VectorCutPlane(Module):
         # Create the objects and set them up.
         self.implicit_plane = ImplicitPlane()
         self.cutter = Cutter()
-        self.glyph = Glyph(module=self,
-                           scale_mode='scale_by_vector',
-                           color_mode='color_by_vector',
-                           show_scale_mode=False)
-        self.glyph.glyph_source.glyph_position='tail'
+        self.glyph = Glyph(
+            module=self,
+            scale_mode="scale_by_vector",
+            color_mode="color_by_vector",
+            show_scale_mode=False,
+        )
+        self.glyph.glyph_source.glyph_position = "tail"
         actor = self.actor = Actor()
         actor.mapper.scalar_visibility = 1
-        actor.property.trait_set(line_width=2, backface_culling=False,
-                           frontface_culling=False)
+        actor.property.trait_set(
+            line_width=2, backface_culling=False, frontface_culling=False
+        )
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -125,11 +130,11 @@ class VectorCutPlane(Module):
         # so that the the lut can be changed when the a different
         # color mode is requested.
         actor = self.actor
-        if value == 'color_by_scalar':
+        if value == "color_by_scalar":
             actor.mapper.scalar_visibility = 1
             lut_mgr = self.module_manager.scalar_lut_manager
             actor.set_lut(lut_mgr.lut)
-        elif value == 'color_by_vector':
+        elif value == "color_by_vector":
             lut_mgr = self.module_manager.vector_lut_manager
             actor.set_lut(lut_mgr.lut)
         else:
@@ -156,15 +161,12 @@ class VectorCutPlane(Module):
 
     def _glyph_changed(self, old, new):
         if old is not None:
-            old.on_trait_change(self._color_mode_changed,
-                                'color_mode',
-                                remove=True)
+            old.on_trait_change(self._color_mode_changed, "color_mode", remove=True)
         new.module = self
         cutter = self.cutter
         if cutter:
             new.inputs = [cutter]
-        new.on_trait_change(self._color_mode_changed,
-                            'color_mode')
+        new.on_trait_change(self._color_mode_changed, "color_mode")
         self._change_components(old, new)
 
     def _actor_changed(self, old, new):
@@ -173,4 +175,3 @@ class VectorCutPlane(Module):
         if glyph is not None:
             new.inputs = [glyph]
         self._change_components(old, new)
-

@@ -37,11 +37,9 @@ def find_object_given_state(needle, haystack, object):
     """
     if needle is haystack:
         return object
-    if hasattr(object, 'filter'):
-        return find_object_given_state(needle,
-                                       haystack.filter,
-                                       object.filter)
-    elif hasattr(object, 'filters'):
+    if hasattr(object, "filter"):
+        return find_object_given_state(needle, haystack.filter, object.filter)
+    elif hasattr(object, "filters"):
         for h, obj in zip(haystack.filters, object.filters):
             r = find_object_given_state(needle, h, obj)
             if r is not None:
@@ -66,8 +64,7 @@ class GenericModule(Module):
     # any.  This is needed for modules that use a contour component
     # because when we turn on filled contours the mapper must switch to
     # use cell data.
-    contour = Instance('mayavi.components.contour.Contour',
-                       allow_none=True)
+    contour = Instance("mayavi.components.contour.Contour", allow_none=True)
 
     # The *optional* Actor component for which the LUT must be set.  If
     # None is specified here, we will attempt to automatically determine
@@ -75,7 +72,7 @@ class GenericModule(Module):
     actor = Instance(Actor, allow_none=True)
 
     # Should we use the scalar LUT or the vector LUT?
-    lut_mode = Enum('scalar', 'vector')
+    lut_mode = Enum("scalar", "vector")
 
     ########################################
     # Private traits.
@@ -89,8 +86,8 @@ class GenericModule(Module):
     def __get_pure_state__(self):
         # Need to pickle the components.
         d = super(GenericModule, self).__get_pure_state__()
-        d['components'] = self.components
-        d.pop('_pipeline_ready', None)
+        d["components"] = self.components
+        d.pop("_pipeline_ready", None)
         return d
 
     def __set_pure_state__(self, state):
@@ -102,8 +99,8 @@ class GenericModule(Module):
         self.running = False
 
         # Remove the actor states since we don't want these unpickled.
-        actor_st = state.pop('actor', None)
-        contour_st = state.pop('contour', None)
+        actor_st = state.pop("actor", None)
+        contour_st = state.pop("contour", None)
         # Create and set the components.
         handle_children_state(self.components, state.components)
         components = self.components
@@ -134,17 +131,25 @@ class GenericModule(Module):
     ######################################################################
     def default_traits_view(self):
         """Returns the default traits view for this object."""
-        le = ListEditor(use_notebook=True,
-                        deletable=False,
-                        export='DockWindowShell',
-                        page_name='.name')
-        view = View(Group(Item(name='components',
-                               style='custom',
-                               show_label=False,
-                               editor=le,
-                               resizable=True),
-                          show_labels=False),
-                    resizable=True)
+        le = ListEditor(
+            use_notebook=True,
+            deletable=False,
+            export="DockWindowShell",
+            page_name=".name",
+        )
+        view = View(
+            Group(
+                Item(
+                    name="components",
+                    style="custom",
+                    show_label=False,
+                    editor=le,
+                    resizable=True,
+                ),
+                show_labels=False,
+            ),
+            resizable=True,
+        )
         return view
 
     ######################################################################
@@ -202,7 +207,7 @@ class GenericModule(Module):
             # Hook up the others to each other.
             for i in range(1, len(components)):
                 component = components[i]
-                component.inputs = [components[i-1]]
+                component.inputs = [components[i - 1]]
             self._pipeline_ready = True
         # Start components.
         self._start_components()
@@ -219,7 +224,7 @@ class GenericModule(Module):
                     self.actor = component
 
         if len(self.components) == 0:
-            self.input_info.datasets = ['none']
+            self.input_info.datasets = ["none"]
         else:
             self.input_info.copy_traits(self.components[0].input_info)
 
@@ -232,7 +237,7 @@ class GenericModule(Module):
         if mm is None:
             return
         lm = mm.scalar_lut_manager
-        if value == 'vector':
+        if value == "vector":
             lm = mm.vector_lut_manager
 
         if self.actor is not None:
@@ -249,13 +254,12 @@ class GenericModule(Module):
         if self.actor is None:
             return
         if value:
-            self.actor.mapper.scalar_mode = 'use_cell_data'
+            self.actor.mapper.scalar_mode = "use_cell_data"
         else:
-            self.actor.mapper.scalar_mode = 'default'
+            self.actor.mapper.scalar_mode = "default"
         self.render()
 
     def _start_components(self):
         for component in self.components:
-            if len(component.inputs) > 0 and \
-               len(component.inputs[0].outputs) > 0:
+            if len(component.inputs) > 0 and len(component.inputs[0].outputs) > 0:
                 component.start()

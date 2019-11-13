@@ -72,10 +72,14 @@ class PipelineBase(Base):
     def __get_pure_state__(self):
         d = super(PipelineBase, self).__get_pure_state__()
         # These are setup dynamically so we should not pickle them.
-        for x in ('outputs', 'actors', 'widgets', '_actors_added', ):
+        for x in (
+            "outputs",
+            "actors",
+            "widgets",
+            "_actors_added",
+        ):
             d.pop(x, None)
         return d
-
 
     ######################################################################
     # `Base` interface
@@ -118,7 +122,7 @@ class PipelineBase(Base):
             # If there is no scene and we are running, we flush the
             # pipeline manually by calling update.
             for actor in self.actors:
-                if hasattr(actor, 'mapper'):
+                if hasattr(actor, "mapper"):
                     m = actor.mapper
                     if m is not None:
                         if tvtk_common.is_old_pipeline():
@@ -127,13 +131,13 @@ class PipelineBase(Base):
                             m.update(0)
             if tvtk_common.is_old_pipeline():
                 for widget in self.widgets:
-                    if hasattr(widget, 'input'):
+                    if hasattr(widget, "input"):
                         input = widget.input
                         if input is not None:
                             input.update()
-        if hasattr(self, 'components'):
+        if hasattr(self, "components"):
             for component in self.components:
-                    component.render()
+                component.render()
 
     ######################################################################
     # `PipelineBase` interface.
@@ -259,7 +263,7 @@ class PipelineBase(Base):
             for i in range(len(self.widgets)):
                 self.widgets[i].enabled = self._widget_state[i]
 
-    def _visible_changed(self,value):
+    def _visible_changed(self, value):
         if value:
             # restore the state of the widgets from the
             # backed up values.
@@ -274,7 +278,7 @@ class PipelineBase(Base):
             a.visibility = value
 
         self.render()
-        super(PipelineBase , self)._visible_changed(value)
+        super(PipelineBase, self)._visible_changed(value)
 
     def _set_widget_visibility(self, widgets):
         if not self.visible:

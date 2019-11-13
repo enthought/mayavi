@@ -10,9 +10,11 @@ using Envisage or the Mayavi Envisage application.
 from os.path import join, abspath
 
 from pyface.api import GUI
+
 # The core Engine.
 from mayavi.core.api import Engine
 from mayavi.core.ui.engine_view import EngineView
+
 # Usual MayaVi imports
 from mayavi.scripts.util import get_data_dir
 from mayavi.sources.api import VTKXMLFileReader
@@ -37,15 +39,15 @@ def main():
 
     # Now setup a normal MayaVi pipeline.
     src = VTKXMLFileReader()
-    src.initialize(join(get_data_dir(abspath(__file__)),
-                        'fire_ug.vtu'))
+    src.initialize(join(get_data_dir(abspath(__file__)), "fire_ug.vtu"))
     e.add_source(src)
     e.add_module(Outline())
     e.add_module(ScalarCutPlane())
     e.add_module(Streamline())
     return e, ui
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # When main returns the ui to go out of scope and be gc'd causing the view
     # to disappear with qt4.
     e, ui = main()

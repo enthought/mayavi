@@ -10,4 +10,5 @@ etc.
 
 # Import the toolkit specific version.
 from tvtk.pyface.toolkit import toolkit_object
-DecoratedScene = toolkit_object('decorated_scene:DecoratedScene')
+
+DecoratedScene = toolkit_object("decorated_scene:DecoratedScene")

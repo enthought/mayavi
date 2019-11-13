@@ -14,10 +14,8 @@ from mayavi.core.adder_node import SceneAdderNode
 
 # Local imports.
 from mayavi.core.scene import Scene
-from mayavi.preferences.preference_manager_view import \
-    preference_manager_view
-from mayavi.core.ui.engine_view import EngineView, \
-            EngineViewHandler
+from mayavi.preferences.preference_manager_view import preference_manager_view
+from mayavi.core.ui.engine_view import EngineView, EngineViewHandler
 
 
 class EngineRichViewHandler(EngineViewHandler):
@@ -30,9 +28,8 @@ class EngineRichViewHandler(EngineViewHandler):
 
         """
         super(EngineRichViewHandler, self).init_info(info)
-        info.on_trait_change(self.select_selected, 'initialized')
+        info.on_trait_change(self.select_selected, "initialized")
         return
-
 
     def select_selected(self, initialized):
         """ Force the tree editor to select the current engine selection,
@@ -57,17 +54,16 @@ class EngineRichViewHandler(EngineViewHandler):
         # current_selection.
         tree_editor.trait_set(selected=None, trait_change_notify=False)
         current_selection = self.info.object.engine.current_selection
-        GUI.set_trait_later(tree_editor, 'selected', current_selection)
+        GUI.set_trait_later(tree_editor, "selected", current_selection)
 
         # If we are selecting a scene, collapse the others
-        if isinstance(current_selection, Scene) and \
-                                    hasattr(tree_editor._tree, 'Collapse'):
+        if isinstance(current_selection, Scene) and hasattr(
+            tree_editor._tree, "Collapse"
+        ):
             # The wx editor can collapse, dunno for the Qt
             for scene in self.info.object.engine.scenes:
                 if scene is not current_selection:
-                    tree_editor._tree.Collapse(
-                                            tree_editor._get_object_nid(scene))
-
+                    tree_editor._tree.Collapse(tree_editor._get_object_nid(scene))
 
     def _on_dclick(self, object):
         """ Called when a node in the tree editor is double-clicked.
@@ -95,52 +91,54 @@ class EngineRichView(EngineView):
     def default_traits_view(self):
         """The default traits view of the Engine View.
         """
-        view = View(HSplit(
-                        Item('engine',
-                            id='mayavi.engine_rich_view.pipeline_view',
-                            springy=True,
-                            resizable=True,
-                            editor=self.tree_editor,
-                            dock='tab',
-                            label='Pipeline'),
-                        Item('engine',
-                            id='mayavi.engine_rich_view.current_selection',
-                            editor=InstanceEditor(
-                                        view='current_selection_view'),
-                            springy=True,
-                            resizable=True,
-                            style='custom'),
-                    show_labels=False,
-                    id='mayavi.engine_rich_view_group',
-                    ),
-                    id='mayavi.engine_rich_view',
-                    help=False,
+        view = View(
+            HSplit(
+                Item(
+                    "engine",
+                    id="mayavi.engine_rich_view.pipeline_view",
+                    springy=True,
                     resizable=True,
-                    undo=False,
-                    revert=False,
-                    ok=False,
-                    cancel=False,
-                    title='Mayavi pipeline',
-                    icon=self.icon,
-                    toolbar=self.toolbar,
-                    handler=EngineRichViewHandler)
+                    editor=self.tree_editor,
+                    dock="tab",
+                    label="Pipeline",
+                ),
+                Item(
+                    "engine",
+                    id="mayavi.engine_rich_view.current_selection",
+                    editor=InstanceEditor(view="current_selection_view"),
+                    springy=True,
+                    resizable=True,
+                    style="custom",
+                ),
+                show_labels=False,
+                id="mayavi.engine_rich_view_group",
+            ),
+            id="mayavi.engine_rich_view",
+            help=False,
+            resizable=True,
+            undo=False,
+            revert=False,
+            ok=False,
+            cancel=False,
+            title="Mayavi pipeline",
+            icon=self.icon,
+            toolbar=self.toolbar,
+            handler=EngineRichViewHandler,
+        )
         return view
-
 
     def _actions_default(self):
         """ Append a preferences action to the toolbar: this view of the
             engine is meant to be a powerful view giving access to
             all of Mayavi's functionality.
         """
-        preferences_action = \
-            Action(
-                image=ImageResource('preferences.png',
-                                     search_path=self._image_path),
-                tooltip="Modify Mayavi's preferences",
-                checked=False,
-                defined_when='True',
-                perform=preference_manager_view.dialog_view,
-            )
+        preferences_action = Action(
+            image=ImageResource("preferences.png", search_path=self._image_path),
+            tooltip="Modify Mayavi's preferences",
+            checked=False,
+            defined_when="True",
+            perform=preference_manager_view.dialog_view,
+        )
 
         actions = super(EngineRichView, self)._actions_default()
         actions.extend((Separator(), preferences_action))
@@ -157,7 +155,7 @@ class EngineRichView(EngineView):
             sc = mayavi_scene.scene
             # Support for the `MlabSceneModel` where the `scene_editor`
             # trait contains the scene.
-            s = getattr(sc, 'scene_editor', sc)
+            s = getattr(sc, "scene_editor", sc)
             if s is scene:
                 self.engine.current_selection = mayavi_scene
 

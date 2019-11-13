@@ -21,6 +21,10 @@ TVTK docs: http://docs.enthought.com/mayavi/tvtk
    :target: http://codecov.io/github/enthought/mayavi?branch=master
    :alt: Code coverage status
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Code style
+
 Vision
 ======
 

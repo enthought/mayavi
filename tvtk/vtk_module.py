@@ -13,6 +13,7 @@ need to be wrapped.
 # License: BSD Style.
 
 from vtk import *
+
 try:
     from vtk.util.vtkAlgorithm import VTKPythonAlgorithmBase
 except ImportError:

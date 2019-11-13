@@ -14,7 +14,6 @@ from common import TestCase, get_example_data
 
 
 class TestImageDataProbe(TestCase):
-
     def check(self, saved=False):
         """Does the checking, if saved is True it does not change the
         properties at first to see how those behave and only tests the
@@ -26,11 +25,11 @@ class TestImageDataProbe(TestCase):
         idp = src.children[0]
         mm = idp.children[0]
         if not saved:
-            assert src.get_output_dataset().is_a('vtkUnstructuredGrid')
-            assert idp.get_output_dataset().is_a('vtkImageData')
+            assert src.get_output_dataset().is_a("vtkUnstructuredGrid")
+            assert idp.get_output_dataset().is_a("vtkImageData")
             sc = idp.get_output_dataset().point_data.scalars
-            assert sc.name == 't'
-            assert mm.scalar_lut_manager.data_name == 't'
+            assert sc.name == "t"
+            assert mm.scalar_lut_manager.data_name == "t"
             assert abs(sc.range[0]) < 1.0
             assert abs(sc.range[1] - 626.0) < 1.0
 
@@ -41,7 +40,7 @@ class TestImageDataProbe(TestCase):
         assert sc.name == idp.rescaled_scalar_name
         assert mm.scalar_lut_manager.data_name == idp.rescaled_scalar_name
         assert abs(sc.range[0]) < 1e-2
-        assert abs(sc.range[1] - 65535.0) < 1.e-2
+        assert abs(sc.range[1] - 65535.0) < 1.0e-2
         assert (idp.get_output_dataset().dimensions == (41, 19, 19)).all()
 
     def test(self):
@@ -61,7 +60,7 @@ class TestImageDataProbe(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('fire_ug.vtu'))
+        r.initialize(get_example_data("fire_ug.vtu"))
         script.add_source(r)
 
         # Create the filters.
@@ -69,7 +68,7 @@ class TestImageDataProbe(TestCase):
         script.add_filter(idp)
         cgp = ContourGridPlane(enable_contours=False)
         script.add_module(cgp)
-        cgp.grid_plane.axis = 'z'
+        cgp.grid_plane.axis = "z"
         cgp.grid_plane.position = 2
         s.scene.isometric_view()
 
@@ -80,9 +79,9 @@ class TestImageDataProbe(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine
@@ -118,6 +117,7 @@ class TestImageDataProbe(TestCase):
         self.check(saved=True)
 
         # If we have come this far, we are golden!
+
 
 if __name__ == "__main__":
     t = TestImageDataProbe()

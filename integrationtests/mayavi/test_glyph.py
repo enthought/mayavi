@@ -22,17 +22,17 @@ class TestGlyph(TestCase):
         """Trivial data -- creates an elementatry scalar field and a
         constant vector field along the 'x' axis."""
         s = numpy.arange(0.0, 10.0, 0.01)
-        s = numpy.reshape(s, (10,10,10))
+        s = numpy.reshape(s, (10, 10, 10))
         s = numpy.transpose(s)
 
-        v = numpy.zeros(3000, 'd')
+        v = numpy.zeros(3000, "d")
         v[1::3] = 1.0
-        v = numpy.reshape(v, (10,10,10,3))
+        v = numpy.reshape(v, (10, 10, 10, 3))
         return s, v
 
     def set_view(self, s):
         """Sets the view correctly."""
-        #s.scene.reset_zoom()
+        # s.scene.reset_zoom()
         s.scene.z_plus_view()
         c = s.scene.camera
         c.azimuth(-30)
@@ -44,24 +44,24 @@ class TestGlyph(TestCase):
         s = script.engine.current_scene
         src = s.children[0]
         g = src.children[0].children[1]
-        assert g.glyph.glyph_source.glyph_position == 'center'
-        assert g.glyph.glyph.vector_mode == 'use_normal'
+        assert g.glyph.glyph_source.glyph_position == "center"
+        assert g.glyph.glyph.vector_mode == "use_normal"
         assert g.glyph.glyph.scale_factor == 0.5
         assert g.actor.property.line_width == 1.0
 
         v = src.children[0].children[2]
         glyph = v.glyph
         gs = glyph.glyph_source
-        assert gs.glyph_position == 'tail'
+        assert gs.glyph_position == "tail"
         assert gs.glyph_source == gs.glyph_list[1]
-        assert numpy.allclose(v.implicit_plane.normal,  (0., 1., 0.))
+        assert numpy.allclose(v.implicit_plane.normal, (0.0, 1.0, 0.0))
 
         v = src.children[0].children[3]
         glyph = v.glyph
         gs = glyph.glyph_source
         assert gs.glyph_source == gs.glyph_list[2]
-        assert gs.glyph_position == 'head'
-        assert numpy.allclose(v.implicit_plane.normal,  (0., 1., 0.))
+        assert gs.glyph_position == "head"
+        assert numpy.allclose(v.implicit_plane.normal, (0.0, 1.0, 0.0))
 
     def test(self):
         self.main()
@@ -93,15 +93,15 @@ class TestGlyph(TestCase):
         # Glyphs for the scalars
         g = Glyph()
         script.add_module(g)
-        g.glyph.glyph_source.glyph_position = 'center'
-        g.glyph.glyph.vector_mode = 'use_normal'
+        g.glyph.glyph_source.glyph_position = "center"
+        g.glyph.glyph.vector_mode = "use_normal"
         g.glyph.glyph.scale_factor = 0.5
         g.actor.property.line_width = 1.0
 
         v = VectorCutPlane()
         glyph = v.glyph
         gs = glyph.glyph_source
-        gs.glyph_position = 'tail'
+        gs.glyph_position = "tail"
         gs.glyph_source = gs.glyph_list[1]
         script.add_module(v)
         v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, 3, 0))
@@ -110,7 +110,7 @@ class TestGlyph(TestCase):
         glyph = v.glyph
         gs = glyph.glyph_source
         gs.glyph_source = gs.glyph_list[2]
-        gs.glyph_position = 'head'
+        gs.glyph_position = "head"
         script.add_module(v)
         v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, -2, 0))
 
@@ -146,9 +146,9 @@ class TestGlyph(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine

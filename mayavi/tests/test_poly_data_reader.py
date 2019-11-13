@@ -20,7 +20,6 @@ vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
 
 class TestPDBReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -29,7 +28,7 @@ class TestPDBReader(DataReaderTestBase):
         """
         # Read a PDB data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('caffeine.pdb'))
+        r.initialize(get_example_data("caffeine.pdb"))
         self.e.add_source(r)
         self.bounds = (3.10, 10.78, -2.39, 4.03, -10.60, -6.31)
 
@@ -52,7 +51,6 @@ class TestPDBReader(DataReaderTestBase):
 
 
 class TestBYUReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -61,7 +59,7 @@ class TestBYUReader(DataReaderTestBase):
         """
         # Read a BYU data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('cow.g'))
+        r.initialize(get_example_data("cow.g"))
         self.e.add_source(r)
         self.bounds = (-4.445, 5.998, -3.608, 2.760, -1.690, 1.690)
 
@@ -84,7 +82,6 @@ class TestBYUReader(DataReaderTestBase):
 
 
 class TestOBJReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -93,7 +90,7 @@ class TestOBJReader(DataReaderTestBase):
         """
         # Read a OBJ data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('shuttle.obj'))
+        r.initialize(get_example_data("shuttle.obj"))
         self.e.add_source(r)
         self.bounds = (-7.65, 7.04, -4.68, 4.68, -1.35, 4.16)
 
@@ -116,7 +113,6 @@ class TestOBJReader(DataReaderTestBase):
 
 
 class TestParticleReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -125,10 +121,11 @@ class TestParticleReader(DataReaderTestBase):
         """
         # Read a Particle data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('Particles.raw'))
+        r.initialize(get_example_data("Particles.raw"))
         self.e.add_source(r)
-        r.reader.trait_set(data_byte_order='big_endian', data_type='float',
-                     file_type='binary')
+        r.reader.trait_set(
+            data_byte_order="big_endian", data_type="float", file_type="binary"
+        )
         self.bounds = (817.33, 826.09, 545.02, 571.02, 1443.48, 1511.18)
 
     def test_particle_data_reader(self):
@@ -150,7 +147,6 @@ class TestParticleReader(DataReaderTestBase):
 
 
 class TestPLYReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -159,7 +155,7 @@ class TestPLYReader(DataReaderTestBase):
         """
         # Read a PLY data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('pyramid.ply'))
+        r.initialize(get_example_data("pyramid.ply"))
         self.e.add_source(r)
         self.bounds = (0.0, 1.0, 0.0, 1.0, 0.0, 1.60)
 
@@ -175,7 +171,6 @@ class TestPLYReader(DataReaderTestBase):
 
 
 class TestPointsReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -184,7 +179,7 @@ class TestPointsReader(DataReaderTestBase):
         """
         # Read a Points data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('points.txt'))
+        r.initialize(get_example_data("points.txt"))
         self.e.add_source(r)
         self.bounds = (0.0, 1.0, 0.0, 1.0, 0.0, 1.0)
 
@@ -207,7 +202,6 @@ class TestPointsReader(DataReaderTestBase):
 
 
 class TestSTLReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -216,7 +210,7 @@ class TestSTLReader(DataReaderTestBase):
         """
         # Read a STL data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('humanoid_tri.stla'))
+        r.initialize(get_example_data("humanoid_tri.stla"))
         self.e.add_source(r)
         self.bounds = (0.60, 3.47, -3.96, 3.95, 3.05, 17.39)
 
@@ -239,7 +233,6 @@ class TestSTLReader(DataReaderTestBase):
 
 
 class TestFacetReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -248,7 +241,7 @@ class TestFacetReader(DataReaderTestBase):
         """
         # Read a Facet data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('clown.facet'))
+        r.initialize(get_example_data("clown.facet"))
         self.e.add_source(r)
         self.bounds = (-0.5, 0.69, -0.49, 0.49, -1.09, 0.5)
 
@@ -271,7 +264,6 @@ class TestFacetReader(DataReaderTestBase):
 
 
 class TestSLCReader(DataReaderTestBase):
-
     def setup_reader(self):
 
         """"Setup the reader in here.  This is called after the engine
@@ -280,7 +272,7 @@ class TestSLCReader(DataReaderTestBase):
         """
         # Read a SLC data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('nut.slc'))
+        r.initialize(get_example_data("nut.slc"))
         self.e.add_source(r)
         self.bounds = (0.0, 67.0, 0.0, 40.0, 0.0, 58.0)
 
@@ -301,5 +293,6 @@ class TestSLCReader(DataReaderTestBase):
 
         self.check_deepcopying(self.scene, self.bounds)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

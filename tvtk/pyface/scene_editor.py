@@ -9,4 +9,5 @@
 
 # Import the toolkit specific version.
 from tvtk.pyface.toolkit import toolkit_object
-SceneEditor = toolkit_object('scene_editor:SceneEditor')
+
+SceneEditor = toolkit_object("scene_editor:SceneEditor")

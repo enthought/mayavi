@@ -18,4 +18,3 @@ class Optional(Wrapper):
 
     # This filter should allow us to turn on/off the filter.
     _show_enabled = True
-

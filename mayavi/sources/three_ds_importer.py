@@ -22,9 +22,13 @@ from mayavi.sources.vrml_importer import VRMLImporter
 class ThreeDSImporter(VRMLImporter):
 
     # The 3DS importer.
-    reader = Instance(tvtk.ThreeDSImporter, args=(),
-                      kw={'compute_normals':True},
-                      allow_none=False, record=True)
+    reader = Instance(
+        tvtk.ThreeDSImporter,
+        args=(),
+        kw={"compute_normals": True},
+        allow_none=False,
+        record=True,
+    )
 
     ######################################################################
     # `FileDataSource` interface
@@ -37,7 +41,7 @@ class ThreeDSImporter(VRMLImporter):
     def get_output_object(self):
         """ Return the reader output port."""
         return self.reader.output_port
-    
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -49,9 +53,9 @@ class ThreeDSImporter(VRMLImporter):
         if self.scene is not None:
             self.reader.render_window = self.scene.render_window
 
-        name = "3DStudio file (%s)"%basename(self.file_name)
-        if '[Hidden]' in self.name:
-            name += ' [Hidden]'
+        name = "3DStudio file (%s)" % basename(self.file_name)
+        if "[Hidden]" in self.name:
+            name += " [Hidden]"
         self.name = name
 
         self._file_path.trait_set(value)

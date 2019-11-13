@@ -24,31 +24,30 @@ class VolumeReader(Source):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    file_prefix = Str('', desc='File prefix for the volume files')
+    file_prefix = Str("", desc="File prefix for the volume files")
 
     # The VTK data file reader.
-    reader = Instance(tvtk.Volume16Reader, args=(), allow_none=False,
-                      record=True)
+    reader = Instance(tvtk.Volume16Reader, args=(), allow_none=False, record=True)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['image_data'])
+    output_info = PipelineInfo(datasets=["image_data"])
 
     ########################################
     # View related code.
     # Our view.
-    view = View(Group(Item(name='reader', style='custom',
-                            resizable=True),
-                      show_labels=False),
-                resizable=True)
+    view = View(
+        Group(Item(name="reader", style="custom", resizable=True), show_labels=False),
+        resizable=True,
+    )
 
     ######################################################################
     # `Source` interface
     ######################################################################
 
-    def __init__(self, file_prefix='', configure=True, **traits):
+    def __init__(self, file_prefix="", configure=True, **traits):
         super(VolumeReader, self).__init__(**traits)
         if configure:
-            self.reader.edit_traits(kind='livemodal')
+            self.reader.edit_traits(kind="livemodal")
 
         self.file_prefix = self.reader.file_prefix
 

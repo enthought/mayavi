@@ -17,18 +17,19 @@ from mayavi.core.pipeline_info import PipelineInfo
 class ExtractUnstructuredGrid(FilterBase):
     """Allows a user to select a part of an unstructured grid.
     """
+
     # The version of this class.  Used for persistence.
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.ExtractUnstructuredGrid, args=(),
-                      allow_none=False, record=True)
+    filter = Instance(
+        tvtk.ExtractUnstructuredGrid, args=(), allow_none=False, record=True
+    )
 
-    input_info = PipelineInfo(datasets=['unstructured_grid'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["unstructured_grid"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['unstructured_grid'],
-                               attribute_types=['any'],
-                               attributes=['any'])
-
+    output_info = PipelineInfo(
+        datasets=["unstructured_grid"], attribute_types=["any"], attributes=["any"]
+    )

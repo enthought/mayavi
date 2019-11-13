@@ -17,7 +17,7 @@ from common import TestCase
 def create_quiver3d():
     x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
     u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
-    s = numpy.sqrt(u**2 + v**2)
+    s = numpy.sqrt(u ** 2 + v ** 2)
     mlab.quiver3d(x, y, z, u, v, w, scalars=s)
 
 
@@ -25,8 +25,8 @@ def create_quiver3d():
 # the required size in `savefig`, this forces the re-rendering to
 # occur and catch any potential ill rendering
 
-class TestMlabSavefigUnitTest(unittest.TestCase):
 
+class TestMlabSavefigUnitTest(unittest.TestCase):
     def setUp(self):
         # Make a temporary directory for saved figures
         self.temp_dir = tempfile.mkdtemp()
@@ -59,9 +59,10 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             engine.close_scene(scene)
         engine.stop()
 
-    @unittest.skipIf(os.environ.get("TRAVIS", False),
-                     ("Offscreen rendering is not tested on Travis "
-                      "due to lack of GLX support"))
+    @unittest.skipIf(
+        os.environ.get("TRAVIS", False),
+        ("Offscreen rendering is not tested on Travis " "due to lack of GLX support"),
+    )
     def test_many_savefig_offscreen(self):
         """Test if savefig works with off_screen_rendering and Engine"""
         engine = Engine()
@@ -75,11 +76,10 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             create_quiver3d()
 
             # save the figure
-            savefig(self.filename, size=(131, 217),
-                    figure=self.figure)
+            savefig(self.filename, size=(131, 217), figure=self.figure)
 
     def _get_pixel_ratio(self, fig):
-        return getattr(fig.scene._vtk_control, '_pixel_ratio', 1.0)
+        return getattr(fig.scene._vtk_control, "_pixel_ratio", 1.0)
 
     def test_mlab_screenshot(self):
         # Given
@@ -88,28 +88,26 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         create_quiver3d()
         sz = self.figure.scene.get_size()
         pixel_ratio = self._get_pixel_ratio(self.figure)
-        sz = (sz[0]*pixel_ratio, sz[1]*pixel_ratio)
+        sz = (sz[0] * pixel_ratio, sz[1] * pixel_ratio)
 
         for aa in (False, True):
             # When
-            data = screenshot(mode='rgb', antialiased=aa)
+            data = screenshot(mode="rgb", antialiased=aa)
             # Then
             self.assertEqual(data.shape, (sz[1], sz[0], 3))
 
             # When
-            data = screenshot(mode='rgba', antialiased=aa)
+            data = screenshot(mode="rgba", antialiased=aa)
             # Then
             self.assertEqual(data.shape, (sz[1], sz[0], 4))
 
 
 class TestMlabSavefig(TestCase):
-
     def test(self):
         self.main()
 
     def do(self):
-        suite = unittest.TestLoader().loadTestsFromTestCase(
-            TestMlabSavefigUnitTest)
+        suite = unittest.TestLoader().loadTestsFromTestCase(TestMlabSavefigUnitTest)
 
         result = unittest.TextTestRunner().run(suite)
 

@@ -36,69 +36,82 @@ class PLOT3DReader(Source):
     __version__ = 0
 
     # XYZ file name
-    xyz_file_name = Str('', desc='the XYZ file')
+    xyz_file_name = Str("", desc="the XYZ file")
 
     # The (optional) Q file.
-    q_file_name = Str('', desc='the Q file')
+    q_file_name = Str("", desc="the Q file")
 
     # The active scalar name.
-    scalars_name = Trait('density',
-                         TraitPrefixMap({'density': 100,
-                                         'pressure': 110,
-                                         'temperature': 120,
-                                         'enthalpy': 130,
-                                         'internal energy': 140,
-                                         'kinetic energy': 144,
-                                         'velocity magnitude': 153,
-                                         'stagnation energy': 163,
-                                         'entropy': 170,
-                                         'swirl': 184}),
-                         desc='scalar data attribute to show')
+    scalars_name = Trait(
+        "density",
+        TraitPrefixMap(
+            {
+                "density": 100,
+                "pressure": 110,
+                "temperature": 120,
+                "enthalpy": 130,
+                "internal energy": 140,
+                "kinetic energy": 144,
+                "velocity magnitude": 153,
+                "stagnation energy": 163,
+                "entropy": 170,
+                "swirl": 184,
+            }
+        ),
+        desc="scalar data attribute to show",
+    )
     # The active vector name.
-    vectors_name = Trait('momentum',
-                         TraitPrefixMap({'velocity': 200,
-                                         'vorticity': 201,
-                                         'momentum': 202,
-                                         'pressure gradient': 210}),
-                         desc='vector data attribute to show')
+    vectors_name = Trait(
+        "momentum",
+        TraitPrefixMap(
+            {
+                "velocity": 200,
+                "vorticity": 201,
+                "momentum": 202,
+                "pressure gradient": 210,
+            }
+        ),
+        desc="vector data attribute to show",
+    )
 
     # The VTK data file reader.
-    reader = Instance(tvtk.MultiBlockPLOT3DReader, args=(), allow_none=False,
-                      record=True)
+    reader = Instance(
+        tvtk.MultiBlockPLOT3DReader, args=(), allow_none=False, record=True
+    )
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['structured_grid'])
+    output_info = PipelineInfo(datasets=["structured_grid"])
 
     ########################################
     # View related code.
 
-    update_reader = Button('Update Reader')
+    update_reader = Button("Update Reader")
 
     # Our view.
-    view = View(Group(Item('xyz_file_name', editor=FileEditor()),
-                      Item('q_file_name', editor=FileEditor()),
-                      Item(name='scalars_name',
-                           enabled_when='len(object.q_file_name) > 0'),
-                      Item(name='vectors_name',
-                           enabled_when='len(object.q_file_name)>0'),
-                      Item(name='update_reader'),
-                      label='Reader',
-                      ),
-                Group(Item(name='reader', style='custom',
-                           resizable=True),
-                      show_labels=False,
-                      label='PLOT3DReader'
-                      ),
-                resizable=True)
+    view = View(
+        Group(
+            Item("xyz_file_name", editor=FileEditor()),
+            Item("q_file_name", editor=FileEditor()),
+            Item(name="scalars_name", enabled_when="len(object.q_file_name) > 0"),
+            Item(name="vectors_name", enabled_when="len(object.q_file_name)>0"),
+            Item(name="update_reader"),
+            label="Reader",
+        ),
+        Group(
+            Item(name="reader", style="custom", resizable=True),
+            show_labels=False,
+            label="PLOT3DReader",
+        ),
+        resizable=True,
+    )
 
     ########################################
     # Private traits.
 
     # The current file paths.  This is not meant to be touched by the
     # user.
-    xyz_file_path = Instance(FilePath, args=(),
-                             desc='the current XYZ file path')
-    q_file_path = Instance(FilePath, args=(), desc='the current Q file path')
+    xyz_file_path = Instance(FilePath, args=(), desc="the current XYZ file path")
+    q_file_path = Instance(FilePath, args=(), desc="the current Q file path")
 
     ######################################################################
     # `object` interface
@@ -106,8 +119,7 @@ class PLOT3DReader(Source):
     def __get_pure_state__(self):
         d = super(PLOT3DReader, self).__get_pure_state__()
         # These traits are dynamically created.
-        for name in ('scalars_name', 'vectors_name', 'xyz_file_name',
-                     'q_file_name'):
+        for name in ("scalars_name", "vectors_name", "xyz_file_name", "q_file_name"):
             d.pop(name, None)
 
         return d
@@ -116,26 +128,25 @@ class PLOT3DReader(Source):
         xyz_fn = state.xyz_file_path.abs_pth
         q_fn = state.q_file_path.abs_pth
         if not isfile(xyz_fn):
-            msg = 'Could not find file at %s\n' % xyz_fn
-            msg += 'Please move the file there and try again.'
+            msg = "Could not find file at %s\n" % xyz_fn
+            msg += "Please move the file there and try again."
             raise IOError(msg)
 
         # Setup the reader state.
-        set_state(self, state, first=['reader'], ignore=['*'])
+        set_state(self, state, first=["reader"], ignore=["*"])
         # Initialize the files.
         self.initialize(xyz_fn, q_fn, configure=False)
         # Now set the remaining state without touching the children.
-        set_state(self, state, ignore=['children', 'xyz_file_path',
-                                       'q_file_path'])
+        set_state(self, state, ignore=["children", "xyz_file_path", "q_file_path"])
         # Setup the children.
         handle_children_state(self.children, state.children)
         # Setup the children's state.
-        set_state(self, state, first=['children'], ignore=['*'])
+        set_state(self, state, first=["children"], ignore=["*"])
 
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
-    def initialize(self, xyz_file_name, q_file_name='', configure=True):
+    def initialize(self, xyz_file_name, q_file_name="", configure=True):
         """Given an xyz filename and a Q filename which may or may not
         be part of a time series, this initializes the list of files.
         This method need not be called to initialize the data.
@@ -145,7 +156,7 @@ class PLOT3DReader(Source):
         """
         if len(q_file_name) == 0:
             base = splitext(xyz_file_name)[0]
-            qf = base + '.q'
+            qf = base + ".q"
             if exists(qf):
                 q_file_name = qf
 
@@ -154,7 +165,7 @@ class PLOT3DReader(Source):
             # the data format has atypical defaults.  Automatic
             # detection can be disastrous sometimes due to VTK related
             # problems.
-            self.reader.edit_traits(kind='livemodal')
+            self.reader.edit_traits(kind="livemodal")
         self.xyz_file_name = xyz_file_name
         if len(q_file_name) > 0:
             self.q_file_name = q_file_name
@@ -228,15 +239,17 @@ class PLOT3DReader(Source):
 
         # If there still is an error, ask the user.
         if r.error_code != 0:
-            r.edit_traits(kind='livemodal')
+            r.edit_traits(kind="livemodal")
             r.update()
 
         # If there still is an error, ask the user to retry.
         if r.error_code != 0:
-            msg = 'Unable to read file properly. '\
-                  'Please check the settings of the reader '\
-                  'on the UI and press the "Update Reader" button '\
-                  'when done and try again!'
+            msg = (
+                "Unable to read file properly. "
+                "Please check the settings of the reader "
+                'on the UI and press the "Update Reader" button '
+                "when done and try again!"
+            )
             error(msg)
             return
 
@@ -278,6 +291,6 @@ class PLOT3DReader(Source):
             ret = "PLOT3D:%s, %s" % (xyz_fname, q_fname)
         else:
             ret = "PLOT3D:%s" % (xyz_fname)
-        if '[Hidden]' in self.name:
-            ret += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            ret += " [Hidden]"
         return ret

@@ -16,18 +16,18 @@ from mayavi.filters.api import PolyDataNormals
 from mayavi.filters.set_active_attribute import SetActiveAttribute
 from mayavi.modules.api import Surface, Outline
 
+
 @mayavi2.standalone
 def main():
     mayavi.new_scene()
 
     # Read the example data: fire_ug.vtu.
     r = VTKXMLFileReader()
-    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))),
-                    'fire_ug.vtu')
+    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))), "fire_ug.vtu")
     r.initialize(filename)
     mayavi.add_source(r)
     # Set the active point scalars to 'u'.
-    r.point_scalars_name = 'u'
+    r.point_scalars_name = "u"
 
     # Simple outline for the data.
     o = Outline()
@@ -49,7 +49,7 @@ def main():
 
     aa = SetActiveAttribute()
     mayavi.add_filter(aa)
-    aa.point_scalars_name = 't'
+    aa.point_scalars_name = "t"
 
     # Now view the iso-contours of 't' with a Surface filter.
     s = Surface(enable_contours=True)
@@ -58,4 +58,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -26,8 +26,8 @@ for i in range(50):
 
 # Display it
 mlab.figure(size=(400, 300))
-mlab.surf(julia, colormap='gist_earth', warp_scale='auto', vmax=1.5)
+mlab.surf(julia, colormap="gist_earth", warp_scale="auto", vmax=1.5)
 
 # A view into the "Canyon"
-mlab.view(65, 27, 322, [30., -13.7,  136])
+mlab.view(65, 27, 322, [30.0, -13.7, 136])
 mlab.show()

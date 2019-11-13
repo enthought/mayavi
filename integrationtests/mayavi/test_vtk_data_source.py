@@ -27,7 +27,7 @@ class TestVTKDataSource(TestContour):
 
         # Read a VTK (old style) data file.
         r = tvtk.StructuredPointsReader()
-        r.file_name = get_example_data('heart.vtk')
+        r.file_name = get_example_data("heart.vtk")
         r.update()
         d = VTKDataSource(data=r.output)
         script.add_source(d)
@@ -41,9 +41,9 @@ class TestVTKDataSource(TestContour):
 
         from mayavi.modules.outline import Outline
         from mayavi.modules.iso_surface import IsoSurface
-        from mayavi.modules.contour_grid_plane \
-             import ContourGridPlane
+        from mayavi.modules.contour_grid_plane import ContourGridPlane
         from mayavi.modules.scalar_cut_plane import ScalarCutPlane
+
         script = self.script
         s = script.engine.current_scene
         # Create an outline for the data.
@@ -60,7 +60,7 @@ class TestVTKDataSource(TestContour):
         cgp = ContourGridPlane()
         cgp.contour.filled_contours = True
         # Set the axis and position to the middle of the data.
-        cgp.grid_plane.axis = 'y'
+        cgp.grid_plane.axis = "y"
         cgp.grid_plane.position = 15
         script.add_module(cgp)
 
@@ -73,8 +73,8 @@ class TestVTKDataSource(TestContour):
         cp = ScalarCutPlane()
         script.add_module(cp)
         ip = cp.implicit_plane
-        ip.normal = 0,0,1
-        ip.origin = 0,0,5
+        ip.normal = 0, 0, 1
+        ip.origin = 0, 0, 5
         ip.widget.enabled = False
 
         # Set the scene to an isometric view.
@@ -87,9 +87,9 @@ class TestVTKDataSource(TestContour):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine

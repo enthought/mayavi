@@ -24,20 +24,20 @@ class TestMlabSceneModel(TestMlabNullEngine):
             mlab attribute does create objects as children, and does not
             unset the current scene
         """
+
         class TestObject(HasTraits):
             scene1 = Instance(MlabSceneModel, ())
             scene2 = Instance(MlabSceneModel, ())
 
         test_object = TestObject()
         x, y, z = np.random.random((3, 10))
-        plt = mlab.plot3d(x, y, z,
-                    figure=test_object.scene1.mayavi_scene)
-        pts = mlab.points3d(x, y, z,
-                    figure=test_object.scene2.mayavi_scene)
+        plt = mlab.plot3d(x, y, z, figure=test_object.scene1.mayavi_scene)
+        pts = mlab.points3d(x, y, z, figure=test_object.scene2.mayavi_scene)
 
         # Check that each figure got the module it should have
         self.assertEqual(plt.scene, test_object.scene1)
         self.assertEqual(pts.scene, test_object.scene2)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

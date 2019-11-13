@@ -15,7 +15,6 @@ from mayavi.core.component import Component
 from mayavi.core.common import error
 
 
-
 ######################################################################
 # `CustomGridPlane` class.
 ######################################################################
@@ -28,35 +27,64 @@ class CustomGridPlane(Component):
     plane = Instance(tvtk.Object)
 
     # Minimum x value.
-    x_min = Range(value=0, low='_x_low', high='_x_high',
-                  enter_set=True, auto_set=False,
-                  desc='minimum x value of the domain')
+    x_min = Range(
+        value=0,
+        low="_x_low",
+        high="_x_high",
+        enter_set=True,
+        auto_set=False,
+        desc="minimum x value of the domain",
+    )
 
     # Maximum x value.
-    x_max = Range(value=10000, low='_x_low', high='_x_high',
-                  enter_set=True, auto_set=False,
-                  desc='maximum x value of the domain')
+    x_max = Range(
+        value=10000,
+        low="_x_low",
+        high="_x_high",
+        enter_set=True,
+        auto_set=False,
+        desc="maximum x value of the domain",
+    )
 
     # Minimum y value.
-    y_min = Range(value=0, low='_y_low', high='_y_high',
-                  enter_set=True, auto_set=False,
-                  desc='minimum y value of the domain')
+    y_min = Range(
+        value=0,
+        low="_y_low",
+        high="_y_high",
+        enter_set=True,
+        auto_set=False,
+        desc="minimum y value of the domain",
+    )
 
     # Maximum y value.
-    y_max = Range(value=10000, low='_y_low', high='_y_high',
-                  enter_set=True, auto_set=False,
-                  desc='maximum y value of the domain')
+    y_max = Range(
+        value=10000,
+        low="_y_low",
+        high="_y_high",
+        enter_set=True,
+        auto_set=False,
+        desc="maximum y value of the domain",
+    )
 
     # Minimum z value.
-    z_min = Range(value=0, low='_z_low', high='_z_high',
-                  enter_set=True, auto_set=False,
-                  desc='minimum z value of the domain')
+    z_min = Range(
+        value=0,
+        low="_z_low",
+        high="_z_high",
+        enter_set=True,
+        auto_set=False,
+        desc="minimum z value of the domain",
+    )
 
     # Maximum z value.
-    z_max = Range(value=10000, low='_z_low', high='_z_high',
-                  enter_set=True, auto_set=False,
-                  desc='maximum z value of the domain')
-
+    z_max = Range(
+        value=10000,
+        low="_z_low",
+        high="_z_high",
+        enter_set=True,
+        auto_set=False,
+        desc="maximum z value of the domain",
+    )
 
     ########################################
     # Private traits.
@@ -73,15 +101,17 @@ class CustomGridPlane(Component):
     # View related traits.
 
     # The View for this object.
-    view = View(Group(Item(name='x_min'),
-                      Item(name='x_max'),
-                      Item(name='y_min'),
-                      Item(name='y_max'),
-                      Item(name='z_min'),
-                      Item(name='z_max'),
-                      ),
-                      resizable=True
-                )
+    view = View(
+        Group(
+            Item(name="x_min"),
+            Item(name="x_max"),
+            Item(name="y_min"),
+            Item(name="y_max"),
+            Item(name="z_min"),
+            Item(name="z_max"),
+        ),
+        resizable=True,
+    )
 
     ######################################################################
     # `object` interface
@@ -89,13 +119,13 @@ class CustomGridPlane(Component):
     def __get_pure_state__(self):
         d = super(CustomGridPlane, self).__get_pure_state__()
         # These traits are dynamically created.
-        for axis in ('x', 'y', 'z'):
-            for name in ('_min', '_max'):
+        for axis in ("x", "y", "z"):
+            for name in ("_min", "_max"):
                 d.pop(axis + name, None)
-            d.pop('_' + axis + '_low', None)
-            d.pop('_' + axis + '_high', None)
+            d.pop("_" + axis + "_low", None)
+            d.pop("_" + axis + "_high", None)
 
-        d.pop('plane', None)
+        d.pop("plane", None)
 
         return d
 
@@ -113,15 +143,16 @@ class CustomGridPlane(Component):
             return
         input = self.inputs[0].get_output_dataset()
         plane = None
-        if input.is_a('vtkStructuredGrid'):
+        if input.is_a("vtkStructuredGrid"):
             plane = tvtk.StructuredGridGeometryFilter()
-        elif input.is_a('vtkStructuredPoints') or input.is_a('vtkImageData'):
-            plane = tvtk.ImageDataGeometryFilter ()
-        elif input.is_a('vtkRectilinearGrid'):
-            plane = tvtk.RectilinearGridGeometryFilter ()
+        elif input.is_a("vtkStructuredPoints") or input.is_a("vtkImageData"):
+            plane = tvtk.ImageDataGeometryFilter()
+        elif input.is_a("vtkRectilinearGrid"):
+            plane = tvtk.RectilinearGridGeometryFilter()
         else:
-            msg = "The GridPlane component does not support the %s dataset."\
-                  %(input.class_name)
+            msg = "The GridPlane component does not support the %s dataset." % (
+                input.class_name
+            )
             error(msg)
             raise TypeError(msg)
 
@@ -200,9 +231,14 @@ class CustomGridPlane(Component):
         if len(self.inputs) == 0:
             return
         plane = self.plane
-        extents = (self.x_min, self.x_max,
-                   self.y_min, self.y_max,
-                   self.z_min, self.z_max)
+        extents = (
+            self.x_min,
+            self.x_max,
+            self.y_min,
+            self.y_max,
+            self.z_min,
+            self.z_max,
+        )
         try:
             plane.set_extent(extents)
         except AttributeError:

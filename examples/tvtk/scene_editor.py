@@ -17,7 +17,7 @@ from tvtk.api import tvtk
 class ActorViewer(HasTraits):
 
     # A simple trait to change the actors/widgets.
-    actor_type = Enum('cone', 'sphere', 'plane_widget', 'box_widget')
+    actor_type = Enum("cone", "sphere", "plane_widget", "box_widget")
 
     # The scene model.
     scene = Instance(SceneModel, ())
@@ -25,14 +25,17 @@ class ActorViewer(HasTraits):
     _current_actor = Any
 
     ######################
-    view = View(Item(name='actor_type'),
-                Item(name='scene',
-                     editor=SceneEditor(),
-                     show_label=False,
-                     resizable=True,
-                     height=500,
-                     width=500)
-                )
+    view = View(
+        Item(name="actor_type"),
+        Item(
+            name="scene",
+            editor=SceneEditor(),
+            show_label=False,
+            resizable=True,
+            height=500,
+            width=500,
+        ),
+    )
 
     def __init__(self, **traits):
         super(ActorViewer, self).__init__(**traits)
@@ -44,21 +47,21 @@ class ActorViewer(HasTraits):
         scene = self.scene
         if self._current_actor is not None:
             scene.remove_actors(self._current_actor)
-        if value == 'cone':
+        if value == "cone":
             a = actors.cone_actor()
             scene.add_actors(a)
-        elif value == 'sphere':
+        elif value == "sphere":
             a = actors.sphere_actor()
             scene.add_actors(a)
-        elif value == 'plane_widget':
+        elif value == "plane_widget":
             a = tvtk.PlaneWidget()
             scene.add_actors(a)
-        elif value == 'box_widget':
+        elif value == "box_widget":
             a = tvtk.BoxWidget()
             scene.add_actors(a)
         self._current_actor = a
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     a = ActorViewer()
     a.configure_traits()

@@ -27,17 +27,12 @@ class VTKObjectSource(Source):
     browser = Instance(PipelineBrowser)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     view = View(
-        Group(
-            Item(
-                name='browser', show_label=False,
-                style='custom', resizable=True
-            )
-        )
+        Group(Item(name="browser", show_label=False, style="custom", resizable=True))
     )
 
     # The ID of the observer for the data.
@@ -54,11 +49,9 @@ class VTKObjectSource(Source):
 
         if old is not None:
             old.remove_observer(self._observer_id)
-        self._observer_id = new.add_observer(
-            'ModifiedEvent', messenger.send
-        )
+        self._observer_id = new.add_observer("ModifiedEvent", messenger.send)
         new_vtk = tvtk.to_vtk(new)
-        messenger.connect(new_vtk, 'ModifiedEvent', self._fire_data_changed)
+        messenger.connect(new_vtk, "ModifiedEvent", self._fire_data_changed)
 
         self.name = self._get_name()
 
@@ -66,15 +59,15 @@ class VTKObjectSource(Source):
         self.data_changed = True
 
     def _get_name(self):
-        result = 'VTK (uninitialized)'
+        result = "VTK (uninitialized)"
         if self.object is not None:
             typ = self.object.__class__.__name__
             result = "VTK (%s)" % typ
-        if '[Hidden]' in self.name:
-            result += ' [Hidden]'
+        if "[Hidden]" in self.name:
+            result += " [Hidden]"
         return result
 
     def _browser_default(self):
         b = PipelineBrowser()
-        b.on_trait_change(self._fire_data_changed, 'object_edited')
+        b.on_trait_change(self._fire_data_changed, "object_edited")
         return b

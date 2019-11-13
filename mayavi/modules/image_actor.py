@@ -6,8 +6,7 @@
 
 
 # Enthought library imports.
-from traits.api import Instance, Bool, on_trait_change, \
-        Property
+from traits.api import Instance, Bool, on_trait_change, Property
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 
@@ -23,36 +22,48 @@ class ImageActor(Module):
     # An image actor.
     actor = Instance(tvtk.ImageActor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['image_data'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["image_data"], attribute_types=["any"], attributes=["any"]
+    )
 
     # An ImageMapToColors TVTK filter to adapt datasets without color
     # information
-    image_map_to_color = Instance(tvtk.ImageMapToColors, (),
-                                  allow_none=False, record=True)
+    image_map_to_color = Instance(
+        tvtk.ImageMapToColors, (), allow_none=False, record=True
+    )
 
     map_scalars_to_color = Bool
 
-    _force_map_scalars_to_color = Property(depends_on='module_manager.source')
+    _force_map_scalars_to_color = Property(depends_on="module_manager.source")
 
     ########################################
     # The view of this module.
 
-    view = View(Group(Item(name='actor', style='custom',
-                           resizable=True),
-                      show_labels=False, label='Actor'),
-                Group(
-                      Group(Item('map_scalars_to_color',
-                            enabled_when='not _force_map_scalars_to_color')),
-                      Item('image_map_to_color', style='custom',
-                           enabled_when='map_scalars_to_color',
-                           show_label=False),
-                      label='Map Scalars',
-                     ),
-                width=500,
-                height=600,
-                resizable=True)
+    view = View(
+        Group(
+            Item(name="actor", style="custom", resizable=True),
+            show_labels=False,
+            label="Actor",
+        ),
+        Group(
+            Group(
+                Item(
+                    "map_scalars_to_color",
+                    enabled_when="not _force_map_scalars_to_color",
+                )
+            ),
+            Item(
+                "image_map_to_color",
+                style="custom",
+                enabled_when="map_scalars_to_color",
+                show_label=False,
+            ),
+            label="Map Scalars",
+        ),
+        width=500,
+        height=600,
+        resizable=True,
+    )
 
     ######################################################################
     # `Module` interface
@@ -60,10 +71,12 @@ class ImageActor(Module):
     def setup_pipeline(self):
         self.actor = tvtk.ImageActor()
 
-    @on_trait_change('map_scalars_to_color,'
-                     'image_map_to_color.[output_format,pass_alpha_to_output],'
-                     'module_manager.scalar_lut_manager.lut_mode,'
-                     'module_manager.vector_lut_manager.lut_mode')
+    @on_trait_change(
+        "map_scalars_to_color,"
+        "image_map_to_color.[output_format,pass_alpha_to_output],"
+        "module_manager.scalar_lut_manager.lut_mode,"
+        "module_manager.vector_lut_manager.lut_mode"
+    )
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -73,14 +86,12 @@ class ImageActor(Module):
             return
         src = mm.source
         if self._force_map_scalars_to_color:
-            self.trait_set(map_scalars_to_color=True,
-                           trait_change_notify=False)
+            self.trait_set(map_scalars_to_color=True, trait_change_notify=False)
         if self.map_scalars_to_color:
             self.configure_connection(self.image_map_to_color, src)
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
             self.image_map_to_color.update()
-            self.configure_input(self.actor.mapper,
-                                 self.image_map_to_color)
+            self.configure_input(self.actor.mapper, self.image_map_to_color)
         else:
             self.configure_input(self.actor.mapper, src.outputs[0])
         self.pipeline_changed = True
@@ -107,5 +118,6 @@ class ImageActor(Module):
         if mm is None:
             return False
         src = mm.source
-        return not isinstance(src.get_output_dataset().point_data.scalars,
-                              tvtk.UnsignedCharArray)
+        return not isinstance(
+            src.get_output_dataset().point_data.scalars, tvtk.UnsignedCharArray
+        )

@@ -20,6 +20,7 @@ from mayavi.modules.contour_grid_plane import ContourGridPlane
 from mayavi.modules.iso_surface import IsoSurface
 from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
+
 @mayavi2.standalone
 def contour():
     """The script itself.  We needn't have defined a function but
@@ -31,8 +32,7 @@ def contour():
 
     # Read a VTK (old style) data file.
     r = VTKFileReader()
-    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))),
-                    'heart.vtk')
+    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))), "heart.vtk")
     r.initialize(filename)
     mayavi.add_source(r)
 
@@ -47,11 +47,11 @@ def contour():
     # Second normal to 'y' axis.
     gp = GridPlane()
     mayavi.add_module(gp)
-    gp.grid_plane.axis = 'y'
+    gp.grid_plane.axis = "y"
     # Third normal to 'z' axis.
     gp = GridPlane()
     mayavi.add_module(gp)
-    gp.grid_plane.axis = 'z'
+    gp.grid_plane.axis = "z"
 
     # Create one ContourGridPlane normal to the 'x' axis.
     cgp = ContourGridPlane()
@@ -63,7 +63,7 @@ def contour():
     cgp = ContourGridPlane()
     mayavi.add_module(cgp)
     # Set the axis and position to the middle of the data.
-    cgp.grid_plane.axis = 'y'
+    cgp.grid_plane.axis = "y"
     cgp.grid_plane.position = 15
     cgp.contour.filled_contours = True
 
@@ -75,8 +75,8 @@ def contour():
     # An interactive scalar cut plane.
     cp = ScalarCutPlane()
     mayavi.add_module(cp)
-    cp.implicit_plane.normal = 0,0,1
+    cp.implicit_plane.normal = 0, 0, 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     contour()

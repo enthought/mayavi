@@ -64,7 +64,7 @@ v.scene.add_actor(line_actor)
 
 # And display text
 vtext = tvtk.VectorText()
-vtext.text = 'Mayavi'
+vtext.text = "Mayavi"
 text_mapper = tvtk.PolyDataMapper()
 configure_input_data(text_mapper, vtext.get_output())
 vtext.update()

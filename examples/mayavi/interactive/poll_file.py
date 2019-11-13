@@ -38,6 +38,7 @@ class Pollster(object):
     polls the file for any changes and automatically updates the
     mayavi pipeline.
     """
+
     def __init__(self, fname, data):
         """Initialize the object.
 
@@ -71,7 +72,6 @@ class Pollster(object):
         d.data_changed = True
 
 
-
 def setup_data(fname):
     """Given a VTK file name `fname`, this creates a mayavi2 reader
     for it and adds it to the pipeline.  It returns the reader
@@ -83,6 +83,7 @@ def setup_data(fname):
     d.initialize(fname)
     mayavi.add_source(d)
     return d
+
 
 def view_data():
     """Sets up the mayavi pipeline for the visualization.
@@ -96,13 +97,13 @@ def view_data():
     c.grid_plane.position = 16
     c.module_manager.scalar_lut_manager.show_scalar_bar = True
 
+
 @mayavi2.standalone
 def main():
     # Change this to suit your needs.  Edit the file after running this
     # script and the pipeline should be updated automatically.
 
-    fname = join(mayavi2.get_data_dir(abspath(dirname(__file__))),
-                 'heart.vtk')
+    fname = join(mayavi2.get_data_dir(abspath(dirname(__file__))), "heart.vtk")
 
     data = setup_data(fname)
     view_data()
@@ -114,7 +115,8 @@ def main():
     mayavi2.savedtimerbug = timer
 
     # To stop polling the file do:
-    #timer.Stop()
+    # timer.Stop()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

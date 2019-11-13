@@ -31,8 +31,7 @@ from .engine_manager import get_engine, options, set_engine
 __scene_number_list = set((0,))
 
 
-def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
-           size=(400, 350)):
+def figure(figure=None, bgcolor=None, fgcolor=None, engine=None, size=(400, 350)):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
 
@@ -65,15 +64,22 @@ def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
         if figure is None:
             name = max(__scene_number_list) + 1
             __scene_number_list.update((name,))
-            name = 'Mayavi Scene %d' % name
+            name = "Mayavi Scene %d" % name
             engine.new_scene(name=name, size=size)
             engine.current_scene.name = name
         else:
-            if type(figure) in (int, np.int, np.int0, np.int8,
-                                np.int16, np.int32, np.int64):
+            if type(figure) in (
+                int,
+                np.int,
+                np.int0,
+                np.int8,
+                np.int16,
+                np.int32,
+                np.int64,
+            ):
                 name = int(figure)
                 __scene_number_list.update((name,))
-                name = 'Mayavi Scene %d' % name
+                name = "Mayavi Scene %d" % name
             else:
                 name = str(figure)
             # Go looking in the engine see if the scene is not already
@@ -88,7 +94,7 @@ def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
         figure = engine.current_scene
         scene = figure.scene
         if scene is not None:
-            if hasattr(scene, 'isometric_view'):
+            if hasattr(scene, "isometric_view"):
                 scene.isometric_view()
             else:
                 # Not every viewer might implement this method
@@ -163,10 +169,17 @@ def close(scene=None, all=False):
         if scene is None:
             scene = engine.current_scene
         else:
-            if type(scene) in (int, np.int, np.int0, np.int8,
-                               np.int16, np.int32, np.int64):
+            if type(scene) in (
+                int,
+                np.int,
+                np.int0,
+                np.int8,
+                np.int16,
+                np.int32,
+                np.int64,
+            ):
                 scene = int(scene)
-                name = 'Mayavi Scene %d' % scene
+                name = "Mayavi Scene %d" % scene
             else:
                 name = str(scene)
             # Go looking in the engine see if the scene is not already
@@ -175,7 +188,7 @@ def close(scene=None, all=False):
                 if scene.name == name:
                     break
             else:
-                warnings.warn('Scene %s not managed by mlab' % name)
+                warnings.warn("Scene %s not managed by mlab" % name)
                 return
     else:
         if scene.scene is None:
@@ -193,8 +206,7 @@ def draw(figure=None):
     figure.render()
 
 
-def savefig(filename, size=None, figure=None, magnification='auto',
-            **kwargs):
+def savefig(filename, size=None, figure=None, magnification="auto", **kwargs):
     """ Save the current scene.
         The output format are deduced by the extension to filename.
         Possibilities are png, jpg, bmp, tiff, ps, eps, pdf, rib (renderman),
@@ -235,18 +247,15 @@ def savefig(filename, size=None, figure=None, magnification='auto',
         if size is not None:
             current_x, current_y = tuple(figure.scene.get_size())
             target_x, target_y = size
-            if magnification is 'auto':
-                magnification = max(target_x // current_x,
-                                    target_y // current_y) + 1
+            if magnification is "auto":
+                magnification = max(target_x // current_x, target_y // current_y) + 1
                 target_x = int(target_x / magnification)
                 target_y = int(target_y / magnification)
                 size = target_x, target_y
-        elif magnification is 'auto':
+        elif magnification is "auto":
             magnification = 1
         figure.scene.magnification = int(magnification)
-        figure.scene.save(filename,
-                          size=size,
-                          **kwargs)
+        figure.scene.save(filename, size=size, **kwargs)
     finally:
         figure.scene.magnification = int(current_mag)
 
@@ -256,14 +265,14 @@ def sync_camera(reference_figure, target_figure):
         reference_figure.
     """
     reference_figure.scene._renderer.sync_trait(
-        'active_camera', target_figure.scene._renderer
+        "active_camera", target_figure.scene._renderer
     )
     target_figure.scene._renderer.active_camera.on_trait_change(
-            lambda: do_later(target_figure.scene.render)
+        lambda: do_later(target_figure.scene.render)
     )
 
 
-def screenshot(figure=None, mode='rgb', antialiased=False):
+def screenshot(figure=None, mode="rgb", antialiased=False):
     """ Return the current figure pixmap as an array.
 
         **Parameters**
@@ -306,7 +315,7 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
 
     # Try to lift the window
     figure.scene._lift()
-    if mode == 'rgb':
+    if mode == "rgb":
         out = tvtk.UnsignedCharArray()
         shape = (y, x, 3)
         pixel_getter = figure.scene.render_window.get_pixel_data
@@ -315,7 +324,7 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         else:
             pg_args = (0, 0, x - 1, y - 1, 1, out)
 
-    elif mode == 'rgba':
+    elif mode == "rgba":
         out = tvtk.FloatArray()
         shape = (y, x, 4)
         pixel_getter = figure.scene.render_window.get_rgba_pixel_data
@@ -325,12 +334,12 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
             pg_args = (0, 0, x - 1, y - 1, 1, out)
 
     else:
-        raise ValueError('mode type not understood')
+        raise ValueError("mode type not understood")
 
     if antialiased:
         # save the current aa value to restore it later
         render_window = figure.scene.render_window
-        if hasattr(render_window, 'aa_frames'):
+        if hasattr(render_window, "aa_frames"):
             old_aa = render_window.aa_frames
             render_window.aa_frames = figure.scene.anti_aliasing_frames
         else:
@@ -338,7 +347,7 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
             render_window.multi_samples = figure.scene.anti_aliasing_frames
         figure.scene.render()
         pixel_getter(*pg_args)
-        if hasattr(render_window, 'aa_frames'):
+        if hasattr(render_window, "aa_frames"):
             render_window.aa_frames = old_aa
         else:
             render_window.multi_samples = old_aa

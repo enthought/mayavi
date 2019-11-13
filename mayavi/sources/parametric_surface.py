@@ -23,56 +23,74 @@ class ParametricSurface(Source):
     __version__ = 0
 
     # Flag to set the parametric function type.
-    function = Enum('boy', 'conic_spiral', 'cap', 'dini',
-                    'ellipsoid', 'enneper', 'figure8klein', 'klein',
-                    'mobius', 'random_hills', 'roman', 'spline',
-                    'super_ellipsoid', 'super_toroid', 'torus',
-                    desc='which parametric function to be used')
+    function = Enum(
+        "boy",
+        "conic_spiral",
+        "cap",
+        "dini",
+        "ellipsoid",
+        "enneper",
+        "figure8klein",
+        "klein",
+        "mobius",
+        "random_hills",
+        "roman",
+        "spline",
+        "super_ellipsoid",
+        "super_toroid",
+        "torus",
+        desc="which parametric function to be used",
+    )
 
     # Define the trait 'parametric_function' whose value must be an instance of
     # type ParametricFunction
-    parametric_function = Instance(tvtk.ParametricFunction,
-                                   allow_none=False, record=True)
+    parametric_function = Instance(
+        tvtk.ParametricFunction, allow_none=False, record=True
+    )
 
     # The Parametric function source which generates the data.
-    source = Instance(tvtk.ParametricFunctionSource, args=(),
-                      kw={'scalar_mode': 'distance'},
-                      allow_none=False, record=True)
+    source = Instance(
+        tvtk.ParametricFunctionSource,
+        args=(),
+        kw={"scalar_mode": "distance"},
+        allow_none=False,
+        record=True,
+    )
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['poly_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )
 
     ########################################
     # Private traits.
 
     # A dictionary that maps the function names to instances of the
     # parametric surfaces
-    _function_dict = Dict(Str,
-                          Instance(tvtk.ParametricFunction,
-                                   allow_none=False))
+    _function_dict = Dict(Str, Instance(tvtk.ParametricFunction, allow_none=False))
 
     ######################################################################
     # `object` interface
     ######################################################################
     def __init__(self, **traits):
         # Setup the function dict.
-        fd = {'boy': tvtk.ParametricBoy(),
-              'conic_spiral': tvtk.ParametricConicSpiral(),
-              'cap': tvtk.ParametricCrossCap(),
-              'dini': tvtk.ParametricDini(),
-              'ellipsoid': tvtk.ParametricEllipsoid(),
-              'enneper': tvtk.ParametricEnneper(),
-              'figure8klein': tvtk.ParametricFigure8Klein(),
-              'klein': tvtk.ParametricKlein(),
-              'mobius': tvtk.ParametricMobius(),
-              'random_hills': tvtk.ParametricRandomHills(),
-              'roman': tvtk.ParametricRoman(),
-              'spline': tvtk.ParametricSpline(),
-              'super_ellipsoid': tvtk.ParametricSuperEllipsoid(),
-              'super_toroid': tvtk.ParametricSuperToroid(),
-              'torus': tvtk.ParametricTorus()}
+        fd = {
+            "boy": tvtk.ParametricBoy(),
+            "conic_spiral": tvtk.ParametricConicSpiral(),
+            "cap": tvtk.ParametricCrossCap(),
+            "dini": tvtk.ParametricDini(),
+            "ellipsoid": tvtk.ParametricEllipsoid(),
+            "enneper": tvtk.ParametricEnneper(),
+            "figure8klein": tvtk.ParametricFigure8Klein(),
+            "klein": tvtk.ParametricKlein(),
+            "mobius": tvtk.ParametricMobius(),
+            "random_hills": tvtk.ParametricRandomHills(),
+            "roman": tvtk.ParametricRoman(),
+            "spline": tvtk.ParametricSpline(),
+            "super_ellipsoid": tvtk.ParametricSuperEllipsoid(),
+            "super_toroid": tvtk.ParametricSuperToroid(),
+            "torus": tvtk.ParametricTorus(),
+        }
         self._function_dict = fd
 
         # Call parent class' init.

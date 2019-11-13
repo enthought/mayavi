@@ -12,14 +12,21 @@ from traits.api import HasTraits, Enum, List
 from .utils import get_tvtk_dataset_name
 
 # The list of datasets supported.
-DataSet = Enum('none', 'any', 'image_data', 'rectilinear_grid',
-               'poly_data', 'structured_grid', 'unstructured_grid')
+DataSet = Enum(
+    "none",
+    "any",
+    "image_data",
+    "rectilinear_grid",
+    "poly_data",
+    "structured_grid",
+    "unstructured_grid",
+)
 
 # Attribute type.
-AttributeType = Enum('any', 'cell', 'point', 'none')
+AttributeType = Enum("any", "cell", "point", "none")
 
 # Attribute.
-Attribute = Enum('any', 'none', 'scalars', 'vectors', 'tensors')
+Attribute = Enum("any", "none", "scalars", "vectors", "tensors")
 
 
 ################################################################################

@@ -46,8 +46,10 @@ hole** since the remote user can do pretty much anything they want.
 
 import sys
 import wx
+
 # Install wxreactor; must be done before the reactor is imported below.
 from twisted.internet import wxreactor
+
 wxreactor.install()
 
 # The usual twisted imports.
@@ -117,20 +119,20 @@ class M2TCP(Protocol):
     maxConnect = 1
 
     def connectionMade(self):
-        log.msg('ConnectionMade')
+        log.msg("ConnectionMade")
         self.factory.numConnect += 1
         if self.factory.numConnect > self.maxConnect:
             self.transport.write("Server already in use, try later\n")
             self.transport.loseConnection()
 
     def connectionLost(self, reason):
-        log.msg('ConnectionLost')
+        log.msg("ConnectionLost")
         self.factory.numConnect -= 1
 
     def dataReceived(self, data):
         """Given a line of data, simply execs it to do whatever."""
         c = data.strip()
-        log.msg('Received:', c)
+        log.msg("Received:", c)
         if len(c) > 0:
             mlab = self.factory.mlab
             engine = self.factory.engine
@@ -185,6 +187,7 @@ def serve_udp(engine=None, port=9007, logto=sys.stdout):
     """
 
     from mayavi import mlab
+
     e = engine or mlab.get_engine()
     # Setup the protocol with the right attributes.
     proto = M2UDP()
@@ -194,8 +197,8 @@ def serve_udp(engine=None, port=9007, logto=sys.stdout):
 
     if logto is not None:
         log.startLogging(logto)
-    log.msg('Serving Mayavi2 UDP server on port', port)
-    log.msg('Using Engine', e)
+    log.msg("Serving Mayavi2 UDP server on port", port)
+    log.msg("Using Engine", e)
 
     # Register the running wxApp.
     reactor.registerWxApp(wx.GetApp())
@@ -255,6 +258,7 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
     """
 
     from mayavi import mlab
+
     e = engine or mlab.get_engine()
     # Setup the factory with the right attributes.
     factory = Factory()
@@ -267,8 +271,8 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
 
     if logto is not None:
         log.startLogging(logto)
-    log.msg('Serving Mayavi2 TCP server on port', port)
-    log.msg('Using Engine', e)
+    log.msg("Serving Mayavi2 TCP server on port", port)
+    log.msg("Using Engine", e)
 
     # Register the running wxApp.
     reactor.registerWxApp(wx.GetApp())
@@ -284,6 +288,7 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
 def test_tcp():
     """Simple test for the TCP server."""
     from mayavi import mlab
+
     mlab.test_plot3d()
     serve_tcp()
 
@@ -291,8 +296,10 @@ def test_tcp():
 def test_udp():
     """Simple test for the UDP server."""
     from mayavi import mlab
+
     mlab.test_plot3d()
     serve_udp()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     test_tcp()

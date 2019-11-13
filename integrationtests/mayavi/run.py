@@ -11,34 +11,36 @@ from os.path import splitext
 import glob
 from common import TestCase
 
+
 def get_tests():
     """Get all the tests to run.
     """
-    files = glob.glob('test_*.py')
+    files = glob.glob("test_*.py")
     return files
+
 
 def run_all(tests):
     """Run the given tests.
     """
-    args = ' '.join(sys.argv[1:])
+    args = " ".join(sys.argv[1:])
     success = []
     fail = []
     for test in tests:
-        cmd = 'python %s %s'%(test, args)
+        cmd = "python %s %s" % (test, args)
         print(cmd)
         status = os.system(cmd)
         if status == 0:
             print("OK")
             success.append(test)
         else:
-            print("FAIL: %s"%test)
+            print("FAIL: %s" % test)
             fail.append(test)
 
-    print('-'*70)
-    print("%d successful tests, %d failures"%(len(success), len(fail)))
+    print("-" * 70)
+    print("%d successful tests, %d failures" % (len(success), len(fail)))
     for test in fail:
         print(test)
-    print('-'*70)
+    print("-" * 70)
     return len(fail) != 0
 
 
@@ -46,6 +48,7 @@ class RunAllTests(TestCase):
     """Runs all the tests in one go, instead of running each test
     separately.  This speeds up the testing.
     """
+
     def get_tests(self):
         tests = get_tests()
         tests = [splitext(t)[0] for t in tests]
@@ -59,7 +62,7 @@ class RunAllTests(TestCase):
                 klass = getattr(m, name)
                 try:
                     if issubclass(klass, TestCase) and klass is not TestCase:
-                        mod_name = '%s.%s'%(test, name)
+                        mod_name = "%s.%s" % (test, name)
                         klasses.append((mod_name, klass))
                         break
                 except TypeError:
@@ -73,7 +76,7 @@ class RunAllTests(TestCase):
             e = self.script.engine
             for scene in e.scenes:
                 e.close_scene(scene)
-            print('*'*80)
+            print("*" * 80)
             print(name)
             obj = klass()
             obj.trait_set(script=self.script)
@@ -81,10 +84,10 @@ class RunAllTests(TestCase):
 
 
 def main():
-    argv = ' '.join(sys.argv)
+    argv = " ".join(sys.argv)
 
-    if '--one-shot' in argv:
-        argv = argv.replace('--one-shot', '')
+    if "--one-shot" in argv:
+        argv = argv.replace("--one-shot", "")
         sys.argv = argv.split()
         t = RunAllTests()
         t.main()
@@ -92,6 +95,7 @@ def main():
         tests = get_tests()
         status = run_all(tests)
         sys.exit(status)
+
 
 if __name__ == "__main__":
     main()

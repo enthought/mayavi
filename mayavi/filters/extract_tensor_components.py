@@ -22,17 +22,22 @@ class ExtractTensorComponents(FilterBase):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.ExtractTensorComponents, args=(),
-                      kw={'pass_tensors_to_output':True,
-                          'scalar_mode': 'effective_stress',
-                          'extract_scalars': True},
-                      allow_none=False, record=True)
+    filter = Instance(
+        tvtk.ExtractTensorComponents,
+        args=(),
+        kw={
+            "pass_tensors_to_output": True,
+            "scalar_mode": "effective_stress",
+            "extract_scalars": True,
+        },
+        allow_none=False,
+        record=True,
+    )
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['tensors'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["tensors"]
+    )
 
-    output_info = PipelineInfo(datasets=['any'],
-                               attribute_types=['any'],
-                               attributes=['any'])
-
+    output_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )

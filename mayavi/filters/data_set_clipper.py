@@ -41,58 +41,56 @@ class DataSetClipper(Filter):
 
     # The update mode of the widget-- this is delegated to the
     # ImplicitWidgets.
-    update_mode = Delegate('widget', modify=True)
+    update_mode = Delegate("widget", modify=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(datasets=["any"], attributes=["any"])
 
     ########################################
     # View related traits.
 
     # Button to reset the boundaries of the implicit_widget.
-    reset_button = Button('Reset Boundaries')
+    reset_button = Button("Reset Boundaries")
 
-    view = View(Group(Group(Item('update_mode'),
-                            ),
-                      Group(Item('reset_button'),
-                            Item(name='widget', style='custom', resizable=True),
-                            show_labels=False
-                            ),
-                      label='ImplicitWidget'
-                      ),
-                Group(Group(Item('filter', style='custom'),
-                            show_labels=False),
-                      label='Clipper'
-                     ),
-                resizable=True
-                )
+    view = View(
+        Group(
+            Group(Item("update_mode"),),
+            Group(
+                Item("reset_button"),
+                Item(name="widget", style="custom", resizable=True),
+                show_labels=False,
+            ),
+            label="ImplicitWidget",
+        ),
+        Group(
+            Group(Item("filter", style="custom"), show_labels=False), label="Clipper"
+        ),
+        resizable=True,
+    )
 
     ########################################
     # Private traits.
     _transform = Instance(tvtk.Transform, allow_none=False)
-
 
     ######################################################################
     # `object` interface.
     ######################################################################
     def __get_pure_state__(self):
         d = super(DataSetClipper, self).__get_pure_state__()
-        for name in ('_first', '_observer_id'):
+        for name in ("_first", "_observer_id"):
             d.pop(name, None)
-        d['matrix'] = cPickle.dumps(self._transform.matrix)
+        d["matrix"] = cPickle.dumps(self._transform.matrix)
         return d
 
     def __set_pure_state__(self, state):
-        mat = state.pop('matrix')
+        mat = state.pop("matrix")
         super(DataSetClipper, self).__set_pure_state__(state)
         state_pickler.set_state(self, state)
         self._transform.set_matrix(cPickle.loads(mat))
         self.widget.set_transform(self._transform)
-
 
     ######################################################################
     # `Filter` interface
@@ -101,7 +99,7 @@ class DataSetClipper(Filter):
         self.widget = ImplicitWidgets()
         self._transform = tvtk.Transform()
         self.filter = tvtk.ClipDataSet()
-        self.widget.on_trait_change(self._handle_widget, 'widget')
+        self.widget.on_trait_change(self._handle_widget, "widget")
         super(DataSetClipper, self).setup_pipeline()
 
     def update_pipeline(self):
@@ -140,14 +138,14 @@ class DataSetClipper(Filter):
         recorder = self.recorder
         if recorder is not None:
             state = {}
-            state['elements'] = tfm.matrix.__getstate__()['elements']
+            state["elements"] = tfm.matrix.__getstate__()["elements"]
             name = recorder.get_script_id(self)
-            recorder.record('%s._transform.matrix.__setstate__(%s)'\
-                            %(name, state))
-            recorder.record('%s.widget.widget.set_transform(%s._transform)'\
-                            %(name, name))
-            recorder.record('%s.widget.update_implicit_function()' % name)
-            recorder.record('%s.render()' % name)
+            recorder.record("%s._transform.matrix.__setstate__(%s)" % (name, state))
+            recorder.record(
+                "%s.widget.widget.set_transform(%s._transform)" % (name, name)
+            )
+            recorder.record("%s.widget.update_implicit_function()" % name)
+            recorder.record("%s.render()" % name)
 
     def _widget_changed(self, old, new):
         self.widgets = self.widget.widgets
@@ -155,13 +153,13 @@ class DataSetClipper(Filter):
         if len(self.inputs) > 0:
             new.inputs = self.inputs
             new.update_pipeline()
-        self._observer_id = new.widget.add_observer(self.update_mode_,
-                                             self._on_interaction_event)
-
+        self._observer_id = new.widget.add_observer(
+            self.update_mode_, self._on_interaction_event
+        )
 
     def _filter_changed(self, old, new):
         if old is not None:
-                old.on_trait_change(self.render, remove=True)
+            old.on_trait_change(self.render, remove=True)
         new.on_trait_change(self.render)
         if len(self.inputs) > 0:
             self.configure_connection(new, self.inputs[0])

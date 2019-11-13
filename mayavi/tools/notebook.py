@@ -9,7 +9,7 @@ from tvtk.api import tvtk
 from tvtk.common import configure_input
 
 
-_backend = 'ipy'
+_backend = "ipy"
 _width = None
 _height = None
 _local = True
@@ -17,7 +17,7 @@ _widget_manager = None
 _counter = count()
 
 
-def init(backend='ipy', width=None, height=None, local=True):
+def init(backend="ipy", width=None, height=None, local=True):
     """Initialize a suitable backend for Jupyter notebooks.
 
     **Parameters**
@@ -28,15 +28,16 @@ def init(backend='ipy', width=None, height=None, local=True):
     local :bool: Use local copy of x3dom.js instead of online version.
     """
     global _backend, _width, _height, _local, _widget_manager
-    backends = ('png', 'x3d', 'ipy')
+    backends = ("png", "x3d", "ipy")
     error_msg = "Backend must be one of %r, got %s" % (backends, backend)
     assert backend in backends, error_msg
     from mayavi import mlab
+
     mlab.options.offscreen = True
     _backend = backend
     _width, _height = width, height
     _local = local
-    if backend == 'ipy':
+    if backend == "ipy":
         _setup_widget_manager()
     _monkey_patch_for_ipython()
     print("Notebook initialized with %s backend." % backend)
@@ -46,12 +47,14 @@ def _setup_widget_manager():
     global _widget_manager
     if _widget_manager is None:
         from mayavi.tools.remote.ipy_remote import WidgetManager
+
         _widget_manager = WidgetManager()
 
 
 def _monkey_patch_for_ipython():
     from mayavi.core.base import Base
     from tvtk.pyface.tvtk_scene import TVTKScene
+
     Base._ipython_display_ = _ipython_display_
     TVTKScene._ipython_display_ = _ipython_display_
 
@@ -62,32 +65,29 @@ def _ipython_display_(self):
     from IPython.display import HTML
     from IPython.display import display as idisplay
 
-    if hasattr(self, 'render_window'):
+    if hasattr(self, "render_window"):
         scene = self
-    elif hasattr(self, 'scene'):
+    elif hasattr(self, "scene"):
         scene = self.scene
-    if _backend == 'png':
+    if _backend == "png":
         return idisplay(HTML(scene_to_png(scene)))
-    elif _backend == 'x3d':
+    elif _backend == "x3d":
         return idisplay(HTML(scene_to_x3d(scene)))
-    elif _backend == 'ipy':
+    elif _backend == "ipy":
         return idisplay(scene_to_ipy(scene))
 
 
 def _fix_x3d_header(x3d):
-    id = 'scene_%d' % next(_counter)
+    id = "scene_%d" % next(_counter)
     rep = '<X3D profile="Immersive" version="3.0" id="%s" ' % id
     if _width is not None:
         rep += 'width="%dpx" ' % _width
     if _height is not None:
         rep += 'height="%dpx" ' % _height
-    rep += '>'
+    rep += ">"
     if isinstance(x3d, bytes):
-        x3d = x3d.decode("utf-8", "ignore") 
-    x3d = x3d.replace(
-        '<X3D profile="Immersive" version="3.0">',
-        rep
-    )
+        x3d = x3d.decode("utf-8", "ignore")
+    x3d = x3d.replace('<X3D profile="Immersive" version="3.0">', rep)
     return x3d
 
 
@@ -96,7 +96,7 @@ def scene_to_x3d(scene):
     ex.input = scene.render_window
     lm = scene.light_manager.light_mode
     # The default raymond mode is too bright so switch back to vtk mode.
-    scene.light_manager.light_mode = 'vtk'
+    scene.light_manager.light_mode = "vtk"
     ex.write_to_output_string = True
     ex.update()
     ex.write()
@@ -107,7 +107,7 @@ def scene_to_x3d(scene):
     else:
         url_base = "https://www.x3dom.org/download/1.7.2"
     x3d_elem = _fix_x3d_header(ex.output_string)
-    html = '''
+    html = """
     %s
     <script type="text/javascript">
     require(["%s/x3dom"], function(x3dom) {
@@ -128,7 +128,11 @@ def scene_to_x3d(scene):
         }
     })
     </script>
-    ''' % (x3d_elem, url_base, url_base)
+    """ % (
+        x3d_elem,
+        url_base,
+        url_base,
+    )
     return html
 
 
@@ -140,7 +144,7 @@ def scene_to_png(scene):
     configure_input(ex, w2if)
     ex.update()
     ex.write()
-    data = base64.b64encode(ex.result.to_array()).decode('ascii')
+    data = base64.b64encode(ex.result.to_array()).decode("ascii")
     html = '<img src="data:image/png;base64,%s" alt="PNG image"></img>'
     return html % data
 
@@ -156,7 +160,7 @@ def display(obj, backend=None):
     """
     global _backend
     backend = _backend if backend is None else backend
-    if backend == 'ipy':
+    if backend == "ipy":
         _setup_widget_manager()
     orig_backend = _backend
     _backend = backend

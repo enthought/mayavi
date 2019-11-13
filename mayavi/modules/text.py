@@ -8,8 +8,7 @@
 from distutils.version import StrictVersion
 
 # Enthought library imports.
-from traits.api import Instance, Range, Str, Bool, Property, \
-                                    Float
+from traits.api import Instance, Range, Str, Bool, Property, Float
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from apptools.persistence import state_pickler
@@ -36,93 +35,122 @@ class Text(Module):
 
     # The text to be displayed.  Note that this should really be `Str`
     # but wxGTK only returns unicode.
-    text = Str('Text', desc='the text to be displayed')
+    text = Str("Text", desc="the text to be displayed")
 
     # The x-position of this actor.
-    x_position = Float(0.0, desc='the x-coordinate of the text')
+    x_position = Float(0.0, desc="the x-coordinate of the text")
 
     # The y-position of this actor.
-    y_position = Float(0.0, desc='the y-coordinate of the text')
+    y_position = Float(0.0, desc="the y-coordinate of the text")
 
     # The z-position of this actor.
-    z_position = Float(0.0, desc='the z-coordinate of the text')
+    z_position = Float(0.0, desc="the z-coordinate of the text")
 
     # Shadow the positions as ranges for 2D. Simply using a RangeEditor
     # does not work as it resets the 3D positions to 1 when the dialog is
     # loaded.
-    _x_position_2d = Range(0., 1., 0., enter_set=True, auto_set=False,
-                           desc='the x-coordinate of the text')
-    _y_position_2d = Range(0., 1., 0., enter_set=True, auto_set=False,
-                           desc='the y-coordinate of the text')
+    _x_position_2d = Range(
+        0.0,
+        1.0,
+        0.0,
+        enter_set=True,
+        auto_set=False,
+        desc="the x-coordinate of the text",
+    )
+    _y_position_2d = Range(
+        0.0,
+        1.0,
+        0.0,
+        enter_set=True,
+        auto_set=False,
+        desc="the y-coordinate of the text",
+    )
 
     # 3D position
-    position_in_3d = Bool(False,
-                    desc='whether the position of the object is given in 2D or in 3D')
+    position_in_3d = Bool(
+        False, desc="whether the position of the object is given in 2D or in 3D"
+    )
 
     # The width of the text.
-    width = Range(0.0, 1.0, 0.4, enter_set=True, auto_set=False,
-                  desc='the width of the text as a fraction of the viewport')
+    width = Range(
+        0.0,
+        1.0,
+        0.4,
+        enter_set=True,
+        auto_set=False,
+        desc="the width of the text as a fraction of the viewport",
+    )
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     ########################################
     # The view of this object.
 
-    if VTK_VER > '5.1':
-        _text_actor_group = Group(Item(name='visibility'),
-                                  Item(name='text_scale_mode'),
-                                  Item(name='alignment_point'),
-                                  Item(name='minimum_size'),
-                                  Item(name='maximum_line_height'),
-                                  show_border=True,
-                                  label='Text Actor')
+    if VTK_VER > "5.1":
+        _text_actor_group = Group(
+            Item(name="visibility"),
+            Item(name="text_scale_mode"),
+            Item(name="alignment_point"),
+            Item(name="minimum_size"),
+            Item(name="maximum_line_height"),
+            show_border=True,
+            label="Text Actor",
+        )
     else:
-        _text_actor_group = Group(Item(name='visibility'),
-                                  Item(name='scaled_text'),
-                                  Item(name='alignment_point'),
-                                  Item(name='minimum_size'),
-                                  Item(name='maximum_line_height'),
-                                  show_border=True,
-                                  label='Text Actor')
+        _text_actor_group = Group(
+            Item(name="visibility"),
+            Item(name="scaled_text"),
+            Item(name="alignment_point"),
+            Item(name="minimum_size"),
+            Item(name="maximum_line_height"),
+            show_border=True,
+            label="Text Actor",
+        )
 
-    _position_group_2d = Group(Item(name='_x_position_2d',
-                                    label='X position'),
-                               Item(name='_y_position_2d',
-                                    label='Y position'),
-                               visible_when='not position_in_3d')
+    _position_group_2d = Group(
+        Item(name="_x_position_2d", label="X position"),
+        Item(name="_y_position_2d", label="Y position"),
+        visible_when="not position_in_3d",
+    )
 
-    _position_group_3d = Group(Item(name='x_position', label='X',
-                                            springy=True),
-                               Item(name='y_position', label='Y',
-                                            springy=True),
-                               Item(name='z_position', label='Z',
-                                            springy=True),
-                               show_border=True,
-                               label='Position',
-                               orientation='horizontal',
-                               visible_when='position_in_3d')
+    _position_group_3d = Group(
+        Item(name="x_position", label="X", springy=True),
+        Item(name="y_position", label="Y", springy=True),
+        Item(name="z_position", label="Z", springy=True),
+        show_border=True,
+        label="Position",
+        orientation="horizontal",
+        visible_when="position_in_3d",
+    )
 
-    view = View(Group(Group(Item(name='text'),
-                            Item(name='position_in_3d'),
-                            _position_group_2d,
-                            _position_group_3d,
-                            Item(name='width',
-                                 enabled_when='object.actor.scaled_text'),
-                            ),
-                      Group(Item(name='actor', style='custom',
-                                 editor=\
-                                 InstanceEditor(view=View(_text_actor_group))
-                                 ),
-                            show_labels=False),
-                      label='TextActor',
-                      show_labels=False
-                      ),
-                Group(Item(name='_property', style='custom', resizable=True),
-                      label='TextProperty',
-                      show_labels=False),
-                )
+    view = View(
+        Group(
+            Group(
+                Item(name="text"),
+                Item(name="position_in_3d"),
+                _position_group_2d,
+                _position_group_3d,
+                Item(name="width", enabled_when="object.actor.scaled_text"),
+            ),
+            Group(
+                Item(
+                    name="actor",
+                    style="custom",
+                    editor=InstanceEditor(view=View(_text_actor_group)),
+                ),
+                show_labels=False,
+            ),
+            label="TextActor",
+            show_labels=False,
+        ),
+        Group(
+            Item(name="_property", style="custom", resizable=True),
+            label="TextProperty",
+            show_labels=False,
+        ),
+    )
 
     ########################################
     # Private traits.
@@ -134,8 +162,7 @@ class Text(Module):
     ######################################################################
     def __set_pure_state__(self, state):
         self._updating = True
-        state_pickler.set_state(self, state, first=['actor'],
-                                ignore=['_updating'])
+        state_pickler.set_state(self, state, first=["actor"], ignore=["_updating"])
         self._updating = False
 
     ######################################################################
@@ -154,16 +181,18 @@ class Text(Module):
         set the `actors` attribute up at this point.
         """
         actor = self.actor = tvtk.TextActor(input=str(self.text))
-        if VTK_VER > '5.1':
-            actor.trait_set(text_scale_mode='prop', width=0.4, height=1.0)
+        if VTK_VER > "5.1":
+            actor.trait_set(text_scale_mode="prop", width=0.4, height=1.0)
         else:
             actor.trait_set(scaled_text=True, width=0.4, height=1.0)
 
         c = actor.position_coordinate
-        c.trait_set(coordinate_system='normalized_viewport',
-              value=(self.x_position, self.y_position, 0.0))
+        c.trait_set(
+            coordinate_system="normalized_viewport",
+            value=(self.x_position, self.y_position, 0.0),
+        )
         c = actor.position2_coordinate
-        c.trait_set(coordinate_system='normalized_viewport')
+        c.trait_set(coordinate_system="normalized_viewport")
 
         self._property.opacity = 1.0
 
@@ -203,23 +232,19 @@ class Text(Module):
         self.render()
 
     def _shadow_positions(self, value):
-        self.sync_trait('x_position', self, '_x_position_2d',
-                            remove=(not value))
-        self.sync_trait('y_position', self, '_y_position_2d',
-                            remove=(not value))
+        self.sync_trait("x_position", self, "_x_position_2d", remove=(not value))
+        self.sync_trait("y_position", self, "_y_position_2d", remove=(not value))
         if not value:
             self._x_position_2d = self.x_position
             self._y_position_2d = self.y_position
 
     def _position_in_3d_changed(self, value):
         if value:
-            self.actor.position_coordinate.coordinate_system='world'
-            self.actor.position2_coordinate.coordinate_system='world'
+            self.actor.position_coordinate.coordinate_system = "world"
+            self.actor.position2_coordinate.coordinate_system = "world"
         else:
-            self.actor.position2_coordinate.coordinate_system=\
-                                            'normalized_viewport'
-            self.actor.position_coordinate.coordinate_system=\
-                                            'normalized_viewport'
+            self.actor.position2_coordinate.coordinate_system = "normalized_viewport"
+            self.actor.position_coordinate.coordinate_system = "normalized_viewport"
             x = self.x_position
             y = self.y_position
             if x < 0:
@@ -230,8 +255,7 @@ class Text(Module):
                 y = 0
             elif y > 1:
                 y = 1
-            self.trait_set(x_position=x, y_position=y,
-                                                    trait_change_notify=False)
+            self.trait_set(x_position=x, y_position=y, trait_change_notify=False)
         self._shadow_positions(not value)
         self._change_position()
         self.actor._width_changed(self.width, self.width)

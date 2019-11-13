@@ -43,15 +43,15 @@ from mayavi.core.metadata import ModuleMetadata
 # factory function here for convenience, we could also use a class but
 # the reasons for doing this are documented below.
 user_outline = ModuleMetadata(
-    id            = "UserOutlineModule",
-    menu_name          = "&UserOutline",
-    factory = 'user_mayavi.user_outline',
-    desc   = "Draw a cornered outline for given input",
-    tooltip       = "Draw a cornered outline for given input",
-    help       = "Draw a cornered outline for given input",
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    id="UserOutlineModule",
+    menu_name="&UserOutline",
+    factory="user_mayavi.user_outline",
+    desc="Draw a cornered outline for given input",
+    tooltip="Draw a cornered outline for given input",
+    help="Draw a cornered outline for given input",
+    input_info=PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    ),
 )
 
 # Register the module with the mayavi registry.
@@ -63,6 +63,7 @@ registry.modules.append(user_outline)
 def get_plugins():
     # We simply return a list containing the WorkerPlugin defined below.
     return [WorkerPlugin()]
+
 
 ######################################################################
 # Thats it, basically.  The rest of the code should really be in another
@@ -92,6 +93,7 @@ def get_plugins():
 # modules, we strongly recommend that the modules be defined in another
 # module or be defined in a factory function as done below.
 
+
 def user_outline():
     """A Factory function that creates a new module to add to the
     pipeline.  Note that the method safely does any mayavi imports
@@ -99,7 +101,8 @@ def user_outline():
     """
     print("User Outline")
     from mayavi.modules.outline import Outline
-    o = Outline(outline_mode='cornered', name='UserOutline')
+
+    o = Outline(outline_mode="cornered", name="UserOutline")
     return o
 
 
@@ -128,40 +131,45 @@ class Worker(HasTraits):
     """
 
     # Set by envisage when this is contributed as a ServiceOffer.
-    window = Instance('pyface.workbench.api.WorkbenchWindow')
+    window = Instance("pyface.workbench.api.WorkbenchWindow")
 
-    create_data = Button('Create data')
-    reset_data = Button('Reset data')
-    view_data = Button('View data')
+    create_data = Button("Create data")
+    reset_data = Button("Reset data")
+    view_data = Button("View data")
     scale = Range(0.0, 1.0)
-    source = Instance('mayavi.core.source.Source')
+    source = Instance("mayavi.core.source.Source")
 
     # Our UI view.
-    view = View(Item('create_data', show_label=False),
-                Item('view_data', show_label=False),
-                Item('reset_data', show_label=False),
-                Item('scale'),
-                resizable=True
-                )
+    view = View(
+        Item("create_data", show_label=False),
+        Item("view_data", show_label=False),
+        Item("reset_data", show_label=False),
+        Item("scale"),
+        resizable=True,
+    )
 
     def get_mayavi(self):
         from mayavi.plugins.script import Script
+
         return self.window.get_service(Script)
 
     def _make_data(self):
         dims = [64, 64, 64]
-        np = dims[0]*dims[1]*dims[2]
-        x, y, z = np.ogrid[-5:5:dims[0]*1j,-5:5:dims[1]*1j,-5:5:dims[2]*1j]
-        x = x.astype('f')
-        y = y.astype('f')
-        z = z.astype('f')
-        s = (np.sin(x*y*z)/(x*y*z))
-        s = s.transpose().copy() # This makes the data contiguous.
+        np = dims[0] * dims[1] * dims[2]
+        x, y, z = np.ogrid[
+            -5 : 5 : dims[0] * 1j, -5 : 5 : dims[1] * 1j, -5 : 5 : dims[2] * 1j
+        ]
+        x = x.astype("f")
+        y = y.astype("f")
+        z = z.astype("f")
+        s = np.sin(x * y * z) / (x * y * z)
+        s = s.transpose().copy()  # This makes the data contiguous.
         return s
 
     def _create_data_fired(self):
         mayavi = self.get_mayavi()
         from mayavi.sources.array_source import ArraySource
+
         s = self._make_data()
         src = ArraySource(transpose_input_array=False, scalar_data=s)
         self.source = src
@@ -174,6 +182,7 @@ class Worker(HasTraits):
         mayavi = self.get_mayavi()
         from mayavi.modules.outline import Outline
         from mayavi.modules.image_plane_widget import ImagePlaneWidget
+
         # Visualize the data.
         o = Outline()
         mayavi.add_module(o)
@@ -183,14 +192,15 @@ class Worker(HasTraits):
 
         ipw_y = ImagePlaneWidget()
         mayavi.add_module(ipw_y)
-        ipw_y.ipw.plane_orientation = 'y_axes'
+        ipw_y.ipw.plane_orientation = "y_axes"
 
     def _scale_changed(self, value):
         src = self.source
         data = src.scalar_data
-        data += value*0.01
+        data += value * 0.01
         np.mod(data, 1.0, data)
         src.update()
+
 
 ######################################################################
 # The following code is the small amount of envisage code that brings
@@ -203,8 +213,8 @@ from envisage.api import Plugin, ServiceOffer
 class WorkerPlugin(Plugin):
 
     # Extension point Ids.
-    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
-    VIEWS          = 'envisage.ui.workbench.views'
+    SERVICE_OFFERS = "envisage.ui.workbench.service_offers"
+    VIEWS = "envisage.ui.workbench.views"
 
     # Services we contribute.
     service_offers = List(contributes_to=SERVICE_OFFERS)
@@ -216,8 +226,7 @@ class WorkerPlugin(Plugin):
     def _service_offers_default(self):
         """ Trait initializer. """
         worker_service_offer = ServiceOffer(
-            protocol = 'user_mayavi.Worker',
-            factory  = 'user_mayavi.Worker'
+            protocol="user_mayavi.Worker", factory="user_mayavi.Worker"
         )
         return [worker_service_offer]
 
@@ -228,31 +237,34 @@ class WorkerPlugin(Plugin):
     def _worker_view_factory(self, window, **traits):
         """ Factory method for the current selection of the engine. """
 
-        from pyface.workbench.traits_ui_view import \
-                TraitsUIView
+        from pyface.workbench.traits_ui_view import TraitsUIView
 
         worker = window.get_service(Worker)
-        tui_worker_view = TraitsUIView(obj=worker,
-                                       view='view',
-                                       id='user_mayavi.Worker.view',
-                                       name='Custom Mayavi2 View',
-                                       window=window,
-                                       position='left',
-                                       **traits
-                                       )
+        tui_worker_view = TraitsUIView(
+            obj=worker,
+            view="view",
+            id="user_mayavi.Worker.view",
+            name="Custom Mayavi2 View",
+            window=window,
+            position="left",
+            **traits
+        )
         return tui_worker_view
+
 
 # END OF CODE THAT SHOULD REALLY BE IN SEPARATE MODULES.
 ######################################################################
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
-    print("*"*80)
+
+    print("*" * 80)
     print("ERROR: This script isn't supposed to be executed.")
     print(__doc__)
-    print("*"*80)
+    print("*" * 80)
 
     from traits.util.home_directory import get_home_directory
-    print("Your .mayavi2 directory should be in %s"%get_home_directory())
-    print("*"*80)
+
+    print("Your .mayavi2 directory should be in %s" % get_home_directory())
+    print("*" * 80)
     sys.exit(1)

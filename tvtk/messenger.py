@@ -50,8 +50,7 @@ shows how disconnection works.
 # Copyright (c) 2004-2007, Enthought, Inc.
 # License: BSD Style.
 
-__all__ = ['Messenger', 'MessengerError',
-           'connect', 'disconnect', 'send']
+__all__ = ["Messenger", "MessengerError", "connect", "disconnect", "send"]
 
 import types
 import sys
@@ -63,10 +62,10 @@ import weakref
 #################################################################
 _saved = {}
 
-for name in ['messenger', 'tvtk.messenger']:
+for name in ["messenger", "tvtk.messenger"]:
     if name in sys.modules:
         mod = sys.modules[name]
-        if hasattr(mod, 'Messenger'):
+        if hasattr(mod, "Messenger"):
             _saved = mod.Messenger._shared_data
         del mod
         break
@@ -76,14 +75,15 @@ for name in ['messenger', 'tvtk.messenger']:
 # `MessengerError` class for exceptions raised by Messenger.
 #################################################################
 
+
 class MessengerError(Exception):
     pass
-
 
 
 #################################################################
 # `Messenger` class.
 #################################################################
+
 
 class Messenger:
 
@@ -108,10 +108,10 @@ class Messenger:
 
         self.__dict__ = self._shared_data
 
-        if not hasattr(self, '_signals'):
+        if not hasattr(self, "_signals"):
             # First instantiation.
             self._signals = {}
-            self._catch_all = ['AnyEvent', 'all']
+            self._catch_all = ["AnyEvent", "all"]
 
     #################################################################
     # 'Messenger' interface.
@@ -163,8 +163,8 @@ class Messenger:
             slots[callback_key] = (obj, name)
         else:
             raise MessengerError(
-                "Callback must be a function or method. "\
-                "You passed a %s."%(str(callback))
+                "Callback must be a function or method. "
+                "You passed a %s." % (str(callback))
             )
 
     def disconnect(self, obj, event=None, callback=None, obj_is_hash=False):
@@ -244,14 +244,14 @@ class Messenger:
                 slots = sigs[evt]
                 for key in list(slots.keys()):
                     obj, meth = slots[key]
-                    if obj: # instance method
+                    if obj:  # instance method
                         inst = obj()
                         if inst:
                             getattr(inst, meth)(source, event, *args, **kw_args)
                         else:
                             # Oops, dead reference.
                             del slots[key]
-                    else: # normal function
+                    else:  # normal function
                         meth(source, event, *args, **kw_args)
 
     def is_registered(self, obj):
@@ -285,8 +285,7 @@ class Messenger:
         ret = self._signals.get(hash(obj))
         if ret is None:
             raise MessengerError(
-                "No such object: %s, has registered itself "\
-                "with the messenger."%obj
+                "No such object: %s, has registered itself " "with the messenger." % obj
             )
         else:
             return ret
@@ -298,16 +297,25 @@ class Messenger:
 
 _messenger = Messenger()
 
+
 def connect(obj, event, callback):
     _messenger.connect(obj, event, callback)
+
+
 connect.__doc__ = _messenger.connect.__doc__
+
 
 def disconnect(obj, event=None, callback=None, obj_is_hash=False):
     _messenger.disconnect(obj, event, callback)
+
+
 disconnect.__doc__ = _messenger.disconnect.__doc__
+
 
 def send(obj, event, *args, **kw_args):
     _messenger.send(obj, event, *args, **kw_args)
+
+
 send.__doc__ = _messenger.send.__doc__
 
 del _saved

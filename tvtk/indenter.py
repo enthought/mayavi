@@ -18,12 +18,14 @@ from .common import get_tvtk_name, camel2enthought
 # `Indent` class.
 ######################################################################
 
+
 class Indent:
     """This class manages indentation levels for dynamically generated
     Python code.  The class also provides a method that formats a text
     string suitably at a given indentation level.
 
     """
+
     def __init__(self, nspace=4):
         """Initializes the object.
 
@@ -36,12 +38,12 @@ class Indent:
           level. Defaults to 4.
 
         """
-        self.tab = ''
-        self.txt = ''
+        self.tab = ""
+        self.txt = ""
         self.nspace = 0
         self.set_tab(nspace)
-        self.space_re = re.compile(r'^\s*$')
-        self.find_space_re = re.compile(r'\s*(\S)')
+        self.space_re = re.compile(r"^\s*$")
+        self.find_space_re = re.compile(r"\s*(\S)")
 
     def __repr__(self):
         return self.txt
@@ -49,11 +51,11 @@ class Indent:
     def set_tab(self, nspace):
         """Set the number of spaces a tab represents."""
         self.nspace = nspace
-        self.tab = ' '*nspace
+        self.tab = " " * nspace
 
     def reset(self):
         """Reset the indentation level to 0."""
-        self.txt = ''
+        self.txt = ""
 
     def incr(self):
         """Increase the indentation level."""
@@ -61,7 +63,7 @@ class Indent:
 
     def decr(self):
         """Decrease the indentation level."""
-        self.txt = self.txt[:-self.nspace]
+        self.txt = self.txt[: -self.nspace]
 
     def format(self, txt):
         """Formats given text as per current indentation levels.
@@ -91,7 +93,7 @@ class Indent:
         space_re = self.space_re
         find_space_re = self.find_space_re
 
-        d = txt.split('\n')
+        d = txt.split("\n")
         one_liner = 1
         if len(d) > 1:
             for i in d[1:]:
@@ -99,10 +101,10 @@ class Indent:
                     one_liner = 0
                     break
         elif len(d) == 0:
-            return '\n'
+            return "\n"
 
         if one_liner:
-            return '%s%s\n'%(repr(self), d[0].strip())
+            return "%s%s\n" % (repr(self), d[0].strip())
         else:
             strip_idx = 0
             m = find_space_re.match(d[1])
@@ -113,23 +115,24 @@ class Indent:
                 strip_idx = 0
             ret = []
             if not space_re.match(d[0]):
-                ret.append('%s%s'%(repr(self), d[0]))
+                ret.append("%s%s" % (repr(self), d[0]))
             for i in d[1:]:
                 if i:
-                    ret.append('%s%s'%(repr(self), i[strip_idx:]))
+                    ret.append("%s%s" % (repr(self), i[strip_idx:]))
                 else:
                     ret.append(repr(self))
 
             if space_re.match(ret[-1]):
-                ret[-1] = ''
+                ret[-1] = ""
             else:
-                ret.append('')
-            return '\n'.join(ret)
+                ret.append("")
+            return "\n".join(ret)
 
 
 ######################################################################
 # `VTKDocMassager` class.
 ######################################################################
+
 
 class VTKDocMassager:
     """This class massages the documentation strings suitably for
@@ -140,11 +143,12 @@ class VTKDocMassager:
     This class is *not* generic and is *very* specific to VTK
     documentation strings.
     """
+
     def __init__(self):
-        self.renamer = re.compile(r'(vtk[A-Z0-9]\S+)')
+        self.renamer = re.compile(r"(vtk[A-Z0-9]\S+)")
         self.ren_func = lambda m: get_tvtk_name(m.group(1))
-        self.func_re = re.compile(r'([a-z0-9]+[A-Z])')
-        self.cpp_method_re = re.compile(r'C\+\+: .*?;\n*')
+        self.func_re = re.compile(r"([a-z0-9]+[A-Z])")
+        self.cpp_method_re = re.compile(r"C\+\+: .*?;\n*")
 
     #################################################################
     # `VTKDocMassager` interface.
@@ -166,7 +170,7 @@ class VTKDocMassager:
         ret = self.massage(doc)
         indent.incr()
         out.write(indent.format('"""'))
-        out.write(indent.format('\n' + ret))
+        out.write(indent.format("\n" + ret))
         out.write(indent.format('"""'))
         indent.decr()
 
@@ -189,7 +193,7 @@ class VTKDocMassager:
         ret = self._remove_sig(doc)
         indent.incr()
         out.write(indent.format('"""'))
-        out.write(indent.format('\n'+self.massage(ret)))
+        out.write(indent.format("\n" + self.massage(ret)))
         out.write(indent.format('"""'))
         indent.decr()
 
@@ -208,18 +212,18 @@ class VTKDocMassager:
 
         - indent : `Indent`
         """
-        orig_name = doc[2:doc.find('(')]
+        orig_name = doc[2 : doc.find("(")]
         name = camel2enthought(orig_name)
-        my_sig = self._rename_class(doc[:doc.find('\n\n')])
-        my_sig = self.cpp_method_re.sub('', my_sig)
-        my_sig = my_sig.replace('V.'+orig_name, 'V.'+name)
+        my_sig = self._rename_class(doc[: doc.find("\n\n")])
+        my_sig = self.cpp_method_re.sub("", my_sig)
+        my_sig = my_sig.replace("V." + orig_name, "V." + name)
         indent.incr()
         out.write(indent.format('"""'))
         out.write(indent.format(my_sig))
         ret = self._remove_sig(doc)
         if ret:
-            out.write('\n')
-            out.write(indent.format('\n'+self.massage(ret)))
+            out.write("\n")
+            out.write(indent.format("\n" + self.massage(ret)))
         out.write(indent.format('"""'))
         indent.decr()
 
@@ -234,14 +238,14 @@ class VTKDocMassager:
 
           The documentation string.
         """
-        orig_name = doc[2:doc.find('(')]
+        orig_name = doc[2 : doc.find("(")]
         name = camel2enthought(orig_name)
-        my_sig = self._rename_class(doc[:doc.find('\n\n')])
-        my_sig = self.cpp_method_re.sub('', my_sig)
-        my_sig = my_sig.replace('V.'+orig_name, 'V.'+name)
+        my_sig = self._rename_class(doc[: doc.find("\n\n")])
+        my_sig = self.cpp_method_re.sub("", my_sig)
+        my_sig = my_sig.replace("V." + orig_name, "V." + name)
         ret = self.massage(self._remove_sig(doc))
         if ret:
-            return my_sig + '\n' + ret
+            return my_sig + "\n" + ret
         else:
             return my_sig
 
@@ -262,25 +266,25 @@ class VTKDocMassager:
         return self.renamer.sub(self.ren_func, doc)
 
     def _remove_sig(self, doc):
-        idx = doc.find('\n\n') + 2
+        idx = doc.find("\n\n") + 2
         if len(doc) > idx:
             return doc[idx:]
         else:
-            return ''
+            return ""
 
     def _rename_methods(self, doc):
-        lines = doc.split('\n')
+        lines = doc.split("\n")
         nl = []
         for line in lines:
-            words = line.split(' ')
+            words = line.split(" ")
             nw = []
             for word in words:
-                if word[:3] == 'vtk':
+                if word[:3] == "vtk":
                     nw.append(word)
                 else:
                     if self.func_re.search(word):
                         nw.append(camel2enthought(word))
                     else:
                         nw.append(word)
-            nl.append(' '.join(nw))
-        return '\n'.join(nl)
+            nl.append(" ".join(nw))
+        return "\n".join(nl)

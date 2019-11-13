@@ -12,8 +12,18 @@ import numbers
 import numpy as np
 
 # Enthought library imports.
-from traits.api import String, CFloat, Instance, HasTraits, \
-            Trait, CArray, true, Any, Range, Either
+from traits.api import (
+    String,
+    CFloat,
+    Instance,
+    HasTraits,
+    Trait,
+    CArray,
+    true,
+    Any,
+    Range,
+    Either,
+)
 from . import tools
 from .figure import draw, gcf
 
@@ -63,27 +73,27 @@ def _lut_manager_properties(lut_manager, **props):
     """ Internal function used to apply properties to a colorbar.
     """
     need_redraw = False
-    orientation = props.get('orientation', None)
+    orientation = props.get("orientation", None)
     if orientation is not None:
         _orient_colorbar(lut_manager, orientation)
 
     colorbar = lut_manager.scalar_bar
-    title = props.get('title', None)
+    title = props.get("title", None)
     if title is not None:
         colorbar.title = title
         need_redraw = True
 
-    label_fmt = props.get('label_fmt', None)
+    label_fmt = props.get("label_fmt", None)
     if label_fmt is not None:
         colorbar.label_format = label_fmt
         need_redraw = True
 
-    nb_labels = props.get('nb_labels', None)
+    nb_labels = props.get("nb_labels", None)
     if nb_labels is not None:
         colorbar.number_of_labels = nb_labels
         need_redraw = True
 
-    nb_colors = props.get('nb_colors', None)
+    nb_colors = props.get("nb_colors", None)
     if nb_colors is not None:
         colorbar.maximum_number_of_colors = nb_colors
         need_redraw = True
@@ -92,9 +102,14 @@ def _lut_manager_properties(lut_manager, **props):
         draw()
 
 
-def scalarbar(object=None, title=None, orientation=None,
-                           nb_labels=None, nb_colors=None,
-                           label_fmt=None):
+def scalarbar(
+    object=None,
+    title=None,
+    orientation=None,
+    nb_labels=None,
+    nb_colors=None,
+    label_fmt=None,
+):
     """Adds a colorbar for the scalar color mapping of the given object.
 
     If no object is specified, the first object with scalar data in the scene
@@ -116,26 +131,35 @@ def scalarbar(object=None, title=None, orientation=None,
         :nb_colors: The maximum number of colors displayed on the
                     colorbar.
     """
-    module_manager = tools._find_module_manager(object=object,
-                                                    data_type="scalar")
+    module_manager = tools._find_module_manager(object=object, data_type="scalar")
     if module_manager is None:
         return
     if not module_manager.scalar_lut_manager.show_scalar_bar:
         if title is None:
-            title = ''
+            title = ""
         if orientation is None:
-            orientation = 'horizontal'
+            orientation = "horizontal"
     lut_mgr = module_manager.scalar_lut_manager
     module_manager.scalar_lut_manager.show_scalar_bar = True
-    _lut_manager_properties(lut_mgr, title=title, orientation=orientation,
-                        nb_labels=nb_labels, nb_colors=nb_colors,
-                        label_fmt=label_fmt)
+    _lut_manager_properties(
+        lut_mgr,
+        title=title,
+        orientation=orientation,
+        nb_labels=nb_labels,
+        nb_colors=nb_colors,
+        label_fmt=label_fmt,
+    )
     return lut_mgr
 
 
-def vectorbar(object=None, title=None, orientation=None,
-                           nb_labels=None, nb_colors=None,
-                           label_fmt=None):
+def vectorbar(
+    object=None,
+    title=None,
+    orientation=None,
+    nb_labels=None,
+    nb_colors=None,
+    label_fmt=None,
+):
     """Adds a colorbar for the vector color mapping of the given object.
 
     If no object is specified, the first object with vector data in the scene
@@ -157,25 +181,34 @@ def vectorbar(object=None, title=None, orientation=None,
         :nb_colors: The maximum number of colors displayed on the
                     colorbar.
     """
-    module_manager = tools._find_module_manager(object=object,
-                                                    data_type="vector")
+    module_manager = tools._find_module_manager(object=object, data_type="vector")
     if module_manager is None:
         return
     if not module_manager.vector_lut_manager.show_scalar_bar:
         if title is None:
-            title = ''
-        orientation = 'horizontal'
+            title = ""
+        orientation = "horizontal"
     lut_mgr = module_manager.vector_lut_manager
     lut_mgr.show_scalar_bar = True
-    _lut_manager_properties(lut_mgr, title=title, orientation=orientation,
-                        nb_labels=nb_labels, nb_colors=nb_colors,
-                        label_fmt=label_fmt)
+    _lut_manager_properties(
+        lut_mgr,
+        title=title,
+        orientation=orientation,
+        nb_labels=nb_labels,
+        nb_colors=nb_colors,
+        label_fmt=label_fmt,
+    )
     return lut_mgr
 
 
-def colorbar(object=None, title=None, orientation=None,
-                           nb_labels=None, nb_colors=None,
-                           label_fmt=None):
+def colorbar(
+    object=None,
+    title=None,
+    orientation=None,
+    nb_labels=None,
+    nb_colors=None,
+    label_fmt=None,
+):
     """Adds a colorbar for the color mapping of the given object.
 
     If the object has scalar data, the scalar color mapping is
@@ -200,14 +233,23 @@ def colorbar(object=None, title=None, orientation=None,
         :nb_colors: The maximum number of colors displayed on the
                     colorbar.
     """
-    colorbar = scalarbar(object=object, title=title, orientation=orientation,
-                            nb_labels=nb_labels, nb_colors=nb_colors,
-                            label_fmt=label_fmt)
+    colorbar = scalarbar(
+        object=object,
+        title=title,
+        orientation=orientation,
+        nb_labels=nb_labels,
+        nb_colors=nb_colors,
+        label_fmt=label_fmt,
+    )
     if colorbar is None:
-        colorbar = vectorbar(object=object, title=title,
-                                orientation=orientation,
-                                nb_labels=nb_labels, nb_colors=nb_colors,
-                                label_fmt=label_fmt)
+        colorbar = vectorbar(
+            object=object,
+            title=title,
+            orientation=orientation,
+            nb_labels=nb_labels,
+            nb_colors=nb_colors,
+            label_fmt=label_fmt,
+        )
     return colorbar
 
 
@@ -225,18 +267,18 @@ class SingletonModuleFactory(ModuleFactory):
         # Call the HasTraits constructor, but not the PipeBase one.
         HasTraits.__init__(self)
         self._scene = gcf()
-        if not 'figure' in kwargs:
+        if not "figure" in kwargs:
             self._engine = get_engine()
         else:
-            figure = kwargs['figure']
+            figure = kwargs["figure"]
             self._engine = engine_manager.find_figure_engine(figure)
             self._engine.current_scene = figure
-            kwargs.pop('figure')
+            kwargs.pop("figure")
         if self._scene.scene is not None:
             self._scene.scene.disable_render = True
         # Process the arguments
         if len(args) == 1:
-            (parent, ) = args
+            (parent,) = args
         elif len(args) == 0:
             parent = self._engine.current_object
         else:
@@ -251,8 +293,7 @@ class SingletonModuleFactory(ModuleFactory):
         klass = self._target.__class__
 
         for obj in tools._traverse(target):
-            if (isinstance(obj, klass)
-                        and obj.name == self.name):
+            if isinstance(obj, klass) and obj.name == self.name:
                 self._target = obj
                 break
         else:
@@ -271,9 +312,11 @@ class SingletonModuleFactory(ModuleFactory):
 class AxesLikeModuleFactory(SingletonModuleFactory):
     """ Base class for axes and outline"""
 
-    extent = CArray(shape=(6,),
-                    help="""[xmin, xmax, ymin, ymax, zmin, zmax]
-                            Default is the object's extents.""", )
+    extent = CArray(
+        shape=(6,),
+        help="""[xmin, xmax, ymin, ymax, zmin, zmax]
+                            Default is the object's extents.""",
+    )
 
     def _extent_changed(self):
         """ There is no universal way of setting extents for decoration
@@ -308,7 +351,7 @@ class AxesLikeModuleFactory(SingletonModuleFactory):
             the object, if any.
         """
         SingletonModuleFactory.__init__(self, *args, **kwargs)
-        if not 'extent' in kwargs:
+        if not "extent" in kwargs:
             try:
                 # XXX: Do not use tools.set_extent, as it does not work
                 # on axes.
@@ -335,31 +378,43 @@ outline = make_function(Outline)
 class Axes(AxesLikeModuleFactory):
     """ Creates axes for the current (or given) object."""
 
-    xlabel = String(None, adapts='axes.x_label',
-                help='the label of the x axis')
+    xlabel = String(None, adapts="axes.x_label", help="the label of the x axis")
 
-    ylabel = String(None, adapts='axes.y_label',
-                help='the label of the y axis')
+    ylabel = String(None, adapts="axes.y_label", help="the label of the y axis")
 
-    zlabel = String(None, adapts='axes.z_label',
-                help='the label of the z axis')
+    zlabel = String(None, adapts="axes.z_label", help="the label of the z axis")
 
-    nb_labels = Range(0, 50, 2, adapts='axes.number_of_labels',
-                desc='The number of labels along each direction')
+    nb_labels = Range(
+        0,
+        50,
+        2,
+        adapts="axes.number_of_labels",
+        desc="The number of labels along each direction",
+    )
 
-    ranges = Trait(None, None, CArray(shape=(6,)),
-                    help="""[xmin, xmax, ymin, ymax, zmin, zmax]
+    ranges = Trait(
+        None,
+        None,
+        CArray(shape=(6,)),
+        help="""[xmin, xmax, ymin, ymax, zmin, zmax]
                             Ranges of the labels displayed on the axes.
-                            Default is the object's extents.""", )
+                            Default is the object's extents.""",
+    )
 
-    x_axis_visibility = true(adapts='axes.x_axis_visibility',
-                help="Whether or not the x axis is visible (boolean)")
+    x_axis_visibility = true(
+        adapts="axes.x_axis_visibility",
+        help="Whether or not the x axis is visible (boolean)",
+    )
 
-    y_axis_visibility = true(adapts='axes.y_axis_visibility',
-                help="Whether or not the y axis is visible (boolean)")
+    y_axis_visibility = true(
+        adapts="axes.y_axis_visibility",
+        help="Whether or not the y axis is visible (boolean)",
+    )
 
-    z_axis_visibility = true(adapts='axes.z_axis_visibility',
-                help="Whether or not the z axis is visible (boolean)")
+    z_axis_visibility = true(
+        adapts="axes.z_axis_visibility",
+        help="Whether or not the z axis is visible (boolean)",
+    )
 
     _target = Instance(modules.Axes, ())
 
@@ -377,6 +432,7 @@ class Axes(AxesLikeModuleFactory):
         if self.ranges is not None:
             self._target.axes.ranges = self.ranges
             self._target.axes.use_ranges = True
+
 
 axes = make_function(Axes)
 
@@ -423,16 +479,20 @@ class OrientationAxesFactory(SingletonModuleFactory):
     """Applies the OrientationAxes mayavi module to the given VTK data object.
     """
 
-    xlabel = String(None, adapts='axes.x_axis_label_text',
-                help='the label of the x axis')
+    xlabel = String(
+        None, adapts="axes.x_axis_label_text", help="the label of the x axis"
+    )
 
-    ylabel = String(None, adapts='axes.y_axis_label_text',
-                help='the label of the y axis')
+    ylabel = String(
+        None, adapts="axes.y_axis_label_text", help="the label of the y axis"
+    )
 
-    zlabel = String(None, adapts='axes.z_axis_label_text',
-                help='the label of the z axis')
+    zlabel = String(
+        None, adapts="axes.z_axis_label_text", help="the label of the z axis"
+    )
 
     _target = Instance(modules.OrientationAxes, ())
+
 
 orientation_axes = make_function(OrientationAxesFactory)
 
@@ -451,26 +511,29 @@ class Text(ModuleFactory):
         text is positionned in 3D, in figure coordinnates.
         """
 
-    width = Trait(None, None, CFloat, adapts='width',
-                        help="""width of the text.""")
+    width = Trait(None, None, CFloat, adapts="width", help="""width of the text.""")
 
-    z = Trait(None, None, CFloat,
-              help="""Optional z position. When specified, the
-                      text is positioned in 3D""")
+    z = Trait(
+        None,
+        None,
+        CFloat,
+        help="""Optional z position. When specified, the
+                      text is positioned in 3D""",
+    )
 
     _target = Instance(modules.Text, ())
 
-    opacity = CFloat(1, adapts="property.opacity",
-                        help="""The opacity of the text.""")
+    opacity = CFloat(1, adapts="property.opacity", help="""The opacity of the text.""")
 
     def __init__(self, x, y, text, **kwargs):
         """ Override init as for different positional arguments."""
-        if 'z' in kwargs and kwargs['z'] is not None:
-            self._target.z_position = kwargs['z']
+        if "z" in kwargs and kwargs["z"] is not None:
+            self._target.z_position = kwargs["z"]
             self._target.position_in_3d = True
-        elif not (x <= 1. and x >= 0. and y >= 0. and y <= 1.):
-            raise ValueError('Text positions should be in [0, 1] if no z'
-                'position is given')
+        elif not (x <= 1.0 and x >= 0.0 and y >= 0.0 and y <= 1.0):
+            raise ValueError(
+                "Text positions should be in [0, 1] if no z" "position is given"
+            )
         super(Text, self).__init__(None, **kwargs)
         self._target.text = text
         self._target.x_position = x
@@ -494,26 +557,34 @@ class Text3D(ModuleFactory):
 
     _target = Instance(modules.Text3D, ())
 
-    scale = Either(CFloat(1), CArray(shape=(3,)),
-                        help="""The scale of the text, in figure units.
-                                Either a float, or 3-tuple of floats.""")
+    scale = Either(
+        CFloat(1),
+        CArray(shape=(3,)),
+        help="""The scale of the text, in figure units.
+                                Either a float, or 3-tuple of floats.""",
+    )
 
-    orientation = CArray(shape=(3,), adapts='orientation',
-                        desc="""the angles giving the orientation of the
+    orientation = CArray(
+        shape=(3,),
+        adapts="orientation",
+        desc="""the angles giving the orientation of the
                         text. If the text is oriented to the camera,
                         these angles are referenced to the axis of the
                         camera. If not, these angles are referenced to
-                        the z axis.""")
+                        the z axis.""",
+    )
 
-    orient_to_camera = true(adapts='orient_to_camera',
-                        desc="""if the text is kept oriented to the
+    orient_to_camera = true(
+        adapts="orient_to_camera",
+        desc="""if the text is kept oriented to the
                         camera, or is pointing in a specific direction,
-                        regardless of the camera position.""")
+                        regardless of the camera position.""",
+    )
 
     def __init__(self, x, y, z, text, **kwargs):
         """ Override init as for different positional arguments."""
-        if not 'scale' in kwargs:
-            kwargs['scale'] = 1
+        if not "scale" in kwargs:
+            kwargs["scale"] = 1
         super(Text3D, self).__init__(None, **kwargs)
         self._target.text = text
         self._target.position = (x, y, z)
@@ -523,6 +594,7 @@ class Text3D(ModuleFactory):
         if isinstance(scale, numbers.Number):
             scale = scale * np.ones((3,))
         self._target.scale = scale
+
 
 text3d = make_function(Text3D)
 
@@ -539,9 +611,12 @@ class Title(SingletonModuleFactory):
 
     size = CFloat(1, help="the size of the title")
 
-    height = CFloat(0.8, adapts='y_position',
-                         help="""height of the title, in portion of the
-                                 figure height""")
+    height = CFloat(
+        0.8,
+        adapts="y_position",
+        help="""height of the title, in portion of the
+                                 figure height""",
+    )
 
     def _size_changed(self):
         self._target.width = min(0.05 * self.size * len(self._text), 1)
@@ -552,18 +627,18 @@ class Title(SingletonModuleFactory):
     def __target_default(self):
         """ This is called only if no existing title is found."""
         width = min(0.05 * self.size * len(self._text), 1)
-        text = modules.Text(text=self._text,
-                            y_position=self.height,
-                            x_position=0.5 * (1 - width),)
+        text = modules.Text(
+            text=self._text, y_position=self.height, x_position=0.5 * (1 - width),
+        )
         text.width = width
         return text
 
     def __init__(self, text, **kwargs):
         self._text = text  # This will be used by _size_changed
-        if not 'name' in kwargs:
+        if not "name" in kwargs:
             # The name is used as au unique marker to identify the
             # title. We need to set it ASAP.
-            self.name = kwargs['name'] = 'Title'
+            self.name = kwargs["name"] = "Title"
         super(Title, self).__init__(**kwargs)
         self._target.text = self._text
         # We need to set position after Text is initiated, as text will

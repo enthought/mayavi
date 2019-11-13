@@ -6,7 +6,6 @@
 # License: BSD Style.
 
 
-
 from .axes import Axes
 from .contour_grid_plane import ContourGridPlane
 from .custom_grid_plane import CustomGridPlane

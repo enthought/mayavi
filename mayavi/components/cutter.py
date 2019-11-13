@@ -30,11 +30,10 @@ class Cutter(Component):
     ########################################
     # View related traits.
 
-    view = View(Group(Item(name='cutter',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False),
-                resizable=True)
+    view = View(
+        Group(Item(name="cutter", style="custom", resizable=True), show_labels=False),
+        resizable=True,
+    )
 
     ######################################################################
     # `Component` interface
@@ -71,4 +70,4 @@ class Cutter(Component):
     def _set_cut_function(self, val):
         old = self.cutter.cut_function
         self.cutter.cut_function = val
-        self.trait_property_changed('cut_function', old, val)
+        self.trait_property_changed("cut_function", old, val)

@@ -30,7 +30,7 @@ class Optional(Component):
     component = Instance(Component)
 
     # Is the component enabled or not.
-    enabled = Bool(True, desc='if the component is enabled')
+    enabled = Bool(True, desc="if the component is enabled")
 
     # The label of the checkbox to use in the view.
     label = Str
@@ -40,13 +40,16 @@ class Optional(Component):
 
     # This is defined outside the view so that the label may be easily
     # changed.
-    enabled_item = Item(name='enabled')
-    view = View(Group(Group(enabled_item),
-                      Group(Item(name='component', style='custom',
-                                 visible_when='object.enabled'),
-                            show_labels=False)
-                      )
-                )
+    enabled_item = Item(name="enabled")
+    view = View(
+        Group(
+            Group(enabled_item),
+            Group(
+                Item(name="component", style="custom", visible_when="object.enabled"),
+                show_labels=False,
+            ),
+        )
+    )
 
     ######################################################################
     # `Component` interface
@@ -112,18 +115,18 @@ class Optional(Component):
 
     def _label_changed(self, value):
         # Change the displayed label for the enable trait in the view.
-        item = self.trait_view_elements().content['enabled_item']
+        item = self.trait_view_elements().content["enabled_item"]
         item.label = value
 
     def _component_changed(self, old, new):
         if old is not None:
-            old.on_trait_change(self._fire_pipeline_changed,
-                                'pipeline_changed', remove=True)
-            old.on_trait_change(self._fire_data_changed,
-                                'data_changed', remove=True)
+            old.on_trait_change(
+                self._fire_pipeline_changed, "pipeline_changed", remove=True
+            )
+            old.on_trait_change(self._fire_data_changed, "data_changed", remove=True)
 
-        new.on_trait_change(self._fire_pipeline_changed, 'pipeline_changed')
-        new.on_trait_change(self._fire_data_changed, 'data_changed')
+        new.on_trait_change(self._fire_pipeline_changed, "pipeline_changed")
+        new.on_trait_change(self._fire_data_changed, "data_changed")
 
     def _fire_pipeline_changed(self):
         self.pipeline_changed = True

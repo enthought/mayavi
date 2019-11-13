@@ -15,13 +15,15 @@ from traits.api import Instance
 
 #### Handy functions ##########################################################
 
+
 def _id_generator():
     """ Return an ever-increasing number useful for creating unique Ids. """
 
     n = 1
     while True:
-        yield(n)
+        yield (n)
         n += 1
+
 
 _id_generator = _id_generator()
 
@@ -48,7 +50,7 @@ class SceneEditor(Editor):
     def _name_default(self):
         """ Trait initializer. """
 
-        return 'TVTK Scene %d' % (next(_id_generator))
+        return "TVTK Scene %d" % (next(_id_generator))
 
     #### Methods ##############################################################
 
@@ -82,16 +84,15 @@ class SceneEditor(Editor):
         """ Create a new decorated scene. """
 
         pref = get_default_preferences()
-        stereo = eval(pref.get('tvtk.scene.stereo'))
+        stereo = eval(pref.get("tvtk.scene.stereo"))
 
         scene = DecoratedScene(parent, stereo=stereo)
 
         # Set the scene's traits to preference values.
-        scene.magnification = \
-                eval(pref.get('tvtk.scene.magnification'))
+        scene.magnification = eval(pref.get("tvtk.scene.magnification"))
 
-        fg = eval(pref.get('tvtk.scene.foreground_color'))
-        bg = eval(pref.get('tvtk.scene.background_color'))
+        fg = eval(pref.get("tvtk.scene.foreground_color"))
+        bg = eval(pref.get("tvtk.scene.background_color"))
         scene.foreground = fg
         scene.background = bg
         # FIXME: This seems necessary for some strange reason, if not
@@ -100,5 +101,6 @@ class SceneEditor(Editor):
         scene.renderer.background = scene.background
 
         return scene
+
 
 #### EOF ######################################################################

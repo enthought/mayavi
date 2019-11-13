@@ -21,54 +21,57 @@ class TestArraySource(TestCase):
     def check_input_validation(self, obj):
         """Tests if only the correct forms of input arrays are supported."""
         # These should work.
-        obj.scalar_data = numpy.zeros((2,2), 'd')
-        obj.scalar_data = numpy.zeros((2,2,2), 'd')
+        obj.scalar_data = numpy.zeros((2, 2), "d")
+        obj.scalar_data = numpy.zeros((2, 2, 2), "d")
         obj.scalar_data = None
-        obj.vector_data = numpy.zeros((2,2,3), 'd')
-        obj.vector_data = numpy.zeros((2,2,2,3), 'd')
+        obj.vector_data = numpy.zeros((2, 2, 3), "d")
+        obj.vector_data = numpy.zeros((2, 2, 2, 3), "d")
         obj.vector_data = None
 
         # These should not.
-        self.assertRaises(TraitError, setattr, obj, 'scalar_data', [1,2,3])
-        self.assertRaises(TraitError, setattr, obj, 'scalar_data',
-                          numpy.zeros((2,2,2,3), 'd'))
+        self.assertRaises(TraitError, setattr, obj, "scalar_data", [1, 2, 3])
+        self.assertRaises(
+            TraitError, setattr, obj, "scalar_data", numpy.zeros((2, 2, 2, 3), "d")
+        )
         obj.scalar_data = None
-        self.assertRaises(TraitError, setattr, obj, 'vector_data', [[1,2,3]])
-        self.assertRaises(TraitError, setattr, obj, 'vector_data',
-                          numpy.zeros((2,2,2,1), 'd'))
+        self.assertRaises(TraitError, setattr, obj, "vector_data", [[1, 2, 3]])
+        self.assertRaises(
+            TraitError, setattr, obj, "vector_data", numpy.zeros((2, 2, 2, 1), "d")
+        )
         obj.vector_data = None
 
-        obj.scalar_data = numpy.zeros((2,2), 'd')
-        self.assertRaises(TraitError, setattr, obj, 'vector_data',
-                          numpy.zeros((4,4,3), 'd'))
-        obj.vector_data = numpy.zeros((2,2,3), 'd')
-        self.assertRaises(TraitError, setattr, obj, 'scalar_data',
-                          numpy.zeros((4,3), 'i'))
-        self.assertRaises(TraitError, setattr, obj, 'scalar_data',
-                          numpy.zeros((2,2,2), 'i'))
-        obj.scalar_data = numpy.zeros((2,2), 'f')
+        obj.scalar_data = numpy.zeros((2, 2), "d")
+        self.assertRaises(
+            TraitError, setattr, obj, "vector_data", numpy.zeros((4, 4, 3), "d")
+        )
+        obj.vector_data = numpy.zeros((2, 2, 3), "d")
+        self.assertRaises(
+            TraitError, setattr, obj, "scalar_data", numpy.zeros((4, 3), "i")
+        )
+        self.assertRaises(
+            TraitError, setattr, obj, "scalar_data", numpy.zeros((2, 2, 2), "i")
+        )
+        obj.scalar_data = numpy.zeros((2, 2), "f")
 
         # Clean up the object so it can be used for further testing.
         obj.scalar_data = obj.vector_data = None
 
     def make_2d_data(self):
-        s = numpy.array([[0, 1],[2, 3]], 'd')
-        v = numpy.array([[[1,1,1], [1,0,0]],[[0,1,0], [0,0,1]]], 'd')
+        s = numpy.array([[0, 1], [2, 3]], "d")
+        v = numpy.array([[[1, 1, 1], [1, 0, 0]], [[0, 1, 0], [0, 0, 1]]], "d")
         tps = numpy.transpose
         s, v = tps(s), tps(v, (1, 0, 2))
         return s, v
 
     def make_3d_data(self):
-        s = numpy.array([[[0, 1],[2, 3]],
-                           [[4, 5],[6, 7]]], 'd')
-        v = numpy.array([[[[0,0,0],
-                             [1,0,0]],
-                            [[0,1,0],
-                             [1,1,0]]],
-                           [[[0,0,1],
-                             [1,0,1]],
-                            [[0,1,1],
-                             [1,1,1]]]], 'd')
+        s = numpy.array([[[0, 1], [2, 3]], [[4, 5], [6, 7]]], "d")
+        v = numpy.array(
+            [
+                [[[0, 0, 0], [1, 0, 0]], [[0, 1, 0], [1, 1, 0]]],
+                [[[0, 0, 1], [1, 0, 1]], [[0, 1, 1], [1, 1, 1]]],
+            ],
+            "d",
+        )
         tps = numpy.transpose
         s, v = tps(s), tps(v, (2, 1, 0, 3))
         return s, v
@@ -160,9 +163,9 @@ class TestArraySource(TestCase):
         bg = s.scene.background
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine

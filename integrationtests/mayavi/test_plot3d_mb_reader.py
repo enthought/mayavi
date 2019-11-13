@@ -33,11 +33,12 @@ class TestPLOT3DReader(TestCase):
 
         # Read the multi-block plot3d file.
         r = PLOT3DReader()
-        r.reader.trait_set(has_byte_count=True, multi_grid=True,
-                     byte_order='little_endian')
-        r.initialize(get_example_data('tiny.xyz'),
-                     get_example_data('tiny.q'),
-                     configure=False)
+        r.reader.trait_set(
+            has_byte_count=True, multi_grid=True, byte_order="little_endian"
+        )
+        r.initialize(
+            get_example_data("tiny.xyz"), get_example_data("tiny.q"), configure=False
+        )
 
         script.add_source(r)
 
@@ -67,9 +68,9 @@ class TestPLOT3DReader(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = script.engine
@@ -92,5 +93,3 @@ class TestPLOT3DReader(TestCase):
 if __name__ == "__main__":
     t = TestPLOT3DReader()
     t.test()
-
-

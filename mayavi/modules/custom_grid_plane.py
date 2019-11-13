@@ -14,8 +14,7 @@ from traitsui.api import View, Group, Item
 
 # Local imports
 from mayavi.components import custom_grid_plane
-from mayavi.modules.contour_grid_plane import \
-     ContourGridPlane, Contour, Actor
+from mayavi.modules.contour_grid_plane import ContourGridPlane, Contour, Actor
 
 
 ######################################################################
@@ -23,24 +22,29 @@ from mayavi.modules.contour_grid_plane import \
 ######################################################################
 class CustomGridPlane(ContourGridPlane):
 
-    grid_plane = Instance(custom_grid_plane.Component,
-                          allow_none=False, record=True)
+    grid_plane = Instance(custom_grid_plane.Component, allow_none=False, record=True)
 
     # Overriding the ContourGridPlane's default view.
-    view = View(Group(Item(name='grid_plane', style='custom'),
-                      show_labels=False,
-                      label='GridPlane'),
-                Group(Group(Item(name='enable_contours')),
-                      Group(Item(name='contour', style='custom',
-                                 enabled_when='object.enable_contours'),
-                            show_labels=False,
-                            ),
-                      label='Contour',
-                      ),
-                Group(Item(name='actor', style='custom'),
-                      label='Actor',
-                      show_labels=False)
-                )
+    view = View(
+        Group(
+            Item(name="grid_plane", style="custom"),
+            show_labels=False,
+            label="GridPlane",
+        ),
+        Group(
+            Group(Item(name="enable_contours")),
+            Group(
+                Item(
+                    name="contour",
+                    style="custom",
+                    enabled_when="object.enable_contours",
+                ),
+                show_labels=False,
+            ),
+            label="Contour",
+        ),
+        Group(Item(name="actor", style="custom"), label="Actor", show_labels=False),
+    )
 
     ######################################################################
     # `Module` interface

@@ -18,7 +18,7 @@ class TestNoUIToolkit(unittest.TestCase):
 
     def setUp(self):
         self.orig_tk = ETSConfig.toolkit
-        ETSConfig._toolkit = 'null'
+        ETSConfig._toolkit = "null"
 
         # Import something from Pyface to force any potential imports
         # from a UI toolkit.  Why did I pick Pyface? Well, adder_node
@@ -30,14 +30,14 @@ class TestNoUIToolkit(unittest.TestCase):
 
         # Remove any references to wx and Qt
         saved = {}
-        for mod in ['wx', 'PyQt4', 'PySide']:
+        for mod in ["wx", "PyQt4", "PySide"]:
             saved[mod] = sys.modules.pop(mod, None)
         self.saved = saved
 
     def tearDown(self):
         ETSConfig._toolkit = self.orig_tk
         # Add back any any references to wx and Qt
-        for mod in ['wx', 'PyQt4', 'PySide']:
+        for mod in ["wx", "PyQt4", "PySide"]:
             m = self.saved[mod]
             if m is not None:
                 sys.modules[mod] = m
@@ -53,10 +53,10 @@ class TestNoUIToolkit(unittest.TestCase):
         from mayavi.preferences.api import preference_manager
 
         # Should not have triggered an import wx or PyQt4.
-        self.assertEqual('wx' in sys.modules, False)
-        self.assertEqual('PyQt4' in sys.modules, False)
-        self.assertEqual('PySide' in sys.modules, False)
+        self.assertEqual("wx" in sys.modules, False)
+        self.assertEqual("PyQt4" in sys.modules, False)
+        self.assertEqual("PySide" in sys.modules, False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

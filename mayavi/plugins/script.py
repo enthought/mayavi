@@ -25,6 +25,7 @@ def get_imayavi_engine(window):
     """
     return window.get_service(Engine)
 
+
 def get_imayavi(window):
     """Given the Envisage workbench window, returns the
     mayavi.script.Script instance (registered as
@@ -44,7 +45,7 @@ class Script(HasTraits):
     """
 
     # The workbench window we are associated with.
-    window = Instance('pyface.workbench.api.WorkbenchWindow')
+    window = Instance("pyface.workbench.api.WorkbenchWindow")
 
     # The MayaVi engine that we are managing.
     engine = Instance(Engine)
@@ -119,4 +120,3 @@ class Script(HasTraits):
         """Traits handler for changes to application.
         """
         self.engine = get_imayavi_engine(window)
-

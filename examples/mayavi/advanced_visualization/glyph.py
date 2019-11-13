@@ -19,6 +19,7 @@ from mayavi.modules.glyph import Glyph
 from mayavi.modules.vector_cut_plane import VectorCutPlane
 from mayavi.filters.mask_points import MaskPoints
 
+
 @mayavi2.standalone
 def glyph():
     """The script itself.  We needn't have defined a function but
@@ -30,8 +31,7 @@ def glyph():
 
     # Read a VTK (old style) data file.
     r = VTKXMLFileReader()
-    r.initialize(join(mayavi2.get_data_dir(dirname(abspath(__file__))),
-                      'fire_ug.vtu'))
+    r.initialize(join(mayavi2.get_data_dir(dirname(abspath(__file__))), "fire_ug.vtu"))
     mayavi.add_source(r)
 
     # Create an outline and a vector cut plane.
@@ -39,7 +39,7 @@ def glyph():
 
     v = VectorCutPlane()
     mayavi.add_module(v)
-    v.glyph.color_mode = 'color_by_scalar'
+    v.glyph.color_mode = "color_by_scalar"
 
     # Now mask the points and show glyphs (we could also use
     # Vectors but glyphs are a bit more generic)
@@ -50,11 +50,11 @@ def glyph():
     g = Glyph()
     mayavi.add_module(g)
     # Note that this adds the module to the filtered output.
-    g.glyph.scale_mode = 'scale_by_vector'
+    g.glyph.scale_mode = "scale_by_vector"
     # Use arrows to view the scalars.
     gs = g.glyph.glyph_source
-    gs.glyph_source = gs.glyph_dict['arrow_source']
+    gs.glyph_source = gs.glyph_dict["arrow_source"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     glyph()

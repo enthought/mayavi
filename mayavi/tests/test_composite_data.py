@@ -10,7 +10,7 @@ from .test_mlab_integration import TestMlabNullEngine
 
 
 def make_mb_dataset():
-    fpath = get_example_data('pyramid_ug.vtu')
+    fpath = get_example_data("pyramid_ug.vtu")
     r = tvtk.XMLUnstructuredGridReader(file_name=fpath)
     r.update()
     ug0 = r.output
@@ -87,5 +87,5 @@ class TestCompositeData(TestMlabNullEngine):
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

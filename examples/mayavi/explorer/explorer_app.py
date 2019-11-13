@@ -11,8 +11,7 @@
 import numpy as np
 
 # Enthought library imports
-from traits.api import HasTraits, Button, Instance, \
-     Any, Str, Array
+from traits.api import HasTraits, Button, Instance, Any, Str, Array
 from traitsui.api import Item, View, TextEditor
 
 
@@ -29,33 +28,39 @@ class Explorer3D(HasTraits):
     # Traits.
 
     # Set by envisage when this is offered as a service offer.
-    window = Instance('pyface.workbench.api.WorkbenchWindow')
+    window = Instance("pyface.workbench.api.WorkbenchWindow")
 
     # The equation that generates the scalar field.
-    equation = Str('sin(x*y*z)/(x*y*z)',
-                   desc='equation to evaluate (enter to set)',
-                   auto_set=False,
-                   enter_set=True)
+    equation = Str(
+        "sin(x*y*z)/(x*y*z)",
+        desc="equation to evaluate (enter to set)",
+        auto_set=False,
+        enter_set=True,
+    )
 
     # Dimensions of the cube of data.
-    dimensions = Array(value=(128, 128, 128),
-                       dtype=int,
-                       shape=(3,),
-                       cols=1,
-                       labels=['nx', 'ny', 'nz'],
-                       desc='the array dimensions')
+    dimensions = Array(
+        value=(128, 128, 128),
+        dtype=int,
+        shape=(3,),
+        cols=1,
+        labels=["nx", "ny", "nz"],
+        desc="the array dimensions",
+    )
 
     # The volume of interest (VOI).
-    volume = Array(dtype=float,
-                   value=(-5,5,-5,5,-5,5),
-                   shape=(6,),
-                   cols=2,
-                   labels=['xmin','xmax','ymin','ymax','zmin','zmax'],
-                   desc='the volume of interest')
+    volume = Array(
+        dtype=float,
+        value=(-5, 5, -5, 5, -5, 5),
+        shape=(6,),
+        cols=2,
+        labels=["xmin", "xmax", "ymin", "ymax", "zmin", "zmax"],
+        desc="the volume of interest",
+    )
 
     # Clicking this button resets the data with the new dimensions and
     # VOI.
-    update_data = Button('Update data')
+    update_data = Button("Update data")
 
     ########################################
     # Private traits.
@@ -71,14 +76,14 @@ class Explorer3D(HasTraits):
 
     ########################################
     # Our UI view.
-    view = View(Item('equation', editor=TextEditor(auto_set=False,
-                                                   enter_set=True)),
-                Item('dimensions'),
-                Item('volume'),
-                Item('update_data', show_label=False),
-                resizable=True,
-                scrollable=True,
-                )
+    view = View(
+        Item("equation", editor=TextEditor(auto_set=False, enter_set=True)),
+        Item("dimensions"),
+        Item("volume"),
+        Item("update_data", show_label=False),
+        resizable=True,
+        scrollable=True,
+    )
 
     ######################################################################
     # `object` interface.
@@ -100,6 +105,7 @@ class Explorer3D(HasTraits):
 
     def get_mayavi(self):
         from mayavi.plugins.script import Script
+
         return self.window.get_service(Script)
 
     ######################################################################
@@ -107,15 +113,17 @@ class Explorer3D(HasTraits):
     ######################################################################
     def _make_data(self):
         dims = self.dimensions.tolist()
-        np = dims[0]*dims[1]*dims[2]
+        np = dims[0] * dims[1] * dims[2]
         xmin, xmax, ymin, ymax, zmin, zmax = self.volume
-        x, y, z = np.ogrid[xmin:xmax:dims[0]*1j,
-                           ymin:ymax:dims[1]*1j,
-                           zmin:zmax:dims[2]*1j]
-        self._x = x.astype('f')
-        self._y = y.astype('f')
-        self._z = z.astype('f')
-        self._equation_changed('', self.equation)
+        x, y, z = np.ogrid[
+            xmin : xmax : dims[0] * 1j,
+            ymin : ymax : dims[1] * 1j,
+            zmin : zmax : dims[2] * 1j,
+        ]
+        self._x = x.astype("f")
+        self._y = y.astype("f")
+        self._z = z.astype("f")
+        self._equation_changed("", self.equation)
 
     def _show_data(self):
         if self.source is not None:
@@ -124,19 +132,23 @@ class Explorer3D(HasTraits):
         if mayavi.engine.current_scene is None:
             mayavi.new_scene()
         from mayavi.sources.array_source import ArraySource
+
         vol = self.volume
         origin = vol[::2]
-        spacing = (vol[1::2] - origin)/(self.dimensions -1)
-        src = ArraySource(transpose_input_array=False,
-                          scalar_data=self.data,
-                          origin=origin,
-                          spacing=spacing)
+        spacing = (vol[1::2] - origin) / (self.dimensions - 1)
+        src = ArraySource(
+            transpose_input_array=False,
+            scalar_data=self.data,
+            origin=origin,
+            spacing=spacing,
+        )
         self.source = src
         mayavi.add_source(src)
 
         from mayavi.modules.outline import Outline
         from mayavi.modules.image_plane_widget import ImagePlaneWidget
         from mayavi.modules.axes import Axes
+
         # Visualize the data.
         o = Outline()
         mayavi.add_module(o)
@@ -148,11 +160,11 @@ class Explorer3D(HasTraits):
 
         self._ipw2 = ipw_y = ImagePlaneWidget()
         mayavi.add_module(ipw_y)
-        ipw_y.ipw.plane_orientation = 'y_axes'
+        ipw_y.ipw.plane_orientation = "y_axes"
 
         self._ipw3 = ipw_z = ImagePlaneWidget()
         mayavi.add_module(ipw_z)
-        ipw_z.ipw.plane_orientation = 'z_axes'
+        ipw_z.ipw.plane_orientation = "z_axes"
 
     ######################################################################
     # Traits static event handlers.
@@ -160,9 +172,7 @@ class Explorer3D(HasTraits):
     def _equation_changed(self, old, new):
         try:
             g = np.__dict__
-            s = eval(new, g, {'x':self._x,
-                              'y':self._y,
-                              'z':self._z})
+            s = eval(new, g, {"x": self._x, "y": self._y, "z": self._z})
             # The copy makes the data contiguous and the transpose
             # makes it suitable for display via tvtk.
             s = s.transpose().copy()
@@ -190,7 +200,7 @@ class Explorer3D(HasTraits):
         if src is not None:
             vol = self.volume
             origin = vol[::2]
-            spacing = (vol[1::2] - origin)/(self.dimensions -1)
+            spacing = (vol[1::2] - origin) / (self.dimensions - 1)
             # Set the source spacing and origin.
             src.trait_set(spacing=spacing, origin=origin)
             # Update the sources data.
@@ -203,10 +213,10 @@ class Explorer3D(HasTraits):
             ipw1.ipw.place_widget()
         if ipw2.running:
             ipw2.ipw.place_widget()
-            ipw2.ipw.plane_orientation = 'y_axes'
+            ipw2.ipw.plane_orientation = "y_axes"
         if ipw3.running:
             ipw3.ipw.place_widget()
-            ipw3.ipw.plane_orientation = 'z_axes'
+            ipw3.ipw.plane_orientation = "z_axes"
         self.source.render()
 
     def _data_changed(self, value):
@@ -224,5 +234,4 @@ class Explorer3D(HasTraits):
             self._show_data()
         else:
             # Show the data once the mayavi engine has started.
-            m.engine.on_trait_change(self._show_data, 'started')
-
+            m.engine.on_trait_change(self._show_data, "started")

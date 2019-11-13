@@ -1,4 +1,4 @@
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 #
 #  Copyright (c) 2007, Enthought, Inc.
 #  All rights reserved.
@@ -13,7 +13,7 @@
 #  Authors: Robert Kern <robert.kern [at] gmail.com>
 #           Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
 #
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 """ A mostly-general Traits UI editor for viewing things in TVTK scenes.
 """
@@ -42,7 +42,6 @@ class _ActorEditor(Editor):
     _sizer = Any()
     _scene = Any()
 
-
     #### Public 'Editor' interface #############################################
 
     def init(self, parent):
@@ -57,7 +56,6 @@ class _ActorEditor(Editor):
 
         self._create_scene()
 
-
     def update_editor(self):
         """ Updates the editor when the object trait changes external to the
         editor.
@@ -66,7 +64,6 @@ class _ActorEditor(Editor):
         # Everything should really be handled elsewhere in trait notifications.
         # Just pass here.
         pass
-
 
     def dispose(self):
         """ Disposes of the contents of an editor.
@@ -85,7 +82,6 @@ class _ActorEditor(Editor):
         # This will destroy self.control and all of its children, including the
         # scene's control.
         super(_ActorEditor, self).dispose()
-
 
     #### Private '_ActorEditor' interface ##################################
 
@@ -118,7 +114,6 @@ class _ActorEditor(Editor):
         # Force a render.
         scene.render()
 
-
     def _setup_scene_notifications(self, remove=False):
         """ Set up or remove all of the Trait notifications that control the
         scene widget.
@@ -130,28 +125,20 @@ class _ActorEditor(Editor):
             remove=remove,
         )
         self.object.on_trait_event(
-            self._scene.render,
-            name=self.factory.do_render_name,
-            remove=remove,
+            self._scene.render, name=self.factory.do_render_name, remove=remove,
         )
         self.object.on_trait_change(
-            self._actors_changed,
-            name=self.name+'_items',
-            remove=remove,
+            self._actors_changed, name=self.name + "_items", remove=remove,
         )
         self.object.on_trait_change(
-            self._actor_map_changed,
-            name=self.name,
-            remove=remove,
+            self._actor_map_changed, name=self.name, remove=remove,
         )
-
 
     def _set_scene_disable_render(self, new):
         """ A callback for Traits notifications.
         """
 
         self._scene.disable_render = new
-
 
     def _actors_changed(self, event):
         """ Handle the event of the actors in the actor map changing.
@@ -176,7 +163,6 @@ class _ActorEditor(Editor):
             scene.disable_render = old_disable_render
             scene.render()
 
-
     def _actor_map_changed(self, object, name, old, new):
         """ Handle the case when the entire actor map is set to something else.
         """
@@ -199,12 +185,12 @@ class _ActorEditor(Editor):
         """Given a sequence (or single) of actors or widgets, this returns a
         list of just the actors and another of just the widgets.
         """
-        if not hasattr(actors_widgets, '__getitem__'):
+        if not hasattr(actors_widgets, "__getitem__"):
             actors_widgets = [actors_widgets]
         actors = []
         widgets = []
         for actor in actors_widgets:
-            if actor.is_a('vtk3DWidget'):
+            if actor.is_a("vtk3DWidget"):
                 widgets.append(actor)
             else:
                 actors.append(actor)
@@ -242,9 +228,10 @@ class ActorEditor(BasicEditorFactory):
     scene_kwds = Dict()
 
     # The name of the trait used for ITVTKActorModel.disable_render.
-    disable_render_name = Str('disable_render')
+    disable_render_name = Str("disable_render")
 
     # The name of the trait used for ITVTKActorModel.do_render.
-    do_render_name = Str('do_render')
+    do_render_name = Str("do_render")
+
 
 #### EOF #######################################################################

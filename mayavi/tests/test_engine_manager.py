@@ -24,7 +24,6 @@ def patch_offscreen(switch_on):
 
 
 class TestEngineManager(unittest.TestCase):
-
     @patch_backend("test")
     def test_get_engine_backend_test(self):
         self.assertIsInstance(get_engine(), NullEngine)
@@ -70,6 +69,7 @@ class TestEngineManager(unittest.TestCase):
         # if offscreen is switched back to False
         # get_engine should not return an OffScreenEngine
         from mayavi.tools.engine_manager import options
+
         options.offscreen = False
         self.assertIs(type(get_engine()), Engine)
 

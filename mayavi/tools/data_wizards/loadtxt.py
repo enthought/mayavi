@@ -9,7 +9,7 @@ import numpy as np
 
 def _string_like(obj):
     try:
-        obj + ''
+        obj + ""
     except (TypeError, ValueError):
         return 0
     return 1
@@ -29,8 +29,16 @@ def _getconv(dtype):
         return str
 
 
-def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
-            skiprows=0, usecols=None, unpack=False):
+def loadtxt(
+    fname,
+    dtype=float,
+    comments="#",
+    delimiter=None,
+    converters=None,
+    skiprows=0,
+    usecols=None,
+    unpack=False,
+):
     """
     Load ASCII data from fname into an array and return the array.
 
@@ -83,15 +91,16 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
     """
 
     if _string_like(fname):
-        if fname.endswith('.gz'):
+        if fname.endswith(".gz"):
             import gzip
+
             fh = gzip.open(fname)
         else:
-            fh = open(fname, 'r')
-    elif hasattr(fname, 'seek'):
+            fh = open(fname, "r")
+    elif hasattr(fname, "seek"):
         fh = fname
     else:
-        raise ValueError('fname must be a string or file handle')
+        raise ValueError("fname must be a string or file handle")
     X = []
 
     dtype = np.dtype(dtype)
@@ -100,8 +109,7 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
     if converters is None:
         converters = {}
         if dtype.names is not None:
-            converterseq = [_getconv(dtype.fields[name][0]) \
-                            for name in dtype.names]
+            converterseq = [_getconv(dtype.fields[name][0]) for name in dtype.names]
 
     for i, line in enumerate(fh):
         if i < skiprows:
@@ -115,8 +123,7 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
             continue
         vals = line.split(delimiter)
         if converterseq is None:
-            converterseq = [converters.get(j, defconv) \
-                            for j in range(len(vals))]
+            converterseq = [converters.get(j, defconv) for j in range(len(vals))]
         if usecols is not None:
             row = [converterseq[j](vals[j]) for j in usecols]
         else:

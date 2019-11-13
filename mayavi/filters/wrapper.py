@@ -31,10 +31,10 @@ class Wrapper(Filter):
     filter = Instance(PipelineBase, allow_none=False, record=True)
 
     # The text to show in the UI of form "Enable SomeFilter"
-    label_text = Str('Enable Filter')
+    label_text = Str("Enable Filter")
 
     # Are we enabled or not.
-    enabled = Bool(True, desc='if the filter is enabled or not')
+    enabled = Bool(True, desc="if the filter is enabled or not")
 
     ########################################
     # Private traits.
@@ -61,21 +61,34 @@ class Wrapper(Filter):
     def default_traits_view(self):
         """Returns the default traits view for this object."""
         if self._show_enabled:
-            view = View(Group(Group(Item(name='enabled',
-                                         label=self.label_text)),
-                            Group(Item(name='filter',
-                                       style='custom',
-                                       enabled_when='enabled',
-                                       resizable=True),
-                                  show_labels=False)),
-                        resizable=True)
+            view = View(
+                Group(
+                    Group(Item(name="enabled", label=self.label_text)),
+                    Group(
+                        Item(
+                            name="filter",
+                            style="custom",
+                            enabled_when="enabled",
+                            resizable=True,
+                        ),
+                        show_labels=False,
+                    ),
+                ),
+                resizable=True,
+            )
         else:
-            view = View(Group(Item(name='filter',
-                                   style='custom',
-                                   enabled_when='enabled',
-                                   resizable=True),
-                              show_labels=False),
-                        resizable=True)
+            view = View(
+                Group(
+                    Item(
+                        name="filter",
+                        style="custom",
+                        enabled_when="enabled",
+                        resizable=True,
+                    ),
+                    show_labels=False,
+                ),
+                resizable=True,
+            )
 
         return view
 
@@ -138,7 +151,7 @@ class Wrapper(Filter):
             self._set_outputs(self.filter.outputs)
         else:
             self._set_outputs(my_input.outputs)
-            name += ' (disabled)'
+            name += " (disabled)"
         self.name = name
         self.render()
 
@@ -163,14 +176,11 @@ class Wrapper(Filter):
             self._set_outputs(self.filter.outputs)
 
     def _setup_events(self, obj, remove=False):
-        obj.on_trait_change(self._filter_pipeline_changed,
-                            'pipeline_changed',
-                            remove=remove)
-        obj.on_trait_change(self.update_data,
-                            'data_changed',
-                            remove=remove)
+        obj.on_trait_change(
+            self._filter_pipeline_changed, "pipeline_changed", remove=remove
+        )
+        obj.on_trait_change(self.update_data, "data_changed", remove=remove)
 
     def _visible_changed(self, value):
         self.filter.visible = value
         super(Wrapper, self)._visible_changed(value)
-

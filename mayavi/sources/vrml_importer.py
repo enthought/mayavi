@@ -27,14 +27,12 @@ class VRMLImporter(Source):
     __version__ = 0
 
     # The file name.
-    file_name = Str('', enter_set=True, auto_set=False,
-                    desc='the VRML file name')
+    file_name = Str("", enter_set=True, auto_set=False, desc="the VRML file name")
 
     # The VRML importer.
-    reader = Instance(tvtk.VRMLImporter, args=(), allow_none=False,
-                      record=True)
+    reader = Instance(tvtk.VRMLImporter, args=(), allow_none=False, record=True)
 
-    output_info = PipelineInfo(datasets=['none'])
+    output_info = PipelineInfo(datasets=["none"])
 
     ###############
     # Private traits.
@@ -43,7 +41,7 @@ class VRMLImporter(Source):
     _file_path = Instance(FilePath, args=())
 
     # Our View.
-    view = View(Item(name='file_name', editor=FileEditor()))
+    view = View(Item(name="file_name", editor=FileEditor()))
 
     ######################################################################
     # `object` interface
@@ -51,7 +49,7 @@ class VRMLImporter(Source):
     def __get_pure_state__(self):
         d = super(VRMLImporter, self).__get_pure_state__()
         # These traits are dynamically created.
-        for name in ('reader', 'file_name'):
+        for name in ("reader", "file_name"):
             d.pop(name)
         return d
 
@@ -61,7 +59,7 @@ class VRMLImporter(Source):
         # Now call the parent class to setup everything.
         self.initialize(fname)
         # Setup the rest of the state.
-        set_state(self, state, ignore=['_file_path'])
+        set_state(self, state, ignore=["_file_path"])
 
     def initialize(self, file_name):
         self.file_name = file_name
@@ -105,15 +103,14 @@ class VRMLImporter(Source):
         self._file_path.set(value)
         self._update_reader()
         self.render()
-        name = "VRML file (%s)"%basename(self.file_name)
-        if '[Hidden]' in self.name:
-            name += ' [Hidden]'
+        name = "VRML file (%s)" % basename(self.file_name)
+        if "[Hidden]" in self.name:
+            name += " [Hidden]"
         self.name = name
 
     def _update_reader(self):
         reader = self.reader
-        if self.scene is None or reader.file_name is None \
-               or len(reader.file_name) == 0:
+        if self.scene is None or reader.file_name is None or len(reader.file_name) == 0:
             return
         actors1 = [x for x in self.scene.renderer.actors]
         reader.read()
@@ -151,4 +148,3 @@ class VRMLImporter(Source):
                 self.scene.add_actors(self.actors)
                 self._actors_added = True
         super(VRMLImporter, self)._visible_changed(value)
-

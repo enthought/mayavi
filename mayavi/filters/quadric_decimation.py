@@ -7,8 +7,7 @@ from traits.api import Instance
 from tvtk.api import tvtk
 
 # Local imports
-from mayavi.filters.poly_data_filter_base import \
-        PolyDataFilterBase
+from mayavi.filters.poly_data_filter_base import PolyDataFilterBase
 from mayavi.core.pipeline_info import PipelineInfo
 
 
@@ -25,11 +24,10 @@ class QuadricDecimation(PolyDataFilterBase):
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.QuadricDecimation, args=(), allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['poly_data'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['poly_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
-
+    output_info = PipelineInfo(
+        datasets=["poly_data"], attribute_types=["any"], attributes=["any"]
+    )

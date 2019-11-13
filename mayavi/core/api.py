@@ -1,4 +1,3 @@
-
 from .registry import registry
 from .metadata import SourceMetadata
 from .pipeline_info import PipelineInfo
@@ -11,4 +10,3 @@ from .source import Source
 from .scene import Scene
 from .filter import Filter
 from .module import Module
-

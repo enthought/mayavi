@@ -76,10 +76,12 @@ class TreeNode:
         descended.
 
         """
+
         def _get_ancestors(node, ancestors):
             ancestors.extend(node.parents)
             for p in node.parents:
                 _get_ancestors(p, ancestors)
+
         ancestors = []
         _get_ancestors(self, ancestors)
         return ancestors
@@ -141,7 +143,7 @@ class ClassTree:
         """
         self.nodes = {}
         self.tree = [[]]
-        if not hasattr(modules, '__iter__'):
+        if not hasattr(modules, "__iter__"):
             self.modules = [modules]
         else:
             self.modules = modules
@@ -170,7 +172,7 @@ class ClassTree:
             try:
                 klass = self.nodes[name].klass
             except KeyError:
-                raise KeyError("Cannot find class of name %s"%name)
+                raise KeyError("Cannot find class of name %s" % name)
         return klass
 
     def add_node(self, klass):
@@ -255,12 +257,12 @@ class ClassTree:
 
         # Generate the nodes.
         for name in class_names:
-            if ('.' in name):
+            if "." in name:
                 # With VTK 6.x and above there are strange names
                 # in the vtk module which we ignore.
                 continue
             klass = self.get_class(name)
-            if klass and hasattr(klass, '__bases__'):
+            if klass and hasattr(klass, "__bases__"):
                 self._generate_hierarchy(klass)
 
         # Compute the inheritance level and store the nodes in the tree.
@@ -272,4 +274,4 @@ class ClassTree:
 
         # Sort the nodes alphabetically.
         for nodes in self.tree:
-            nodes.sort(key=lambda x:x.name)
+            nodes.sort(key=lambda x: x.name)

@@ -31,21 +31,21 @@ class Glyph(Module):
     # The Glyph component.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['any'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["any"], attribute_types=["any"], attributes=["any"]
+    )
 
     ########################################
     # View related traits.
 
-    view = View(Group(Item(name='glyph', style='custom',
-                           resizable=True),
-                      label='Glyph',
-                      show_labels=False),
-                Group(Item(name='actor', style='custom'),
-                      label='Actor',
-                      show_labels=False),
-                )
+    view = View(
+        Group(
+            Item(name="glyph", style="custom", resizable=True),
+            label="Glyph",
+            show_labels=False,
+        ),
+        Group(Item(name="actor", style="custom"), label="Actor", show_labels=False),
+    )
 
     ######################################################################
     # `Module` interface
@@ -63,16 +63,18 @@ class Glyph(Module):
         set the `actors` attribute up at this point.
         """
         # Setup the glyphs.
-        self.glyph = glyph.Glyph(scale_mode='scale_by_scalar',
-                                 color_mode='color_by_scalar',
-                                 show_scale_mode=True)
+        self.glyph = glyph.Glyph(
+            scale_mode="scale_by_scalar",
+            color_mode="color_by_scalar",
+            show_scale_mode=True,
+        )
 
         # Create the components
         actor = self.actor = Actor()
         actor.mapper.scalar_visibility = 1
-        actor.property.trait_set(line_width=2,
-                                 backface_culling=False,
-                                 frontface_culling=False)
+        actor.property.trait_set(
+            line_width=2, backface_culling=False, frontface_culling=False
+        )
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -112,11 +114,11 @@ class Glyph(Module):
         if self.module_manager is None:
             return
         actor = self.actor
-        if value == 'color_by_scalar':
+        if value == "color_by_scalar":
             actor.mapper.scalar_visibility = 1
             lut_mgr = self.module_manager.scalar_lut_manager
             actor.set_lut(lut_mgr.lut)
-        elif value == 'color_by_vector':
+        elif value == "color_by_vector":
             lut_mgr = self.module_manager.vector_lut_manager
             actor.set_lut(lut_mgr.lut)
         else:
@@ -127,10 +129,8 @@ class Glyph(Module):
     def _glyph_changed(self, old, new):
         # Hookup a callback to set the lut appropriately.
         if old is not None:
-            old.on_trait_change(self._color_mode_changed,
-                                'color_mode',
-                                remove=True)
-        new.on_trait_change(self._color_mode_changed, 'color_mode')
+            old.on_trait_change(self._color_mode_changed, "color_mode", remove=True)
+        new.on_trait_change(self._color_mode_changed, "color_mode")
 
         # Set the glyph's module attribute -- this is important!
         new.module = self
@@ -148,5 +148,3 @@ class Glyph(Module):
         if g is not None:
             new.inputs = [g]
         self._change_components(old, new)
-
-

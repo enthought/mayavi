@@ -3,8 +3,7 @@
 # to define the version number in two places.
 try:
     import pkg_resources
-    version = pkg_resources.require('Mayavi')[0].version
+
+    version = pkg_resources.require("Mayavi")[0].version
 except:
-    version = ''
-
-
+    version = ""

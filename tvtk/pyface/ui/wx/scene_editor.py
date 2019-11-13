@@ -1,4 +1,4 @@
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 #
 #  Copyright (c) 2007, Enthought, Inc.
 #  All rights reserved.
@@ -13,7 +13,7 @@
 #  Authors: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
 #           Robert Kern <robert.kern [at] gmail.com>
 #
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 """ A `SceneEditor` for the `SceneModel`.
 """
@@ -41,7 +41,6 @@ class _SceneEditor(Editor):
     _sizer = Any()
     _scene = Any()
 
-
     #### Public 'Editor' interface #############################################
 
     def init(self, parent):
@@ -54,8 +53,9 @@ class _SceneEditor(Editor):
         self._sizer = wx.BoxSizer(wx.VERTICAL)
         self.control.SetSizer(self._sizer)
 
-        assert self.value.scene_editor is None, \
-                "The SceneModel may only have one active editor!"
+        assert (
+            self.value.scene_editor is None
+        ), "The SceneModel may only have one active editor!"
         self._create_scene()
         self.value.activated = True
 
@@ -67,7 +67,6 @@ class _SceneEditor(Editor):
         # Everything should really be handled elsewhere in trait notifications.
         # Just pass here.
         pass
-
 
     def dispose(self):
         """ Disposes of the contents of an editor.
@@ -129,12 +128,22 @@ class _SceneEditor(Editor):
         scene widget.
         """
 
-        traits_to_sync = ['foreground', 'anti_aliasing_frames',
-                          'stereo',  'background', 'off_screen_rendering',
-                          'polygon_smoothing', 'jpeg_progressive',
-                          'point_smoothing', 'busy', 'disable_render',
-                          'magnification', 'jpeg_quality',
-                          'parallel_projection', 'line_smoothing']
+        traits_to_sync = [
+            "foreground",
+            "anti_aliasing_frames",
+            "stereo",
+            "background",
+            "off_screen_rendering",
+            "polygon_smoothing",
+            "jpeg_progressive",
+            "point_smoothing",
+            "busy",
+            "disable_render",
+            "magnification",
+            "jpeg_quality",
+            "parallel_projection",
+            "line_smoothing",
+        ]
 
         model = self.value
         scene = self._scene
@@ -144,30 +153,20 @@ class _SceneEditor(Editor):
             scene.sync_trait(trait, model, mutual=True, remove=remove)
 
         model.on_trait_change(
-            scene.render,
-            name='do_render',
-            remove=remove,
+            scene.render, name="do_render", remove=remove,
         )
         model.on_trait_change(
-            self._actors_changed,
-            name='actor_map_items',
-            remove=remove,
+            self._actors_changed, name="actor_map_items", remove=remove,
         )
         model.on_trait_change(
-            self._actor_map_changed,
-            name='actor_map',
-            remove=remove,
+            self._actor_map_changed, name="actor_map", remove=remove,
         )
 
         model.on_trait_change(
-            self._actor_list_items_changed,
-            name='actor_list_items',
-            remove=remove,
+            self._actor_list_items_changed, name="actor_list_items", remove=remove,
         )
         model.on_trait_change(
-            self._actor_list_changed,
-            name='actor_list',
-            remove=remove,
+            self._actor_list_changed, name="actor_list", remove=remove,
         )
 
     def _actors_changed(self, event):
@@ -212,8 +211,7 @@ class _SceneEditor(Editor):
             scene.render()
 
     def _actor_list_items_changed(self, event):
-        self._actor_list_changed(self.value, 'actor_list', event.removed,
-                                 event.added)
+        self._actor_list_changed(self.value, "actor_list", event.removed, event.added)
 
     def _actor_list_changed(self, object, name, old, new):
         """ Handle the event of the actors in the actor map changing.
@@ -235,12 +233,12 @@ class _SceneEditor(Editor):
         """Given a sequence (or single) of actors or widgets, this returns a
         list of just the actors and another of just the widgets.
         """
-        if not hasattr(actors_widgets, '__getitem__'):
+        if not hasattr(actors_widgets, "__getitem__"):
             actors_widgets = [actors_widgets]
         actors = []
         widgets = []
         for actor in actors_widgets:
-            if actor.is_a('vtk3DWidget') or actor.is_a('vtkInteractorObserver'):
+            if actor.is_a("vtk3DWidget") or actor.is_a("vtkInteractorObserver"):
                 widgets.append(actor)
             else:
                 actors.append(actor)
@@ -275,5 +273,6 @@ class SceneEditor(BasicEditorFactory):
 
     # The class or factory function for creating the actual scene object.
     scene_class = Callable(DecoratedScene)
+
 
 #### EOF #######################################################################

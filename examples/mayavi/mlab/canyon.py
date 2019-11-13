@@ -14,38 +14,38 @@ and crop data completly foreign to Mayavi.
 
 # Retrieve the grand Canyon topological data ##################################
 import os
+
 # Original file:
 #'ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip'
-if not os.path.exists('N36W113.hgt.zip'):
+if not os.path.exists("N36W113.hgt.zip"):
     # Download the data
     try:
         from urllib import urlopen
     except ImportError:
         from urllib.request import urlopen
-    print('Downloading data, please wait (10M)')
+    print("Downloading data, please wait (10M)")
     opener = urlopen(
-    'https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip'
-        )
-    open('N36W113.hgt.zip', 'wb').write(opener.read())
+        "https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip"
+    )
+    open("N36W113.hgt.zip", "wb").write(opener.read())
 
 # Load the data (signed 2 byte integers, big endian) ##########################
 import zipfile
 import numpy as np
 
-data = np.fromstring(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'),
-                    '>i2')
+data = np.fromstring(zipfile.ZipFile("N36W113.hgt.zip").read("N36W113.hgt"), ">i2")
 data.shape = (3601, 3601)
 data = data.astype(np.float32)
 
 # Plot an interesting section #################################################
 from mayavi import mlab
+
 data = data[:1000, 900:1900]
 # Convert missing values into something more sensible.
 data[data == -32768] = data[data > 0].min()
 
 mlab.figure(size=(400, 320), bgcolor=(0.16, 0.28, 0.46))
-mlab.surf(data, colormap='gist_earth', warp_scale=0.2,
-            vmin=1200, vmax=1610)
+mlab.surf(data, colormap="gist_earth", warp_scale=0.2, vmin=1200, vmax=1610)
 # The data takes a lot of memory, and the surf command has created a
 # copy. We free the inital memory.
 del data

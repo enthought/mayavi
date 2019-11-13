@@ -20,16 +20,16 @@ class TestSetActiveAttribute(TestCase):
         e = self.script.engine
         scene = e.current_scene
         src = scene.children[0]
-        assert src.point_scalars_name == 'u'
+        assert src.point_scalars_name == "u"
         c = src.children[1]
         sc = get_output(c.outputs[0]).point_data.scalars
-        assert sc.name == 'u'
+        assert sc.name == "u"
         # It is an iso-contour!
         assert sc.range[0] == sc.range[1]
         aa = c.children[0].children[0]
-        assert aa.point_scalars_name == 't'
+        assert aa.point_scalars_name == "t"
         sc = get_output(aa.outputs[0]).point_data.scalars
-        assert sc.name == 't'
+        assert sc.name == "t"
         assert abs(sc.range[0] - 308) < 1.0
         assert abs(sc.range[1] - 631) < 1.0
         s = aa.children[0].children[0]
@@ -50,9 +50,9 @@ class TestSetActiveAttribute(TestCase):
 
         scene = self.new_scene()
         r = VTKXMLFileReader()
-        r.initialize(get_example_data('fire_ug.vtu'))
+        r.initialize(get_example_data("fire_ug.vtu"))
         mayavi.add_source(r)
-        r.point_scalars_name = 'u'
+        r.point_scalars_name = "u"
         o = Outline()
         mayavi.add_module(o)
         c = Contour()
@@ -61,7 +61,7 @@ class TestSetActiveAttribute(TestCase):
         mayavi.add_filter(n)
         aa = SetActiveAttribute()
         mayavi.add_filter(aa)
-        aa.point_scalars_name = 't'
+        aa.point_scalars_name = "t"
         s = Surface()
         mayavi.add_module(s)
 
@@ -74,9 +74,9 @@ class TestSetActiveAttribute(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath("test.mv2")  # We simulate a file.
         mayavi.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)  # So we can read this saved data.
 
         # Remove existing scene.
         engine = mayavi.engine
@@ -112,6 +112,7 @@ class TestSetActiveAttribute(TestCase):
 
         # If we have come this far, we are golden!
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     t = TestSetActiveAttribute()
     t.test()

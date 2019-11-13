@@ -30,34 +30,41 @@ class Actor2D(Component):
     # The actor's property.
     property = Instance(tvtk.Property2D, record=True)
 
-
     ########################################
     # View related traits.
 
     # The Actor's view group.
-    _actor_group = Group(Item(name='visibility'),
-                         Item(name='height'),
-                         Item(name='width'),
-                         show_border=True, label='Actor')
+    _actor_group = Group(
+        Item(name="visibility"),
+        Item(name="height"),
+        Item(name="width"),
+        show_border=True,
+        label="Actor",
+    )
 
     # The View for this object.
-    view = View(Group(Item(name='actor', style='custom',
-                           editor=InstanceEditor(view=View(_actor_group))),
-                      show_labels=False,
-                      label='Actor'
-                      ),
-                Group(Item(name='mapper',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False,
-                      label='Mapper'),
-                Group(Item(name='property',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False,
-                      label='Property'),
-                resizable=True,
-                )
+    view = View(
+        Group(
+            Item(
+                name="actor",
+                style="custom",
+                editor=InstanceEditor(view=View(_actor_group)),
+            ),
+            show_labels=False,
+            label="Actor",
+        ),
+        Group(
+            Item(name="mapper", style="custom", resizable=True),
+            show_labels=False,
+            label="Mapper",
+        ),
+        Group(
+            Item(name="property", style="custom", resizable=True),
+            show_labels=False,
+            label="Property",
+        ),
+        resizable=True,
+    )
 
     ######################################################################
     # `Component` interface
@@ -85,8 +92,7 @@ class Actor2D(Component):
         This method is invoked (automatically) when the input fires a
         `pipeline_changed` event.
         """
-        if (len(self.inputs) == 0) or \
-               (len(self.inputs[0].outputs) == 0):
+        if (len(self.inputs) == 0) or (len(self.inputs[0].outputs) == 0):
             return
         self.configure_connection(self.mapper, self.inputs[0])
         self.render()

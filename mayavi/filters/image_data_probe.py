@@ -33,47 +33,51 @@ class ImageDataProbe(Filter):
     # The probe filter.
     filter = Instance(tvtk.ProbeFilter, args=())
 
-    rescale_scalars = Bool(False, desc='if the input scalars are '\
-                                       'rescaled to an unsigned short '\
-                                       'array')
+    rescale_scalars = Bool(
+        False, desc="if the input scalars are " "rescaled to an unsigned short " "array"
+    )
 
     # Specifies if we can change the spacing/dimensions -- not allowed
     # for imagedata/structured points data.
     allow_changes = Bool(True)
 
     # Spacing of points in the image data.
-    spacing = Array(value=(0.0, 0.0, 0.0),
-                    shape=(3,),
-                    cols=1,
-                    dtype=float,
-                    enter_set=True,
-                    auto_set=False,
-                    labels=['sx', 'sy', 'sz'],
-                    desc='the spacing of points')
+    spacing = Array(
+        value=(0.0, 0.0, 0.0),
+        shape=(3,),
+        cols=1,
+        dtype=float,
+        enter_set=True,
+        auto_set=False,
+        labels=["sx", "sy", "sz"],
+        desc="the spacing of points",
+    )
 
     # Dimensions of the image data.
-    dimensions = Array(value=(0, 0, 0),
-                       shape=(3,),
-                       cols=1,
-                       dtype=int,
-                       enter_set=True,
-                       auto_set=False,
-                       labels=['nx', 'ny', 'nz'],
-                       desc='the dimensions of the image data')
+    dimensions = Array(
+        value=(0, 0, 0),
+        shape=(3,),
+        cols=1,
+        dtype=int,
+        enter_set=True,
+        auto_set=False,
+        labels=["nx", "ny", "nz"],
+        desc="the dimensions of the image data",
+    )
 
     # Reset settings to defaults.
-    reset_defaults = Button(desc='if probe data is reset to defaults')
+    reset_defaults = Button(desc="if probe data is reset to defaults")
 
     # Name of rescaled scalar to generate.
-    rescaled_scalar_name = Str('probe_us_array')
+    rescaled_scalar_name = Str("probe_us_array")
 
-    input_info = PipelineInfo(datasets=['image_data'],
-                              attribute_types=['any'],
-                              attributes=['any'])
+    input_info = PipelineInfo(
+        datasets=["image_data"], attribute_types=["any"], attributes=["any"]
+    )
 
-    output_info = PipelineInfo(datasets=['image_data'],
-                               attribute_types=['any'],
-                               attributes=['any'])
+    output_info = PipelineInfo(
+        datasets=["image_data"], attribute_types=["any"], attributes=["any"]
+    )
 
     ########################################
     # Private traits.
@@ -84,17 +88,15 @@ class ImageDataProbe(Filter):
     ########################################
     # View related traits.
 
-    view = View(Group(Item(name='dimensions',
-                           enabled_when='allow_changes'
-                           ),
-                      Item(name='spacing',
-                           enabled_when='allow_changes'),
-                      Item(name='rescale_scalars'),
-                      Item(name='reset_defaults',
-                           show_label=False),
-                      ),
-                resizable=True)
-
+    view = View(
+        Group(
+            Item(name="dimensions", enabled_when="allow_changes"),
+            Item(name="spacing", enabled_when="allow_changes"),
+            Item(name="rescale_scalars"),
+            Item(name="reset_defaults", show_label=False),
+        ),
+        resizable=True,
+    )
 
     ######################################################################
     # `Filter` interface.
@@ -125,13 +127,12 @@ class ImageDataProbe(Filter):
     def _setup_probe_data(self, reset=False):
         pd = self.probe_data
         input = self.inputs[0].get_output_dataset()
-        if input.is_a('vtkImageData'):
+        if input.is_a("vtkImageData"):
             self.allow_changes = False
-            self.trait_set(spacing=input.spacing,
-                           dimensions=input.dimensions)
-            pd.trait_set(origin=input.origin,
-                         dimensions=input.dimensions,
-                         spacing=input.spacing)
+            self.trait_set(spacing=input.spacing, dimensions=input.dimensions)
+            pd.trait_set(
+                origin=input.origin, dimensions=input.dimensions, spacing=input.spacing
+            )
             pd.update()
         elif reset:
             self.allow_changes = True
@@ -139,26 +140,26 @@ class ImageDataProbe(Filter):
             pd.origin = b[::2]
             l = b[1::2] - b[::2]
             tot_len = sum(l)
-            npnt = pow(input.number_of_points, 1./3.) + 0.5
-            fac = 3.0*npnt/tot_len
-            dims = (l*fac).astype(int) + 1
+            npnt = pow(input.number_of_points, 1.0 / 3.0) + 0.5
+            fac = 3.0 * npnt / tot_len
+            dims = (l * fac).astype(int) + 1
             extent = (0, dims[0] - 1, 0, dims[1] - 1, 0, dims[2] - 1)
             if tvtk_common.is_old_pipeline():
-                pd.trait_set(extent=extent,
-                             update_extent=extent,
-                             whole_extent=extent,
-                             dimensions=dims)
+                pd.trait_set(
+                    extent=extent,
+                    update_extent=extent,
+                    whole_extent=extent,
+                    dimensions=dims,
+                )
             else:
-                pd.trait_set(extent=extent,
-                             dimensions=dims)
+                pd.trait_set(extent=extent, dimensions=dims)
 
             max_dim = dims.max()
-            dims = (dims-1).clip(min=1, max=max_dim+1)
-            l = l.clip(min=1e-3, max=l.max()+1.0)
-            pd.spacing = l/dims
+            dims = (dims - 1).clip(min=1, max=max_dim + 1)
+            l = l.clip(min=1e-3, max=l.max() + 1.0)
+            pd.spacing = l / dims
             self._event_handled = True
-            self.trait_set(spacing=pd.spacing,
-                           dimensions=pd.dimensions)
+            self.trait_set(spacing=pd.spacing, dimensions=pd.dimensions)
             self._event_handled = False
 
     def _rescale_scalars_changed(self, value):
@@ -172,8 +173,10 @@ class ImageDataProbe(Filter):
         if not value:
             dataset = self.inputs[0].get_output_dataset()
             orig_sc = dataset.point_data.scalars
-            if sc.is_a('vtkUnsignedShortArray') and \
-               sc.name == self.rescaled_scalar_name:
+            if (
+                sc.is_a("vtkUnsignedShortArray")
+                and sc.name == self.rescaled_scalar_name
+            ):
                 pd.set_active_scalars(orig_sc.name)
                 pd.update()
                 self.pipeline_changed = True
@@ -183,12 +186,12 @@ class ImageDataProbe(Filter):
 
         s_min, s_max = sc.range
         # checking to see if input array is constant.
-        avg = (s_max + s_min)*0.5
+        avg = (s_max + s_min) * 0.5
         diff = 1
         if (s_max > avg) and (avg > s_min):
             diff = s_max - s_min
 
-        arr = (sc.to_array() - s_min)*65535.0/diff
+        arr = (sc.to_array() - s_min) * 65535.0 / diff
         uc = tvtk.UnsignedShortArray(name=self.rescaled_scalar_name)
         uc.from_array(arr)
         pd.add_array(uc)
@@ -202,10 +205,10 @@ class ImageDataProbe(Filter):
             return
 
         max_d = value.max()
-        dims = (value-1).clip(min=1, max=max_d)
+        dims = (value - 1).clip(min=1, max=max_d)
         b = numpy.array(self.inputs[0].get_output_dataset().bounds)
         l = b[1::2] - b[::2]
-        self.spacing = l/dims
+        self.spacing = l / dims
         self._update_probe()
 
     def _spacing_changed(self, value):
@@ -213,11 +216,11 @@ class ImageDataProbe(Filter):
             return
         b = numpy.array(self.inputs[0].get_output_dataset().bounds)
         l = b[1::2] - b[::2]
-        dims = (l/value + 0.5).astype(int) + 1
+        dims = (l / value + 0.5).astype(int) + 1
         # Recalculate space because of rounding.
         maxd = dims.max()
         dims1 = (dims - 1).clip(min=1, max=maxd)
-        sp = l/dims1
+        sp = l / dims1
         self._event_handled = True
         self.trait_set(spacing=sp, dimensions=dims)
         self._event_handled = False
@@ -229,15 +232,15 @@ class ImageDataProbe(Filter):
         spacing = self.spacing
         extent = (0, dims[0] - 1, 0, dims[1] - 1, 0, dims[2] - 1)
         if tvtk_common.is_old_pipeline():
-            pd.trait_set(extent=extent,
-                         update_extent=extent,
-                         whole_extent=extent,
-                         dimensions=dims,
-                         spacing=spacing)
+            pd.trait_set(
+                extent=extent,
+                update_extent=extent,
+                whole_extent=extent,
+                dimensions=dims,
+                spacing=spacing,
+            )
         else:
-            pd.trait_set(extent=extent,
-                         dimensions=dims,
-                         spacing=spacing)
+            pd.trait_set(extent=extent, dimensions=dims, spacing=spacing)
         pd.modified()
         fil = self.filter
         w = fil.global_warning_display

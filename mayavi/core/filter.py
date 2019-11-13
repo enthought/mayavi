@@ -11,8 +11,7 @@ from traits.api import List, Str
 # Local imports
 from mayavi.core.source import Source
 from mayavi.core.pipeline_base import PipelineBase
-from mayavi.core.pipeline_info import (PipelineInfo,
-        get_tvtk_dataset_name)
+from mayavi.core.pipeline_info import PipelineInfo, get_tvtk_dataset_name
 
 
 ######################################################################
@@ -29,13 +28,13 @@ class Filter(Source):
     inputs = List(PipelineBase, record=False)
 
     # The icon
-    icon = Str('filter.ico')
+    icon = Str("filter.ico")
 
     # The human-readable type for this object
-    type = Str(' filter')
+    type = Str(" filter")
 
     # Information about what this object can consume.
-    input_info = PipelineInfo(datasets=['any'])
+    input_info = PipelineInfo(datasets=["any"])
 
     ######################################################################
     # `object` interface.
@@ -49,7 +48,7 @@ class Filter(Source):
     def __get_pure_state__(self):
         d = super(Filter, self).__get_pure_state__()
         # Inputs are setup dynamically, don't pickle them.
-        d.pop('inputs', None)
+        d.pop("inputs", None)
         return d
 
     ######################################################################
@@ -134,8 +133,7 @@ class Filter(Source):
         old_outputs = self.outputs
         self.outputs = new_outputs
         if len(new_outputs) > 0:
-            self.output_info.datasets = \
-                [get_tvtk_dataset_name(new_outputs[0])]
+            self.output_info.datasets = [get_tvtk_dataset_name(new_outputs[0])]
         if old_outputs == self.outputs:
             # Even if the outputs don't change we want to propagate a
             # data_changed event since the data could have changed.
@@ -159,11 +157,8 @@ class Filter(Source):
 
     def _setup_input_events(self, removed, added):
         for input in removed:
-            input.on_trait_event(self.update_pipeline, 'pipeline_changed',
-                                 remove=True)
-            input.on_trait_event(self.update_data, 'data_changed',
-                                 remove=True)
+            input.on_trait_event(self.update_pipeline, "pipeline_changed", remove=True)
+            input.on_trait_event(self.update_data, "data_changed", remove=True)
         for input in added:
-            input.on_trait_event(self.update_pipeline, 'pipeline_changed')
-            input.on_trait_event(self.update_data, 'data_changed')
-
+            input.on_trait_event(self.update_pipeline, "pipeline_changed")
+            input.on_trait_event(self.update_data, "data_changed")
