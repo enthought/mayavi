@@ -22,7 +22,7 @@ init:
 install:
   # Install edm, needed so we can quickly install numpy.
   - ps: Start-FileDownload "https://package-data.enthought.com/edm/win_x86_64/2.0/edm_cli_2.0.0_x86_64.msi"
-  - start /wait msiexec /a /I edm_cli_2.0.0_x86_64.msi /qn /log install.log EDMAPPDIR=c:\Enthought\edm
+  - start /wait msiexec /i edm_cli_2.0.0_x86_64.msi /qn /log install.log EDMAPPDIR=C:\Enthought\edm
   - edm info
   - edm install --version 3.6 -y numpy nose mock Sphinx coverage psutil
   - "%CMD_IN_ENV% edm run -- pip install -r ci\\ci-requirements.txt"
