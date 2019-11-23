@@ -1124,8 +1124,8 @@ class Sphere(HasTraits):
                                theta_resolution = 20)
         sp.update()
         ps = sp.output
-
         points = ps.points.to_array()
+
         self.points = points
         self.polydata.points = self.points
         self.polydata.polys = ps.polys
@@ -1392,6 +1392,7 @@ class Box(HasTraits):
     polydata = Instance(tvtk.PolyData, ())
     actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
     property = Instance(tvtk.Property)
+    normals = Instance(tvtk.PolyDataNormals, ())
 
     ######################################################################
     # User interface view
@@ -1413,8 +1414,11 @@ class Box(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
+        self.normals = tvtk.PolyDataNormals()
+        configure_input(self.normals, self.polydata)
+        self.normals.update()
         m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input(m, self.polydata)
+        configure_input(m, self.normals)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1440,7 +1444,10 @@ class Box(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers
     def _create_points(self, s, c):
-        cp = tvtk.CubeSource(x_length = s[0], y_length = s[1], z_length = s[2], center = tuple(c))
+        cp = tvtk.CubeSource(x_length = s[0],
+                             y_length = s[1],
+                             z_length = s[2],
+                             center = tuple(c))
         cp.update()
         ps = cp.output
         points = ps.points.to_array()
@@ -1464,14 +1471,16 @@ class Box(HasTraits):
         self.trait_set(y = new[1], trait_change_notify = False)
         self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
-        #self.connectivity.points = self.points
+        #self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
-        #self.connectivity.points = self.points
+        self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _color_changed(self, value):
