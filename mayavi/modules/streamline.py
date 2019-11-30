@@ -26,6 +26,8 @@ from mayavi.core.utils import DataSetHelper
 ######################################################################
 # `Streamline` class.
 ######################################################################
+
+
 class Streamline(Module):
 
     # The version of this class.  Used for persistence.

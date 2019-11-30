@@ -14,6 +14,8 @@ import tvtk.common as tvtk_common
 ######################################################################
 # Utility functions.
 ######################################################################
+
+
 def get_array_type(arr):
     """Returns if the array is a scalar ('scalars'), vector
     ('vectors') or tensor ('tensors').  It looks at the number of

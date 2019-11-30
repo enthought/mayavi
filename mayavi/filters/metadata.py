@@ -14,6 +14,8 @@ BASE = "mayavi.filters"
 ################################################################################
 # Factory functions.
 ################################################################################
+
+
 def make_user_defined_filter():
     from mayavi.filters.user_defined import UserDefined
 

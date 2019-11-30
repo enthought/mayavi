@@ -3,6 +3,8 @@ Viewing Stanford 3D Scanning Repository bunny model
 """
 # Copyright (c) 2014-2015, Enthought, Inc.
 # Standard library imports
+import shutil
+import tarfile
 import os
 from os.path import join
 
@@ -21,7 +23,6 @@ if not os.path.exists("bunny.tar.gz"):
     open("bunny.tar.gz", "wb").write(opener.read())
 
 # Extract the data
-import tarfile
 
 bunny_tar_file = tarfile.open("bunny.tar.gz")
 try:
@@ -38,6 +39,5 @@ bunny_ply_file = join("bunny_data", "bunny", "reconstruction", "bun_zipper.ply")
 mlab.pipeline.surface(mlab.pipeline.open(bunny_ply_file))
 mlab.show()
 
-import shutil
 
 shutil.rmtree("bunny_data")

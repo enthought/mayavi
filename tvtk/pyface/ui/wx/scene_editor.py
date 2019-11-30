@@ -30,6 +30,8 @@ from .decorated_scene import DecoratedScene
 #####################################################################
 # `_SceneEditor` class
 #####################################################################
+
+
 class _SceneEditor(Editor):
     """ An editor for SceneModels.
     """

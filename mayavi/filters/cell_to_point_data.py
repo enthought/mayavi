@@ -13,6 +13,8 @@ from mayavi.core.pipeline_info import PipelineInfo
 ######################################################################
 # `CellToPointData` class.
 ######################################################################
+
+
 class CellToPointData(FilterBase):
 
     """Transforms cell attribute data to point data by averaging the

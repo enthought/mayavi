@@ -6,7 +6,8 @@ Render the examples to images and adds them to the documentation.
 import glob
 import os
 import shutil
-import token, tokenize
+import token
+import tokenize
 import textwrap
 import itertools
 
@@ -32,8 +33,8 @@ def is_mlab_example(filename):
 
 
 def run_mlab_file(filename, image_file):
-    ## XXX: Monkey-patch mlab.show, so that we keep control of the
-    ## the mainloop
+    # XXX: Monkey-patch mlab.show, so that we keep control of the
+    # the mainloop
     old_show = mlab.show
 
     def my_show(func=None):

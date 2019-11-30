@@ -21,6 +21,8 @@ from .gradient_editor import GradientTable, ColorControlPoint
 ##########################################################################
 # `GradientControl` class.
 ##########################################################################
+
+
 class GradientControl(tk.Frame):
     """Widget which displays the gradient represented by an GradientTable
     object (and does nothing beyond that)"""
@@ -103,12 +105,12 @@ class FunctionControl(tk.Frame):
         ):
             """arguments documented in function body"""
             self.control = function_control  # owning function control
-            self.name = name  #'r','g','b','h','s','v' or 'a'
+            self.name = name  # 'r','g','b','h','s','v' or 'a'
             self.color_string = color_string
             # ^-- string containing a tk color value with which to
             # paint this channel
             self.index = channel_index  # 0: r or h, 1: g or s, 2: b or v, 3: a
-            self.mode = channel_mode  #'hsv' or 'rgb'
+            self.mode = channel_mode  # 'hsv' or 'rgb'
 
         def get_value(self, color):
             """Return height value of the current channel for the given color.
@@ -268,7 +270,8 @@ class FunctionControl(tk.Frame):
         self.canvas.bind("<Button-3>", self.on_right_button_down)
         self.canvas.bind("<Motion>", self.on_mouse_move)
 
-        self.cur_drag = None  # <- [channel,control_point] while something is dragged.
+        # <- [channel,control_point] while something is dragged.
+        self.cur_drag = None
 
     def update(self):
         """Repaint the control."""
@@ -471,9 +474,11 @@ class GradientEditor(tk.Toplevel):
         # updates are executed during movement of control points or
         # only at the end of such changes.
         self.show_instant_gradients = tk.IntVar()
-        self.show_instant_gradients.set(1)  # enable instant gradients by default
+        # enable instant gradients by default
+        self.show_instant_gradients.set(1)
         self.show_instant_feedback = tk.IntVar()
-        self.show_instant_feedback.set(0)  # disable instant feedback by default
+        # disable instant feedback by default
+        self.show_instant_feedback.set(0)
         instant_gradient_button = tk.Checkbutton(button_frame, text="grad")
         instant_gradient_button.grid(row=0, column=8)
         instant_gradient_button.configure(variable=self.show_instant_gradients)

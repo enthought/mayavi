@@ -6,6 +6,10 @@
 # License: BSD Style.
 
 # Standard library imports.
+from mayavi.core import customize
+from mayavi.modules.metadata import modules
+from mayavi.filters.metadata import filters
+from mayavi.sources.metadata import sources
 from os.path import splitext
 import logging
 
@@ -45,7 +49,6 @@ class Registry(HasTraits):
     # `Registry` interface.
     ######################################################################
     def register_engine(self, engine, name=""):
-
         """Registers a mayavi engine with an optional name.   Note that
         we allow registering an engine with the same name as another
         already registered.  """
@@ -58,7 +61,6 @@ class Registry(HasTraits):
         engines[name] = engine
 
     def unregister_engine(self, engine_or_name):
-
         """Unregisters a mayavi engine specified either as a name or an
         engine instance."""
 
@@ -77,7 +79,6 @@ class Registry(HasTraits):
         logger.debug("Engine named %s unregistered", name)
 
     def get_file_reader(self, filename):
-
         """Given a filename, find a suitable source metadata that will
         read the file.
 
@@ -141,15 +142,12 @@ registry = Registry()
 
 # Import the metadata from the sources, modules and filters so they are
 # all registered.
-from mayavi.sources.metadata import sources
 
 registry.sources.extend(sources)
 
-from mayavi.filters.metadata import filters
 
 registry.filters.extend(filters)
 
-from mayavi.modules.metadata import modules
 
 registry.modules.extend(modules)
 
@@ -157,4 +155,3 @@ registry.modules.extend(modules)
 # `user_mayavi.py` files.  This is done by importing the customize.py
 # module here which in turn imports the necessary code from the users's
 # customization.
-from mayavi.core import customize

@@ -15,7 +15,6 @@ from mayavi.core.pipeline_info import PipelineInfo
 # Utility functions.
 ################################################################################
 def import_symbol(symbol_path):
-
     """ Import the symbol defined by the specified symbol path.
     Copied from envisage's import manager.
     """
@@ -40,7 +39,6 @@ def import_symbol(symbol_path):
 
 
 def import_module(module_name):
-
     """This imports the given module name.  This code is copied from
     envisage's import manager!
 

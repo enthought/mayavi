@@ -22,6 +22,8 @@ from mayavi.core.pipeline_info import PipelineInfo
 ######################################################################
 # `VRMLImporter` class.
 ######################################################################
+
+
 class VRMLImporter(Source):
 
     __version__ = 0

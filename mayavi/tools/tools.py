@@ -165,7 +165,10 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
         # XXX: If the pipeline is not a DAG, this is an infinite loop
         if isinstance(mayavi_object, Source):
             if stop_at_filter or not isinstance(mayavi_object, Filter):
-                get_output = lambda x: x if x.is_a("vtkDataSet") else x.output
+
+                def get_output(x):
+                    return x if x.is_a("vtkDataSet") else x.output
+
                 return [get_output(x) for x in mayavi_object.outputs]
         mayavi_object = mayavi_object.parent
 
@@ -353,7 +356,7 @@ def set_extent(module, extents):
         scalez = 1
 
     actor.scale = (scalex, scaley, scalez)
-    ## Remeasure the bounds
+    # Remeasure the bounds
     xmin, xmax, ymin, ymax, zmin, zmax = actor.bounds
     xcenter = 0.5 * (xmax + xmin)
     ycenter = 0.5 * (ymax + ymin)

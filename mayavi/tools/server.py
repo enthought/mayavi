@@ -44,6 +44,9 @@ hole** since the remote user can do pretty much anything they want.
 # Copyright (c) 2009-2015, Enthought, Inc.
 # License: BSD Style.
 
+from twisted.python import log
+from twisted.internet import reactor
+from twisted.internet.protocol import Protocol, DatagramProtocol, Factory
 import sys
 import wx
 
@@ -53,9 +56,6 @@ from twisted.internet import wxreactor
 wxreactor.install()
 
 # The usual twisted imports.
-from twisted.internet.protocol import Protocol, DatagramProtocol, Factory
-from twisted.internet import reactor
-from twisted.python import log
 
 
 ###############################################################################

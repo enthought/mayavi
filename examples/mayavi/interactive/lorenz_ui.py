@@ -24,6 +24,8 @@ from mayavi.core.ui.api import MayaviScene, MlabSceneModel, SceneEditor
 ################################################################################
 # `Lorenz` class.
 ################################################################################
+
+
 class Lorenz(HasTraits):
 
     # The parameters for the Lorenz system, defaults to the standard ones.

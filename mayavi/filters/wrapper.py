@@ -20,6 +20,8 @@ from mayavi.core.common import handle_children_state
 ################################################################################
 # `Wrapper` class.
 ################################################################################
+
+
 class Wrapper(Filter):
     """
     The `Wrapper` filter is one which wraps around any mayavi filter or

@@ -8,6 +8,7 @@ make sure that the generated code works well.
 # Copyright (c) 2004-2016, Enthought, Inc.
 # License: BSD Style.
 
+from tvtk.tvtk_classes import tvtk_helper
 import unittest
 import pickle
 import weakref
@@ -41,7 +42,6 @@ To generate tvtk_classes.zip you must do the following::
     raise ImportError(msg)
 
 # Only used for testing.
-from tvtk.tvtk_classes import tvtk_helper
 
 PY_VER = sys.version_info[0]
 if PY_VER > 2:

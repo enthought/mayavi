@@ -15,6 +15,7 @@ Mayavi2: http://docs.enthought.com/mayavi/mayavi/overview.html
 from __future__ import print_function
 
 # Standard library imports.
+from mayavi.plugins.app import Mayavi, setup_logger
 import sys
 import getopt
 import logging
@@ -477,7 +478,6 @@ except ImportError as m:
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
-from mayavi.plugins.app import Mayavi, setup_logger
 
 
 ##########################################################################

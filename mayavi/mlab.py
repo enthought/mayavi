@@ -12,35 +12,23 @@ application with a compatible UI (Qt or wxPython).
 
 
 # Mayavi imports
-from mayavi.core.common import process_ui_events
-from mayavi.tools.camera import view, roll, yaw, pitch, move
-from mayavi.tools.figure import (
-    figure,
-    clf,
-    gcf,
-    savefig,
-    draw,
-    sync_camera,
-    close,
-    screenshot,
+from .tools.notebook import init as init_notebook
+from .tools.tools import start_recording, stop_recording
+from .tools import pipeline
+from .tools.decorations import (
+    colorbar,
+    scalarbar,
+    vectorbar,
+    outline,
+    axes,
+    xlabel,
+    ylabel,
+    zlabel,
+    text,
+    title,
+    orientation_axes,
+    text3d,
 )
-from mayavi.tools.engine_manager import get_engine, show_pipeline, options, set_engine
-from mayavi.tools.show import show
-from mayavi.tools.animator import animate
-
-
-def show_engine():
-    """This function is deprecated, please use show_pipeline.
-    """
-    import warnings
-
-    warnings.warn(
-        "The show_engine function is deprecated, please use" "show_pipeline",
-        stacklevel=2,
-    )
-    return show_pipeline()
-
-
 from .tools.helper_functions import (
     contour3d,
     test_contour3d,
@@ -80,28 +68,34 @@ from .tools.helper_functions import (
     test_barchart,
     test_mesh_mask_custom_colors,
 )
-
-
-from .tools.decorations import (
-    colorbar,
-    scalarbar,
-    vectorbar,
-    outline,
-    axes,
-    xlabel,
-    ylabel,
-    zlabel,
-    text,
-    title,
-    orientation_axes,
-    text3d,
+from mayavi.core.common import process_ui_events
+from mayavi.tools.camera import view, roll, yaw, pitch, move
+from mayavi.tools.figure import (
+    figure,
+    clf,
+    gcf,
+    savefig,
+    draw,
+    sync_camera,
+    close,
+    screenshot,
 )
+from mayavi.tools.engine_manager import get_engine, show_pipeline, options, set_engine
+from mayavi.tools.show import show
+from mayavi.tools.animator import animate
 
-from .tools import pipeline
 
-from .tools.tools import start_recording, stop_recording
+def show_engine():
+    """This function is deprecated, please use show_pipeline.
+    """
+    import warnings
 
-from .tools.notebook import init as init_notebook
+    warnings.warn(
+        "The show_engine function is deprecated, please use" "show_pipeline",
+        stacklevel=2,
+    )
+    return show_pipeline()
+
 
 if __name__ == "__main__":
     import numpy as np

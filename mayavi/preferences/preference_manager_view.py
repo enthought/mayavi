@@ -26,6 +26,8 @@ from mayavi.preferences.preference_manager import preference_manager
 ################################################################################
 # `PreferenceManagerView` class
 ################################################################################
+
+
 class PreferenceManagerView(PreferencesManager):
     """ A preference manager UI for Mayavi, to be used outside of
         Envisage.

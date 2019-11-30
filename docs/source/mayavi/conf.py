@@ -14,6 +14,7 @@
 
 # Adding the current directory to the path, so that sphinx finds the
 # extensions.
+import shutil
 import os
 
 try:
@@ -156,7 +157,6 @@ latex_logo = "m2_about.jpg"
 
 ################################################################################
 # A hack:
-import shutil
 
 shutil.copyfile(
     os.path.join(basedir, "../../CHANGES.txt"),

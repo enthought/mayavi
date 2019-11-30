@@ -8,6 +8,10 @@ example, please read section :ref:`builing-applications`.
 
 # First, and before importing any Enthought packages, set the ETS_TOOLKIT
 # environment variable to qt4, to tell Traits that we will use Qt.
+from mayavi.core.ui.api import MayaviScene, MlabSceneModel, SceneEditor
+from traitsui.api import View, Item
+from traits.api import HasTraits, Instance, on_trait_change
+from pyface.qt import QtGui, QtCore
 import os
 
 os.environ["ETS_TOOLKIT"] = "qt4"
@@ -17,16 +21,11 @@ os.environ["ETS_TOOLKIT"] = "qt4"
 
 # To be able to use PySide or PyQt4 and not run in conflicts with traits,
 # we need to import QtGui and QtCore from pyface.qt
-from pyface.qt import QtGui, QtCore
 
 # Alternatively, you can bypass this line, but you need to make sure that
 # the following lines are executed before the import of PyQT:
 #   import sip
 #   sip.setapi('QString', 2)
-
-from traits.api import HasTraits, Instance, on_trait_change
-from traitsui.api import View, Item
-from mayavi.core.ui.api import MayaviScene, MlabSceneModel, SceneEditor
 
 
 ################################################################################

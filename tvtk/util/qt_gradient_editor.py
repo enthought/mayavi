@@ -27,6 +27,8 @@ PY3 = sys.version_info[0] > 2
 ##########################################################################
 # `QGradientControl` class.
 ##########################################################################
+
+
 class QGradientControl(QtGui.QWidget):
     """Widget which displays the gradient represented by an GradientTable
     object (and does nothing beyond that)"""
@@ -465,7 +467,7 @@ class QGradientEditor(QtGui.QMainWindow):
         self.resize(300, 500)
 
         self.statusBar()
-        ## Set up the MenuBar
+        # Set up the MenuBar
         menu = self.menuBar()
         file_menu = menu.addMenu("&File")
 
@@ -518,6 +520,7 @@ def main():
 
     table, ctf, otf = make_test_table(lut=False)
     # the actual gradient editor code.
+
     def on_color_table_changed():
         """If we had a vtk window running, update it here"""
         # print("Update Render Window")

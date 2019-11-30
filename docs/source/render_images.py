@@ -20,6 +20,8 @@ IMAGE_DIR = os.path.join(
 )
 
 #############################################################################
+
+
 def capture_image(func, filename):
     """ Runs a function doing some mayavi drawing and save the resulting
         scene to a file.

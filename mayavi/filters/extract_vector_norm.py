@@ -13,6 +13,8 @@ from mayavi.core.pipeline_info import PipelineInfo
 ######################################################################
 # `ExtractVectorNorm` class.
 ######################################################################
+
+
 class ExtractVectorNorm(FilterBase):
     """Computes the norm (Eucliedean) of the input vector data (with
     optional scaling between [0, 1]).  This is useful when the input

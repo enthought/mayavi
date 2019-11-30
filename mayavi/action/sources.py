@@ -24,6 +24,8 @@ from .filters import new_class
 ######################################################################
 # Utility functions
 ######################################################################
+
+
 def get_scene(mayavi):
     """Given a mayavi script instance, get the current scene.  If none
     is available create a new one.

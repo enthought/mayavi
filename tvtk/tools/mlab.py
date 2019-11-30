@@ -112,6 +112,8 @@ VTK_VER = StrictVersion(tvtk.Version().vtk_version)
 ######################################################################
 # Utility functions.
 ######################################################################
+
+
 def _make_actor(**kwargs):
     """Return a TVTK actor.  If `mlab.USE_LOD_ACTOR` is `True` it
     returns an LODActor if not it returns a normal actor.

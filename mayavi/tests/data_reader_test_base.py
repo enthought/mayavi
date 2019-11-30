@@ -14,7 +14,6 @@ from mayavi.modules.outline import Outline
 
 class DataReaderTestBase(unittest.TestCase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().

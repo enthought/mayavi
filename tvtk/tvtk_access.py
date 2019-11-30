@@ -9,6 +9,8 @@ this see the devel.txt in the TVTK documentation directory.
 
 from __future__ import print_function
 
+from tvtk.tvtk_classes import tvtk_helper
+from tvtk.tvtk_classes.vtk_version import vtk_build_version
 from os.path import exists, join, dirname, isdir
 
 # The tvtk wrapper code is all typically inside one zip file.  We try to
@@ -32,7 +34,6 @@ if not (exists(tvtk_class_dir) and isdir(tvtk_class_dir) or exists(_zip)):
     )
 
 # Check if the VTK version is the same as that used to build TVTK.
-from tvtk.tvtk_classes.vtk_version import vtk_build_version
 
 # Make sure VTK is installed.
 try:
@@ -59,6 +60,5 @@ if vtk_version != vtk_build_version:
     print(msg)
 
 # Now setup TVTK itself.
-from tvtk.tvtk_classes import tvtk_helper
 
 tvtk = tvtk_helper.TVTK()

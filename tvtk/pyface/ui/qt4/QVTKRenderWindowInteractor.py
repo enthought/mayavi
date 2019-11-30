@@ -40,6 +40,8 @@ Changes by Fabian Wenzel, Jan. 2016
  Support for Python3
 """
 
+from tvtk import messenger
+import vtk
 import sys
 
 from pyface.qt import qt_api
@@ -53,9 +55,6 @@ elif qt_api == "pyside2":
 else:
     PyQtImpl = "PySide"
 
-import vtk
-
-from tvtk import messenger
 
 # Check whether a specific QVTKRenderWindowInteractor base
 # class was chosen, can be set to "QGLWidget"

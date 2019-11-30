@@ -12,6 +12,8 @@ from apptools.preferences.api import PreferencesHelper
 ################################################################################
 # `RootPreferencesHelper` class
 ################################################################################
+
+
 class RootPreferencesHelper(PreferencesHelper):
 
     # The preferences path for which we use.

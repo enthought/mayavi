@@ -21,6 +21,8 @@ from mayavi.core.api import Engine
 from mayavi.core.ui.api import MayaviScene, MlabSceneModel, SceneEditor
 
 ################################################################################
+
+
 class MyApp(HasTraits):
 
     # The first engine. As default arguments (an empty tuple) are given,

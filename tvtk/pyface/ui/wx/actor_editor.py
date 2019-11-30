@@ -31,6 +31,8 @@ from .decorated_scene import DecoratedScene
 #####################################################################
 # `_ActorEditor` class
 #####################################################################
+
+
 class _ActorEditor(Editor):
     """ An editor for TVTK scenes.
     """

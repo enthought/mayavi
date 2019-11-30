@@ -13,6 +13,8 @@ from tvtk.api import tvtk
 ##########################################################################
 # Traits UI factory functions.
 ##########################################################################
+
+
 def gradient_editor_factory(parent, trait_editor):
     """This is a factory function for `traitsui.CustomEditor` and allows us to
     use the `wxGradientEditorWidget` or `QGradientEditorWidget` as a traits
@@ -41,6 +43,8 @@ VolumePropertyEditor = CustomEditor(gradient_editor_factory)
 ##########################################################################
 # Test case related code.
 ##########################################################################
+
+
 def make_test_table(lut=False):
     from .ctf import ColorTransferFunction, PiecewiseFunction
 

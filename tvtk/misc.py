@@ -13,6 +13,8 @@ from tvtk.common import configure_input_data
 ######################################################################
 # Utility functions.
 ######################################################################
+
+
 def write_data(dataset, fname, **kwargs):
     """Given a TVTK `dataset` this writes the `dataset` to a VTK XML
     file having file name `fname`.

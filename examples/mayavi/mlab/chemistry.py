@@ -17,6 +17,8 @@ The original is an electron localization function from Axel Kohlmeyer.
 # License: BSD Style.
 
 # Retrieve the electron localization data for H2O #############################
+from mayavi import mlab
+import numpy as np
 import os
 
 if not os.path.exists("h2o-elf.cube"):
@@ -31,8 +33,6 @@ if not os.path.exists("h2o-elf.cube"):
 
 
 # Plot the atoms and the bonds ################################################
-import numpy as np
-from mayavi import mlab
 
 mlab.figure(1, bgcolor=(0, 0, 0), size=(350, 350))
 mlab.clf()

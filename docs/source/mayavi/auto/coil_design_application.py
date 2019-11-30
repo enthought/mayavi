@@ -63,6 +63,8 @@ Z = np.round(Z * f) / f
 
 ##############################################################################
 # A current loop class
+
+
 class Loop(HasTraits):
     """ A current loop class.
     """
@@ -146,7 +148,7 @@ class Loop(HasTraits):
         returns the magnetic field for the current loop calculated
         from eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987.
         """
-        ### Translate the coordinates in the coil's frame
+        # Translate the coordinates in the coil's frame
         n, l, m = self.base_vectors()
         R = self.radius
         r0 = self.position
@@ -158,7 +160,7 @@ class Loop(HasTraits):
         r -= r0  # point location from center of coil
         r = np.dot(r, linalg.inv(trans))  # transform vector to coil frame
 
-        #### calculate field
+        # calculate field
 
         # express the coordinates in polar form
         x = r[:, 0]

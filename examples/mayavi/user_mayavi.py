@@ -35,6 +35,10 @@ The file may also be placed anywhere on sys.path and called
 # Copyright (c) 2006-2008, Enthought, Inc.
 # License: BSD Style.
 
+from envisage.api import Plugin, ServiceOffer
+from traitsui.api import Item, View
+from traits.api import HasTraits, Range, Button, Instance, List
+import numpy as np
 from mayavi.core.registry import registry
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.metadata import ModuleMetadata
@@ -60,6 +64,8 @@ registry.modules.append(user_outline)
 #######
 # The all important function that returns the plugin we wish to add to
 # the default mayavi application.
+
+
 def get_plugins():
     # We simply return a list containing the WorkerPlugin defined below.
     return [WorkerPlugin()]
@@ -116,14 +122,12 @@ def user_outline():
 # The WorkerPlugin exposes the service offer and shows the view of this
 # worker.
 
-import numpy as np
-
-from traits.api import HasTraits, Range, Button, Instance, List
-from traitsui.api import Item, View
 
 ######################################################################
 # `Worker` class
 ######################################################################
+
+
 class Worker(HasTraits):
     """This class basically allows you to create a data set, view it
     and modify the dataset.  This is a rather crude example but
@@ -205,11 +209,12 @@ class Worker(HasTraits):
 ######################################################################
 # The following code is the small amount of envisage code that brings
 # the users code (above) and Envisage/Mayavi UI together.
-from envisage.api import Plugin, ServiceOffer
 
 ######################################################################
 # `WorkerPlugin` class
 ######################################################################
+
+
 class WorkerPlugin(Plugin):
 
     # Extension point Ids.

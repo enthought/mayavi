@@ -23,6 +23,7 @@ nearest-neighboor matching, and visualize it using the surface module.
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
+from mayavi import mlab
 import numpy as np
 
 # Create data with x and y random in the [-2, 2] segment, and z a
@@ -38,7 +39,6 @@ def f(x, y):
 
 z = f(x, y)
 
-from mayavi import mlab
 
 mlab.figure(1, fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))
 

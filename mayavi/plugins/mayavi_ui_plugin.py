@@ -24,6 +24,8 @@ LOGGER_VIEW = "apptools.logger.plugin.view.logger_view.LoggerView"
 ###############################################################################
 # `MayaviPerspective` class.
 ###############################################################################
+
+
 class MayaviPerspective(Perspective):
     """ A default perspective for Mayavi. """
 

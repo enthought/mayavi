@@ -26,6 +26,8 @@ if not hasattr(tvtk, "OrientationMarkerWidget"):
 ######################################################################
 # `OrientationAxes` class.
 ######################################################################
+
+
 class OrientationAxes(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0

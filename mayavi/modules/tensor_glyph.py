@@ -19,6 +19,8 @@ from mayavi.components import glyph
 ######################################################################
 # `TensorGlyph` class.
 ######################################################################
+
+
 class TensorGlyph(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0

@@ -12,6 +12,7 @@ TVTK sees a view of this array without doing any data transfers.
 
 from __future__ import print_function
 
+import time
 from numpy import arange, zeros, uint8, exp, sqrt, pi
 
 from tvtk.api import tvtk
@@ -122,7 +123,6 @@ wave = 1 / sqrt(2 * pi) * exp(-arange(-2, 2, 0.05) ** 2 / 2) * 255
 # have to use += here because = doesn't respect broadcasting correctly.
 array_3d[: len(wave)] += wave.astype(uint8)[:, None, None]
 
-import time
 
 t1 = time.time()
 N = 256

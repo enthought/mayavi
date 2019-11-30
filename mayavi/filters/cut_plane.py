@@ -11,6 +11,8 @@ from mayavi.core.pipeline_info import PipelineInfo
 ################################################################################
 # `CutPlane` class.
 ################################################################################
+
+
 class CutPlane(Collection):
     """
     This class represents a cut plane that can be used to slice through

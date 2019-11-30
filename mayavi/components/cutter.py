@@ -16,6 +16,8 @@ from mayavi.core.component import Component
 ######################################################################
 # `Cutter` class.
 ######################################################################
+
+
 class Cutter(Component):
     # The version of this class.  Used for persistence.
     __version__ = 0

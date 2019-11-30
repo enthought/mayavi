@@ -23,6 +23,8 @@ from tvtk.common import is_old_pipeline
 ######################################################################
 # `ExtractGrid` class.
 ######################################################################
+
+
 class ExtractGrid(FilterBase):
     """This filter enables one to select a portion of, or subsample an
     input dataset which may be a StructuredPoints, StructuredGrid or

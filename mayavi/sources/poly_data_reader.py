@@ -21,6 +21,8 @@ from mayavi.core.common import error
 ########################################################################
 # `PolyDataReader` class
 ########################################################################
+
+
 class PolyDataReader(FileDataSource):
 
     """A PolyData file reader. The reader supports all the

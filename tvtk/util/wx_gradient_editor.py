@@ -25,6 +25,8 @@ from tvtk.util.gradient_editor import (
 ##########################################################################
 # `wxGradientControl` class.
 ##########################################################################
+
+
 class wxGradientControl(wx.Panel):
     """Widget which displays the gradient represented by an GradientTable
     object (and does nothing beyond that)"""
@@ -476,7 +478,7 @@ class wxGradientEditor(wx.Frame):
         """
         Create menus (i.e. Create Filemenu and submenus, help menu, ...)
         """
-        ## Set up the MenuBar
+        # Set up the MenuBar
         MenuBar = wx.MenuBar()
 
         # FILE Menu....
@@ -534,6 +536,7 @@ def main():
 
     table, ctf, otf = make_test_table(lut=False)
     # the actual gradient editor code.
+
     def on_color_table_changed():
         """If we had a vtk window running, update it here"""
         print("Update Render Window")

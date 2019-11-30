@@ -12,6 +12,7 @@ andand  go back to the 2D index on the data matrix to find its position.
 
 ################################################################################
 # Create some data
+from mayavi import mlab
 import numpy as np
 
 pi = np.pi
@@ -39,7 +40,6 @@ z = sin(phi) * sin(theta)
 
 ################################################################################
 # Plot the data
-from mayavi import mlab
 
 # A first plot in 3D
 fig = mlab.figure(1)

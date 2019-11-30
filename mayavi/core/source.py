@@ -24,6 +24,8 @@ from mayavi.core.adder_node import ModuleFilterAdderNode
 ######################################################################
 # Utility functions.
 ######################################################################
+
+
 def is_filter(object):
     from mayavi.core.filter import Filter
 

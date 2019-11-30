@@ -20,6 +20,8 @@ from mayavi.core.utils import DataSetHelper
 ######################################################################
 # `SourceWidget` class.
 ######################################################################
+
+
 class SourceWidget(Component):
 
     # The version of this class.  Used for persistence.

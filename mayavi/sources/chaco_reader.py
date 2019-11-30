@@ -16,6 +16,8 @@ from mayavi.core.pipeline_info import PipelineInfo
 ########################################################################
 # `ChacoReader` class
 ########################################################################
+
+
 class ChacoReader(Source):
 
     """A Chaco reader.

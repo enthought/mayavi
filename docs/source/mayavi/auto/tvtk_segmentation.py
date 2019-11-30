@@ -12,6 +12,11 @@ not be used as an example of segmentation.
 """
 
 ### Download the data, if not already on disk ##################################
+from tvtk.pipeline.browser import PipelineBrowser
+from tvtk.api import tvtk
+from mayavi import mlab
+import numpy as np
+import tarfile
 import os
 
 if not os.path.exists("MRbrain.tar.gz"):
@@ -25,7 +30,6 @@ if not os.path.exists("MRbrain.tar.gz"):
     open("MRbrain.tar.gz", "wb").write(opener.read())
 
 # Extract the data
-import tarfile
 
 tar_file = tarfile.open("MRbrain.tar.gz")
 try:
@@ -37,7 +41,6 @@ tar_file.close()
 
 
 ### Read the data in a numpy 3D array ##########################################
-import numpy as np
 
 data = np.array(
     [
@@ -67,8 +70,6 @@ brain_thr = bins[brain_thr_idx + 4]
 del hist, bins, brain_thr_idx
 
 # Display the data #############################################################
-from mayavi import mlab
-from tvtk.api import tvtk
 
 fig = mlab.figure(bgcolor=(0, 0, 0), size=(400, 500))
 # to speed things up
@@ -148,7 +149,6 @@ fig.scene.disable_render = False
 # To make the link between the Mayavi pipeline and the much more
 # complex VTK pipeline, we display both:
 mlab.show_pipeline(rich_view=False)
-from tvtk.pipeline.browser import PipelineBrowser
 
 browser = PipelineBrowser(fig.scene)
 browser.show()

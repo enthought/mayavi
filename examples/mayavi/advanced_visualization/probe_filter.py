@@ -41,6 +41,7 @@ are collapsed in the Mayavi filters and modules.
 Note that, as we know the expression of the function, it would be simpler
 and more efficient to directly sample it on the sphere.
 """
+from tvtk.pipeline.browser import PipelineBrowser
 import numpy as np
 
 from mayavi import mlab
@@ -74,7 +75,6 @@ fig = mlab.gcf()
 # use the TVTK pipeline browser)
 # Note that for Mayavi version < 3.4.1, there is a bug in the
 # PipelineBrowser preventing a good display of this pipeline.
-from tvtk.pipeline.browser import PipelineBrowser
 
 browser = PipelineBrowser(fig.scene)
 browser.show()

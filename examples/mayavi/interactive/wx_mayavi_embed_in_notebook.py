@@ -11,21 +11,21 @@ In this example, we embed one single Mayavi scene in a Wx notebook, with
 
 # First thing, we need to make sure that we are importing a
 # recent-enough version of wx
+import wx
+from mayavi.core.ui.api import MlabSceneModel, SceneEditor
+from mayavi.modules.api import IsoSurface
+from mayavi.sources.api import ArraySource
+from traitsui.api import View, Item
+from traits.api import HasTraits, Instance
+from numpy import ogrid, sin
 import wxversion
 
 wxversion.ensureMinimal("2.8")
 
-from numpy import ogrid, sin
-
-from traits.api import HasTraits, Instance
-from traitsui.api import View, Item
-
-from mayavi.sources.api import ArraySource
-from mayavi.modules.api import IsoSurface
-
-from mayavi.core.ui.api import MlabSceneModel, SceneEditor
 
 # -------------------------------------------------------------------------------
+
+
 class MayaviView(HasTraits):
 
     scene = Instance(MlabSceneModel, ())
@@ -47,7 +47,6 @@ class MayaviView(HasTraits):
 
 # -------------------------------------------------------------------------------
 # Wx Code
-import wx
 
 
 class MainWindow(wx.Frame):

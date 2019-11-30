@@ -15,6 +15,7 @@ In this example, the wx part is very simple. See
 embedding of Mayavi scenes in Wx applications.
 """
 
+import wx
 from numpy import ogrid, sin
 
 from traits.api import HasTraits, Instance
@@ -48,7 +49,6 @@ class MayaviView(HasTraits):
 
 # -----------------------------------------------------------------------------
 # Wx Code
-import wx
 
 
 class MainWindow(wx.Frame):

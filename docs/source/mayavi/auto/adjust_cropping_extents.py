@@ -27,14 +27,15 @@ on creating GUIs with Traits:
 
 ################################################################################
 # Create a set of points, with given density
+from mayavi import mlab
+from traitsui.api import View
+from traits.api import HasTraits, Range, Float, Instance, on_trait_change
 import numpy as np
 
 x, y, z, s = np.random.random((4, 500))
 
 ################################################################################
 # A dialog to edit a range interactively and propagate it to the filter
-from traits.api import HasTraits, Range, Float, Instance, on_trait_change
-from traitsui.api import View
 
 
 class ExtentDialog(HasTraits):
@@ -89,7 +90,6 @@ class ExtentDialog(HasTraits):
 
 ################################################################################
 # Now build the visualization using mlab
-from mayavi import mlab
 
 fig = mlab.figure(1, bgcolor=(1, 1, 1))
 

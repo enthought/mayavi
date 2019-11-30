@@ -25,6 +25,8 @@ logger = logging.getLogger()
 ######################################################################
 # Useful functions.
 ######################################################################
+
+
 def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     """Setup a log file and the logger.  If the given file name is not
     absolute, put the log file in `ETSConfig.application_home`, if not

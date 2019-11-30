@@ -21,7 +21,6 @@ vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
 class TestPDBReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -52,7 +51,6 @@ class TestPDBReader(DataReaderTestBase):
 
 class TestBYUReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -83,7 +81,6 @@ class TestBYUReader(DataReaderTestBase):
 
 class TestOBJReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -114,7 +111,6 @@ class TestOBJReader(DataReaderTestBase):
 
 class TestParticleReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -148,7 +144,6 @@ class TestParticleReader(DataReaderTestBase):
 
 class TestPLYReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -172,7 +167,6 @@ class TestPLYReader(DataReaderTestBase):
 
 class TestPointsReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -203,7 +197,6 @@ class TestPointsReader(DataReaderTestBase):
 
 class TestSTLReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -234,7 +227,6 @@ class TestSTLReader(DataReaderTestBase):
 
 class TestFacetReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -265,7 +257,6 @@ class TestFacetReader(DataReaderTestBase):
 
 class TestSLCReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().

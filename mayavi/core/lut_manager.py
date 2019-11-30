@@ -221,7 +221,7 @@ class LUTManager(Base):
     )
 
     ########################################
-    ## Private traits.
+    # Private traits.
     # The original range of the data.
     _orig_data_range = Array(shape=(2,), value=[0.0, 1.0], dtype=float)
     _title_text_property = Instance(tvtk.TextProperty)

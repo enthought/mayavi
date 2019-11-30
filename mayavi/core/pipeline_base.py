@@ -18,6 +18,8 @@ import tvtk.common as tvtk_common
 ######################################################################
 # `PipelineBase` class.
 ######################################################################
+
+
 class PipelineBase(Base):
     """ Base class for all the Source, Filters and Modules in the
         pipeline.

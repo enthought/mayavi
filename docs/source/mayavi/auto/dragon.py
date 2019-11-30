@@ -3,6 +3,8 @@ Viewing Stanford 3D Scanning Repository dragon model
 """
 # Copyright (c) 2014-2015, Enthought, Inc.
 # Standard library imports
+import shutil
+import tarfile
 import os
 from os.path import join
 
@@ -23,7 +25,6 @@ if not os.path.exists("dragon.tar.gz"):
     open("dragon.tar.gz", "wb").write(opener.read())
 
 # Extract the data
-import tarfile
 
 dragon_tar_file = tarfile.open("dragon.tar.gz")
 try:
@@ -40,6 +41,5 @@ dragon_ply_file = join("dragon_data", "dragon_recon", "dragon_vrip.ply")
 mlab.pipeline.surface(mlab.pipeline.open(dragon_ply_file))
 mlab.show()
 
-import shutil
 
 shutil.rmtree("dragon_data")

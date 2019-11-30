@@ -25,6 +25,8 @@ VTK_VERSION = tvtk.Version().vtk_major_version + 0.1 * tvtk.Version().vtk_minor_
 ################################################################################
 # class `MousePickDispatcher`
 ################################################################################
+
+
 class MousePickDispatcher(HasTraits):
     """ An event dispatcher to send pick event on mouse clicks.
 

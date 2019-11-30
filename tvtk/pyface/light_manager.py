@@ -34,6 +34,8 @@ from apptools.persistence import state_pickler
 ######################################################################
 # `LightGlyph` class.
 ######################################################################
+
+
 class LightGlyph(HasTraits):
     """Manages a glyph that represents a Light source in the scene.
     This gives the user an *idea* of where the light source is placed

@@ -19,6 +19,7 @@ visualization with Mayavi and scipy, see
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
+from mayavi import mlab
 import numpy as np
 from scipy import special
 
@@ -58,7 +59,6 @@ Bx, By = x_proj * Brho, y_proj * Brho
 del x_proj, y_proj, Brho
 
 #### Visualize the field ####################################################
-from mayavi import mlab
 
 fig = mlab.figure(1, size=(400, 400), bgcolor=(1, 1, 1), fgcolor=(0, 0, 0))
 

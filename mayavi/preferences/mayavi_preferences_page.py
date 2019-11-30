@@ -12,6 +12,8 @@ from apptools.preferences.ui.api import PreferencesPage
 ################################################################################
 # `MayaviRootPreferencesPage` class
 ################################################################################
+
+
 class MayaviRootPreferencesPage(PreferencesPage):
     """ Preferences page for Mayavi. """
 

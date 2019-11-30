@@ -3,6 +3,8 @@ Viewing Stanford 3D Scanning Repository lucy model
 """
 # Copyright (c) 2014-2015, Enthought, Inc.
 # Standard library imports
+import shutil
+import tarfile
 import os
 from os.path import join
 
@@ -21,7 +23,6 @@ if not os.path.exists("lucy.tar.gz"):
     open("lucy.tar.gz", "wb").write(opener.read())
 
 # Extract the data
-import tarfile
 
 lucy_tar_file = tarfile.open("lucy.tar.gz")
 try:
@@ -38,6 +39,5 @@ lucy_ply_file = join("lucy_data", "lucy.ply")
 mlab.pipeline.surface(mlab.pipeline.open(lucy_ply_file))
 mlab.show()
 
-import shutil
 
 shutil.rmtree("lucy_data")

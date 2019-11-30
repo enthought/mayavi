@@ -31,6 +31,8 @@ from tvtk.common import get_tvtk_name
 ################################################################################
 # Utility functions.
 ################################################################################
+
+
 def get_tvtk_class_names():
     """Returns 4 lists:
 
@@ -142,6 +144,8 @@ TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = get_tvtk_class_names()
 ################################################################################
 # `DocSearch` class.
 ################################################################################
+
+
 class DocSearch(object):
 
     """A simple class that provides a method to search through class
@@ -327,6 +331,7 @@ class TVTKClassChooser(HasTraits):
     ######################################################################
     # `object` interface.
     ######################################################################
+
     def __init__(self, **traits):
         super(TVTKClassChooser, self).__init__(**traits)
         self._orig_available = list(self.available)

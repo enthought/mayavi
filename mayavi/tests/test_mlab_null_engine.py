@@ -13,6 +13,8 @@ from mayavi.tests.common import get_example_data
 ################################################################################
 # class `TestMlabNullEngineBase`
 ################################################################################
+
+
 class TestMlabNullEngineBase(unittest.TestCase):
     """ Base class to test mlab with the null engine
     """

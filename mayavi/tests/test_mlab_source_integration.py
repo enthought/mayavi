@@ -17,6 +17,8 @@ from mayavi.tools import sources
 ################################################################################
 # `BaseTestSource`
 ################################################################################
+
+
 class BaseTestSource(unittest.TestCase):
     def setUp(self):
         return
@@ -222,7 +224,10 @@ class TestArray2DSource(BaseTestSource):
         # Check for an ogrid as position vectors, and a function for the
         # scalars
         x, y = np.ogrid[-3:3, -3:3]
-        f = lambda x, y: x ** 2 + y ** 2
+
+        def f(x, y):
+            return x ** 2 + y ** 2
+
         ss = sources.array2d_source(x, y, f, figure=None)
         self.check_scalars(ss, f(x, y))
 
@@ -243,7 +248,9 @@ class TestScalarField(BaseTestSource):
 
         # Check for 2D arrays as positions vectors, and a function for
         # the data
-        f = lambda x, y, z: x ** 2 + y ** 2
+        def f(x, y, z):
+            return x ** 2 + y ** 2
+
         x, y = np.mgrid[-3:3, -3:3]
         z = np.zeros_like(x)
         ss = sources.scalar_field(x, y, z, f, figure=None)
@@ -330,7 +337,10 @@ class TestLineSource(BaseTestSource):
 
         # Check for arrays as position vectors and a function as data
         x, y, z = np.random.random((3, 10))
-        f = lambda x, y, z: x + y + z
+
+        def f(x, y, z):
+            return x + y + z
+
         ss = sources.line_source(x, y, z, f, figure=None)
         self.check_positions(ss, x, y, z)
         self.check_scalars(ss, f(x, y, z))
@@ -365,7 +375,10 @@ class TestVerticalVectorsSource(BaseTestSource):
         # Check for arrays as position vectors and a function as data
         x, y, z = np.random.random((3, 10))
         zeros = np.zeros_like(x)
-        f = lambda x, y, z: x + y + z
+
+        def f(x, y, z):
+            return x + y + z
+
         ss = sources.vertical_vectors_source(x, y, z, f, figure=None)
         self.check_positions(ss, x, y, z)
         self.check_scalars(ss, f(x, y, z))

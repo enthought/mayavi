@@ -774,7 +774,10 @@ class DataSourceWizardView(DataSourceWizard):
         """
         self._preview_window.clear()
         self._preview_window.add_source(self.data_source)
-        data = lambda name: self.data_sources[name]
+
+        def data(name):
+            return self.data_sources[name]
+
         g = Glyph()
         g.glyph.glyph_source.glyph_source = g.glyph.glyph_source.glyph_list[0]
         g.glyph.scale_mode = "data_scaling_off"

@@ -22,6 +22,8 @@ from mayavi.components.actor import Actor
 ######################################################################
 # `HyperStreamline` class.
 ######################################################################
+
+
 class HyperStreamline(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0

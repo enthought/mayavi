@@ -14,6 +14,8 @@ from mayavi.tests.test_mlab_integration import TestMlabNullEngine
 ###############################################################################
 # class `TestMlabSceneModel`
 ###############################################################################
+
+
 class TestMlabSceneModel(TestMlabNullEngine):
     """ Testing the MlabSceneModel, in particular the magic
         mlab attribute.

@@ -51,6 +51,8 @@ data = np.sin(3 * x) / x + 0.05 * z ** 2 + np.cos(3 * y)
 
 ################################################################################
 # The object implementing the dialog
+
+
 class VolumeSlicer(HasTraits):
     # The data to plot
     data = Array()
@@ -144,6 +146,7 @@ class VolumeSlicer(HasTraits):
         ipw.ipw.left_button_action = 0
         # Add a callback on the image plane widget interaction to
         # move the others
+
         def move_view(obj, evt):
             position = obj.GetCurrentCursorPosition()
             for other_axis, axis_number in self._axis_names.items():

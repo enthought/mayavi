@@ -42,10 +42,14 @@ http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html
 # License: BSD Style.
 
 # The pdb code for the protein.
+from mayavi import mlab
+import numpy as np
+import gzip
+import os
+
 protein_code = "2q09"
 
 # Retrieve the file from the protein database #################################
-import os
 
 if not os.path.exists("pdb%s.ent.gz" % protein_code):
     # Download the data
@@ -61,7 +65,6 @@ if not os.path.exists("pdb%s.ent.gz" % protein_code):
     open("pdb%s.ent.gz" % protein_code, "wb").write(opener.read())
 
 # Parse the pdb file ##########################################################
-import gzip
 
 infile = gzip.GzipFile("pdb%s.ent.gz" % protein_code, "rb")
 
@@ -113,7 +116,6 @@ connections = list()
 for start, stop in edges:
     connections.append((labels[start], labels[stop]))
 
-import numpy as np
 
 x = np.array(x)
 y = np.array(y)
@@ -121,7 +123,6 @@ z = np.array(z)
 scalars = np.array(scalars)
 
 # Visualize the data ##########################################################
-from mayavi import mlab
 
 mlab.figure(1, bgcolor=(0, 0, 0))
 mlab.clf()

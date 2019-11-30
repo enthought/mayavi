@@ -246,7 +246,6 @@ class TestMVerticalSource(unittest.TestCase):
         self.check_dataset()
 
     def test_reset1(self):
-
         "Test the reset method."
         x, y, z, s, src = self.get_data()
         self.check_traits()
@@ -476,7 +475,6 @@ class TestMLineSource(unittest.TestCase):
         self.check_dataset()
 
     def test_reset1(self):
-
         "Test the reset method."
         x, y, z, s, src = self.get_data()
         self.check_traits()

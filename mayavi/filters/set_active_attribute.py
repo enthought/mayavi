@@ -17,6 +17,8 @@ from mayavi.sources.vtk_xml_file_reader import get_all_attributes
 ################################################################################
 # `SetActiveAttribute` class.
 ################################################################################
+
+
 class SetActiveAttribute(Filter):
     """
     This filter lets a user set the active data attribute (scalars,

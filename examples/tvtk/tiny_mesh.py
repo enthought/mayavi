@@ -13,7 +13,7 @@ from tvtk.api import tvtk
 from tvtk.common import configure_input_data
 from numpy import array
 
-### DATA
+# DATA
 data = array([[0, 0, 0, 10], [1, 0, 0, 20], [0, 1, 0, 20], [0, 0, 1, 30]], "f")
 
 triangles = array([[0, 1, 3], [0, 3, 2], [1, 2, 3], [0, 2, 1]])
@@ -21,7 +21,7 @@ triangles = array([[0, 1, 3], [0, 3, 2], [1, 2, 3], [0, 2, 1]])
 points = data[:, :3]
 temperature = data[:, -1]
 
-### TVTK PIPELINE
+# TVTK PIPELINE
 # create a renderer
 renderer = tvtk.Renderer()
 

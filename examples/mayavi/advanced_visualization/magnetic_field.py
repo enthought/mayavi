@@ -89,7 +89,7 @@ def magnetic_field(r, n, r0, R):
         in inverse units of (mu I) / (2 pi d)
         for I in amps and d in meters and mu = 4 pi * 10^-7 we get Tesla
     """
-    ### Translate the coordinates in the coil's frame
+    # Translate the coordinates in the coil's frame
     n, l, m = base_vectors(n)
 
     # transformation matrix coil frame to lab frame
@@ -102,7 +102,7 @@ def magnetic_field(r, n, r0, R):
     # transform vector to coil frame
     r = np.dot(r, inv_trans)
 
-    #### calculate field
+    # calculate field
 
     # express the coordinates in polar form
     x = r[:, 0]

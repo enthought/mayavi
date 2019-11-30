@@ -533,7 +533,8 @@ class Scene(TVTKScene, Widget):
         messenger.connect(vtk_rw, "EndEvent", self._end_event_callback)
 
         # Reset the event handler to the default since our job is done.
-        self._vtk_control.Bind(wx.EVT_PAINT, None)  # Remove the default handler.
+        # Remove the default handler.
+        self._vtk_control.Bind(wx.EVT_PAINT, None)
         self._vtk_control.Bind(wx.EVT_PAINT, self._vtk_control.OnPaint)
 
     def OnSize(self, event):

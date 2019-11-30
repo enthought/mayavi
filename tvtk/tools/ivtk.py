@@ -46,6 +46,8 @@ from tvtk.pipeline.browser import PipelineBrowser
 ######################################################################
 # The scene icon.
 ######################################################################
+
+
 def mk_scene_icon():
     icon_path = os.path.join(resource_path(), "images", "scene.ico")
     return ImageResource(icon_path)
@@ -56,6 +58,8 @@ scene_icon = mk_scene_icon()
 ######################################################################
 # `ExitAction` class.
 ######################################################################
+
+
 class ExitAction(Action):
     """ Exits the application. """
 

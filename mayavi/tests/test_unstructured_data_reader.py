@@ -18,7 +18,6 @@ old_pipeline = is_old_pipeline()
 
 class TestAVSUCDReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -51,7 +50,6 @@ class TestAVSUCDReader(DataReaderTestBase):
 @unittest.skipIf(not old_pipeline, "ExodusReader is not supported VTK 6.0 onwards.")
 class TestExodusReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -86,7 +84,6 @@ class TestExodusReader(DataReaderTestBase):
 @unittest.skip("ExodusIIReader support is disabled for now.")
 class TestExodusIIReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -107,7 +104,6 @@ class TestExodusIIReader(DataReaderTestBase):
 
 class TestGambitReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().

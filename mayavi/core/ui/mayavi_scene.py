@@ -23,6 +23,8 @@ from mayavi.preferences.api import set_scene_preferences, get_scene_preferences
 ###############################################################################
 # A decorated scene with an additional button.
 ###############################################################################
+
+
 class MayaviScene(DecoratedScene):
     """ A scene UI, similar to a decorated scene, but with more buttons.
     """

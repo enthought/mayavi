@@ -24,6 +24,8 @@ logger = logging.getLogger()
 ######################################################################
 # `EnvisageEngine` class
 ######################################################################
+
+
 class EnvisageEngine(Engine):
 
     # The version of this class.  Used for persistence.

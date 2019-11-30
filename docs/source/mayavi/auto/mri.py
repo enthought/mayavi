@@ -17,6 +17,10 @@ see :ref:`example_tvtk_segmentation`.
 """
 
 ### Download the data, if not already on disk #################################
+import shutil
+from mayavi import mlab
+import numpy as np
+import tarfile
 import os
 
 if not os.path.exists("MRbrain.tar.gz"):
@@ -30,7 +34,6 @@ if not os.path.exists("MRbrain.tar.gz"):
     open("MRbrain.tar.gz", "wb").write(opener.read())
 
 # Extract the data
-import tarfile
 
 tar_file = tarfile.open("MRbrain.tar.gz")
 try:
@@ -42,7 +45,6 @@ tar_file.close()
 
 
 ### Read the data in a numpy 3D array #########################################
-import numpy as np
 
 data = np.array(
     [
@@ -54,7 +56,6 @@ data.shape = (109, 256, 256)
 data = data.T
 
 # Display the data ############################################################
-from mayavi import mlab
 
 mlab.figure(bgcolor=(0, 0, 0), size=(400, 400))
 
@@ -105,6 +106,5 @@ mlab.roll(-175)
 
 mlab.show()
 
-import shutil
 
 shutil.rmtree("mri_data")

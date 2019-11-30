@@ -19,6 +19,8 @@ from mayavi.core.adder_node import SourceAdderNode
 ######################################################################
 # `Scene` class.
 ######################################################################
+
+
 class Scene(Base):
     """ The Mayavi scene class.
     """

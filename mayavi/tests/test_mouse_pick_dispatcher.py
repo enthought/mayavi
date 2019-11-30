@@ -16,6 +16,8 @@ from tvtk.pyface.picker import Picker
 ################################################################################
 # class `DummyScene`
 ################################################################################
+
+
 class DummyScene(HasTraits):
     """ Mimics the API of a TVTK scene.
     """

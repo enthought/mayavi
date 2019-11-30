@@ -16,7 +16,6 @@ from mayavi.tests.data_reader_test_base import DataReaderTestBase
 
 class TestDEMImageReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().
@@ -62,7 +61,6 @@ class TestDEMImageReader(DataReaderTestBase):
 
 class TestMHAImageReader(DataReaderTestBase):
     def setup_reader(self):
-
         """"Setup the reader in here.  This is called after the engine
         has been created and started.  The engine is available as
         self.e.  This method is called by setUp().

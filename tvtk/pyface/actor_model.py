@@ -12,6 +12,8 @@ from traits.api import Dict, Event, HasTraits, Bool
 #####################################################################
 # `ITVTKActorModel` class
 #####################################################################
+
+
 class ITVTKActorModel(HasTraits):
     """ An interface for view models that can control a TVTK scene's contents.
     """

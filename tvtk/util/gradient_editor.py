@@ -531,12 +531,12 @@ class ChannelBase(object):
     def __init__(self, function_control, name, rgb_color, channel_index, channel_mode):
         """arguments documented in function body"""
         self.control = function_control  # owning function control
-        self.name = name  #'r','g','b','h','s','v' or 'a'
+        self.name = name  # 'r','g','b','h','s','v' or 'a'
         self.rgb_color = rgb_color
         # ^-- string containing a tk color value with which to
         # paint this channel
         self.index = channel_index  # 0: r or h, 1: g or s, 2: b or v, 3: a
-        self.mode = channel_mode  #'hsv' or 'rgb'
+        self.mode = channel_mode  # 'hsv' or 'rgb'
 
     def get_value(self, color):
         """Return height value of the current channel for the given color.
@@ -695,7 +695,8 @@ class FunctionControl(object):
             self.active_channels_string = "a"
 
         # need to set to "None" initially or event handlers get confused.
-        self.cur_drag = None  # <- [channel,control_point] while something is dragged.
+        # <- [channel,control_point] while something is dragged.
+        self.cur_drag = None
 
     def find_control_point(self, x, y):
         """Check if a control point lies near (x,y) or near x if y is None.

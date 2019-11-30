@@ -22,6 +22,7 @@ connected to the following one.
 # Copyright (c) 2010, Enthought
 # License: BSD style
 
+from mayavi import mlab
 import numpy as np
 
 # The number of points per line
@@ -30,7 +31,6 @@ N = 300
 # The scalar parameter for each line
 t = np.linspace(-2 * np.pi, 2 * np.pi, N)
 
-from mayavi import mlab
 
 mlab.figure(1, size=(400, 400), bgcolor=(0, 0, 0))
 mlab.clf()

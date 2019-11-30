@@ -33,8 +33,15 @@ from traits.util.home_directory import get_home_directory
 from mayavi.preferences.api import preference_manager
 
 # The functions that return the plugins.
-_get_global_plugins = lambda: []
-_get_user_plugins = lambda: []
+
+
+def _get_global_plugins():
+    return []
+
+
+def _get_user_plugins():
+    return []
+
 
 # First try the global mayavi customizations.
 try:

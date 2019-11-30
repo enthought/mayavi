@@ -17,6 +17,8 @@ from mayavi.core.pipeline_info import PipelineInfo
 ######################################################################
 # `ImageActor` class
 ######################################################################
+
+
 class ImageActor(Module):
 
     # An image actor.

@@ -1457,7 +1457,10 @@ def _make_functions(namespace):
             func_name = camel2enthought(src.id)
             if func_name.endswith("_source"):
                 func_name = func_name[:-7]
-            func = lambda metadata=src: _create_data_source(metadata)
+
+            def func(metadata=src):
+                return _create_data_source(metadata)
+
             func.__doc__ = src.help
             func.__name__ = func_name
             # Inject function into the namespace and __all__.

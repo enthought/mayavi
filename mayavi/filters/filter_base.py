@@ -16,6 +16,8 @@ from mayavi.core.filter import Filter
 ######################################################################
 # `FilterBase` class.
 ######################################################################
+
+
 class FilterBase(Filter):
     """The base class for many of the filters.
     """

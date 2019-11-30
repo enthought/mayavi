@@ -32,6 +32,8 @@ logger = logging.getLogger()
 ###############################################################################
 # `TestPerspective` class.
 ###############################################################################
+
+
 class TestPerspective(Perspective):
     """ An default perspective for the app. """
 

@@ -790,7 +790,8 @@ class Ring(HasTraits):
     polydata = Instance(tvtk.PolyData, ())
     property = Instance(tvtk.Property)
     tube = Instance(tvtk.TubeFilter, ())
-    actor = Instance(tvtk.Actor, ())  # tvtk Actor, for the usual pipeline architecture.
+    # tvtk Actor, for the usual pipeline architecture.
+    actor = Instance(tvtk.Actor, ())
     normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################
@@ -1139,7 +1140,8 @@ class Sphere(HasTraits):
 
     polydata = Instance(tvtk.PolyData, ())
     property = Instance(tvtk.Property)
-    actor = Instance(tvtk.Actor, ())  # tvtk Actor, for the usual pipeline architecture.
+    # tvtk Actor, for the usual pipeline architecture.
+    actor = Instance(tvtk.Actor, ())
     normals = Instance(tvtk.PolyDataNormals, ())
 
     ######################################################################
@@ -1296,7 +1298,8 @@ class Cylinder(HasTraits):
     viewer = Any
 
     polydata = Instance(tvtk.PolyData, ())
-    actor = Instance(tvtk.Actor, ())  # tvtk Actor, for the usual pipeline architecture.
+    # tvtk Actor, for the usual pipeline architecture.
+    actor = Instance(tvtk.Actor, ())
     property = Instance(tvtk.Property)
     normals = Instance(tvtk.PolyDataNormals(), ())
 
@@ -1472,7 +1475,8 @@ class Box(HasTraits):
     viewer = Any
 
     polydata = Instance(tvtk.PolyData, ())
-    actor = Instance(tvtk.Actor, ())  # tvtk Actor, for the usual pipeline architecture.
+    # tvtk Actor, for the usual pipeline architecture.
+    actor = Instance(tvtk.Actor, ())
     property = Instance(tvtk.Property)
 
     ######################################################################
@@ -1645,7 +1649,8 @@ class Arrow(HasTraits):
     visibility = Bool(True)
     viewer = Any
 
-    actor = Instance(tvtk.Actor, ())  # tvtk Actor, for the usual pipeline architecture.
+    # tvtk Actor, for the usual pipeline architecture.
+    actor = Instance(tvtk.Actor, ())
     property = Instance(tvtk.Property)
     polydata = Instance(tvtk.PolyData, ())
     normals = Instance(tvtk.PolyDataNormals(), ())
@@ -1833,7 +1838,8 @@ class Helix(HasTraits):
     polydata = Instance(tvtk.PolyData, ())
     property = Instance(tvtk.Property)
     tube = Instance(tvtk.TubeFilter, ())
-    actor = Instance(tvtk.Actor, ())  # tvtk Actor, for the usual pipeline architecture.
+    # tvtk Actor, for the usual pipeline architecture.
+    actor = Instance(tvtk.Actor, ())
     normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################
@@ -2069,7 +2075,8 @@ class Ellipsoid(HasTraits):
 
     polydata = Instance(tvtk.PolyData, ())
     property = Instance(tvtk.Property)
-    actor = Instance(tvtk.Actor, ())  # tvtk Actor, for the usual pipeline architecture.
+    # tvtk Actor, for the usual pipeline architecture.
+    actor = Instance(tvtk.Actor, ())
     normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################

@@ -18,6 +18,8 @@ logger = logging.getLogger()
 ###############################################################################
 # `ExplorerPerspective` class.
 ###############################################################################
+
+
 class ExplorerPerspective(Perspective):
     """ An default perspective for the app. """
 

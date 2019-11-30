@@ -24,6 +24,7 @@ for more details.
 # License: BSD Style.
 
 # Create the data ############################################################
+from mayavi import mlab
 import numpy as np
 
 x, y, z = np.ogrid[-0.5:0.5:200j, -0.5:0.5:200j, -0.5:0.5:200j]
@@ -39,7 +40,6 @@ Y = (x + y * 1j) ** 2 * z / r ** 3
 Phi = L * Y * np.exp(-r) * r ** 2
 
 # Plot it ####################################################################
-from mayavi import mlab
 
 mlab.figure(1, fgcolor=(1, 1, 1), bgcolor=(0, 0, 0))
 # We create a scalar field with the module of Phi as the scalar

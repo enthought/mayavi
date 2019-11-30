@@ -117,15 +117,13 @@ from __future__ import print_function
 # wx backend and having regular code outside the main block is PyTaboo.
 # It needs to be imported first, so that matplotlib can impose the
 # version of Wx it requires.
+from mayavi.core.ui.mayavi_scene import MayaviScene
+from mayavi import mlab
+import numpy as np
+import pylab as pl
 import matplotlib
 
 matplotlib.use("WXAgg")
-import pylab as pl
-
-
-import numpy as np
-from mayavi import mlab
-from mayavi.core.ui.mayavi_scene import MayaviScene
 
 
 def get_world_to_view_matrix(mlab_scene):
