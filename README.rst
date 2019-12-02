@@ -77,12 +77,12 @@ visualization engine for any application.
 Quick start
 ===========
 
-If you are new to mayavi it is a good idea to read the `online user manual`_
+If you are new to Mayavi it is a good idea to read the `online user manual`_
 which should introduce you to how to install and use it.
 
-If you have installed `mayavi` as described in the next section, you should be
-able to launch the `mayavi2` application and also run any of the examples in
-the examples directory.
+If you have installed Mayavi as described in the next section, you should be
+able to launch the ``mayavi2`` application and also run any of the examples
+in the examples directory.
 
 
 .. _online user manual: http://docs.enthought.com/mayavi/mayavi/
@@ -174,7 +174,7 @@ Documentation
 More documentation is available in the `online user manual`_ or in ``docs``
 directory of the sources. This includes a man page for the ``mayavi2``
 application, a users guide in HTML and PDF format and documentation for
-`mlab`.
+``mlab``.
 
 More documentation in the form of workshop/tutorial material is available
 here:
