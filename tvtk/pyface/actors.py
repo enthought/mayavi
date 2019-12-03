@@ -65,10 +65,10 @@ def cube_actor(center=(0, 0, 0), color=colors.blue, opacity=1.0):
     return actor
 
 
-def cylinder_actor(center=(0, 0, 0), radius=0.5, resolution=64,
+def cylinder_actor(center=(0, 0, 0), radius=0.5, height=1,resolution=64,
                    color=colors.green, opacity=1.0):
     """ Creates a cylinder and returns a tvtk.Actor. """
-    source = tvtk.CylinderSource(center=center, radius=radius,
+    source = tvtk.CylinderSource(center=center, height=height,radius=radius,
                                  resolution=resolution)
     mapper = tvtk.PolyDataMapper()
     configure_input_data(mapper, source.output)
