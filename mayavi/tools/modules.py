@@ -14,7 +14,7 @@ helper functions.
 import numpy
 
 from traits.api import Trait, CArray, Instance, CFloat, \
-    Any, false, true, TraitTuple, Range, Bool, Property, CInt, Enum, Either
+    Any, TraitTuple, Range, Bool, Property, CInt, Enum, Either
 from traits.trait_errors import TraitError
 from tvtk.api import tvtk
 from tvtk.common import camel2enthought
@@ -86,7 +86,7 @@ class DataModuleFactory(ModuleFactory):
     """ Base class for all the module factories operating on data (ie not
         text and outline) """
 
-    reset_zoom = true(help="""Reset the zoom to accomodate the data newly
+    reset_zoom = Bool(True, help="""Reset the zoom to accomodate the data newly
                         added to the scene. Defaults to True.""")
 
     extent = CArray(shape=(6,),
@@ -98,8 +98,8 @@ class DataModuleFactory(ModuleFactory):
     def _extent_changed(self):
         tools.set_extent(self._target, self.extent)
 
-    transparent = false(help="""make the opacity of the actor depend on the
-                               scalar.""")
+    transparent = Bool(False, help="""make the opacity of the actor depend on
+                                    the scalar.""")
 
     def _transparent_changed(self):
         if self.transparent:

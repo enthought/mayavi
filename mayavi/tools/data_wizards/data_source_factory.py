@@ -1,8 +1,7 @@
 
 from numpy import c_, zeros, arange
 
-from traits.api import HasStrictTraits, \
-    true, false, Instance
+from traits.api import Bool, HasStrictTraits, Instance
 
 from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.sources.array_source import ArraySource
@@ -21,16 +20,16 @@ class DataSourceFactory(HasStrictTraits):
     """
 
     # Whether the position is implicitely inferred from the array indices
-    position_implicit = false
+    position_implicit = Bool(False)
 
     # Whether the data is on an orthogonal grid
-    orthogonal_grid = false
+    orthogonal_grid = Bool(False)
 
     # If the data is unstructured
-    unstructured = false
+    unstructured = Bool(False)
 
     # If the factory should attempt to connect the data points
-    connected = true
+    connected = Bool(True)
 
     # The position of the data points
     position_x = ArrayOrNone
@@ -42,13 +41,13 @@ class DataSourceFactory(HasStrictTraits):
     connectivity_triangles = ArrayOrNone
 
     # Whether or not the data points should be connected.
-    lines = false
+    lines = Bool(False)
 
     # The scalar data array
     scalar_data = ArrayOrNone
 
     # Whether there is vector data
-    has_vector_data = false
+    has_vector_data = Bool(False)
 
     # The vector components
     vector_u = ArrayOrNone
