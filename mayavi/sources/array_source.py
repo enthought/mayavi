@@ -10,7 +10,17 @@ import numpy as np
 from vtk.util import vtkConstants
 
 # Enthought library imports
-from traits.api import Instance, Trait, Str, Bool, Button, DelegatesTo, List, Int, OBJECT_IDENTITY_COMPARE
+from traits.api import (
+    Instance,
+    Trait,
+    Str,
+    Bool,
+    Button,
+    DelegatesTo,
+    List,
+    Int,
+    OBJECT_IDENTITY_COMPARE,
+)
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk.array_handler import array2vtk, get_vtk_array_type
@@ -72,9 +82,7 @@ class ArraySource(Source):
 
     # The scalar array data we manage.
     scalar_data = Trait(
-        None,
-        _check_scalar_array,
-        comparison_mode=OBJECT_IDENTITY_COMPARE
+        None, _check_scalar_array, comparison_mode=OBJECT_IDENTITY_COMPARE
     )
 
     # The name of our scalar array.
@@ -82,11 +90,8 @@ class ArraySource(Source):
 
     # The vector array data we manage.
     vector_data = Trait(
-        None,
-        _check_vector_array,
-        comparison_mode=OBJECT_IDENTITY_COMPARE
+        None, _check_vector_array, comparison_mode=OBJECT_IDENTITY_COMPARE
     )
-
 
     # The name of our vector array.
     vector_name = Str("vector")

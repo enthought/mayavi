@@ -141,8 +141,7 @@ class DataSourceWizard(HasTraits):
 
     connectivity_triangles = Str
 
-    has_vector_data = Bool(False, help="Do you want to plot "
-                                    "vector components?")
+    has_vector_data = Bool(False, help="Do you want to plot " "vector components?")
 
     # A boolean to ask the user if he wants to load scalar data
     has_scalar_data = Bool(False)

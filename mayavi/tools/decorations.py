@@ -577,7 +577,8 @@ class Text3D(ModuleFactory):
                         the z axis.""",
     )
 
-    orient_to_camera = Bool(True,
+    orient_to_camera = Bool(
+        True,
         adapts="orient_to_camera",
         desc="""if the text is kept oriented to the
                         camera, or is pointing in a specific direction,

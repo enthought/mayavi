@@ -1264,7 +1264,7 @@ class BarChart(Pipeline):
         True,
         desc="whether to compute automatically the "
         "lateral scaling of the glyphs. This might be "
-        "computationally expensive."
+        "computationally expensive.",
     )
 
     def __call_internal__(self, *args, **kwargs):

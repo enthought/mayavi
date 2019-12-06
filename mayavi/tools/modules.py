@@ -113,7 +113,7 @@ class DataModuleFactory(ModuleFactory):
     reset_zoom = Bool(
         True,
         help="""Reset the zoom to accomodate the data newly
-                        added to the scene. Defaults to True."""
+                        added to the scene. Defaults to True.""",
     )
 
     extent = CArray(
@@ -130,7 +130,7 @@ class DataModuleFactory(ModuleFactory):
     transparent = Bool(
         False,
         help="""make the opacity of the actor depend on the
-                               scalar."""
+                               scalar.""",
     )
 
     def _transparent_changed(self):
