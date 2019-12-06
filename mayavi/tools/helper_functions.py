@@ -49,6 +49,7 @@ from .auto_doc import traits_doc, dedent
 from . import tools
 from traits.api import (
     Array,
+    Bool,
     Callable,
     CFloat,
     HasTraits,
@@ -57,7 +58,6 @@ from traits.api import (
     Any,
     Instance,
     TraitError,
-    true,
 )
 import numpy as np
 
@@ -1260,7 +1260,8 @@ class BarChart(Pipeline):
         "in units of the distance between nearest points",
     )
 
-    auto_scale = true(
+    auto_scale = Bool(
+        True,
         desc="whether to compute automatically the "
         "lateral scaling of the glyphs. This might be "
         "computationally expensive."

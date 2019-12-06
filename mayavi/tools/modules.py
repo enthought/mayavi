@@ -19,8 +19,6 @@ from traits.api import (
     Instance,
     CFloat,
     Any,
-    false,
-    true,
     TraitTuple,
     Range,
     Bool,
@@ -112,7 +110,8 @@ class DataModuleFactory(ModuleFactory):
     """ Base class for all the module factories operating on data (ie not
         text and outline) """
 
-    reset_zoom = true(
+    reset_zoom = Bool(
+        True,
         help="""Reset the zoom to accomodate the data newly
                         added to the scene. Defaults to True."""
     )
@@ -128,7 +127,8 @@ class DataModuleFactory(ModuleFactory):
     def _extent_changed(self):
         tools.set_extent(self._target, self.extent)
 
-    transparent = false(
+    transparent = Bool(
+        False,
         help="""make the opacity of the actor depend on the
                                scalar."""
     )

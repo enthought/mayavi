@@ -8,7 +8,6 @@ from traits.api import (
     Any,
     Instance,
     HasStrictTraits,
-    false,
     Dict,
     HasTraits,
     CArray,
@@ -121,7 +120,7 @@ class DataSourceWizard(HasTraits):
     grid_shape = CArray(shape=(3,), dtype="i")
 
     # Whether or not the data points should be connected.
-    lines = false
+    lines = Bool(False)
 
     # The scalar data selection
     scalar_data = Str(
@@ -142,10 +141,11 @@ class DataSourceWizard(HasTraits):
 
     connectivity_triangles = Str
 
-    has_vector_data = false(help="""Do you want to plot vector components?""")
+    has_vector_data = Bool(False, help="Do you want to plot "
+                                    "vector components?")
 
     # A boolean to ask the user if he wants to load scalar data
-    has_scalar_data = false
+    has_scalar_data = Bool(False)
 
     vector_u = Str
 

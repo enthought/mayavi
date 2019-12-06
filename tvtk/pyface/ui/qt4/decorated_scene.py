@@ -17,7 +17,7 @@ from pyface.qt import QtGui
 from pyface.api import ImageResource
 from pyface.action.api import ToolBarManager, Group, Action
 from tvtk.api import tvtk
-from traits.api import Instance, false, Either, List
+from traits.api import Bool, Instance, Either, List
 
 # Local imports.
 from .scene import Scene, popup_save
@@ -48,7 +48,7 @@ class DecoratedScene(Scene):
         axes = None
 
     # Determine if the orientation axis is shown or not.
-    show_axes = false
+    show_axes = Bool(False)
 
     # The list of actions represented in the toolbar
     actions = List(Either(Action, Group))

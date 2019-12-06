@@ -27,10 +27,10 @@ from traits.api import (
     Long,
     Array,
     Any,
+    Bool,
     Float,
     Instance,
     Range,
-    true,
     Str,
 )
 from traitsui.api import View, Group, Item, Handler
@@ -240,10 +240,10 @@ class Picker(HasTraits):
     tolerance = Range(0.0, 0.25, 0.025)
 
     # show the GUI on pick ?
-    show_gui = true(desc="whether to show the picker GUI on pick")
+    show_gui = Bool(True, desc = "whether to show the picker GUI on pick")
 
     # Raise the GUI on pick ?
-    auto_raise = true(desc="whether to raise the picker GUI on pick")
+    auto_raise = Bool(True, desc = "whether to raise the picker GUI on pick")
 
     default_view = View(
         Group(
