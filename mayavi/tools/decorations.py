@@ -13,7 +13,7 @@ import numpy as np
 
 # Enthought library imports.
 from traits.api import String, CFloat, Instance, HasTraits, \
-            Trait, CArray, true, Any, Range, Either
+            Trait, CArray, Bool, Any, Range, Either
 from . import tools
 from .figure import draw, gcf
 
@@ -352,13 +352,13 @@ class Axes(AxesLikeModuleFactory):
                             Ranges of the labels displayed on the axes.
                             Default is the object's extents.""", )
 
-    x_axis_visibility = true(adapts='axes.x_axis_visibility',
+    x_axis_visibility = Bool(True, adapts='axes.x_axis_visibility',
                 help="Whether or not the x axis is visible (boolean)")
 
-    y_axis_visibility = true(adapts='axes.y_axis_visibility',
+    y_axis_visibility = Bool(True, adapts='axes.y_axis_visibility',
                 help="Whether or not the y axis is visible (boolean)")
 
-    z_axis_visibility = true(adapts='axes.z_axis_visibility',
+    z_axis_visibility = Bool(True, adapts='axes.z_axis_visibility',
                 help="Whether or not the z axis is visible (boolean)")
 
     _target = Instance(modules.Axes, ())
@@ -505,7 +505,7 @@ class Text3D(ModuleFactory):
                         camera. If not, these angles are referenced to
                         the z axis.""")
 
-    orient_to_camera = true(adapts='orient_to_camera',
+    orient_to_camera = Bool(True, adapts='orient_to_camera',
                         desc="""if the text is kept oriented to the
                         camera, or is pointing in a specific direction,
                         regardless of the camera position.""")
