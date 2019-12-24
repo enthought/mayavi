@@ -648,7 +648,7 @@ class FunctionControl(object):
         # generate a list of channels on which markers should
         # be bound if moved on the current channel. since we interpolate
         # the colors in hsv space, changing the r, g or b coordinates
-        # explicitely means that h, s and v all have to be fixed.
+        # explicitly means that h, s and v all have to be fixed.
         self.active_channels_string = ""
         for channel in self.channels:
             self.active_channels_string += channel.name

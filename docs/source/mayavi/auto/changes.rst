@@ -728,14 +728,14 @@ Fixes
     - Fix MRI brain data URL.
 
 13 Nov 2014 (DS)
-    - More fixes for connection topology, information request and tube filter
+    - More fixes for connection topology, information request and tube filtering
       after upgrading to new pipeline.
 
 24 Sep 2014 (pberkes)
     - Handle the non-Latin-1 keypresses.
 
 23 Sep 2014 (rkern)
-    - Prevent ndarray comparisions with None.
+    - Prevent ndarray comparisons with None.
 
 17 Jul 2014 (mdickinson)
     - Fix the trait error raised when the threshold range is updated.
@@ -918,7 +918,7 @@ Enhancements
 ------------
 
 20 Dec, 2009 (GV):
-  - ENH: Merge in Scott Wart's patch to add an 'ImageChangeInformation
+  - ENH: Merge in Scott Wart's patch to add an 'ImageChangeInformation'
     filter to ArraySource, with additional work to get the tests to pass
     [25036], [25043]
 
@@ -965,8 +965,8 @@ Enhancements
 
 14 Aug, 2009 (GV):
   - ENH: Stop gap solution to limit the cost of auto-scaling the glyph
-    size with large arrays in barchart, when the positionning is
-    implicite, and thus distance calculation is pointless [24526]
+    size with large arrays in barchart, when the positioning is
+    implicit, and thus distance calculation is pointless [24526]
   - ENH: Do not update the rendering of the scene when using mlab
     helper functions that build one object after another [24529]
   - ENH: Add an argument to barchart to avoid expensive scaling computation
@@ -1060,7 +1060,7 @@ Fixes
   - BUG: Correct bug with visibility of OrientationAxes reported by Uche
     Mennel [25037]
   - BUG: Patch by Varun Hiremath to make build docs more robust [25039]
-  - BUG: Fix scalarbar positionning for VTK >= 5. [25040]
+  - BUG: Fix scalarbar positioning for VTK >= 5. [25040]
   - BUG: Avoid a segfault when enabling the OrientationAxes without an
     interactor [25044]
   - MISC: Disable the use of IPython by default, there are right now too many
@@ -1204,7 +1204,7 @@ Enhancements
     larger than window size [23813]
   - ENH: Add a text3d module, for displaying text located in the 3D scene
     scaling and hiding as the other 3D actors [23809], [23810].
-  - ENH: Add a helper function to mlab to syncronize cameras on two
+  - ENH: Add a helper function to mlab to synchronize cameras on two
     scenes [23814]
 
 10 Jun, 2009 (PR):
@@ -1334,7 +1334,7 @@ Fixes
     application [23558]
 
 13 April, 2009 (PR):
-  - BUG: The trailing '|' in the wildcard breaks the file dialog's filterin
+  - BUG: The trailing '|' in the wildcard breaks the file dialog's filtering
     for user defined readers.  Thanks to B. P. Thrane for reporting the bug
 
 27 March, 2009 (GV):
@@ -1433,7 +1433,7 @@ series.
 
 28 February, 2009 (PR)
     - BUG: Fixed some issues reported by Ondrej Certik regarding the use
-      Of mlab.options.offscreen, mlab.options.backend = 'test', removed cruft
+      of mlab.options.offscreen, mlab.options.backend = 'test', removed cruft
       from earlier 'null' backend, fixed bug with incorrect imports,
       add_dataset set no longer adds one new null engine each time figure=False
       is passed, added test case for the options.backend test. [23088]
@@ -1519,7 +1519,7 @@ Mayavi 3.1.0
     - API: Change defaults [22513]:
         - CellToPointData and PointToCellData filters to pass the existing
           dataset.
-        - The ouline of the implicite plane is no longer draggable by
+        - The outline of the implicit plane is no longer draggable by
           default.
 
 15-16 November, 2008 (PR)
@@ -1530,7 +1530,7 @@ Mayavi 3.1.0
     - DOC: Updating advanced scripting chapter. [22495].
 
 13 November, 2008 (GV)
-    - ENH: [mlab]  Add keyword arguments to colobars to control label
+    - ENH: [mlab]  Add keyword arguments to colorbars to control label
       number and format, as well as colors number. [22489]
 
 10 November, 2008 (PR)
@@ -1541,11 +1541,11 @@ Mayavi 3.1.0
 27 October, 2008 (GV)
     - ENH: [mlab] If a module or filter is added to the pipeline using
       the mlab.pipeline functions, the source on which it is added
-      onto is automatically added to the scene if not alread present. It
+      onto is automatically added to the scene if not already present. It
       is also automatically converted from a tvtk dataset to a mayavi
       source, if needed. [22375], [22377]
     - ENH: [mlab] Make mlab.axes and mlab.outline use the extents of the
-      current object when none specified explicitely. [22372]
+      current object when none specified explicitly. [22372]
 
 24-27 October, 2008 (PR)
     - NEW: Adding an ImageChangeInformation filter to let users change
@@ -1617,7 +1617,7 @@ Mayavi 3.1.0
 30 September, 2008 (GV):
     - API: mlab: Expose pipeline.add_dataset (former private function
       tools._data) [22162].
-    - API: The mlab source functions can now optionaly work without creating
+    - API: The mlab source functions can now optionally work without creating
       a figure (using figure=None) [22161].
     - API: The mlab source functions are more  robust to various
       input-argument shape (they accept lists, and 1D or 2D arrays when
@@ -1628,7 +1628,7 @@ Mayavi 3.1.0
       arbitrary triangular connectivity. Also add a corresponding
       triangular_mesh_source mlab source. [22155]
     - ENH: Make mlab.points3d and other mlab functions accept scalars as
-      coordinnates, in addition to arrays. [22156]
+      coordinates, in addition to arrays. [22156]
 
 12 September, 2008 (PR)
     - NEW: Create a separate OffScreenEngine for use to reduce code

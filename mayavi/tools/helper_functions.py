@@ -432,7 +432,7 @@ def test_flow_scalars():
 #############################################################################
 class Contour3d(Pipeline):
     """
-    Plots iso-surfaces for a 3D volume of data suplied as arguments.
+    Plots iso-surfaces for a 3D volume of data supplied as arguments.
 
     **Function signatures**::
 
@@ -481,7 +481,7 @@ def test_contour3d_anim(obj=None):
 class VolumeSlice(Pipeline):
     """
     Plots an interactive image plane sliced through a 3D volume of data
-    suplied as argument.
+    supplied as argument.
 
     **Function signatures**::
 

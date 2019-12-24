@@ -350,10 +350,10 @@ def move(forward=None, right=None, up=None):
     """ Translates the camera and focal point together.
 
     The arguments specify the relative distance to translate the
-    camera and focal point, so as to produce the appearence of
+    camera and focal point, so as to produce the appearance of
     moving the camera without changing the effective field of view.
     If called with no arguments, the function returns the absolute
-    position of the camera and focal pointon a cartesian coordinate
+    position of the camera and focal point on a cartesian coordinate
     system.
 
     Note that the arguments specify relative motion, although the

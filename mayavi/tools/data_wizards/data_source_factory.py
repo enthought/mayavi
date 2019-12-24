@@ -19,7 +19,7 @@ class DataSourceFactory(HasStrictTraits):
         organisation of the data is given by setting the public traits.
     """
 
-    # Whether the position is implicitely inferred from the array indices
+    # Whether the position is implicitly inferred from the array indices
     position_implicit = Bool(False)
 
     # Whether the data is on an orthogonal grid
@@ -36,7 +36,7 @@ class DataSourceFactory(HasStrictTraits):
     position_y = ArrayOrNone
     position_z = ArrayOrNone
 
-    # Connectivity array. If none, it is implicitely inferred from the array
+    # Connectivity array. If none, it is implicitly inferred from the array
     # indices
     connectivity_triangles = ArrayOrNone
 
