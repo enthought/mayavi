@@ -235,13 +235,13 @@ def savefig(filename, size=None, figure=None, magnification='auto',
         if size is not None:
             current_x, current_y = tuple(figure.scene.get_size())
             target_x, target_y = size
-            if magnification is 'auto':
+            if magnification == 'auto':
                 magnification = max(target_x // current_x,
                                     target_y // current_y) + 1
                 target_x = int(target_x / magnification)
                 target_y = int(target_y / magnification)
                 size = target_x, target_y
-        elif magnification is 'auto':
+        elif magnification == 'auto':
             magnification = 1
         figure.scene.magnification = int(magnification)
         figure.scene.save(filename,
