@@ -21,6 +21,10 @@ TVTK docs: http://docs.enthought.com/mayavi/tvtk
    :target: http://codecov.io/github/enthought/mayavi?branch=master
    :alt: Code coverage status
 
+.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+   :target: https://opensource.org/licenses/BSD-3-Clause
+   :alt: BSD 3 Clause
+
 Vision
 ======
 
