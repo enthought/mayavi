@@ -109,7 +109,7 @@ class Lorenz(HasTraits):
             g = scipy.__dict__
             x, y, z = self.points
             s, r, b = self.s, self.r, self.b
-            val = ast.literal_eval(func_str, g,
+            val = eval(func_str, g,
                         {'x': x, 'y': y, 'z': z,
                          's':s, 'r':r, 'b': b})
         except:
@@ -140,4 +140,3 @@ if __name__ == '__main__':
     # Instantiate the class and configure its traits.
     lor = Lorenz()
     lor.configure_traits()
-
