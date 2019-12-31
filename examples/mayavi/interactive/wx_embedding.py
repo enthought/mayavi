@@ -60,7 +60,7 @@ class MainWindow(wx.Frame):
                         kind='subpanel').control
         self.Show(True)
 
-app = wx.PySimpleApp()
+app = wx.App(False)
 frame = MainWindow(None, wx.ID_ANY)
 app.MainLoop()
 

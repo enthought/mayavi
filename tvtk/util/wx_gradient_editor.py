@@ -393,7 +393,7 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
         (lookuptable) ``*.grad`` (gradient table for use with this program),
         and ``*.jpg`` (image of the gradient)
         """
-        dlg = wx.FileDialog(self, "Save LUT to...", style=wx.SAVE)
+        dlg = wx.FileDialog(self, "Save LUT to...", style=wx.FD_SAVE)
         wildcard = "Gradient Files (.grad)|*.grad|"   \
                    "All files (*.*)|*.*"
         dlg.SetWildcard(wildcard)
@@ -406,7 +406,7 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
         """
         Load a ``*.grad`` lookuptable file using wxpython dialog
         """
-        style = wx.OPEN | wx.HIDE_READONLY
+        style = wx.FD_OPEN
         dlg = wx.FileDialog(self, "Open a file", style=style)
         wildcard = "Gradient Files (.grad)|*.grad|"   \
                    "All files (*.*)|*.*"
@@ -511,7 +511,7 @@ def main():
         """If we had a vtk window running, update it here"""
         print("Update Render Window")
 
-    app = wx.PySimpleApp()
+    app = wx.App(False)
     editor = wxGradientEditor(table,
                               on_color_table_changed,
                               colors=['rgb', 'a', 'h', 's', 'v'],
