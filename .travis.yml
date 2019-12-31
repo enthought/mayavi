@@ -22,6 +22,8 @@ matrix:
       env: RUNTIME=2.7 ETS_TOOLKIT=wx VTK=8
     - os: linux
       env: RUNTIME=3.6 ETS_TOOLKIT=qt4 VTK=8
+    - os: linux
+      env: RUNTIME=3.7 ETS_TOOLKIT=qt4 VTK=8
     - os: osx
       env: RUNTIME=3.6 ETS_TOOLKIT=qt4 VTK=8
     - os: osx
@@ -41,6 +43,7 @@ install:
   - if [[ ${ETS_TOOLKIT} == 'wx' ]]; then edm install -y wxpython; fi
   - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '2.7' ]]; then edm install -y pyside; fi
   - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '3.6' ]]; then edm run -- pip install "pyqt5==5.10.1"; fi
+  - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '3.7' ]]; then edm run -- pip install "pyqt5==5.10.1"; fi
   - if [[ ${TRAVIS_EVENT_TYPE} == "cron" ]] ; then
         edm run -- pip install -r ci/ci-src-requirements.txt ;
     else
