@@ -4,7 +4,7 @@ pipeline in a procedural way.
 """
 
 # Author: Gael Varoquaux
-# Copyright (c) 2007-2015 Enthought, Inc.
+# Copyright (c) 2007-2020 Enthought, Inc.
 # License: BSD Style.
 
 import numbers

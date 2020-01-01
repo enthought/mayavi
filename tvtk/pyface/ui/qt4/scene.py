@@ -17,7 +17,7 @@ docs for more details.
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2016, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 

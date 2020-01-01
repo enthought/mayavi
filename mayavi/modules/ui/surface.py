@@ -9,7 +9,7 @@ importing.
 """
 # Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #          Judah De Paula <judah@enthought.com>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 

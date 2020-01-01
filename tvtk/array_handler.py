@@ -10,7 +10,7 @@ seems no unique one-to-one VTK data array type to map it to.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2019,  Enthought, Inc.
+# Copyright (c) 2004-2020,  Enthought, Inc.
 # License: BSD Style.
 
 import sys

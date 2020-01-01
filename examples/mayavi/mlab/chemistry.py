@@ -13,7 +13,7 @@ Good use of the `vmin` and `vmax` argument to
 The original is an electron localization function from Axel Kohlmeyer.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008-2015, Enthought, Inc.
+# Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Retrieve the electron localization data for H2O #############################

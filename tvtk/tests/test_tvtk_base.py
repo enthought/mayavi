@@ -4,7 +4,7 @@ test_tvtk.py.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2018, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 import unittest

@@ -3,7 +3,7 @@ sources derive.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2005-2016, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

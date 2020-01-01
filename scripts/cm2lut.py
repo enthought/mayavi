@@ -6,7 +6,7 @@ user, but only once in a while to synchronize with MPL development.
 """
 # Authors: Frederic Petit <fredmfp@gmail.com>,
 #          Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007-2009, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 import os

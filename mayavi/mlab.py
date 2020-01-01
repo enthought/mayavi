@@ -7,7 +7,7 @@ application with a compatible UI (Qt or wxPython).
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #         Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2018, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 

@@ -2,7 +2,7 @@
  A registry for engines, sources, filters and modules.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2015, Enthought, Inc.
+# Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

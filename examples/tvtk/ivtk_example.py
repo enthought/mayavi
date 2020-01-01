@@ -6,7 +6,7 @@ pipeline browser and a Python shell!
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2006, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 # We use this just for the demo.

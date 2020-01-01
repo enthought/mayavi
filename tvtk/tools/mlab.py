@@ -89,7 +89,7 @@ functions::
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2007, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 from distutils.version import StrictVersion

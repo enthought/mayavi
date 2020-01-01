@@ -5,7 +5,7 @@ VTK/Examples/Tutorial/Step6/Python/Cone6.py.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2006, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 from tvtk.api import tvtk

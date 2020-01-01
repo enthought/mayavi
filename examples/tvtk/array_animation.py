@@ -17,7 +17,7 @@ achieving the same effect but the present form nicely illustrates item
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 from tvtk.api import tvtk

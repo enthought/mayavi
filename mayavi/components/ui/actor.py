@@ -9,7 +9,7 @@ importing.
 """
 # Authors: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 #          Judah De Paula <judah@enthought.com>
-# Copyright (c) 2005-2018, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 from traitsui.api import (View, Group, Item, InstanceEditor,

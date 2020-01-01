@@ -7,7 +7,7 @@ Based on a Tk version of this widget by Gerald Knizia <cgk.d@gmx.net>
 Ported to wxPython by Pete Schmitt <schmitt@colorado.edu>
 Cleaned up and enhanced for use with MayaVi2 by Prabhu Ramachandran
 
-Copyright (c) 2005-2015, Gerald Knizia, Pete Schmitt and Prabhu Ramachandran
+Copyright (c) 2005-2020, Gerald Knizia, Pete Schmitt and Prabhu Ramachandran
 """
 
 

@@ -2,7 +2,7 @@
 Test for the dataset_manager.py module.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2015, Enthought, Inc.
+# Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
 import unittest

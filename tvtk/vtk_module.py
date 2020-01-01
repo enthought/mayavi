@@ -9,7 +9,7 @@ need to be wrapped.
 """
 
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007-2018,  Enthought, Inc.
+# Copyright (c) 2007-2020,  Enthought, Inc.
 # License: BSD Style.
 
 from vtk import *

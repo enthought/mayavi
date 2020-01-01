@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-# Copyright (c) 2005-2016, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
@@ -16,7 +16,7 @@ the class docs for more details.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2016, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 

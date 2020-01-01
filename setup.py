@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2018 by Enthought, Inc.
+# Copyright (c) 2008-2020 by Enthought, Inc.
 # All rights reserved.
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else

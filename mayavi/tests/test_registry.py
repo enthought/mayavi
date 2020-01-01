@@ -1,5 +1,5 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
-# Copyright (c) 2009-2015,  Enthought, Inc.
+# Copyright (c) 2009-2020,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

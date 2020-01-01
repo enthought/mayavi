@@ -41,7 +41,7 @@ hole** since the remote user can do pretty much anything they want.
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2009-2015, Enthought, Inc.
+# Copyright (c) 2009-2020, Enthought, Inc.
 # License: BSD Style.
 
 import sys

@@ -8,7 +8,7 @@ distributed under the conditions of the BSD license.
 This code was originally written by Gerald Knizia <cgk.d@gmx.net> and
 later modified by Prabhu Ramachandran for tvtk and MayaVi2.
 
-Copyright (c) 2005-2013, Gerald Knizia and Prabhu Ramachandran
+Copyright (c) 2005-2020, Gerald Knizia and Prabhu Ramachandran
 """
 
 from os.path import splitext

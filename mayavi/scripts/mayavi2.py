@@ -9,7 +9,7 @@ Mayavi2: http://docs.enthought.com/mayavi/mayavi/overview.html
 
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
-# Copyright (c) 2005-2015, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function

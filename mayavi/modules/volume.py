@@ -6,7 +6,7 @@ probably with the ImageData based renderers.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006-2018, Enthought, Inc.
+# Copyright (c) 2006-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Standard imports
