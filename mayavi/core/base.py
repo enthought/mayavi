@@ -10,7 +10,7 @@ import pickle
 from copy import deepcopy
 import os
 import logging
-import imp
+import importlib
 
 # Enthought library imports.
 from traits.api import (Any, Instance, Property, Bool, Str, Python,
