@@ -14,7 +14,7 @@ helper functions.
 import numpy
 
 from traits.api import Trait, CArray, Instance, CFloat, \
-    Any, TraitTuple, Range, Bool, Property, CInt, Enum, Either
+    Any, Tuple, Range, Bool, Property, CInt, Enum, Either
 from traits.trait_errors import TraitError
 from tvtk.api import tvtk
 from tvtk.common import camel2enthought
@@ -42,7 +42,7 @@ __all__ = ['vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
 class ModuleFactory(PipeFactory):
     """ Base class for all the modules factories"""
     color = Trait(None, None,
-                TraitTuple(Range(0., 1.), Range(0., 1.), Range(0., 1.)),
+                Tuple(Range(0., 1.), Range(0., 1.), Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
                         if any, when specified. This is specified as a
                         triplet of float ranging from 0 to 1, eg (1, 1,
@@ -569,7 +569,7 @@ class VolumeFactory(PipeFactory):
     """
 
     color = Trait(None, None,
-                TraitTuple(Range(0., 1.), Range(0., 1.), Range(0., 1.)),
+                Tuple(Range(0., 1.), Range(0., 1.), Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
                         if any, when specified. This is specified as a
                         triplet of float ranging from 0 to 1, eg (1, 1,
