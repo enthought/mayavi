@@ -184,7 +184,7 @@ def get_vtk_array_type(numeric_array_type):
     """Returns a VTK typecode given a numpy array."""
     # This is a Mapping from numpy array types to VTK array types.
     _arr_vtk = {
-        numpy.dtype(numpy.character): vtkConstants.VTK_UNSIGNED_CHAR,
+        numpy.dtype('S'): vtkConstants.VTK_UNSIGNED_CHAR,  # numpy.character
         numpy.dtype(numpy.uint8): vtkConstants.VTK_UNSIGNED_CHAR,
         numpy.dtype(numpy.uint16): vtkConstants.VTK_UNSIGNED_SHORT,
         numpy.dtype(numpy.int8): vtkConstants.VTK_CHAR,
