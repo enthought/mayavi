@@ -196,7 +196,7 @@ so:
 
 This probably will have to be fine tuned to suit your taste.
 
-If you want to do this in python. You can use [pyvirtualdisplay](https://pypi.org/project/PyVirtualDisplay/)::
+If you want to do this in python. You can use `pyvirtualdisplay <https://pypi.org/project/PyVirtualDisplay/>`_ ::
 
    from pyvirtualdisplay import Display
    import os
