@@ -196,6 +196,14 @@ so:
 
 This probably will have to be fine tuned to suit your taste.
 
+If you want to do this in python. You can use [pyvirtualdisplay](https://pypi.org/project/PyVirtualDisplay/)::
+
+   from pyvirtualdisplay import Display
+   import os
+   display = Display(visible=0, size=(1280, 1024))
+   display.start()
+   os.environ["DISPLAY"] = ":" + str(display.display) + "." + str(display.screen)
+
 Many Linux systems (including Ubuntu and Debian) ship with a helper
 script `xvfb-run` for running headless. The following command can run a
 Python script with Mayavi2 visualizations headless::
