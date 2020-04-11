@@ -102,14 +102,16 @@ class TVTKGenerator:
             classes = []
             # This is another class we should not wrap and exists
             # in version 8.1.0.
-            ignore = ['vtkOpenGLGL2PSHelperImpl']
+            ignore = ['vtkOpenGLGL2PSHelperImpl'] + [
+                'vtkSOADataArrayTemplate_I%sE' % l
+                for l in 'acdfhijlmstxy']
             include = ['VTKPythonAlgorithmBase']
             for node in wrap_gen.get_tree():
                 name = node.name
                 if name in ignore:
                     continue
                 if (name not in include and not name.startswith('vtk')) or \
-                    name.startswith('vtkQt'):
+                        name.startswith('vtkQt'):
                     continue
                 if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):  # noqa
                     # We need to wrap VTK classes that are derived
@@ -122,13 +124,19 @@ class TVTKGenerator:
                     continue
                 classes.append(name)
 
-            for nodes in tree:
-                for node in nodes:
+            for ti, nodes in enumerate(tree, 1):
+                for ni, node in enumerate(nodes, 1):
                     if node.name in classes:
                         tvtk_name = get_tvtk_name(node.name)
                         logger.debug(
                             'Wrapping %s as %s' % (node.name, tvtk_name))
-                        self._write_wrapper_class(node, tvtk_name)
+                        try:
+                            self._write_wrapper_class(node, tvtk_name)
+                        except Exception:
+                            print('\n\nFailed on %s\n(#%d of %d nodes, #%d of '
+                                  '%d subnodes)\n'
+                                  % (tvtk_name, ti, len(tree), ni, len(nodes)))
+                            raise
                         helper_gen.add_class(tvtk_name, helper_file)
 
     def write_wrapper_classes(self, names):

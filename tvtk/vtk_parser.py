@@ -628,7 +628,11 @@ class VTKMethodParser:
                 continue
             elif (klass_name == 'vtkContextMouseEvent'
                   and method[3:] == 'Interactor'):
-                pass
+                continue
+            # VTK 9
+            elif (klass_name == 'vtkPiecewisePointHandleItem'
+                  and method[3:] == 'PiecewiseFunction'):
+                continue
             elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
@@ -657,8 +661,14 @@ class VTKMethodParser:
                           key == 'Interactor'):
                         # On VTK 8.1.0 this segfaults when uninitialized.
                         default = None
+                    # On VTK 9.0.0 this segfaults when uninitialized
+                    elif (klass_name == 'vtkHigherOrderTetra' and
+                          key == 'ParametricCoords'):
+                        default = None
                     else:
                         try:
+                            # Useful for debugging on failures:
+                            # print(klass_name, key)
                             default = getattr(obj, 'Get%s' % key)()
                         except TypeError:
                             default = None
@@ -669,6 +679,13 @@ class VTKMethodParser:
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
+                del obj
+                # Segfaults can be exposed by uncommenting these lines,
+                # leave them commented while running because they
+                # slow things down quite a bit
+                # print(klass_name)
+                # import gc
+                # gc.collect()
             else:
                 # We still might have methods that have a default range.
                 for key, value in gsm.items():
