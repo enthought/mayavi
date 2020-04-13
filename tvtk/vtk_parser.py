@@ -15,7 +15,7 @@ import types
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_62
+from .common import is_version_62, is_version_9
 
 
 class VTKMethodParser:
@@ -605,35 +605,37 @@ class VTKMethodParser:
 
         for method in meths[:]:
             # Methods of the Set/Get form.
-            if method in ['Get', 'Set']:
+            if method[:3] != 'Set':
+                continue
+            elif method == 'Set':
                 # This occurs with the vtkInformation class.
                 continue
-            elif klass_name == 'vtkProp' and method[3:] == 'AllocatedRenderTime':
+            elif (klass_name == 'vtkProp' and
+                  method[3:] == 'AllocatedRenderTime'):
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
-            elif klass_name == 'vtkGenericAttributeCollection' and \
-                method[3:] == 'AttributesToInterpolate':
+            elif (klass_name == 'vtkGenericAttributeCollection' and
+                  method[3:] == 'AttributesToInterpolate'):
                 continue
-            elif klass_name == 'vtkOverlappingAMR' and method[3:] == 'Origin':
-                continue
-            elif (klass_name == 'vtkOrientationMarkerWidget'
-                  and method[3:] in ['OutlineColor', 'Viewport']):
-                continue
-            elif (klass_name == 'vtkImageDataGeometryFilter'
-                  and method[3:] == 'Extent'):
-                continue
-            elif (klass_name == 'vtkVolumeMapper'
-                  and method[3:] == 'CroppingRegionPlanes'):
-                continue
-            elif (klass_name == 'vtkContextMouseEvent'
-                  and method[3:] == 'Interactor'):
+            elif (not is_version_9()) and (
+                (klass_name == 'vtkOverlappingAMR' and
+                 method[3:] == 'Origin') or
+                (klass_name == 'vtkOrientationMarkerWidget' and
+                 method[3:] in ['OutlineColor', 'Viewport']) or
+                (klass_name == 'vtkImageDataGeometryFilter' and
+                 method[3:] == 'Extent') or
+                (klass_name == 'vtkVolumeMapper' and
+                 method[3:] == 'CroppingRegionPlanes') or
+                (klass_name == 'vtkContextMouseEvent' and
+                 method[3:] == 'Interactor')):
                 continue
             # VTK 9
-            elif (klass_name == 'vtkPiecewisePointHandleItem'
-                  and method[3:] == 'PiecewiseFunction'):
+            elif (klass_name == 'vtkPiecewisePointHandleItem' and
+                  method[3:] == 'PiecewiseFunction'):
                 continue
-            elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
+            # we can actually process it
+            elif ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
                 meths.remove('Get' + key)

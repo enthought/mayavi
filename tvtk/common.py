@@ -72,6 +72,10 @@ def is_version_7():
     return vtk_major_version > 6
 
 
+def is_version_9():
+    return vtk_major_version > 8
+
+
 def is_version_62():
     return vtk_major_version == 6 and vtk_minor_version == 2
 
