@@ -650,22 +650,32 @@ class VTKMethodParser:
             obj = self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
-                    if klass_name in ['vtkPolyData', 'vtkContext2D']:
+                    if not is_version_9() and (
                         # Evil hack, these classes segfault!
+                        (klass_name in ['vtkPolyData', 'vtkContext2D']) or
+                        # On VTK 8.1.0 this segfaults when uninitialized.
+                        (klass_name == 'vtkContextMouseEvent' and
+                         key == 'Interactor')):
                         default = None
-                    elif klass_name == 'vtkHyperOctree' and \
-                            key == 'Dimension':
+                    elif not is_version_9() and (
+                            klass_name == 'vtkHyperOctree' and
+                            key == 'Dimension'):
                         # This class breaks standard VTK conventions.
                         gsm[key] = (3, (1, 3))
                         continue
-                    elif (klass_name == 'vtkContextMouseEvent' and
-                          key == 'Interactor'):
-                        # On VTK 8.1.0 this segfaults when uninitialized.
-                        default = None
-                    # On VTK 9.0.0 this segfaults when uninitialized, see
+                    # On VTK 9.0.0 vtkHigherOrderTetra.GetParametricCorods
+                    # segfauts when uninitialized, see:
+                    #
                     # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/6729#note_732848  # noqa: E501
-                    elif (klass_name == 'vtkHigherOrderTetra' and
-                          key == 'ParametricCoords'):
+                    #
+                    # vtkGenericAttributeCollection.GetAttributesToInterpolate
+                    # might only be a problem if VTK is built in debug mode,
+                    # but let's keep it just to be safe.
+                    elif is_version_9() and (
+                            (klass_name == 'vtkHigherOrderTetra' and
+                             key == 'ParametricCoords') or
+                            (klass_name == 'vtkGenericAttributeCollection' and
+                             key == 'AttributesToInterpolate')):
                         default = None
                     else:
                         try:
