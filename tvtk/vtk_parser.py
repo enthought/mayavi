@@ -615,10 +615,9 @@ class VTKMethodParser:
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
-            elif (klass_name == 'vtkGenericAttributeCollection' and
-                  method[3:] == 'AttributesToInterpolate'):
-                continue
             elif (not is_version_9()) and (
+                (klass_name == 'vtkGenericAttributeCollection' and
+                 method[3:] == 'AttributesToInterpolate') or
                 (klass_name == 'vtkOverlappingAMR' and
                  method[3:] == 'Origin') or
                 (klass_name == 'vtkOrientationMarkerWidget' and
@@ -630,7 +629,7 @@ class VTKMethodParser:
                 (klass_name == 'vtkContextMouseEvent' and
                  method[3:] == 'Interactor')):
                 continue
-            # VTK 9
+            # VTK 9 uses function handles that we don't parse properly yet
             elif (klass_name == 'vtkPiecewisePointHandleItem' and
                   method[3:] == 'PiecewiseFunction'):
                 continue
@@ -663,7 +662,8 @@ class VTKMethodParser:
                           key == 'Interactor'):
                         # On VTK 8.1.0 this segfaults when uninitialized.
                         default = None
-                    # On VTK 9.0.0 this segfaults when uninitialized
+                    # On VTK 9.0.0 this segfaults when uninitialized, see
+                    # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/6729#note_732848  # noqa: E501
                     elif (klass_name == 'vtkHigherOrderTetra' and
                           key == 'ParametricCoords'):
                         default = None
