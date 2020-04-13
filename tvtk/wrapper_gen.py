@@ -14,7 +14,6 @@ import vtk
 import textwrap
 import keyword
 import copy
-import faulthandler
 from itertools import chain
 
 # Local imports (these are relative imports because the package is not
@@ -26,7 +25,13 @@ from . import vtk_parser
 from . import indenter
 from . import special_gen
 
-faulthandler.enable()
+try:
+    import faulthandler
+except ImportError:
+    pass
+else:
+    faulthandler.enable()
+
 PY_VER = sys.version_info[0]
 
 
