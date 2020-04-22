@@ -26,8 +26,8 @@ from .animator import animate
 from mayavi.core.scene import Scene
 from .auto_doc import traits_doc, dedent
 from . import tools
-from traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait, Any, Instance, TraitError, true
+from traits.api import Array, Bool, Callable, CFloat, HasTraits, \
+    List, Trait, Any, Instance, TraitError
 import numpy as np
 
 
@@ -433,7 +433,7 @@ def test_flow_scalars():
 #############################################################################
 class Contour3d(Pipeline):
     """
-    Plots iso-surfaces for a 3D volume of data suplied as arguments.
+    Plots iso-surfaces for a 3D volume of data supplied as arguments.
 
     **Function signatures**::
 
@@ -482,7 +482,7 @@ def test_contour3d_anim(obj=None):
 class VolumeSlice(Pipeline):
     """
     Plots an interactive image plane sliced through a 3D volume of data
-    suplied as argument.
+    supplied as argument.
 
     **Function signatures**::
 
@@ -1086,7 +1086,7 @@ class BarChart(Pipeline):
     lateral_scale = CFloat(0.9, desc='The lateral scale of the glyph, '
                 'in units of the distance between nearest points')
 
-    auto_scale = true(desc='whether to compute automatically the '
+    auto_scale = Bool(True, desc='whether to compute automatically the '
                            'lateral scaling of the glyphs. This might be '
                            'computationally expensive.')
 

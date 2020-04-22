@@ -23,12 +23,11 @@ class DummyReader(PLOT3DReader):
         pass
 
     # Callable which always returns false
+    @classmethod
     def check_read(cls, filename):
         """ Callable which alwasy returns False
         """
         return False
-
-    check_read = classmethod(check_read)
 
 
 class TestRegistry(unittest.TestCase):

@@ -118,7 +118,7 @@ class MousePickDispatcher(HasTraits):
 
 
     def callback_removed(self, item):
-        """ Clean up the unecessary VTK callbacks.
+        """ Clean up the unnecessary VTK callbacks.
         """
         callback, type, button = item
 

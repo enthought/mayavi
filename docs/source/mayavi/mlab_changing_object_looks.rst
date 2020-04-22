@@ -44,7 +44,7 @@ Adding color or size variations
   the data points. 
 
   **A caveat: Clamping: relative or absolute scaling**
-  Given six points positionned on a line with interpoint spacing 1::
+  Given six points positioned on a line with interpoint spacing 1::
 
     x = [1, 2, 3, 4, 5, 6]
     y = [0, 0, 0, 0, 0, 0]

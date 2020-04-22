@@ -9,12 +9,12 @@ regular grid for parameters 'x' and 'y', it can simply be view with the
 mlab.surf function. However, when there are some missing points, or the
 data has been acquired at random, the surf function cannot be used.
 
-The difficulty stems from the fact that points positionned in 3D do
+The difficulty stems from the fact that points positioned in 3D do
 not define a surface if no connectivity information is given. With the
-surf function, this information is implicite from the shape of the input
+surf function, this information is implicit from the shape of the input
 arrays.
 
-In this example, randomly-positionned points in the (x, y) plane are
+In this example, randomly-positioned points in the (x, y) plane are
 embedded in a surface in the z axis. We first visualize the points using
 mlab.points3d. We then use the delaunay2d filter to extract the mesh by
 nearest-neighboor matching, and visualize it using the surface module.

@@ -59,8 +59,6 @@ def get_trait_def(value, **kwargs):
     ('traits.Array', '', 'auto_set=False, enter_set=True, shape=(2,), dtype=float, value=[100.0, 200.0], cols=2')
     >>> get_trait_def(100, enter_set=True, auto_set=False)
     ('traits.Int', '100', 'auto_set=False, enter_set=True')
-    >>> get_trait_def(long(100), enter_set=True, auto_set=False)  # Python 2
-    ('traits.Long', '100', 'auto_set=False, enter_set=True')
     >>> get_trait_def(u'something', enter_set=True, auto_set=False)
     ('traits.Unicode', "u'something'", 'auto_set=False, enter_set=True')
     >>> get_trait_def(True, enter_set=True, auto_set=False)
@@ -77,7 +75,7 @@ def get_trait_def(value, **kwargs):
 
     # In Python 2 there is long type
     if PY_VER < 3:
-        number_map[long] = 'traits.Long'
+        number_map[long] = 'traits.Int'
 
     if type_ in number_map:
         return number_map[type_], str(value), kwargs_code
@@ -1760,16 +1758,8 @@ class WrapperGenerator:
 
         default, _ = self.parser.get_get_set_methods()[vtk_attr_name]
 
-        # The documentation of vtkImageReader2.GetHeaderSize says
-        # it returns `int`, but really the API meant `long`
-        # matters for Python 2
-        if PY_VER < 3:
-            default = long(default)
-            t_def = ('traits.Long({default}, '
-                     'enter_set=True, auto_set=False)').format(default=default)
-        else:
-            t_def = ('traits.Int({default}, '
-                     'enter_set=True, auto_set=False)').format(default=default)
+        t_def = ('traits.Int({default}, '
+                    'enter_set=True, auto_set=False)').format(default=default)
 
         # trait name
         name = self._reform_name(vtk_attr_name)

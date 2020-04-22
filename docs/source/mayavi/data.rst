@@ -315,7 +315,7 @@ In 2D, this can be understood as a raster image. This is the data
 structure created by the `ArraySource` mayavi source, from a 3D numpy
 array, as well as the `mlab.pipeline.scalar_field` and
 `mlab.pipeline.vector_field` factory functions, if the `x`, `y` and
-`z` arrays are not explicitely specified.
+`z` arrays are not explicitly specified.
 
 .. image:: image_data.jpg
 
@@ -496,8 +496,8 @@ Creating a `tvtk.UnstructuredGrid` object from numpy arrays::
 .. topic:: Modifying the data
 
     If you want to modify the data of any of these low-level data
-    structures, you need to reasign data to the corresponding arrays, but
-    also reasign them a name. Once this is done, you should call the
+    structures, you need to reassign data to the corresponding arrays, but
+    also reassign them a name. Once this is done, you should call the
     'modified()' method of the object, to tell the pipeline that the data
     has been modified::
 

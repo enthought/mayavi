@@ -15,8 +15,9 @@ import sys
 from pyface.qt import QtCore, QtGui
 
 # Local imports
-from .gradient_editor import (ColorControlPoint, ChannelBase, FunctionControl,
-                              GradientEditorWidget)
+from tvtk.util.gradient_editor import (
+    ColorControlPoint, ChannelBase, FunctionControl, GradientEditorWidget
+)
 
 PY3 = sys.version_info[0] > 2
 
@@ -485,19 +486,20 @@ class QGradientEditor(QtGui.QMainWindow):
 
 
 def main():
-    from .traitsui_gradient_editor import make_test_table
+    from tvtk.util.traitsui_gradient_editor import make_test_table
     import sys
     table, ctf, otf = make_test_table(lut=False)
     # the actual gradient editor code.
     def on_color_table_changed():
         """If we had a vtk window running, update it here"""
-        print("Update Render Window")
+        # print("Update Render Window")
+        pass
 
     app = QtGui.QApplication.instance()
     editor = QGradientEditor(table,
-                              on_color_table_changed,
-                              colors=['rgb', 'a', 'h', 's', 'v'],
-                              )
+                             on_color_table_changed,
+                             colors=['rgb', 'a', 'h', 's', 'v'],
+    )
     editor.setWindowTitle("Gradient editor")
     editor.show()
     sys.exit(app.exec_())
