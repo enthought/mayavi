@@ -194,11 +194,13 @@ class DefaultPickHandler(PickHandler):
             scalar = np.format_float_scientific(self.scalar, precision=3)
             vector = np.zeros(3)
             for i in range(3):
-                vector[i] = np.format_float_scientific(self.vector[i], precision=3)
+                vector[i] = np.format_float_scientific(self.vector[i],
+                                                       precision=3)
 
             text_actor.set(input=("ID : %s\nx : %s\ny : %s\nz : %s" +
                            "\nscalar : %s\nvector : %s ")
-                           % (self.ID, x_coord, y_coord, z_coord, scalar, vector))
+                           % (self.ID, x_coord, y_coord, z_coord,
+                              scalar, vector))
 
         elif self.scalar is not None:
             scalar = np.format_float_scientific(self.scalar, precision=3)
@@ -349,7 +351,8 @@ class Picker(HasTraits):
 
     def pick_point(self, x, y):
         """ Picks the nearest point. Returns a `PickedData` instance."""
-        self.pointpicker.pick((float(x), float(y), 0.0), self.data.renwin.renderer)
+        self.pointpicker.pick((float(x), float(y), 0.0),
+                              self.data.renwin.renderer)
 
         pp = self.pointpicker
         id = pp.point_id
@@ -409,13 +412,16 @@ class Picker(HasTraits):
     def pick_world(self, x, y):
         """ Picks a world point and probes for data there. Returns a
         `PickedData` instance."""
-        self.worldpicker.pick((float(x), float(y), 0.0), self.data.renwin.renderer)
+        self.worldpicker.pick((float(x), float(y), 0.0),
+                              self.data.renwin.renderer)
 
         # Use the cell picker to get the data that needs to be probed.
         try:
-            self.cellpicker.pick((float(x), float(y), 0.0), self.data.renwin.renderer)
+            self.cellpicker.pick((float(x), float(y), 0.0),
+                                 self.data.renwin.renderer)
         except TypeError:
-            self.cellpicker.pick(float(x), float(y), 0.0, self.data.renwin.renderer)
+            self.cellpicker.pick(float(x), float(y), 0.0,
+                                 self.data.renwin.renderer)
 
         wp = self.worldpicker
         cp = self.cellpicker
