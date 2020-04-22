@@ -26,7 +26,6 @@ from .animator import animate
 from mayavi.core.scene import Scene
 from .auto_doc import traits_doc, dedent
 from . import tools
-from .tools import gcf
 from traits.api import Array, Callable, CFloat, HasTraits, \
     List, Trait, Any, Instance, TraitError, true
 import numpy as np
@@ -1181,10 +1180,9 @@ def test_triangular_mesh():
     t = np.r_[0, t]
 
     return triangular_mesh(x, y, z, triangles, scalars=t)
-############################################################
 
-def set_picker_props(figure=None, pick_type="point_picker", tolerance=0.025):
+
+def set_picker_props(figure=None, pick_type="point_picker", tolerance=0.025, text_color = None):
     if figure is None:
-        figure = gcf()
-    figure.scene.picker.set_picker_props(pick_type, tolerance)
-############################################################
+        figure = tools.gcf()
+    figure.scene.picker.set_picker_props(pick_type, tolerance, text_color)

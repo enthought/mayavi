@@ -26,6 +26,7 @@ from traits.api import HasTraits, Trait, Long, Array, Any, Float, \
 from traitsui.api import View, Group, Item, Handler
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
+from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
 from tvtk.common import vtk_major_version
@@ -69,6 +70,11 @@ class PickedData(HasTraits):
     coordinate = Array('d', (3,), labels=['x', 'y', 'z'], cols=3,
                        desc='the coordinate of the picked point')
 
+    text_actor = Instance(tvtk.TextActor)
+
+    renwin = Instance(TVTKScene)
+
+    # renwin = Any
     # The picked data -- usually a tvtk.PointData or tvtk.CellData of
     # the object picked.  The user can use this data and extract any
     # necessary values.
@@ -83,7 +89,7 @@ class PickHandler(HasTraits):
     what you need.  Each time a pick occurs the handle_pick is called
     by the `Picker` class."""
 
-    def handle_pick(self, data, renwin):
+    def handle_pick(self, data):
         """Called when a pick event happens.
 
         Parameters
@@ -133,7 +139,7 @@ class DefaultPickHandler(PickHandler):
     #################################################################
     # `DefaultPickHandler` interface.
     #################################################################
-    def handle_pick(self, data, renwin, text_actor):
+    def handle_pick(self, data):
         """Called when a pick event happens.
         """
         if data.valid_:
@@ -160,7 +166,7 @@ class DefaultPickHandler(PickHandler):
             for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
                 setattr(self, name, None)
 
-        self._update_data(renwin, text_actor)
+        self._update_data(data.renwin, data.text_actor)
 
     #################################################################
     # Non-public interface.
@@ -255,7 +261,6 @@ class Picker(HasTraits):
     def __init__(self, renwin, **traits):
         super(Picker, self).__init__(**traits)
 
-        self.renwin = renwin
         self.pointpicker = tvtk.PointPicker()
         self.cellpicker = tvtk.CellPicker()
         self.worldpicker = tvtk.WorldPointPicker()
@@ -276,10 +281,11 @@ class Picker(HasTraits):
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]
 
-        self.text_actor = tvtk.TextActor()
         self.text_rep = tvtk.TextRepresentation()
         self.text_widget = tvtk.TextWidget()
         self.data = PickedData()
+        self.data.renwin = renwin
+        self.data.text_actor = tvtk.TextActor()
         self.text_setup()
         self.widgets = False
 
@@ -333,17 +339,17 @@ class Picker(HasTraits):
             self.close_picker()
         else:
             self.text_widget.enabled = 1
-            self.pick_handler.handle_pick(self.data, self.renwin, self.text_actor)
-            self.text_actor._get_text_property().set(justification="left")
+            self.pick_handler.handle_pick(self.data)
+            self.data.text_actor._get_text_property().set(justification="left")
 
-        if self.renwin.background == (0.5, 0.5, 0.5):
+        if not self.data.renwin.background == self.data.text_actor._get_text_property().color:
             pass
         else:
             self.set_text_color()
 
     def pick_point(self, x, y):
         """ Picks the nearest point. Returns a `PickedData` instance."""
-        self.pointpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
+        self.pointpicker.pick((float(x), float(y), 0.0), self.data.renwin.renderer)
 
         pp = self.pointpicker
         id = pp.point_id
@@ -362,18 +368,22 @@ class Picker(HasTraits):
         else:
             self.p_actor.visibility = 0
 
-        self.renwin.render()
+        self.data.renwin.render()
+
+        picked_data.renwin = self.data.renwin
+        picked_data.text_actor = self.data.text_actor
+
         return picked_data
 
     def pick_cell(self, x, y):
         """ Picks the nearest cell. Returns a `PickedData` instance."""
         try:
             self.cellpicker.pick(float(x), float(y), 0.0,
-                                 self.renwin.renderer)
+                                 self.data.renwin.renderer)
         except TypeError:
             # On old versions of VTK, the signature used to be different
             self.cellpicker.pick((float(x), float(y), 0.0),
-                                 self.renwin.renderer)
+                                 self.data.renwin.renderer)
 
         cp = self.cellpicker
         id = cp.cell_id
@@ -393,19 +403,19 @@ class Picker(HasTraits):
         else:
             self.p_actor.visibility = 0
 
-        self.renwin.render()
+        self.data.renwin.render()
         return picked_data
 
     def pick_world(self, x, y):
         """ Picks a world point and probes for data there. Returns a
         `PickedData` instance."""
-        self.worldpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
+        self.worldpicker.pick((float(x), float(y), 0.0), self.data.renwin.renderer)
 
         # Use the cell picker to get the data that needs to be probed.
         try:
-            self.cellpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
+            self.cellpicker.pick((float(x), float(y), 0.0), self.data.renwin.renderer)
         except TypeError:
-            self.cellpicker.pick(float(x), float(y), 0.0, self.renwin.renderer)
+            self.cellpicker.pick(float(x), float(y), 0.0, self.data.renwin.renderer)
 
         wp = self.worldpicker
         cp = self.cellpicker
@@ -438,16 +448,16 @@ class Picker(HasTraits):
         else:
             self.p_actor.visibility = 0
 
-        self.renwin.render()
+        self.data.renwin.render()
         return picked_data
 
     def close_picker(self):
         """This method makes the picker actor invisible when a non
         data point is selected"""
         self.p_actor.visibility = 0
-        self.renwin.renderer.remove_actor(self.p_actor)
-        self.text_actor.visibility = 0
-        self.renwin.renderer.remove_actor(self.text_actor)
+        self.data.renwin.renderer.remove_actor(self.p_actor)
+        self.data.text_actor.visibility = 0
+        self.data.renwin.renderer.remove_actor(self.data.text_actor)
         self.text_widget.enabled = 0
         self.widgets = False
 
@@ -456,11 +466,11 @@ class Picker(HasTraits):
     #################################################################
     def text_setup(self):
         """Sets the properties of the text widget"""
-        self.text_actor._get_text_property().font_size = 100
+        self.data.text_actor._get_text_property().font_size = 100
         self.text_rep._get_position_coordinate().set(value=(.15, .15, 0))
         self.text_rep._get_position2_coordinate().set(value=(.3, .2, 0))
         self.text_widget.set(representation=self.text_rep)
-        self.text_widget.set(text_actor=self.text_actor)
+        self.text_widget.set(text_actor=self.data.text_actor)
         self.text_widget.selectable = 0
 
     def _update_actor(self, coordinate, bounds):
@@ -472,28 +482,30 @@ class Picker(HasTraits):
         self.p_source.origin = coordinate
         self.p_source.scale_factor = scale
         self.p_actor.visibility = 1
-        self.text_actor.visibility = 1
+        self.data.text_actor.visibility = 1
 
     def setup_widgets(self):
         """Sets up the picker actor and text actor"""
-        self.text_widget.set(interactor=self.renwin.interactor)
-        self.renwin.renderer.add_actor(self.p_actor)
-        self.renwin.renderer.add_actor(self.text_actor)
+
+        self.text_widget.set(interactor=self.data.renwin.interactor)
+        self.data.renwin.renderer.add_actor(self.p_actor)
+        self.data.renwin.renderer.add_actor(self.data.text_actor)
         self.p_actor.visibility = 1
-        self.text_actor.visibility = 1
+        self.data.text_actor.visibility = 1
         self.widgets = True
 
-    def set_picker_props(self, pick_type, tolerance):
+    def set_picker_props(self, pick_type, tolerance, text_color):
         """Lets you set the picker properties"""
         self.pick_type = pick_type
         self.tolerance = tolerance
+        self.set_text_color(text_color)
 
     def set_text_color(self, color=None):
         if color is None:
-            bgcolor = self.renwin.background
+            bgcolor = self.data.renwin.background
             text_color = [0, 0, 0]
             for i in range(3):
-                tcolor[i] = abs(bgcolor[i]-1)
-            self.text_actor._get_text_property().color = tuple(text_color)
+                text_color[i] = abs(bgcolor[i]-1)
+            self.data.text_actor._get_text_property().color = tuple(text_color)
         else:
-            self.text_actor._get_text_property().color = color
+            self.data.text_actor._get_text_property().color = color
