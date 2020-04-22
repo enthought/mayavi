@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import Instance, Property, true
+from traits.api import Bool, Instance, Property
 from traitsui.api import View, Group, HGroup, \
         Item, BooleanEditor
 from tvtk.api import tvtk
@@ -25,7 +25,7 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
     """
 
     # Automaticaly fit the bounds of the axes to the data
-    use_data_bounds = true
+    use_data_bounds = Bool(True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

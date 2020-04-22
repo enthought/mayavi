@@ -15,8 +15,9 @@ Copyright (c) 2005-2015, Gerald Knizia, Pete Schmitt and Prabhu Ramachandran
 import wx
 
 # Local imports
-from .gradient_editor import (ColorControlPoint, ChannelBase, FunctionControl,
-    GradientEditorWidget)
+from tvtk.util.gradient_editor import (
+    ColorControlPoint, ChannelBase, FunctionControl, GradientEditorWidget
+)
 
 ##########################################################################
 # `wxGradientControl` class.
@@ -503,7 +504,7 @@ class wxGradientEditor(wx.Frame):
 # Test application.
 ##########################################################################
 def main():
-    from .traitsui_gradient_editor import make_test_table
+    from tvtk.util.traitsui_gradient_editor import make_test_table
     table, ctf, otf = make_test_table(lut=False)
     # the actual gradient editor code.
     def on_color_table_changed():

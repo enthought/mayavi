@@ -148,7 +148,7 @@ class Base(TreeNodeObject):
         for attr in ('scene', '_is_running', '__sync_trait__',
                      '__traits_listener__', '_icon_path',
                      '_menu', '_HideShowAction', 'menu_helper',
-                     'parent', 'parent_', '_module_view',
+                     'parent', 'parent_', '_module_view', '_listener_cache',
                      '_view_filename', 'mlab_source'):
             d.pop(attr, None)
         return d

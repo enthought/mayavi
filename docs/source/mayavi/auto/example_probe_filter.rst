@@ -30,7 +30,7 @@ We need to use the UserDefined filter to insert this VTK filter in the
 Mayavi pipeline (see :ref:`using_userdefined_filter` as well as
 :ref:`example_image_cursor_filter` and :ref:`example_tvtk_segmentation`).
 Specifying its input is done automatical when it is inserted on the
-pipeline, be its source needs to be specified explicitely. As it is a VTK
+pipeline, be its source needs to be specified explicitly. As it is a VTK
 filter, the source is the VTK dataset output by the Mayavi object: we can
 find it in `.outputs[0]`.
 

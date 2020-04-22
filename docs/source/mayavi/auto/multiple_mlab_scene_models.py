@@ -41,7 +41,7 @@ class MyDialog(HasTraits):
         self.redraw_scene(self.scene2)
 
     def redraw_scene(self, scene):
-        # Notice how each mlab call points explicitely to the figure it
+        # Notice how each mlab call points explicitly to the figure it
         # applies to.
         mlab.clf(figure=scene.mayavi_scene)
         x, y, z, s = np.random.random((4, 100))

@@ -5,6 +5,10 @@ Mayavi: 3D visualization of scientific data in Python
 Mayavi docs: http://docs.enthought.com/mayavi/mayavi/
 TVTK docs: http://docs.enthought.com/mayavi/tvtk
 
+.. image:: https://img.shields.io/pypi/v/mayavi.svg
+   :target: https://pypi.org/project/mayavi/
+   :alt: Package on PyPI
+
 .. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
    :target: https://travis-ci.org/enthought/mayavi
    :alt: Build status
@@ -16,6 +20,10 @@ TVTK docs: http://docs.enthought.com/mayavi/tvtk
 .. image:: http://codecov.io/github/enthought/mayavi/coverage.svg?branch=master
    :target: http://codecov.io/github/enthought/mayavi?branch=master
    :alt: Code coverage status
+
+.. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+   :target: https://opensource.org/licenses/BSD-3-Clause
+   :alt: BSD 3 Clause
 
 Vision
 ======
@@ -73,12 +81,12 @@ visualization engine for any application.
 Quick start
 ===========
 
-If you are new to mayavi it is a good idea to read the `online user manual`_
+If you are new to Mayavi it is a good idea to read the `online user manual`_
 which should introduce you to how to install and use it.
 
-If you have installed `mayavi` as described in the next section, you should be
-able to launch the `mayavi2` application and also run any of the examples in
-the examples directory.
+If you have installed Mayavi as described in the next section, you should be
+able to launch the ``mayavi2`` application and also run any of the examples
+in the examples directory.
 
 
 .. _online user manual: http://docs.enthought.com/mayavi/mayavi/
@@ -170,7 +178,7 @@ Documentation
 More documentation is available in the `online user manual`_ or in ``docs``
 directory of the sources. This includes a man page for the ``mayavi2``
 application, a users guide in HTML and PDF format and documentation for
-`mlab`.
+``mlab``.
 
 More documentation in the form of workshop/tutorial material is available
 here:

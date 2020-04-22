@@ -225,7 +225,7 @@ class VolumeSlicer(HasTraits):
         """ Update the position of the cursors on each side view, as well
             as the image_plane_widgets in the 3D view.
         """
-        # First disable rendering in all scenes to avoid unecessary
+        # First disable rendering in all scenes to avoid unnecessary
         # renderings
         self.disable_render = True
 

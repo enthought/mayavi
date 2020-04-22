@@ -54,7 +54,7 @@ def add_dataset(dataset, name='', **kwargs):
     :dataset: a tvtk/vtk dataset/tvtk/VTK Algorithm, or a Mayavi source. The
               dataset added to the Mayavi pipeline
 
-    :figure: a figure identifier number or string, None or False, optionnal.
+    :figure: a figure identifier number or string, None or False, optional.
 
             If no `figure` keyword argument is given, the data
             is added to the current figure (a new figure if created if
@@ -301,7 +301,7 @@ def set_extent(module, extents):
         outline of the actors whose extent you modified. You should pass
         in the same "extents" parameter for this to work.You can have a
         look at the wigner.py example for a heavy use of this
-        functionnality.
+        functionality.
 
         **Note**
 

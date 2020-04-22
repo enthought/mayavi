@@ -17,7 +17,7 @@ illustrates how to
  2. use a created dataset in Mayavi and visualize it.
 
 This example achieve the same functionnality as mlab's points3d
-function ( :func:`mayavi.mlab.points3d`), but explicitely
+function ( :func:`mayavi.mlab.points3d`), but explicitly
 creating the objects and adding them to the pipeline engine via the Mayavi
 core API. Compared to using mlab, this method has the advantage of giving
 more control on which objects are created, and there life cycle.
