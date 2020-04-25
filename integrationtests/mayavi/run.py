@@ -2,7 +2,7 @@
 """Script to run all the tests.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008-2015,  Prabhu Ramachandran
+# Copyright (c) 2008-2020,  Prabhu Ramachandran
 # License: BSD Style.
 
 import sys

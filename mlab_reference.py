@@ -3,7 +3,7 @@ Script to generate the function reference for mlab.
 
 """
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2018, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function

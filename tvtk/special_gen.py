@@ -6,7 +6,7 @@ some of the VTK classes.  `HelperGenerator` helps generate the
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 import vtk

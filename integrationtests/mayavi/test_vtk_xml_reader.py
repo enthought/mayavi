@@ -2,7 +2,7 @@
 of test_contour.py with just the reader changed.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008,  Enthought, Inc.
+# Copyright (c) 2005-2020,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

@@ -3,7 +3,7 @@ co-ordinate axes and thereby marks the orientation of the scene.  It
 uses the OrientationMarkerWidget which requires VTK-4.5 and above.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2015, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 

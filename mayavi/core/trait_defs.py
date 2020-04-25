@@ -12,7 +12,7 @@
 #
 #  Written by: David C. Morrill and Prabhu Ramachandran
 #
-#  (c) Copyright 2006-2008 by Enthought, Inc.
+#  (c) Copyright 2006-2020 by Enthought, Inc.
 #
 #---------------------------------------------------------------------------
 

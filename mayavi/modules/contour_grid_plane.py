@@ -4,7 +4,7 @@ for structured points, rectilinear grid and structured grid input.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2006, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

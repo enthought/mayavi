@@ -5,7 +5,7 @@ pipeline.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007-2015, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 from .modules import *

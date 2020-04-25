@@ -4,7 +4,7 @@ Rectilinear.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2007-2015, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

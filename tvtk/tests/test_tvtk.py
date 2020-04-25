@@ -5,7 +5,7 @@ make sure that the generated code works well.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2016, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 import unittest

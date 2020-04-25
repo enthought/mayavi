@@ -23,7 +23,7 @@ warped from 2D data. To decimated more general meshes, you can use the
 less-efficient decimate-pro filter (see :ref:`example_julia_set_decimation`).
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008-2015, Enthought, Inc.
+# Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Retrieve the grand Canyon topological data ###################################

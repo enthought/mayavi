@@ -3,7 +3,7 @@
  outputs of an object in the pipeline.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2018, Prabhu Ramachandran Enthought, Inc.
+# Copyright (c) 2008-2020, Prabhu Ramachandran Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

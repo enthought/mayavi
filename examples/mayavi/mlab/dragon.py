@@ -1,7 +1,7 @@
 """
 Viewing Stanford 3D Scanning Repository dragon model
 """
-# Copyright (c) 2014-2015, Enthought, Inc.
+# Copyright (c) 2014-2020, Enthought, Inc.
 # Standard library imports
 import os
 from os.path import join

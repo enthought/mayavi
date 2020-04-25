@@ -2,7 +2,7 @@
 """
 
 # Authors: Frederic Petit, Prabhu Ramachandran and Gael Varoquaux
-# Copyright (c) 2007-2015, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 from .cell_derivatives import CellDerivatives

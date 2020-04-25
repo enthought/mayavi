@@ -8,7 +8,7 @@ helper functions.
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2015, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import Instance, CFloat, CInt, CArray, Trait, \

@@ -5,7 +5,7 @@ and update the mayavi pipeline. It also shows how to create a numpy array
 data and visualize it as image data using a few modules.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2007-2015, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function

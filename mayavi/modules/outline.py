@@ -5,7 +5,7 @@
 # Authors: Prabhu Ramachandran <prabhu_r [at] users.sf.net>
 #          KK Rai (kk.rai [at] iitb.ac.in)
 #          R. Ambareesha (ambareesha [at] iitb.ac.in)
-# Copyright (c) 2005-2007, Enthought, Inc.
+# Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

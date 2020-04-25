@@ -3,7 +3,7 @@ can be used from TraitsUI.
 
 
 Author: Prabhu Ramachandran
-Copyright (c) 2012-2013  Enthought Inc., Mumbai, India.
+Copyright (c) 2012-2020  Enthought Inc., Mumbai, India.
 """
 
 from traits.etsconfig.api import ETSConfig

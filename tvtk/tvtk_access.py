@@ -4,7 +4,7 @@ and this instance serves as the `tvtk` 'module'.  For more details on
 this see the devel.txt in the TVTK documentation directory.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007-2015,  Enthought, Inc.
+# Copyright (c) 2007-2020,  Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function

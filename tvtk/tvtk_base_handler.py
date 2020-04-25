@@ -1,7 +1,7 @@
 """ Handler and UI elements for tvtk objects.
 """
 # Author: Vibha Srinivasan <vibha@enthought.com>
-# Copyright (c) 2008-2016,  Enthought, Inc.
+# Copyright (c) 2008-2020,  Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import HasTraits, Str, Instance, Property, Button, List, Enum

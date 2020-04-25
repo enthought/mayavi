@@ -1,5 +1,5 @@
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2015, Enthought, Inc.
+# Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
 """This module generates the class hierarchy for any given Python

@@ -3,7 +3,7 @@ tables.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2018,  Enthought, Inc.
+# Copyright (c) 2005-2020,  Enthought, Inc.
 # License: BSD Style.
 
 import numpy

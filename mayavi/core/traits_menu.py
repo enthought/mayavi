@@ -2,7 +2,7 @@
  Code related to traits UI menu items for the tree view of mayavi.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2015, Prabhu Ramachandran Enthought, Inc.
+# Copyright (c) 2008-2020, Prabhu Ramachandran Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function

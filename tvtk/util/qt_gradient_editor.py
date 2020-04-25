@@ -6,7 +6,7 @@ This code is distributed under the conditions of the BSD license.
 Based on a wxPython by Pete Schmitt <schmitt@colorado.edu>
 
 Author: Prabhu Ramachandran <prabhu@enthought.com>
-Copyright (c) 2012-2013 Enthought, Inc., Mumbai, India.
+Copyright (c) 2012-2020 Enthought, Inc., Mumbai, India.
 """
 
 import sys

@@ -9,7 +9,7 @@ For explanations and more examples of interactive application building
 with Mayavi, please refer to section :ref:`builing_applications`.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2009, Enthought, Inc.
+# Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
 import ast

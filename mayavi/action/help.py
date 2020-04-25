@@ -3,7 +3,7 @@
 """
 # Authors: Gael Varoquaux <gael.varoquaux[at]normalesup.org>
 #          Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc.
+# Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

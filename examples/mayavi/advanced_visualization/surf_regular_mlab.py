@@ -4,7 +4,7 @@ mayavi2.
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006-2007, Enthought Inc.
+# Copyright (c) 2006-2020, Enthought Inc.
 # License: BSD Style.
 
 import numpy as np

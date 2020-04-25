@@ -11,7 +11,7 @@ field data source with the ExtractVectorComponent filter, and applying
 an IsoSurface module on this scalar component.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2009, Enthought, Inc.
+# Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
 import numpy as np

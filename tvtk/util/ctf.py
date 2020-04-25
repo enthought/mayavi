@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006-2015, Enthought, Inc.
+# Copyright (c) 2006-2020, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

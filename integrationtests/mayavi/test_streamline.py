@@ -6,7 +6,7 @@ tests.  However, we recommend that one does not use image based tests
 since they are not always reliable and a pain.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008,  Enthought, Inc.
+# Copyright (c) 2005-2020,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

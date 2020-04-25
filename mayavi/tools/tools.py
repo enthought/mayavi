@@ -4,7 +4,7 @@ The general purpose tools to manipulate the pipeline with the mlab interface.
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>,
 #         Gael Varoquaux      <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2015 Enthought, Inc.
+# Copyright (c) 2007-2020 Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

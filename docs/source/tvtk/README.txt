@@ -3,7 +3,7 @@ An Introduction to Traited VTK (tvtk)
 =====================================
 :Author: Prabhu Ramachandran
 :Contact: prabhu@enthought.com
-:Copyright: 2004-2012, Enthought, Inc.
+:Copyright: 2004-2020, Enthought, Inc.
 
 .. contents::
 

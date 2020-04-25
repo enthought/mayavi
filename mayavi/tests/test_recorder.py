@@ -4,7 +4,7 @@ refactored to move to AppTools however we repeat the tests here with a
 TVTK object to ensure that the test works with TVTK objects.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2015, Enthought, Inc.
+# Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
 import sys
