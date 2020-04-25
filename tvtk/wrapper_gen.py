@@ -25,6 +25,13 @@ from . import vtk_parser
 from . import indenter
 from . import special_gen
 
+try:
+    import faulthandler
+except ImportError:
+    pass
+else:
+    faulthandler.enable()
+
 PY_VER = sys.version_info[0]
 
 
@@ -1549,6 +1556,9 @@ class WrapperGenerator:
 
         # If the default is just a little off from the range
         # then extend the range.
+        assert default is not None, ('add to vtk_parser exception list: %r %r'
+                                     % (klass.__name__.split('.')[-1],
+                                        vtk_attr_name))
         if (default < rng[0]) and (rng[0] - default) < 2:
             rng = (default, rng[1])
         if (default > rng[1]) and (default - rng[1]) < 2:

@@ -15,7 +15,7 @@ import types
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_62
+from .common import is_version_62, is_version_9
 
 
 class VTKMethodParser:
@@ -605,31 +605,36 @@ class VTKMethodParser:
 
         for method in meths[:]:
             # Methods of the Set/Get form.
-            if method in ['Get', 'Set']:
+            if method[:3] != 'Set':
+                continue
+            elif method == 'Set':
                 # This occurs with the vtkInformation class.
                 continue
-            elif klass_name == 'vtkProp' and method[3:] == 'AllocatedRenderTime':
+            elif (klass_name == 'vtkProp' and
+                  method[3:] == 'AllocatedRenderTime'):
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
-            elif klass_name == 'vtkGenericAttributeCollection' and \
-                method[3:] == 'AttributesToInterpolate':
+            elif (not is_version_9()) and (
+                (klass_name == 'vtkGenericAttributeCollection' and
+                 method[3:] == 'AttributesToInterpolate') or
+                (klass_name == 'vtkOverlappingAMR' and
+                 method[3:] == 'Origin') or
+                (klass_name == 'vtkOrientationMarkerWidget' and
+                 method[3:] in ['OutlineColor', 'Viewport']) or
+                (klass_name == 'vtkImageDataGeometryFilter' and
+                 method[3:] == 'Extent') or
+                (klass_name == 'vtkVolumeMapper' and
+                 method[3:] == 'CroppingRegionPlanes') or
+                (klass_name == 'vtkContextMouseEvent' and
+                 method[3:] == 'Interactor')):
                 continue
-            elif klass_name == 'vtkOverlappingAMR' and method[3:] == 'Origin':
+            # VTK 9 uses function handles that we don't parse properly yet
+            elif (klass_name == 'vtkPiecewisePointHandleItem' and
+                  method[3:] == 'PiecewiseFunction'):
                 continue
-            elif (klass_name == 'vtkOrientationMarkerWidget'
-                  and method[3:] in ['OutlineColor', 'Viewport']):
-                continue
-            elif (klass_name == 'vtkImageDataGeometryFilter'
-                  and method[3:] == 'Extent'):
-                continue
-            elif (klass_name == 'vtkVolumeMapper'
-                  and method[3:] == 'CroppingRegionPlanes'):
-                continue
-            elif (klass_name == 'vtkContextMouseEvent'
-                  and method[3:] == 'Interactor'):
-                pass
-            elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
+            # we can actually process it
+            elif ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
                 meths.remove('Get' + key)
@@ -645,20 +650,37 @@ class VTKMethodParser:
             obj = self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
-                    if klass_name in ['vtkPolyData', 'vtkContext2D']:
+                    if not is_version_9() and (
                         # Evil hack, these classes segfault!
+                        (klass_name in ['vtkPolyData', 'vtkContext2D']) or
+                        # On VTK 8.1.0 this segfaults when uninitialized.
+                        (klass_name == 'vtkContextMouseEvent' and
+                         key == 'Interactor')):
                         default = None
-                    elif klass_name == 'vtkHyperOctree' and \
-                            key == 'Dimension':
+                    elif not is_version_9() and (
+                            klass_name == 'vtkHyperOctree' and
+                            key == 'Dimension'):
                         # This class breaks standard VTK conventions.
                         gsm[key] = (3, (1, 3))
                         continue
-                    elif (klass_name == 'vtkContextMouseEvent' and
-                          key == 'Interactor'):
-                        # On VTK 8.1.0 this segfaults when uninitialized.
+                    # On VTK 9.0.0 vtkHigherOrderTetra.GetParametricCorods
+                    # segfauts when uninitialized, see:
+                    #
+                    # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/6729#note_732848  # noqa: E501
+                    #
+                    # vtkGenericAttributeCollection.GetAttributesToInterpolate
+                    # might only be a problem if VTK is built in debug mode,
+                    # but let's keep it just to be safe.
+                    elif is_version_9() and (
+                            (klass_name == 'vtkHigherOrderTetra' and
+                             key == 'ParametricCoords') or
+                            (klass_name == 'vtkGenericAttributeCollection' and
+                             key == 'AttributesToInterpolate')):
                         default = None
                     else:
                         try:
+                            # Useful for debugging on failures:
+                            # print(klass_name, key)
                             default = getattr(obj, 'Get%s' % key)()
                         except TypeError:
                             default = None
@@ -669,6 +691,13 @@ class VTKMethodParser:
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
+                del obj
+                # Segfaults can be exposed by uncommenting these lines,
+                # leave them commented while running because they
+                # slow things down quite a bit
+                # print(klass_name)
+                # import gc
+                # gc.collect()
             else:
                 # We still might have methods that have a default range.
                 for key, value in gsm.items():
