@@ -58,6 +58,8 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
             return
 
     logger.setLevel(logging.DEBUG)
+    basedir = os.path.dirname(path)
+    os.makedirs(basedir, exist_ok=True)
     handler = LogFileHandler(path)
     handler.setLevel(logging.DEBUG)
     logger.addHandler(handler)
