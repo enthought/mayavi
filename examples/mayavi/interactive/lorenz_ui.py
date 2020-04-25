@@ -12,6 +12,7 @@ with Mayavi, please refer to section :ref:`builing_applications`.
 # Copyright (c) 2008-2009, Enthought, Inc.
 # License: BSD Style.
 
+import ast
 import numpy as np
 import scipy
 
@@ -139,4 +140,3 @@ if __name__ == '__main__':
     # Instantiate the class and configure its traits.
     lor = Lorenz()
     lor.configure_traits()
-
