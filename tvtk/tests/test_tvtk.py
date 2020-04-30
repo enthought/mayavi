@@ -133,7 +133,7 @@ class TestTVTK(unittest.TestCase):
         r = tvtk.XMLDataReader()
         self.assertEqual(r.f(), 'f')
         if len(vtk.vtkObjectBase.__bases__) > 0:
-            if vtk_major_version == 7 or PY_VER < 3:
+            if vtk_major_version == 7 and PY_VER < 3:
                 expect = ()
             else:
                 expect = (object,)
