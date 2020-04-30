@@ -458,11 +458,14 @@ class Base(TreeNodeObject):
         """ Try to load a view for this object.
         """
         view_filename = self._view_filename
-        try:
-            result = importlib.load_module('view', open(view_filename, 'r'),
-                                           view_filename, ('.py', 'U', 1))
-            view = result.view
-        except (ImportError, OSError):
+        if os.path.exists(view_filename):
+            spec = importlib.util.spec_from_file_location(
+                'view', view_filename
+            )
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            view = module.view
+        else:
             view = None
         return view
 
