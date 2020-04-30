@@ -14,7 +14,7 @@ import importlib
 
 # Enthought library imports.
 from traits.api import (Any, Instance, Property, Bool, Str, Python,
-    HasTraits, WeakRef, on_trait_change)
+                        HasTraits, WeakRef, on_trait_change)
 from traitsui.api import TreeNodeObject
 from tvtk.pyface.tvtk_scene import TVTKScene
 from apptools.persistence import state_pickler
@@ -35,30 +35,46 @@ logger = logging.getLogger(__name__)
 # Subdirectory that the Base class will check for possible external views.
 UI_DIR_NAME = ['ui']
 
-#-------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 #  The core tree node menu actions:
-#-------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-NewAction    = 'NewAction'
-CopyAction   = Action(name         = 'Copy',
-                      action       = 'editor._menu_copy_node',
-                      enabled_when = 'editor._is_copyable(object)' )
-CutAction    = Action(name         = 'Cut',
-                      action       = 'editor._menu_cut_node',
-                      enabled_when = 'editor._is_cutable(object)' )
-PasteAction  = Action(name         = 'Paste',
-                      action       = 'editor._menu_paste_node',
-                      enabled_when = 'editor._is_pasteable(object)' )
-DeleteAction = Action(name         = 'Delete',
-                      action       = 'editor._menu_delete_node',
-                      enabled_when = 'editor._is_deletable(object)' )
-RenameAction = Action(name         = 'Rename',
-                      action       = 'editor._menu_rename_node',
-                      enabled_when = 'editor._is_renameable(object)' )
-standard_menu_actions = [Separator(), CutAction, CopyAction, PasteAction,
-                         Separator(),
-                         RenameAction, DeleteAction, Separator(),
-                        ]
+NewAction = 'NewAction'
+CopyAction = Action(
+    name='Copy',
+    action='editor._menu_copy_node',
+    enabled_when='editor._is_copyable(object)'
+)
+CutAction = Action(
+    name='Cut',
+    action='editor._menu_cut_node',
+    enabled_when='editor._is_cutable(object)'
+)
+PasteAction = Action(
+    name='Paste',
+    action='editor._menu_paste_node',
+    enabled_when='editor._is_pasteable(object)'
+)
+DeleteAction = Action(
+    name='Delete',
+    action='editor._menu_delete_node',
+    enabled_when='editor._is_deletable(object)'
+)
+RenameAction = Action(
+    name='Rename',
+    action='editor._menu_rename_node',
+    enabled_when='editor._is_renameable(object)'
+)
+standard_menu_actions = [
+    Separator(),
+    CutAction,
+    CopyAction,
+    PasteAction,
+    Separator(),
+    RenameAction,
+    DeleteAction,
+    Separator(),
+]
 
 
 ######################################################################
@@ -181,8 +197,8 @@ class Base(TreeNodeObject):
         saved_state = self._saved_state
         if len(saved_state) == 0:
             state = state_pickler.get_state(self)
-            #FIXME: This is for streamline seed point widget position which
-            #does not get serialized correctly
+            # FIXME: This is for streamline seed point widget position which
+            # does not get serialized correctly
             if not is_old_pipeline():
                 try:
                     st = state.children[0].children[4]
@@ -245,14 +261,13 @@ class Base(TreeNodeObject):
         """ Returns a view with an icon and a title.
         """
         view = self.trait_view()
-        icon = self._icon_path + os.sep + 'images' + os.sep \
-                            + self.icon
+        icon = self._icon_path + os.sep + 'images' + os.sep + self.icon
         view.icon = ImageResource(icon)
         view.title = "Edit%s: %s" % (self.type, self.name)
         view.buttons = ['OK', 'Cancel']
         return view
 
-    def trait_view(self, name = None, view_element = None ):
+    def trait_view(self, name=None, view_element=None):
         """ Gets or sets a ViewElement associated with an object's class.
 
         Overridden here to search for a separate file in the same directory
@@ -269,7 +284,7 @@ class Base(TreeNodeObject):
 
         view = self._load_view_cached(name, view_element)
         # Uncomment this when developping views.
-        #view = self._load_view_non_cached(name, view_element)
+        # view = self._load_view_non_cached(name, view_element)
         return view
 
     ######################################################################
@@ -297,7 +312,7 @@ class Base(TreeNodeObject):
         else:
             return True
 
-    def tno_get_menu ( self, node ):
+    def tno_get_menu(self, node):
         """ Returns the contextual pop-up menu.
         """
         if self._menu is None:
@@ -325,7 +340,7 @@ class Base(TreeNodeObject):
         """ Inserts a child into the object's children.
         """
         if len(self.children_ui_list) > len(self.children):
-            idx = index -1
+            idx = index - 1
         else:
             idx = index
         self.children[idx:idx] = [child]
@@ -350,16 +365,15 @@ class Base(TreeNodeObject):
         For the base class, do not add anything to the children list.
         """
         if ((not preference_manager.root.show_helper_nodes or
-                        len(self.children) > 0)
-                or self._adder_node_class is None
-                or (not self.type == ' scene' and
-                    'none' in self.output_info.datasets)
-                    # We can't use isinstance, as we would have circular
-                    # imports
-                ):
+             len(self.children) > 0)
+            or self._adder_node_class is None
+            or (not self.type == ' scene' and
+                'none' in self.output_info.datasets)):
+            # We can't use isinstance, as we would have circular
+            # imports
             return self.children
         else:
-            return [self._adder_node_class(object=self),]
+            return [self._adder_node_class(object=self)]
 
     @on_trait_change('children[]')
     def _trigger_children_ui_list(self, old, new):
@@ -367,7 +381,7 @@ class Base(TreeNodeObject):
         """
         self.trait_property_changed('children_ui_list', old, new)
 
-    def _visible_changed(self , value):
+    def _visible_changed(self, value):
         # A hack to set the name when the tree view is not active.
         # `self.name` is set only when tno_get_label is called and this
         # is never called when the tree view is not shown leading to an
@@ -375,10 +389,8 @@ class Base(TreeNodeObject):
         if len(self.name) == 0:
             self.tno_get_label(None)
         if value:
-            #self._HideShowAction.name = "Hide"
             self.name = self.name.replace(' [Hidden]', '')
         else:
-            #self._HideShowAction.name = "Show"
             n = self.name
             if ' [Hidden]' not in n:
                 self.name = "%s [Hidden]" % n
@@ -391,7 +403,7 @@ class Base(TreeNodeObject):
         else:
             logger.debug("No view found for [%s] in [%s]. "
                          "Using the base class trait_view instead.",
-                             self, self._view_filename)
+                         self, self._view_filename)
             view = super(Base, self).trait_view(name, view_element)
         return view
 
@@ -408,8 +420,8 @@ class Base(TreeNodeObject):
             view = result['view']
         except IOError:
             logger.debug("No view found for [%s] in [%s]. "
-                            "Using the base class trait_view instead.",
-                            self, view_filename)
+                         "Using the base class trait_view instead.",
+                         self, view_filename)
             view = super(Base, self).trait_view(name, view_element)
         return view
 
@@ -438,10 +450,9 @@ class Base(TreeNodeObject):
         class_filename = module[-1] + '.py'
         module_dir_name = module[1:-1]
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        view_filename = os.path.join(*([base_dir] + module_dir_name \
-                                        + UI_DIR_NAME + [class_filename]))
+        view_filename = os.path.join(*([base_dir] + module_dir_name
+                                       + UI_DIR_NAME + [class_filename]))
         return view_filename
-
 
     def __module_view_default(self):
         """ Try to load a view for this object.
@@ -449,21 +460,20 @@ class Base(TreeNodeObject):
         view_filename = self._view_filename
         try:
             result = importlib.load_module('view', open(view_filename, 'r'),
-                            view_filename, ('.py', 'U', 1))
+                                           view_filename, ('.py', 'U', 1))
             view = result.view
-        except:
+        except (ImportError, OSError):
             view = None
         return view
-
 
     def __menu_default(self):
         extras = []
         if self.menu_helper is not None:
             extras = self.menu_helper.actions + self._extra_menu_items()
         menu_actions = [Separator()] + extras + \
-                       [Separator(), self._HideShowAction, Separator()] + \
-                       deepcopy(standard_menu_actions)
-        return Menu( *menu_actions)
+            [Separator(), self._HideShowAction, Separator()] + \
+            deepcopy(standard_menu_actions)
+        return Menu(*menu_actions)
 
     def __icon_path_default(self):
         return resource_path()

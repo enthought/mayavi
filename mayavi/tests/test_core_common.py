@@ -5,13 +5,17 @@ Tests for the mayavi.core.common module.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
+import os
 import unittest
+
+from traitsui.api import View
 
 from mayavi.core.common import get_object_path, get_engine
 from mayavi.core.file_data_source import NoUITimer
 from mayavi.sources.parametric_surface import \
     ParametricSurface
 from mayavi.modules.outline import Outline
+from mayavi.modules.surface import Surface
 
 from mayavi.core.null_engine import NullEngine
 
@@ -86,6 +90,24 @@ class TestCoreCommon(unittest.TestCase):
         self.assertEqual(o1.parent, mm)
 
 
+class TestHandCraftedView(unittest.TestCase):
+    def test_that_custom_views_are_loaded(self):
+        # Given/When
+        s = Surface()
+
+        # Then
+        self.assertTrue(os.path.exists(s._view_filename))
+        self.assertTrue(s._module_view is not None)
+        self.assertTrue(isinstance(s._module_view,  View))
+
+        # When there is no view, it should work safely.
+        # Given/When
+        o = Outline()
+
+        # Then
+        self.assertFalse(os.path.exists(o._view_filename))
+        self.assertEqual(o._module_view, None)
+
 
 class TestNoUITimer(unittest.TestCase):
     def test_simple_timer(self):
@@ -93,8 +115,9 @@ class TestNoUITimer(unittest.TestCase):
             def __init__(self):
                 self.count = 0
                 self.timer = NoUITimer(10, self.step)
+
             def step(self):
-                self.count +=1
+                self.count += 1
                 if self.count > 10:
                     self.timer.Stop()
 
@@ -108,8 +131,9 @@ class TestNoUITimer(unittest.TestCase):
             def __init__(self):
                 self.count = 0
                 self.timer = NoUITimer(10, self.step)
+
             def step(self):
-                self.count +=1
+                self.count += 1
                 raise(RuntimeError('Oops'))
 
         a = A()
@@ -122,8 +146,9 @@ class TestNoUITimer(unittest.TestCase):
             def __init__(self):
                 self.count = 0
                 self.timer = NoUITimer(10, self.step)
+
             def step(self):
-                self.count +=1
+                self.count += 1
                 if self.count > 10:
                     raise(StopIteration('Stop'))
 
