@@ -21,15 +21,17 @@ probe for the data at that point.
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
-from traits.api import HasTraits, Trait, Int, Array, Any, Bool, Float, \
-                                 Instance, Range, Str
+from traits.api import HasTraits, Trait, Int, Array, Any, Float, \
+                                Instance, Range, true, Str, false
 from traitsui.api import View, Group, Item, Handler
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
+from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
-
 from tvtk.common import vtk_major_version
+import numpy as np
+
 
 ######################################################################
 # Utility functions.
@@ -46,6 +48,7 @@ def get_last_input(data):
         except AttributeError:
             tmp = None
     return inp
+
 
 ######################################################################
 # `PickedData` class.
@@ -67,6 +70,11 @@ class PickedData(HasTraits):
     coordinate = Array('d', (3,), labels=['x', 'y', 'z'], cols=3,
                        desc='the coordinate of the picked point')
 
+    text_actor = Instance(tvtk.TextActor)
+
+    renwin = Instance(TVTKScene)
+
+    # renwin = Any
     # The picked data -- usually a tvtk.PointData or tvtk.CellData of
     # the object picked.  The user can use this data and extract any
     # necessary values.
@@ -97,7 +105,6 @@ class PickHandler(HasTraits):
 ######################################################################
 class DefaultPickHandler(PickHandler):
     """The default handler for the picked data."""
-
     # Traits.
     ID = Trait(None, None, Int, desc='the picked ID')
 
@@ -109,7 +116,7 @@ class DefaultPickHandler(PickHandler):
     vector = Trait(None, None, Array('d', (3,)),
                    desc='the vector at picked point')
 
-    tensor = Trait(None, None, Array('d', (3,3)),
+    tensor = Trait(None, None, Array('d', (3, 3)),
                    desc='the tensor at picked point')
 
     # History of picked data.
@@ -126,8 +133,8 @@ class DefaultPickHandler(PickHandler):
     def __init__(self, **traits):
         super(DefaultPickHandler, self).__init__(**traits)
         # This saves all the data picked earlier.
-        self.data = {'ID':[], 'coordinate':[], 'scalar':[], 'vector':[],
-                     'tensor':[]}
+        self.data = {'ID': [], 'coordinate': [], 'scalar': [], 'vector': [],
+                     'tensor': []}
 
     #################################################################
     # `DefaultPickHandler` interface.
@@ -158,29 +165,51 @@ class DefaultPickHandler(PickHandler):
         else:
             for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
                 setattr(self, name, None)
-        self._update_data()
+
+        self._update_data(data.renwin, data.text_actor)
 
     #################################################################
     # Non-public interface.
     #################################################################
-    def _update_data(self):
+
+    def _update_data(self, renwin, text_actor):
         for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
             value = getattr(self, name)
             self.data.get(name).append(getattr(self, name))
-            self.history += '%s: %r\n'%(name, value)
+            self.history += '%s: %r\n' % (name, value)
 
+        x_coord = np.format_float_scientific(self.coordinate[0], precision=3)
+        y_coord = np.format_float_scientific(self.coordinate[1], precision=3)
+        z_coord = np.format_float_scientific(self.coordinate[2], precision=3)
 
+        if(self.vector is not None and
+           self.scalar is not None and
+           self.tensor is not None):
+            text_actor.set(input=("ID : %s\nx : %s\ny : %s\nz : %s " +
+                           "\nscalar : %s\nvector : %s\ntensor : %s ")
+                           % (self.ID, x_coord, y_coord, z_coord,
+                              self.scalar, self.vector, self.tensor))
 
-######################################################################
-# `CloseHandler` class.
-######################################################################
-class CloseHandler(Handler):
-    """This class cleans up after the UI for the Picker is closed."""
-    def close(self, info, is_ok):
-        """This method is invoked when the user closes the UI."""
-        picker = info.object
-        picker.on_ui_close()
-        return True
+        elif self.vector is not None and self.scalar is not None:
+            scalar = np.format_float_scientific(self.scalar, precision=3)
+            vector = np.zeros(3)
+            for i in range(3):
+                vector[i] = np.format_float_scientific(self.vector[i],
+                                                       precision=3)
+
+            text_actor.set(input=("ID : %s\nx : %s\ny : %s\nz : %s" +
+                           "\nscalar : %s\nvector : %s ")
+                           % (self.ID, x_coord, y_coord, z_coord,
+                              scalar, vector))
+
+        elif self.scalar is not None:
+            scalar = np.format_float_scientific(self.scalar, precision=3)
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s"
+                           % (self.ID, x_coord, y_coord, z_coord, scalar))
+
+        else:
+            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s "
+                           % (self.ID, x_coord, y_coord, z_coord))
 
 
 ######################################################################
@@ -205,9 +234,9 @@ class Picker(HasTraits):
     # options are self-explanatory.  The 'world_picker' picks a point
     # using a WorldPointPicker and additionally uses a ProbeFilter to
     # probe the data at the picked point.
-    pick_type = Trait('point', TraitRevPrefixMap({'point_picker':1,
-                                                  'cell_picker':2,
-                                                  'world_picker':3}),
+    pick_type = Trait('point', TraitRevPrefixMap({'point_picker': 1,
+                                                  'cell_picker': 2,
+                                                  'world_picker': 3}),
                       desc='specifies the picker type to use')
 
     # The pick_handler.  Set this to your own subclass if you want do
@@ -215,24 +244,18 @@ class Picker(HasTraits):
     pick_handler = Trait(DefaultPickHandler(), Instance(PickHandler))
 
     # Picking tolerance.
-    tolerance = Range(0.0, 0.25, 0.025)
-
-    # show the GUI on pick ?
-    show_gui = Bool(True, desc = "whether to show the picker GUI on pick")
+    tolerance = Range(0.0, 0.1, 0.025)
 
     # Raise the GUI on pick ?
-    auto_raise = Bool(True, desc = "whether to raise the picker GUI on pick")
+    auto_raise = false(desc="whether to raise the picker GUI on pick")
 
     default_view = View(Group(Group(Item(name='pick_type'),
                                     Item(name='tolerance'), show_border=True),
                               Group(Item(name='pick_handler', style='custom'),
                                     show_border=True, show_labels=False),
-                              Group(Item(name='show_gui'),
-                                    Item(name='auto_raise'), show_border=True),
                               ),
                         resizable=True,
-                        buttons=['OK'],
-                        handler=CloseHandler())
+                        buttons=['OK'])
 
     #################################################################
     # `object` interface.
@@ -240,17 +263,14 @@ class Picker(HasTraits):
     def __init__(self, renwin, **traits):
         super(Picker, self).__init__(**traits)
 
-        self.renwin = renwin
         self.pointpicker = tvtk.PointPicker()
         self.cellpicker = tvtk.CellPicker()
         self.worldpicker = tvtk.WorldPointPicker()
         self.probe_data = tvtk.PolyData()
-        self._tolerance_changed(self.tolerance)
-
         # Use a set of axis to show the picked point.
         self.p_source = tvtk.Axes()
         self.p_mapper = tvtk.PolyDataMapper()
-        self.p_actor = tvtk.Actor ()
+        self.p_actor = tvtk.Actor()
         self.p_source.symmetric = 1
         self.p_actor.pickable = 0
         self.p_actor.visibility = 0
@@ -263,7 +283,13 @@ class Picker(HasTraits):
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]
 
-        self.ui = None
+        self.text_rep = tvtk.TextRepresentation()
+        self.text_widget = tvtk.TextWidget()
+        self.data = PickedData()
+        self.data.renwin = renwin
+        self.data.text_actor = tvtk.TextActor()
+        self.text_setup()
+        self.widgets = False
 
     def __get_pure_state__(self):
         d = self.__dict__.copy()
@@ -296,34 +322,43 @@ class Picker(HasTraits):
 
         - y : Y position of the mouse in the window.
 
-          Note that the origin of x, y must be at the left bottom
-          corner of the window.  Thus, for most GUI toolkits, y must
-          be flipped appropriately such that y=0 is the bottom of the
-          window.
+        Note that the origin of x, y must be at the left bottom
+        corner of the window.  Thus, for most GUI toolkits, y must
+        be flipped appropriately such that y=0 is the bottom of the
+        window.
         """
-
-        data = None
         if self.pick_type_ == 1:
-            data = self.pick_point(x, y)
+            self.data = self.pick_point(x, y)
         elif self.pick_type_ == 2:
-            data = self.pick_cell(x, y)
+            self.data = self.pick_cell(x, y)
         elif self.pick_type_ == 3:
-            data = self.pick_world(x, y)
+            self.data = self.pick_world(x, y)
 
-        self.pick_handler.handle_pick(data)
-        if self.show_gui:
-            self._setup_gui()
+        if self.widgets is False:
+            self.setup_widgets()
+
+        if self.data.point_id == -1:
+            self.close_picker()
+        else:
+            self.text_widget.enabled = 1
+            self.pick_handler.handle_pick(self.data)
+            self.data.text_actor._get_text_property().set(justification="left")
+
+        if not self.data.renwin.background == self.data.text_actor._get_text_property().color:
+            pass
+        else:
+            self.set_text_color()
 
     def pick_point(self, x, y):
         """ Picks the nearest point. Returns a `PickedData` instance."""
-        self.pointpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
+        self.pointpicker.pick((float(x), float(y), 0.0),
+                              self.data.renwin.renderer)
 
         pp = self.pointpicker
         id = pp.point_id
         picked_data = PickedData()
         coord = pp.pick_position
         picked_data.coordinate = coord
-
         if id > -1:
             data = pp.mapper.input.point_data
             bounds = pp.mapper.input.bounds
@@ -336,18 +371,22 @@ class Picker(HasTraits):
         else:
             self.p_actor.visibility = 0
 
-        self.renwin.render()
+        self.data.renwin.render()
+
+        picked_data.renwin = self.data.renwin
+        picked_data.text_actor = self.data.text_actor
+
         return picked_data
 
-    def pick_cell (self, x, y):
+    def pick_cell(self, x, y):
         """ Picks the nearest cell. Returns a `PickedData` instance."""
         try:
             self.cellpicker.pick(float(x), float(y), 0.0,
-                                 self.renwin.renderer)
+                                 self.data.renwin.renderer)
         except TypeError:
             # On old versions of VTK, the signature used to be different
             self.cellpicker.pick((float(x), float(y), 0.0),
-                                 self.renwin.renderer)
+                                 self.data.renwin.renderer)
 
         cp = self.cellpicker
         id = cp.cell_id
@@ -367,19 +406,22 @@ class Picker(HasTraits):
         else:
             self.p_actor.visibility = 0
 
-        self.renwin.render()
+        self.data.renwin.render()
         return picked_data
 
     def pick_world(self, x, y):
         """ Picks a world point and probes for data there. Returns a
         `PickedData` instance."""
-        self.worldpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
+        self.worldpicker.pick((float(x), float(y), 0.0),
+                              self.data.renwin.renderer)
 
         # Use the cell picker to get the data that needs to be probed.
         try:
-            self.cellpicker.pick( (float(x), float(y), 0.0), self.renwin.renderer)
+            self.cellpicker.pick((float(x), float(y), 0.0),
+                                 self.data.renwin.renderer)
         except TypeError:
-            self.cellpicker.pick( float(x), float(y), 0.0, self.renwin.renderer)
+            self.cellpicker.pick(float(x), float(y), 0.0,
+                                 self.data.renwin.renderer)
 
         wp = self.worldpicker
         cp = self.cellpicker
@@ -412,45 +454,64 @@ class Picker(HasTraits):
         else:
             self.p_actor.visibility = 0
 
-        self.renwin.render()
+        self.data.renwin.render()
         return picked_data
 
-    def on_ui_close(self):
-        """This method makes the picker actor invisible when the GUI
-        dialog is closed."""
+    def close_picker(self):
+        """This method makes the picker actor invisible when a non
+        data point is selected"""
         self.p_actor.visibility = 0
-        self.renwin.renderer.remove_actor(self.p_actor)
-        self.ui = None
+        self.data.renwin.renderer.remove_actor(self.p_actor)
+        self.data.text_actor.visibility = 0
+        self.data.renwin.renderer.remove_actor(self.data.text_actor)
+        self.text_widget.enabled = 0
+        self.widgets = False
 
     #################################################################
     # Non-public interface.
     #################################################################
-    def _tolerance_changed(self, val):
-        """ Trait handler for the tolerance trait."""
-        self.pointpicker.tolerance = val
-        self.cellpicker.tolerance = val
+    def text_setup(self):
+        """Sets the properties of the text widget"""
+        self.data.text_actor._get_text_property().font_size = 100
+        self.text_rep._get_position_coordinate().set(value=(.15, .15, 0))
+        self.text_rep._get_position2_coordinate().set(value=(.3, .2, 0))
+        self.text_widget.set(representation=self.text_rep)
+        self.text_widget.set(text_actor=self.data.text_actor)
+        self.text_widget.selectable = 0
 
     def _update_actor(self, coordinate, bounds):
         """Updates the actor by setting its position and scale."""
         dx = 0.3*(bounds[1]-bounds[0])
         dy = 0.3*(bounds[3]-bounds[2])
         dz = 0.3*(bounds[5]-bounds[4])
-        scale = max(dx,dy,dz)
+        scale = max(dx, dy, dz)
         self.p_source.origin = coordinate
         self.p_source.scale_factor = scale
         self.p_actor.visibility = 1
+        self.data.text_actor.visibility = 1
 
-    def _setup_gui(self):
-        """Pops up the GUI control widget."""
-        # Popup the GUI control.
-        if self.ui is None:
-            self.ui = self.edit_traits()
-            # Note that we add actors to the renderer rather than to
-            # renwin to prevent event notifications on actor
-            # additions.
-            self.renwin.renderer.add_actor(self.p_actor)
-        elif self.auto_raise:
-            try:
-                self.ui.control.Raise()
-            except AttributeError:
-                pass
+    def setup_widgets(self):
+        """Sets up the picker actor and text actor"""
+
+        self.text_widget.set(interactor=self.data.renwin.interactor)
+        self.data.renwin.renderer.add_actor(self.p_actor)
+        self.data.renwin.renderer.add_actor(self.data.text_actor)
+        self.p_actor.visibility = 1
+        self.data.text_actor.visibility = 1
+        self.widgets = True
+
+    def set_picker_props(self, pick_type, tolerance, text_color):
+        """Lets you set the picker properties"""
+        self.pick_type = pick_type
+        self.tolerance = tolerance
+        self.set_text_color(text_color)
+
+    def set_text_color(self, color=None):
+        if color is None:
+            bgcolor = self.data.renwin.background
+            text_color = [0, 0, 0]
+            for i in range(3):
+                text_color[i] = abs(bgcolor[i]-1)
+            self.data.text_actor._get_text_property().color = tuple(text_color)
+        else:
+            self.data.text_actor._get_text_property().color = color

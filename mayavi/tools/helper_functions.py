@@ -31,6 +31,7 @@ from traits.api import Array, Bool, Callable, CFloat, HasTraits, \
 import numpy as np
 
 
+
 def document_pipeline(pipeline):
 
     def the_function(*args, **kwargs):
@@ -1179,3 +1180,9 @@ def test_triangular_mesh():
     t = np.r_[0, t]
 
     return triangular_mesh(x, y, z, triangles, scalars=t)
+
+
+def set_picker_props(figure=None, pick_type="point_picker", tolerance=0.025, text_color=None):
+    if figure is None:
+        figure = tools.gcf()
+    figure.scene.picker.set_picker_props(pick_type, tolerance, text_color)
