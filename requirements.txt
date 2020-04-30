@@ -7,3 +7,4 @@ Sphinx
 traits>=4.6.0
 traitsui>=6.0.0
 vtk
+six

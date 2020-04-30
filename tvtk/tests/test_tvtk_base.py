@@ -12,7 +12,7 @@ import pickle
 import weakref
 import vtk
 import gc
-import imp
+from six.moves import reload_module
 
 from traits import api as traits
 from tvtk import tvtk_base
@@ -323,7 +323,7 @@ class TestTVTKBase(unittest.TestCase):
         # Check reload-safety.
         p = Prop()
         l1 = len(tvtk_base._object_cache)
-        imp.reload(tvtk_base)
+        reload_module(tvtk_base)
         self.assertEqual(l1, len(tvtk_base._object_cache))
 
     # Reloading causes havoc with nosetests based tests so we skip in

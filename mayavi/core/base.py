@@ -10,7 +10,7 @@ import pickle
 from copy import deepcopy
 import os
 import logging
-import imp
+import importlib
 
 # Enthought library imports.
 from traits.api import (Any, Instance, Property, Bool, Str, Python,
@@ -448,7 +448,7 @@ class Base(TreeNodeObject):
         """
         view_filename = self._view_filename
         try:
-            result = imp.load_module('view', open(view_filename, 'r'),
+            result = importlib.load_module('view', open(view_filename, 'r'),
                             view_filename, ('.py', 'U', 1))
             view = result.view
         except:
