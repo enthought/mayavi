@@ -78,6 +78,8 @@ class TestClassTree(unittest.TestCase):
                           'vtkSparseArray', 'vtkTuple',
                           'vtkTypedArray', 'vtkVariantStrictWeakOrderKey',
                           'vtkVector', 'vtkVector2', 'vtkVector3']
+                if PY_VER == 3:
+                    expect.remove('vtkVariantStrictWeakOrderKey')
             elif vtk_major_version == 8:
                 if PY_VER == 3:
                     expect = ['object']
