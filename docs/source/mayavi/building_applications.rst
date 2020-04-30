@@ -258,7 +258,7 @@ Using the `Visualization` class defined above::
                                     kind='subpanel').control
             self.Show()
 
-    app = wx.PySimpleApp()
+    app = wx.App(False)
     frame = MainWindow(None, wx.ID_ANY)
     app.MainLoop()
 
