@@ -11,7 +11,7 @@ files.
 from os.path import basename, isfile, exists, splitext
 
 # Enthought library imports.
-from traits.api import Trait, Instance, Str, TraitPrefixMap, Button
+from traits.api import Trait, Instance, Str, PrefixMap, Button
 from traitsui.api import View, Group, Item, FileEditor
 from tvtk.api import tvtk
 from apptools.persistence.state_pickler import set_state
@@ -43,23 +43,23 @@ class PLOT3DReader(Source):
 
     # The active scalar name.
     scalars_name = Trait('density',
-                         TraitPrefixMap({'density': 100,
-                                         'pressure': 110,
-                                         'temperature': 120,
-                                         'enthalpy': 130,
-                                         'internal energy': 140,
-                                         'kinetic energy': 144,
-                                         'velocity magnitude': 153,
-                                         'stagnation energy': 163,
-                                         'entropy': 170,
-                                         'swirl': 184}),
+                         PrefixMap({'density': 100,
+                                    'pressure': 110,
+                                    'temperature': 120,
+                                    'enthalpy': 130,
+                                    'internal energy': 140,
+                                    'kinetic energy': 144,
+                                    'velocity magnitude': 153,
+                                    'stagnation energy': 163,
+                                    'entropy': 170,
+                                    'swirl': 184}),
                          desc='scalar data attribute to show')
     # The active vector name.
     vectors_name = Trait('momentum',
-                         TraitPrefixMap({'velocity': 200,
-                                         'vorticity': 201,
-                                         'momentum': 202,
-                                         'pressure gradient': 210}),
+                         PrefixMap({'velocity': 200,
+                                    'vorticity': 201,
+                                    'momentum': 202,
+                                    'pressure gradient': 210}),
                          desc='vector data attribute to show')
 
     # The VTK data file reader.
