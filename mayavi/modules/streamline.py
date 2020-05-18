@@ -12,7 +12,7 @@ streamlines.
 from math import sqrt
 
 # Enthought library imports.
-from traits.api import Instance, Bool, TraitPrefixList, Trait, \
+from traits.api import Instance, Bool, PrefixList, Trait, \
                              Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
@@ -45,8 +45,8 @@ class Streamline(Module):
 
     # Determines if the streamlines are shown as lines or ribbons or
     # tubes.
-    streamline_type = Trait('line', TraitPrefixList(['line', 'ribbon',
-                                                      'tube']),
+    streamline_type = Trait('line', PrefixList(['line', 'ribbon',
+                                                'tube']),
                             desc='draw streamlines as lines/ribbons/tubes')
 
     # The ribbon filter.

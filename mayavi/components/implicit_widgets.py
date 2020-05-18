@@ -8,7 +8,7 @@ to be used by various modules.
 
 import pickle
 
-from traits.api import (Instance, Trait, Bool, TraitMap, Enum, Dict,
+from traits.api import (Instance, Trait, Bool, Map, Enum, Dict,
                         Str, Int, Any)
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
@@ -27,15 +27,15 @@ class ImplicitWidgets(Component):
     __version__ = 0
 
     # The widget type to use.
-    widget_mode = Enum('Box', 'Sphere', 'Plane','ImplicitPlane',
+    widget_mode = Enum('Box', 'Sphere', 'Plane', 'ImplicitPlane',
                        desc='the implicit widget to use')
 
     # The actual poly data source widget.
     widget = Instance(tvtk.ThreeDWidget, record=True)
 
     update_mode = Trait('semi-interactive',
-                        TraitMap({'interactive':'InteractionEvent',
-                                  'semi-interactive': 'EndInteractionEvent'}),
+                        Map({'interactive': 'InteractionEvent',
+                             'semi-interactive': 'EndInteractionEvent'}),
                         desc='speed at which the data should be updated')
 
     implicit_function = Instance(tvtk.ImplicitFunction, allow_none=False)

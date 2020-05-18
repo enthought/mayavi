@@ -9,7 +9,7 @@ tables.
 import numpy
 
 # Enthought library imports.
-from traits.api import List, Instance, Trait, TraitPrefixList, \
+from traits.api import List, Instance, Trait, PrefixList, \
                                  HasTraits, Str
 from apptools.persistence.state_pickler import set_state
 
@@ -95,7 +95,7 @@ class ModuleManager(Base):
     # cell data.
     lut_data_mode = Trait(
         'auto',
-        TraitPrefixList(LUT_DATA_MODE_TYPES),
+        PrefixList(LUT_DATA_MODE_TYPES),
         desc='specify the data type used by the lookup tables',
     )
 

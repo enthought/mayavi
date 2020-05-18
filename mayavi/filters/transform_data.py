@@ -15,7 +15,7 @@ except ImportError:
 
 # Enthought library imports.
 from traits.api import Instance, Property, Bool, Int, \
-     Trait, TraitMap, Button
+     Trait, Map, Button
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from apptools.persistence import state_pickler
@@ -49,8 +49,8 @@ class TransformData(Filter):
 
     # Update the data immediately or at the end of the interaction.
     update_mode = Trait('semi-interactive',
-                        TraitMap({'interactive':'InteractionEvent',
-                                  'semi-interactive': 'EndInteractionEvent'}),
+                        Map({'interactive': 'InteractionEvent',
+                             'semi-interactive': 'EndInteractionEvent'}),
                         desc='speed at which the data should be updated')
 
     input_info = PipelineInfo(datasets=['poly_data',

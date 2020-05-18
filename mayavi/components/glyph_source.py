@@ -7,7 +7,7 @@ handle transformation.
 
 # Enthought library imports.
 from traits.api import (Instance, List, Trait, Bool,
-                        TraitPrefixList, Property, Dict)
+                        PrefixList, Property, Dict)
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from tvtk.common import camel2enthought
@@ -32,8 +32,8 @@ class GlyphSource(Component):
     # only if you do not mess with the source glyph's basic size.  For
     # example if you use a ConeSource and set its height != 1, then the
     # 'head' and 'tail' options will not work correctly.
-    glyph_position = Trait('center', TraitPrefixList(['head', 'tail',
-                                                      'center']),
+    glyph_position = Trait('center', PrefixList(['head', 'tail',
+                                                 'center']),
                            desc='position of glyph w.r.t. data point')
 
     # The Source to use for the glyph.  This is chosen from

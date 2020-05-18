@@ -149,8 +149,8 @@ true_bool_trait = traits.Trait('true',
 false_bool_trait = traits.Trait('false', true_bool_trait)
 
 
-class TraitRevPrefixMap(traits.TraitPrefixMap):
-    """A reverse mapped TraitPrefixMap.  This handler allows for
+class TraitRevPrefixMap(traits.PrefixMap):
+    """A reverse mapped PrefixMap.  This handler allows for
     something like the following::
 
       >>> class A(HasTraits):
@@ -169,7 +169,7 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
 
     """
     def __init__(self, map):
-        traits.TraitPrefixMap.__init__(self, map)
+        traits.PrefixMap.__init__(self, map)
         self._rmap = {}
         for key, value in map.items():
             self._rmap[value] = key
@@ -198,7 +198,7 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
         keys = [repr(x) for x in self._rmap.keys()]
         keys.sort()
         msg = ' or '.join(keys)
-        return traits.TraitPrefixMap.info(self) + ' or ' + msg
+        return traits.PrefixMap.info(self) + ' or ' + msg
 
 
 def vtk_color_trait(default, **metadata):
