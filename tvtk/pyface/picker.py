@@ -185,10 +185,12 @@ class DefaultPickHandler(PickHandler):
         if(self.vector is not None and
            self.scalar is not None and
            self.tensor is not None):
-            text_actor.set(input=("ID : %s\nx : %s\ny : %s\nz : %s " +
-                           "\nscalar : %s\nvector : %s\ntensor : %s ")
-                           % (self.ID, x_coord, y_coord, z_coord,
-                              self.scalar, self.vector, self.tensor))
+            text_actor.trait_set(
+                input=("ID : %s\nx : %s\ny : %s\nz : %s " +
+                       "\nscalar : %s\nvector : %s\ntensor : %s ")
+                % (self.ID, x_coord, y_coord, z_coord,
+                   self.scalar, self.vector, self.tensor)
+            )
 
         elif self.vector is not None and self.scalar is not None:
             scalar = np.format_float_scientific(self.scalar, precision=3)
@@ -197,19 +199,24 @@ class DefaultPickHandler(PickHandler):
                 vector[i] = np.format_float_scientific(self.vector[i],
                                                        precision=3)
 
-            text_actor.set(input=("ID : %s\nx : %s\ny : %s\nz : %s" +
-                           "\nscalar : %s\nvector : %s ")
-                           % (self.ID, x_coord, y_coord, z_coord,
-                              scalar, vector))
+            text_actor.trait_set(
+                input=("ID : %s\nx : %s\ny : %s\nz : %s" +
+                       "\nscalar : %s\nvector : %s ")
+                % (self.ID, x_coord, y_coord, z_coord, scalar, vector)
+            )
 
         elif self.scalar is not None:
             scalar = np.format_float_scientific(self.scalar, precision=3)
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s"
-                           % (self.ID, x_coord, y_coord, z_coord, scalar))
+            text_actor.trait_set(
+                input="ID : %s\nx : %s\ny : %s\nz : %s\nscalar : %s"
+                % (self.ID, x_coord, y_coord, z_coord, scalar)
+            )
 
         else:
-            text_actor.set(input="ID : %s\nx : %s\ny : %s\nz : %s "
-                           % (self.ID, x_coord, y_coord, z_coord))
+            text_actor.trait_set(
+                input="ID : %s\nx : %s\ny : %s\nz : %s "
+                % (self.ID, x_coord, y_coord, z_coord)
+            )
 
 
 ######################################################################
@@ -343,9 +350,12 @@ class Picker(HasTraits):
         else:
             self.text_widget.enabled = 1
             self.pick_handler.handle_pick(self.data)
-            self.data.text_actor._get_text_property().set(justification="left")
+            self.data.text_actor._get_text_property().trait_set(
+                justification="left"
+            )
 
-        if not self.data.renwin.background == self.data.text_actor._get_text_property().color:
+        text_color = self.data.text_actor._get_text_property().color
+        if not self.data.renwin.background == text_color:
             pass
         else:
             self.set_text_color()
@@ -494,7 +504,7 @@ class Picker(HasTraits):
     def setup_widgets(self):
         """Sets up the picker actor and text actor"""
 
-        self.text_widget.set(interactor=self.data.renwin.interactor)
+        self.text_widget.trait_set(interactor=self.data.renwin.interactor)
         self.data.renwin.renderer.add_actor(self.p_actor)
         self.data.renwin.renderer.add_actor(self.data.text_actor)
         self.p_actor.visibility = 1
