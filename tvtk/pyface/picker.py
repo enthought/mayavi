@@ -293,15 +293,15 @@ class Picker(HasTraits):
 
         self.text_rep = tvtk.TextRepresentation()
         self.text_widget = tvtk.TextWidget()
-        self.data = PickedData()
-        self.data.renwin = renwin
+        self.data = PickedData(renwin=renwin)
         self.data.text_actor = tvtk.TextActor()
         self.text_setup()
         self.widgets = False
 
     def __get_pure_state__(self):
         d = self.__dict__.copy()
-        for x in ['renwin', 'ui', 'pick_handler', '__sync_trait__', '__traits_listener__']:
+        for x in ['renwin', 'ui', 'pick_handler', '__sync_trait__',
+                  '__traits_listener__']:
             d.pop(x, None)
         return d
 
@@ -345,14 +345,14 @@ class Picker(HasTraits):
         if self.widgets is False:
             self.setup_widgets()
 
-        if self.data.point_id == -1:
-            self.close_picker()
-        else:
+        if self.data.valid:
             self.text_widget.enabled = 1
             self.pick_handler.handle_pick(self.data)
             self.data.text_actor._get_text_property().trait_set(
                 justification="left"
             )
+        else:
+            self.close_picker()
 
         text_color = self.data.text_actor._get_text_property().color
         if not self.data.renwin.background == text_color:
@@ -367,7 +367,8 @@ class Picker(HasTraits):
 
         pp = self.pointpicker
         id = pp.point_id
-        picked_data = PickedData()
+        picked_data = PickedData(renwin=self.data.renwin,
+                                 text_actor=self.data.text_actor)
         coord = pp.pick_position
         picked_data.coordinate = coord
         if id > -1:
@@ -384,9 +385,6 @@ class Picker(HasTraits):
 
         self.data.renwin.render()
 
-        picked_data.renwin = self.data.renwin
-        picked_data.text_actor = self.data.text_actor
-
         return picked_data
 
     def pick_cell(self, x, y):
@@ -401,7 +399,8 @@ class Picker(HasTraits):
 
         cp = self.cellpicker
         id = cp.cell_id
-        picked_data = PickedData()
+        picked_data = PickedData(renwin=self.data.renwin,
+                                 text_actor=self.data.text_actor)
         coord = cp.pick_position
         picked_data.coordinate = coord
 
@@ -438,7 +437,8 @@ class Picker(HasTraits):
         cp = self.cellpicker
         coord = wp.pick_position
         self.probe_data.points = [list(coord)]
-        picked_data = PickedData()
+        picked_data = PickedData(renwin=self.data.renwin,
+                                 text_actor=self.data.text_actor)
         picked_data.coordinate = coord
 
         if cp.mapper:
