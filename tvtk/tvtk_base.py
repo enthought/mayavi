@@ -18,6 +18,11 @@ import vtk
 from traits import api as traits
 from . import messenger
 
+try:
+    from traits.api import PrefixMap as TraitPrefixMap
+except ImportError:  # use deprecated name
+    from traits.api import TraitPrefixMap
+
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
 
@@ -149,7 +154,7 @@ true_bool_trait = traits.Trait('true',
 false_bool_trait = traits.Trait('false', true_bool_trait)
 
 
-class TraitRevPrefixMap(traits.TraitPrefixMap):
+class TraitRevPrefixMap(TraitPrefixMap):
     """A reverse mapped TraitPrefixMap.  This handler allows for
     something like the following::
 
@@ -169,7 +174,7 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
 
     """
     def __init__(self, map):
-        traits.TraitPrefixMap.__init__(self, map)
+        TraitPrefixMap.__init__(self, map)
         self._rmap = {}
         for key, value in map.items():
             self._rmap[value] = key
@@ -198,7 +203,7 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
         keys = [repr(x) for x in self._rmap.keys()]
         keys.sort()
         msg = ' or '.join(keys)
-        return traits.TraitPrefixMap.info(self) + ' or ' + msg
+        return TraitPrefixMap.info(self) + ' or ' + msg
 
 
 def vtk_color_trait(default, **metadata):
