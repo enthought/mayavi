@@ -16,5 +16,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install --upgrade pip setuptools wheel
-      - run: pip install numpy vtk<9.0.0  # enthought/mayavi#939
+      - run: pip install numpy 'vtk<9.0.0'  # enthought/mayavi#939
       - run: pip install mayavi
