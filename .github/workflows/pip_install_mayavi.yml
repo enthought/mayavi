@@ -15,5 +15,6 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - run: pip install --upgrade pip setuptools wheel
+      - run: pip install --upgrade pip
+      - run: pip install --upgrade numpy setuptools wheel
       - run: pip install mayavi
