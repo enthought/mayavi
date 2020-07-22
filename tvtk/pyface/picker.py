@@ -473,10 +473,10 @@ class Picker(HasTraits):
     def text_setup(self):
         """Sets the properties of the text widget"""
         self.data.text_actor._get_text_property().font_size = 100
-        self.text_rep._get_position_coordinate().set(value=(.15, .15, 0))
-        self.text_rep._get_position2_coordinate().set(value=(.3, .2, 0))
-        self.text_widget.set(representation=self.text_rep)
-        self.text_widget.set(text_actor=self.data.text_actor)
+        self.text_rep._get_position_coordinate().trait_set(value=(.15, .15, 0))
+        self.text_rep._get_position2_coordinate().trait_set(value=(.3, .2, 0))
+        self.text_widget.trait_set(representation=self.text_rep)
+        self.text_widget.trait_set(text_actor=self.data.text_actor)
         self.text_widget.selectable = 0
 
     def _update_actor(self, coordinate, bounds):
