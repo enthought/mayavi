@@ -317,9 +317,9 @@ class TestVTKParser(unittest.TestCase):
 
         # t1 = time.clock()
         p = self.p
+        ignore = ['mutable', 'exc', 'kits', 'util']
         for obj in dir(vtk):
             k = getattr(vtk, obj)
-            ignore = ['mutable', 'exc', 'kits', 'util']
             if hasattr(k, '__bases__') and obj not in ignore:
                 # print(k.__name__, end=' ')
                 # sys.stdout.flush()

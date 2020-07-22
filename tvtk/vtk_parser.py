@@ -625,9 +625,12 @@ class VTKMethodParser:
                 (klass_name == 'vtkImageDataGeometryFilter' and
                  method[3:] == 'Extent') or
                 (klass_name == 'vtkVolumeMapper' and
-                 method[3:] == 'CroppingRegionPlanes') or
-                (klass_name == 'vtkContextMouseEvent' and
-                 method[3:] == 'Interactor')):
+                 method[3:] == 'CroppingRegionPlanes')):
+                continue
+            elif (klass_name == 'vtkContextMouseEvent' and
+                  method[3:] == 'Interactor'):
+                # This is actually okay on VTK9 on Linux and Windows, but not
+                # macOS (segfaults)
                 continue
             # VTK 9 uses function handles that we don't parse properly yet
             elif (klass_name == 'vtkPiecewisePointHandleItem' and
@@ -635,6 +638,9 @@ class VTKMethodParser:
                 continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
+                # import sys
+                # print(method)
+                # sys.stdout.flush()
                 key = method[3:]
                 meths.remove('Set' + key)
                 meths.remove('Get' + key)
