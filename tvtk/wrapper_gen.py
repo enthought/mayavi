@@ -697,9 +697,9 @@ class WrapperGenerator:
                     t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s')""" % locals()
                 elif hasattr(extra_val, '__iter__'):
                     extra_val = str(extra_val)[1:-1]
-                    t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s', extra_values=%(extra_val)s)""" % locals()
+                    t_def = """tvtk_base.RevPrefixMap(%(d)s, %(extra_val)s, default_value='%(default)s')""" % locals()
                 else:
-                    t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s', extra_values=%(extra_val)s)""" % locals()
+                    t_def = """tvtk_base.RevPrefixMap(%(d)s, %(extra_val)s, default_value='%(default)s')""" % locals()
                 vtk_set_meth = getattr(klass, 'Set' + m)
                 self._write_trait(out, name, t_def, vtk_set_meth,
                                   mapped=True)

@@ -80,14 +80,12 @@ class TestClassTree(unittest.TestCase):
                           'vtkVector', 'vtkVector2', 'vtkVector3']
                 if PY_VER == 3:
                     expect.remove('vtkVariantStrictWeakOrderKey')
-            elif vtk_major_version == 8:
+            else:
+                self.assertGreaterEqual(vtk_major_version, 8)
                 if PY_VER == 3:
                     expect = ['object']
                 else:
                     expect = ['object', 'vtkVariantStrictWeakOrderKey']
-            else:
-                self.assertEqual(vtk_major_version, 9)
-                expect = ['object']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkVector')):
             self.assertEqual(len(t.tree[0]), 11)

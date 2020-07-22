@@ -24,8 +24,12 @@ except ImportError:  # use deprecated name
     from traits.api import TraitPrefixMap, TraitPrefixList, Trait
 
     class PrefixMap(Trait):
-        def __init__(self, map, **kwargs):
-            super().__init__(kwargs['default_value'], map, **kwargs)
+        def __init__(self, map, *args, **kwargs):
+            if args:
+                args = (kwargs.pop('default_value'),) * args + (map,)
+            else:
+                args = (kwargs.pop('default_value'), map)
+            super().__init__(*args, **kwargs)
 
     class PrefixList(Trait):
         def __init__(self, list_, **kwargs):
@@ -182,11 +186,13 @@ class RevPrefixMap(PrefixMap):
     keys map to the same value, one of the valid keys will be used.
 
     """
-    def __init__(self, map, **kwargs):
+    def __init__(self, map, *extra_values, **kwargs):
         super().__init__(map, **kwargs)
         self._rmap = {}
         for key, value in map.items():
             self._rmap[value] = key
+        for key in extra_values:
+            self._rmap[key] = kwargs['default_value']
 
     def validate(self, object, name, value):
         try:
