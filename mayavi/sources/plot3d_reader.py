@@ -11,9 +11,10 @@ files.
 from os.path import basename, isfile, exists, splitext
 
 # Enthought library imports.
-from traits.api import Trait, Instance, Str, Button
+from traits.api import Instance, Str, Button
 from traitsui.api import View, Group, Item, FileEditor
 from tvtk.api import tvtk
+from tvtk.tvtk_base import PrefixMap
 from apptools.persistence.state_pickler import set_state
 from apptools.persistence.file_path import FilePath
 
@@ -21,11 +22,6 @@ from apptools.persistence.file_path import FilePath
 from mayavi.core.source import Source
 from mayavi.core.common import handle_children_state, error
 from mayavi.core.pipeline_info import PipelineInfo
-
-try:
-    from traits.api import PrefixMap as TraitPrefixMap
-except ImportError:  # use old name
-    from traits.api import TraitPrefixMap
 
 
 ########################################################################
@@ -47,25 +43,25 @@ class PLOT3DReader(Source):
     q_file_name = Str('', desc='the Q file')
 
     # The active scalar name.
-    scalars_name = Trait('density',
-                         TraitPrefixMap({'density': 100,
-                                         'pressure': 110,
-                                         'temperature': 120,
-                                         'enthalpy': 130,
-                                         'internal energy': 140,
-                                         'kinetic energy': 144,
-                                         'velocity magnitude': 153,
-                                         'stagnation energy': 163,
-                                         'entropy': 170,
-                                         'swirl': 184}),
-                         desc='scalar data attribute to show')
+    scalars_name = PrefixMap({'density': 100,
+                              'pressure': 110,
+                              'temperature': 120,
+                              'enthalpy': 130,
+                              'internal energy': 140,
+                              'kinetic energy': 144,
+                              'velocity magnitude': 153,
+                              'stagnation energy': 163,
+                              'entropy': 170,
+                              'swirl': 184},
+                             default_value='density',
+                             desc='scalar data attribute to show')
     # The active vector name.
-    vectors_name = Trait('momentum',
-                         TraitPrefixMap({'velocity': 200,
-                                         'vorticity': 201,
-                                         'momentum': 202,
-                                         'pressure gradient': 210}),
-                         desc='vector data attribute to show')
+    vectors_name = PrefixMap({'velocity': 200,
+                              'vorticity': 201,
+                              'momentum': 202,
+                              'pressure gradient': 210},
+                             default_value='momentum',
+                             desc='vector data attribute to show')
 
     # The VTK data file reader.
     reader = Instance(tvtk.MultiBlockPLOT3DReader, args=(), allow_none=False,

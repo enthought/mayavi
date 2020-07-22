@@ -25,7 +25,7 @@ from traits.api import HasTraits, Trait, Int, Array, Any, Float, \
                                 Instance, Range, true, Str, false
 from traitsui.api import View, Group, Item, Handler
 from tvtk.api import tvtk
-from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
+from tvtk.tvtk_base import RevPrefixMap, false_bool_trait
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
@@ -234,10 +234,11 @@ class Picker(HasTraits):
     # options are self-explanatory.  The 'world_picker' picks a point
     # using a WorldPointPicker and additionally uses a ProbeFilter to
     # probe the data at the picked point.
-    pick_type = Trait('point', TraitRevPrefixMap({'point_picker': 1,
-                                                  'cell_picker': 2,
-                                                  'world_picker': 3}),
-                      desc='specifies the picker type to use')
+    pick_type = RevPrefixMap({'point_picker': 1,
+                              'cell_picker': 2,
+                              'world_picker': 3},
+                             default_value='point',
+                             desc='specifies the picker type to use')
 
     # The pick_handler.  Set this to your own subclass if you want do
     # do something different from the default.

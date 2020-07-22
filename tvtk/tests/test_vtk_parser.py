@@ -47,10 +47,11 @@ class TestVTKParser(unittest.TestCase):
         p.parse(vtk.vtkObject())
         if vtk_major_version < 9:
             self.assertEqual(p.get_toggle_methods(),
-                            {'Debug': 0, 'GlobalWarningDisplay': 1})
+                             {'Debug': 0, 'GlobalWarningDisplay': 1})
         else:
-            self.assertEqual(p.get_toggle_methods(),
-                            {'Debug': False, 'GlobalWarningDisplay': 0})
+            self.assertIn(p.get_toggle_methods(),
+                          [{'Debug': False, 'GlobalWarningDisplay': 1},
+                           {'Debug': False, 'GlobalWarningDisplay': 0}])
         if (vtk_major_version >= 5 and vtk_minor_version >= 10) or \
            (vtk_major_version >= 6):
             self.assertEqual(p.get_state_methods(), {})

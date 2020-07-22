@@ -19,9 +19,18 @@ from traits import api as traits
 from . import messenger
 
 try:
-    from traits.api import PrefixMap as TraitPrefixMap
+    from traits.api import PrefixMap, PrefixList
 except ImportError:  # use deprecated name
-    from traits.api import TraitPrefixMap
+    from traits.api import TraitPrefixMap, TraitPrefixList, Trait
+
+    class PrefixMap(Trait):
+        def __init__(self, map, **kwargs):
+            super().__init__(kwargs['default_value'], map, **kwargs)
+
+    class PrefixList(Trait):
+        def __init__(self, list_, **kwargs):
+            super().__init__(kwargs['default_value'], TraitPrefixList(list_),
+                             **kwargs)
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
@@ -154,12 +163,12 @@ true_bool_trait = traits.Trait('true',
 false_bool_trait = traits.Trait('false', true_bool_trait)
 
 
-class TraitRevPrefixMap(TraitPrefixMap):
-    """A reverse mapped TraitPrefixMap.  This handler allows for
+class RevPrefixMap(PrefixMap):
+    """A reverse mapped PrefixMap.  This handler allows for
     something like the following::
 
       >>> class A(HasTraits):
-      ...     a = Trait('ab', TraitRevPrefixMap({'ab':1, 'cd':2}))
+      ...     a = RevPrefixMap({'ab':1, 'cd':2}, default_value='ab')
       ...
       >>> a = A()
       >>> a.a = 'c'
@@ -173,8 +182,8 @@ class TraitRevPrefixMap(TraitPrefixMap):
     keys map to the same value, one of the valid keys will be used.
 
     """
-    def __init__(self, map):
-        TraitPrefixMap.__init__(self, map)
+    def __init__(self, map, **kwargs):
+        super().__init__(map, **kwargs)
         self._rmap = {}
         for key, value in map.items():
             self._rmap[value] = key
@@ -203,7 +212,7 @@ class TraitRevPrefixMap(TraitPrefixMap):
         keys = [repr(x) for x in self._rmap.keys()]
         keys.sort()
         msg = ' or '.join(keys)
-        return TraitPrefixMap.info(self) + ' or ' + msg
+        return PrefixMap.info(self) + ' or ' + msg
 
 
 def vtk_color_trait(default, **metadata):

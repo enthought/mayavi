@@ -28,7 +28,7 @@ from traits.api import HasTraits, Range, false, \
                                  Instance, Trait, List
 from traitsui.api import View, Group, Handler, ListEditor, Item
 from tvtk.api import tvtk
-from tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
+from tvtk.tvtk_base import vtk_color_trait, RevPrefixMap
 from tvtk.common import is_old_pipeline, configure_input, configure_input_data
 from apptools.persistence import state_pickler
 
@@ -309,9 +309,10 @@ class LightManager(HasTraits):
     # default mode used to initialize the lights to a sane default.
     # The user can always change the light configuration via the GUI
     # such that the mode is neither 'vtk' nor 'raymond'.
-    light_mode = Trait('raymond', TraitRevPrefixMap({'raymond':1,
-                                                     'vtk':2}),
-                       desc='specifies a default lighting mode')
+    light_mode = RevPrefixMap({'raymond': 1,
+                               'vtk': 2},
+                              default_value='raymond',
+                              desc='specifies a default lighting mode')
 
     # Specify the number of lights.  If new lights are added they are
     # by default turned off.  Similarly if the number of lights are
@@ -470,4 +471,3 @@ class LightManager(HasTraits):
                 light = self.lights.pop()
                 light.close(self.renwin)
             changed = True
-

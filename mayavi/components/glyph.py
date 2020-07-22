@@ -12,7 +12,7 @@ from traits.api import Instance, Trait, Bool
 from traits.api import Enum
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
-from tvtk.tvtk_base import TraitRevPrefixMap
+from tvtk.tvtk_base import RevPrefixMap
 
 # Local imports.
 from mayavi.core.component import Component
@@ -30,36 +30,36 @@ class Glyph(Component):
 
     # Type of Glyph: 'tensor' or 'vector'
     glyph_type = Enum('vector', 'tensor',
-                      desc = 'if the glyph is vector or tensor')
+                      desc='if the glyph is vector or tensor')
 
     # The scaling mode to use when scaling the glyphs.  We could have
     # used the glyph's own scale mode but it allows users to set the
     # mode to use vector components for the scaling which I'd like to
     # disallow.
-    scale_mode = Trait('scale_by_scalar',
-                       TraitRevPrefixMap({'scale_by_vector': 1,
-                                          'scale_by_vector_components': 2,
-                                          'data_scaling_off': 3,
-                                          'scale_by_scalar': 0}),
-                       desc="if scaling is done using scalar or vector/normal magnitude"
-                       )
+    scale_mode = RevPrefixMap({'scale_by_vector': 1,
+                               'scale_by_vector_components': 2,
+                               'data_scaling_off': 3,
+                               'scale_by_scalar': 0},
+                              default_value='scale_by_scalar',
+                              desc="if scaling is done using scalar or vector/normal magnitude"
+                              )
 
     # The color mode to use when coloring the glyphs.  We could have
     # used the glyph's own color_mode trait but it allows users to set
     # the mode to use vector components for the scaling which I'd
     # like to disallow.
-    color_mode = Trait('color_by_scalar',
-                       TraitRevPrefixMap({'color_by_vector': 2,
-                                          'color_by_scalar': 1,
-                                          'no_coloring': 0}),
-                       desc="if coloring is done by scalar or vector/normal magnitude"
-                       )
-    color_mode_tensor = Trait('scalar',
-                              TraitRevPrefixMap({'scalars': 1,
-                                                 'eigenvalues':2,
-                                                 'no_coloring': 0}),
-                              desc="if coloring is done by scalar or eigenvalues"
-                             )
+    color_mode = RevPrefixMap({'color_by_vector': 2,
+                               'color_by_scalar': 1,
+                               'no_coloring': 0},
+                              default_value='color_by_scalar',
+                              desc="if coloring is done by scalar or vector/normal magnitude"
+                              )
+    color_mode_tensor = RevPrefixMap({'scalars': 1,
+                                      'eigenvalues':2,
+                                      'no_coloring': 0},
+                                     default_value='scalars',
+                                     desc="if coloring is done by scalar or eigenvalues"
+                                     )
 
     # Specify if the input points must be masked.  By mask we mean
     # that only a subset of the input points must be displayed.

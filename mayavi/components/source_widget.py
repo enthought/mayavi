@@ -7,9 +7,10 @@ to be used by various modules.
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import Event, Instance, List, Trait, Bool, TraitPrefixList
+from traits.api import Event, Instance, List, Trait, Bool
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
+from tvtk.tvtk_base import PrefixList
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
@@ -35,10 +36,10 @@ class SourceWidget(Component):
     # change and when the widget interaction is complete, 3)
     # 'non-interactive' -- poly_data is updated only explicitly at
     # users request by calling `object.update_poly_data`.
-    update_mode = Trait('interactive', TraitPrefixList(['interactive',
-                                                        'semi-interactive',
-                                                        'non-interactive']),
-                        desc='the speed at which the poly data is updated')
+    update_mode = PrefixList(
+        ['interactive', 'semi-interactive', 'non-interactive'],
+        default_value='interactive',
+        desc='the speed at which the poly data is updated')
 
     # A list of predefined glyph sources that can be used.
     widget_list = List(tvtk.Object, record=False)

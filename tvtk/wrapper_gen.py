@@ -105,13 +105,14 @@ def get_trait_def(value, **kwargs):
             dtype = 'int64'
         elif dtype == 'long':
             dtype = 'int64'
+        dtype = '"{}"'.format(dtype) if dtype is not None else 'None'
 
         cols = len(value)
 
         if kwargs_code:
             kwargs_code += ', '
 
-        kwargs_code += ('shape={shape}, dtype="{dtype}", '
+        kwargs_code += ('shape={shape}, dtype={dtype}, '
                         'value={value!r}, cols={cols}').format(
                             shape=shape, dtype=dtype,
                             value=value, cols=min(3, cols))
@@ -655,9 +656,7 @@ class WrapperGenerator:
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
                 if extra_val is None:
-                    t_def = """traits.Trait('%(default)s',
-                                       tvtk_base.TraitRevPrefixMap(%(d)s))"""\
-                    %locals()
+                    t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s')""" % locals()
                 elif hasattr(extra_val, '__iter__'):
                     extra_val = str(extra_val)[1:-1]
 
@@ -695,18 +694,12 @@ class WrapperGenerator:
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
                 if extra_val is None:
-                    t_def = """traits.Trait('%(default)s',
-                                       tvtk_base.TraitRevPrefixMap(%(d)s))"""\
-                    %locals()
+                    t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s')""" % locals()
                 elif hasattr(extra_val, '__iter__'):
                     extra_val = str(extra_val)[1:-1]
-                    t_def = """traits.Trait('%(default)s', %(extra_val)s,
-                                       tvtk_base.TraitRevPrefixMap(%(d)s))"""\
-                    %locals()
+                    t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s', extra_values=%(extra_val)s)""" % locals()
                 else:
-                    t_def = """traits.Trait('%(default)s', %(extra_val)s,
-                                       tvtk_base.TraitRevPrefixMap(%(d)s))"""\
-                    %locals()
+                    t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s', extra_values=%(extra_val)s)""" % locals()
                 vtk_set_meth = getattr(klass, 'Set' + m)
                 self._write_trait(out, name, t_def, vtk_set_meth,
                                   mapped=True)

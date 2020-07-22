@@ -12,10 +12,10 @@ streamlines.
 from math import sqrt
 
 # Enthought library imports.
-from traits.api import Instance, Bool, TraitPrefixList, Trait, \
-                             Delegate, Button
+from traits.api import Instance, Bool, Trait, Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
+from tvtk.tvtk_base import PrefixList
 
 # Local imports
 from mayavi.core.module import Module
@@ -45,9 +45,10 @@ class Streamline(Module):
 
     # Determines if the streamlines are shown as lines or ribbons or
     # tubes.
-    streamline_type = Trait('line', TraitPrefixList(['line', 'ribbon',
-                                                      'tube']),
-                            desc='draw streamlines as lines/ribbons/tubes')
+    streamline_type = PrefixList(
+        ['line', 'ribbon', 'tube'],
+        default_value='line',
+        desc='draw streamlines as lines/ribbons/tubes')
 
     # The ribbon filter.
     ribbon_filter = Instance(tvtk.RibbonFilter, allow_none=False,

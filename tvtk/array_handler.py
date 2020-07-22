@@ -220,7 +220,7 @@ def get_vtk_array_type(numeric_array_type):
 def get_vtk_to_numeric_typemap():
     """Returns the VTK array type to numpy array type mapping."""
     _vtk_arr = {
-        vtkConstants.VTK_BIT: numpy.bool,
+        vtkConstants.VTK_BIT: numpy.bool_,
         vtkConstants.VTK_CHAR: numpy.int8,
         vtkConstants.VTK_UNSIGNED_CHAR: numpy.uint8,
         vtkConstants.VTK_SHORT: numpy.int16,

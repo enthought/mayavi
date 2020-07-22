@@ -32,11 +32,9 @@ class Prop(tvtk_base.TVTKBase):
     def _edge_visibility_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetEdgeVisibility, self.edge_visibility_)
 
-    representation = traits.Trait(
-        'surface',
-        tvtk_base.TraitRevPrefixMap(
-            {'points': 0, 'wireframe': 1, 'surface': 2})
-    )
+    representation = tvtk_base.RevPrefixMap(
+        {'points': 0, 'wireframe': 1, 'surface': 2},
+        default_value='surface')
 
     def _representation_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetRepresentation, self.representation_)
