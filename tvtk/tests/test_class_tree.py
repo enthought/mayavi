@@ -85,6 +85,9 @@ class TestClassTree(unittest.TestCase):
                     expect = ['object']
                 else:
                     expect = ['object', 'vtkVariantStrictWeakOrderKey']
+            else:
+                self.assertEqual(vtk_major_version, 9)
+                expect = ['object']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkVector')):
             self.assertEqual(len(t.tree[0]), 11)

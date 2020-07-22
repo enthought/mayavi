@@ -284,6 +284,8 @@ class WrapperGenerator:
         from tvtk.array_handler import deref_array
         from tvtk.tvtk_classes.tvtk_helper import wrap_vtk
 
+        nan = float('nan')
+
 
         def InstanceEditor(*args, **kw):
             from traitsui.editors.api import InstanceEditor as Editor

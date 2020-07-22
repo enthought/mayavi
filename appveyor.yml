@@ -27,6 +27,9 @@ install:
   - edm install --version 3.6 -y numpy nose mock Sphinx coverage psutil
   - "%CMD_IN_ENV% edm run -- pip install -r ci\\ci-requirements.txt"
   - edm run -- pip install vtk pyqt5==5.9.2
+  # get a sufficiently modern OpenGL for VTK9
+  - git clone --depth 1 git://github.com/pyvista/gl-ci-helpers.git
+  - powershell gl-ci-helpers/appveyor/install_opengl.ps1
   - "%CMD_IN_ENV% edm run -- python setup.py develop"
 
 test_script:

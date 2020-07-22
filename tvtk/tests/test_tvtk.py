@@ -927,7 +927,7 @@ class TestTVTKModule(unittest.TestCase):
             tvtk_klass = getattr(tvtk, tvtk_name, None)
             try:
                 tvtk_klass()
-            except TraitError:
+            except (TraitError, KeyError):
                 errors.append(traceback.format_exc())
         if len(errors) > 0:
             message = "Not all classes could be instantiated:\n{0}\n"

@@ -109,7 +109,7 @@ class TestFullTreeGenrator(TestSimpleTreeGenerator):
         self.assertEqual(kids['user_matrix'], None)
 
         kids = tg.get_children(self.ren)
-        self.assertTrue(len(kids) in [6, 7])
+        self.assertTrue(len(kids) in [6, 7, 8])
         self.assertEqual(kids['view_props'][0], self.a)
         self.assertEqual(len(kids['view_props']), 1)
         self.assertTrue(kids['active_camera'].is_a('vtkCamera'))
