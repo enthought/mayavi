@@ -629,8 +629,6 @@ class VTKMethodParser:
                 continue
             elif (klass_name == 'vtkContextMouseEvent' and
                   method[3:] == 'Interactor'):
-                # This is actually okay on VTK9 on Linux and Windows, but not
-                # macOS (segfaults)
                 continue
             # VTK 9 uses function handles that we don't parse properly yet
             elif (klass_name == 'vtkPiecewisePointHandleItem' and
