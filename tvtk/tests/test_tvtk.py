@@ -22,6 +22,7 @@ import vtk
 
 from tvtk import tvtk_base
 from tvtk.common import get_tvtk_name, configure_input_data, is_version_7
+from numpy.testing import assert_array_equal
 
 from traits.api import TraitError
 
@@ -178,7 +179,7 @@ class TestTVTK(unittest.TestCase):
             if t in ['representation', 'interpolation']:
                 self.assertEqual(val, getattr(p, t + '_'))
             else:
-                self.assertEqual(val, getattr(p, t))
+                assert_array_equal(val, getattr(p, t))
 
     def test_auto_update(self):
         """Test if traits are updated when the VTK object changes."""
