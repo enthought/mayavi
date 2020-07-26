@@ -636,9 +636,6 @@ class VTKMethodParser:
                 continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
-                # import sys
-                # print(method)
-                # sys.stdout.flush()
                 key = method[3:]
                 meths.remove('Set' + key)
                 meths.remove('Get' + key)

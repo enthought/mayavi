@@ -170,8 +170,6 @@ class TestVisual(unittest.TestCase):
         # Then
         x = np.sqrt(2)
         bounds = get_bounds((0.,0,0), (x, x, 1.0))
-        if vtk_major_version >= 9:  # XXX probably a bug somewhere
-            bounds = [-0.5,  0.5, -0.5,  0.5, -0.5,  0.5]
         assert_allclose(b.polydata.bounds, bounds)
 
         # When
@@ -260,8 +258,6 @@ class TestVisual(unittest.TestCase):
         h.axis = 0., 1., 0.
         # Then
         bounds = get_bounds((1.0, 1.5, 1.0), (0.4, 1.0, 0.4))
-        if vtk_major_version >= 9:  # XXX probably a bug somewhere
-            bounds = [1.02, 2., 0.809789, 1.190211, 0.8, 1.2]
         assert_allclose(h.polydata.bounds, bounds, atol=3e-2, rtol=0)
 
         # Given/When
