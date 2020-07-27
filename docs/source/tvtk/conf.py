@@ -12,6 +12,12 @@
 # serve to show the default value.
 
 import sys, os
+try:
+    # When translating the docs to another language, this variable is set 
+    # elsewhere, so if it is not set, set it to a suitable default.
+    basedir
+except NameError:
+    basedir = os.path.dirname(os.path.abspath(__file__))
 
 # If your extensions are in another directory, add it here. If the directory
 # is relative to the documentation root, use os.path.abspath to make it
@@ -41,7 +47,7 @@ copyright = '2008-2016, Enthought Inc.'
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 d = {}
-fname = os.path.join('..', '..', '..', 'mayavi', '__init__.py')
+fname = os.path.join(basedir, '..', '..', '..', 'mayavi', '__init__.py')
 exec(compile(open(fname).read(), fname, 'exec'), d)
 version = release = d['__version__']
 
