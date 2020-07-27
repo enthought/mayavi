@@ -196,12 +196,12 @@ class TestArrayHandler(unittest.TestCase):
 
         # Test Numeric array handling.
         N = 3
-        a = numpy.zeros((N,3), numpy.int)
+        a = numpy.zeros((N,3), int)
         a[:,1] = 1
         a[:,2] = 2
         cells = array_handler.array2vtkCellArray(a)
         arr = array_handler.vtk2array(cells.GetData())
-        expect = numpy.array([3, 0, 1, 2]*3, numpy.int)
+        expect = numpy.array([3, 0, 1, 2]*3, int)
         self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
                          True)
         self.assertEqual(cells.GetNumberOfCells(), N)
@@ -210,7 +210,7 @@ class TestArrayHandler(unittest.TestCase):
         l_a = [a[:,:1], a, a[:2,:2]]
         cells = array_handler.array2vtkCellArray(l_a)
         arr = array_handler.vtk2array(cells.GetData())
-        expect = numpy.array([1, 0]*3 + [3, 0, 1, 2]*3 + [2, 0,1]*2, numpy.int)
+        expect = numpy.array([1, 0]*3 + [3, 0, 1, 2]*3 + [2, 0,1]*2, int)
         self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
                          True)
         self.assertEqual(cells.GetNumberOfCells(), N*2 + 2)
@@ -218,7 +218,7 @@ class TestArrayHandler(unittest.TestCase):
         # This should not take a long while.  This merely tests if a
         # million cells can be created rapidly.
         N = int(1e6)
-        a = numpy.zeros((N,3), numpy.int)
+        a = numpy.zeros((N,3), int)
         a[:,1] = 1
         a[:,2] = 2
         cells = array_handler.array2vtkCellArray(a)

@@ -625,9 +625,10 @@ class VTKMethodParser:
                 (klass_name == 'vtkImageDataGeometryFilter' and
                  method[3:] == 'Extent') or
                 (klass_name == 'vtkVolumeMapper' and
-                 method[3:] == 'CroppingRegionPlanes') or
-                (klass_name == 'vtkContextMouseEvent' and
-                 method[3:] == 'Interactor')):
+                 method[3:] == 'CroppingRegionPlanes')):
+                continue
+            elif (klass_name == 'vtkContextMouseEvent' and
+                  method[3:] == 'Interactor'):
                 continue
             # VTK 9 uses function handles that we don't parse properly yet
             elif (klass_name == 'vtkPiecewisePointHandleItem' and

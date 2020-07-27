@@ -57,4 +57,3 @@ def write_data(dataset, fname, **kwargs):
     w = writer(file_name=file_name, **kwargs)
     configure_input_data(w, dataset)
     w.write()
-

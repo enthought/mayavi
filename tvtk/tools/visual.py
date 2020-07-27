@@ -1464,13 +1464,13 @@ class Box(HasTraits):
         self.trait_set(y = new[1], trait_change_notify = False)
         self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
-        #self.connectivity.points = self.points
+        self.polydata.points = self.points
         self.polydata.modified()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
-        #self.connectivity.points = self.points
+        self.polydata.points = self.points
         self.polydata.modified()
         self.render()
 
@@ -1782,7 +1782,7 @@ class Helix(HasTraits):
         h = self.length/(self.coils*10)
         cons = self.length/(self.coils*10)
         j = 0
-        self.points.resize(self.coils*10, 3)
+        self.points = numpy.resize(self.points, (self.coils*10, 3))
         for i in range(0,self.coils*360,36):
             theta = i*pi/180
             self.points[j][0] = h
@@ -1863,7 +1863,7 @@ class Helix(HasTraits):
         self.trait_set(y = new[1], trait_change_notify = False)
         self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
-        #self.polydata.points = self.points
+        self.polydata.points = self.points
         self.polydata.modified()
         self.normals.update()
         self.tube.update()
@@ -1871,7 +1871,7 @@ class Helix(HasTraits):
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
-        #self.polydata.points = self.points
+        self.polydata.points = self.points
         self.polydata.modified()
         self.normals.update()
         self.tube.update()

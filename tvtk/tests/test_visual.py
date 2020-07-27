@@ -4,6 +4,8 @@ import numpy as np
 from numpy.testing import assert_allclose
 
 from tvtk.tools import visual
+from tvtk.common import vtk_major_version
+
 
 def get_bounds(pos, sz):
     pos = np.asarray(pos)
@@ -13,6 +15,7 @@ def get_bounds(pos, sz):
     bounds[::2] = pos - diff
     bounds[1::2] = pos + diff
     return bounds
+
 
 class DummyScene:
     def __init__(self):

@@ -9,11 +9,11 @@ tables.
 import numpy
 
 # Enthought library imports.
-from traits.api import List, Instance, Trait, TraitPrefixList, \
-                                 HasTraits, Str
+from traits.api import List, Instance, HasTraits, Str
 from apptools.persistence.state_pickler import set_state
 
 # Local imports
+from tvtk.tvtk_base import PrefixList
 from mayavi.core.base import Base
 from mayavi.core.module import Module
 from mayavi.core.lut_manager import LUTManager
@@ -93,9 +93,9 @@ class ModuleManager(Base):
     # one available.  If set to 'point data' it uses the input point
     # data for the LUT and if set to 'cell data' it uses the input
     # cell data.
-    lut_data_mode = Trait(
-        'auto',
-        TraitPrefixList(LUT_DATA_MODE_TYPES),
+    lut_data_mode = PrefixList(
+        LUT_DATA_MODE_TYPES,
+        default_value='auto',
         desc='specify the data type used by the lookup tables',
     )
 
