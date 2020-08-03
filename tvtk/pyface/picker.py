@@ -244,7 +244,7 @@ class Picker(HasTraits):
     pick_type = RevPrefixMap({'point_picker': 1,
                               'cell_picker': 2,
                               'world_picker': 3},
-                             default_value='point',
+                             default_value='point_picker',
                              desc='specifies the picker type to use')
 
     # The pick_handler.  Set this to your own subclass if you want do
