@@ -15,7 +15,7 @@ predefined colormaps, Mayavi (and VTK) deal with color internally using
 color defined by its RGBA components.
 
 In this example, we show how the LUT of an object can be retrieved and
-modified. Specificaly, we start by giving a surf object the 'cool'
+modified. Specifically, we start by giving a surf object the 'cool'
 colormap, but we modify add to add a transparency effect.
 
 Notice in the resulting image how the surface becomes more transparent

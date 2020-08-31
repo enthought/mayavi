@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Installation &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Installation &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Using the Mayavi application" href="application.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="application.html" title="Using the Mayavi application"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -121,7 +115,7 @@ The latest version of Mayavi available on PyPI can be found
 <p>As of the latest release, i.e. 4.6.0 and above, if you are using Python 3.x
 and are on a 64 bit machine, installation via <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> is the easiest and is as
 follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ pip install mayavi</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ pip install mayavi</span>
 
 <span class="s2">$ pip install PyQt5</span>
 </pre></div>
@@ -131,7 +125,7 @@ follows:</p>
 install VTK and a suitable UI toolkit and then repeat the above.</p>
 <p>If you are interested in the jupyter notebook support as well, do the
 following (after ensuring that you have <a class="reference external" href="https://jupyter.org">jupyter</a> installed of course):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ jupyter nbextension install --py mayavi --user</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ jupyter nbextension install --py mayavi --user</span>
 <span class="s2">$ jupyter nbextension enable --py mayavi --user</span>
 </pre></div>
 </div>
@@ -143,7 +137,7 @@ installed via pip or your favorite package manager.</p>
 <span id="installing-git"></span><h2>Bleeding edge<a class="headerlink" href="#bleeding-edge" title="Permalink to this headline">¶</a></h2>
 <p>If you want to install the latest version of Mayavi from github, you can
 simply do the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ git clone https://github.com/enthought/mayavi.git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ git clone https://github.com/enthought/mayavi.git</span>
 <span class="s2">$ cd mayavi</span>
 <span class="s2">$ pip install -r requirements.txt</span>
 <span class="s2">$ pip install PyQt5  # replace this with any supported toolkit</span>
@@ -167,7 +161,7 @@ They are all relatively easy to install packages.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Windows:</th><td class="field-body">Under Windows the best way to install Mayavi is to install a full
 Python distribution, such as <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a>, <a class="reference external" href="https://python-xy.github.io/">Pythonxy</a>, or <a class="reference external" href="https://store.continuum.io/cshop/anaconda/">Anaconda</a>.
-Note that for Pythonxy, you need to check in &#8216;ETS&#8217; in the installer, when
+Note that for Pythonxy, you need to check in ‘ETS’ in the installer, when
 selecting components. If you want to reduce the disk space used by
 Pythonxy, you can uncheck other components.</td>
 </tr>
@@ -176,7 +170,7 @@ Mayavi) or <a class="reference external" href="https://store.continuum.io/cshop/
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">Ubuntu or Debian:</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body">Mayavi is packaged in <a class="reference external" href="http://www.debian.org">Debian</a> and <a class="reference external" href="http://www.ubuntu.com">Ubuntu</a> and can be installed via
-<code class="docutils literal"><span class="pre">apt</span></code>.</td>
+<code class="docutils literal notranslate"><span class="pre">apt</span></code>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">RedHat EL3 and EL4:</th></tr>
 <tr class="field-even field"><td>&#160;</td><td class="field-body">The full Python distribution <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a> (that includes Mayavi) is also
@@ -184,7 +178,7 @@ available for RHEL3 and 4.</td>
 </tr>
 </tbody>
 </table>
-<p>EDM is Enthought&#8217;s freely available python environment manager. It
+<p>EDM is Enthought’s freely available python environment manager. It
 allows new python users to create light-weight and custom python
 environments. A major advantage of EDM is its robust state-of-the-art
 management of package dependencies, with support for resolving
@@ -193,65 +187,65 @@ downloaded from <a class="reference external" href="https://www.enthought.com/pr
 <p>EDM provides Python 2.7.x as well as Python 3.x runtimes. Python 2.7
 is the default version. After installing EDM, mayavi can be easily
 installed from the terminal by using <cite>edm</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ edm install mayavi pyqt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ edm install mayavi pyqt</span>
 </pre></div>
 </div>
-<p>This will install mayavi along with &#8216;pyqt&#8217;. After this, you can start a shell with the default python version by running:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ edm shell</span>
+<p>This will install mayavi along with ‘pyqt’. After this, you can start a shell with the default python version by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ edm shell</span>
 </pre></div>
 </div>
 <p>This should set Mayavi for the default python 2.7.</p>
 <p>For python 3.6.x, you can install it by running:</p>
 <blockquote>
-<div>$ edm environments create &#8211;version 3.6 py3</div></blockquote>
-<p>Where &#8216;py3&#8217; is the name of the environment. You may change this name to something else if you wish. Once you create the environment, you can activate it as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ edm shell -e py3</span>
+<div>$ edm environments create –version 3.6 py3</div></blockquote>
+<p>Where ‘py3’ is the name of the environment. You may change this name to something else if you wish. Once you create the environment, you can activate it as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ edm shell -e py3</span>
 </pre></div>
 </div>
 <p>You can now install mayavi as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ edm install mayavi pyqt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ edm install mayavi pyqt</span>
 </pre></div>
 </div>
-<p>Note that &#8216;pyqt&#8217; needs to be installed explicitly for python 3.6 as well as for python 2.7.</p>
+<p>Note that ‘pyqt’ needs to be installed explicitly for python 3.6 as well as for python 2.7.</p>
 <p>Conda is an open source package management environment management
 system for installing multiple versions of software packages and their
 dependencies. Conda is included in Anaconda and Miniconda.</p>
-<p>Miniconda is a small &#8220;bootstrap&#8221; version that includes conda, python,
+<p>Miniconda is a small “bootstrap” version that includes conda, python,
 and the packages they depend on. Depending on your operating system,
 you can download the <a class="reference external" href="https://conda.io/miniconda.html">MinicondaInstaller</a></p>
 <p>After installing conda you need to run the following from command line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ conda create -n pyconda python=3.5 pyqt=4</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ conda create -n pyconda python=3.5 pyqt=4</span>
 <span class="s2">$ source activate pyconda</span>
 <span class="s2">$ conda install -c menpo mayavi</span>
 </pre></div>
 </div>
-<p>You should be all set with this.  As of Mayavi 4.6.0 you can also use <code class="docutils literal"><span class="pre">pyqt=5</span></code>.</p>
+<p>You should be all set with this.  As of Mayavi 4.6.0 you can also use <code class="docutils literal notranslate"><span class="pre">pyqt=5</span></code>.</p>
 </div>
 <div class="section" id="installing-with-conda-forge">
 <h2>Installing with <cite>Conda-forge</cite><a class="headerlink" href="#installing-with-conda-forge" title="Permalink to this headline">¶</a></h2>
 <p>Conda-forge is a community-led conda channel of installable packages. For more information on conda-forge, you can vist their their <a class="reference external" href="https://conda-forge.org">website</a>.</p>
 <p>Follow these steps to install using conda-forge:</p>
 <p>First, clone the environment or build one from scratch:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ conda create --name pyforge --clone root</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ conda create --name pyforge --clone root</span>
 <span class="s2">or</span>
 <span class="s2">$ conda create --name pyforge python=2.7</span>
 </pre></div>
 </div>
 <p>Then add the conda-forge channel:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ conda config --add channels conda-forge</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ conda config --add channels conda-forge</span>
 </pre></div>
 </div>
-<p>Activate the &#8216;pyforge&#8217; environment:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ source activate pyforge</span>
+<p>Activate the ‘pyforge’ environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ source activate pyforge</span>
 </pre></div>
 </div>
 <p>You will need to install these dependencies for Mayavi:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ conda install vtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ conda install vtk</span>
 <span class="s2">$ conda install pyqt=4</span>
 </pre></div>
 </div>
 <p>Finally, Mayavi can be installed as:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ conda install mayavi</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ conda install mayavi</span>
 </pre></div>
 </div>
 </div>
@@ -259,36 +253,36 @@ you can download the <a class="reference external" href="https://conda.io/minico
 <h2>Testing your installation<a class="headerlink" href="#testing-your-installation" title="Permalink to this headline">¶</a></h2>
 <p>The easiest way to test if your installation is OK is to run the mayavi2
 application like so:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">mayavi2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">mayavi2</span>
 </pre></div>
 </div>
 <p>To get more help on the command try this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">mayavi2 -h</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">mayavi2 -h</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">mayavi2</span></code> is the mayavi application.  On some platforms like win32
-you will need to double click on the <code class="docutils literal"><span class="pre">mayavi2.exe</span></code> program found in
-your <code class="docutils literal"><span class="pre">PythonXY\Scripts</span></code> folder.  Make sure this directory is in your
+<p><code class="docutils literal notranslate"><span class="pre">mayavi2</span></code> is the mayavi application.  On some platforms like win32
+you will need to double click on the <code class="docutils literal notranslate"><span class="pre">mayavi2.exe</span></code> program found in
+your <code class="docutils literal notranslate"><span class="pre">PythonXY\Scripts</span></code> folder.  Make sure this directory is in your
 path.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Mayavi can be used in a variety of other ways but the <code class="docutils literal"><span class="pre">mayavi2</span></code>
+<p class="last">Mayavi can be used in a variety of other ways but the <code class="docutils literal notranslate"><span class="pre">mayavi2</span></code>
 application is the easiest to start with.</p>
 </div>
 <p>If you have the source tarball of mayavi or have checked out the sources
 from the github repository, you can run the examples in
-<code class="docutils literal"><span class="pre">mayavi*/examples</span></code>.  There are plenty of example scripts
+<code class="docutils literal notranslate"><span class="pre">mayavi*/examples</span></code>.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
-<code class="docutils literal"><span class="pre">mayavi*/tests</span></code> sub-directory.</p>
+<code class="docutils literal notranslate"><span class="pre">mayavi*/tests</span></code> sub-directory.</p>
 <div class="section" id="test-suite">
 <h3>Test suite<a class="headerlink" href="#test-suite" title="Permalink to this headline">¶</a></h3>
 <p>The basic test suites for tvtk and mayavi can be run using nose:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">nosetests -v tvtk/tests</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">nosetests -v tvtk/tests</span>
 <span class="s2">nosetests -v mayavi</span>
 </pre></div>
 </div>
 <p>The integration tests can be run as:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">cd integrationtests/mayavi</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">cd integrationtests/mayavi</span>
 <span class="s2">python run.py</span>
 </pre></div>
 </div>
@@ -311,7 +305,7 @@ information or email the mailing list.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#installing-with-pip">Installing with <cite>pip</cite></a><ul>
@@ -343,45 +337,18 @@ information or email the mailing list.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -393,18 +360,21 @@ information or email the mailing list.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="application.html" title="Using the Mayavi application"
              >next</a> |</li>
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

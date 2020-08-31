@@ -12,7 +12,7 @@ magnetic field created by an arbitrary number of current loops.
 The goal of this example is to show how Mayavi can be used with scipy to
 debug and understand physics and electromagnetics computation.
 
-The field is caculated for an arbitrary number of current loops using the
+The field is calculated for an arbitrary number of current loops using the
 corresponding exact formula. The coils are plotted in 3D with a synthetic
 view of the magnetic_field. A VectorCutPlane is used as it enables good
 inspection of the magnetic field.

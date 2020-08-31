@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Data representation in Mayavi &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Data representation in Mayavi &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Objects populating the Mayavi pipeline" href="mayavi_objects.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>  
@@ -170,7 +164,7 @@ numpy arrays for 3D components, and flat (n, ) array for 1D components.
 The index vary in the opposite order as numpy: z first, y and then x.
 Thus to go from a 3D numpy array to the corresponding flatten VTK array,
 the operation is:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="s2">vtk_array = numpy_array.T.ravel()</span>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">vtk_array = numpy_array.T.ravel()</span>
 </pre></div>
 </div>
 </div>
@@ -184,7 +178,7 @@ source</cite>, and it can be transformed by <cite>filters</cite> and visualized 
 <cite>modules</cite>.</p>
 <p>To retrieve the data displayed by Mayavi, to modify it via Python code,
 or to benefit from the data processing steps performed by the Mayavi
-filters, it can be useful to &#8220;open up&#8221; the Mayavi pipeline and understand
+filters, it can be useful to “open up” the Mayavi pipeline and understand
 how the data flows in it.</p>
 <p>Inside the Mayavi pipeline, the 3D data flowing between sources filters
 and modules is stored in VTK datasets. Each source or filter has an
@@ -192,15 +186,15 @@ and modules is stored in VTK datasets. Each source or filter has an
 data output by the object.</p>
 <dl class="docutils">
 <dt>For example:</dt>
-<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<dd><div class="first highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iso</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The parent of <cite>iso</cite> is its &#8216;Colors and legend&#8217; node, the parent of
+<p>The parent of <cite>iso</cite> is its ‘Colors and legend’ node, the parent of
 which is the source feeding into <cite>iso</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">iso</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">outputs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">iso</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">outputs</span>
 <span class="go">[&lt;tvtk_classes.image_data.ImageData object at 0xf08220c&gt;]</span>
 </pre></div>
 </div>
@@ -211,9 +205,9 @@ an <a class="reference internal" href="#imagedata">ImageData</a> VTK dataset.</p
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>To retrieve the VTK datasets feeding in an arbitrary object, the mlab
-function <a class="reference internal" href="auto/mlab_pipeline_tools.html#mayavi.tools.pipeline.get_vtk_src" title="mayavi.tools.pipeline.get_vtk_src"><code class="xref py py-func docutils literal"><span class="pre">pipeline.get_vtk_src()</span></code></a> may be useful. In the above
+function <a class="reference internal" href="auto/mlab_pipeline_tools.html#mayavi.tools.pipeline.get_vtk_src" title="mayavi.tools.pipeline.get_vtk_src"><code class="xref py py-func docutils literal notranslate"><span class="pre">pipeline.get_vtk_src()</span></code></a> may be useful. In the above
 example:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get_vtk_src</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get_vtk_src</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
 <span class="go">[&lt;tvtk_classes.image_data.ImageData object at 0xf08220c&gt;]</span>
 </pre></div>
 </div>
@@ -225,37 +219,37 @@ example:</p>
 <h3>Probing data at given positions<a class="headerlink" href="#probing-data-at-given-positions" title="Permalink to this headline">¶</a></h3>
 <p>If you simply want to retrieve the data values described by a Mayavi
 object a given position in space, you can use the
-<a class="reference internal" href="auto/mlab_pipeline_data.html#mayavi.tools.pipeline.probe_data" title="mayavi.tools.pipeline.probe_data"><code class="xref py py-func docutils literal"><span class="pre">pipeline.probe_data()</span></code></a> function (<strong>warning</strong> the <cite>probe_data</cite>
+<a class="reference internal" href="auto/mlab_pipeline_data.html#mayavi.tools.pipeline.probe_data" title="mayavi.tools.pipeline.probe_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">pipeline.probe_data()</span></code></a> function (<strong>warning</strong> the <cite>probe_data</cite>
 function is new in Mayavi 3.4.0)</p>
 <p>For example, if you have a set of irregularly spaced data points with no
 connectivity information:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span>
 </pre></div>
 </div>
 <p>You can expose them as a Mayavi source of unconnected points:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and visualize these points for debugging:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">glyph</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">glyph</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
 <span class="gp">... </span>                                <span class="n">scale_factor</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The resulting data is not defined in the volume, but only at the given
 position: as there is no connectivity information, Mayavi cannot
 interpolate between the points:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">array([ 0. ])</span>
 </pre></div>
 </div>
-<p>To define volumetric data, you can use a <code class="docutils literal"><span class="pre">delaunay3d</span></code> filter:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">field</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">delaunay3d</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+<p>To define volumetric data, you can use a <code class="docutils literal notranslate"><span class="pre">delaunay3d</span></code> filter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">field</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">delaunay3d</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now you can probe the value of the volumetric data anywhere. It will be
 non zero in the convex hull of the points:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe in the center of the cloud of points</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe in the center of the cloud of points</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">array([ 0.78386768])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe on the initial points</span>
@@ -279,7 +273,7 @@ For this, you can retrieve the TVTK datasets, and inspect them.</p>
 <div><p>The positions of all the points of a TVTK dataset can be accessed via its
 <cite>points</cite> attribute. Retrieving the dataset from the <cite>field</cite> object of
 the previous example, we can view the data points:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">points</span>
 <span class="go">[(0.72227946564137335, 0.23729151639368518, 0.24443798107195291), ...,</span>
 <span class="go">(0.13398528550831601, 0.80368395047618579, 0.31098842991116804)], length = 100</span>
@@ -287,20 +281,20 @@ the previous example, we can view the data points:</p>
 </div>
 <p>This is a TVTK array. For us, it is more useful to convert it to a numpy
 array:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">points</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(100, 3)</span>
 </pre></div>
 </div>
 <p>To retrieve the original <cite>x</cite>, <cite>y</cite>, <cite>z</cite> positions of the data points
 specified, we can transpose the array:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">T</span>
 </pre></div>
 </div>
 <p>The corresponding data values can be found in the <cite>point_data.scalars</cite>
 attribute of the dataset, as the data is located on the points, and not
 in the cells, and it is scalar data:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">100</span><span class="p">,)</span>
 </pre></div>
 </div>
@@ -312,7 +306,7 @@ in the cells, and it is scalar data:</p>
 <div><p>If we want to extract the edges of the Delaunay tessellation, we can
 apply the ExtractEdges filter to the <cite>field</cite> from the previous example
 and inspect its output:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span><span class="o">.</span><span class="n">outputs</span>
 <span class="go">[&lt;tvtk_classes.poly_data.PolyData object at 0xf34e5fc&gt;]</span>
 </pre></div>
@@ -321,7 +315,7 @@ and inspect its output:</p>
 are build (see <a class="reference internal" href="#polydata">PolyData</a>), we see that the connectivity information is
 help in the <cite>lines</cite> attribute (that we convert to a numpy array using its
 <cite>.to_array()</cite> method):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
 <span class="go">array([ 2,  0,  1, ...,  2, 97, 18])</span>
 </pre></div>
@@ -345,7 +339,7 @@ Delaunay tessellation and interpolation demoed.</p>
 keyword argument <cite>figure=False</cite>. As a result the sources will not be
 attached to any engine, but you will still be able to use filters, and to
 probe the data:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -406,10 +400,10 @@ In 2D, this can be understood as a raster image. This is the data
 structure created by the <cite>ArraySource</cite> mayavi source, from a 3D numpy
 array, as well as the <cite>mlab.pipeline.scalar_field</cite> and
 <cite>mlab.pipeline.vector_field</cite> factory functions, if the <cite>x</cite>, <cite>y</cite> and
-<cite>z</cite> arrays are not explicitely specified.</p>
+<cite>z</cite> arrays are not explicitly specified.</p>
 <img alt="_images/image_data1.jpg" src="_images/image_data1.jpg" />
 <p>Creating a <cite>tvtk.ImageData</cite> object from numpy arrays:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
 <span class="s2">from numpy import random</span>
 <span class="s2">data = random.random((3, 3, 3))</span>
 <span class="s2">i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))</span>
@@ -427,7 +421,7 @@ points are inferred from their position on the data array, an
 origin and the list of spacings of each axis.</p>
 <img alt="_images/rectilinear_grid1.jpg" src="_images/rectilinear_grid1.jpg" />
 <p>Creating a <cite>tvtk.RectilinearGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
 <span class="s2">from numpy import random, array</span>
 <span class="s2">data = random.random((3, 3, 3))</span>
 <span class="s2">r = tvtk.RectilinearGrid()</span>
@@ -448,7 +442,7 @@ position of the data points are fully described by 1 coordinate
 arrays, specifying x, y and z for each point.</p>
 <img alt="_images/structured_grid1.jpg" src="_images/structured_grid1.jpg" />
 <p>Creating a <cite>tvtk.StructuredGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from numpy import pi, cos, sin, empty, linspace, random</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from numpy import pi, cos, sin, empty, linspace, random</span>
 <span class="s2">from tvtk.api import tvtk</span>
 
 <span class="s2">def generate_annulus(r, theta, z):</span>
@@ -505,7 +499,7 @@ created by the <cite>mlab.pipeline.scalar_scatter</cite> and
 <cite>mlab.pipeline.vector_scatter</cite> functions.</p>
 <img alt="_images/poly_data.jpg" src="_images/poly_data.jpg" />
 <p>Creating a <cite>tvtk.PolyData</cite> object from numpy arrays:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from numpy import array, random</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from numpy import array, random</span>
 <span class="s2">from tvtk.api import tvtk</span>
 
 <span class="s2"># The numpy array data.</span>
@@ -533,7 +527,7 @@ specifying connectivity, defining volumetric cells made of adjacent
 data points.</p>
 <img alt="_images/unstructured_grid1.jpg" src="_images/unstructured_grid1.jpg" />
 <p>Creating a <cite>tvtk.UnstructuredGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from numpy import array, random</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from numpy import array, random</span>
 <span class="s2">from tvtk.api import tvtk</span>
 
 <span class="s2">points = array([[0,1.2,0.6], [1,0,0], [0,1,0], [1,1,1], # tetra</span>
@@ -565,11 +559,11 @@ data points.</p>
 <div class="topic">
 <p class="topic-title first">Modifying the data</p>
 <p>If you want to modify the data of any of these low-level data
-structures, you need to reasign data to the corresponding arrays, but
-also reasign them a name. Once this is done, you should call the
-&#8216;modified()&#8217; method of the object, to tell the pipeline that the data
+structures, you need to reassign data to the corresponding arrays, but
+also reassign them a name. Once this is done, you should call the
+‘modified()’ method of the object, to tell the pipeline that the data
 has been modified:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">ug.point_data.scalars = new_scalars</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">ug.point_data.scalars = new_scalars</span>
 <span class="s2">ug.point_data.scalars.name = &#39;scalars&#39;</span>
 <span class="s2">ug.modified()</span>
 </pre></div>
@@ -590,8 +584,8 @@ data representation, creating VTK data files, creating datasets
 from numpy in Python, and also about mayavi.</p>
 </li>
 <li><p class="first">Presentation on making TVTK datasets using numpy arrays made for SciPy07.</p>
-<p>Prabhu Ramachandran. &#8220;TVTK and MayaVi2&#8221;, SciPy&#8216;07:
-Python for Scientific Computing, CalTech, Pasadena, CA, 16&#8211;17 August, 2007.</p>
+<p>Prabhu Ramachandran. “TVTK and MayaVi2”, SciPy‘07:
+Python for Scientific Computing, CalTech, Pasadena, CA, 16–17 August, 2007.</p>
 <p>This presentation focuses on creating TVTK datasets using numpy
 arrays.</p>
 </li>
@@ -624,11 +618,11 @@ visualization of an unstructured grid.</li>
 </ul>
 </div></blockquote>
 <p>These scripts may be run like so:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x structured_grid.py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x structured_grid.py</span>
 </pre></div>
 </div>
 <p>or better yet, all in one go like so:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x polydata.py -x structured_points2d.py </span><span class="se">\</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x polydata.py -x structured_points2d.py </span><span class="se">\</span>
 <span class="s2">&gt; -x structured_points3d.py -x structured_grid.py -x unstructured_grid.py</span>
 </pre></div>
 </div>
@@ -640,7 +634,7 @@ visualization of an unstructured grid.</li>
 examples above. A VTK data source can be inserted in the Mayavi pipeline
 using the VTKDataSource. For instance we can create an <cite>ImageData</cite>
 dataset:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
 <span class="s2">import numpy as np</span>
 <span class="s2">a = np.random.random((10, 10, 10))</span>
 <span class="s2">i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))</span>
@@ -656,14 +650,14 @@ modules to your data. Indeed these functions creating filters and
 modules accept VTK datasets and automatically insert them on the
 pipeline. A surface module could have been used to visualize the
 <cite>ImageData</cite> dataset created above as such:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from enthgouth.mayavi import mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from enthgouth.mayavi import mlab</span>
 <span class="s2">mlab.pipeline.surface(i)</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">In addition, inserting this dataset on the Mayavi pipeline with direct
 control on the <cite>Engine</cite> is done as suchwith <cite>VTKDataSource</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi.sources.api import VTKDataSource</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from mayavi.sources.api import VTKDataSource</span>
 <span class="s2">src = VTKDataSource(data=i)</span>
 <span class="s2">from mayavi.api import Engine</span>
 <span class="s2">e = Engine()</span>
@@ -678,7 +672,7 @@ control on the <cite>Engine</cite> is done as suchwith <cite>VTKDataSource</cite
 dataset, or you are using Mayavi in the context of existing code
 manipulating TVTK objects, creating an <cite>ImageData</cite> TVTK object is not
 advised. The <cite>ArraySource</cite> object of Mayavi will actually create an
-<cite>ImageData</cite>, but make sure you don&#8217;t get the shape wrong, which can lead
+<cite>ImageData</cite>, but make sure you don’t get the shape wrong, which can lead
 to a segmentation fault. An even easier way to create a data source for
 an <cite>ImageData</cite> is to use the <cite>mlab.pipeline.scalar_field</cite> function, as
 explained in the <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><span class="std std-ref">section on creating
@@ -695,7 +689,7 @@ data sources with mlab</span></a>.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Data representation in Mayavi</a><ul>
 <li><a class="reference internal" href="#introduction-to-tvtk-datasets">Introduction to TVTK datasets</a></li>
@@ -738,45 +732,18 @@ data sources with mlab</span></a>.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -788,19 +755,22 @@ data sources with mlab</span></a>.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
              >next</a> |</li>
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

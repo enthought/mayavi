@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Mlab 3D to 2D example &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Mlab 3D to 2D example &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Magnetic field example" href="example_magnetic_field.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="example_magnetic_field.html" title="Magnetic field example"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="example_delaunay_graph.html" title="Delaunay graph example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
@@ -95,7 +89,7 @@ of mlab (and most other computer visualization software), we deal with
 only the perspective and euclidean cases. An overview of Projective space
 can be found here: <a class="reference external" href="http://en.wikipedia.org/wiki/Projective_space">http://en.wikipedia.org/wiki/Projective_space</a> and a
 thorough treatment of projective geometry can be had in the book
-&#8220;Multiple View Geometry in Computer Vision&#8221; by Richard Hartley.</p>
+“Multiple View Geometry in Computer Vision” by Richard Hartley.</p>
 <p>The essential thing to know for this example is that points in 3-space
 are related to points in 2-space through a series of multiplications of
 4x4 matrices which are the perspective and euclidean transformations. The
@@ -107,14 +101,14 @@ should read about them here:
 <a class="reference external" href="http://en.wikipedia.org/wiki/Homogeneous_coordinates">http://en.wikipedia.org/wiki/Homogeneous_coordinates</a></p>
 <p>In the normal pinhole camera model (the ideal real world model), 3D world
 points are related to 2D image points by the matrix termed the
-&#8216;essential&#8217; matrix which is a combination of a perspective transformation
+‘essential’ matrix which is a combination of a perspective transformation
 and a euclidean transformation. The perspective transformation is defined
-by the camera intrinsics (focal length, imaging sensor offset, etc...)
+by the camera intrinsics (focal length, imaging sensor offset, etc…)
 and the euclidean transformation is defined by the cameras position and
 orientation. In computer graphics, things are not so simple. This is
 because computer graphics have the benefit of being able to do things
 which are not possible in the real world: adding clipping planes, offset
-projection centers, arbitrary distortions, etc... Thus, a slightly
+projection centers, arbitrary distortions, etc… Thus, a slightly
 different model is used.</p>
 <p>What follows is the camera/view model for OpenGL and thus, VTK. I can not
 guarantee that other packages follow this model.</p>
@@ -129,8 +123,8 @@ model (if they are specified) and transforms them so that the orientation
 is the equivalent of looking down the negative Z axis. Imagine its as if
 you relocate your camera to look down the negative Z axis, and then move
 everything in the world so that you see it now as you did before you
-moved the camera. The resulting coordinates are termed &#8220;eye&#8221; coordinates
-in OpenGL (I don&#8217;t know that they have a name in VTK).</p>
+moved the camera. The resulting coordinates are termed “eye” coordinates
+in OpenGL (I don’t know that they have a name in VTK).</p>
 <p>The perspective transformation applies the camera perspective to the eye
 coordinates. This transform is what makes objects in the foreground look
 bigger than equivalent objects in the background. In the pinhole camera
@@ -140,12 +134,12 @@ frustum. A frustum is simply a pyramid with the top lopped off. The top
 of the pyramid (a point) is the camera location, the base of the pyramid
 is a plane (the far clipping plane) defined as normal to principle camera
 ray at distance termed the far clipping distance, the top of the frustum
-(where it&#8217;s lopped off) is the near clipping plane, with a definition
+(where it’s lopped off) is the near clipping plane, with a definition
 similar to that of the far clipping plane. The sides of the frustum are
 determined by the aspect ratio of the camera (width/height) and its
 field-of-view. Any points not lying within the frustum are not mapped to
 the screen (as they would lie outside the viewable area). The
-perpspective transformation has the effect of scaling everything within
+perspective transformation has the effect of scaling everything within
 the frustum to fit within a cube defined in the range (-1,1)(-1,1)(-1,1)
 as represented by homogeneous coordinates. The last phrase there is
 important, the first 3 coordinates will not, in general, be within the
@@ -155,17 +149,17 @@ coordinates are termed (appropriately enough) normalized view
 coordinates.</p>
 <p>The last transformation (the viewport transformation) takes us from
 normalized view coordinates to display coordinates. At this point, you
-may be asking yourself &#8216;why not just go directly to display coordinates,
-why need normalized view coordinates at all?&#8217;, the answer is that we may
+may be asking yourself ‘why not just go directly to display coordinates,
+why need normalized view coordinates at all?’, the answer is that we may
 want to embed more than one view in a particular window, there will
 therefore be different transformations to take each view to an
 appropriate position an size in the window. The normalized view
 coordinates provide a nice common ground so-to-speak. At any rate, the
 viewport transformation simply scales and translates the X and Y
 coordinates of the normalized view coordinates to the appropriate pixel
-coordinates. We don&#8217;t use the Z value in our example because we don&#8217;t
+coordinates. We don’t use the Z value in our example because we don’t
 care about it. It is used for other various things however.</p>
-<p>That&#8217;s all there is to it, pretty simple right? Right. Here is an overview:</p>
+<p>That’s all there is to it, pretty simple right? Right. Here is an overview:</p>
 <dl class="docutils">
 <dt>Given a set of 3D world coordinates:</dt>
 <dd><ul class="first last simple">
@@ -182,8 +176,8 @@ to retrieve the 4x4 matrix representing the viewport transformation, so
 we are on our there to create one (no worries though, its not hard, as
 you will see).</p>
 <p>Now that the prelimenaries are out of the way, lets get started.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_3D_to_2D.py" download=""><code class="xref download docutils literal"><span class="pre">mlab_3D_to_2D.py</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/1f533870b9f95e947f8ef9a74cc73ce9/mlab_3D_to_2D.py"><code class="xref download docutils literal notranslate"><span class="pre">mlab_3D_to_2D.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="s2"># Author: S. Chris Colbert &lt;sccolbert@gmail.com&gt;</span>
 <span class="s2"># Copyright (c) 2009, S. Chris Colbert</span>
 <span class="s2"># License: BSD Style</span>
@@ -344,45 +338,18 @@ you will see).</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -394,19 +361,22 @@ you will see).</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="example_magnetic_field.html" title="Magnetic field example"
              >next</a> |</li>
         <li class="right" >
           <a href="example_delaunay_graph.html" title="Delaunay graph example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

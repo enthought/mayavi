@@ -3,7 +3,7 @@ An Introduction to Traited VTK (tvtk)
 =====================================
 :Author: Prabhu Ramachandran
 :Contact: prabhu@enthought.com
-:Copyright: 2004-2012, Enthought, Inc.
+:Copyright: 2004-2020, Enthought, Inc.
 
 .. contents::
 
@@ -98,12 +98,12 @@ An example of how tvtk can be used follows::
     >>> cs = tvtk.ConeSource()
     >>> cs.resolution = 36
     >>> m = tvtk.PolyDataMapper()
-    >>> m.input = cs.output
+    >>> m.set_input_data(cs.output)
     >>> a = tvtk.Actor()
     >>> a.mapper = m
     >>> p = a.property
     >>> p.representation = 'w'
-    >>> print p.representation
+    >>> print(p.representation)
     'wireframe'
 
 Or equivalently::
@@ -236,7 +236,7 @@ The inverse process of creating a tvtk object from a VTK object is to
 use the `to_tvtk` function like so::
 
   >>> pd1 = tvtk.to_tvtk(pd_vtk)
-  >>> print pd1 == pd
+  >>> print(pd1 == pd)
   True
 
 Notice that `pd1 == pd`.  TVTK maintains an internal cache of existing
@@ -249,7 +249,7 @@ particularly useful in situations like this::
   >>> m = tvtk.PolyDataMapper()
   >>> m.input = o
   >>> # ...
-  >>> print m.input == o
+  >>> print(m.input == o)
   True
 
 It must be noted that if a tvtk object's goes out of scope in Python,
@@ -261,12 +261,12 @@ tvtk wrapper object is created.  The following illustrates this::
   >>> o = cs.output
   >>> m = tvtk.PolyDataMapper()
   >>> m.input = o
-  >>> print hash(o)
+  >>> print(hash(o))
   1109012188
-  >>> print hash(m.input)
+  >>> print(hash(m.input))
   1109012188
   >>> del o
-  >>> print hash(m.input)
+  >>> print(hash(m.input))
   1119694156
 
 Thus, after `o` is garbage collected `m.input` no longer refers to the
@@ -284,7 +284,7 @@ as traits in tvtk.  This is why we are able to do::
 
     >>> p = a.property
     >>> p.representation = 'w'
-    >>> print p.representation
+    >>> print(p.representation)
     'wireframe'
     >>> # OR do this:
     >>> p = tvtk.Property(opacity=0.5, color=(1,0,0), representation='w')
@@ -313,11 +313,11 @@ other object changes the basic state of the wrapped VTK object, then
 the trait will be automagically updated.  For example::
 
     >>> p = tvtk.Property()
-    >>> print p.representation
+    >>> print(p.representation)
     'surface'
     >>> p_vtk = tvtk.to_tvtk(p)
     >>> p_vtk.SetRepresentationToWireframe()
-    >>> print p.representation
+    >>> print(p.representation)
     'wireframe'
 
 This also means that if you change properties of the object on the
@@ -366,7 +366,7 @@ by the object are *NOT* picklable.  For example::
     >>> s = cPickle.dumps(p)
     >>> del p
     >>> p = cPickle.load(s)
-    >>> print p.representation
+    >>> print(p.representation)
     'wireframe'
 
 Once again, only the state_ of the object is pickled.  Internal
@@ -422,18 +422,18 @@ Any object derived from `Collection` (i.e. `vtkCollection`) will
 behave like a proper Python sequence.  Here is an example::
 
     >>> ac = tvtk.ActorCollection()
-    >>> print len(ac)
+    >>> print(len(ac))
     0
     >>> ac.append(tvtk.Actor())
-    >>> print len(ac)
+    >>> print(len(ac))
     1
     >>> for i in ac:
-    ...    print i
+    ...    print(i)
     ...
     [...]
     >>> ac[-1] = tvtk.Actor()
     >>> del ac[0]
-    >>> print len(ac)
+    >>> print(len(ac))
     0
 
 Currently, only subclasses of `Collection` behave this way.
@@ -478,16 +478,16 @@ Here is a simple example demonstrating these::
     >>> import operator
     >>> reduce(operator.add, mesh.point_data.scalars, 0.0)
     80.0
-    >>> print mesh.point_data.scalars
+    >>> print(mesh.point_data.scalars)
     [10.0, 20.0, 20.0, 30.0]
-    >>> print mesh.points
+    >>> print(mesh.points)
     [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)]
 
     >>> ########################################
     >>> # Demo of from_array/to_array
     >>> pts = tvtk.Points()
     >>> pts.from_array(points)
-    >>> print pts.to_array()
+    >>> print(pts.to_array())
     [[ 0.  0.  0.]
      [ 1.  0.  0.]
      [ 0.  1.  0.]
@@ -544,7 +544,7 @@ approach::
     >>> n_cell = 4
     >>> cells = tvtk.CellArray()
     >>> cells.set_cells(n_cell, ids)
-    >>> print cells.data
+    >>> print(cells.data)
     [3.0, ..., 1.0], length = 16
 
 This is done very efficiently and does not copy the input data.  More
@@ -596,10 +596,10 @@ visible in the other.  For example::
    >>> a = np.array([1,2,3], 'f')
    >>> f.from_array(a)
    >>> a[0] = 10.0
-   >>> print f
+   >>> print(f)
    [10.0, 2.0, 3.0]
    >>> f[0] = -1.0
-   >>> print a
+   >>> print(a)
    [-1.  2.  3.]
 
 It is important to note that it is perfectly safe to delete the
@@ -673,9 +673,9 @@ following example::
    >>> a[0] = 10
    >>> d.append(4.0)
    >>> a[0] = 1
-   >>> print a
+   >>> print(a)
    [ 1.   2.   3.]
-   >>> print d
+   >>> print(d)
    [10.0, 2.0, 3.0, 4.0]
    >>> # Notice that d[0] == 10.0
 

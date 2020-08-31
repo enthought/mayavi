@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Changing the looks of the visual objects created &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Changing the looks of the visual objects created &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <style type="text/css">
@@ -56,15 +48,17 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -82,16 +76,16 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Color:</th><td class="field-body"><p class="first">The color of the objects created by a plotting function can be specified
-explicitly using the &#8216;color&#8217; keyword argument of the function. This color
+explicitly using the ‘color’ keyword argument of the function. This color
 is then applied uniformly to all the objects created.</p>
 <p>If you want to vary the color across your visualization, you need to
 specify scalar information for each data point. Some functions try to
 guess this information: these scalars default to the norm of the vectors,
 for functions with vectors, or to the z elevation for functions where it is
-meaningful, such as <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code> or <code class="xref py py-func docutils literal"><span class="pre">barchart()</span></code>.</p>
+meaningful, such as <code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">barchart()</span></code>.</p>
 <p>This scalar information is converted into colors using the colormap, or
 also called LUT, for Look Up Table. The list of possible colormaps is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">accent       flag          hot      pubu     set2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">accent       flag          hot      pubu     set2</span>
 <span class="s2">autumn       gist_earth    hsv      pubugn   set3</span>
 <span class="s2">black-white  gist_gray     jet      puor     spectral</span>
 <span class="s2">blue-red     gist_heat     oranges  purd     spring</span>
@@ -117,23 +111,23 @@ specific code, as show in <a class="reference internal" href="auto/example_custo
 For instance it can be used to adjust the size of glyphs positioned at
 the data points.</p>
 <p><strong>A caveat: Clamping: relative or absolute scaling</strong>
-Given six points positionned on a line with interpoint spacing 1:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">x = [1, 2, 3, 4, 5, 6]</span>
+Given six points positioned on a line with interpoint spacing 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">x = [1, 2, 3, 4, 5, 6]</span>
 <span class="s2">y = [0, 0, 0, 0, 0, 0]</span>
 <span class="s2">z = y</span>
 </pre></div>
 </div>
 <p>If we represent a scalar varying from 0.5 to 1 on this dataset:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">s = [.5, .6, .7, .8, .9, 1]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">s = [.5, .6, .7, .8, .9, 1]</span>
 </pre></div>
 </div>
-<p>We represent the dataset as spheres, using <code class="xref py py-func docutils literal"><span class="pre">points3d()</span></code>, and the
+<p>We represent the dataset as spheres, using <code class="xref py py-func docutils literal notranslate"><span class="pre">points3d()</span></code>, and the
 scalar is mapped to diameter of the spheres:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
 <span class="s2">pts = mlab.points3d(x, y, z, s)</span>
 </pre></div>
 </div>
-<p>By default the diameter of the spheres is not &#8216;clamped&#8217;, in other
+<p>By default the diameter of the spheres is not ‘clamped’, in other
 words, the smallest value of the scalar data is represented as a null
 diameter, and the largest is proportional to inter-point distance.
 The scaling is only relative, as can be seen on the resulting
@@ -144,7 +138,7 @@ desired if the scalar represents the size of the glyphs in the same
 unit as the positions specified.</p>
 <p>In this case, you shoud turn auto-scaling off by specifying the desired
 scale factor:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">pts = mlab.points3d(x, y, z, s, scale_factor=1)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">pts = mlab.points3d(x, y, z, s, scale_factor=1)</span>
 </pre></div>
 </div>
 <img alt="_images/clamping_off.jpg" src="_images/clamping_off.jpg" />
@@ -155,7 +149,7 @@ not auto-scaled, and as a result the visualization can seem empty
 due to the glyphs being very small. In addition the minimum diameter of
 the glyphs is clamped to zero, and thus the glyph are not scaled
 absolutely, unless you specify:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="s2">pts.glyph.glyph.clamping = False</span>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">pts.glyph.glyph.clamping = False</span>
 </pre></div>
 </div>
 </div>
@@ -163,7 +157,7 @@ absolutely, unless you specify:</p>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">More representations of the attached scalars or vectors:</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">There are many more ways to represent the scalar or vector information
-attached to the data. For instance, scalar data can be &#8216;warped&#8217; into a
+attached to the data. For instance, scalar data can be ‘warped’ into a
 displacement, e.g. using a <cite>WarpScalar</cite> filter, or the norm of scalar
 data can be extracted to a scalar component that can be visualized using
 iso-surfaces with the <cite>ExtractVectorNorm</cite> filter.</p>
@@ -176,9 +170,9 @@ but requires a bit of work: see <a class="reference internal" href="auto/example
 <p>If you simply want to display points with a size given by one quantity,
 and a color by a second, you can use a simple trick: add the size
 information using the norm of vectors, add the color information using
-scalars, create a <code class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></code> plot choosing the glyphs to symmetric
+scalars, create a <code class="xref py py-func docutils literal notranslate"><span class="pre">quiver3d()</span></code> plot choosing the glyphs to symmetric
 glyphs, and use scalars to represent the color:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="s2">x, y, z, s, c = np.random.random((5, 10))</span>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">x, y, z, s, c = np.random.random((5, 10))</span>
 <span class="s2">pts = mlab.quiver3d(x, y, z, s, s, s, scalars=c, mode=&#39;sphere&#39;)</span>
 <span class="s2">pts.glyph.color_mode = &#39;color_by_scalar&#39;</span>
 <span class="s2"># Finally, center the glyphs on the data point</span>
@@ -196,9 +190,9 @@ glyphs, and use scalars to represent the color:</p>
 its (x, y, z) extents. This give both control on the scaling in the
 different directions and the displacement of the center. Beware that when
 you are using this functionality, it can be useful to pass the same
-extents to other modules visualizing the same data. If you don&#8217;t, they
+extents to other modules visualizing the same data. If you don’t, they
 will not share the same displacement and scale.</p>
-<p>The <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code>, <code class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></code>, and <code class="xref py py-func docutils literal"><span class="pre">barchart()</span></code> functions, which
+<p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">contour_surf()</span></code>, and <code class="xref py py-func docutils literal notranslate"><span class="pre">barchart()</span></code> functions, which
 display 2D arrays by converting the values in height, also take a
 <cite>warp_scale</cite> parameter, to control the vertical scaling.</p>
 </div>
@@ -207,7 +201,7 @@ display 2D arrays by converting the values in height, also take a
 <p>Mayavi, and thus mlab, allows you to interactively modify your
 visualization.</p>
 <p>The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
-in the figure&#8217;s toolbar, or by using <code class="xref py py-func docutils literal"><span class="pre">show_pipeline()</span></code> mlab command.
+in the figure’s toolbar, or by using <code class="xref py py-func docutils literal notranslate"><span class="pre">show_pipeline()</span></code> mlab command.
 One can now change the visualization using this dialog by double-clicking
 on each object to edit its properties, as described in other parts of
 this manual, or add new modules or filters by using this icons on the
@@ -224,16 +218,16 @@ code. To find out about navigating through a program in the pipeline, see
 <a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><span class="std std-ref">Organisation of Mayavi visualizations: the pipeline</span></a>.</p>
 </div>
 <p>In addition, for every object returned by a mlab function,
-<code class="docutils literal"><span class="pre">this_object.edit_traits()</span></code> brings up a dialog that can be used to
-interactively edit the object&#8217;s properties. If the dialog doesn&#8217;t show up
+<code class="docutils literal notranslate"><span class="pre">this_object.edit_traits()</span></code> brings up a dialog that can be used to
+interactively edit the object’s properties. If the dialog doesn’t show up
 when you enter this command, please see <a class="reference internal" href="mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a>.</p>
 <div class="topic">
-<p class="topic-title first">Using <code class="docutils literal"><span class="pre">mlab</span></code> with the full Envisage UI</p>
+<p class="topic-title first">Using <code class="docutils literal notranslate"><span class="pre">mlab</span></code> with the full Envisage UI</p>
 <p>Sometimes it is convenient to write an mlab script but still use the
 full envisage application so you can click on the menus and use other
 modules etc.  To do this you may do the following before you create an
 mlab figure:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
 <span class="s2">mlab.options.backend = &#39;envisage&#39;</span>
 <span class="s2">f = mlab.figure()</span>
 <span class="s2"># ...</span>
@@ -254,7 +248,7 @@ window.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Changing the looks of the visual objects created</a><ul>
 <li><a class="reference internal" href="#adding-color-or-size-variations">Adding color or size variations</a></li>
@@ -271,45 +265,18 @@ window.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -320,13 +287,16 @@ window.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

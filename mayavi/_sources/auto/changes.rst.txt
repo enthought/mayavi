@@ -1,3 +1,96 @@
+Mayavi 4.7.2
+============
+
+The significant update for this release is that it is compatible with the
+latest VTK-9.x series and is known to work with VTK 9.0.1 from PyPI. The
+picker UI has changed to no longer pop up a UI window but instead show the
+picked attributes on the render window directly. The original picker UI is now
+available on the scene's UI in a separate "Picker" tab. This is accessible
+from either the pipeline view when one edits the properties of a scene or
+through the "configure scene" gear icon on the scene window toolbar.
+
+Many thanks to the following who contributed to this release (in alphabetical
+order):
+
+Amal S Sebastian, Eric Larson, Guillaume Favelier, Hans Moritz Günther, Magnus
+Nord, Mark Dickinson, Poruri Sai Rahul, Prabhu Ramachandran, Scott Talbert,
+Tetsuo Koyama.
+
+This is largely a bug-fix release with one enhancement/change.
+36 pull requests were merged.
+
+
+Enhancements
+------------
+
+30 Apr 2020 `#820 <https://github.com/enthought/mayavi/pull/820>`_ (amalss18)
+   - New picker UI that shows on the render window and not as a pop-up UI.
+     1. Shifted picker GUI to configure GUI (the Scene's properties).
+     2. Old UI is in the scene properties or window's configure scene button.
+     3. Picker data appears as a text widget on the scene.
+     4. added a mlab.set_picker_props() to set properties of the picker.
+
+Fixes
+-----
+
+27 Jul 2020 `#931 <https://github.com/enthought/mayavi/pull/931>`_ (larsoner)
+   - MAINT: Deal with traitsui deprecation of `TraitPrefixMap`
+
+27 Jul 2020 `#928 <https://github.com/enthought/mayavi/pull/928>`_ (hamogu)
+   - Add formats to `savefig` docstring
+
+30 Apr 2020 `#913 <https://github.com/enthought/mayavi/pull/913>`_ (PR)
+   - Add tests to check if hand-crafted views work.
+
+30 Apr 2020 `#912 <https://github.com/enthought/mayavi/pull/912>`_ (PR)
+   - Fix CI and remove 2.7 tests.
+
+25 Apr 2020 `#909 <https://github.com/enthought/mayavi/pull/909>`_ (larsoner)
+   - ENH: VTK 9 compatibility.
+
+25 Apr 2020 `#901 <https://github.com/enthought/mayavi/pull/901>`_ (tkoyama010)
+   - Document use of `PyVirtualDisplay`
+
+25 Apr 2020 `#900 <https://github.com/enthought/mayavi/pull/900>`_ (larsoner)
+   - FIX: Work around NumPy deprecation
+
+25 Apr 2020 `#896 <https://github.com/enthought/mayavi/pull/896>`_ (GuillaumeFavelier)
+   - Replace TraitTuple by Tuple in modules.py
+
+30 Apr 2020 `#893 <https://github.com/enthought/mayavi/pull/893>`_ (tkoyama010)
+   - Use importlib instead of imp.
+
+30 Apr 2020 `#877 <https://github.com/enthought/mayavi/pull/877>`_ (swt2c)
+   - Fix support for wxPython 3.0
+
+25 Apr 2020 `#876 <https://github.com/enthought/mayavi/pull/876>`_ (swt2c)
+   - Remove spurious executable permissions from test data files
+
+24 Dec 2019 `#868 <https://github.com/enthought/mayavi/pull/868>`_ (mdickinson)
+   - Replace uses of traits.api.Long with traits.api.Int
+
+05 Dec 2019 `#866 <https://github.com/enthought/mayavi/pull/866>`_ (mdickinson)
+   - Replace uses of the deprecated trait types 'false' and 'true'
+
+02 Dec 2019 `#859 <https://github.com/enthought/mayavi/pull/859>`_ (rahulporuri)
+   - Replace deprecated rich_compare kwarg when creating traits
+
+18 Nov 2019 `#853 <https://github.com/enthought/mayavi/pull/853>`_ (rahulporuri)
+   - Update edm and install/config scripts
+
+25 Apr 2020 `#843 <https://github.com/enthought/mayavi/pull/843>`_ (tkoyama010)
+   - Avoid using eval
+
+25 Apr 2020 `#841 <https://github.com/enthought/mayavi/pull/841>`_ (tkoyama010)
+   - Added section on "Translating the documentation".
+
+24 Dec 2019 `#840 <https://github.com/enthought/mayavi/pull/840>`_ (larsoner)
+   - BUG: Fix literal comparison. Fixes on Python-3.8.
+
+05 Oct 2019 `#822 <https://github.com/enthought/mayavi/pull/822>`_ (tkoyama010)
+   - Fixed old TVTK documentation.
+
+
 Mayavi 4.7.1
 ============
 
@@ -60,7 +153,7 @@ Enhancements
      offscreen rendering we only need a GenericRenderWindowInteractor.
      Also add a convenient set method so one can set a different interactor if needed.
 
-08 Sep 2018 `#712 <https://github.com/enthought/mayavi/pull/712>`_ (prabhuramachandran)
+08 Sep 2018 `#712 <https://github.com/enthought/mayavi/pull/712>`_ (PR)
    - ENH: Feature to disable automatic updates.
      This can be very handy at times when the automatic updates can trigger
      several changes that are not desirable.  For example on certain VTK

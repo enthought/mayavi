@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Volume slicer advanced example &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Volume slicer advanced example &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Polydata example" href="example_polydata.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="example_polydata.html" title="Polydata example"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="example_coil_design_application.html" title="Coil design application example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
       </ul>
     </div>  
@@ -96,7 +90,7 @@ used to move the cut planes when this position attribute is modifed.</p>
 <p>In the 3D window, the 3D cuts are displayed using ImagePlaneWidgets
 cutting the 3D volumetric data. The data extracted by the
 ImagePlaneWidgets for plotting is captured using the TVTK
-ImagePlaneWidget&#8217;s <cite>_get_reslice_output</cite> method. The resulting dataset is
+ImagePlaneWidget’s <cite>_get_reslice_output</cite> method. The resulting dataset is
 plotted in each side view using another ImagePlaneWidget. As a result the
 data is not copied (at the VTK level, there is only one pipeline), and
 modifications of the data plotted on the planes in the 3D view (for
@@ -108,8 +102,8 @@ indicates the position of the cut.</p>
 creates a VTK <cite>InteractionEvent</cite>. When this happens, VTK calls an
 callback (observer, it VTK terms), that we use to move the position of
 the cut. The Traits callbacks do the rest for the updating.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/volume_slicer_advanced.py" download=""><code class="xref download docutils literal"><span class="pre">volume_slicer_advanced.py</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy as np</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/91eec63b4e6e7cfdfe9c82c5b04e30b0/volume_slicer_advanced.py"><code class="xref download docutils literal notranslate"><span class="pre">volume_slicer_advanced.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy as np</span>
 
 <span class="s2">from traits.api import HasTraits, Instance, Array, </span><span class="se">\</span>
 <span class="s2">    Bool, Dict, on_trait_change</span>
@@ -305,7 +299,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
 <span class="s2">        &quot;&quot;&quot;</span> <span class="n">Update</span> <span class="n">the</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cursors</span> <span class="n">on</span> <span class="n">each</span> <span class="n">side</span> <span class="n">view</span><span class="p">,</span> <span class="k">as</span> <span class="n">well</span>
             <span class="k">as</span> <span class="n">the</span> <span class="n">image_plane_widgets</span> <span class="ow">in</span> <span class="n">the</span> <span class="mi">3</span><span class="n">D</span> <span class="n">view</span><span class="o">.</span>
         <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">        # First disable rendering in all scenes to avoid unecessary</span>
+<span class="s2">        # First disable rendering in all scenes to avoid unnecessary</span>
 <span class="s2">        # renderings</span>
 <span class="s2">        self.disable_render = True</span>
 
@@ -399,45 +393,18 @@ the cut. The Traits callbacks do the rest for the updating.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -449,19 +416,22 @@ the cut. The Traits callbacks do the rest for the updating.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="example_polydata.html" title="Polydata example"
              >next</a> |</li>
         <li class="right" >
           <a href="example_coil_design_application.html" title="Coil design application example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

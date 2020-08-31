@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Miscellaneous &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Miscellaneous &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Example gallery" href="auto/examples.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="auto/examples.html" title="Example gallery"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -88,7 +82,7 @@
 <p>The core developers of Mayavi are academics. Therefore they justify time and
 resources spent developing Mayavi by the number of citations of the
 software. If you publish scientific articles using Mayavi, please cite
-the following article (bibtex entry <a class="reference download internal" href="_downloads/citation.bib" download=""><code class="xref download docutils literal"><span class="pre">citation.bib</span></code></a>):</p>
+the following article (bibtex entry <a class="reference download internal" download="" href="_downloads/983b8930df78e0cef6886842f0d7875b/citation.bib"><code class="xref download docutils literal notranslate"><span class="pre">citation.bib</span></code></a>):</p>
 <blockquote>
 <div>Ramachandran, P. and Varoquaux, G., <em>`Mayavi: 3D Visualization of
 Scientific Data`</em> IEEE Computing in Science &amp; Engineering, <strong>13</strong>
@@ -129,7 +123,7 @@ their best to support many different configuration, but you can help them
 by running the test suite and reporting any errors.</p>
 <p>You can use <a class="reference external" href="https://nose.readthedocs.org">nose</a> to run the unit tests of both packages by doing the
 following from the root of the Mayavi source directory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ nosetests</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ nosetests</span>
 <span class="s2">----------------------------------------------------------------------</span>
 <span class="s2">Ran 317 tests in 29.934s</span>
 
@@ -138,7 +132,7 @@ following from the root of the Mayavi source directory:</p>
 </div>
 <p>From the mayavi source directory, to run tests only for mayavi package you can
 do:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ nosetests mayavi/tests</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ nosetests mayavi/tests</span>
 <span class="s2">----------------------------------------------------------------------</span>
 <span class="s2">Ran 231 tests in 14.066s</span>
 
@@ -147,23 +141,23 @@ do:</p>
 </div>
 <p>From the mayavi source directory, to run tests only for tvtk package you can
 do:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ nosetests tvtk/tests</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ nosetests tvtk/tests</span>
 <span class="s2">----------------------------------------------------------------------</span>
 <span class="s2">Ran 87 tests in 9.080s</span>
 
 <span class="s2">OK (SKIP=1)</span>
 </pre></div>
 </div>
-<p>If you get an &#8220;ERROR&#8221; regarding the unavailability of coverage you may
+<p>If you get an “ERROR” regarding the unavailability of coverage you may
 safely ignore it.  If for some reason nose is having difficulty running
-the tests, the tests may be found inside <code class="docutils literal"><span class="pre">tvtk/tests</span></code> and
-<code class="docutils literal"><span class="pre">mayavi/tests</span></code>.  You can run each of the <code class="docutils literal"><span class="pre">test_*.py</span></code> files
+the tests, the tests may be found inside <code class="docutils literal notranslate"><span class="pre">tvtk/tests</span></code> and
+<code class="docutils literal notranslate"><span class="pre">mayavi/tests</span></code>.  You can run each of the <code class="docutils literal notranslate"><span class="pre">test_*.py</span></code> files
 in these directories manually, or change your current directory to these
-directories and run <code class="docutils literal"><span class="pre">nosetests</span></code> there.</p>
+directories and run <code class="docutils literal notranslate"><span class="pre">nosetests</span></code> there.</p>
 <p>In addition to these unit tests mayavi also has several integration tests.
-These are in the <code class="docutils literal"><span class="pre">integrationtests/mayavi</span></code> directory of the source
+These are in the <code class="docutils literal notranslate"><span class="pre">integrationtests/mayavi</span></code> directory of the source
 distribution.  You may run the tests there like so:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">$ ./run.py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ ./run.py</span>
 </pre></div>
 </div>
 <p>These tests are intrusive and will create several mayavi windows and
@@ -200,19 +194,33 @@ into the next stable release.</p>
 <h3>Improving the documentation<a class="headerlink" href="#improving-the-documentation" title="Permalink to this headline">¶</a></h3>
 <p>Documentation of a project is incredibly important. It also takes a lot
 of time to write and improve. You can easily help us with documentation.</p>
-<p>You will find the documentation sources in <code class="docutils literal"><span class="pre">docs/sources/mayavi</span></code>. The
-documentation is written in <a class="reference external" href="https://sphinx.pocoo.org">sphinx</a>. It is
+<p>You will find the documentation sources in <code class="docutils literal notranslate"><span class="pre">docs/sources/mayavi</span></code>. The
+documentation is written in <a class="reference external" href="https://www.sphinx-doc.org">sphinx</a>. It is
 easy to edit the <cite>.rst</cite> files to modify or extend the text. Once you have
 done your modifications, you can build the documentation using by
 running:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">python setup.py build_docs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">python setup.py build_docs</span>
 </pre></div>
 </div>
-<p>in the base directory of your checkout. You will need <a class="reference external" href="https://sphinx.pocoo.org">sphinx</a> installed for
+<p>in the base directory of your checkout. You will need <a class="reference external" href="https://www.sphinx-doc.org">sphinx</a> installed for
 that. The documentation is then built as an HTML documentation that you can
-find in the sub directory <code class="docutils literal"><span class="pre">build/docs/html/mayavi</span></code>. Once you are comfortable
+find in the sub directory <code class="docutils literal notranslate"><span class="pre">build/docs/html/mayavi</span></code>. Once you are comfortable
 with the modifications, just generate a github pull request to integrate
 your changes into the next stable release.</p>
+</div>
+<div class="section" id="translating-the-documentation">
+<h3>Translating the documentation<a class="headerlink" href="#translating-the-documentation" title="Permalink to this headline">¶</a></h3>
+<p>The recommended way for new contributors to translate mayavi reference is to
+join the translation team on Transifex.</p>
+<p>There is <a class="reference external" href="https://www.transifex.com/getfem-doc/mayavi/">mayavi translation page</a> for mayavi (master) documentation.</p>
+<ol class="arabic simple">
+<li>Login to <a class="reference external" href="https://www.transifex.com/">transifex</a> service.</li>
+<li>Go to <a class="reference external" href="https://www.transifex.com/getfem-doc/mayavi/">mayavi translation page</a>.</li>
+<li>Click <code class="docutils literal notranslate"><span class="pre">Request</span> <span class="pre">language</span></code> and fill form.</li>
+<li>Wait acceptance by transifex mayavi translation maintainers.</li>
+<li>(After acceptance) Translate on transifex.</li>
+<li>You can see the translated document in <a class="reference external" href="https://mayavi.readthedocs.io/en/latest">Read The Docs</a>.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -226,7 +234,7 @@ your changes into the next stable release.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Miscellaneous</a><ul>
 <li><a class="reference internal" href="#citing-mayavi">Citing Mayavi</a></li>
@@ -236,6 +244,7 @@ your changes into the next stable release.</p>
 <li><a class="reference internal" href="#helping-out">Helping out</a><ul>
 <li><a class="reference internal" href="#development-quick-start">Development quick start</a></li>
 <li><a class="reference internal" href="#improving-the-documentation">Improving the documentation</a></li>
+<li><a class="reference internal" href="#translating-the-documentation">Translating the documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -255,45 +264,18 @@ your changes into the next stable release.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -305,18 +287,21 @@ your changes into the next stable release.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="auto/examples.html" title="Example gallery"
              >next</a> |</li>
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

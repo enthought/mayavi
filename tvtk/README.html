@@ -1,35 +1,26 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>An Introduction to Traited VTK (tvtk) &#8212; tvtk 4.7.1 documentation</title>
-    
+    <title>An Introduction to Traited VTK (tvtk) &#8212; tvtk 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Development guide for TVTK" href="devel.html" />
     <link rel="prev" title="Welcome to tvtk’s documentation!" href="index.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -42,7 +33,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to tvtk’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -61,7 +52,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Contact:</th><td class="field-body"><a class="reference external" href="mailto:prabhu&#37;&#52;&#48;enthought&#46;com">prabhu<span>&#64;</span>enthought<span>&#46;</span>com</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Copyright:</th><td class="field-body">2004-2012, Enthought, Inc.</td>
+<tr class="field-odd field"><th class="field-name">Copyright:</th><td class="field-body">2004-2020, Enthought, Inc.</td>
 </tr>
 </tbody>
 </table>
@@ -74,7 +65,7 @@
 <li><a class="reference internal" href="#installation" id="id4">Installation</a></li>
 <li><a class="reference internal" href="#basic-usage" id="id5">Basic Usage</a></li>
 <li><a class="reference internal" href="#advanced-usage" id="id6">Advanced Usage</a><ul>
-<li><a class="reference internal" href="#definition-of-the-basic-state-of-a-tvtk-object" id="id7">Definition of the &#8220;basic state&#8221; of a tvtk object</a></li>
+<li><a class="reference internal" href="#definition-of-the-basic-state-of-a-tvtk-object" id="id7">Definition of the “basic state” of a tvtk object</a></li>
 <li><a class="reference internal" href="#the-wrapped-vtk-object" id="id8">The wrapped VTK object</a></li>
 <li><a class="reference internal" href="#tvtk-and-traits" id="id9">tvtk and traits</a></li>
 <li><a class="reference internal" href="#sub-classing-tvtk-classes" id="id10">Sub-classing tvtk classes</a></li>
@@ -134,7 +125,7 @@ tvtk.</p>
 imports.</li>
 <li>VTK-5.x, VTK-4.4 or VTK-4.2.  It is unlikely to work with VTK-3.x.</li>
 <li>Traits.</li>
-<li>numpy &#8211; Any recent version should be fine.</li>
+<li>numpy – Any recent version should be fine.</li>
 <li>To use <cite>ivtk.py</cite>, <cite>mlab</cite> you need to have <cite>pyface</cite> installed.</li>
 <li>To use the plugins you need Envisage installed.</li>
 </ul>
@@ -152,7 +143,7 @@ inside <cite>tvtk</cite>.  To build the tvtk module and use them from
 inside the <cite>mayavi</cite> sources do the following from the base of the
 mayavi source tree (we assume here that this is in
 <cite>/home/user/src/lib/mayavi</cite>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ pwd
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pwd
 /home/user/src/lib/mayavi
 $ python setup.py build
 </pre></div>
@@ -164,7 +155,7 @@ generation was successful you should see a ZIP file called
 module.</p>
 <p>This completes the installation.  The build can be tested by running
 the tests in the <cite>tests/</cite> directory.  This tests the built code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ pwd
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pwd
 /home/user/src/lib/mayavi
 $ python -m nose.core -v tvtk/tests
 [...]
@@ -172,27 +163,27 @@ $ python -m nose.core -v tvtk/tests
 </div>
 <p>If the tests run fine, the build is good.  There are other tests in
 the <cite>tests</cite> directory that can also be run.</p>
-<p>Documentation is available in the &#8216;docs/&#8217; directory.  The &#8216;examples/&#8217;
+<p>Documentation is available in the ‘docs/’ directory.  The ‘examples/’
 directory contains a few simple examples demonstrating tvtk in action.</p>
 </div>
 <div class="section" id="basic-usage">
 <h2><a class="toc-backref" href="#id5">Basic Usage</a><a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
 <p>An example of how tvtk can be used follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">36</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">output</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">set_input_data</span><span class="p">(</span><span class="n">cs</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">mapper</span> <span class="o">=</span> <span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">property</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">p</span><span class="o">.</span><span class="n">representation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">representation</span><span class="p">)</span>
 <span class="go">&#39;wireframe&#39;</span>
 </pre></div>
 </div>
 <p>Or equivalently:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">cs</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">representation</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
@@ -202,22 +193,22 @@ directory contains a few simple examples demonstrating tvtk in action.</p>
 <p>Note that the properties of the object can be set during the
 instantiation.</p>
 <p>To import tvtk please use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
 </pre></div>
 </div>
 <p>While this is perhaps a little inconvenient, note that tvtk provides
 access to all the VTK classes.  This is the same way that the <cite>vtk</cite>
 package also behaves.</p>
 <p>If you are familiar with VTK-Python it is clear from the above example
-that tvtk &#8220;feels&#8221; like VTK but is more Pythonic.  The most important
+that tvtk “feels” like VTK but is more Pythonic.  The most important
 differences are.</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>tvtk class names are essentially similar to VTK classes except
-there is no annoying &#8216;vtk&#8217; at the front.  The only difficulty is
+there is no annoying ‘vtk’ at the front.  The only difficulty is
 with classes that start with a digit.  For example
-&#8216;vtk3DSImporter&#8217; becomes &#8216;3DSImporter&#8217;.  This is illegal in
-Python and therefore the class name used is &#8216;ThreeDSImporter&#8217;.
+‘vtk3DSImporter’ becomes ‘3DSImporter’.  This is illegal in
+Python and therefore the class name used is ‘ThreeDSImporter’.
 So, if the first character is a digit, it is replaced by an
 equivalent non-digit string.  There are very few classes like
 this so this is not a big deal.</li>
@@ -227,7 +218,7 @@ name is <cite>add_item</cite>.  This is done for the sake of consistency
 with names used in the <cite>enthought</cite> package.</li>
 <li>Many VTK methods are replaced by handy properties.  In the above
 example, we used <cite>m.input = cs.output</cite> and <cite>p.representation =
-&#8216;w&#8217;</cite> instead of what would have been <cite>m.SetInput(cs.GetOutput())</cite>
+‘w’</cite> instead of what would have been <cite>m.SetInput(cs.GetOutput())</cite>
 and <cite>p.SetRepresentationToWireframe()</cite> etc.  Some of these
 properties are really <a class="reference external" href="http://docs.enthought.com/traits">traits</a>.</li>
 <li>Unlike VTK objects, one can set the properties of a tvtk object
@@ -239,7 +230,7 @@ height=0.5)</cite>.</li>
 </div></blockquote>
 <p>If you are used to VTK, this might take a little getting used to.
 However, these changes are consistent across all of tvtk.  If they
-aren&#8217;t, its a bug.  Please let me know if you see inconsistencies.</p>
+aren’t, its a bug.  Please let me know if you see inconsistencies.</p>
 <p>If the underlying VTK object returns another VTK object, this is
 suitably wrapped as a tvtk object.  Similarly, all relevant parameters
 for a tvtk method should be tvtk objects, these are transparently
@@ -251,11 +242,11 @@ converted to VTK objects.</p>
 addition to the above.  A tvtk object basically wraps around a
 VTK-Python object and provides a trait enabled API for the VTK object.
 Before we discuss these new features it is important to understand the
-notion of what we mean by the &#8220;basic state&#8221; or &#8220;state&#8221; of a tvtk
+notion of what we mean by the “basic state” or “state” of a tvtk
 object.  This is defined and subsequently the new features are
 discussed in some detail.</p>
 <div class="section" id="definition-of-the-basic-state-of-a-tvtk-object">
-<span id="state"></span><h3><a class="toc-backref" href="#id7">Definition of the &#8220;basic state&#8221; of a tvtk object</a><a class="headerlink" href="#definition-of-the-basic-state-of-a-tvtk-object" title="Permalink to this headline">¶</a></h3>
+<span id="state"></span><h3><a class="toc-backref" href="#id7">Definition of the “basic state” of a tvtk object</a><a class="headerlink" href="#definition-of-the-basic-state-of-a-tvtk-object" title="Permalink to this headline">¶</a></h3>
 <p>In tvtk the set of all properties of the VTK object that are
 represented as traits and have for their value a simple Python type
 (int/float/string) or a special value (like a tuple specifying color)
@@ -264,7 +255,7 @@ define the state.</p>
 that can be set by using methods having the form <cite>&lt;Property&gt;On</cite> or
 <cite>&lt;Property&gt;Off</cite>, <cite>Set&lt;Property&gt;To&lt;Value&gt;</cite> and <cite>Set/Get&lt;Property&gt;</cite>
 (where the return type is an int/float/string/tuple) are represented
-as traits.  These properties are said to represent the &#8220;basic state&#8221;
+as traits.  These properties are said to represent the “basic state”
 of the tvtk object.</p>
 <p>Note that the complete state of the underlying C++ object is
 impossible to represent in the Python world since this usually
@@ -273,7 +264,7 @@ involves various pointers to other C++ objects.</p>
 is preserved according to the VTK behavior. For example, in the
 following code, the default object created by the VTK implementation of
 <cite>GetLines()</cite> is the same for any vtkPolyData:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data2</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span><span class="o">.</span><span class="n">GetLines</span><span class="p">()</span>
 <span class="go">(vtkCellArray)0x103b52e30</span>
@@ -282,7 +273,7 @@ following code, the default object created by the VTK implementation of
 </pre></div>
 </div>
 <p>The equivalent tvtk code behaves in the same way:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span><span class="o">.</span><span class="n">lines</span>
 <span class="go">&lt;tvtk.tvtk_classes.cell_array.CellArray at 0xe11e570&gt;</span>
@@ -297,14 +288,14 @@ following code, the default object created by the VTK implementation of
 sometimes helps to know how to access the underlying VTK object that
 the tvtk object has wrapped.  The recommended way to do this is by
 using the <cite>to_vtk</cite> function.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd_vtk</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">to_vtk</span><span class="p">(</span><span class="n">pd</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The inverse process of creating a tvtk object from a VTK object is to
 use the <cite>to_tvtk</cite> function like so:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd1</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">to_tvtk</span><span class="p">(</span><span class="n">pd_vtk</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pd1</span> <span class="o">==</span> <span class="n">pd</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pd1</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">to_tvtk</span><span class="p">(</span><span class="n">pd_vtk</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pd1</span> <span class="o">==</span> <span class="n">pd</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
@@ -312,35 +303,35 @@ use the <cite>to_tvtk</cite> function like so:</p>
 tvtk objects and when the <cite>to_tvtk</cite> method is given a VTK object it
 returns the cached object for the particular VTK object.  This is
 particularly useful in situations like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">output</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">o</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># ...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">m</span><span class="o">.</span><span class="n">input</span> <span class="o">==</span> <span class="n">o</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span> <span class="o">==</span> <span class="n">o</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>It must be noted that if a tvtk object&#8217;s goes out of scope in Python,
+<p>It must be noted that if a tvtk object’s goes out of scope in Python,
 it is garbage collected.  However, its underlying VTK object may still
 exist inside the VTK pipeline.  When one accesses this object, a new
 tvtk wrapper object is created.  The following illustrates this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">output</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">o</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">hash</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
 <span class="go">1109012188</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">hash</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">))</span>
 <span class="go">1109012188</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">o</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">hash</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">))</span>
 <span class="go">1119694156</span>
 </pre></div>
 </div>
 <p>Thus, after <cite>o</cite> is garbage collected <cite>m.input</cite> no longer refers to the
 original tvtk object and a new one is created.  This is very similar
-to VTK&#8217;s behaviour.  Changing this behaviour is tricky and there are no
+to VTK’s behaviour.  Changing this behaviour is tricky and there are no
 plans currently to change this.</p>
 </div>
 <div class="section" id="tvtk-and-traits">
@@ -348,9 +339,9 @@ plans currently to change this.</p>
 <p>All tvtk objects are derived from <cite>traits.HasStrictTraits</cite>.  As
 discussed above, all the basic state related methods are represented
 as traits in tvtk.  This is why we are able to do:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">property</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">property</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">p</span><span class="o">.</span><span class="n">representation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">representation</span><span class="p">)</span>
 <span class="go">&#39;wireframe&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># OR do this:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
@@ -358,7 +349,7 @@ as traits in tvtk.  This is why we are able to do:</p>
 </div>
 <p>Also note that it is possible to set many properties of a tvtk object
 in one go using the <cite>set</cite> method.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -367,7 +358,7 @@ a traited class.  Thus, one can also pop up a standard GUI editor for
 any tvtk object trivially.  For example if one is using <cite>pycrust</cite> or
 is using <cite>gui_thread</cite> (this module should be available if <a class="reference external" href="http://www.scipy.org">SciPy</a> is
 installed) or <cite>ipython -wthread</cite> one could easily do this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># OR</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span> <span class="c1"># This should work even without gui_thread</span>
@@ -378,12 +369,12 @@ the trait will automagically be propagated to the underlying VTK
 object.  Most importantly, the reverse is also true.  That is, if some
 other object changes the basic state of the wrapped VTK object, then
 the trait will be automagically updated.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">p</span><span class="o">.</span><span class="n">representation</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">representation</span><span class="p">)</span>
 <span class="go">&#39;surface&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p_vtk</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">to_tvtk</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p_vtk</span><span class="o">.</span><span class="n">SetRepresentationToWireframe</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">p</span><span class="o">.</span><span class="n">representation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">representation</span><span class="p">)</span>
 <span class="go">&#39;wireframe&#39;</span>
 </pre></div>
 </div>
@@ -393,7 +384,7 @@ changes, the GUI editor will update automatically.</p>
 <p>It is important to note that tvtk objects have strict traits.  It is
 therefore an error to set an attribute that is not already defined in
 the class.  This is illustrated in the following example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">?</span>
@@ -407,9 +398,9 @@ the class.  This is illustrated in the following example:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>All tvtk classes derive from <cite>HasStrictTraits</cite>.</li>
-<li>You must make sure to call the super class&#8217;s __init__ correctly.</li>
+<li>You must make sure to call the super class’s __init__ correctly.</li>
 <li>If you have to override the __del__ method, you <em>must</em> make sure
-you call the super class&#8217;s __del__ method.</li>
+you call the super class’s __del__ method.</li>
 </ol>
 </div></blockquote>
 </div>
@@ -418,13 +409,13 @@ you call the super class&#8217;s __del__ method.</li>
 <p>tvtk objects support a simple form of pickling.  The <a class="reference internal" href="#state">state</a> of the
 tvtk object maybe pickled.  The references to other VTK objects held
 by the object are <em>NOT</em> picklable.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cPickle</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cPickle</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">p</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">p</span><span class="o">.</span><span class="n">representation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">representation</span><span class="p">)</span>
 <span class="go">&#39;wireframe&#39;</span>
 </pre></div>
 </div>
@@ -438,7 +429,7 @@ like <cite>Matrix4x4</cite> also have special code that enables better pickling.
 <cite>pickle.load</cite> will create a new object.  However, by using
 <cite>__setstate__</cite> directly it is possible to just update the <a class="reference internal" href="#state">state</a> of
 the object.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">=</span> <span class="s1">&#39;flat&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">p</span>
@@ -446,7 +437,7 @@ the object.  For example:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here, after <cite>__setstate__</cite> is called, the object&#8217;s state alone will be
+<p>Here, after <cite>__setstate__</cite> is called, the object’s state alone will be
 updated.  No new object is created.</p>
 </div>
 <div class="section" id="docstrings">
@@ -472,19 +463,19 @@ will override the default inside the ZIP file.</p>
 <h3><a class="toc-backref" href="#id14">Collections</a><a class="headerlink" href="#collections" title="Permalink to this headline">¶</a></h3>
 <p>Any object derived from <cite>Collection</cite> (i.e. <cite>vtkCollection</cite>) will
 behave like a proper Python sequence.  Here is an example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ActorCollection</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">ac</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ActorCollection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ac</span><span class="p">))</span>
 <span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">())</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">ac</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ac</span><span class="p">))</span>
 <span class="go">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ac</span><span class="p">:</span>
-<span class="gp">... </span>   <span class="nb">print</span> <span class="n">i</span>
+<span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="gp">...</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">ac</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">ac</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ac</span><span class="p">))</span>
 <span class="go">0</span>
 </pre></div>
 </div>
@@ -507,7 +498,7 @@ class.</p>
 that accepts a <cite>DataArray</cite>, <cite>Points</cite>, <cite>IdList</cite> or <cite>CellArray</cite>
 instance, will transparently accept a numpy array or a Python list.
 Here is a simple example demonstrating these:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">########################################</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">########################################</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span>
@@ -526,16 +517,16 @@ Here is a simple example demonstrating these:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">operator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 <span class="go">80.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="p">)</span>
 <span class="go">[10.0, 20.0, 20.0, 30.0]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">mesh</span><span class="o">.</span><span class="n">points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
 <span class="go">[(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)]</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">########################################</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Demo of from_array/to_array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Points</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pts</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pts</span><span class="o">.</span><span class="n">to_array</span><span class="p">())</span>
 <span class="go">[[ 0.  0.  0.]</span>
 <span class="go"> [ 1.  0.  0.]</span>
 <span class="go"> [ 0.  1.  0.]</span>
@@ -568,7 +559,7 @@ typecode of <cite>tvtk.array_handler.ID_TYPE_CODE</cite>.  Otherwise a
 typecast is necessary and this involves an extra copy.  The input data
 is <em>always copied</em> during the conversion.  Here is an example
 illustrating these different approaches:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cells</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">CellArray</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cells</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]],</span> <span class="nb">int</span><span class="p">)</span>
@@ -580,7 +571,7 @@ illustrating these different approaches:</p>
 <p>An alternative way to use an arbitrary connectivity list having
 different numbers of points per cell is to use the following
 approach:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
 <span class="gp">... </span>                <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span>
 <span class="gp">... </span>                <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
 <span class="gp">... </span>                <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
@@ -588,7 +579,7 @@ approach:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_cell</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cells</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">CellArray</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cells</span><span class="o">.</span><span class="n">set_cells</span><span class="p">(</span><span class="n">n_cell</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">cells</span><span class="o">.</span><span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cells</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 <span class="go">[3.0, ..., 1.0], length = 16</span>
 </pre></div>
 </div>
@@ -597,7 +588,7 @@ details on this are provided in the next sub-section.</p>
 <p>Also note that <cite>DataArray</cite> objects can still be passed to these
 methods as before.  For example we could have just as easily done
 this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Points</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Points</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">points</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">[:,:</span><span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">temperature</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">FloatArray</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">temperature</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -615,34 +606,34 @@ this:</p>
 different forms of array handling.</p>
 <blockquote>
 <div><ol class="loweralpha">
-<li><p class="first">Explicit conversion &#8211; These happen when the user is creating a
+<li><p class="first">Explicit conversion – These happen when the user is creating a
 tvtk array object and initializes this from a numpy array or
 Python list.  Like so:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">FloatArray</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">FloatArray</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Implicit conversion &#8211; These happen when the user passes an array
+<li><p class="first">Implicit conversion – These happen when the user passes an array
 or list to a tvtk method that expects a <cite>DataArray</cite>, <cite>Points</cite>,
 <cite>IdList</cite> or <cite>CellArray</cite> instance.</p>
 </li>
 </ol>
 </div></blockquote>
-<p>There are a few issues to keep in mind when using tvtk&#8217;s array
+<p>There are a few issues to keep in mind when using tvtk’s array
 handling features.  When possible, tvtk uses a view of the passed
 numpy array and does not make a copy of the data stored in it.  This
 means that changes to the VTK data array or to the numpy array are
 visible in the other.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">FloatArray</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">FloatArray</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">f</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 <span class="go">[10.0, 2.0, 3.0]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="go">[-1.  2.  3.]</span>
 </pre></div>
 </div>
@@ -652,7 +643,7 @@ to eliminate nasty problems.  This memory is freed when the VTK array is
 garbage collected.  Saving a reference to the numpy array also ensures
 that the numpy array cannot be resized (this could have disastrous
 effects).</p>
-<p>However, there are exceptions to this behaviour of using &#8220;views&#8221; of
+<p>However, there are exceptions to this behaviour of using “views” of
 the numpy array.  The <cite>DataArray</cite> class and its subclasses and the
 <cite>Points</cite> class only make copies of the given data in the following
 situations.</p>
@@ -664,7 +655,7 @@ situations.</p>
 expects a <cite>vtkBitArray</cite> instance.</li>
 <li>The types of the expected VTK array and the passed numpy
 array are not equivalent to each other.  For example if the
-array passed has typecode &#8216;i&#8217; but the tvtk method expects a
+array passed has typecode ‘i’ but the tvtk method expects a
 <cite>FloatArray</cite>.</li>
 </ol>
 </div></blockquote>
@@ -674,7 +665,7 @@ subclasses.  However, these cases are likely to occur in explicit
 conversions.</p>
 <p><cite>CellArray</cite> <em>always</em> makes a copy of the data on assignment.  For
 example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ca</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">CellArray</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ca</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">CellArray</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
 <span class="gp">... </span>                      <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ca</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">triangles</span><span class="p">)</span>
@@ -683,9 +674,9 @@ example:</p>
 <p>This always makes a copy.  However, if one uses the <cite>set_cells</cite> method
 a copy is made in the same circumstances as specified above for
 <cite>DataArray</cite> and <cite>Points</cite> classes.  If no copy is made, the cell data
-is a &#8220;view&#8221; of the numpy array.  Thus, the following example does
+is a “view” of the numpy array.  Thus, the following example does
 not make a copy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
 <span class="gp">... </span>                <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span>
 <span class="gp">... </span>                <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
 <span class="gp">... </span>                <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">)</span>
@@ -699,18 +690,18 @@ having typecode <cite>tvtk.array_handler.ID_TYPE_CODE</cite> (this is
 actually computed dynamically depending on your VTK build and
 platform).</p>
 <p>The <cite>IdList</cite> also <em>always</em> makes a copy of the data passed to it.</p>
-<p>Another issue to keep in mind is that VTK&#8217;s data arrays always
+<p>Another issue to keep in mind is that VTK’s data arrays always
 re-allocate memory if they are resized.  This is illustrated in the
 following example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">DoubleArray</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">DoubleArray</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">from_array</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="go">[ 1.   2.   3.]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">d</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 <span class="go">[10.0, 2.0, 3.0, 4.0]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Notice that d[0] == 10.0</span>
 </pre></div>
@@ -719,7 +710,7 @@ following example:</p>
 a copy of <cite>a</cite> and any further changes to <cite>d</cite> or <cite>a</cite> will not be
 reflected in the other.  This case also illustrates a small problem.
 <cite>d</cite> will hold a reference to <cite>a</cite> internally even though it uses none
-of <cite>a</cite>&#8216;s memory.  Fortunately, when <cite>d</cite> is garbage collected the
+of <cite>a</cite>’s memory.  Fortunately, when <cite>d</cite> is garbage collected the
 memory occupied by <cite>a</cite> will be freed.  Thus the problem is not serious
 but probably worth keeping in mind.</p>
 </div>
@@ -762,22 +753,22 @@ are briefly described in the following sections.</p>
 <div class="section" id="miscellaneous">
 <h3><a class="toc-backref" href="#id19">Miscellaneous</a><a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
 <p>If you need to write out VTK data files given a TVTK dataset.  The
-<code class="docutils literal"><span class="pre">tvtk.api.write_data</span></code> function should be useful.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span><span class="p">,</span> <span class="n">write_data</span>
+<code class="docutils literal notranslate"><span class="pre">tvtk.api.write_data</span></code> function should be useful.  For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span><span class="p">,</span> <span class="n">write_data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># ...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">write_data</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s1">&#39;file_name&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This will write out an XML file with basename <code class="docutils literal"><span class="pre">file_name</span></code>.  If one specifies
-a <code class="docutils literal"><span class="pre">.vtk</span></code> extension, like say:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">write_data</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s1">&#39;file_name.vtk&#39;</span><span class="p">)</span>
+<p>This will write out an XML file with basename <code class="docutils literal notranslate"><span class="pre">file_name</span></code>.  If one specifies
+a <code class="docutils literal notranslate"><span class="pre">.vtk</span></code> extension, like say:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">write_data</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s1">&#39;file_name.vtk&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It will write out an old-style ASCII file.  See the docstring for more details.</p>
 <p>VTK-Python defines several handy colors and these are made available in TVTK.
 For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">colors</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">colors</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">colors</span><span class="o">.</span><span class="n">alice_blue</span>
 <span class="go">(0.9412, 0.9725, 1.0)</span>
 </pre></div>
@@ -790,7 +781,7 @@ For example:</p>
 tree.  Double-clicking any node will let you edit the properties of
 the object with a trait sheet editor.  The <cite>TreeEditor</cite> from the
 traits package is used to represent the view.  This pipeline browser
-is similar to but more sophisticated than <a class="reference external" href="http://mayavi.sf.net">MayaVi</a>&#8216;s (1.x) pipeline
+is similar to but more sophisticated than <a class="reference external" href="http://mayavi.sf.net">MayaVi</a>’s (1.x) pipeline
 browser.  The browser will most often automatically update itself as
 you change the VTK pipeline.  When it does not you can right click on
 any node and click refresh.</p>
@@ -808,7 +799,7 @@ pipeline browser view.</p>
 <p>For a stand-alone application one may simply run the module.  To use
 this under <a class="reference external" href="http://ipython.scipy.org">IPython</a> (with -wthread) use the <cite>viewer()</cite> helper
 function.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="k">import</span> <span class="n">ivtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="k">import</span> <span class="n">ivtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="k">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create your actor ...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">()</span>
@@ -818,7 +809,7 @@ function.  For example:</p>
 </pre></div>
 </div>
 <p>ivtk provides several useful classes that you may use from either
-PyFace or wxPython &#8211; <cite>IVTK</cite>, <cite>IVTKWithCrust</cite>, <cite>IVTKWithBrowser</cite> and
+PyFace or wxPython – <cite>IVTK</cite>, <cite>IVTKWithCrust</cite>, <cite>IVTKWithBrowser</cite> and
 <cite>IVTKWithCrustAndBrowser</cite>.  Again read the code and docstrings to
 learn more.  An example using ivtk is also available in
 <cite>examples/ivtk_example.py</cite>.</p>
@@ -856,7 +847,7 @@ inputs.  The subclasses are: <cite>Arrows</cite>, <cite>Cones</cite>, <cite>Cube
 <dd>Manages a lookup table and a scalar bar (legend) for it.  This is
 subclassed by all classes that need a LUT.</dd>
 <dt><cite>SurfRegular</cite></dt>
-<dd>MayaVi1&#8217;s <cite>imv.surf</cite> like functionality that plots surfaces given x
+<dd>MayaVi1’s <cite>imv.surf</cite> like functionality that plots surfaces given x
 (1D), y(1D) and z (or a callable) arrays.</dd>
 <dt><cite>SurfRegularC</cite></dt>
 <dd>Also plots contour lines.</dd>
@@ -878,12 +869,12 @@ a surface.</dd>
 <dd>Shows contour for a mesh.</dd>
 <dt><cite>ImShow</cite></dt>
 <dd>Allows one to view large numpy arrays as image data using an image
-actor.  This is just like MayaVi1&#8217;s <cite>mayavi.tools.imv.viewi</cite>.</dd>
+actor.  This is just like MayaVi1’s <cite>mayavi.tools.imv.viewi</cite>.</dd>
 </dl>
 <p>To see nice examples of all of these look at the <cite>test_*</cite> functions at
 the end of the mlab.py file.  Here is a quick example that uses some
 of these test functions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="k">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="k">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_surf</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="c1"># Create a spherical harmonic.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c1"># Remove it.</span>
@@ -896,7 +887,7 @@ of these test functions:</p>
 </div>
 <p>Here is the <cite>test_surf</cite> function just to show you how easy it is to
 use <cite>mlab</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the spherical harmonic.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the spherical harmonic.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">mgrid</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dphi</span><span class="p">,</span> <span class="n">dtheta</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">phi</span><span class="p">,</span><span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span><span class="o">+</span><span class="n">dphi</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dphi</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">+</span><span class="n">dtheta</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dtheta</span><span class="p">]</span>
@@ -920,7 +911,7 @@ use <cite>mlab</cite>:</p>
 <p>TVTK ships with two Envisage plugins.  One for a TVTK scene and
 another for the pipeline browser.</p>
 <p>The <cite>scene</cite> plugin allows one to create a new TVTK scene on the work
-area.  Any number of these may be created.  It provides useful menu&#8217;s
+area.  Any number of these may be created.  It provides useful menu’s
 to set the view of the scene (like the ivtk menus).  It also allows
 the user to save the view to an image.  The plugin also provides a few
 preferences to set the background color of the window etc.</p>
@@ -942,7 +933,7 @@ Envisage and make an application.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">An Introduction to Traited VTK (tvtk)</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
@@ -950,7 +941,7 @@ Envisage and make an application.</p>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
 <li><a class="reference internal" href="#advanced-usage">Advanced Usage</a><ul>
-<li><a class="reference internal" href="#definition-of-the-basic-state-of-a-tvtk-object">Definition of the &#8220;basic state&#8221; of a tvtk object</a></li>
+<li><a class="reference internal" href="#definition-of-the-basic-state-of-a-tvtk-object">Definition of the “basic state” of a tvtk object</a></li>
 <li><a class="reference internal" href="#the-wrapped-vtk-object">The wrapped VTK object</a></li>
 <li><a class="reference internal" href="#tvtk-and-traits">tvtk and traits</a></li>
 <li><a class="reference internal" href="#sub-classing-tvtk-classes">Sub-classing tvtk classes</a></li>
@@ -979,7 +970,7 @@ Envisage and make an application.</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to tvtk&#8217;s documentation!</a></p>
+                        title="previous chapter">Welcome to tvtk’s documentation!</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="devel.html"
                         title="next chapter">Development guide for TVTK</a></p>
@@ -992,12 +983,14 @@ Envisage and make an application.</p>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1016,13 +1009,13 @@ Envisage and make an application.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to tvtk’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2016, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

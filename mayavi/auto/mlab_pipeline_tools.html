@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Tools &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Tools &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Data" href="mlab_pipeline_data.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="mlab_pipeline_data.html" title="Data"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="mlab_pipeline_sources.html" title="Sources"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &#187;</li> 
       </ul>
@@ -108,7 +102,7 @@ instructions on running the examples.</p>
 dataset added to the Mayavi pipeline</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Figure:</th><td class="field-body"><p class="first">a figure identifier number or string, None or False, optionnal.</p>
+<tr class="field-even field"><th class="field-name">Figure:</th><td class="field-body"><p class="first">a figure identifier number or string, None or False, optional.</p>
 <p>If no <cite>figure</cite> keyword argument is given, the data
 is added to the current figure (a new figure if created if
 necessary).</p>
@@ -170,7 +164,7 @@ Mayavi source objects).</td>
 </table>
 <p><strong>Notes</strong></p>
 <p>This function traverses the Mayavi pipeline. Thus the input
-object &#8216;mayavi_object&#8217; should already be added to the pipeline.</p>
+object ‘mayavi_object’ should already be added to the pipeline.</p>
 </dd></dl>
 
 </div>
@@ -187,9 +181,9 @@ not have an actor.</p>
 modules applied on the same data source will not share the same
 scale. Thus for instance an outline module will not respect the
 outline of the actors whose extent you modified. You should pass
-in the same &#8220;extents&#8221; parameter for this to work.You can have a
+in the same “extents” parameter for this to work.You can have a
 look at the wigner.py example for a heavy use of this
-functionnality.</p>
+functionality.</p>
 <p><strong>Note</strong></p>
 <p>This function does not work on some specific modules, such as
 Outline, Axes, or ImagePlaneWidget. For Outline and Axes, use the
@@ -203,12 +197,12 @@ mlab.pipeline.axes.</p>
 <dl class="function">
 <dt id="mayavi.tools.pipeline.traverse">
 <code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">traverse</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.traverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generator to traverse a tree accessing the nodes&#8217; children
+<dd><p>Generator to traverse a tree accessing the nodes’ children
 attribute.</p>
 <p><strong>Example</strong></p>
 <p>Here is a simple example printing the names of all the objects in
 the pipeline:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">for obj in mlab.pipeline.traverse(mlab.gcf()):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">for obj in mlab.pipeline.traverse(mlab.gcf()):</span>
 <span class="s2">    print obj.name</span>
 </pre></div>
 </div>
@@ -226,7 +220,7 @@ the pipeline:</p>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Tools</a><ul>
 <li><a class="reference internal" href="#add-dataset">add_dataset</a></li>
@@ -251,45 +245,18 @@ the pipeline:</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -301,20 +268,23 @@ the pipeline:</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="mlab_pipeline_data.html" title="Data"
              >next</a> |</li>
         <li class="right" >
           <a href="mlab_pipeline_sources.html" title="Sources"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

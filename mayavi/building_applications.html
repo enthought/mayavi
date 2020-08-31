@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Building applications using Mayavi &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Building applications using Mayavi &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tips and Tricks" href="tips.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -116,10 +110,10 @@ attribute, called SceneModel can be used as an attribute to represent a
 Mayavi scene that can accept objects. This defines the <cite>model</cite>, i.e. the
 main <cite>HasTraits</cite> object in which the application logics is contained.</p>
 <p>A view of this object, as a dialog, can be created using the
-<cite>.configure_traits</cite> method of this object. If a view is explicitely
+<cite>.configure_traits</cite> method of this object. If a view is explicitly
 specified the embedded Mayavi scene can be represented with the usual
 widget for scene by specifying for it the <cite>SceneEditor</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from traits.api import HasTraits, Instance</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from traits.api import HasTraits, Instance</span>
 <span class="s2">from traitsui.api import View, Item</span>
 <span class="s2">from tvtk.pyface.scene_model import SceneModel</span>
 <span class="s2">from tvtk.pyface.scene_editor import SceneEditor</span>
@@ -135,7 +129,7 @@ widget for scene by specifying for it the <cite>SceneEditor</cite>:</p>
 </div>
 <p>A <cite>Mayavi</cite> button to pop up the pipeline dialog can be added on the
 toolbar by specifying a different scene view to the <cite>SceneEditor</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi.core.ui.mayavi_scene import MayaviScene</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from mayavi.core.ui.mayavi_scene import MayaviScene</span>
 
 <span class="s2">#...</span>
 <span class="s2">editor=SceneEditor(scene_class=MayaviScene)</span>
@@ -144,7 +138,7 @@ toolbar by specifying a different scene view to the <cite>SceneEditor</cite>:</p
 </div>
 <p>If, on the contrary, you want a view with no toolbar, you can replace the
 <cite>MayaviView</cite> by a raw tvtk view:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from tvtk.pyface.api import Scene</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from tvtk.pyface.api import Scene</span>
 
 <span class="s2">#...</span>
 <span class="s2">editor=SceneEditor(scene_class=Scene)</span>
@@ -170,13 +164,13 @@ achieved with <cite>self.scene.mlab.points3d(x, y, z, s)</cite>.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>Embedding several scenes in an application</p>
-<p>When using several &#8216;MlabSceneModel&#8217; in an application, there is an
+<p>When using several ‘MlabSceneModel’ in an application, there is an
 ambiguity regarding which scene mlab should use to plot to. This is
 why relying on using the current figure, as mlab most often does, is
 dangerous.</p>
 <p>The solution to this, is explicitly pass in the Mayavi figure to
-mlab&#8217;s figure keyword argument:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">mlab.points3d(x, y, z, s, figure=self.scene.mayavi_scene)</span>
+mlab’s figure keyword argument:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">mlab.points3d(x, y, z, s, figure=self.scene.mayavi_scene)</span>
 </pre></div>
 </div>
 <p>However, this functionality is new in Mayavi 3.2.1.</p>
@@ -196,7 +190,7 @@ changed interactively. For this we can use the inplace modification of
 the data of an mlab object, as for animation of an mlab plot (see
 <a class="reference internal" href="mlab_animating.html#mlab-animating-data"><span class="std std-ref">Animating the data</span></a>). Suppose we are plotting a line curve defined
 by a function of two parameters:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from numpy import linspace, pi, cos, sin</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from numpy import linspace, pi, cos, sin</span>
 
 <span class="s2">def curve(n_mer, n_long):</span>
 <span class="s2">    phi = linspace(0, 2*pi, 2000)</span>
@@ -207,18 +201,18 @@ by a function of two parameters:</p>
 </pre></div>
 </div>
 <p>Using <cite>mlab</cite>, we could plot the curve with <cite>plot3d</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">x, y, z, s = curve(4, 6)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">x, y, z, s = curve(4, 6)</span>
 <span class="s2">from mayavi import mlab</span>
 <span class="s2">plot = mlab.plot3d(x, y, z, s)</span>
 </pre></div>
 </div>
 <p>Modifying the plot for new parameters could be written:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">x, y, z, t = curve(4, 8)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">x, y, z, t = curve(4, 8)</span>
 <span class="s2">plot.mlab_source.trait_set(x=x, y=y, z=z, scalars=t)</span>
 </pre></div>
 </div>
 <p>In a dialog, this would be:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from traits.api import HasTraits, Range, Instance, </span><span class="se">\</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from traits.api import HasTraits, Range, Instance, </span><span class="se">\</span>
 <span class="s2">                    on_trait_change</span>
 <span class="s2">from traitsui.api import View, Item, HGroup</span>
 <span class="s2">from tvtk.pyface.scene_editor import SceneEditor</span>
@@ -273,8 +267,8 @@ result some property changes on VTK objects will raise warnings or
 simply not work when applied without a dialog opened. When embedding
 a scene in a Traits object, the best option is to create and modify
 these objects only when the scene is activated, by listening to
-changes on the &#8216;scene.activated&#8217; traits:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">@on_trait_change(&#39;scene.activated&#39;)</span>
+changes on the ‘scene.activated’ traits:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">@on_trait_change(&#39;scene.activated&#39;)</span>
 <span class="s2">def create_plot(self):</span>
 <span class="s2">    # Do the plotting here</span>
 <span class="s2">    # ...</span>
@@ -306,7 +300,7 @@ visualization of the field and the coil structure.</li>
 <div class="section" id="integrating-in-a-wxpython-application">
 <h2>Integrating in a WxPython application<a class="headerlink" href="#integrating-in-a-wxpython-application" title="Permalink to this headline">¶</a></h2>
 <p>Using the <cite>Visualization</cite> class defined above:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import wx</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import wx</span>
 
 <span class="s2">class MainWindow(wx.Frame):</span>
 <span class="s2">    def __init__(self, parent, id):</span>
@@ -316,7 +310,7 @@ visualization of the field and the coil structure.</li>
 <span class="s2">                                kind=&#39;subpanel&#39;).control</span>
 <span class="s2">        self.Show()</span>
 
-<span class="s2">app = wx.PySimpleApp()</span>
+<span class="s2">app = wx.App(False)</span>
 <span class="s2">frame = MainWindow(None, wx.ID_ANY)</span>
 <span class="s2">app.MainLoop()</span>
 </pre></div>
@@ -336,7 +330,7 @@ showing 2 different Mayavi views embedded in a Wx notebook.</li>
 <p>Mayavi dialogs can also be integrated in a PyQt or PySide application.</p>
 <p>Before defining the <cite>Visualization</cite> class, you should set the toolkit
 used by Traits to the Qt backend:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import os</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import os</span>
 <span class="s2">os.environ[&#39;ETS_TOOLKIT&#39;] = &#39;qt4&#39;</span>
 </pre></div>
 </div>
@@ -344,18 +338,18 @@ used by Traits to the Qt backend:</p>
 sure that you switch its binding in a mode that is compatible with PySide
 (internal string representation mode), <strong>before you import any PyQt
 code</strong>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import sip</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import sip</span>
 <span class="s2">sip.setapi(&#39;QString&#39;, 2)</span>
 </pre></div>
 </div>
 <p>By default, with modern versions of the Enthought Tool Suite, Traits will
 use PySide. To force the use of PyQt, you must set the QT_API environment
 variable:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">os.environ[&#39;QT_API&#39;] = &#39;pyqt&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">os.environ[&#39;QT_API&#39;] = &#39;pyqt&#39;</span>
 </pre></div>
 </div>
 <p>Then using the visualization class defined above:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from PyQt4 import QtGui</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from PyQt4 import QtGui</span>
 
 <span class="s2">class MainWindow(QtGui.QMainWindow):</span>
 <span class="s2">    def __init__(self, parent=None):</span>
@@ -376,7 +370,7 @@ variable:</p>
 <p>On definition of the model (and thus previous to the start of the
 event loop), Traits sets up some hooks on the main QApplication. As a
 result if you instanciate a new one, using for instance:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">app = QtGui.QApplication()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">app = QtGui.QApplication()</span>
 </pre></div>
 </div>
 <p class="last">Your Traits application will not work.</p>
@@ -393,7 +387,7 @@ result if you instanciate a new one, using for instance:</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Building applications using Mayavi</a><ul>
 <li><a class="reference internal" href="#custom-interactive-dialogs">Custom interactive dialogs</a><ul>
@@ -421,45 +415,18 @@ result if you instanciate a new one, using for instance:</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -471,18 +438,21 @@ result if you instanciate a new one, using for instance:</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              >next</a> |</li>
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

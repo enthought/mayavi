@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Figures, legends, camera and decorations &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Figures, legends, camera and decorations &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <style type="text/css">
@@ -56,15 +48,17 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -78,47 +72,47 @@
 <div class="section" id="handling-several-figures">
 <h2>Handling several figures<a class="headerlink" href="#handling-several-figures" title="Permalink to this headline">¶</a></h2>
 <p>All mlab functions operate on the current scene, that we also call
-<code class="xref py py-func docutils literal"><span class="pre">figure()</span></code>, for compatibility with matlab and pylab. The different
+<code class="xref py py-func docutils literal notranslate"><span class="pre">figure()</span></code>, for compatibility with matlab and pylab. The different
 figures are indexed by key that can be an integer or a string. A call to
-the <code class="xref py py-func docutils literal"><span class="pre">figure()</span></code> function giving a key will either return the corresponding
+the <code class="xref py py-func docutils literal notranslate"><span class="pre">figure()</span></code> function giving a key will either return the corresponding
 figure, if it exists, or create a new one. The current figure can be
-retrieved with the <code class="xref py py-func docutils literal"><span class="pre">gcf()</span></code> function. It can be refreshed using the
-<code class="xref py py-func docutils literal"><span class="pre">draw()</span></code> function, saved to a picture file using <code class="xref py py-func docutils literal"><span class="pre">savefig()</span></code> and
-cleared using <code class="xref py py-func docutils literal"><span class="pre">clf()</span></code>.</p>
+retrieved with the <code class="xref py py-func docutils literal notranslate"><span class="pre">gcf()</span></code> function. It can be refreshed using the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">draw()</span></code> function, saved to a picture file using <code class="xref py py-func docutils literal notranslate"><span class="pre">savefig()</span></code> and
+cleared using <code class="xref py py-func docutils literal notranslate"><span class="pre">clf()</span></code>.</p>
 </div>
 <div class="section" id="figure-decorations">
 <h2>Figure decorations<a class="headerlink" href="#figure-decorations" title="Permalink to this headline">¶</a></h2>
-<p>Axes can be added around a visualization object with the <code class="xref py py-func docutils literal"><span class="pre">axes()</span></code>
-function, and the labels can be set using the <code class="xref py py-func docutils literal"><span class="pre">xlabel()</span></code>, <code class="xref py py-func docutils literal"><span class="pre">ylabel()</span></code>
-and <code class="xref py py-func docutils literal"><span class="pre">zlabel()</span></code> functions. Similarly, <code class="xref py py-func docutils literal"><span class="pre">outline()</span></code> creates an
-outline around an object. <code class="xref py py-func docutils literal"><span class="pre">title()</span></code> adds a title to the figure.</p>
+<p>Axes can be added around a visualization object with the <code class="xref py py-func docutils literal notranslate"><span class="pre">axes()</span></code>
+function, and the labels can be set using the <code class="xref py py-func docutils literal notranslate"><span class="pre">xlabel()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">ylabel()</span></code>
+and <code class="xref py py-func docutils literal notranslate"><span class="pre">zlabel()</span></code> functions. Similarly, <code class="xref py py-func docutils literal notranslate"><span class="pre">outline()</span></code> creates an
+outline around an object. <code class="xref py py-func docutils literal notranslate"><span class="pre">title()</span></code> adds a title to the figure.</p>
 <p>Color bars can be used to reflect the color maps used to display values
-(LUT, or lookup tables, in VTK parlance). <code class="xref py py-func docutils literal"><span class="pre">colorbar()</span></code> creates a color
+(LUT, or lookup tables, in VTK parlance). <code class="xref py py-func docutils literal notranslate"><span class="pre">colorbar()</span></code> creates a color
 bar for the last object created, trying to guess whether to use the vector
-data or the scalar data color maps. The <code class="xref py py-func docutils literal"><span class="pre">scalarbar()</span></code> and
-<code class="xref py py-func docutils literal"><span class="pre">vectorbar()</span></code> function scan be used to create color bars specifically
+data or the scalar data color maps. The <code class="xref py py-func docutils literal notranslate"><span class="pre">scalarbar()</span></code> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">vectorbar()</span></code> function scan be used to create color bars specifically
 for scalar or vector data.</p>
 <p>A small <em>xyz</em> triad can be added to the figure using
-<code class="xref py py-func docutils literal"><span class="pre">orientation_axes()</span></code>.</p>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">orientation_axes()</span></code>.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The <code class="xref py py-func docutils literal"><span class="pre">orientation_axes()</span></code> was named <cite>orientationaxes</cite>
+<p class="last">The <code class="xref py py-func docutils literal notranslate"><span class="pre">orientation_axes()</span></code> was named <cite>orientationaxes</cite>
 before release 3.2.</p>
 </div>
 </div>
 <div class="section" id="moving-the-camera">
 <h2>Moving the camera<a class="headerlink" href="#moving-the-camera" title="Permalink to this headline">¶</a></h2>
-<p>The position and direction of the camera can be set using the <code class="xref py py-func docutils literal"><span class="pre">view()</span></code>
+<p>The position and direction of the camera can be set using the <code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code>
 function. They are described in terms of Euler angles and distance to a
-focal point. The <code class="xref py py-func docutils literal"><span class="pre">view()</span></code> function tries to guess the right roll angle
-of the camera for a pleasing view, but it sometimes fails. The <code class="xref py py-func docutils literal"><span class="pre">roll()</span></code>
+focal point. The <code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code> function tries to guess the right roll angle
+of the camera for a pleasing view, but it sometimes fails. The <code class="xref py py-func docutils literal notranslate"><span class="pre">roll()</span></code>
 explicitly sets the roll angle of the camera (this can be achieve
 interactively in the scene by pressing down the control key, while
 dragging the mouse, see <a class="reference internal" href="application.html#interaction-with-the-scene"><span class="std std-ref">Interaction with the scene</span></a>).</p>
-<p>The <code class="xref py py-func docutils literal"><span class="pre">view()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">roll()</span></code> functions return the current values of
+<p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">roll()</span></code> functions return the current values of
 the different angles and distances they take as arguments. As a result, the
 view point obtained interactively can be stored and reset using:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2"># Store the information</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"># Store the information</span>
 <span class="s2">view = mlab.view()</span>
 <span class="s2">roll = mlab.roll()</span>
 
@@ -132,22 +126,22 @@ view point obtained interactively can be stored and reset using:</p>
 <blockquote>
 <div><p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
 and <cite>pitch</cite> methods of the camera object. This moves the focal point:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">f = mlab.gcf()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">f = mlab.gcf()</span>
 <span class="s2">camera = f.scene.camera</span>
 <span class="s2">camera.yaw(45)</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>Unlike the <code class="xref py py-func docutils literal"><span class="pre">view()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">roll()</span></code> function, the angles
+<p>Unlike the <code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">roll()</span></code> function, the angles
 are incremental, and not absolute.</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Modifying zoom and view angle</p>
 <p>The camera is entirely defined by its position, its focal point, and
-its view angle (attributes &#8216;position&#8217;, &#8216;focal_point&#8217;, &#8216;view_angle&#8217;).
-The camera method &#8216;zoom&#8217; changes the view angle incrementally by the
-specify ratio, where as the method &#8216;dolly&#8217; translates the camera along
-its axis while keeping the focal point constant. The <code class="xref py py-func docutils literal"><span class="pre">move()</span></code>
+its view angle (attributes ‘position’, ‘focal_point’, ‘view_angle’).
+The camera method ‘zoom’ changes the view angle incrementally by the
+specify ratio, where as the method ‘dolly’ translates the camera along
+its axis while keeping the focal point constant. The <code class="xref py py-func docutils literal notranslate"><span class="pre">move()</span></code>
 function can also be useful in these regards.</p>
 </div>
 <div class="admonition note">
@@ -157,7 +151,7 @@ function can also be useful in these regards.</p>
 mlab.roll, a last parameter is needed to fully define the view point:
 the parallel scale of the camera, that control its view angle. It can
 be read (or set) with the following code:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="s2">f = mlab.gcf()</span>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">f = mlab.gcf()</span>
 <span class="s2">camera = f.scene.camera</span>
 <span class="s2">cam.parallel_scale = 9</span>
 </pre></div>
@@ -175,7 +169,7 @@ be read (or set) with the following code:</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Figures, legends, camera and decorations</a><ul>
 <li><a class="reference internal" href="#handling-several-figures">Handling several figures</a></li>
@@ -192,45 +186,18 @@ be read (or set) with the following code:</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -241,13 +208,16 @@ be read (or set) with the following code:</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

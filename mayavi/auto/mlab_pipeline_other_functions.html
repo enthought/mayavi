@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Filters, modules, other functions &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Filters, modules, other functions &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <style type="text/css">
@@ -56,15 +48,17 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -194,8 +188,8 @@ Default: 1.0</td>
 <tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -251,8 +245,8 @@ Default: 1.0</td>
 <tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -311,8 +305,8 @@ Default: 1.0</td>
 <tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -670,16 +664,16 @@ created.</td>
 <tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
-points displayed on large datasets Must be an integer
-(int or long) or None.</td>
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
-&#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
-&#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
-&#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
-&#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
+‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
+‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
+‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
+‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</td>
 </tr>
 <tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
@@ -691,17 +685,17 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer (int or long). Default: 8</td>
+phi. Must be an integer. Default: 8</td>
 </tr>
 <tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
+(‘vector’, ‘scalar’, or ‘none’).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -774,8 +768,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -826,8 +820,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -881,8 +875,8 @@ Default: 2.0</td>
 <tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -988,11 +982,11 @@ value. Default: x_axes</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">slice_index:</th><td class="field-body">The index along wich the
+<tr class="field-odd field"><th class="field-name">slice_index:</th><td class="field-body">The index along with the
 image is sliced.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1048,8 +1042,8 @@ Default: 1.0</td>
 <tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1100,8 +1094,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1174,8 +1168,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1300,8 +1294,8 @@ value. Default: x_axes</td>
 <tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
 shown. Must be a boolean. Default: True</td>
@@ -1415,8 +1409,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1458,14 +1452,14 @@ created.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">integration_direction:</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body">The direction of the integration. Must be
-&#8216;forward&#8217; or &#8216;backward&#8217; or &#8216;both&#8217;. Default:
+‘forward’ or ‘backward’ or ‘both’. Default:
 forward</td>
 </tr>
 <tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
-streamline. Must be &#8216;line&#8217; or &#8216;ribbon&#8217; or &#8216;tube&#8217;. Default:
+streamline. Must be ‘line’ or ‘ribbon’ or ‘tube’. Default:
 line</td>
 </tr>
 <tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
@@ -1478,8 +1472,7 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body">The resolution of the seed. Determines the number of
-seed points Must be an integer (int or long) or
-None.</td>
+seed points Must be an integer or None.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
 float. Default: 1.0</td>
@@ -1488,10 +1481,10 @@ float. Default: 1.0</td>
 Default: True</td>
 </tr>
 <tr class="field-even field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
-&#8216;line&#8217; or &#8216;plane&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
+‘line’ or ‘plane’ or ‘point’ or ‘sphere’. Default: sphere</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1564,8 +1557,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1615,14 +1608,14 @@ Default: 2.0</td>
 Default: 1.0</td>
 </tr>
 <tr class="field-even field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
-&#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217;. Default:
+‘surface’ or ‘wireframe’ or ‘points’. Default:
 surface</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1673,8 +1666,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1725,8 +1718,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -1832,8 +1825,7 @@ If None, the min of the data will be used</td>
 lines. Must be a float. Default: 0.05</td>
 </tr>
 <tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
-represent the lines. Must be an integer (int or long).
-Default: 6</td>
+represent the lines. Must be an integer. Default: 6</td>
 </tr>
 </tbody>
 </table>
@@ -1899,16 +1891,16 @@ created.</td>
 <tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
-points displayed on large datasets Must be an integer
-(int or long) or None.</td>
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
-&#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
-&#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
-&#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
-&#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: 2darrow</td>
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
+‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
+‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
+‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
+‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: 2darrow</td>
 </tr>
 <tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
@@ -1924,17 +1916,17 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer (int or long). Default: 8</td>
+phi. Must be an integer. Default: 8</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
 <tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
+(‘vector’, ‘scalar’, or ‘none’).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
 shown. Must be a boolean. Default: True</td>
@@ -1981,16 +1973,16 @@ created.</td>
 <tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
-points displayed on large datasets Must be an integer
-(int or long) or None.</td>
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
-&#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
-&#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
-&#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
-&#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: 2darrow</td>
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
+‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
+‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
+‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
+‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: 2darrow</td>
 </tr>
 <tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
@@ -2002,17 +1994,17 @@ added to the scene. Defaults to True.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer (int or long). Default: 8</td>
+phi. Must be an integer. Default: 8</td>
 </tr>
 <tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
+(‘vector’, ‘scalar’, or ‘none’).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -2041,7 +2033,7 @@ If None, the min of the data will be used</td>
 vmin/vmax parameters (see below). For more complex modifications of
 the colormap, here is some pseudo code to change the ctf (color
 transfer function), or the otf (opacity transfer function):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">vol = mlab.pipeline.volume(src)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">vol = mlab.pipeline.volume(src)</span>
 
 <span class="s2"># Changing the ctf:</span>
 <span class="s2">from tvtk.util.ctf import ColorTransferFunction</span>
@@ -2063,7 +2055,7 @@ transfer function), or the otf (opacity transfer function):</p>
 </pre></div>
 </div>
 <p>Also, it might be useful to change the range of the ctf:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">ctf.range = [0, 1]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">ctf.range = [0, 1]</span>
 </pre></div>
 </div>
 <p><strong>Keyword arguments:</strong></p>
@@ -2200,8 +2192,8 @@ Default: 1.0</td>
 <tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
+the scalar.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
@@ -2226,7 +2218,7 @@ If None, the min of the data will be used</td>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Filters, modules, other functions</a><ul>
 <li><a class="reference internal" href="#cell-derivatives">cell_derivatives</a></li>
@@ -2297,45 +2289,18 @@ If None, the min of the data will be used</td>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -2346,13 +2311,16 @@ If None, the min of the data will be used</td>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.1 documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

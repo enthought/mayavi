@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Using Mayavi with scipy &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Using Mayavi with scipy &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Exploring a vector field" href="example_exploring_a_vector_field.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="example_exploring_a_vector_field.html" title="Exploring a vector field"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li> 
       </ul>
     </div>  
@@ -96,7 +90,7 @@ the problem.</p>
 parabolic confinement. We will shake this potential and see how the
 particle jumps from a hole of the lattice to another. The parabolic
 confinement is there to limit the excursions of the particle:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy as np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy as np</span>
 
 <span class="s2">def V(x, y, z):</span>
 <span class="s2">    &quot;&quot;&quot;</span> <span class="n">A</span> <span class="mi">3</span><span class="n">D</span> <span class="n">sinusoidal</span> <span class="n">lattice</span> <span class="k">with</span> <span class="n">a</span> <span class="n">parabolic</span> <span class="n">confinement</span><span class="o">.</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -106,16 +100,16 @@ confinement is there to limit the excursions of the particle:</p>
 <p>Now that we have defined the potential, we would like to see what it
 looks like in 3D. To do this we can create a 3D grid of points, and
 sample it on these points:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">X, Y, Z = np.mgrid[-2:2:100j, -2:2:100j, -2:2:100j]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">X, Y, Z = np.mgrid[-2:2:100j, -2:2:100j, -2:2:100j]</span>
 <span class="s2">V(X, Y, Z)</span>
 </pre></div>
 </div>
 <p>We are going to use the <cite>mlab</cite> module (see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a>)
 to interactively visualize this volumetric data. For this it is best to type
 the commands in an interactive Python shell, either using the built-in shell
-of the Mayavi2 application, on in <cite>ipython &#8211;gui=qt</cite>. Let us visualize the 3D
+of the Mayavi2 application, on in <cite>ipython –gui=qt</cite>. Let us visualize the 3D
 isosurfaces of the potential:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
 <span class="s2">mlab.contour3d(X, Y, Z, V)</span>
 </pre></div>
 </div>
@@ -129,26 +123,26 @@ the values of the contours used. A good view of the potential can be
 achieved by turning off auto contours and choosing -0.5 as a first
 contour value (eg by entering it in the text box on the right, and
 pressing <cite>tab</cite>). A second contour can be added by clicking on the blue
-arrow and selecting &#8220;Add after&#8221;. Using a value of 15 gives a nice result.</p>
+arrow and selecting “Add after”. Using a value of 15 gives a nice result.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Note that the &#8220;Add after&#8221; UI formerly crashed on Linux with the
+<p class="last">Note that the “Add after” UI formerly crashed on Linux with the
 wxPython backend for versions of Mayavi up to 3.2.0 (see
 <a class="reference internal" href="bugs.html#known-bugs"><span class="std std-ref">Known bugs and issues</span></a> for all know bugs).</p>
 </div>
 <p>We can now click on the <cite>Colors and legends</cite> on the pipeline and change
 the colors used, by selecting a different LUT (Look Up Table). Let us
-select &#8216;Paired&#8217; as it separates well levels.</p>
+select ‘Paired’ as it separates well levels.</p>
 <img alt="_images/example_potential_ipython.jpg" src="_images/example_potential_ipython.jpg" />
 <p>To get a better view of the potential, we would like to display more
 contours, but the problem with this approach is that closed contours hide
 their interior. On solution is to use a cut plane. Right-click on the
-<cite>IsoSurface</cite> node and add a <cite>ScalarCutPlane</cite> through the &#8220;Add module&#8221; sub
+<cite>IsoSurface</cite> node and add a <cite>ScalarCutPlane</cite> through the “Add module” sub
 menu. You can move the cut plane by clicking on it and dragging.</p>
 <p>To make the link between our numpy arrays and the visualization, we can
 use the same menu to add an Axes and an Outline. Finally, let us add a
 colorbar. We can do this by typing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">mlab.colorbar(title=&#39;Potential&#39;, orientation=&#39;vertical&#39;)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">mlab.colorbar(title=&#39;Potential&#39;, orientation=&#39;vertical&#39;)</span>
 </pre></div>
 </div>
 <p>Or using the options in the LUT dialog visited earlier.</p>
@@ -156,7 +150,7 @@ colorbar. We can do this by typing:</p>
 <p>We want to study the motion of a particle in this potential. For this we
 need to derive the corresponding force, given by the gradient of the
 potential. We create a gradient function:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">def gradient(f, x, y, z, d=0.01):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">def gradient(f, x, y, z, d=0.01):</span>
 <span class="s2">    &quot;&quot;&quot;</span> <span class="n">Return</span> <span class="n">the</span> <span class="n">gradient</span> <span class="n">of</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    fx  = f(x+d, y, z)</span>
 <span class="s2">    fx_ = f(x-d, y, z)</span>
@@ -171,7 +165,7 @@ potential. We create a gradient function:</p>
 vector field it creates. To avoid displaying too many vectors, we will
 evaluate the gradient only along a cut for X=50, and every three points
 on our grid:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">Vx, Vy, Vz = gradient(V, X[50, ::3, ::3], Y[50, ::3, ::3], Z[50, ::3, ::3])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">Vx, Vy, Vz = gradient(V, X[50, ::3, ::3], Y[50, ::3, ::3], Z[50, ::3, ::3])</span>
 <span class="s2">mlab.quiver3d(X[50, ::3, ::3], Y[50, ::3, ::3], Z[50, ::3, ::3],</span>
 <span class="s2">                     Vx, Vy, Vz, scale_factor=-0.2, color=(1, 1, 1))</span>
 </pre></div>
@@ -186,7 +180,7 @@ of the force deriving from the potential, which we shake with time in the
 three directions, as well as a damping force. The damping coefficient and
 the amount and frequency of shaking have been tuned to give an
 interesting dynamic.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">def flow(r, t):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">def flow(r, t):</span>
 <span class="s2">    &quot;&quot;&quot;</span> <span class="n">The</span> <span class="n">dynamical</span> <span class="n">flow</span> <span class="n">of</span> <span class="n">the</span> <span class="n">system</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    x, y, z, vx, vy, vz = r</span>
 <span class="s2">    fx, fy, fz = gradient(V, x-.2*np.sin(6*t), y-.2*np.sin(6*t+1), z-.2*np.sin(6*t+2))</span>
@@ -194,7 +188,7 @@ interesting dynamic.</p>
 </pre></div>
 </div>
 <p>Now we can integrate the trajectory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">from scipy.integrate import odeint</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from scipy.integrate import odeint</span>
 
 <span class="s2"># Initial conditions</span>
 <span class="s2">R0 = (0, 0, 0, 0, 0, 0)</span>
@@ -209,7 +203,7 @@ selecting delete. We also turn the first color bar off in the
 corresponding <cite>Colors and legends</cite> node. We plot the trajectories with
 extra scalar information attached to it, to display the time via the
 colormap:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">x, y, z, vx, vy, vz = R.T</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">x, y, z, vx, vy, vz = R.T</span>
 <span class="s2">trajectory = mlab.plot3d(x, y, z, t, colormap=&#39;hot&#39;,</span>
 <span class="s2">                    tube_radius=None)</span>
 <span class="s2">mlab.colorbar(trajectory, title=&#39;Time&#39;, orientation=&#39;vertical&#39;)</span>
@@ -229,7 +223,7 @@ colormap:</p>
             </a></p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="example_fire.html"
-                        title="previous chapter">Visualizing rich datasets: the <code class="docutils literal"><span class="pre">fire_ug.vtu</span></code> example</a></p>
+                        title="previous chapter">Visualizing rich datasets: the <code class="docutils literal notranslate"><span class="pre">fire_ug.vtu</span></code> example</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_exploring_a_vector_field.html"
                         title="next chapter">Exploring a vector field</a></p>
@@ -240,45 +234,18 @@ colormap:</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -290,19 +257,22 @@ colormap:</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="example_exploring_a_vector_field.html" title="Exploring a vector field"
              >next</a> |</li>
         <li class="right" >
           <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

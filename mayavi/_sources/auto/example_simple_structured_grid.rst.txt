@@ -11,7 +11,7 @@ and visualizing it using mlab.
 
 In this example, we create a structured-grid data set: we describe
 data, both scalar and vector, lying on a structured-grid, ie a grid where
-each vertex has 6 neighboors. For this we directly create a
+each vertex has 6 neighbors. For this we directly create a
 StructuredGrid tvtk object, rather than using the mlab.pipeline source
 functions, as it gives us more control.
 

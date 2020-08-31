@@ -1,29 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Organisation of Mayavi visualizations: the pipeline &#8212; mayavi 4.7.1 documentation</title>
-    
+    <title>Organisation of Mayavi visualizations: the pipeline &#8212; mayavi 4.7.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '4.7.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Data representation in Mayavi" href="data.html" />
@@ -58,8 +50,7 @@
   }
 </style>
 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -67,12 +58,15 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>  
@@ -155,7 +149,7 @@ pipeline manually, as exposed
 <h2>A pipeline example examined<a class="headerlink" href="#a-pipeline-example-examined" title="Permalink to this headline">¶</a></h2>
 <p>Let us study the pipeline created by the <cite>mlab.plot3d</cite> function to
 represent lines:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">import numpy as np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy as np</span>
 <span class="s2">phi = np.linspace(0., 2*np.pi, 1000)</span>
 <span class="s2">x   = np.cos(6*phi)*(1 + .5*np.cos(11*phi))</span>
 <span class="s2">y   = np.sin(6*phi)*(1 + .5*np.cos(11*phi))</span>
@@ -170,18 +164,18 @@ represent lines:</p>
 </div>
 <p>The <cite>mlab.plot3d</cite> function first creates a source made of points
 connected by lines. Then it applies the <cite>Stripper</cite> filter, which
-transforms this succession of lines in a &#8216;strip&#8217;. Second, a <cite>Tube</cite>
-filter is applied: from the &#8216;strip&#8217; it creates tubes with a given radius.
+transforms this succession of lines in a ‘strip’. Second, a <cite>Tube</cite>
+filter is applied: from the ‘strip’ it creates tubes with a given radius.
 Finally, the <cite>Surface</cite> module is applied to display the surface of the
 tubes. The <cite>surface</cite> object returned by the <cite>mlab.plot3d</cite> function is
 that final <cite>Surface</cite> module.</p>
 <p>Let us have a look at the data in the pipeline before the tube filter was
 applied. First we retrive the <cite>Stripper</cite> filter:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">stripper = surface.parent.parent.parent</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">stripper = surface.parent.parent.parent</span>
 </pre></div>
 </div>
 <p>Then we apply on it a <cite>Surface</cite> module to represent the <cite>strip</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">lines = mlab.pipeline.surface(stripper, color=(0, 0, 0))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">lines = mlab.pipeline.surface(stripper, color=(0, 0, 0))</span>
 </pre></div>
 </div>
 <div class="figure align-center">
@@ -189,7 +183,7 @@ applied. First we retrive the <cite>Stripper</cite> filter:</p>
 </div>
 <p>All the properties of the different steps can be adjusted in the pipeline
 view. In addition, they correspond to attributes on the various objects:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">radius</span>
 <span class="go">0.025000000000000001</span>
 </pre></div>
@@ -210,7 +204,7 @@ challenging to find this correspondance. We suggest to use the
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Organisation of Mayavi visualizations: the pipeline</a><ul>
 <li><a class="reference internal" href="#anatomy-of-a-mayavi-pipeline">Anatomy of a Mayavi pipeline</a><ul>
@@ -237,45 +231,18 @@ challenging to find this correspondance. We suggest to use the
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-    <div id="searchbox">
-	<h3>Google Search</h3>
-    <form method="get" action="http://www.google.com/search">
-
-    <table border="0" cellpadding="0">
-    <tr><td>
-    <input type="text"   name="q" size="20"
-    maxlength="255" value="" />
-    <input type="submit" value="Go" /></td></tr>
-    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
-    <input type="checkbox"  name="sitesearch"
-    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
-    </td></tr></table>
-
-    </form>
-    </div>
-    <hr/>
-    <div id="searchbox">
-	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
-
-	<p style="font-size:85%; color: #FFFFFF;">
-    	If you publish articles using Mayavi, please 
-	<strong><a href="misc.html#citing-mayavi">cite
-	Mayavi</a></strong>. We need
-	these citations to justify time and resources on the software.
-	</p>
-    </div>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -287,19 +254,22 @@ challenging to find this correspondance. We suggest to use the
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              >next</a> |</li>
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 21, 2019.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Last updated on Aug 31, 2020.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>
