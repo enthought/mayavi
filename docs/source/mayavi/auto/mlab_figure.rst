@@ -110,7 +110,8 @@ savefig
     Save the current scene.
     The output format are deduced by the extension to filename.
     Possibilities are png, jpg, bmp, tiff, ps, eps, pdf, rib (renderman),
-    oogl (geomview), iv (OpenInventor), vrml, obj (wavefront)
+    oogl (geomview), iv (OpenInventor), wrl, vrml, obj (wavefront),
+    x3d, pov (povray).
     
     **Parameters**
     

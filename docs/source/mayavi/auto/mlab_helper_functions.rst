@@ -78,8 +78,8 @@ barchart
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: The glyph used to represent the bars. Must be '2dcircle' or
                '2dcross' or '2ddiamond' or '2dsquare' or '2dthick_cross' or
@@ -95,7 +95,7 @@ barchart
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -104,8 +104,8 @@ barchart
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -138,7 +138,7 @@ contour3d
 .. function:: contour3d(*args, **kwargs)
 
     
-    Plots iso-surfaces for a 3D volume of data suplied as arguments.
+    Plots iso-surfaces for a 3D volume of data supplied as arguments.
     
     **Function signatures**::
     
@@ -186,8 +186,8 @@ contour3d
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -280,8 +280,8 @@ contour_surf
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -385,8 +385,7 @@ flow
         :scalars: optional scalar data.
     
         :seed_resolution: The resolution of the seed. Determines the number of
-                          seed points Must be an integer (int or long) or
-                          None.
+                          seed points Must be an integer or None.
     
         :seed_scale: Scales the seed around its default center Must be a
                      float. Default: 1.0
@@ -397,8 +396,8 @@ flow
         :seedtype: the widget used as a seed for the streamlines. Must be
                    'line' or 'plane' or 'point' or 'sphere'. Default: sphere
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -473,8 +472,8 @@ imshow
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -549,8 +548,8 @@ mesh
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -572,7 +571,7 @@ mesh
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scalars: optional scalar data.
     
@@ -583,15 +582,14 @@ mesh
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :tube_radius: radius of the tubes used to represent the
                       lines, in mesh mode. If None, simple lines are used.
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer (int or long).
-                     Default: 6
+                     represent the lines. Must be an integer. Default: 6
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -685,15 +683,14 @@ plot3d
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :tube_radius: radius of the tubes used to represent the
                       lines, If None, simple lines are used.
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer (int or long).
-                     Default: 6
+                     represent the lines. Must be an integer. Default: 6
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -774,8 +771,8 @@ points3d
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -793,7 +790,7 @@ points3d
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: The scaling applied to the glyphs. the size of the
                        glyph is by default calculated from the inter-glyph
@@ -803,8 +800,8 @@ points3d
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -885,8 +882,8 @@ quiver3d
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -904,7 +901,7 @@ quiver3d
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scalars: optional scalar data.
     
@@ -916,8 +913,8 @@ quiver3d
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -945,6 +942,18 @@ see :ref:`running-mlab-scripts` for more info)::
     
                 
 
+
+
+set_picker_props
+~~~~~~~~~~~~~~~~
+
+.. function:: set_picker_props(figure=None, pick_type='point_picker', tolerance=0.025, text_color=None)
+
+    
+    
+    
+
+    
 
 
 surf
@@ -1019,8 +1028,8 @@ surf
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1117,8 +1126,8 @@ triangular_mesh
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1140,7 +1149,7 @@ triangular_mesh
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scalars: optional scalar data.
     
@@ -1151,15 +1160,14 @@ triangular_mesh
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :tube_radius: radius of the tubes used to represent the
                       lines, in mesh mode. If None, simple lines are used.
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer (int or long).
-                     Default: 6
+                     represent the lines. Must be an integer. Default: 6
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1206,7 +1214,7 @@ volume_slice
 
     
     Plots an interactive image plane sliced through a 3D volume of data
-    suplied as argument.
+    supplied as argument.
     
     **Function signatures**::
     
@@ -1256,11 +1264,11 @@ volume_slice
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :slice_index: The index along wich the
+        :slice_index: The index along with the
                       image is sliced.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used

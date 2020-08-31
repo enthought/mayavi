@@ -106,8 +106,8 @@ contour_grid_plane
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -158,8 +158,8 @@ contour_surface
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -212,8 +212,8 @@ custom_grid_plane
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -497,8 +497,8 @@ glyph
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -516,7 +516,7 @@ glyph
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -525,8 +525,8 @@ glyph
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -589,8 +589,8 @@ grid_plane
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -636,8 +636,8 @@ hyper_streamline
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -686,8 +686,8 @@ image_actor
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -776,11 +776,11 @@ image_plane_widget
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :slice_index: The index along wich the
+        :slice_index: The index along with the
                       image is sliced.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -831,8 +831,8 @@ iso_surface
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -878,8 +878,8 @@ labels
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -942,8 +942,8 @@ outline
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1046,8 +1046,8 @@ scalar_cut_plane
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :view_controls: Whether or not the controls of the cut plane are
                         shown. Must be a boolean. Default: True
@@ -1145,8 +1145,8 @@ slice_unstructured_grid
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1201,8 +1201,7 @@ streamline
                      added to the scene. Defaults to True.
     
         :seed_resolution: The resolution of the seed. Determines the number of
-                          seed points Must be an integer (int or long) or
-                          None.
+                          seed points Must be an integer or None.
     
         :seed_scale: Scales the seed around its default center Must be a
                      float. Default: 1.0
@@ -1213,8 +1212,8 @@ streamline
         :seedtype: the widget used as a seed for the streamlines. Must be
                    'line' or 'plane' or 'point' or 'sphere'. Default: sphere
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1277,8 +1276,8 @@ structured_grid_outline
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1329,8 +1328,8 @@ surface
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1376,8 +1375,8 @@ tensor_glyph
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1423,8 +1422,8 @@ text3d
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1510,8 +1509,7 @@ tube
                       lines. Must be a float. Default: 0.05
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer (int or long).
-                     Default: 6
+                     represent the lines. Must be an integer. Default: 6
     
 
     
@@ -1568,8 +1566,8 @@ vector_cut_plane
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1590,7 +1588,7 @@ vector_cut_plane
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -1599,8 +1597,8 @@ vector_cut_plane
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :view_controls: Whether or not the controls of the cut plane are
                         shown. Must be a boolean. Default: True
@@ -1644,8 +1642,8 @@ vectors
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1663,7 +1661,7 @@ vectors
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -1672,8 +1670,8 @@ vectors
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1836,8 +1834,8 @@ warp_vector_cut_plane
         :reset_zoom: Reset the zoom to accomodate the data newly
                      added to the scene. Defaults to True.
     
-        :transparent: make the opacity of the actor depend on the
-                      scalar.
+        :transparent: make the opacity of the actor depend on
+                      the scalar.
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
