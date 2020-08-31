@@ -26,7 +26,7 @@ add_dataset
     :dataset: a tvtk/vtk dataset/tvtk/VTK Algorithm, or a Mayavi source. The
               dataset added to the Mayavi pipeline
     
-    :figure: a figure identifier number or string, None or False, optionnal.
+    :figure: a figure identifier number or string, None or False, optional.
     
             If no `figure` keyword argument is given, the data
             is added to the current figure (a new figure if created if
@@ -37,8 +37,8 @@ add_dataset
             in which case the data is not added to the pipeline.
     
             If figure is False, a null engine is created. This null
-            engine does not create figures, and is mainly useful for
-            testing, or using the VTK algorithms without visualization.
+            engine does not create figures, and is mainly usefull for
+            tensting, or using the VTK algorithms without visualization.
     
     **Returns**
     
@@ -109,7 +109,7 @@ set_extent
     outline of the actors whose extent you modified. You should pass
     in the same "extents" parameter for this to work.You can have a
     look at the wigner.py example for a heavy use of this
-    functionnality.
+    functionality.
     
     **Note**
     
