@@ -5,7 +5,7 @@
     Part of the Mayavi project of the Enthought Tool Suite.
 """
 
-__version__ = '4.7.2.dev0'
+__version__ = '4.7.2'
 
 __requires__ = [
     'apptools',
@@ -13,8 +13,8 @@ __requires__ = [
     'numpy',
     'pyface>=6.1.1',
     'pygments',  # This is only needed for the Qt backend but we add it anyway.
-    'traits>=4.6.0',
-    'traitsui>=6.0.0',
+    'traits>=6.0.0',
+    'traitsui>=7.0.0',
     'vtk'
 ]
 
