@@ -156,7 +156,7 @@ Translating the documentation
 The recommended way for new contributors to translate mayavi reference is to
 join the translation team on Transifex.
 
-There is `mayavi translation page`_ for mayavi (master) documentation.
+There is a `mayavi translation page`_ for mayavi (master) documentation.
 
 1. Login to transifex_ service.
 2. Go to `mayavi translation page`_.
@@ -164,6 +164,8 @@ There is `mayavi translation page`_ for mayavi (master) documentation.
 4. Wait acceptance by transifex mayavi translation maintainers.
 5. (After acceptance) Translate on transifex.
 6. You can see the translated document in `Read The Docs`_.
+
+Detail is here: https://docs.transifex.com/getting-started-1/translators
 
 .. _nose: https://nose.readthedocs.org
 .. _github: https://github.com/enthought/mayavi
