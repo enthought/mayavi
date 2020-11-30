@@ -20,8 +20,6 @@ matrix:
       env: RUNTIME=3.6 ETS_TOOLKIT=qt4 VTK=7
     - os: linux
       env: RUNTIME=3.6 ETS_TOOLKIT=qt4 VTK=8
-    - os: osx
-      env: RUNTIME=3.6 ETS_TOOLKIT=qt4 VTK=8
 
 cache:
   directories:
@@ -30,7 +28,6 @@ cache:
 before_install:
   - mkdir -p "${HOME}/.cache/download"
   - if [[ ${TRAVIS_OS_NAME} == 'linux' ]]; then ./ci/install-edm-linux.sh; export PATH="${HOME}/edm/bin:${PATH}"; fi
-  - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then ./ci/install-edm-osx.sh; export PATH="${PATH}:/usr/local/bin"; fi
   - edm install --version ${RUNTIME} -y wheel numpy nose mock Sphinx coverage psutil
 
 install:
@@ -50,7 +47,6 @@ script:
   - edm run -- coverage erase
   - edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
-  #- if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then sh ci/travis-run-integration-tests.sh; fi
   - edm run -- coverage combine
 
 after_success:
