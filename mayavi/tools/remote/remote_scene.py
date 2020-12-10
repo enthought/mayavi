@@ -14,8 +14,6 @@ from tvtk.tvtk_base import global_disable_update
 
 options.offscreen = True
 
-encode_func = getattr(base64, 'encodebytes', getattr(base64, 'encodestring'))
-
 EventInfo = namedtuple('EventInfo', ['id', 'name', 'event', 'data'])
 
 
@@ -136,7 +134,7 @@ class RemoteScene(HasTraits):
 
     def get_image(self):
         data = self.get_raw_image()
-        return encode_func(data).decode('ascii')
+        return base64.encodebytes(data).decode('ascii')
 
     def call_rwi(self, method, *args):
         if method == 'SetSize':
