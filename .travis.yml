@@ -33,11 +33,7 @@ before_install:
 install:
   - if [[ ${ETS_TOOLKIT} == 'wx' ]]; then edm install -y wxpython; fi
   - if [[ ${ETS_TOOLKIT} == 'qt4' && ${RUNTIME} == '3.6' ]]; then edm run -- pip install "pyqt5==5.10.1"; fi
-  - if [[ ${TRAVIS_EVENT_TYPE} == "cron" ]] ; then
-        edm run -- pip install -r ci/ci-src-requirements.txt ;
-    else
-        edm run -- pip install -r ci/ci-requirements.txt ;
-    fi;
+  - edm run -- pip install -r ci/ci-src-requirements.txt
   - if [[ ${VTK} == '8' ]]; then edm run -- pip install vtk; fi
   - if [[ ${VTK} != '8' ]]; then edm install -y vtk==7.0.0-3; fi
   - edm run -- python -c "import vtk; print(vtk.vtkVersion.GetVTKSourceVersion())"
