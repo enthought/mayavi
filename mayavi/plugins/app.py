@@ -16,7 +16,7 @@ from traits.api import (HasTraits, Instance, Int,
     on_trait_change, Bool)
 
 # Local imports.
-from .mayavi_workbench_application import MayaviWorkbenchApplication
+from .mayavi_tasks_application import MayaviTasksApplication
 from mayavi.preferences.api import preference_manager
 from mayavi.core.customize import get_custom_plugins
 
@@ -76,11 +76,11 @@ def get_non_gui_plugin_classes():
     """Get list of basic mayavi plugin classes that do not add any views or
     actions."""
     from envisage.core_plugin import CorePlugin
-    from envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
+    from envisage.ui.tasks.api import TasksPlugin
     from tvtk.plugins.scene.scene_plugin import ScenePlugin
     from mayavi.plugins.mayavi_plugin import MayaviPlugin
     plugins = [CorePlugin,
-               WorkbenchPlugin,
+               TasksPlugin,
                MayaviPlugin,
                ScenePlugin,
                ]
@@ -145,9 +145,9 @@ class Mayavi(HasTraits):
     """
 
     # The main envisage application.
-    application = Instance('envisage.ui.workbench.api.WorkbenchApplication')
+    application = Instance('envisage.ui.tasks.api.TasksApplication')
 
-    # Turn this off if you don't want the workbench to start the GUI
+    # Turn this off if you don't want the tasks app to start the GUI
     # event loop.
     start_gui_event_loop = Bool(True, desc='start a GUI event loop')
 
@@ -185,7 +185,7 @@ class Mayavi(HasTraits):
 
         # Create the application
         prefs = preference_manager.preferences
-        app = MayaviWorkbenchApplication(plugins=plugins,
+        app = MayaviTasksApplication(plugins=plugins,
                                          preferences=prefs,
                                          start_gui_event_loop=self.start_gui_event_loop)
         self.application = app
@@ -240,7 +240,7 @@ class Mayavi(HasTraits):
             return
         app = self.application
         from mayavi.plugins.script import Script
-        window = app.workbench.active_window
+        window = app.active_window
         # Set our script instance.
         self.script = window.get_service(Script)
         # Call self.run from the GUI thread.
