@@ -1,4 +1,4 @@
-"""Mayavi specific workbench application.
+"""Mayavi specific Tasks application.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
 # Copyright (c) 2008, Enthought, Inc.
@@ -26,7 +26,7 @@ class MayaviTasksApplication(TasksApplication):
 
     #### MayaviTasksApplication interface #################################
 
-    # Turn this off if you don't want the workbench to start a GUI
+    # Turn this off if you don't want the task to start a GUI
     # event loop.
     start_gui_event_loop = Bool(True, desc='start a GUI event loop')
 
@@ -46,7 +46,7 @@ class MayaviTasksApplication(TasksApplication):
     name = 'Mayavi2 - The 3D data visualizer'
 
     ###########################################################################
-    # 'TasksApplication' interface.
+    # 'IApplication' interface.
     ###########################################################################
 
     def run(self):
@@ -81,27 +81,17 @@ class MayaviTasksApplication(TasksApplication):
 
         return started
 
+    ###########################################################################
+    # 'TasksApplication' interface.
+    ###########################################################################
+
+    def _default_layout_default(self):
+        pass
+
 
     ######################################################################
     # Non-public interface.
     ######################################################################
-    def _about_dialog_default(self):
-        """ Trait initializer. """
-        from mayavi import api
-        from vtk import vtkVersion
-        vtk_version = vtkVersion().GetVTKVersion()
-        about_dialog = AboutDialog(
-            parent = self.active_window.control,
-            image  = ImageResource('m2_about.jpg',
-                                   search_path=[IMG_DIR]),
-            additions = ['Authors: Prabhu Ramachandran',
-                            'and Gael Varoquaux',
-                            '',
-                            'Mayavi version %s \t - \t VTK version %s' %
-                            (api.__version__, vtk_version)],
-        )
-
-        return about_dialog
 
     def _splash_screen_default(self):
         """ Trait initializer. """
@@ -115,4 +105,3 @@ class MayaviTasksApplication(TasksApplication):
             splash_screen = None
 
         return splash_screen
-

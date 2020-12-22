@@ -10,7 +10,7 @@ import ast
 from apptools.preferences.api import get_default_preferences
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.pyface.api import DecoratedScene
-from pyface.workbench.api import Editor
+from pyface.tasks.api import Editor
 from traits.api import Instance
 
 

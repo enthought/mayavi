@@ -18,7 +18,7 @@ ID = 'mayavi'
 class MayaviPlugin(Plugin):
 
     # Extension point Ids.
-    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
+    SERVICE_OFFERS = 'envisage.service_offers'
     PREFERENCES       = 'envisage.preferences'
 
     # The plugins name.

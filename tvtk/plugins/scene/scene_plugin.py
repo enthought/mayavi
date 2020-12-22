@@ -15,7 +15,7 @@ class ScenePlugin(Plugin):
 
     # Extension point Ids.
     PREFERENCES    = 'envisage.preferences'
-    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
+    SERVICE_OFFERS = 'envisage.service_offers'
 
     #### 'IPlugin' interface ##################################################
 

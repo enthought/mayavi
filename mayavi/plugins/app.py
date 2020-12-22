@@ -186,8 +186,8 @@ class Mayavi(HasTraits):
         # Create the application
         prefs = preference_manager.preferences
         app = MayaviTasksApplication(plugins=plugins,
-                                         preferences=prefs,
-                                         start_gui_event_loop=self.start_gui_event_loop)
+                                     preferences=prefs,
+                                     start_gui_event_loop=self.start_gui_event_loop)
         self.application = app
 
         # Setup the logger.
