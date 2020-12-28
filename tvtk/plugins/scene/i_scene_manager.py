@@ -3,7 +3,7 @@
 
 # Enthought library imports.
 from tvtk.pyface.tvtk_scene import TVTKScene
-from pyface.tasks.api import TaskWindow
+from envisage.ui.tasks.api import TaskWindow
 from traits.api import Interface, List, Instance
 
 

@@ -21,12 +21,12 @@ from mayavi.core.common import exception
 # Utility functions.
 ##############################################################################
 def get_imayavi_engine(window):
-    """Returns the MayaVi Engine given the Envisage worbench window.
+    """Returns the MayaVi Engine given the Envisage task window.
     """
     return window.get_service(Engine)
 
 def get_imayavi(window):
-    """Given the Envisage workbench window, returns the
+    """Given the Envisage task window, returns the
     mayavi.script.Script instance (registered as
     `mayavi.services.IMAYAVI`).
     """
@@ -43,8 +43,8 @@ class Script(HasTraits):
     using when they script.
     """
 
-    # The workbench window we are associated with.
-    window = Instance('pyface.workbench.api.WorkbenchWindow')
+    # The task window we are associated with.
+    window = Instance('envisage.ui.tasks.api.TaskWindow')
 
     # The MayaVi engine that we are managing.
     engine = Instance(Engine)

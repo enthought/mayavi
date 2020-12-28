@@ -14,7 +14,7 @@ from tvtk.plugins.scene.i_scene_manager import \
 from tvtk.plugins.scene.ui.actions import NewScene
 from tvtk.plugins.scene import scene_editor
 from pyface.api import GUI
-from pyface.tasks.api import TaskWindow
+from envisgae.ui.tasks.api import TaskWindow
 from apptools.scripting.api import recordable
 
 # Local imports.
