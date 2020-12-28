@@ -331,6 +331,3 @@ class EngineView(HasTraits):
                 record_action.checked = True
             else:
                 record_action.checked = False
-
-
-### EOF ######################################################################
