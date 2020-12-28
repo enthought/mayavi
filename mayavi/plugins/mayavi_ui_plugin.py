@@ -129,13 +129,13 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
     # Private methods.
     def _engine_view_factory(self, window, **traits):
         """ Factory method for engine views. """
-        from pyface.workbench.traits_ui_view import \
-                TraitsUIView
+        from pyface.tasks.api import \
+                TraitsView
         from mayavi.core.ui.engine_view import \
                             EngineView
 
         engine_view = EngineView(engine=self._get_engine(window))
-        tui_engine_view = TraitsUIView(obj=engine_view,
+        tui_engine_view = TraitsView(obj=engine_view,
                                        id=ENGINE_VIEW,
                                        name='Mayavi',
                                        window=window,
@@ -147,11 +147,10 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
     def _current_selection_view_factory(self, window, **traits):
         """ Factory method for the current selection of the engine. """
 
-        from pyface.workbench.traits_ui_view import \
-                TraitsUIView
+        from pyface.tasks.api import TraitsView
 
         engine = self._get_engine(window)
-        tui_engine_view = TraitsUIView(obj=engine,
+        tui_engine_view = TraitsView(obj=engine,
                                        view='current_selection_view',
                                        id=CURRENT_SELECTION_VIEW,
                                        name='Mayavi object editor',

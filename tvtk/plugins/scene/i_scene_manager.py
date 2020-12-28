@@ -3,7 +3,7 @@
 
 # Enthought library imports.
 from tvtk.pyface.tvtk_scene import TVTKScene
-from pyface.tasks.api import TasksWindow
+from pyface.tasks.api import TaskWindow
 from traits.api import Interface, List, Instance
 
 
@@ -18,7 +18,7 @@ class ISceneManager(Interface):
 
     # The tasks window that the manager is in (there is one scene manager
     # per tasks window).
-    window = Instance(TasksWindow)
+    window = Instance(TaskWindow)
 
 #### EOF ######################################################################
 

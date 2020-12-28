@@ -12,6 +12,7 @@ import logging
 from traits.api import Bool
 from envisage.ui.tasks.api import TasksApplication
 from pyface.api import AboutDialog, ImageResource, SplashScreen
+from pyface.tasks.api import TaskWindowLayout
 
 # Local imports.
 import mayavi.api
@@ -45,6 +46,9 @@ class MayaviTasksApplication(TasksApplication):
     # The name of the application (also used on window title bars etc).
     name = 'Mayavi2 - The 3D data visualizer'
 
+    default_layout = [TaskWindowLayout('mayavi.task', size=(800,600))]
+
+    always_use_default_layout = Bool(True)
     ###########################################################################
     # 'IApplication' interface.
     ###########################################################################
@@ -84,10 +88,6 @@ class MayaviTasksApplication(TasksApplication):
     ###########################################################################
     # 'TasksApplication' interface.
     ###########################################################################
-
-    def _default_layout_default(self):
-        pass
-
 
     ######################################################################
     # Non-public interface.
