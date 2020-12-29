@@ -2,17 +2,18 @@
 from traits.api import Callable, Instance, List, Str, on_trait_change
 from envisage.api import Plugin
 from envisage.ui.tasks.api import TaskWindow
-from pyface.tasks.api import Splitter, Task, TaskLayout, PaneItem
+from pyface.tasks.api import Splitter, Tabbed, Task, TaskLayout, PaneItem
 from pyface.action.api import StatusBarManager
 from pyface.tasks.action.api import MenuBarSchema, ToolBarSchema, SchemaAddition
 from pyface.tasks.contrib.python_shell import PythonShellPane
+from pyface.tasks.api import AdvancedEditorAreaPane
 from mayavi.core.ui.python_shell_dock_pane import PythonShellDockPane
+from mayavi.core.ui.logger_dock_pane import LoggerDockPane
 
 
 
 from mayavi.core.ui.engine_dock_pane import EngineDockPane
 from mayavi.core.ui.current_selection_dock_pane import CurrentSelectionDockPane
-
 
 from pyface.tasks.api import TaskPane
 class DumbPane(TaskPane):
@@ -64,7 +65,10 @@ class MayaviTask(Task):
                 PaneItem('current_selection_dock_pane'),
                 orientation='vertical'
             ),
-            bottom=PaneItem('python_shell_dock_pane')
+            bottom=Tabbed(
+                PaneItem('python_shell_dock_pane'),
+                PaneItem('logger_dock_pane')
+            )
         )
 
     # ------------------------------------------------------------------------
@@ -79,7 +83,8 @@ class MayaviTask(Task):
     def create_central_pane(self):
         """ Create and return the central pane, which must implement ITaskPane.
         """
-        return DumbPane(task=self)
+        return AdvancedEditorAreaPane()
+        #DumbPane(task=self)
 
     def create_dock_panes(self):
         """ Create and return the task's dock panes (IDockPane instances).
@@ -87,7 +92,12 @@ class MayaviTask(Task):
         This method is called *after* create_central_pane() when the task is
         added to a TaskWindow.
         """
-        return [EngineDockPane(), PythonShellDockPane(), CurrentSelectionDockPane()]
+        return [
+            EngineDockPane(),
+            CurrentSelectionDockPane(),
+            PythonShellDockPane(),
+            LoggerDockPane()
+        ]
 
     def initialized(self):
         """ Called when the task is about to be activated in a TaskWindow for
