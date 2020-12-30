@@ -242,18 +242,16 @@ class Mayavi(HasTraits):
             return
         app = self.application
         from mayavi.plugins.script import Script
-        window = app.active_window
-        window = app.windows[0]
-        # Set our script instance.
         from mayavi.core.engine import Engine
+        # Set our script instance.
         self.script = app.get_service(Script)
         engine = app.get_service(Engine)
-        engine.window = window
+        engine.application = app
         self.script.engine = engine
-        self.script.window = window
+        self.script.application = app
         from tvtk.plugins.scene.i_scene_manager import ISceneManager
-        scene_manger = app.get_service(ISceneManager)
-        scene_manger.window = window
+        scene_manager = app.get_service(ISceneManager)
+        scene_manager.application = app
         # Call self.run from the GUI thread.
         app.gui.invoke_later(self.run)
 

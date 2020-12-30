@@ -43,8 +43,8 @@ class NewScene(Action):
         """ Performs the action. """
 
         from tvtk.plugins.scene.scene_editor import SceneEditor
-
         editor = self.application.active_window.central_pane.edit(object(), factory=SceneEditor)
+
         return editor
 
 

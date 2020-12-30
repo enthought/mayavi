@@ -2,7 +2,7 @@
 
 # Enthought library imports.
 from tvtk.pyface.tvtk_scene import TVTKScene
-from envisage.ui.tasks.api import TaskWindow
+from envisage.ui.tasks.api import TasksApplication
 from traits.api import HasTraits, List, Instance, Property
 from traits.api import provides, on_trait_change
 from tvtk.plugins.scene.scene_editor import SceneEditor
@@ -25,7 +25,7 @@ class SceneManager(HasTraits):
 
     # The tasks window that the manager is in (there is one scene manager
     # per tasks window).
-    window = Instance(TaskWindow)
+    application = Instance(TasksApplication)
 
     #### Private interface ####################################################
 
@@ -62,7 +62,7 @@ class SceneManager(HasTraits):
 
     #### Trait change handlers ################################################
 
-    @on_trait_change('window:central_pane:editors[]')
+    @on_trait_change('application:active_window:central_pane:editors[]')
     def _on_editors_changed(self, obj, name, old, new):
         # Remove any removed scenes.
         for editor in old:
@@ -71,6 +71,8 @@ class SceneManager(HasTraits):
         for editor in new:
             self.scenes.append(editor.scene)
 
+
+    # I think I can removee these two
     @on_trait_change('window:editor_opened')
     def _on_editor_opened(self, obj, trait_name, old, new):
         """ Dynamic trait change handler. """
@@ -89,7 +91,7 @@ class SceneManager(HasTraits):
 
         return
 
-    @on_trait_change('window:central_pane:active_editor')
+    @on_trait_change('application:active_window:central_pane:active_editor')
     def _on_active_editor_changed(self, obj, trait_name, old, new):
         """ Dynamic trait change handler. """
 

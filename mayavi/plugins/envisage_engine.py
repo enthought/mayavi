@@ -57,7 +57,7 @@ class EnvisageEngine(Engine):
             return
 
         # Add all the existing scenes from the scene plugin.
-        scene_manager = self.window.application.get_service(ISceneManager)
+        scene_manager = self.application.get_service(ISceneManager)
         for scene in scene_manager.scenes:
             self.add_scene(scene)
 
@@ -117,7 +117,7 @@ class EnvisageEngine(Engine):
         for scene in list_event.added:
             self.add_scene(scene)
 
-    @on_trait_change('applicaation:window_opened')
+    @on_trait_change('application:window_opened')
     def _on_window_opened(self, obj, trait_name, old, new):
         """We start the engine when the window is opened."""
         if trait_name == 'window_opened':
@@ -129,13 +129,12 @@ class EnvisageEngine(Engine):
         if trait_name == 'window_closed':
             self.stop()
 
-    # we can just remove this?
-    def _window_changed(self, old, new):
+    def _application_changed(self, old, new):
         """Static trait handler."""
         # This is needed since the service may be offered *after* the
         # window is opened in which case the _on_window_opened will do
         # nothing.
-        sm = new.application.get_service(ISceneManager)
+        sm = new.get_service(ISceneManager)
         if sm is not None:
             self.start()
 
