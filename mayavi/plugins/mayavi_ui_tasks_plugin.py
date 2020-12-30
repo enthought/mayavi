@@ -127,8 +127,6 @@ class MayaviUITasksPlugin(Plugin):
     PREFERENCES_PANES = "envisage.ui.tasks.preferences_panes"
     TASKS = "envisage.ui.tasks.tasks"
     TASK_EXTENSIONS = "envisage.ui.tasks.task_extensions"
-    BANNER = 'envisage.plugins.ipython_shell.banner'
-
 
     # The plugins name.
     name = 'Mayavi UI plugin'
@@ -149,17 +147,6 @@ class MayaviUITasksPlugin(Plugin):
 
     # Our action sets.
     preferences_panes = List(contributes_to=PREFERENCES_PANES)
-
-    # IPython banner
-    banner = List(contributes_to=BANNER)
-
-    def _banner_default(self):
-        """Trait initializer """
-        return ["""Welcome to Mayavi, this is the interactive IPython shell.
-
-If this is your first time using Mayavi, take a quick look at the tutorial examples section of the user guide, accessible via the help menu.
-To use Mayavi, you need to load your data in "data sources" and apply "visualization modules" to it.
-"""]
 
     def _tasks_default(self):
         from envisage.ui.tasks.api import TaskFactory

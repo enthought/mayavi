@@ -534,7 +534,7 @@ def get_mayavi_script_instance():
     from mayavi.plugins.script import Script
     for name, engine in registry.engines.items():
         if isinstance(engine, EnvisageEngine):
-            return engine.window.get_service(Script)
+            return engine.window.application.get_service(Script)
     return
 
 

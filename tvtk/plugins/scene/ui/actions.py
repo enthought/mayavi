@@ -29,7 +29,7 @@ class SceneAction(Action):
             ISceneManager
         )
 
-        return self.window.get_service(ISceneManager)
+        return self.window.application.get_service(ISceneManager)
 
 
 class NewScene(Action):
@@ -44,8 +44,7 @@ class NewScene(Action):
 
         from tvtk.plugins.scene.scene_editor import SceneEditor
 
-        editor = self.window.edit(object(), kind=SceneEditor)
-
+        editor = self.window.central_pane.edit(object(), factory=SceneEditor)
         return editor
 
 

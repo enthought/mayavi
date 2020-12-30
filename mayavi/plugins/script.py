@@ -23,14 +23,14 @@ from mayavi.core.common import exception
 def get_imayavi_engine(window):
     """Returns the MayaVi Engine given the Envisage task window.
     """
-    return window.get_service(Engine)
+    return window.application.get_service(Engine)
 
 def get_imayavi(window):
     """Given the Envisage task window, returns the
     mayavi.script.Script instance (registered as
     `mayavi.services.IMAYAVI`).
     """
-    return window.get_service(Script)
+    return window.application.get_service(Script)
 
 
 ##############################################################################

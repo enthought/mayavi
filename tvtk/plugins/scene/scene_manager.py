@@ -62,6 +62,15 @@ class SceneManager(HasTraits):
 
     #### Trait change handlers ################################################
 
+    @on_trait_change('window:central_pane:editors[]')
+    def _on_editors_changed(self, obj, name, old, new):
+        # Remove any removed scenes.
+        for editor in old:
+            self.scenes.remove(editor.scene)
+        # Add any new scenes.
+        for editor in new:
+            self.scenes.append(editor.scene)
+
     @on_trait_change('window:editor_opened')
     def _on_editor_opened(self, obj, trait_name, old, new):
         """ Dynamic trait change handler. """
@@ -80,7 +89,7 @@ class SceneManager(HasTraits):
 
         return
 
-    @on_trait_change('window:active_editor')
+    @on_trait_change('window:central_pane:active_editor')
     def _on_active_editor_changed(self, obj, trait_name, old, new):
         """ Dynamic trait change handler. """
 

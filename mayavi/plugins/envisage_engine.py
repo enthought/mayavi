@@ -57,7 +57,7 @@ class EnvisageEngine(Engine):
             return
 
         # Add all the existing scenes from the scene plugin.
-        scene_manager = self.window.get_service(ISceneManager)
+        scene_manager = self.window.application.get_service(ISceneManager)
         for scene in scene_manager.scenes:
             self.add_scene(scene)
 
@@ -135,11 +135,11 @@ class EnvisageEngine(Engine):
         # This is needed since the service may be offered *after* the
         # window is opened in which case the _on_window_opened will do
         # nothing.
-        sm = new.get_service(ISceneManager)
+        sm = new.application.get_service(ISceneManager)
         if sm is not None:
             self.start()
 
-    @on_trait_change('window:editors[]')
+    @on_trait_change('window:central_pane:editors[]')
     def _sync_scene_editor_name(self, obj, trait_name, old, new):
         """Synchronize the Mayavi scene's name trait with that of the
         editor's name."""
