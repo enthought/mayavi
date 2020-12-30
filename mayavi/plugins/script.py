@@ -20,17 +20,17 @@ from mayavi.core.common import exception
 ##############################################################################
 # Utility functions.
 ##############################################################################
-def get_imayavi_engine(window):
-    """Returns the MayaVi Engine given the Envisage task window.
+def get_imayavi_engine(application):
+    """Returns the MayaVi Engine given the Envisage task application.
     """
-    return window.application.get_service(Engine)
+    return application.get_service(Engine)
 
-def get_imayavi(window):
-    """Given the Envisage task window, returns the
+def get_imayavi(application):
+    """Given the Envisage task application, returns the
     mayavi.script.Script instance (registered as
     `mayavi.services.IMAYAVI`).
     """
-    return window.application.get_service(Script)
+    return application.get_service(Script)
 
 
 ##############################################################################
@@ -42,9 +42,6 @@ class Script(HasTraits):
     ApplicationObject) because this is the interface users should be
     using when they script.
     """
-
-    # The task window we are associated with.
-    window = Instance('envisage.ui.tasks.api.TaskWindow')
 
     # The MayaVi engine that we are managing.
     engine = Instance(Engine)
@@ -111,12 +108,3 @@ class Script(HasTraits):
             return self.engine.open(filename)
         except:
             exception()
-
-    ######################################################################
-    # Non-public interface
-    ######################################################################
-    def _window_changed(self, window):
-        """Traits handler for changes to application.
-        """
-        self.engine = get_imayavi_engine(window)
-

@@ -37,7 +37,7 @@ class BrowserPlugin(Plugin):
     # Private interface.
     ###########################################################################
 
-    def _browser_view_factory(self, window, **traits):
+    def _browser_view_factory(self, applcation, **traits):
         """ Factory method for browser views. """
 
         from tvtk.plugins.browser.browser_view import (
@@ -45,22 +45,25 @@ class BrowserPlugin(Plugin):
         )
 
         browser_view = BrowserView(
-            scene_manager = self._get_scene_manager(window),
-            window        = window,
+            scene_manager = self._get_scene_manager(application),
+            application        = application,
             **traits
         )
 
         return browser_view
 
-    def _get_scene_manager(self, window):
-        """ Lookup the window's scene manager service. """
+    def _get_scene_manager(self, application):
+        """ Lookup theapplication's scene manager service. """
 
         # Get the scene manager (a 'per window' service, so we look it up via
         # the window!).
+        # this comment is discouraging! We may be changing behavior?  It seems
+        # adamant here that we want to look thiis up through the window not the
+        # application...
         from tvtk.plugins.scene.i_scene_manager import (
             ISceneManager
         )
 
-        return window.get_service(ISceneManager)
+        return application.get_service(ISceneManager)
 
 #### EOF ######################################################################

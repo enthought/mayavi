@@ -161,16 +161,16 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
                                        )
         return tui_engine_view
 
-    def _get_engine(self, window):
+    def _get_engine(self, application):
         """Return the Mayavi engine of the particular window."""
         from mayavi.core.engine import Engine
-        return window.get_service(Engine)
+        return application.get_service(Engine)
 
-    def _get_script(self, window):
+    def _get_script(self, application):
         """Return the `mayavi.plugins.script.Script` instance
         of the window."""
         from mayavi.plugins.script import Script
-        return window.get_service(Script)
+        return application.get_service(Script)
 
     ######################################################################
     # Trait handlers.

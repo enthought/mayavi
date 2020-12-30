@@ -58,7 +58,7 @@ class FilterAction(Action):
             self.enabled = False
 
     def _mayavi_default(self):
-        return get_imayavi(self.window)
+        return get_imayavi(self.application)
 
 
 ######################################################################

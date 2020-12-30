@@ -29,7 +29,7 @@ class SceneAction(Action):
             ISceneManager
         )
 
-        return self.window.application.get_service(ISceneManager)
+        return self.application.get_service(ISceneManager)
 
 
 class NewScene(Action):
@@ -44,7 +44,7 @@ class NewScene(Action):
 
         from tvtk.plugins.scene.scene_editor import SceneEditor
 
-        editor = self.window.central_pane.edit(object(), factory=SceneEditor)
+        editor = self.application.active_window.central_pane.edit(object(), factory=SceneEditor)
         return editor
 
 
@@ -78,7 +78,7 @@ class SaveScene(SceneAction):
         wildcard += 'Determine by extension (*.*)|(*.*)'
 
         dialog = FileDialog(
-            parent   = self.window.control,
+            parent   = self.application.active_window.control,
             title    = 'Save scene to image',
             action   = 'save as',
             wildcard = wildcard
@@ -115,7 +115,7 @@ class SaveSceneToImage(SceneAction):
         """ Perform the action. """
 
         dialog = FileDialog(
-            parent   = self.window.control,
+            parent   = self.application.active_window.control,
             title    = 'Save scene to %s' % self.name,
             action   = 'save as',
             wildcard = self.wildcard

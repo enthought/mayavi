@@ -14,7 +14,7 @@ from tvtk.plugins.scene.i_scene_manager import \
 from tvtk.plugins.scene.ui.actions import NewScene
 from tvtk.plugins.scene import scene_editor
 from pyface.api import GUI
-from envisage.ui.tasks.api import TaskWindow
+from envisage.ui.tasks.api import TasksApplication
 from apptools.scripting.api import recordable
 
 # Local imports.
@@ -31,7 +31,7 @@ class EnvisageEngine(Engine):
     __version__ = 0
 
     # The envisage application.
-    window = Instance(TaskWindow)
+    application = Instance(TasksApplication)
 
     # Our name.
     name = Str('Mayavi Envisage Engine')
@@ -41,7 +41,7 @@ class EnvisageEngine(Engine):
     ######################################################################
     def __get_pure_state__(self):
         d = super(EnvisageEngine, self).__get_pure_state__()
-        for x in ['window',]:
+        for x in ['applcation',]:
             d.pop(x, None)
         return d
 
@@ -82,7 +82,7 @@ class EnvisageEngine(Engine):
             For the time being the extra kwargs are ignored with the
             envisage engine.
         """
-        action = NewScene(window=self.window)
+        action = NewScene(application=self.application)
         editor = action.perform(None)
         if name is not None:
             editor.name = name
@@ -95,9 +95,8 @@ class EnvisageEngine(Engine):
     def close_scene(self, scene):
         """Given a VTK scene instance, this method closes it.
         """
-        active_window = self.window
         s = scene.scene
-        for editor in active_window.editors[:]:
+        for editor in self.application.active_window.central_pane.editors[:]:
             if isinstance(editor, scene_editor.SceneEditor):
                 if id(editor.scene) == id(s):
                     editor.close()
@@ -118,18 +117,19 @@ class EnvisageEngine(Engine):
         for scene in list_event.added:
             self.add_scene(scene)
 
-    @on_trait_change('window:opened')
+    @on_trait_change('applicaation:window_opened')
     def _on_window_opened(self, obj, trait_name, old, new):
         """We start the engine when the window is opened."""
-        if trait_name == 'opened':
+        if trait_name == 'window_opened':
             self.start()
 
-    @on_trait_change('window:closed')
+    @on_trait_change('application:window_closed')
     def _on_window_closed(self, obj, trait_name, old, new):
         """We stop the engine when the window is closed."""
-        if trait_name == 'closed':
+        if trait_name == 'window_closed':
             self.stop()
 
+    # we can just remove this?
     def _window_changed(self, old, new):
         """Static trait handler."""
         # This is needed since the service may be offered *after* the
