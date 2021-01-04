@@ -29,12 +29,6 @@ from mayavi.action.sources import *
 
 from mayavi.core.registry import registry
 
-class DumbPane(TaskPane):
-    id = 'dumb_pane'
-    name = 'Dumb Pane'
-
-
-
 
 ###############################################################################
 # `MayaviPerspective` class.
@@ -67,11 +61,7 @@ class MayaviTask(Task):
     # The menu bar for the task.
     def _menu_bar_default(self):
 
-        ID = 'mayavi'
-
-        # Automatic source generation for non-open file related sources.
         SOURCE_ACTIONS = []
-
         for src in registry.sources:
             if len(src.extensions) == 0:
                 action = globals()[src.id]
@@ -178,7 +168,6 @@ class MayaviTask(Task):
         """ Create and return the central pane, which must implement ITaskPane.
         """
         return AdvancedEditorAreaPane()
-        #DumbPane(task=self)
 
     def create_dock_panes(self):
         """ Create and return the task's dock panes (IDockPane instances).
