@@ -66,6 +66,8 @@ class SceneUIPlugin(Plugin):
 
         tools_menu_schema_adition = SchemaAddition(
             factory=tools_menu_factory,
+            before='Help',
+            after='View',
             path='MenuBar'
         )
 

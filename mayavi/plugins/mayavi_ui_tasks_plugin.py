@@ -19,6 +19,7 @@ from pyface.tasks.api import TaskPane
 
 
 from pyface.tasks.action.api import SGroup, SMenu, SMenuBar, TaskAction
+from pyface.tasks.action.api import DockPaneToggleGroup
 
 from mayavi.action.filters import *
 from mayavi.action.help import *
@@ -74,9 +75,17 @@ class MayaviTask(Task):
         for src in registry.sources:
             if len(src.extensions) == 0:
                 action = globals()[src.id]
-                SOURCE_ACTIONS.append(action)
+                SOURCE_ACTIONS.append(action(name=src.menu_name))
 
-        #print(SOURCE_ACTIONS)
+        MODULE_ACTIONS = []
+        for module in registry.modules:
+            action = globals()[module.id]
+            MODULE_ACTIONS.append(action(name=module.menu_name))
+
+        FILTER_ACTIONS = []
+        for filter in registry.filters:
+            action = globals()[filter.id]
+            FILTER_ACTIONS.append(action(name=filter.menu_name))
 
         mayavi_ui_menu_bar = SMenuBar(
             SMenu(
@@ -87,7 +96,7 @@ class MayaviTask(Task):
                             name="&Open file ...",
                             application=self.window.application
                         ),
-                        #*SOURCE_ACTIONS,
+                        *SOURCE_ACTIONS,
                         id='',
                         name='&Load data'
                     ),
@@ -110,11 +119,13 @@ class MayaviTask(Task):
             ),
             SMenu(
                 SMenu(
-                    id='',
+                    *MODULE_ACTIONS,
+                    id='Modules',
                     name='&Modules'
                 ),
                 SMenu(
-                    id='',
+                    *FILTER_ACTIONS,
+                    id='Filters',
                     name='&Filters'
                 ),
                 AddModuleManager(
@@ -125,6 +136,18 @@ class MayaviTask(Task):
                 id='Visualize',
                 name='&Visualize'
             ),
+            # This should be included by default, but without this it is not
+            # showing up...
+            SMenu(
+                id='View',
+                name='&View'  
+            ),
+            SMenu(
+                HelpIndex(name="&User Guide"),
+                TVTKClassBrowser(name="&VTK Class Browser"),
+                id='Help',
+                name='&Help'
+            )
         )
 
         return mayavi_ui_menu_bar
