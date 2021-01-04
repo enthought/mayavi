@@ -16,4 +16,4 @@ class EngineDockPane(TraitsDockPane):
         return window.application.get_service(Engine)
 
     def default_traits_view(self):
-        return  self.model.trait_view()
+        return self.model.trait_view()

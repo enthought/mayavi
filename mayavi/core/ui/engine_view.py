@@ -114,7 +114,6 @@ class EngineView(HasTraits):
     def default_traits_view(self):
         """The default traits view of the Engine View.
         """
-
         view = View(Item(name='engine',
                                id='engine',
                                editor=self.tree_editor,

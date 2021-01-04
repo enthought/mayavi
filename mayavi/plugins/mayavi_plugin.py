@@ -53,5 +53,6 @@ class MayaviPlugin(Plugin):
             protocol = 'mayavi.plugins.script.Script',
             factory  = PKG + '.script.Script'
         )
+
         return [engine_service_offer, script_service_offer]
 

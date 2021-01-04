@@ -5,6 +5,9 @@
 from envisage.api import Plugin
 from traits.api import List
 
+from pyface.tasks.action.api import SGroup, SMenu, SMenuBar, TaskAction
+
+from tvtk.plugins.scene.ui.actions import *
 
 class SceneUIPlugin(Plugin):
     """ A TVTK render window scene UI plugin.
@@ -15,8 +18,11 @@ class SceneUIPlugin(Plugin):
     """
 
     # Extension point Ids.
-    ACTION_SETS       = 'envisage.ui.workbench.action_sets'
-    PREFERENCES_PAGES = 'envisage.ui.workbench.preferences_pages'
+    #ACTION_SETS       = 'envisage.ui.workbench.action_sets'
+    #PREFERENCES_PAGES = 'envisage.ui.workbench.preferences_pages'
+    PREFERENCES_CATEGORIES = "envisage.ui.tasks.preferences_categories"
+    PREFERENCES_PANES = "envisage.ui.tasks.preferences_panes"
+    TASK_EXTENSIONS = "envisage.ui.tasks.task_extensions"
 
     #### 'IPlugin' interface ##################################################
 
@@ -32,26 +38,89 @@ class SceneUIPlugin(Plugin):
 
     #### Contributions to extension points made by this plugin ################
 
-    action_sets = List(contributes_to=ACTION_SETS)
+    task_extensions = List(contributes_to=TASK_EXTENSIONS)
 
-    def _action_sets_default(self):
+    def _task_extensions_default(self):
         """ Trait initializer. """
+        from envisage.ui.tasks.api import TaskExtension
+        from pyface.tasks.action.api import SchemaAddition
 
-        from tvtk.plugins.scene.ui.scene_ui_action_set import (
-            SceneUIActionSet
+        app = self.application
+
+        def tools_menu_factory(): 
+            return SMenu(
+                SGroup(
+                    ResetZoom(application=app),
+                    IsometricView(application=app),
+                    XPlusView(application=app),
+                    XMinusView(application=app),
+                    YPlusView(application=app),
+                    YMinusView(application=app),
+                    ZPlusView(application=app),
+                    ZMinusView(application=app),
+                    id='TVTKViewGroup'
+                ),
+                id='Tools',
+                name='&Tools'
+            )
+
+        tools_menu_schema_adition = SchemaAddition(
+            factory=tools_menu_factory,
+            path='MenuBar'
         )
 
-        return [SceneUIActionSet]
+        def scene_group_factory():
+            return SGroup(
+                SMenu(
+                    NewScene(application=app),
+                    id='New',
+                    name='&New'
+                ),
+                SMenu(
+                    SaveSceneToPNG(application=app),
+                    SaveSceneToJPEG(application=app),
+                    SaveSceneToBMP(application=app),
+                    SaveSceneToTIFF(application=app),
+                    SaveSceneToPS(application=app),
+                    SaveSceneToGL2PS(application=app),
+                    SaveSceneToRIB(application=app),
+                    SaveSceneToOOGL(application=app),
+                    SaveSceneToIV(application=app),
+                    SaveSceneToVRML(application=app),
+                    SaveSceneToOBJ(application=app),
+                    SaveSceneToPovray(application=app),
+                    SaveSceneToX3D(application=app),
+                    id='SaveSceneAs',
+                    name='Sa&ve Scene As'
+                ),
+                SaveScene(application=app),
+                id='TVTKSceneGroup'
+            )
 
-    preferences_pages = List(contributes_to=PREFERENCES_PAGES)
-
-    def _preferences_pages_default(self):
-        """ Trait initializer. """
-
-        from tvtk.plugins.scene.ui.scene_preferences_page import (
-            ScenePreferencesPage
+        scene_group_schema_addition = SchemaAddition(
+            factory=scene_group_factory,
+            path='MenuBar/File'
         )
 
-        return [ScenePreferencesPage]
+        return [
+            TaskExtension(
+                task_id='mayavi.task',
+                actions=[
+                    scene_group_schema_addition,
+                    tools_menu_schema_adition
+                ],
+            )
+        ]
+
+    #preferences_pages = List(contributes_to=PREFERENCES_PAGES)
+
+    #def _preferences_pages_default(self):
+    #    """ Trait initializer. """
+
+    #    from tvtk.plugins.scene.ui.scene_preferences_page import (
+    #        ScenePreferencesPage
+    #    )
+
+    #    return [ScenePreferencesPage]
 
 #### EOF ######################################################################

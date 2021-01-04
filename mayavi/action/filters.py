@@ -6,6 +6,7 @@
 
 from pyface.action.api import Action
 from traits.api import Instance
+from traits.api import on_trait_change
 
 from mayavi.plugins.script import get_imayavi
 from mayavi.core.registry import registry
@@ -33,12 +34,6 @@ class FilterAction(Action):
     # enabled depending on the current selection or object.
     enabled = False
 
-    def __init__(self, **traits):
-        super(FilterAction, self).__init__(**traits)
-        self.mayavi.engine.on_trait_change(self._update_enabled,
-                                           ['current_selection',
-                                            'current_object'])
-
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -50,6 +45,7 @@ class FilterAction(Action):
         mv.add_filter(obj)
         mv.engine.current_selection = obj
 
+    @on_trait_change("mayavi:engine.[current_selection,current_object]")
     def _update_enabled(self, obj):
         if isinstance(obj, PipelineBase):
             e = obj.menu_helper.check_active(self.metadata)

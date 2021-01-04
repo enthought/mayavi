@@ -10,12 +10,24 @@ from pyface.tasks.api import AdvancedEditorAreaPane
 from mayavi.core.ui.python_shell_dock_pane import PythonShellDockPane
 from mayavi.core.ui.logger_dock_pane import LoggerDockPane
 
-
+#from mayavi.plugins.mayavi_ui_menu_bar import mayavi_ui_menu_bar
 
 from mayavi.core.ui.engine_dock_pane import EngineDockPane
 from mayavi.core.ui.current_selection_dock_pane import CurrentSelectionDockPane
 
 from pyface.tasks.api import TaskPane
+
+
+from pyface.tasks.action.api import SGroup, SMenu, SMenuBar, TaskAction
+
+from mayavi.action.filters import *
+from mayavi.action.help import *
+from mayavi.action.modules import *
+from mayavi.action.save_load import *
+from mayavi.action.sources import *
+
+from mayavi.core.registry import registry
+
 class DumbPane(TaskPane):
     id = 'dumb_pane'
     name = 'Dumb Pane'
@@ -41,12 +53,6 @@ class MayaviTask(Task):
     # The task's user-visible name.
     name = "Mayavi Task"
 
-
-    # Actions -------------------------------------------------------------#
-
-    # The menu bar for the task.
-    menu_bar = Instance(MenuBarSchema)
-
     # The (optional) status bar for the task.
     status_bar = Instance(StatusBarManager)
 
@@ -57,6 +63,71 @@ class MayaviTask(Task):
     # bars and tool bars constructed from the above schemas.
     extra_actions = List(SchemaAddition)
 
+    # The menu bar for the task.
+    def _menu_bar_default(self):
+
+        ID = 'mayavi'
+
+        # Automatic source generation for non-open file related sources.
+        SOURCE_ACTIONS = []
+
+        for src in registry.sources:
+            if len(src.extensions) == 0:
+                action = globals()[src.id]
+                SOURCE_ACTIONS.append(action)
+
+        #print(SOURCE_ACTIONS)
+
+        mayavi_ui_menu_bar = SMenuBar(
+            SMenu(
+                SGroup(
+                    SMenu(
+                        OpenFile(
+                            id="OpenFile",
+                            name="&Open file ...",
+                            application=self.window.application
+                        ),
+                        #*SOURCE_ACTIONS,
+                        id='',
+                        name='&Load data'
+                    ),
+                    SaveVisualization(
+                        id="SaveVisualization",
+                        name="&Save Visualization",
+                    ),
+                    LoadVisualization(
+                        id="LoadVisualization",
+                        name="&Load Visualization",
+                    ),
+                    RunScript(
+                        id="RunScript",
+                        name="&Run Python Script",
+                    ),
+                    id="MayaviFileGroup"
+                ),
+                id='File',
+                name='&File'
+            ),
+            SMenu(
+                SMenu(
+                    id='',
+                    name='&Modules'
+                ),
+                SMenu(
+                    id='',
+                    name='&Filters'
+                ),
+                AddModuleManager(
+                    id="AddModuleManager",
+                    name="&Add ModuleManager",
+                    application=self.window.application,
+                ),
+                id='Visualize',
+                name='&Visualize'
+            ),
+        )
+
+        return mayavi_ui_menu_bar
 
     def _default_layout_default(self):
         return TaskLayout(
@@ -157,5 +228,4 @@ class MayaviUITasksPlugin(Plugin):
                 factory=MayaviTask
             )
         ]
-
-    
+   

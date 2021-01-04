@@ -125,7 +125,7 @@ def get_plugin_classes():
                 LoggerPlugin,
                 #MayaviUIPlugin,
                 MayaviUITasksPlugin,
-                #SceneUIPlugin,
+                SceneUIPlugin,
                 PythonShellPlugin,
                 TextEditorPlugin,
                 ])
@@ -252,6 +252,24 @@ class Mayavi(HasTraits):
         from tvtk.plugins.scene.i_scene_manager import ISceneManager
         scene_manager = app.get_service(ISceneManager)
         scene_manager.application = app
+
+        from pyface.api import PythonShell
+        shell = app.get_service(PythonShell)
+
+        try:
+            shell.bind('mayavi', self.script)
+            shell.bind('engine', engine)
+            try:
+                # The following will fail under Qt, as it needs the Pyface
+                # Tree that has not been ported from Wx yet.
+                from apptools.naming.ui.api import explore
+                shell.bind('explore', explore)
+            except ImportError:
+                pass
+        except AttributeError as msg:
+            # This can happen when the shell is not visible.
+            # FIXME: fix this when the shell plugin is improved.
+            pass
         # Call self.run from the GUI thread.
         app.gui.invoke_later(self.run)
 
