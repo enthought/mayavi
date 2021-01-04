@@ -259,6 +259,7 @@ class Mayavi(HasTraits):
         try:
             shell.bind('mayavi', self.script)
             shell.bind('engine', engine)
+            shell.bind('application', app)
             try:
                 # The following will fail under Qt, as it needs the Pyface
                 # Tree that has not been ported from Wx yet.
