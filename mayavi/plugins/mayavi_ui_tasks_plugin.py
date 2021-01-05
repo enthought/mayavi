@@ -251,7 +251,7 @@ class MayaviUITasksPlugin(Plugin):
                 id='Mayavi',
             ),
             PreferencesCategory(
-                id='TVTK',
+                id='Logger'
             )
         ]
 
@@ -260,4 +260,10 @@ class MayaviUITasksPlugin(Plugin):
     def _preferences_panes_default(self):
         from mayavi.preferences.mayavi_preferences_pane import (
             MayaviRootPreferencesPane, MayaviMlabPreferencesPane)
-        return [MayaviRootPreferencesPane, MayaviMlabPreferencesPane]
+        from mayavi.preferences.logger_preferences_pane import \
+            LoggerPreferencesPane
+        return [
+            MayaviRootPreferencesPane,
+            MayaviMlabPreferencesPane,
+            LoggerPreferencesPane
+        ]

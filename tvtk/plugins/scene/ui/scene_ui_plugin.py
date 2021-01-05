@@ -120,6 +120,7 @@ class SceneUIPlugin(Plugin):
         return [
             PreferencesCategory(
                 id='TVTK',
+                name='TVTK Scene'
             )
         ]
 
