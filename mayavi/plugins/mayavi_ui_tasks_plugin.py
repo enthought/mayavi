@@ -65,17 +65,32 @@ class MayaviTask(Task):
         for src in registry.sources:
             if len(src.extensions) == 0:
                 action = globals()[src.id]
-                SOURCE_ACTIONS.append(action(name=src.menu_name))
+                SOURCE_ACTIONS.append(
+                    action(
+                        name=src.menu_name,
+                        application=self.window.application
+                    )
+                )
 
         MODULE_ACTIONS = []
         for module in registry.modules:
             action = globals()[module.id]
-            MODULE_ACTIONS.append(action(name=module.menu_name))
+            MODULE_ACTIONS.append(
+                action(
+                    name=module.menu_name,
+                    application=self.window.application
+                )
+            )
 
         FILTER_ACTIONS = []
         for filter in registry.filters:
             action = globals()[filter.id]
-            FILTER_ACTIONS.append(action(name=filter.menu_name))
+            FILTER_ACTIONS.append(
+                action(
+                    name=filter.menu_name,
+                    application=self.window.application
+                )
+            )
 
         mayavi_ui_menu_bar = SMenuBar(
             SMenu(
@@ -93,14 +108,17 @@ class MayaviTask(Task):
                     SaveVisualization(
                         id="SaveVisualization",
                         name="&Save Visualization",
+                        application=self.window.application
                     ),
                     LoadVisualization(
                         id="LoadVisualization",
                         name="&Load Visualization",
+                        application=self.window.application
                     ),
                     RunScript(
                         id="RunScript",
                         name="&Run Python Script",
+                        application=self.window.application
                     ),
                     id="MayaviFileGroup"
                 ),
