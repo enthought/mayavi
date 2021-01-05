@@ -17,3 +17,11 @@ class EngineDockPane(TraitsDockPane):
 
     def default_traits_view(self):
         return self.model.trait_view()
+
+    # this adds the toolbar but for the mainwindow
+    #def create_contents(self, parent):
+    #    """ Create and return the toolkit-specific contents of the dock pane.
+    #    """
+
+    #    self.ui = self.edit_traits(kind="subpanel", parent=parent.parent())
+    #    return self.ui.control

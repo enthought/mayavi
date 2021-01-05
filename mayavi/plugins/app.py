@@ -115,15 +115,15 @@ def get_plugin_classes():
         PythonShellPlugin = IPythonShellPlugin
     else:
         from envisage.plugins.tasks.python_shell_plugin import PythonShellPlugin
+    # TextEDtior Plugin is currently Workbench specific as is LoggerPlugin
+    # Logger plugin has been wrapped up in a Task DockPane
     from envisage.plugins.text_editor.text_editor_plugin import TextEditorPlugin
     from apptools.logger.plugin.logger_plugin import LoggerPlugin
     from tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
-    from mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
     from mayavi.plugins.mayavi_ui_tasks_plugin import MayaviUITasksPlugin
     plugins = get_non_gui_plugin_classes()
     plugins.extend([
                 LoggerPlugin,
-                #MayaviUIPlugin,
                 MayaviUITasksPlugin,
                 SceneUIPlugin,
                 PythonShellPlugin,

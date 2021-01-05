@@ -132,6 +132,12 @@ class MayaviTask(Task):
                 id='View',
                 name='&View'  
             ),
+            # likewise this allows us to see preferences under the "Python" tab
+            # of the menu bar, although it should be included by default...
+            SMenu(
+                id='Edit',
+                name='&Edit'
+            ),
             SMenu(
                 HelpIndex(name="&User Guide"),
                 TVTKClassBrowser(name="&VTK Class Browser"),
@@ -219,17 +225,8 @@ class MayaviUITasksPlugin(Plugin):
 
     ###### Contributions to extension points made by this plugin ######
 
-    # Views.
+    # Tasks.
     tasks = List(contributes_to=TASKS)
-
-    # Perspectives.
-    tasks_extensions = List(contributes_to=TASK_EXTENSIONS)
-
-    # Preferences pages.
-    preferences_categories = List(contributes_to=PREFERENCES_CATEGORIES)
-
-    # Our action sets.
-    preferences_panes = List(contributes_to=PREFERENCES_PANES)
 
     def _tasks_default(self):
         from envisage.ui.tasks.api import TaskFactory
@@ -240,4 +237,27 @@ class MayaviUITasksPlugin(Plugin):
                 factory=MayaviTask
             )
         ]
-   
+
+    # Task Extensions.
+    tasks_extensions = List(contributes_to=TASK_EXTENSIONS)
+
+    # Preferences categories.
+    preferences_categories = List(contributes_to=PREFERENCES_CATEGORIES)
+
+    def _prefrences_categories_default(self):
+        from envisage.ui.tasks.api import PreferencesCategory
+        return [
+            PreferencesCategory(
+                id='Mayavi',
+            )
+        ]
+
+    # Preference Panes.
+    preferences_panes = List(contributes_to=PREFERENCES_PANES)
+    def _preferences_panes_default(self):
+        from mayavi.preferences.mayavi_preferences_pane import (
+            MayaviRootPreferencesPane, MayaviMlabPreferencesPane)
+            #, MayaviMlabPreferencesPane
+        return [
+            MayaviRootPreferencesPane
+        ]
