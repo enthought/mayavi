@@ -1,4 +1,5 @@
 from pyface.tasks.api import TraitsDockPane
+from traits.etsconfig.api import ETSConfig
 
 
 class EngineDockPane(TraitsDockPane):
@@ -18,10 +19,15 @@ class EngineDockPane(TraitsDockPane):
     def default_traits_view(self):
         return self.model.trait_view()
 
-    # this adds the toolbar but for the mainwindow
-    #def create_contents(self, parent):
-    #    """ Create and return the toolkit-specific contents of the dock pane.
-    #    """
+    def create_contents(self, parent):
+        """ Create and return the toolkit-specific contents of the dock pane.
+        """
+        if ETSConfig.toolkit.startswith('qt'):
+            from pyface.qt import QtGui
+            self._panel = QtGui.QMainWindow()
+            self._content = super(EngineDockPane, self).create_contents(self._panel)
+            self._panel.setCentralWidget(self._content)
+            return self._panel
 
-    #    self.ui = self.edit_traits(kind="subpanel", parent=parent.parent())
-    #    return self.ui.control
+        self.ui = self.edit_traits(kind="subpanel", parent=parent)
+        return self.ui.control
