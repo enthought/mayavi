@@ -53,7 +53,7 @@ class SceneEditor(Editor):
 
     #### Methods ##############################################################
 
-    def create_control(self, parent):
+    def create(self, parent):
         """ Create the toolkit-specific control that represents the editor. """
 
         # We hold a reference to the scene itself to make sure it does not get
@@ -61,10 +61,10 @@ class SceneEditor(Editor):
         # the scene itself). The scene is also referenced by the scene manager.
         self.scene = self._create_decorated_scene(parent)
         self.scene.render()
-
+        self.control = self.scene.control
         return self.scene.control
 
-    def destroy_control(self):
+    def destroy(self):
         """ Destroy the toolkit-specific control that represents the
         editor.
         """
@@ -73,7 +73,7 @@ class SceneEditor(Editor):
             self.scene.close()
 
         # Call the parent method.
-        return super(SceneEditor, self).destroy_control()
+        return super(SceneEditor, self).destroy()
 
     ###########################################################################
     # Private interface.
