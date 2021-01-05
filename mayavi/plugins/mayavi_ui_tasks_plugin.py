@@ -244,7 +244,7 @@ class MayaviUITasksPlugin(Plugin):
     # Preferences categories.
     preferences_categories = List(contributes_to=PREFERENCES_CATEGORIES)
 
-    def _prefrences_categories_default(self):
+    def _preferences_categories_default(self):
         from envisage.ui.tasks.api import PreferencesCategory
         return [
             PreferencesCategory(
@@ -257,7 +257,4 @@ class MayaviUITasksPlugin(Plugin):
     def _preferences_panes_default(self):
         from mayavi.preferences.mayavi_preferences_pane import (
             MayaviRootPreferencesPane, MayaviMlabPreferencesPane)
-            #, MayaviMlabPreferencesPane
-        return [
-            MayaviRootPreferencesPane
-        ]
+        return [MayaviRootPreferencesPane, MayaviMlabPreferencesPane]

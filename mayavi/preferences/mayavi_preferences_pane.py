@@ -8,8 +8,10 @@
 from apptools.preferences.api import PreferencesHelper
 from traits.api import (Bool, Enum, Tuple, Range, List,
         Str, Instance, HasTraits)
-from traitsui.api import View, Group, Item, RGBColorEditor
+from traitsui.api import View, Group, InstanceEditor, Item, RGBColorEditor
 from envisage.ui.tasks.api import PreferencesPane
+        
+from mayavi.preferences.api import preference_manager
 
 ################################################################################
 # `MayaviRootPreferencesPage` class
@@ -37,10 +39,33 @@ class MayaviRootPreferencesPane(PreferencesPane):
     after = Str
 
     def _model_default(self):
-        from mayavi.preferences.preferences_helpers import RootPreferencesHelper
-        return RootPreferencesHelper()
+        return preference_manager.root
 
-
+    traits_view = View(
+                    Group(
+                        Group(
+                            Item(name='confirm_delete'),
+                            Item(name='show_splash_screen'),
+                            Item(name='show_helper_nodes'),
+                            Item(name='open_help_in_light_browser'),
+                            Item(name='use_ipython'),
+                            label='General settings',
+                            show_border=True,
+                            ),
+                        Group(
+                            Group(
+                                Item('_contrib_finder',
+                                     style='custom',
+                                     show_label=False,
+                                     resizable=True,
+                                     ),
+                                ),
+                            label='Contribution settings',
+                            show_border=True,
+                            ),
+                        ),
+                    resizable=True
+                    )
 
 
 ################################################################################
@@ -70,5 +95,13 @@ class MayaviMlabPreferencesPane(PreferencesPane):
     after = Str("MayaviRoot")
 
     def _model_default(self):
-        from mayavi.preferences.preferences_helpers import MlabPreferencesHelper
-        return MlabPreferencesHelper()
+        return preference_manager.mlab
+
+    traits_view = View(Group(
+                             Item('backend'),
+                             Item('background_color'),
+                             Item('foreground_color'),
+                             Item('offscreen')
+                             ),
+                       resizable=True
+                      )
