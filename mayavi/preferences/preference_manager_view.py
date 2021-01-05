@@ -41,7 +41,6 @@ class PreferenceManagerView(PreferencesManager):
     pages = List(PreferencesPage)
 
     def _pages_default(self):
-        print('BADDDDDDDDDDDDDD')
         return [
                 MayaviRootPreferencesPage(
                     preferences=preference_manager.root.preferences),

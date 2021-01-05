@@ -249,6 +249,9 @@ class MayaviUITasksPlugin(Plugin):
         return [
             PreferencesCategory(
                 id='Mayavi',
+            ),
+            PreferencesCategory(
+                id='TVTK',
             )
         ]
 

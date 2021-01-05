@@ -18,7 +18,6 @@ class SceneUIPlugin(Plugin):
     """
 
     # Extension point Ids.
-    #ACTION_SETS       = 'envisage.ui.workbench.action_sets'
     #PREFERENCES_PAGES = 'envisage.ui.workbench.preferences_pages'
     PREFERENCES_CATEGORIES = "envisage.ui.tasks.preferences_categories"
     PREFERENCES_PANES = "envisage.ui.tasks.preferences_panes"
@@ -114,15 +113,25 @@ class SceneUIPlugin(Plugin):
             )
         ]
 
-    #preferences_pages = List(contributes_to=PREFERENCES_PAGES)
+    preferences_categories = List(contributes_to=PREFERENCES_CATEGORIES)
 
-    #def _preferences_pages_default(self):
-    #    """ Trait initializer. """
+    def _preferences_categories_default(self):
+        from envisage.ui.tasks.api import PreferencesCategory
+        return [
+            PreferencesCategory(
+                id='TVTK',
+            )
+        ]
 
-    #    from tvtk.plugins.scene.ui.scene_preferences_page import (
-    #        ScenePreferencesPage
-    #    )
+    preferences_panes = List(contributes_to=PREFERENCES_PANES)
 
-    #    return [ScenePreferencesPage]
+    def _preferences_panes_default(self):
+        """ Trait initializer. """
+
+        from tvtk.plugins.scene.ui.scene_preferences_pane import (
+            ScenePreferencesPane
+        )
+
+        return [ScenePreferencesPane]
 
 #### EOF ######################################################################
