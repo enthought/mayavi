@@ -72,6 +72,18 @@ class MayaviTasksApplication(TasksApplication):
         gui = self.gui
 
         started = self.start()
+
+        from mayavi.plugins.script import Script
+        from mayavi.core.engine import Engine
+        from tvtk.plugins.scene.i_scene_manager import ISceneManager
+        script = self.get_service(Script)
+        engine = self.get_service(Engine)
+        scene_manager = self.get_service(ISceneManager)
+        engine.application = self
+        script.application = self
+        scene_manager.application = self
+        script.engine = engine
+
         if started:
             # Create windows from the default or saved application layout.
             self._create_windows()

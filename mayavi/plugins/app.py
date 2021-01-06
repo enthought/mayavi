@@ -247,12 +247,6 @@ class Mayavi(HasTraits):
         # Set our script instance.
         self.script = app.get_service(Script)
         engine = app.get_service(Engine)
-        engine.application = app
-        self.script.engine = engine
-        self.script.application = app
-        from tvtk.plugins.scene.i_scene_manager import ISceneManager
-        scene_manager = app.get_service(ISceneManager)
-        scene_manager.application = app
 
         from pyface.api import PythonShell
         shell = app.get_service(PythonShell)

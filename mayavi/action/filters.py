@@ -34,6 +34,14 @@ class FilterAction(Action):
     # enabled depending on the current selection or object.
     enabled = False
 
+    application = Instance('envisage.ui.tasks.api.TasksApplication')
+
+    @on_trait_change('application:application_initialized')
+    def _set_up_dynamic_notification(self):
+        self.mayavi.engine.on_trait_change(self._update_enabled,	
+                                           ['current_selection',	
+                                            'current_object'])
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -45,7 +53,6 @@ class FilterAction(Action):
         mv.add_filter(obj)
         mv.engine.current_selection = obj
 
-    @on_trait_change("mayavi:engine.[current_selection,current_object]")
     def _update_enabled(self, obj):
         if isinstance(obj, PipelineBase):
             e = obj.menu_helper.check_active(self.metadata)
