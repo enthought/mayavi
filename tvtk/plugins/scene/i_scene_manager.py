@@ -3,7 +3,7 @@
 
 # Enthought library imports.
 from tvtk.pyface.tvtk_scene import TVTKScene
-from envisage.ui.tasks.api import TaskWindow
+from envisage.ui.tasks.api import TasksApplication
 from traits.api import Interface, List, Instance
 
 
@@ -16,9 +16,9 @@ class ISceneManager(Interface):
     # A list of all open scenes.
     scenes = List(TVTKScene)
 
-    # The tasks window that the manager is in (there is one scene manager
-    # per tasks window).
-    window = Instance(TaskWindow)
+    # The tasks application that the manager is in (there is one scene manager
+    # per tasks application).
+    application = Instance(TasksApplication)
 
 #### EOF ######################################################################
 
