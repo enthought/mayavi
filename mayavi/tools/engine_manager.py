@@ -140,8 +140,8 @@ class EngineManager(HasTraits):
             m = Mayavi(start_gui_event_loop=False)
             m.main()
             process_ui_events()
-            window = m.application.active_window
-            engine = window.get_service(Engine)
+            app = m.application
+            engine = app.get_service(Engine)
         elif options.backend == 'test':
             engine = NullEngine(name='Null Mlab Engine')
             engine.start()
