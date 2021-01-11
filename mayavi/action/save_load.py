@@ -35,12 +35,12 @@ class SaveVisualization(Action):
     def perform(self, event):
         """ Performs the action. """
         wildcard = 'MayaVi2 files (*.mv2)|*.mv2|' + FileDialog.WILDCARD_ALL
-        dialog = FileDialog(parent=self.application.active_window.control,
+        dialog = FileDialog(parent=self.task.window.control,
                             title='Save MayaVi2 file',
                             action='save as', wildcard=wildcard
                             )
         if dialog.open() == OK:
-            mv = get_imayavi(self.application)
+            mv = self.task.script
             mv.save_visualization(dialog.path)
 
 ######################################################################
@@ -60,7 +60,7 @@ class LoadVisualization(Action):
     def perform(self, event):
         """ Performs the action. """
         wildcard = 'MayaVi2 files (*.mv2)|*.mv2|' + FileDialog.WILDCARD_ALL
-        parent = self.application.active_window.control
+        parent = self.task.window.control
         dialog = FileDialog(parent=parent,
                             title='Open MayaVi2 file',
                             action='open', wildcard=wildcard
@@ -70,7 +70,7 @@ class LoadVisualization(Action):
                 error("File '%s' does not exist"%dialog.path, parent)
                 return
 
-            mv = get_imayavi(self.application)
+            mv = self.task.script
             mv.load_visualization(dialog.path)
 
 ######################################################################
@@ -92,7 +92,7 @@ class RunScript(Action):
     def perform(self, event):
         """ Performs the action. """
         wildcard = 'Python files (*.py)|*.py'
-        parent = self.application.active_window.control
+        parent = self.task.window.control
         dialog = FileDialog(parent=parent,
                             title='Open Python file',
                             action='open', wildcard=wildcard
@@ -106,7 +106,7 @@ class RunScript(Action):
             # The following code is taken from scripts/mayavi2.py.
             g = sys.modules['__main__'].__dict__
             if 'mayavi' not in g:
-                mv = get_imayavi(self.application)
+                mv = self.task.script
                 g['mayavi'] = mv
                 g['engine'] = mv.engine
             g['__file__'] = dialog.path

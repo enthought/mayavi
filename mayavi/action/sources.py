@@ -54,7 +54,7 @@ class OpenFile(Action):
 
     def perform(self, event):
         """ Performs the action. """
-        mv = get_imayavi(self.application)
+        mv = self.task.script
         s = get_scene(mv)
         if s is None:
             return
@@ -68,7 +68,7 @@ class OpenFile(Action):
                 else:
                     wildcard += '|' + src.wildcard
 
-        parent = self.application.active_window.control
+        parent = self.task.window.control
         dialog = FileDialog(parent=parent,
                             title='Open supported data file',
                             action='open', wildcard=wildcard
@@ -93,7 +93,7 @@ class SourceAction(Action):
     metadata = Instance(Metadata)
 
     def perform(self, event):
-        mv = get_imayavi(self.application)
+        mv = self.task.script
         s = get_scene(mv)
         if s is None:
             return

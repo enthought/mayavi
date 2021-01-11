@@ -75,13 +75,11 @@ class MayaviTasksApplication(TasksApplication):
 
         from mayavi.plugins.script import Script
         from mayavi.core.engine import Engine
-        from tvtk.plugins.scene.i_scene_manager import ISceneManager
         script = self.get_service(Script)
         engine = self.get_service(Engine)
-        scene_manager = self.get_service(ISceneManager)
-        engine.application = self
-        script.application = self
-        scene_manager.application = self
+        # I don't strictly speaking need this now as they both have  reference 
+        # to the task and the task has refs to each of them so I could easily
+        # do the sync up with that elsewhere
         script.engine = engine
 
         if started:
@@ -98,8 +96,31 @@ class MayaviTasksApplication(TasksApplication):
         return started
 
     ###########################################################################
-    # 'TasksApplication' interface.
+    # 'MayaviTasksApplication' interface.
     ###########################################################################
+
+    def get_task(self, task_id):
+        """ Returns a task with the specified ID.
+        If no such task is available, but there is a factory a new window is
+        created, and the task is instantiated in the window.
+
+        Raises
+        ------
+        ValueError
+            If there is no task factory with the specified ID.
+        """
+        for window in self.windows:
+            for task in window.tasks:
+                if task.id == task_id:
+                    return task
+
+        window = self.create_window(layout=TaskWindowLayout(task_id))
+        if not window.active_task:
+            window.destroy()
+            raise ValueError('No task with ID %r' % task_id)
+
+        window.open()
+        return window.active_task
 
     ######################################################################
     # Non-public interface.

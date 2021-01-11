@@ -30,6 +30,11 @@ from mayavi.action.sources import *
 from mayavi.core.registry import registry
 
 
+from mayavi.plugins.script import Script
+from mayavi.core.engine import Engine
+from tvtk.plugins.scene.i_scene_manager import ISceneManager
+
+
 ###############################################################################
 # `MayaviPerspective` class.
 ###############################################################################
@@ -58,6 +63,12 @@ class MayaviTask(Task):
     # bars and tool bars constructed from the above schemas.
     extra_actions = List(SchemaAddition)
 
+    engine = Instance(Engine)
+
+    script = Instance(Script)
+
+    scene_manager = Instance(ISceneManager)
+
     # The menu bar for the task.
     def _menu_bar_default(self):
 
@@ -68,7 +79,7 @@ class MayaviTask(Task):
                 SOURCE_ACTIONS.append(
                     action(
                         name=src.menu_name,
-                        application=self.window.application
+                        task=self
                     )
                 )
 
@@ -78,7 +89,7 @@ class MayaviTask(Task):
             MODULE_ACTIONS.append(
                 action(
                     name=module.menu_name,
-                    application=self.window.application
+                    task=self
                 )
             )
 
@@ -88,7 +99,7 @@ class MayaviTask(Task):
             FILTER_ACTIONS.append(
                 action(
                     name=filter.menu_name,
-                    application=self.window.application
+                    task=self
                 )
             )
 
@@ -99,7 +110,7 @@ class MayaviTask(Task):
                         OpenFile(
                             id="OpenFile",
                             name="&Open file ...",
-                            application=self.window.application
+                            task=self
                         ),
                         *SOURCE_ACTIONS,
                         id='',
@@ -108,17 +119,17 @@ class MayaviTask(Task):
                     SaveVisualization(
                         id="SaveVisualization",
                         name="&Save Visualization",
-                        application=self.window.application
+                        task=self
                     ),
                     LoadVisualization(
                         id="LoadVisualization",
                         name="&Load Visualization",
-                        application=self.window.application
+                        task=self
                     ),
                     RunScript(
                         id="RunScript",
                         name="&Run Python Script",
-                        application=self.window.application
+                        task=self
                     ),
                     id="MayaviFileGroup"
                 ),
@@ -139,7 +150,7 @@ class MayaviTask(Task):
                 AddModuleManager(
                     id="AddModuleManager",
                     name="&Add ModuleManager",
-                    application=self.window.application,
+                    task=self
                 ),
                 id='Visualize',
                 name='&Visualize'
@@ -200,8 +211,8 @@ class MayaviTask(Task):
         added to a TaskWindow.
         """
         return [
-            EngineDockPane(),
-            CurrentSelectionDockPane(),
+            EngineDockPane(engine=self.engine),
+            CurrentSelectionDockPane(engine=self.engine),
             PythonShellDockPane(),
             LoggerDockPane()
         ]
@@ -252,9 +263,26 @@ class MayaviUITasksPlugin(Plugin):
             TaskFactory(
                 id="mayavi.task",
                 name='Mayavi UI Task',
-                factory=MayaviTask
+                factory=self._create_mayavi_task
             )
         ]
+
+    def _create_mayavi_task(self):
+        engine = self.application.get_service(Engine)
+        script = self.application.get_service(Script)
+        scene_manager = self.application.get_service(ISceneManager)
+
+        task =  MayaviTask(
+            engine=engine,
+            script=script,
+            scene_manager=scene_manager
+        )
+
+        # this feels like a smell to me ... 
+        engine.task = task
+        scene_manager.task = task
+
+        return task
 
     # Task Extensions.
     tasks_extensions = List(contributes_to=TASK_EXTENSIONS)
