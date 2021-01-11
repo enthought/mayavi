@@ -113,12 +113,10 @@ class MayaviTasksApplication(TasksApplication):
             for task in window.tasks:
                 if task.id == task_id:
                     return task
-
         window = self.create_window(layout=TaskWindowLayout(task_id))
         if not window.active_task:
             window.destroy()
             raise ValueError('No task with ID %r' % task_id)
-
         window.open()
         return window.active_task
 

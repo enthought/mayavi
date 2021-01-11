@@ -281,7 +281,6 @@ class MayaviUITasksPlugin(Plugin):
         # this feels like a smell to me ... 
         engine.task = task
         scene_manager.task = task
-
         return task
 
     # Task Extensions.

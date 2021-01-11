@@ -14,7 +14,7 @@ from tvtk.plugins.scene.i_scene_manager import \
 from tvtk.plugins.scene.ui.actions import NewScene
 from tvtk.plugins.scene import scene_editor
 from pyface.api import GUI
-from envisage.ui.tasks.api import TasksApplication
+from pyface.tasks.api import Task
 from apptools.scripting.api import recordable
 
 # Local imports.
@@ -30,8 +30,7 @@ class EnvisageEngine(Engine):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    # The envisage application.
-    application = Instance(TasksApplication)
+    task = Instance(Task)
 
     # Our name.
     name = Str('Mayavi Envisage Engine')
@@ -41,7 +40,7 @@ class EnvisageEngine(Engine):
     ######################################################################
     def __get_pure_state__(self):
         d = super(EnvisageEngine, self).__get_pure_state__()
-        for x in ['applcation',]:
+        for x in ['task',]:
             d.pop(x, None)
         return d
 
@@ -52,12 +51,11 @@ class EnvisageEngine(Engine):
         """This starts the engine.  Only after the engine starts is it
         possible to use mayavi.  This particular method is called
         automatically when the window is opened."""
-
         if self.running:
             return
 
         # Add all the existing scenes from the scene plugin.
-        scene_manager = self.application.get_service(ISceneManager)
+        scene_manager = self.task.scene_manager
         for scene in scene_manager.scenes:
             self.add_scene(scene)
 
@@ -82,8 +80,8 @@ class EnvisageEngine(Engine):
             For the time being the extra kwargs are ignored with the
             envisage engine.
         """
-        action = NewScene(application=self.application)
-        editor = action.perform(None)
+        from tvtk.plugins.scene.scene_editor import SceneEditor
+        editor = self.task.window.central_pane.edit(object(), factory=SceneEditor)
         if name is not None:
             editor.name = name
 
@@ -96,7 +94,7 @@ class EnvisageEngine(Engine):
         """Given a VTK scene instance, this method closes it.
         """
         s = scene.scene
-        for editor in self.application.active_window.central_pane.editors[:]:
+        for editor in self.task.window.central_pane.editors[:]:
             if isinstance(editor, scene_editor.SceneEditor):
                 if id(editor.scene) == id(s):
                     editor.close()
@@ -117,28 +115,29 @@ class EnvisageEngine(Engine):
         for scene in list_event.added:
             self.add_scene(scene)
 
-    @on_trait_change('application:window_opened')
+    @on_trait_change('task:window:opened')
     def _on_window_opened(self, obj, trait_name, old, new):
         """We start the engine when the window is opened."""
-        if trait_name == 'window_opened':
+        if trait_name == 'opened':
             self.start()
 
-    @on_trait_change('application:window_closed')
+    @on_trait_change('task:window:closed')
     def _on_window_closed(self, obj, trait_name, old, new):
         """We stop the engine when the window is closed."""
-        if trait_name == 'window_closed':
+        if trait_name == 'closed':
             self.stop()
 
-    def _application_changed(self, old, new):
-        """Static trait handler."""
+    #def _application_changed(self, old, new):
+    #    """Static trait handler."""
         # This is needed since the service may be offered *after* the
         # window is opened in which case the _on_window_opened will do
         # nothing.
-        sm = new.get_service(ISceneManager)
-        if sm is not None:
-            self.start()
+    #    sm = new.get_service(ISceneManager)
+    #    if sm is not None:
+    #        self.start()
 
-    @on_trait_change('window:central_pane:editors[]')
+    #this makes no sense, there is no longer a window trait ...
+    @on_trait_change('task:window:central_pane:editors[]')
     def _sync_scene_editor_name(self, obj, trait_name, old, new):
         """Synchronize the Mayavi scene's name trait with that of the
         editor's name."""
