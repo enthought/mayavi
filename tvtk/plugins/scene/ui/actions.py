@@ -30,14 +30,13 @@ class BetterLazyTaskAction(TaskAction):
     #### 'TaskAction' protocol ################################################
     def _get_task(self):
         if self.application.windows:
-            task = self.application.get_task(self.task_id)
-            return task
+            self._task = self.application.get_task(self.task_id)
+            return self._task
         
 
     def _set_task(self, task):
-        old = None
-        if self._task:
-            old = self._task
+        old = self.task
+        self._task = task
         if old != task:
             self.trait_property_changed("task", old, task)
     
