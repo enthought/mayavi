@@ -16,57 +16,7 @@ from pyface.tasks.api import Task
 from mayavi.plugins.mayavi_tasks_application import MayaviTasksApplication
 
 
-class BetterLazyTaskAction(TaskAction):
-
-    """ A TaskAction that resolves the task lazily given its ID.
-    The task for the dock pane is resolved lazily from an application. This
-    allows, for example, to contribute an action in a plugin that refers to
-    a task from another plugin, even if the task has not been created yet.
-    """
-
-    task = Property(depends_on='application')
-    _task = Instance(Task)
-
-    #### 'TaskAction' protocol ################################################
-    def _get_task(self):
-        if self.application.windows:
-            self._task = self.application.get_task(self.task_id)
-            return self._task
-        
-
-    def _set_task(self, task):
-        old = self.task
-        self._task = task
-        if old != task:
-            self.trait_property_changed("task", old, task)
-    
-    #### 'LazyTaskAction' protocol ############################################
-
-    task_id = Str("mayavi.task")
-
-    application = Instance(MayaviTasksApplication)
-
-
-class LazyTaskAction(TaskAction):
-    """ A TaskAction that resolves the task lazily given its ID.
-    The task for the dock pane is resolved lazily from an application. This
-    allows, for example, to contribute an action in a plugin that refers to
-    a task from another plugin, even if the task has not been created yet.
-    """
-
-    #### 'TaskAction' protocol ################################################
-    def _task_default(self):
-        task = self.application.get_task(self.task_id)
-        return task
-
-    #### 'LazyTaskAction' protocol ############################################
-
-    task_id = Str("mayavi.task")
-
-    application = Instance(MayaviTasksApplication)
-
-
-class SceneAction(BetterLazyTaskAction):
+class SceneAction(TaskAction):
     """ Base class for actions that require a scene manager. """
 
     #### 'SceneAction' interface ##############################################
@@ -78,11 +28,14 @@ class SceneAction(BetterLazyTaskAction):
 
     def _get_scene_manager(self):
         """ Trait property getter. """
+        #return self.task.scene_manager
+        from tvtk.plugins.scene.i_scene_manager import (
+            ISceneManager
+        )
+        return self.application.get_service(ISceneManager)
 
-        return self.task.scene_manager
 
-
-class NewScene(BetterLazyTaskAction):
+class NewScene(TaskAction):
     """ An action that creates a new TVTK scene. """
 
     #### 'Action' interface ###################################################
@@ -91,9 +44,9 @@ class NewScene(BetterLazyTaskAction):
 
     def perform(self, event):
         """ Performs the action. """
-        print('EVENT: ', event)
         from tvtk.plugins.scene.scene_editor import SceneEditor
-        editor = self.task.window.central_pane.edit(object(), factory=SceneEditor)
+        task = self.application.get_task("mayavi.task")
+        editor = task.window.central_pane.edit(object(), factory=SceneEditor)
 
         return editor
 
@@ -126,9 +79,9 @@ class SaveScene(SceneAction):
             wildcard += '{} ({})|{}|'.format(description, extension, extension)
         
         wildcard += 'Determine by extension (*.*)|(*.*)'
-
+        task = self.application.get_task("mayavi.task")
         dialog = FileDialog(
-            parent   = self.task.window.control,
+            parent   = task.window.control,
             title    = 'Save scene to image',
             action   = 'save as',
             wildcard = wildcard
@@ -163,9 +116,9 @@ class SaveSceneToImage(SceneAction):
 
     def perform(self, event):
         """ Perform the action. """
-
+        task = self.application.get_task("mayavi.task")
         dialog = FileDialog(
-            parent   = self.task.window.control,
+            parent   = task.window.control,
             title    = 'Save scene to %s' % self.name,
             action   = 'save as',
             wildcard = self.wildcard
