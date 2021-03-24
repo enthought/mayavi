@@ -455,10 +455,15 @@ class Volume(Module):
         # Set the current range.
         dataset = mm.source.get_output_dataset()
         dsh = DataSetHelper(dataset)
-        name, rng = dsh.get_range('scalars', 'point')
-        if name is None:
+        point_name, point_rng = dsh.get_range('scalars', 'point')
+        cell_name, cell_rng = dsh.get_range('scalars', 'cell')
+        if point_name is None and cell_name is None:
             error('No scalars in input data!')
             rng = (0, 255)
+        elif point_name is not None:
+            rng = point_rng
+        else:
+            rng = cell_rng
 
         if self.current_range != rng:
             self.current_range = rng
