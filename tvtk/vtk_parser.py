@@ -8,7 +8,7 @@ type information, and organizes them.
 
 from __future__ import print_function
 
-import collections
+import collections.abc
 import re
 import types
 
@@ -475,7 +475,7 @@ class VTKMethodParser:
         meths = self._find_get_methods(klass, meths)
         self.other_meths = [
             x for x in meths \
-            if isinstance(getattr(klass, x), collections.Callable)
+            if isinstance(getattr(klass, x), collections.abc.Callable)
         ]
 
     def _remove_method(self, meths, method):
