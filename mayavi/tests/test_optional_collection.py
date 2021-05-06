@@ -66,7 +66,7 @@ class TestOptionalCollection(unittest.TestCase):
         self.assertEqual(np.allclose(r, (6.09,6.09), atol=1.01e-03), True)
         # Adding a contour should create the appropriate output in
         # the collection.
-        c.contours.append(200)
+        c.contours.append(10)
         self.assertEqual(np.allclose(r, [6.09,6.09], atol=1.01e-03), True)
         # the collection's output should be that of the normals.
         self.assertEqual(coll.outputs[0] is n.outputs[0],True)
