@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Boy example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Boy example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_julia_set.html" title="Julia set example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Boy example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="boy-example">
+  <section id="boy-example">
 <span id="example-boy"></span><h1>Boy example<a class="headerlink" href="#boy-example" title="Permalink to this headline">¶</a></h1>
 <p>A script to generate the Mayavi logo: a Boy surface.</p>
 <p>The boy surface is a mathematical parametric surface, see
@@ -84,38 +84,39 @@
 the two parameters of the surface on a grid and using the mlab’s mesh
 function: <a class="reference internal" href="mlab_helper_functions.html#mayavi.mlab.mesh" title="mayavi.mlab.mesh"><code class="xref py py-func docutils literal notranslate"><span class="pre">mayavi.mlab.mesh()</span></code></a>.</p>
 <img alt="../_images/example_boy.jpg" class="align-center" src="../_images/example_boy.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/e4493d4ae58d76321566147faac4ef16/boy.py"><code class="xref download docutils literal notranslate"><span class="pre">boy.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/47b31d736d5059ca052a3ac498a0304d/boy.py"><code class="xref download docutils literal notranslate"><span class="pre">boy.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="s2"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
 
-<span class="s2">from numpy import sin, cos, mgrid, pi, sqrt</span>
-<span class="s2">from mayavi import mlab</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">mgrid</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 
-<span class="s2">mlab.figure(fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))</span>
-<span class="s2">u, v = mgrid[- 0.035:pi:0.01, - 0.035:pi:0.01]</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="o">-</span> <span class="mf">0.035</span><span class="p">:</span><span class="n">pi</span><span class="p">:</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">-</span> <span class="mf">0.035</span><span class="p">:</span><span class="n">pi</span><span class="p">:</span><span class="mf">0.01</span><span class="p">]</span>
 
-<span class="s2">X = 2 / 3. * (cos(u) * cos(2 * v)</span>
-<span class="s2">        + sqrt(2) * sin(u) * cos(v)) * cos(u) / (sqrt(2) -</span>
-<span class="s2">                                                 sin(2 * u) * sin(3 * v))</span>
-<span class="s2">Y = 2 / 3. * (cos(u) * sin(2 * v) -</span>
-<span class="s2">        sqrt(2) * sin(u) * sin(v)) * cos(u) / (sqrt(2)</span>
-<span class="s2">        - sin(2 * u) * sin(3 * v))</span>
-<span class="s2">Z = -sqrt(2) * cos(u) * cos(u) / (sqrt(2) - sin(2 * u) * sin(3 * v))</span>
-<span class="s2">S = sin(u)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="mf">3.</span> <span class="o">*</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span>
+                                                 <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">v</span><span class="p">))</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="mf">3.</span> <span class="o">*</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span> <span class="o">-</span>
+        <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">v</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="o">-</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">v</span><span class="p">))</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
 
-<span class="s2">mlab.mesh(X, Y, Z, scalars=S, colormap=&#39;YlGnBu&#39;, )</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">S</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">,</span> <span class="p">)</span>
 
-<span class="s2"># Nice view from the front</span>
-<span class="s2">mlab.view(.0, - 5.0, 4)</span>
-<span class="s2">mlab.show()</span>
+<span class="c1"># Nice view from the front</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mf">.0</span><span class="p">,</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -138,17 +139,15 @@ function: <a class="reference internal" href="mlab_helper_functions.html#mayavi.
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -168,14 +167,15 @@ function: <a class="reference internal" href="mlab_helper_functions.html#mayavi.
         <li class="right" >
           <a href="example_julia_set.html" title="Julia set example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Boy example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Loading scalar data: the heart.vtk example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Loading scalar data: the heart.vtk example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Loading scalar data: the <code class="docutils literal notranslate"><span class="pre">heart.vtk</span></code> example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="loading-scalar-data-the-heart-vtk-example">
+  <section id="loading-scalar-data-the-heart-vtk-example">
 <h1>Loading scalar data: the <code class="docutils literal notranslate"><span class="pre">heart.vtk</span></code> example<a class="headerlink" href="#loading-scalar-data-the-heart-vtk-example" title="Permalink to this headline">¶</a></h1>
 <p>This section describes a simple example with the <code class="docutils literal notranslate"><span class="pre">heart.vtk</span></code> file.
 This is a simple volume of 3D data (32 x 32 x 12 points) with scalars
@@ -89,7 +89,7 @@ heart!  The file is a readable text file, look at it in a text editor
 if you’d like to.</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">With <code class="docutils literal notranslate"><span class="pre">mayavi2</span></code> started, we start by opening the data file.  Go
+<li><p>With <code class="docutils literal notranslate"><span class="pre">mayavi2</span></code> started, we start by opening the data file.  Go
 to the <cite>File-&gt;Load data-&gt;Open file</cite> menu item and then in the file
 dialog, navigate to the directory that contains the sample data.
 There select the <code class="docutils literal notranslate"><span class="pre">heart.vtk</span></code> file.</p>
@@ -98,13 +98,12 @@ tree view on the left that says <cite>VTK file (heart.vtk)</cite>.  Note
 that you <strong>will not</strong> see anything visualized on the TVTK scene
 yet.</p>
 </li>
-<li><p class="first">To see an outline (a box) of the data, navigate to the
+<li><p>To see an outline (a box) of the data, navigate to the
 <cite>Visualize-&gt;Modules</cite> menu item and select the <cite>Outline</cite> module.
 You will immediately see a white box on the TVTK scene.  You
 should also see two new nodes on the tree view, one called
-<cite>Colors and legends</cite> and one underneath that called <cite>Outline</cite>.</p>
-</li>
-<li><p class="first">You can change properties of the outline displayed by clicking on
+<cite>Colors and legends</cite> and one underneath that called <cite>Outline</cite>.</p></li>
+<li><p>You can change properties of the outline displayed by clicking on
 the <cite>Outline</cite> node on the left.  This will create an object editor
 window on left bottom of the window (the object editor tab) below
 the tree view.  Play with the settings here and look at the
@@ -122,18 +121,16 @@ parlance, the word <cite>Mapper</cite> refers to an object that converts the
 data to graphics primitives.  Properties related to it will be
 grouped under the <cite>Mapper</cite> head.</p>
 </li>
-<li><p class="first">To interact with the TVTK scene window, look at the section on
+<li><p>To interact with the TVTK scene window, look at the section on
 <a class="reference internal" href="application.html#interaction-with-the-scene"><span class="std std-ref">Interaction with the scene</span></a> for more details.  Experiment with
-these options till you are comfortable.</p>
-</li>
-<li><p class="first">Now, with the Outline node selected, create an iso-surface by selecting the
+these options till you are comfortable.</p></li>
+<li><p>Now, with the Outline node selected, create an iso-surface by selecting the
 <cite>Visualize-&gt;Modules-&gt;IsoSurface</cite> menu item.  You will see a new
 <cite>IsoSurface</cite> node on the left and an iso-contour of the scalar
 data on the scene.  The iso-surface is colored as per the
 particular iso-value chosen.  Experiment with the settings of
-this module.</p>
-</li>
-<li><p class="first">To produce meaningful visualizations you need to know what each
+this module.</p></li>
+<li><p>To produce meaningful visualizations you need to know what each
 color represents.  To display this legend on the scene, click on the
 <cite>Colors and legends</cite> node on the tree view and on the object editor
 activate the <cite>Show scalar bar</cite> check-box.  This will show you a legend
@@ -141,18 +138,15 @@ on the TVTK scene.  The legend can be moved around on the scene by
 clicking on it and dragging on it.  It can also be resized by
 clicking and dragging on its edges.  You can change the nature of
 the color-mapping by choosing various options on the object
-editor.</p>
-</li>
-<li><p class="first">Create a simple “grid plane” to obtain an idea of the actual
+editor.</p></li>
+<li><p>Create a simple “grid plane” to obtain an idea of the actual
 points on the grid.  This can be done using the <cite>GridPlane</cite>
 module, and created via the <cite>Visualize-&gt;Modules-&gt;GridPlane</cite> menu
-item.</p>
-</li>
-<li><p class="first">You can delete a particular module by right clicking on it and
+item.</p></li>
+<li><p>You can delete a particular module by right clicking on it and
 choosing delete.  Try this on the <cite>GridPlane</cite> module.  Try the
-other right click menu options as well.</p>
-</li>
-<li><p class="first">Experiment with the <cite>ContourGridPlane</cite> module and also the
+other right click menu options as well.</p></li>
+<li><p>Experiment with the <cite>ContourGridPlane</cite> module and also the
 <cite>ScalarCutPlane</cite> module a little.</p>
 <p>The <cite>ScalarCutPlane</cite> module features a very powerful feature
 called <em>3D widgets</em>.  On the TVTK scene window you will see a cut
@@ -163,10 +157,9 @@ cut plane and move it by dragging it.  Click on the arrow head to
 rotate the plane.  You can also reset its position by using the
 editor window for the scalar cut plane.</p>
 </li>
-<li><p class="first">You can save the visualization to an image produced by clicking
+<li><p>You can save the visualization to an image produced by clicking
 on the little save icon on the TVTK scene or via any of the
-options on the <cite>File-&gt;Save Scene As</cite> menu.</p>
-</li>
+options on the <cite>File-&gt;Save Scene As</cite> menu.</p></li>
 </ol>
 </div></blockquote>
 <p>You should have a visualization that looks something like the one
@@ -179,14 +172,15 @@ the <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><s
 <a class="reference internal" href="advanced_scripting.html#advanced-scripting-with-mayavi"><span class="std std-ref">Advanced Scripting with Mayavi</span></a> for a more in-depth coverage).</p>
 <p>Opening data files and starting up modules can also be done from the
 command line.  For example we could simply have done:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -d /path/to/heart.vtk -m Outline -m IsoSurface </span><span class="se">\</span>
-<span class="s2">&gt; -m GridPlane -m ScalarCutPlane</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mayavi2 -d /path/to/heart.vtk -m Outline -m IsoSurface \
+&gt; -m GridPlane -m ScalarCutPlane
 </pre></div>
 </div>
 <p>More details are available in the <a class="reference internal" href="application.html#command-line-arguments"><span class="std std-ref">Command line arguments</span></a> section.</p>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -209,17 +203,15 @@ command line.  For example we could simply have done:</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -239,14 +231,15 @@ command line.  For example we could simply have done:</p>
         <li class="right" >
           <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Loading scalar data: the <code class="docutils literal notranslate"><span class="pre">heart.vtk</span></code> example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

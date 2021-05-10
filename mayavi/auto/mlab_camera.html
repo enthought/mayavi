@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Camera handling functions &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Camera handling functions &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Camera handling functions</a></li> 
       </ul>
     </div>  
 
@@ -77,20 +77,20 @@
           <div class="body" role="main">
             
   <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
 the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
+<p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<div class="section" id="camera-handling-functions">
+<section id="camera-handling-functions">
 <h1>Camera handling functions<a class="headerlink" href="#camera-handling-functions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="move">
+<section id="move">
 <h2>move<a class="headerlink" href="#move" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.move">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">move</code><span class="sig-paren">(</span><em>forward=None</em>, <em>right=None</em>, <em>up=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.move" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.move">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Translates the camera and focal point together.</p>
 <p>The arguments specify the relative distance to translate the
 camera and focal point, so as to produce the appearance of
@@ -101,21 +101,20 @@ system.</p>
 <p>Note that the arguments specify relative motion, although the
 return value with no arguments is in an absolute coordinate system.</p>
 <p><strong>Keyword arguments</strong>:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Forward:</th><td class="field-body">float, optional. The distance in space to translate the
-camera forward (if positive) or backward (if negative)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Right:</th><td class="field-body">float, optional.  The distance in space to translate the
-camera to the right (if positive) or left (if negative)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Up:</th><td class="field-body">float, optional. The distance in space to translate the
-camera up (if positive) or down (if negative)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Forward</dt>
+<dd class="field-odd"><p>float, optional. The distance in space to translate the
+camera forward (if positive) or backward (if negative)</p>
+</dd>
+<dt class="field-even">Right</dt>
+<dd class="field-even"><p>float, optional.  The distance in space to translate the
+camera to the right (if positive) or left (if negative)</p>
+</dd>
+<dt class="field-odd">Up</dt>
+<dd class="field-odd"><p>float, optional. The distance in space to translate the
+camera up (if positive) or down (if negative)</p>
+</dd>
+</dl>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied (or all are None), returns a
 tuple (camera_position, focal_point_position)</p>
@@ -144,29 +143,29 @@ tuple (camera_position, focal_point_position)</p>
 </pre></div>
 </div>
 <p><strong>See also</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.yaw:</th><td class="field-body">yaw the camera (tilt left-right)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Mlab.pitch:</th><td class="field-body">pitch the camera (tilt up-down)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Mlab.roll:</th><td class="field-body">control the absolute roll angle of the camera</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Mlab.view:</th><td class="field-body">set the camera position relative to the focal point instead
-of in absolute space</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Mlab.yaw</dt>
+<dd class="field-odd"><p>yaw the camera (tilt left-right)</p>
+</dd>
+<dt class="field-even">Mlab.pitch</dt>
+<dd class="field-even"><p>pitch the camera (tilt up-down)</p>
+</dd>
+<dt class="field-odd">Mlab.roll</dt>
+<dd class="field-odd"><p>control the absolute roll angle of the camera</p>
+</dd>
+<dt class="field-even">Mlab.view</dt>
+<dd class="field-even"><p>set the camera position relative to the focal point instead
+of in absolute space</p>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
-<div class="section" id="pitch">
+</section>
+<section id="pitch">
 <h2>pitch<a class="headerlink" href="#pitch" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.pitch">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">pitch</code><span class="sig-paren">(</span><em>degrees</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.pitch" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.pitch">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">pitch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.pitch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotates the camera about the  axis corresponding to the
 “right” direction of the current view. Note that this will
 change the location of the focal point (although not the
@@ -175,48 +174,44 @@ camera location).</p>
 angle is NOT an absolute angle in a fixed coordinate
 system.</p>
 <p><strong>See also</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.yaw:</th><td class="field-body">relative rotation about the “up” direction</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Mlab.roll:</th><td class="field-body">absolute roll angle (i.e. “up” direction)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Mlab.move:</th><td class="field-body">relative  translation of the camera and focal
-point</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Mlab.yaw</dt>
+<dd class="field-odd"><p>relative rotation about the “up” direction</p>
+</dd>
+<dt class="field-even">Mlab.roll</dt>
+<dd class="field-even"><p>absolute roll angle (i.e. “up” direction)</p>
+</dd>
+<dt class="field-odd">Mlab.move</dt>
+<dd class="field-odd"><p>relative  translation of the camera and focal
+point</p>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
-<div class="section" id="roll">
+</section>
+<section id="roll">
 <h2>roll<a class="headerlink" href="#roll" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.roll">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">roll</code><span class="sig-paren">(</span><em>roll=None</em>, <em>figure=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.roll" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.roll">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">roll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.roll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets or returns the absolute roll angle of the camera.</p>
 <p><strong>See also</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.view:</th><td class="field-body">control the position and direction of the camera</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Mlab.view</dt>
+<dd class="field-odd"><p>control the position and direction of the camera</p>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
-<div class="section" id="view">
+</section>
+<section id="view">
 <h2>view<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.view">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">view</code><span class="sig-paren">(</span><em>azimuth=None</em>, <em>elevation=None</em>, <em>distance=None</em>, <em>focalpoint=None</em>, <em>roll=None</em>, <em>reset_roll=True</em>, <em>figure=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.view">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elevation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focalpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets/Gets the view point for the camera:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">view(azimuth=None, elevation=None, distance=None, focalpoint=None,</span>
-<span class="s2">     roll=None, reset_roll=True, figure=None)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">view</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">focalpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+     <span class="n">roll</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_roll</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If called with no arguments this returns the current view of the
@@ -234,41 +229,44 @@ will give you a typical x-y plot with x varying from left to right
 and y from bottom to top.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">azimuth:</th><td class="field-body">float, optional. The azimuthal angle (in degrees, 0-360),
+<div><dl class="field-list simple">
+<dt class="field-odd">azimuth</dt>
+<dd class="field-odd"><p>float, optional. The azimuthal angle (in degrees, 0-360),
 i.e. the angle subtended by the position vector on a sphere
-projected on to the x-y plane with the x-axis.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">elevation:</th><td class="field-body">float, optional. The zenith angle (in degrees, 0-180),
-i.e. the angle subtended by the position vector and the z-axis.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">distance:</th><td class="field-body">float or ‘auto’, optional.
+projected on to the x-y plane with the x-axis.</p>
+</dd>
+<dt class="field-even">elevation</dt>
+<dd class="field-even"><p>float, optional. The zenith angle (in degrees, 0-180),
+i.e. the angle subtended by the position vector and the z-axis.</p>
+</dd>
+<dt class="field-odd">distance</dt>
+<dd class="field-odd"><p>float or ‘auto’, optional.
 A positive floating point number representing the distance from
 the focal point to place the camera. New in Mayavi 3.4.0: if
 ‘auto’ is passed, the distance is computed to have a best fit of
-objects in the frame.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">focalpoint:</th><td class="field-body">array_like or ‘auto’, optional.
+objects in the frame.</p>
+</dd>
+<dt class="field-even">focalpoint</dt>
+<dd class="field-even"><p>array_like or ‘auto’, optional.
 An array of 3 floating point numbers representing the focal point
 of the camera. New in Mayavi 3.4.0: if ‘auto’ is passed, the
 focal point is positioned at the center of all objects in the
-scene.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">roll:</th><td class="field-body">float, optional
-Controls the roll, ie the rotation of the camera around its axis.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_roll:</th><td class="field-body">boolean, optional.
+scene.</p>
+</dd>
+<dt class="field-odd">roll</dt>
+<dd class="field-odd"><p>float, optional
+Controls the roll, ie the rotation of the camera around its axis.</p>
+</dd>
+<dt class="field-even">reset_roll</dt>
+<dd class="field-even"><p>boolean, optional.
 If True, and ‘roll’ is not specified, the roll orientation of the
-camera is reset.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">The Mayavi figure to operate on. If None is passed, the
-current one is used.</td>
-</tr>
-</tbody>
-</table>
+camera is reset.</p>
+</dd>
+<dt class="field-odd">figure</dt>
+<dd class="field-odd"><p>The Mayavi figure to operate on. If None is passed, the
+current one is used.</p>
+</dd>
+</dl>
 </div></blockquote>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied it returns a tuple of 4 values
@@ -277,9 +275,9 @@ current view.  Note that these can be used later on to set the view.</p>
 <p>If arguments are supplied it returns <cite>None</cite>.</p>
 <p><strong>Examples</strong>:</p>
 <p>Get the current view:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"> &gt;&gt;&gt; v = view()</span>
-<span class="s2"> &gt;&gt;&gt; v</span>
-<span class="s2">(45.0, 45.0, 25.02794981, array([ 0.01118028,  0.        ,  4.00558996]))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">&gt;&gt;&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">view</span><span class="p">()</span>
+ <span class="o">&gt;&gt;&gt;</span> <span class="n">v</span>
+<span class="p">(</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">25.02794981</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.01118028</span><span class="p">,</span>  <span class="mf">0.</span>        <span class="p">,</span>  <span class="mf">4.00558996</span><span class="p">]))</span>
 </pre></div>
 </div>
 <p>Set the view in different ways:</p>
@@ -294,23 +292,20 @@ current view.  Note that these can be used later on to set the view.</p>
 </pre></div>
 </div>
 <p><strong>See also</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.roll:</th><td class="field-body">control the roll angle of the camera, ie the direction
-pointing up</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Mlab.roll</dt>
+<dd class="field-odd"><p>control the roll angle of the camera, ie the direction
+pointing up</p>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
-<div class="section" id="yaw">
+</section>
+<section id="yaw">
 <h2>yaw<a class="headerlink" href="#yaw" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.yaw">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">yaw</code><span class="sig-paren">(</span><em>degrees</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.yaw" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.yaw">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">yaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.yaw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotates the camera about the  axis corresponding to the
 “up” direction of the current view. Note that this will
 change the location of the focal point (although not the
@@ -319,25 +314,25 @@ camera location).</p>
 angle is NOT an absolute angle in a fixed coordinate
 system.</p>
 <p><strong>See also</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.pitch:</th><td class="field-body">relative rotation about the “right” direction</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Mlab.roll:</th><td class="field-body">absolute roll angle (i.e. “up” direction)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Mlab.move:</th><td class="field-body">relative translation of the camera and focal
-point</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Mlab.pitch</dt>
+<dd class="field-odd"><p>relative rotation about the “right” direction</p>
+</dd>
+<dt class="field-even">Mlab.roll</dt>
+<dd class="field-even"><p>absolute roll angle (i.e. “up” direction)</p>
+</dd>
+<dt class="field-odd">Mlab.move</dt>
+<dd class="field-odd"><p>relative translation of the camera and focal
+point</p>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -372,17 +367,15 @@ point</td>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -402,14 +395,15 @@ point</td>
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Camera handling functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

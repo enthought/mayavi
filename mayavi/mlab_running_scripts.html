@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Running mlab scripts &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Running mlab scripts &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -58,7 +57,8 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Running mlab scripts</a></li> 
       </ul>
     </div>  
 
@@ -67,7 +67,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="running-mlab-scripts">
+  <section id="running-mlab-scripts">
 <span id="id1"></span><h1>Running mlab scripts<a class="headerlink" href="#running-mlab-scripts" title="Permalink to this headline">¶</a></h1>
 <p>Mlab, like the rest of Mayavi, is an interactive application. If you are
 not already in an interactive environment (see next paragraph), to
@@ -75,11 +75,11 @@ interact with the figures or the rest of the drawing elements, you need
 to use the <code class="xref py py-func docutils literal notranslate"><span class="pre">show()</span></code> function. For instance, if you are writing a
 script, you need to call <code class="xref py py-func docutils literal notranslate"><span class="pre">show()</span></code> each time you want to display one
 or more figures and allow the user to interact with them.</p>
-<div class="section" id="using-mlab-interactively">
+<section id="using-mlab-interactively">
 <h2>Using mlab interactively<a class="headerlink" href="#using-mlab-interactively" title="Permalink to this headline">¶</a></h2>
 <p>Using <a href="#id2"><span class="problematic" id="id3">IPython_</span></a>, mlab instructions can be run interactively, or in
 scripts using <a href="#id4"><span class="problematic" id="id5">IPython_</span></a>’s <code class="docutils literal notranslate"><span class="pre">%run</span></code> command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">In [1]: </span><span class="si">%r</span><span class="s2">un my_script</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="o">%</span><span class="n">run</span> <span class="n">my_script</span>
 </pre></div>
 </div>
 <p>You need to start <a href="#id6"><span class="problematic" id="id7">IPython_</span></a> with the <cite>–gui=qt</cite> option. In this
@@ -90,20 +90,20 @@ immediate effect on the figure, alleviating the need to use the
 application, or in any interactive Python shell of wxPython-based
 application (such as other Envisage-based applications, or SPE, Stani’s
 Python Editor).</p>
-</div>
-<div class="section" id="using-together-with-matplotlib">
+</section>
+<section id="using-together-with-matplotlib">
 <h2>Using together with Matplotlib<a class="headerlink" href="#using-together-with-matplotlib" title="Permalink to this headline">¶</a></h2>
 <p>If you want to use Matplotlib’s interactive plotting with Mayavi’s
 mlab in IPython you should:</p>
 <blockquote>
 <div><ul>
-<li><p class="first">start IPython with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ ipython --matplotlib=qt</span>
+<li><p>start IPython with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ipython --matplotlib=qt
 </pre></div>
 </div>
 </li>
-<li><p class="first">alternatively, start IPython with the <cite>–gui=qt</cite> option:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ ipython --gui=qt</span>
+<li><p>alternatively, start IPython with the <cite>–gui=qt</cite> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ipython --gui=qt
 </pre></div>
 </div>
 <p>and <strong>before</strong> importing any matplotlib modules, enter the
@@ -114,9 +114,9 @@ following Python commands:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">one could also use the <code class="docutils literal notranslate"><span class="pre">--pylab</span></code> option to IPython as
+<li><p>one could also use the <code class="docutils literal notranslate"><span class="pre">--pylab</span></code> option to IPython as
 follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ ipython --pylab=qt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ipython --pylab=qt
 </pre></div>
 </div>
 </li>
@@ -125,13 +125,13 @@ follows:</p>
 <p>If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 <cite>~/.matplotlib/matplotlibrc</cite> to add the following line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">backend     : Qt4Agg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">backend</span>     <span class="p">:</span> <span class="n">Qt4Agg</span>
 </pre></div>
 </div>
 <p>If for some reason, the Qt backend does not work, you can use the wx
 backend.  To do this you may do:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ ETS_TOOLKIT=wx</span>
-<span class="s2">$ ipython --gui=wx</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ETS_TOOLKIT=wx
+$ ipython --gui=wx
 </pre></div>
 </div>
 <p>Note that as far as Mayavi is concerned, it chooses the appropriate
@@ -141,19 +141,19 @@ until one succeeds.  With recent releases of <a class="reference external" href=
 Qt.  The possible options for <code class="docutils literal notranslate"><span class="pre">ETS_TOOLKIT</span></code> are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><cite>qt4</cite>: to use the Qt backend (either PySide or PyQt4),</li>
-<li><cite>wx</cite>: to use wxPython,</li>
-<li><cite>null</cite>: to use no UI toolkit.</li>
+<li><p><cite>qt4</cite>: to use the Qt backend (either PySide or PyQt4),</p></li>
+<li><p><cite>wx</cite>: to use wxPython,</p></li>
+<li><p><cite>null</cite>: to use no UI toolkit.</p></li>
 </ul>
 </div></blockquote>
 <div class="topic">
-<p class="topic-title first">Capturing mlab plots to integrate in pylab</p>
+<p class="topic-title">Capturing mlab plots to integrate in pylab</p>
 <p>Starting from Mayavi version 3.4.0, the mlab <code class="xref py py-func docutils literal notranslate"><span class="pre">screenshot()</span></code> can
 be used to take a screenshot of the current figure, to integrate in a
 matplotlib plot.</p>
 </div>
-</div>
-<div class="section" id="in-scripts">
+</section>
+<section id="in-scripts">
 <h2>In scripts<a class="headerlink" href="#in-scripts" title="Permalink to this headline">¶</a></h2>
 <p>Mlab commands can be written to a file, to form a script. This script
 can be loaded in the Mayavi application using the <em>File-&gt;Open file</em> menu
@@ -166,22 +166,23 @@ for instance with <cite>python myscript.py</cite>, you need to call the
 and have the user interact with the figure.</p>
 <p>You can also use <code class="xref py py-func docutils literal notranslate"><span class="pre">show()</span></code> to decorate a function, and have it run in
 the event-loop, which gives you more flexibility:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from mayavi import mlab</span>
-<span class="s2">from numpy import random</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
 
-<span class="s2">@mlab.show</span>
-<span class="s2">def image():</span>
-<span class="s2">   mlab.imshow(random.random((10, 10)))</span>
+<span class="nd">@mlab</span><span class="o">.</span><span class="n">show</span>
+<span class="k">def</span> <span class="nf">image</span><span class="p">():</span>
+   <span class="n">mlab</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>With this decorator, each time the <cite>image</cite> function is called, <cite>mlab</cite>
 makes sure an interactive environment is running before executing the
 <cite>image</cite> function. If an interactive environment is not running, <cite>mlab</cite>
 will start one and the image function will not return until it is closed.</p>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -208,17 +209,15 @@ will start one and the image function will not return until it is closed.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -232,13 +231,14 @@ will start one and the image function will not return until it is closed.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Running mlab scripts</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

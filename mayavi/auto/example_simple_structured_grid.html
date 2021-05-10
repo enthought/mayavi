@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Simple structured grid example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Simple structured grid example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_julia_set_decimation.html" title="Julia set decimation example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Simple structured grid example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="simple-structured-grid-example">
+  <section id="simple-structured-grid-example">
 <span id="example-simple-structured-grid"></span><h1>Simple structured grid example<a class="headerlink" href="#simple-structured-grid-example" title="Permalink to this headline">¶</a></h1>
 <p>An example creating a structured grid data set from numpy arrays using TVTK
 and visualizing it using mlab.</p>
@@ -88,72 +88,73 @@ functions, as it gives us more control.</p>
 <p>To visualize the resulting dataset, we apply several modules, using the
 mlab.pipeline interface (see <a class="reference internal" href="../mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">Assembling pipelines with mlab</span></a>)</p>
 <img alt="../_images/example_simple_structured_grid.jpg" class="align-center" src="../_images/example_simple_structured_grid.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/1e43bbe8b13930514c8c7cf77e3b67af/simple_structured_grid.py"><code class="xref download docutils literal notranslate"><span class="pre">simple_structured_grid.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
-<span class="s2"># Copyright (c) 2008, Prabhu Ramachandran.</span>
-<span class="s2"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/b28fa2fc6a21bd7f15bff67820098a52/simple_structured_grid.py"><code class="xref download docutils literal notranslate"><span class="pre">simple_structured_grid.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
+<span class="c1"># Copyright (c) 2008, Prabhu Ramachandran.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2">from numpy import mgrid, empty, sin, pi</span>
-<span class="s2">from tvtk.api import tvtk</span>
-<span class="s2">from mayavi import mlab</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">mgrid</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 
-<span class="s2"># Generate some points.</span>
-<span class="s2">x, y, z = mgrid[1:6:11j, 0:4:13j, 0:3:6j]</span>
-<span class="s2">base = x[..., 0] + y[..., 0]</span>
-<span class="s2"># Some interesting z values.</span>
-<span class="s2">for i in range(z.shape[2]):</span>
-<span class="s2">    z[..., i] = base * 0.25 * i</span>
+<span class="c1"># Generate some points.</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">11</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">13</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="n">j</span><span class="p">]</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="c1"># Some interesting z values.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+    <span class="n">z</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">i</span>
 
-<span class="s2"># The actual points.</span>
-<span class="s2">pts = empty(z.shape + (3,), dtype=float)</span>
-<span class="s2">pts[..., 0] = x</span>
-<span class="s2">pts[..., 1] = y</span>
-<span class="s2">pts[..., 2] = z</span>
+<span class="c1"># The actual points.</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">empty</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
 
-<span class="s2"># Simple scalars.</span>
-<span class="s2">scalars = x * x + y * y + z * z</span>
-<span class="s2"># Some vectors</span>
-<span class="s2">vectors = empty(z.shape + (3,), dtype=float)</span>
-<span class="s2">vectors[..., 0] = (4 - y * 2)</span>
-<span class="s2">vectors[..., 1] = (x * 3 - 12)</span>
-<span class="s2">vectors[..., 2] = sin(z * pi)</span>
+<span class="c1"># Simple scalars.</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span>
+<span class="c1"># Some vectors</span>
+<span class="n">vectors</span> <span class="o">=</span> <span class="n">empty</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
 
-<span class="s2"># We reorder the points, scalars and vectors so this is as per VTK&#39;s</span>
-<span class="s2"># requirement of x first, y next and z last.</span>
-<span class="s2">pts = pts.transpose(2, 1, 0, 3).copy()</span>
-<span class="s2">pts.shape = pts.size / 3, 3</span>
-<span class="s2">scalars = scalars.T.copy()</span>
-<span class="s2">vectors = vectors.transpose(2, 1, 0, 3).copy()</span>
-<span class="s2">vectors.shape = vectors.size / 3, 3</span>
+<span class="c1"># We reorder the points, scalars and vectors so this is as per VTK&#39;s</span>
+<span class="c1"># requirement of x first, y next and z last.</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">pts</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">vectors</span> <span class="o">=</span> <span class="n">vectors</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">vectors</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">vectors</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
 
-<span class="s2"># Create the dataset.</span>
-<span class="s2">sg = tvtk.StructuredGrid(dimensions=x.shape, points=pts)</span>
-<span class="s2">sg.point_data.scalars = scalars.ravel()</span>
-<span class="s2">sg.point_data.scalars.name = &#39;temperature&#39;</span>
-<span class="s2">sg.point_data.vectors = vectors</span>
-<span class="s2">sg.point_data.vectors.name = &#39;velocity&#39;</span>
+<span class="c1"># Create the dataset.</span>
+<span class="n">sg</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredGrid</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="n">pts</span><span class="p">)</span>
+<span class="n">sg</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">sg</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;temperature&#39;</span>
+<span class="n">sg</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">vectors</span> <span class="o">=</span> <span class="n">vectors</span>
+<span class="n">sg</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">vectors</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;velocity&#39;</span>
 
-<span class="s2"># Thats it!</span>
+<span class="c1"># Thats it!</span>
 
-<span class="s2"># Now visualize the data.</span>
-<span class="s2">d = mlab.pipeline.add_dataset(sg)</span>
-<span class="s2">gx = mlab.pipeline.grid_plane(d)</span>
-<span class="s2">gy = mlab.pipeline.grid_plane(d)</span>
-<span class="s2">gy.grid_plane.axis = &#39;y&#39;</span>
-<span class="s2">gz = mlab.pipeline.grid_plane(d)</span>
-<span class="s2">gz.grid_plane.axis = &#39;z&#39;</span>
-<span class="s2">iso = mlab.pipeline.iso_surface(d)</span>
-<span class="s2">iso.contour.maximum_contour = 75.0</span>
-<span class="s2">vec = mlab.pipeline.vectors(d)</span>
-<span class="s2">vec.glyph.mask_input_points = True</span>
-<span class="s2">vec.glyph.glyph.scale_factor = 1.5</span>
+<span class="c1"># Now visualize the data.</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">add_dataset</span><span class="p">(</span><span class="n">sg</span><span class="p">)</span>
+<span class="n">gx</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">grid_plane</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">gy</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">grid_plane</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">gy</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+<span class="n">gz</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">grid_plane</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">gz</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span>
+<span class="n">iso</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">iso</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">maximum_contour</span> <span class="o">=</span> <span class="mf">75.0</span>
+<span class="n">vec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">vec</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">mask_input_points</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">vec</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mf">1.5</span>
 
-<span class="s2">mlab.show()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -176,17 +177,15 @@ mlab.pipeline interface (see <a class="reference internal" href="../mlab_pipelin
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -206,14 +205,15 @@ mlab.pipeline interface (see <a class="reference internal" href="../mlab_pipelin
         <li class="right" >
           <a href="example_julia_set_decimation.html" title="Julia set decimation example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Simple structured grid example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

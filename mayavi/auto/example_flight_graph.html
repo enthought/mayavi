@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Flight graph example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Flight graph example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_protein.html" title="Protein example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Flight graph example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="flight-graph-example">
+  <section id="flight-graph-example">
 <span id="example-flight-graph"></span><h1>Flight graph example<a class="headerlink" href="#flight-graph-example" title="Permalink to this headline">¶</a></h1>
 <p>An example showing a graph display between cities positioned on the
 Earth surface.</p>
@@ -96,168 +96,169 @@ Earth, but as straight lines going through the Earth. As a result
 must use transparency to show the connection.</p>
 <p>Data source: <a class="reference external" href="http://www.777fleetpage.com/777fleetpage3.htm">http://www.777fleetpage.com/777fleetpage3.htm</a></p>
 <img alt="../_images/example_flight_graph.jpg" class="align-center" src="../_images/example_flight_graph.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/48ce8983fec1f7303aca6cd42f06fa03/flight_graph.py"><code class="xref download docutils literal notranslate"><span class="pre">flight_graph.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/ea698a98f2d84382ed7e7596adaff74c/flight_graph.py"><code class="xref download docutils literal notranslate"><span class="pre">flight_graph.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2">###############################################################################</span>
-<span class="s2"># The data. This could be loaded from a file, or scraped from a website</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># The data. This could be loaded from a file, or scraped from a website</span>
 
-<span class="s2">routes_data = &quot;&quot;&quot;</span>
-<span class="n">Bombay</span><span class="p">,</span><span class="n">Atlanta</span>
-<span class="n">Johannesburg</span><span class="p">,</span><span class="n">Atlanta</span>
-<span class="n">Dubai</span><span class="p">,</span><span class="n">Los</span> <span class="n">Angeles</span>
-<span class="n">Dubai</span><span class="p">,</span><span class="n">Houston</span>
-<span class="n">Dubai</span><span class="p">,</span><span class="n">San</span> <span class="n">Francisco</span>
-<span class="n">New</span> <span class="n">York</span><span class="p">,</span><span class="n">Hong</span> <span class="n">Kong</span>
-<span class="n">Newark</span><span class="p">,</span><span class="n">Hong</span> <span class="n">Kong</span>
-<span class="n">Doha</span><span class="p">,</span><span class="n">Houston</span>
-<span class="n">Toronto</span><span class="p">,</span><span class="n">Hong</span> <span class="n">Kong</span>
-<span class="n">Bombay</span><span class="p">,</span><span class="n">Newark</span>
-<span class="n">Bombay</span><span class="p">,</span><span class="n">New</span> <span class="n">York</span>
-<span class="n">Vancouver</span><span class="p">,</span><span class="n">Hong</span> <span class="n">Kong</span>
-<span class="n">Dubai</span><span class="p">,</span><span class="n">Sao</span> <span class="n">Paulo</span>
-<span class="n">Los</span> <span class="n">Angeles</span><span class="p">,</span><span class="n">Sydney</span>
-<span class="n">Chicago</span><span class="p">,</span><span class="n">Delhi</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">cities_data = &quot;&quot;&quot;</span>
-<span class="n">Toronto</span><span class="p">,</span><span class="o">-</span><span class="mf">79.38</span><span class="p">,</span><span class="mf">43.65</span>
-<span class="n">Chicago</span><span class="p">,</span><span class="o">-</span><span class="mf">87.68</span><span class="p">,</span><span class="mf">41.84</span>
-<span class="n">Houston</span><span class="p">,</span><span class="o">-</span><span class="mf">95.39</span><span class="p">,</span><span class="mf">29.77</span>
-<span class="n">New</span> <span class="n">York</span><span class="p">,</span><span class="o">-</span><span class="mf">73.94</span><span class="p">,</span><span class="mf">40.67</span>
-<span class="n">Vancouver</span><span class="p">,</span><span class="o">-</span><span class="mf">123.13</span><span class="p">,</span><span class="mf">49.28</span>
-<span class="n">Los</span> <span class="n">Angeles</span><span class="p">,</span><span class="o">-</span><span class="mf">118.41</span><span class="p">,</span><span class="mf">34.11</span>
-<span class="n">San</span> <span class="n">Francisco</span><span class="p">,</span><span class="o">-</span><span class="mf">122.45</span><span class="p">,</span><span class="mf">37.77</span>
-<span class="n">Atlanta</span><span class="p">,</span><span class="o">-</span><span class="mf">84.42</span><span class="p">,</span><span class="mf">33.76</span>
-<span class="n">Dubai</span><span class="p">,</span><span class="mf">55.33</span><span class="p">,</span><span class="mf">25.27</span>
-<span class="n">Sydney</span><span class="p">,</span><span class="mf">151.21</span><span class="p">,</span><span class="o">-</span><span class="mf">33.87</span>
-<span class="n">Hong</span> <span class="n">Kong</span><span class="p">,</span><span class="mf">114.19</span><span class="p">,</span><span class="mf">22.38</span>
-<span class="n">Bombay</span><span class="p">,</span><span class="mf">72.82</span><span class="p">,</span><span class="mf">18.96</span>
-<span class="n">Delhi</span><span class="p">,</span><span class="mf">77.21</span><span class="p">,</span><span class="mf">28.67</span>
-<span class="n">Newark</span><span class="p">,</span><span class="o">-</span><span class="mf">82.43</span><span class="p">,</span><span class="mf">40.04</span>
-<span class="n">Johannesburg</span><span class="p">,</span><span class="mf">28.04</span><span class="p">,</span><span class="o">-</span><span class="mf">26.19</span>
-<span class="n">Doha</span><span class="p">,</span><span class="mf">51.53</span><span class="p">,</span><span class="mf">25.29</span>
-<span class="n">Sao</span> <span class="n">Paulo</span><span class="p">,</span><span class="o">-</span><span class="mf">46.63</span><span class="p">,</span><span class="o">-</span><span class="mf">23.53</span>
+<span class="n">routes_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Bombay,Atlanta</span>
+<span class="s2">Johannesburg,Atlanta</span>
+<span class="s2">Dubai,Los Angeles</span>
+<span class="s2">Dubai,Houston</span>
+<span class="s2">Dubai,San Francisco</span>
+<span class="s2">New York,Hong Kong</span>
+<span class="s2">Newark,Hong Kong</span>
+<span class="s2">Doha,Houston</span>
+<span class="s2">Toronto,Hong Kong</span>
+<span class="s2">Bombay,Newark</span>
+<span class="s2">Bombay,New York</span>
+<span class="s2">Vancouver,Hong Kong</span>
+<span class="s2">Dubai,Sao Paulo</span>
+<span class="s2">Los Angeles,Sydney</span>
+<span class="s2">Chicago,Delhi</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="s2">###############################################################################</span>
-<span class="s2"># Load the data, and put it in data structures we can use</span>
-<span class="s2">import csv</span>
-<span class="s2">routes_table = [i for i in csv.reader(routes_data.split(&#39;</span><span class="se">\n</span><span class="s2">&#39;)[1:-1])]</span>
+<span class="n">cities_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Toronto,-79.38,43.65</span>
+<span class="s2">Chicago,-87.68,41.84</span>
+<span class="s2">Houston,-95.39,29.77</span>
+<span class="s2">New York,-73.94,40.67</span>
+<span class="s2">Vancouver,-123.13,49.28</span>
+<span class="s2">Los Angeles,-118.41,34.11</span>
+<span class="s2">San Francisco,-122.45,37.77</span>
+<span class="s2">Atlanta,-84.42,33.76</span>
+<span class="s2">Dubai,55.33,25.27</span>
+<span class="s2">Sydney,151.21,-33.87</span>
+<span class="s2">Hong Kong,114.19,22.38</span>
+<span class="s2">Bombay,72.82,18.96</span>
+<span class="s2">Delhi,77.21,28.67</span>
+<span class="s2">Newark,-82.43,40.04</span>
+<span class="s2">Johannesburg,28.04,-26.19</span>
+<span class="s2">Doha,51.53,25.29</span>
+<span class="s2">Sao Paulo,-46.63,-23.53</span>
+<span class="s2">&quot;&quot;&quot;</span>
 
-<span class="s2"># Build a dictionnary returning GPS coordinates for each city</span>
-<span class="s2">cities_coord = dict()</span>
-<span class="s2">for line in list(csv.reader(cities_data.split(&#39;</span><span class="se">\n</span><span class="s2">&#39;)))[1:-1]:</span>
-<span class="s2">    name, long_, lat = line</span>
-<span class="s2">    cities_coord[name] = (float(long_), float(lat))</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># Load the data, and put it in data structures we can use</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="n">routes_table</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">routes_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
 
-<span class="s2"># Store all the coordinates of connected cities in a list also keep</span>
-<span class="s2"># track of which city corresponds to a given index in the list. The</span>
-<span class="s2"># connectivity information is specified as connecting the i-th point</span>
-<span class="s2"># with the j-th.</span>
-<span class="s2">cities = dict()</span>
-<span class="s2">coords = list()</span>
-<span class="s2">connections = list()</span>
-<span class="s2">for city1, city2 in routes_table[1:-1]:</span>
-<span class="s2">    if not city1 in cities:</span>
-<span class="s2">        cities[city1] = len(coords)</span>
-<span class="s2">        coords.append(cities_coord[city1])</span>
-<span class="s2">    if not city2 in cities:</span>
-<span class="s2">        cities[city2] = len(coords)</span>
-<span class="s2">        coords.append(cities_coord[city2])</span>
-<span class="s2">    connections.append((cities[city1], cities[city2]))</span>
+<span class="c1"># Build a dictionnary returning GPS coordinates for each city</span>
+<span class="n">cities_coord</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">cities_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">name</span><span class="p">,</span> <span class="n">long_</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">line</span>
+    <span class="n">cities_coord</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">long_</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">))</span>
+
+<span class="c1"># Store all the coordinates of connected cities in a list also keep</span>
+<span class="c1"># track of which city corresponds to a given index in the list. The</span>
+<span class="c1"># connectivity information is specified as connecting the i-th point</span>
+<span class="c1"># with the j-th.</span>
+<span class="n">cities</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">connections</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">city1</span><span class="p">,</span> <span class="n">city2</span> <span class="ow">in</span> <span class="n">routes_table</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">city1</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
+        <span class="n">cities</span><span class="p">[</span><span class="n">city1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cities_coord</span><span class="p">[</span><span class="n">city1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">city2</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
+        <span class="n">cities</span><span class="p">[</span><span class="n">city2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cities_coord</span><span class="p">[</span><span class="n">city2</span><span class="p">])</span>
+    <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cities</span><span class="p">[</span><span class="n">city1</span><span class="p">],</span> <span class="n">cities</span><span class="p">[</span><span class="n">city2</span><span class="p">]))</span>
 
 
-<span class="s2">###############################################################################</span>
-<span class="s2">from mayavi import mlab</span>
-<span class="s2">mlab.figure(1, bgcolor=(0.48, 0.48, 0.48), fgcolor=(0, 0, 0),</span>
-<span class="s2">               size=(400, 400))</span>
-<span class="s2">mlab.clf()</span>
+<span class="c1">###############################################################################</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.48</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+               <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 
-<span class="s2">###############################################################################</span>
-<span class="s2"># Display points at city positions</span>
-<span class="s2">import numpy as np</span>
-<span class="s2">coords = np.array(coords)</span>
-<span class="s2"># First we have to convert latitude/longitude information to 3D</span>
-<span class="s2"># positioning.</span>
-<span class="s2">lat, long = coords.T * np.pi / 180</span>
-<span class="s2">x = np.cos(long) * np.cos(lat)</span>
-<span class="s2">y = np.cos(long) * np.sin(lat)</span>
-<span class="s2">z = np.sin(long)</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># Display points at city positions</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+<span class="c1"># First we have to convert latitude/longitude information to 3D</span>
+<span class="c1"># positioning.</span>
+<span class="n">lat</span><span class="p">,</span> <span class="n">long</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">long</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">long</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">long</span><span class="p">)</span>
 
-<span class="s2">points = mlab.points3d(x, y, z,</span>
-<span class="s2">                     scale_mode=&#39;none&#39;,</span>
-<span class="s2">                     scale_factor=0.03,</span>
-<span class="s2">                     color=(0, 0, 1))</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
+                     <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                     <span class="n">scale_factor</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
-<span class="s2">###############################################################################</span>
-<span class="s2"># Display connections between cities</span>
-<span class="s2">connections = np.array(connections)</span>
-<span class="s2"># We add lines between the points that we have previously created by</span>
-<span class="s2"># directly modifying the VTK dataset.</span>
-<span class="s2">points.mlab_source.dataset.lines = connections</span>
-<span class="s2">points.mlab_source.reset()</span>
-<span class="s2"># To represent the lines, we use the surface module. Using a wireframe</span>
-<span class="s2"># representation allows to control the line-width.</span>
-<span class="s2">mlab.pipeline.surface(points, color=(1, 1, 1),</span>
-<span class="s2">                              representation=&#39;wireframe&#39;,</span>
-<span class="s2">                              line_width=4,</span>
-<span class="s2">                              name=&#39;Connections&#39;)</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># Display connections between cities</span>
+<span class="n">connections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+<span class="c1"># We add lines between the points that we have previously created by</span>
+<span class="c1"># directly modifying the VTK dataset.</span>
+<span class="n">points</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">connections</span>
+<span class="n">points</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="c1"># To represent the lines, we use the surface module. Using a wireframe</span>
+<span class="c1"># representation allows to control the line-width.</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                              <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;wireframe&#39;</span><span class="p">,</span>
+                              <span class="n">line_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                              <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Connections&#39;</span><span class="p">)</span>
 
-<span class="s2">###############################################################################</span>
-<span class="s2"># Display city names</span>
-<span class="s2">for city, index in cities.items():</span>
-<span class="s2">    label = mlab.text(x[index], y[index], city, z=z[index],</span>
-<span class="s2">                      width=0.016 * len(city), name=city)</span>
-<span class="s2">    label.property.shadow = True</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># Display city names</span>
+<span class="k">for</span> <span class="n">city</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">cities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">city</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                      <span class="n">width</span><span class="o">=</span><span class="mf">0.016</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">city</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">city</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">shadow</span> <span class="o">=</span> <span class="kc">True</span>
 
-<span class="s2">###############################################################################</span>
-<span class="s2"># Display continents outline, using the VTK Builtin surface &#39;Earth&#39;</span>
-<span class="s2">from mayavi.sources.builtin_surface import BuiltinSurface</span>
-<span class="s2">continents_src = BuiltinSurface(source=&#39;earth&#39;, name=&#39;Continents&#39;)</span>
-<span class="s2"># The on_ratio of the Earth source controls the level of detail of the</span>
-<span class="s2"># continents outline.</span>
-<span class="s2">continents_src.data_source.on_ratio = 2</span>
-<span class="s2">continents = mlab.pipeline.surface(continents_src, color=(0, 0, 0))</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># Display continents outline, using the VTK Builtin surface &#39;Earth&#39;</span>
+<span class="kn">from</span> <span class="nn">mayavi.sources.builtin_surface</span> <span class="kn">import</span> <span class="n">BuiltinSurface</span>
+<span class="n">continents_src</span> <span class="o">=</span> <span class="n">BuiltinSurface</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;earth&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Continents&#39;</span><span class="p">)</span>
+<span class="c1"># The on_ratio of the Earth source controls the level of detail of the</span>
+<span class="c1"># continents outline.</span>
+<span class="n">continents_src</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">on_ratio</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">continents</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">continents_src</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="s2">###############################################################################</span>
-<span class="s2"># Display a semi-transparent sphere, for the surface of the Earth</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># Display a semi-transparent sphere, for the surface of the Earth</span>
 
-<span class="s2"># We use a sphere Glyph, through the points3d mlab function, rather than</span>
-<span class="s2"># building the mesh ourselves, because it gives a better transparent</span>
-<span class="s2"># rendering.</span>
-<span class="s2">sphere = mlab.points3d(0, 0, 0, scale_mode=&#39;none&#39;,</span>
-<span class="s2">                                scale_factor=2,</span>
-<span class="s2">                                color=(0.67, 0.77, 0.93),</span>
-<span class="s2">                                resolution=50,</span>
-<span class="s2">                                opacity=0.7,</span>
-<span class="s2">                                name=&#39;Earth&#39;)</span>
+<span class="c1"># We use a sphere Glyph, through the points3d mlab function, rather than</span>
+<span class="c1"># building the mesh ourselves, because it gives a better transparent</span>
+<span class="c1"># rendering.</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                                <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.67</span><span class="p">,</span> <span class="mf">0.77</span><span class="p">,</span> <span class="mf">0.93</span><span class="p">),</span>
+                                <span class="n">resolution</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Earth&#39;</span><span class="p">)</span>
 
-<span class="s2"># These parameters, as well as the color, where tweaked through the GUI,</span>
-<span class="s2"># with the record mode to produce lines of code usable in a script.</span>
-<span class="s2">sphere.actor.property.specular = 0.45</span>
-<span class="s2">sphere.actor.property.specular_power = 5</span>
-<span class="s2"># Backface culling is necessary for more a beautiful transparent</span>
-<span class="s2"># rendering.</span>
-<span class="s2">sphere.actor.property.backface_culling = True</span>
+<span class="c1"># These parameters, as well as the color, where tweaked through the GUI,</span>
+<span class="c1"># with the record mode to produce lines of code usable in a script.</span>
+<span class="n">sphere</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">specular</span> <span class="o">=</span> <span class="mf">0.45</span>
+<span class="n">sphere</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">specular_power</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c1"># Backface culling is necessary for more a beautiful transparent</span>
+<span class="c1"># rendering.</span>
+<span class="n">sphere</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">backface_culling</span> <span class="o">=</span> <span class="kc">True</span>
 
-<span class="s2">###############################################################################</span>
-<span class="s2"># Plot the equator and the tropiques</span>
-<span class="s2">theta = np.linspace(0, 2 * np.pi, 100)</span>
-<span class="s2">for angle in (- np.pi / 6, 0, np.pi / 6):</span>
-<span class="s2">    x = np.cos(theta) * np.cos(angle)</span>
-<span class="s2">    y = np.sin(theta) * np.cos(angle)</span>
-<span class="s2">    z = np.ones_like(theta) * np.sin(angle)</span>
+<span class="c1">###############################################################################</span>
+<span class="c1"># Plot the equator and the tropiques</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">6</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
 
-<span class="s2">    mlab.plot3d(x, y, z, color=(1, 1, 1),</span>
-<span class="s2">                        opacity=0.2, tube_radius=None)</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">tube_radius</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
-<span class="s2">mlab.view(63.4, 73.8, 4, [-0.05, 0, 0])</span>
-<span class="s2">mlab.show()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mf">63.4</span><span class="p">,</span> <span class="mf">73.8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -280,17 +281,15 @@ must use transparency to show the connection.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -310,14 +309,15 @@ must use transparency to show the connection.</p>
         <li class="right" >
           <a href="example_protein.html" title="Protein example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Flight graph example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

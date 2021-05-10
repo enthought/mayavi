@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Chemistry example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Chemistry example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_tvtk_in_mayavi.html" title="Tvtk in mayavi example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chemistry example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="chemistry-example">
+  <section id="chemistry-example">
 <span id="example-chemistry"></span><h1>Chemistry example<a class="headerlink" href="#chemistry-example" title="Permalink to this headline">¶</a></h1>
 <p>In this example, we display the H2O molecule, and use volume rendering to
 display the electron localization function.</p>
@@ -88,81 +88,82 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
 <cite>vmin</cite> threshold should placed high-enough for features to stand out.</p>
 <p>The original is an electron localization function from Axel Kohlmeyer.</p>
 <img alt="../_images/example_chemistry.jpg" class="align-center" src="../_images/example_chemistry.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/730a48426680db8f593e148840f15e35/chemistry.py"><code class="xref download docutils literal notranslate"><span class="pre">chemistry.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="s2"># Copyright (c) 2008-2020, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/4ff7cec49c24f567998bb58391f1a865/chemistry.py"><code class="xref download docutils literal notranslate"><span class="pre">chemistry.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2008-2020, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2"># Retrieve the electron localization data for H2O #############################</span>
-<span class="s2">import os</span>
-<span class="s2">if not os.path.exists(&#39;h2o-elf.cube&#39;):</span>
-<span class="s2">    # Download the data</span>
-<span class="s2">    try:</span>
-<span class="s2">        from urllib import urlopen</span>
-<span class="s2">    except ImportError:</span>
-<span class="s2">        from urllib.request import urlopen</span>
-<span class="s2">    print(&#39;Downloading data, please wait&#39;)</span>
-<span class="s2">    opener = urlopen(</span>
-<span class="s2">        &#39;http://code.enthought.com/projects/mayavi/data/h2o-elf.cube&#39;</span>
-<span class="s2">        )</span>
-<span class="s2">    open(&#39;h2o-elf.cube&#39;, &#39;wb&#39;).write(opener.read())</span>
+<span class="c1"># Retrieve the electron localization data for H2O #############################</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;h2o-elf.cube&#39;</span><span class="p">):</span>
+    <span class="c1"># Download the data</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading data, please wait&#39;</span><span class="p">)</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
+        <span class="s1">&#39;http://code.enthought.com/projects/mayavi/data/h2o-elf.cube&#39;</span>
+        <span class="p">)</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;h2o-elf.cube&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
 
-<span class="s2"># Plot the atoms and the bonds ################################################</span>
-<span class="s2">import numpy as np</span>
-<span class="s2">from mayavi import mlab</span>
-<span class="s2">mlab.figure(1, bgcolor=(0, 0, 0), size=(350, 350))</span>
-<span class="s2">mlab.clf()</span>
+<span class="c1"># Plot the atoms and the bonds ################################################</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">350</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 
-<span class="s2"># The position of the atoms</span>
-<span class="s2">atoms_x = np.array([2.9, 2.9, 3.8]) * 40 / 5.5</span>
-<span class="s2">atoms_y = np.array([3.0, 3.0, 3.0]) * 40 / 5.5</span>
-<span class="s2">atoms_z = np.array([3.8, 2.9, 2.7]) * 40 / 5.5</span>
+<span class="c1"># The position of the atoms</span>
+<span class="n">atoms_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">])</span> <span class="o">*</span> <span class="mi">40</span> <span class="o">/</span> <span class="mf">5.5</span>
+<span class="n">atoms_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span> <span class="o">*</span> <span class="mi">40</span> <span class="o">/</span> <span class="mf">5.5</span>
+<span class="n">atoms_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">])</span> <span class="o">*</span> <span class="mi">40</span> <span class="o">/</span> <span class="mf">5.5</span>
 
-<span class="s2">O = mlab.points3d(atoms_x[1:-1], atoms_y[1:-1], atoms_z[1:-1],</span>
-<span class="s2">                  scale_factor=3,</span>
-<span class="s2">                  resolution=20,</span>
-<span class="s2">                  color=(1, 0, 0),</span>
-<span class="s2">                  scale_mode=&#39;none&#39;)</span>
+<span class="n">O</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_z</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                  <span class="n">scale_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                  <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                  <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
 
-<span class="s2">H1 = mlab.points3d(atoms_x[:1], atoms_y[:1], atoms_z[:1],</span>
-<span class="s2">                   scale_factor=2,</span>
-<span class="s2">                   resolution=20,</span>
-<span class="s2">                   color=(1, 1, 1),</span>
-<span class="s2">                   scale_mode=&#39;none&#39;)</span>
+<span class="n">H1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_y</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_z</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span>
+                   <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                   <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                   <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
 
-<span class="s2">H2 = mlab.points3d(atoms_x[-1:], atoms_y[-1:], atoms_z[-1:],</span>
-<span class="s2">                   scale_factor=2,</span>
-<span class="s2">                   resolution=20,</span>
-<span class="s2">                   color=(1, 1, 1),</span>
-<span class="s2">                   scale_mode=&#39;none&#39;)</span>
+<span class="n">H2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">atoms_y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">atoms_z</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span>
+                   <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                   <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                   <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
 
-<span class="s2"># The bounds between the atoms, we use the scalar information to give</span>
-<span class="s2"># color</span>
-<span class="s2">mlab.plot3d(atoms_x, atoms_y, atoms_z, [1, 2, 1],</span>
-<span class="s2">            tube_radius=0.4, colormap=&#39;Reds&#39;)</span>
+<span class="c1"># The bounds between the atoms, we use the scalar information to give</span>
+<span class="c1"># color</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">,</span> <span class="n">atoms_y</span><span class="p">,</span> <span class="n">atoms_z</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
 
-<span class="s2"># Display the electron localization function ##################################</span>
+<span class="c1"># Display the electron localization function ##################################</span>
 
-<span class="s2"># Load the data, we need to remove the first 8 lines and the &#39;</span><span class="se">\n</span><span class="s2">&#39;</span>
-<span class="s2">str = &#39; &#39;.join(file(&#39;h2o-elf.cube&#39;).readlines()[9:])</span>
-<span class="s2">data = np.fromstring(str, sep=&#39; &#39;)</span>
-<span class="s2">data.shape = (40, 40, 40)</span>
+<span class="c1"># Load the data, we need to remove the first 8 lines and the &#39;\n&#39;</span>
+<span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file</span><span class="p">(</span><span class="s1">&#39;h2o-elf.cube&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">9</span><span class="p">:])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 
-<span class="s2">source = mlab.pipeline.scalar_field(data)</span>
-<span class="s2">min = data.min()</span>
-<span class="s2">max = data.max()</span>
-<span class="s2">vol = mlab.pipeline.volume(source, vmin=min + 0.65 * (max - min),</span>
-<span class="s2">                                   vmax=min + 0.9 * (max - min))</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">min</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="nb">max</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">vol</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="nb">min</span> <span class="o">+</span> <span class="mf">0.65</span> <span class="o">*</span> <span class="p">(</span><span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span><span class="p">),</span>
+                                   <span class="n">vmax</span><span class="o">=</span><span class="nb">min</span> <span class="o">+</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="p">(</span><span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span><span class="p">))</span>
 
-<span class="s2">mlab.view(132, 54, 45, [21, 20, 21.5])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">132</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">])</span>
 
-<span class="s2">mlab.show()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -185,17 +186,15 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -215,14 +214,15 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
         <li class="right" >
           <a href="example_tvtk_in_mayavi.html" title="Tvtk in mayavi example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chemistry example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

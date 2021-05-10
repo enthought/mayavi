@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tools &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tools &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,9 +65,10 @@
         <li class="right" >
           <a href="mlab_pipeline_sources.html" title="Sources"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tools</a></li> 
       </ul>
     </div>  
 
@@ -78,101 +78,92 @@
           <div class="body" role="main">
             
   <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
 the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
+<p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<div class="section" id="tools">
+<section id="tools">
 <h1>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="add-dataset">
+<section id="add-dataset">
 <h2>add_dataset<a class="headerlink" href="#add-dataset" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.tools.pipeline.add_dataset">
-<code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">add_dataset</code><span class="sig-paren">(</span><em>dataset</em>, <em>name=''</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.add_dataset" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.add_dataset">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">add_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.add_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a dataset object to the Mayavi pipeline.</p>
 <p><strong>Parameters</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Dataset:</th><td class="field-body"><p class="first">a tvtk/vtk dataset/tvtk/VTK Algorithm, or a Mayavi source. The
+<dl class="field-list">
+<dt class="field-odd">Dataset</dt>
+<dd class="field-odd"><p>a tvtk/vtk dataset/tvtk/VTK Algorithm, or a Mayavi source. The
 dataset added to the Mayavi pipeline</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Figure:</th><td class="field-body"><p class="first">a figure identifier number or string, None or False, optional.</p>
+</dd>
+<dt class="field-even">Figure</dt>
+<dd class="field-even"><p>a figure identifier number or string, None or False, optional.</p>
 <p>If no <cite>figure</cite> keyword argument is given, the data
 is added to the current figure (a new figure if created if
 necessary).</p>
 <p>If a <cite>figure</cite> keyword argument is given, it should either the name
 the number of the figure the dataset should be added to, or None,
 in which case the data is not added to the pipeline.</p>
-<p class="last">If figure is False, a null engine is created. This null
+<p>If figure is False, a null engine is created. This null
 engine does not create figures, and is mainly usefull for
 tensting, or using the VTK algorithms without visualization.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p><strong>Returns</strong></p>
 <p>The corresponding Mayavi source is returned.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="add-module-manager">
+</section>
+<section id="add-module-manager">
 <h2>add_module_manager<a class="headerlink" href="#add-module-manager" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.tools.pipeline.add_module_manager">
-<code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">add_module_manager</code><span class="sig-paren">(</span><em>object</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.add_module_manager" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.add_module_manager">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">add_module_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.add_module_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a module-manager, to control colors and legend bars to the
 given object.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="get-vtk-src">
+</section>
+<section id="get-vtk-src">
 <h2>get_vtk_src<a class="headerlink" href="#get-vtk-src" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.tools.pipeline.get_vtk_src">
-<code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">get_vtk_src</code><span class="sig-paren">(</span><em>mayavi_object</em>, <em>stop_at_filter=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.get_vtk_src" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.get_vtk_src">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">get_vtk_src</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mayavi_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_at_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.get_vtk_src" title="Permalink to this definition">¶</a></dt>
 <dd><p>Goes up the Mayavi pipeline to find the data sources of a given
 object.</p>
 <p><strong>Parameters</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Object:</th><td class="field-body">any Mayavi visualization object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Stop_at_filter:</th><td class="field-body">optional boolean flag: if True, the first object
+<dl class="field-list simple">
+<dt class="field-odd">Object</dt>
+<dd class="field-odd"><p>any Mayavi visualization object</p>
+</dd>
+<dt class="field-even">Stop_at_filter</dt>
+<dd class="field-even"><p>optional boolean flag: if True, the first object
 exposing data found going up the pipeline is
 returned. If False, only the source itself
-is returned.</td>
-</tr>
-</tbody>
-</table>
+is returned.</p>
+</dd>
+</dl>
 <p><strong>Returns</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Sources:</th><td class="field-body">List of vtk data sources (vtk data sources, and not
-Mayavi source objects).</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Sources</dt>
+<dd class="field-odd"><p>List of vtk data sources (vtk data sources, and not
+Mayavi source objects).</p>
+</dd>
+</dl>
 <p><strong>Notes</strong></p>
 <p>This function traverses the Mayavi pipeline. Thus the input
 object ‘mayavi_object’ should already be added to the pipeline.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="set-extent">
+</section>
+<section id="set-extent">
 <h2>set_extent<a class="headerlink" href="#set-extent" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.tools.pipeline.set_extent">
-<code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">set_extent</code><span class="sig-paren">(</span><em>module</em>, <em>extents</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.set_extent" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.set_extent">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">set_extent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extents</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.set_extent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attempts to set the physical extents of the given module.</p>
 <p>The extents are given as (xmin, xmax, ymin, ymax, zmin, zmax).
 This does not work on an image plane widget, as this module does
@@ -191,27 +182,28 @@ extent keyword argument of mlab.pipeline.outline and
 mlab.pipeline.axes.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="traverse">
+</section>
+<section id="traverse">
 <h2>traverse<a class="headerlink" href="#traverse" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.tools.pipeline.traverse">
-<code class="descclassname">mayavi.tools.pipeline.</code><code class="descname">traverse</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.traverse" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.traverse">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">traverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.traverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generator to traverse a tree accessing the nodes’ children
 attribute.</p>
 <p><strong>Example</strong></p>
 <p>Here is a simple example printing the names of all the objects in
 the pipeline:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">for obj in mlab.pipeline.traverse(mlab.gcf()):</span>
-<span class="s2">    print obj.name</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()):</span>
+    <span class="nb">print</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
 </pre></div>
 </div>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -246,17 +238,15 @@ the pipeline:</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -276,15 +266,16 @@ the pipeline:</p>
         <li class="right" >
           <a href="mlab_pipeline_sources.html" title="Sources"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tools</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

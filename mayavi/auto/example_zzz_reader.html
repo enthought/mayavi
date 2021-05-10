@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Zzz reader example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Zzz reader example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_standalone.html" title="Standalone example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Zzz reader example</a></li> 
       </ul>
     </div>  
 
@@ -76,79 +76,80 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="zzz-reader-example">
+  <section id="zzz-reader-example">
 <span id="example-zzz-reader"></span><h1>Zzz reader example<a class="headerlink" href="#zzz-reader-example" title="Permalink to this headline">¶</a></h1>
 <p>This is a simple example that shows how to create a reader factory
 and register that reader with mayavi.</p>
 <p>To use this:</p>
 <blockquote>
 <div><ul class="simple">
-<li>put this in ~/.mayavi2/</li>
-<li>then import this module in your ~/.mayavi2/user_mayavi.py.</li>
+<li><p>put this in ~/.mayavi2/</p></li>
+<li><p>then import this module in your ~/.mayavi2/user_mayavi.py.</p></li>
 </ul>
 </div></blockquote>
 <p>that’s it.</p>
 <p>What you should get:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Options to open .zzz files from the file-&gt;open menu.</li>
-<li>Open .zzz files via right click.</li>
-<li>Open .zzz files from the engine or mlab (via open)</li>
-<li>do mayavi2 -d foo.zzz.</li>
+<li><p>Options to open .zzz files from the file-&gt;open menu.</p></li>
+<li><p>Open .zzz files via right click.</p></li>
+<li><p>Open .zzz files from the engine or mlab (via open)</p></li>
+<li><p>do mayavi2 -d foo.zzz.</p></li>
 </ul>
 </div></blockquote>
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/0a959a7a5177132f3c7a93483b76fe4d/zzz_reader.py"><code class="xref download docutils literal notranslate"><span class="pre">zzz_reader.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/f2626209c0da56a848313ae8cd656b7b/zzz_reader.py"><code class="xref download docutils literal notranslate"><span class="pre">zzz_reader.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2">from mayavi.core.api import registry, SourceMetadata, PipelineInfo</span>
+<span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">registry</span><span class="p">,</span> <span class="n">SourceMetadata</span><span class="p">,</span> <span class="n">PipelineInfo</span>
 
-<span class="s2">def zzz_reader(fname, engine):</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="n">Reader</span> <span class="k">for</span> <span class="o">.</span><span class="n">zzz</span> <span class="n">files</span><span class="o">.</span>
+<span class="k">def</span> <span class="nf">zzz_reader</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reader for .zzz files.</span>
 
-    <span class="n">Parameters</span><span class="p">:</span>
-    <span class="o">-----------</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
 
-    <span class="n">fname</span> <span class="o">--</span> <span class="n">Filename</span> <span class="n">to</span> <span class="n">be</span> <span class="n">read</span><span class="o">.</span>
+<span class="sd">    fname -- Filename to be read.</span>
 
-    <span class="n">engine</span> <span class="o">--</span> <span class="n">The</span> <span class="n">engine</span> <span class="n">the</span> <span class="n">source</span> <span class="n">will</span> <span class="n">be</span> <span class="n">associated</span> <span class="k">with</span><span class="o">.</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    from tvtk.api import tvtk</span>
-<span class="s2">    from mayavi.sources.vtk_data_source import VTKDataSource</span>
-<span class="s2">    # Do your own reader stuff here, I&#39;m just reading a VTK file with a</span>
-<span class="s2">    # different extension here.</span>
-<span class="s2">    r = tvtk.StructuredPointsReader(file_name=fname)</span>
-<span class="s2">    r.update()</span>
+<span class="sd">    engine -- The engine the source will be associated with.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+    <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+    <span class="c1"># Do your own reader stuff here, I&#39;m just reading a VTK file with a</span>
+    <span class="c1"># different extension here.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredPointsReader</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
-<span class="s2">    src = VTKDataSource(data=r.output)</span>
-<span class="s2">    return src</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">src</span>
 
-<span class="s2">zzz_reader_info = SourceMetadata(</span>
-<span class="s2">    id            = &quot;ZZZReader&quot;,</span>
-<span class="s2">    factory = &#39;zzz_reader.zzz_reader&#39;,</span>
-<span class="s2">    tooltip       = &quot;Load a ZZZ file&quot;,</span>
-<span class="s2">    desc   = &quot;Load a ZZZ file&quot;,</span>
-<span class="s2">    help   = &quot;Load a ZZZ file&quot;,</span>
-<span class="s2">    menu_name        = &quot;&amp;ZZZ file&quot;,</span>
-<span class="s2">    extensions = [&#39;zzz&#39;],</span>
-<span class="s2">    wildcard = &#39;ZZZ files (*.zzz)|*.zzz&#39;,</span>
-<span class="s2">    output_info = PipelineInfo(datasets=[&#39;unstructured_grid&#39;],</span>
-<span class="s2">                               attribute_types=[&#39;any&#39;],</span>
-<span class="s2">                               attributes=[&#39;any&#39;])</span>
-<span class="s2">)</span>
-<span class="s2"># Inject this information in the mayavi registry</span>
-<span class="s2">registry.sources.append(zzz_reader_info)</span>
+<span class="n">zzz_reader_info</span> <span class="o">=</span> <span class="n">SourceMetadata</span><span class="p">(</span>
+    <span class="nb">id</span>            <span class="o">=</span> <span class="s2">&quot;ZZZReader&quot;</span><span class="p">,</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="s1">&#39;zzz_reader.zzz_reader&#39;</span><span class="p">,</span>
+    <span class="n">tooltip</span>       <span class="o">=</span> <span class="s2">&quot;Load a ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">desc</span>   <span class="o">=</span> <span class="s2">&quot;Load a ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">help</span>   <span class="o">=</span> <span class="s2">&quot;Load a ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">menu_name</span>        <span class="o">=</span> <span class="s2">&quot;&amp;ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;zzz&#39;</span><span class="p">],</span>
+    <span class="n">wildcard</span> <span class="o">=</span> <span class="s1">&#39;ZZZ files (*.zzz)|*.zzz&#39;</span><span class="p">,</span>
+    <span class="n">output_info</span> <span class="o">=</span> <span class="n">PipelineInfo</span><span class="p">(</span><span class="n">datasets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;unstructured_grid&#39;</span><span class="p">],</span>
+                               <span class="n">attribute_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;any&#39;</span><span class="p">],</span>
+                               <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;any&#39;</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="c1"># Inject this information in the mayavi registry</span>
+<span class="n">registry</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zzz_reader_info</span><span class="p">)</span>
 
-<span class="s2">if __name__ == &#39;__main__&#39;:</span>
-<span class="s2">    import sys</span>
-<span class="s2">    print(&quot;*&quot;*80)</span>
-<span class="s2">    print(&quot;ERROR: This script isn&#39;t supposed to be executed.&quot;)</span>
-<span class="s2">    print(__doc__)</span>
-<span class="s2">    print(&quot;*&quot;*80)</span>
-<span class="s2">    sys.exit(1)</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: This script isn&#39;t supposed to be executed.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -171,17 +172,15 @@ and register that reader with mayavi.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -201,14 +200,15 @@ and register that reader with mayavi.</p>
         <li class="right" >
           <a href="example_standalone.html" title="Standalone example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Zzz reader example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

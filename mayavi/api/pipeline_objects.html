@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Pipeline base objects &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Pipeline base objects &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="index.html" title="Mayavi API reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Mayavi API reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Mayavi API reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pipeline base objects</a></li> 
       </ul>
     </div>  
 
@@ -76,175 +76,175 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="pipeline-base-objects">
+  <section id="pipeline-base-objects">
 <h1>Pipeline base objects<a class="headerlink" href="#pipeline-base-objects" title="Permalink to this headline">¶</a></h1>
 <p>This is an API reference of the base classes of the pipeline objects.
 Please refer to section <a class="reference internal" href="../advanced_use.html#advanced-use-of-mayavi"><span class="std std-ref">Advanced use of Mayavi</span></a> for instructions on
 how to use them.</p>
-<div class="section" id="scene">
+<section id="scene">
 <h2><a class="reference internal" href="#mayavi.core.api.Scene" title="mayavi.core.api.Scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scene</span></code></a><a class="headerlink" href="#scene" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mayavi.core.api.Scene">
-<em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Scene</code><a class="headerlink" href="#mayavi.core.api.Scene" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mayavi.core.api.</span></span><span class="sig-name descname"><span class="pre">Scene</span></span><a class="headerlink" href="#mayavi.core.api.Scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.base.Base</span></code></p>
 <p>The Mayavi scene class.</p>
-<dl class="method">
-<dt id="mayavi.core.api.Scene.add_child">
-<code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.add_child" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method intelligently adds a child to this object in
 the MayaVi pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Scene.on_mouse_pick">
-<code class="descname">on_mouse_pick</code><span class="sig-paren">(</span><em>callback</em>, <em>type='point'</em>, <em>button='Left'</em>, <em>remove=False</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.on_mouse_pick" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.on_mouse_pick">
+<span class="sig-name descname"><span class="pre">on_mouse_pick</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.on_mouse_pick" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a picking callback on mouse click.</p>
 <p>When the mouse button is press, object picking is called, and
 the given callback is invoked with the resulting pick
 as an argument.</p>
 <p><strong>Keyword arguments</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">‘point’, ‘cell’, or ‘world’
-The picker type used for picking.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Button:</th><td class="field-body">‘Left’, ‘Middle’, or ‘Right’
-The mouse button triggering the picking event.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Remove:</th><td class="field-body">boolean
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>‘point’, ‘cell’, or ‘world’
+The picker type used for picking.</p>
+</dd>
+<dt class="field-even">Button</dt>
+<dd class="field-even"><p>‘Left’, ‘Middle’, or ‘Right’
+The mouse button triggering the picking event.</p>
+</dd>
+<dt class="field-odd">Remove</dt>
+<dd class="field-odd"><p>boolean
 If remove is True, the callback is removed from the
-list of callbacks.</td>
-</tr>
-</tbody>
-</table>
+list of callbacks.</p>
+</dd>
+</dl>
 <p><strong>Returns</strong>
 picker: a tvtk picker</p>
 <blockquote>
-<div>The picker that will be used to do the picking.</div></blockquote>
+<div><p>The picker that will be used to do the picking.</p>
+</div></blockquote>
 <p><strong>Notes</strong></p>
 <p>The callback must accept one argument: the TVTK picker.</p>
 <p>The same callback can be added multiple times.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Scene.remove">
-<code class="descname">remove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.remove" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove ourselves from the mayavi pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Scene.remove_child">
-<code class="descname">remove_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.remove_child" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.remove_child">
+<span class="sig-name descname"><span class="pre">remove_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.remove_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove specified child from our children.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Scene.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.start" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is invoked when this object is added to the mayavi
 pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Scene.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.stop" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoked when this object is removed from the mayavi
 pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Scene.tno_can_add">
-<code class="descname">tno_can_add</code><span class="sig-paren">(</span><em>node</em>, <em>add_object</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.tno_can_add" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.tno_can_add">
+<span class="sig-name descname"><span class="pre">tno_can_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.tno_can_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether a given object is droppable on the node.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Scene.tno_drop_object">
-<code class="descname">tno_drop_object</code><span class="sig-paren">(</span><em>node</em>, <em>dropped_object</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.tno_drop_object" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Scene.tno_drop_object">
+<span class="sig-name descname"><span class="pre">tno_drop_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropped_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Scene.tno_drop_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a droppable version of a specified object.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="source">
+</section>
+<section id="source">
 <h2><a class="reference internal" href="#mayavi.core.api.Source" title="mayavi.core.api.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a><a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mayavi.core.api.Source">
-<em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Source</code><a class="headerlink" href="#mayavi.core.api.Source" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.pipeline_base.PipelineBase</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mayavi.core.api.Source">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mayavi.core.api.</span></span><span class="sig-name descname"><span class="pre">Source</span></span><a class="headerlink" href="#mayavi.core.api.Source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mayavi.core.api.PipelineBase" title="mayavi.core.pipeline_base.PipelineBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.pipeline_base.PipelineBase</span></code></a></p>
 <p>Base class for the sources objects in the pipeline.</p>
-<dl class="method">
-<dt id="mayavi.core.api.Source.add_child">
-<code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.add_child" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method intelligently adds a child to this object in
 the MayaVi pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Source.add_module">
-<code class="descname">add_module</code><span class="sig-paren">(</span><em>module</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.add_module" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.add_module">
+<span class="sig-name descname"><span class="pre">add_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.add_module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a module smartly.  If no ModuleManager instances are
 children, it first creates a new ModuleManager and then adds
 the module to it.  If not it adds the module to the first
 available ModuleManager instance.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Source.remove_child">
-<code class="descname">remove_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.remove_child" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.remove_child">
+<span class="sig-name descname"><span class="pre">remove_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.remove_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove specified child from our children.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Source.save_output">
-<code class="descname">save_output</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.save_output" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.save_output">
+<span class="sig-name descname"><span class="pre">save_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.save_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save our output (by default the first of our outputs) to the
 specified filename as a VTK file.  Both old style and new style
 XML files are supported.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Source.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.start" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is invoked when this object is added to the mayavi
 pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Source.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.stop" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoked when this object is removed from the mayavi
 pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Source.tno_can_add">
-<code class="descname">tno_can_add</code><span class="sig-paren">(</span><em>node</em>, <em>add_object</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.tno_can_add" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.tno_can_add">
+<span class="sig-name descname"><span class="pre">tno_can_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.tno_can_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether a given object is droppable on the node.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Source.tno_drop_object">
-<code class="descname">tno_drop_object</code><span class="sig-paren">(</span><em>node</em>, <em>dropped_object</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.tno_drop_object" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Source.tno_drop_object">
+<span class="sig-name descname"><span class="pre">tno_drop_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropped_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Source.tno_drop_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a droppable version of a specified object.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="filter">
+</section>
+<section id="filter">
 <h2><a class="reference internal" href="#mayavi.core.api.Filter" title="mayavi.core.api.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a><a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mayavi.core.api.Filter">
-<em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Filter</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.source.Source</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mayavi.core.api.Filter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mayavi.core.api.</span></span><span class="sig-name descname"><span class="pre">Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">traits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mayavi.core.api.Source" title="mayavi.core.source.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.source.Source</span></code></a></p>
 <p>Base class for all the Mayavi filters.</p>
-<dl class="method">
-<dt id="mayavi.core.api.Filter.setup_pipeline">
-<code class="descname">setup_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.setup_pipeline" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Filter.setup_pipeline">
+<span class="sig-name descname"><span class="pre">setup_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.setup_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method so that it <em>creates</em> its tvtk
 pipeline.</p>
 <p>This method is invoked when the object is initialized via
@@ -255,34 +255,34 @@ basic objects and setup those parts of the pipeline not
 dependent on upstream sources and filters.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Filter.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.start" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Filter.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is invoked when this object is added to the mayavi
 pipeline.  Note that when start is invoked, all the other
 information for the pipeline should be already set.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Filter.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.stop" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Filter.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoked when this object is removed from the mayavi
 pipeline.  This is where you remove your actors from the
 scene.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Filter.update_data">
-<code class="descname">update_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.update_data" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Filter.update_data">
+<span class="sig-name descname"><span class="pre">update_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.update_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method to do what is necessary when upstream
 data changes.</p>
 <p>This method is invoked (automatically) when any of the inputs
 sends a <cite>data_changed</cite> event.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Filter.update_pipeline">
-<code class="descname">update_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.update_pipeline" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Filter.update_pipeline">
+<span class="sig-name descname"><span class="pre">update_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Filter.update_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method so that it <em>updates</em> the tvtk pipeline
 when data upstream is known to have changed.</p>
 <p>This method is invoked (automatically) when the input fires a
@@ -291,56 +291,56 @@ when data upstream is known to have changed.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="modulemanager">
+</section>
+<section id="modulemanager">
 <h2><a class="reference internal" href="#mayavi.core.api.ModuleManager" title="mayavi.core.api.ModuleManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleManager</span></code></a><a class="headerlink" href="#modulemanager" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mayavi.core.api.ModuleManager">
-<em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">ModuleManager</code><a class="headerlink" href="#mayavi.core.api.ModuleManager" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mayavi.core.api.</span></span><span class="sig-name descname"><span class="pre">ModuleManager</span></span><a class="headerlink" href="#mayavi.core.api.ModuleManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.base.Base</span></code></p>
 <p>The module manager node (represented as ‘Colors and Legends’).</p>
-<dl class="method">
-<dt id="mayavi.core.api.ModuleManager.add_child">
-<code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.add_child" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method intelligently adds a child to this object in
 the MayaVi pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.ModuleManager.remove_child">
-<code class="descname">remove_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.remove_child" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager.remove_child">
+<span class="sig-name descname"><span class="pre">remove_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.remove_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove specified child from our children.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.ModuleManager.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.start" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is invoked when this object is added to the mayavi
 pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.ModuleManager.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.stop" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoked when this object is removed from the mayavi
 pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.ModuleManager.tno_can_add">
-<code class="descname">tno_can_add</code><span class="sig-paren">(</span><em>node</em>, <em>add_object</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.tno_can_add" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager.tno_can_add">
+<span class="sig-name descname"><span class="pre">tno_can_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.tno_can_add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether a given object is droppable on the node.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.ModuleManager.tno_drop_object">
-<code class="descname">tno_drop_object</code><span class="sig-paren">(</span><em>node</em>, <em>dropped_object</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.tno_drop_object" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager.tno_drop_object">
+<span class="sig-name descname"><span class="pre">tno_drop_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropped_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.tno_drop_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a droppable version of a specified object.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.ModuleManager.update">
-<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.update" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.ModuleManager.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.ModuleManager.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update any internal data.</p>
 <p>This is invoked when the source changes or when there are
 pipeline/data changes upstream.</p>
@@ -348,24 +348,24 @@ pipeline/data changes upstream.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module">
+</section>
+<section id="module">
 <h2><a class="reference internal" href="#mayavi.core.api.Module" title="mayavi.core.api.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a><a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mayavi.core.api.Module">
-<em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Module</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.pipeline_base.PipelineBase</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mayavi.core.api.Module">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mayavi.core.api.</span></span><span class="sig-name descname"><span class="pre">Module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">traits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mayavi.core.api.PipelineBase" title="mayavi.core.pipeline_base.PipelineBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.pipeline_base.PipelineBase</span></code></a></p>
 <p>Base class for the Mayavi modules.</p>
-<dl class="method">
-<dt id="mayavi.core.api.Module.add_child">
-<code class="descname">add_child</code><span class="sig-paren">(</span><em>child</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.add_child" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.add_child">
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.add_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method intelligently adds a child to this object in
 the MayaVi pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.setup_pipeline">
-<code class="descname">setup_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.setup_pipeline" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.setup_pipeline">
+<span class="sig-name descname"><span class="pre">setup_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.setup_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method so that it <em>creates</em> the tvtk
 pipeline.</p>
 <p>This method is invoked when the object is initialized via
@@ -377,51 +377,51 @@ dependent on upstream sources and filters.  You should also
 set the <cite>actors</cite> attribute up at this point.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.start" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is invoked when this object is added to the mayavi
 pipeline.  Note that when start is invoked, all the other
 information for the pipeline should be already set.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.stop" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoked when this object is removed from the mayavi
 pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.tno_allows_children">
-<code class="descname">tno_allows_children</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.tno_allows_children" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.tno_allows_children">
+<span class="sig-name descname"><span class="pre">tno_allows_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.tno_allows_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether chidren of this object are allowed or not.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.tno_get_children">
-<code class="descname">tno_get_children</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.tno_get_children" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.tno_get_children">
+<span class="sig-name descname"><span class="pre">tno_get_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.tno_get_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the object’s children.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.tno_has_children">
-<code class="descname">tno_has_children</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.tno_has_children" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.tno_has_children">
+<span class="sig-name descname"><span class="pre">tno_has_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.tno_has_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether or not the object has children.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.update_data">
-<code class="descname">update_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.update_data" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.update_data">
+<span class="sig-name descname"><span class="pre">update_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.update_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method so that it flushes the vtk pipeline if
 that is necessary.</p>
 <p>This method is invoked (automatically) when any of the inputs
 sends a <cite>data_changed</cite> event.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Module.update_pipeline">
-<code class="descname">update_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.update_pipeline" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Module.update_pipeline">
+<span class="sig-name descname"><span class="pre">update_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Module.update_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this method so that it <em>updates</em> the tvtk pipeline
 when data upstream is known to have changed.</p>
 <p>This method is invoked (automatically) when the input fires a
@@ -430,126 +430,126 @@ when data upstream is known to have changed.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="pipelinebase">
+</section>
+<section id="pipelinebase">
 <h2><a class="reference internal" href="#mayavi.core.api.PipelineBase" title="mayavi.core.api.PipelineBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineBase</span></code></a><a class="headerlink" href="#pipelinebase" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mayavi.core.api.PipelineBase">
-<em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">PipelineBase</code><a class="headerlink" href="#mayavi.core.api.PipelineBase" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mayavi.core.api.</span></span><span class="sig-name descname"><span class="pre">PipelineBase</span></span><a class="headerlink" href="#mayavi.core.api.PipelineBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mayavi.core.base.Base</span></code></p>
 <p>Base class for all the Source, Filters and Modules in the
 pipeline.</p>
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.add_actors">
-<code class="descname">add_actors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.add_actors" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.add_actors">
+<span class="sig-name descname"><span class="pre">add_actors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.add_actors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds <cite>self.actors</cite> to the scene.</p>
 <p>This is typically called when start is invoked.  You should
 avoid calling this unless you know what you are doing.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.configure_connection">
-<code class="descname">configure_connection</code><span class="sig-paren">(</span><em>obj</em>, <em>inp</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_connection" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.configure_connection">
+<span class="sig-name descname"><span class="pre">configure_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure topology for vtk pipeline obj.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.configure_input">
-<code class="descname">configure_input</code><span class="sig-paren">(</span><em>inp</em>, <em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_input" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.configure_input">
+<span class="sig-name descname"><span class="pre">configure_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_input" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the inp using op.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.configure_input_data">
-<code class="descname">configure_input_data</code><span class="sig-paren">(</span><em>obj</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_input_data" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.configure_input_data">
+<span class="sig-name descname"><span class="pre">configure_input_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_input_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the input data for vtk pipeline object obj.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.configure_source_data">
-<code class="descname">configure_source_data</code><span class="sig-paren">(</span><em>obj</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_source_data" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.configure_source_data">
+<span class="sig-name descname"><span class="pre">configure_source_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.configure_source_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the source data for vtk pipeline object obj.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.get_output_dataset">
-<code class="descname">get_output_dataset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.get_output_dataset" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.get_output_dataset">
+<span class="sig-name descname"><span class="pre">get_output_dataset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.get_output_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the output dataset of this object.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.get_output_object">
-<code class="descname">get_output_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.get_output_object" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.get_output_object">
+<span class="sig-name descname"><span class="pre">get_output_object</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.get_output_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>We assume the old pipeline topology.
 As such we return the first output.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.has_output_port">
-<code class="descname">has_output_port</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.has_output_port" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.has_output_port">
+<span class="sig-name descname"><span class="pre">has_output_port</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.has_output_port" title="Permalink to this definition">¶</a></dt>
 <dd><p>We assume the old pipeline topology.
 As such we assume no output_port exists.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.remove_actors">
-<code class="descname">remove_actors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.remove_actors" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.remove_actors">
+<span class="sig-name descname"><span class="pre">remove_actors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.remove_actors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes <cite>self.actors</cite> from the scene.</p>
 <p>This is typically called when stop is invoked.  You should
 avoid calling this unless you know what you are doing.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.render">
-<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.render" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invokes render on the scene, this in turn invokes Render on
 the VTK pipeline.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.start" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is invoked when this object is added to the mayavi
 pipeline.  Note that when start is invoked, all the other
 information for the pipeline should be already set.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.PipelineBase.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.stop" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.PipelineBase.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.PipelineBase.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoked when this object is removed from the mayavi
 pipeline.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="engine">
+</section>
+<section id="engine">
 <h2><a class="reference internal" href="#mayavi.core.api.Engine" title="mayavi.core.api.Engine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Engine</span></code></a><a class="headerlink" href="#engine" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mayavi.core.api.Engine">
-<em class="property">class </em><code class="descclassname">mayavi.core.api.</code><code class="descname">Engine</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mayavi.core.api.</span></span><span class="sig-name descname"><span class="pre">Engine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">traits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">traits.has_traits.HasStrictTraits</span></code></p>
 <p>The Mayavi engine base class.</p>
-<dl class="method">
-<dt id="mayavi.core.api.Engine.add_filter">
-<code class="descname">add_filter</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_filter" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.add_filter">
+<span class="sig-name descname"><span class="pre">add_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a filter to the pipeline at an appropriate point. Adds it
 to the selected object, or to an object passed as the
 kwarg <cite>obj</cite>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.add_module">
-<code class="descname">add_module</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_module" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.add_module">
+<span class="sig-name descname"><span class="pre">add_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a module to the pipeline at an appropriate point. Adds it
 to the selected object, or to an object passed through the
 kwarg <cite>obj</cite>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.add_scene">
-<code class="descname">add_scene</code><span class="sig-paren">(</span><em>scene</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_scene" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.add_scene">
+<span class="sig-name descname"><span class="pre">add_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add given <cite>scene</cite> (a <cite>pyface.tvtk.scene.Scene</cite> instance) to
 the mayavi engine so that mayavi can manage the scene.  This
 is used when the user creates a scene.  Note that for the
@@ -558,57 +558,60 @@ create a new scene using the TVTK scene plugin.</p>
 <blockquote>
 <div><p>scene - <cite>pyface.tvtk.scene.Scene</cite></p>
 <blockquote>
-<div>The scene that needs to be managed from mayavi.</div></blockquote>
-<dl class="docutils">
-<dt>name - <cite>str</cite></dt>
-<dd>The name assigned to the scene.  It tries to determine the
+<div><p>The scene that needs to be managed from mayavi.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>name - <cite>str</cite></dt><dd><p>The name assigned to the scene.  It tries to determine the
 name of the scene from the passed scene instance.  If this
-is not possible it defaults to ‘Mayavi Scene’.</dd>
+is not possible it defaults to ‘Mayavi Scene’.</p>
+</dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.add_source">
-<code class="descname">add_source</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_source" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.add_source">
+<span class="sig-name descname"><span class="pre">add_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.add_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a source to the pipeline. Uses the current scene unless a
 scene is given in the scene keyword argument.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.close_scene">
-<code class="descname">close_scene</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.close_scene" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.close_scene">
+<span class="sig-name descname"><span class="pre">close_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.close_scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a scene created from new_scene, this method closes it
 and removes the scene from the list of scenes we manage.</p>
 <blockquote>
-<div>scene - <cite>pyface.tvtk.scene.Scene</cite> or an object that holds a
+<div><p>scene - <cite>pyface.tvtk.scene.Scene</cite> or an object that holds a
 reference to a <cite>pyface.tvtk.scene.Scene</cite> in a <cite>scene</cite>
-attribute.</div></blockquote>
+attribute.</p>
+</div></blockquote>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.dialog_view">
-<code class="descname">dialog_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.dialog_view" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.dialog_view">
+<span class="sig-name descname"><span class="pre">dialog_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.dialog_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default dialog view for Engine objects.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.get_viewer">
-<code class="descname">get_viewer</code><span class="sig-paren">(</span><em>scene</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.get_viewer" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.get_viewer">
+<span class="sig-name descname"><span class="pre">get_viewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.get_viewer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the viewer associated with a given scene.</p>
 <blockquote>
-<div>scene - An <cite>mayavi.core.scene.Scene</cite> instance.</div></blockquote>
+<div><p>scene - An <cite>mayavi.core.scene.Scene</cite> instance.</p>
+</div></blockquote>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.load_visualization">
-<code class="descname">load_visualization</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.load_visualization" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.load_visualization">
+<span class="sig-name descname"><span class="pre">load_visualization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.load_visualization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a file/file name this loads the visualization.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.new_scene">
-<code class="descname">new_scene</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.new_scene" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.new_scene">
+<span class="sig-name descname"><span class="pre">new_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.new_scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create or manage a new VTK scene window.  If no <cite>viewer</cite>
 argument is provided, the method creates a new viewer using
 <cite>self.scene_factory</cite>.  If <cite>self.scene_factory</cite> is <cite>None</cite> then
@@ -625,23 +628,23 @@ the scene factory.</p>
 </div></blockquote>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.open">
-<code class="descname">open</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.open" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.open" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a file given a filename if possible in either the
 current scene or the passed <cite>scene</cite>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.record">
-<code class="descname">record</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.record" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.record">
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.record" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is merely a convenience method to record messages to the
 script recorder.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.remove_scene">
-<code class="descname">remove_scene</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.remove_scene" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.remove_scene">
+<span class="sig-name descname"><span class="pre">remove_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.remove_scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a given <cite>scene</cite> (a <cite>pyface.tvtk.scene.Scene</cite>
 instance) from the mayavi engine if it is already being
 managed by mayavi.  Note that for the <cite>EnvisageEngine</cite> this is
@@ -650,30 +653,32 @@ using the TVTK scene plugin.</p>
 <blockquote>
 <div><p>scene - <cite>pyface.tvtk.scene.Scene</cite></p>
 <blockquote>
-<div>The scene that needs to be removed from mayavi.</div></blockquote>
+<div><p>The scene that needs to be removed from mayavi.</p>
+</div></blockquote>
 </div></blockquote>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.save_visualization">
-<code class="descname">save_visualization</code><span class="sig-paren">(</span><em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.save_visualization" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.save_visualization">
+<span class="sig-name descname"><span class="pre">save_visualization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.save_visualization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a file or a file name, this saves the current
 visualization to the file.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="mayavi.core.api.Engine.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.start" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="mayavi.core.api.Engine.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is called by the plugin when the plugin actually
 starts.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -685,13 +690,13 @@ starts.</p>
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Pipeline base objects</a><ul>
-<li><a class="reference internal" href="#scene"><code class="docutils literal notranslate"><span class="pre">Scene</span></code></a></li>
-<li><a class="reference internal" href="#source"><code class="docutils literal notranslate"><span class="pre">Source</span></code></a></li>
-<li><a class="reference internal" href="#filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
-<li><a class="reference internal" href="#modulemanager"><code class="docutils literal notranslate"><span class="pre">ModuleManager</span></code></a></li>
-<li><a class="reference internal" href="#module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a></li>
-<li><a class="reference internal" href="#pipelinebase"><code class="docutils literal notranslate"><span class="pre">PipelineBase</span></code></a></li>
-<li><a class="reference internal" href="#engine"><code class="docutils literal notranslate"><span class="pre">Engine</span></code></a></li>
+<li><a class="reference internal" href="#scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scene</span></code></a></li>
+<li><a class="reference internal" href="#source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a></li>
+<li><a class="reference internal" href="#filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li><a class="reference internal" href="#modulemanager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleManager</span></code></a></li>
+<li><a class="reference internal" href="#module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></li>
+<li><a class="reference internal" href="#pipelinebase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineBase</span></code></a></li>
+<li><a class="reference internal" href="#engine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Engine</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -710,17 +715,15 @@ starts.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -740,14 +743,15 @@ starts.</p>
         <li class="right" >
           <a href="index.html" title="Mayavi API reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Mayavi API reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Mayavi API reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pipeline base objects</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

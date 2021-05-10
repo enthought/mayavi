@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Contour example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Contour example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_image_cursor_filter.html" title="Image cursor filter example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Contour example</a></li> 
       </ul>
     </div>  
 
@@ -76,92 +76,93 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="contour-example">
+  <section id="contour-example">
 <span id="example-contour"></span><h1>Contour example<a class="headerlink" href="#contour-example" title="Permalink to this headline">¶</a></h1>
 <p>This script demonstrates how one can script Mayavi and use its
 contour related modules.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/4d78ff9bc1ea9362e62d79b6e9cfee03/contour.py"><code class="xref download docutils literal notranslate"><span class="pre">contour.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
-<span class="s2"># Copyright (c) 2005-2020, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/44b5951387414310a03c43e06da15d68/contour.py"><code class="xref download docutils literal notranslate"><span class="pre">contour.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="c1"># Copyright (c) 2005-2020, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2"># Standard library imports</span>
-<span class="s2">from os.path import join, abspath, dirname</span>
+<span class="c1"># Standard library imports</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
 
-<span class="s2"># Enthought library imports</span>
-<span class="s2">from mayavi.scripts import mayavi2</span>
-<span class="s2">from mayavi.sources.vtk_file_reader import VTKFileReader</span>
-<span class="s2">from mayavi.modules.outline import Outline</span>
-<span class="s2">from mayavi.modules.grid_plane import GridPlane</span>
-<span class="s2">from mayavi.modules.contour_grid_plane import ContourGridPlane</span>
-<span class="s2">from mayavi.modules.iso_surface import IsoSurface</span>
-<span class="s2">from mayavi.modules.scalar_cut_plane import ScalarCutPlane</span>
+<span class="c1"># Enthought library imports</span>
+<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
+<span class="kn">from</span> <span class="nn">mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.grid_plane</span> <span class="kn">import</span> <span class="n">GridPlane</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.contour_grid_plane</span> <span class="kn">import</span> <span class="n">ContourGridPlane</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.iso_surface</span> <span class="kn">import</span> <span class="n">IsoSurface</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.scalar_cut_plane</span> <span class="kn">import</span> <span class="n">ScalarCutPlane</span>
 
-<span class="s2">@mayavi2.standalone</span>
-<span class="s2">def contour():</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="n">The</span> <span class="n">script</span> <span class="n">itself</span><span class="o">.</span>  <span class="n">We</span> <span class="n">needn</span><span class="s1">&#39;t have defined a function but</span>
-    <span class="n">having</span> <span class="n">a</span> <span class="n">function</span> <span class="n">makes</span> <span class="n">this</span> <span class="n">more</span> <span class="n">reusable</span><span class="o">.</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    # &#39;mayavi&#39; is always defined on the interpreter.</span>
-<span class="s2">    # Create a new scene.</span>
-<span class="s2">    mayavi.new_scene()</span>
+<span class="nd">@mayavi2</span><span class="o">.</span><span class="n">standalone</span>
+<span class="k">def</span> <span class="nf">contour</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The script itself.  We needn&#39;t have defined a function but</span>
+<span class="sd">    having a function makes this more reusable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
+    <span class="c1"># Create a new scene.</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
-<span class="s2">    # Read a VTK (old style) data file.</span>
-<span class="s2">    r = VTKFileReader()</span>
-<span class="s2">    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))),</span>
-<span class="s2">                    &#39;heart.vtk&#39;)</span>
-<span class="s2">    r.initialize(filename)</span>
-<span class="s2">    mayavi.add_source(r)</span>
+    <span class="c1"># Read a VTK (old style) data file.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">VTKFileReader</span><span class="p">()</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))),</span>
+                    <span class="s1">&#39;heart.vtk&#39;</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-<span class="s2">    # Create an outline for the data.</span>
-<span class="s2">    o = Outline()</span>
-<span class="s2">    mayavi.add_module(o)</span>
+    <span class="c1"># Create an outline for the data.</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 
-<span class="s2">    # Create three simple grid plane modules.</span>
-<span class="s2">    # First normal to &#39;x&#39; axis.</span>
-<span class="s2">    gp = GridPlane()</span>
-<span class="s2">    mayavi.add_module(gp)</span>
-<span class="s2">    # Second normal to &#39;y&#39; axis.</span>
-<span class="s2">    gp = GridPlane()</span>
-<span class="s2">    mayavi.add_module(gp)</span>
-<span class="s2">    gp.grid_plane.axis = &#39;y&#39;</span>
-<span class="s2">    # Third normal to &#39;z&#39; axis.</span>
-<span class="s2">    gp = GridPlane()</span>
-<span class="s2">    mayavi.add_module(gp)</span>
-<span class="s2">    gp.grid_plane.axis = &#39;z&#39;</span>
+    <span class="c1"># Create three simple grid plane modules.</span>
+    <span class="c1"># First normal to &#39;x&#39; axis.</span>
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+    <span class="c1"># Second normal to &#39;y&#39; axis.</span>
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+    <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+    <span class="c1"># Third normal to &#39;z&#39; axis.</span>
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+    <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span>
 
-<span class="s2">    # Create one ContourGridPlane normal to the &#39;x&#39; axis.</span>
-<span class="s2">    cgp = ContourGridPlane()</span>
-<span class="s2">    mayavi.add_module(cgp)</span>
-<span class="s2">    # Set the position to the middle of the data.</span>
-<span class="s2">    cgp.grid_plane.position = 15</span>
+    <span class="c1"># Create one ContourGridPlane normal to the &#39;x&#39; axis.</span>
+    <span class="n">cgp</span> <span class="o">=</span> <span class="n">ContourGridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cgp</span><span class="p">)</span>
+    <span class="c1"># Set the position to the middle of the data.</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">15</span>
 
-<span class="s2">    # Another with filled contours normal to &#39;y&#39; axis.</span>
-<span class="s2">    cgp = ContourGridPlane()</span>
-<span class="s2">    mayavi.add_module(cgp)</span>
-<span class="s2">    # Set the axis and position to the middle of the data.</span>
-<span class="s2">    cgp.grid_plane.axis = &#39;y&#39;</span>
-<span class="s2">    cgp.grid_plane.position = 15</span>
-<span class="s2">    cgp.contour.filled_contours = True</span>
+    <span class="c1"># Another with filled contours normal to &#39;y&#39; axis.</span>
+    <span class="n">cgp</span> <span class="o">=</span> <span class="n">ContourGridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cgp</span><span class="p">)</span>
+    <span class="c1"># Set the axis and position to the middle of the data.</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">filled_contours</span> <span class="o">=</span> <span class="kc">True</span>
 
-<span class="s2">    # An isosurface module.</span>
-<span class="s2">    iso = IsoSurface(compute_normals=True)</span>
-<span class="s2">    mayavi.add_module(iso)</span>
-<span class="s2">    iso.contour.contours = [220.0]</span>
+    <span class="c1"># An isosurface module.</span>
+    <span class="n">iso</span> <span class="o">=</span> <span class="n">IsoSurface</span><span class="p">(</span><span class="n">compute_normals</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
+    <span class="n">iso</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="mf">220.0</span><span class="p">]</span>
 
-<span class="s2">    # An interactive scalar cut plane.</span>
-<span class="s2">    cp = ScalarCutPlane()</span>
-<span class="s2">    mayavi.add_module(cp)</span>
-<span class="s2">    cp.implicit_plane.normal = 0,0,1</span>
+    <span class="c1"># An interactive scalar cut plane.</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">ScalarCutPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+    <span class="n">cp</span><span class="o">.</span><span class="n">implicit_plane</span><span class="o">.</span><span class="n">normal</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span>
 
 
-<span class="s2">if __name__ == &#39;__main__&#39;:</span>
-<span class="s2">    contour()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">contour</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -184,17 +185,15 @@ contour related modules.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -214,14 +213,15 @@ contour related modules.</p>
         <li class="right" >
           <a href="example_image_cursor_filter.html" title="Image cursor filter example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Contour example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

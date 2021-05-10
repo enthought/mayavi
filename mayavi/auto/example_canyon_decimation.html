@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Canyon decimation example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Canyon decimation example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_wigner.html" title="Wigner example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Canyon decimation example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="canyon-decimation-example">
+  <section id="canyon-decimation-example">
 <span id="example-canyon-decimation"></span><h1>Canyon decimation example<a class="headerlink" href="#canyon-decimation-example" title="Permalink to this headline">¶</a></h1>
 <p>Use the greedy-terrain-decimator to display a decimated terrain view.</p>
 <p>This example illustrates decimating a terrain. We use the
@@ -96,75 +96,76 @@ of polygons, in spots where the terrain changes most quickly.</p>
 warped from 2D data. To decimated more general meshes, you can use the
 less-efficient decimate-pro filter (see <a class="reference internal" href="example_julia_set_decimation.html#example-julia-set-decimation"><span class="std std-ref">Julia set decimation example</span></a>).</p>
 <img alt="../_images/example_canyon_decimation.jpg" class="align-center" src="../_images/example_canyon_decimation.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/e679ea9956e761cadac11a939096178f/canyon_decimation.py"><code class="xref download docutils literal notranslate"><span class="pre">canyon_decimation.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="s2"># Copyright (c) 2008-2020, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/4202ea4de2acd47802486dd620e311b6/canyon_decimation.py"><code class="xref download docutils literal notranslate"><span class="pre">canyon_decimation.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2008-2020, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2"># Retrieve the grand Canyon topological data ###################################</span>
-<span class="s2"># Original file:</span>
-<span class="s2">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
-<span class="s2">import os</span>
-<span class="s2">if not os.path.exists(&#39;N36W113.hgt.zip&#39;):</span>
-<span class="s2">    # Download the data</span>
-<span class="s2">    try:</span>
-<span class="s2">        from urllib import urlopen</span>
-<span class="s2">    except ImportError:</span>
-<span class="s2">        from urllib.request import urlopen</span>
-<span class="s2">    print(&#39;Downloading data, please wait (10M)&#39;)</span>
-<span class="s2">    opener = urlopen(</span>
-<span class="s2">    &#39;https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip&#39;</span>
-<span class="s2">        )</span>
-<span class="s2">    open(&#39;N36W113.hgt.zip&#39;, &#39;wb&#39;).write(opener.read())</span>
+<span class="c1"># Retrieve the grand Canyon topological data ###################################</span>
+<span class="c1"># Original file:</span>
+<span class="c1">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt.zip&#39;</span><span class="p">):</span>
+    <span class="c1"># Download the data</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading data, please wait (10M)&#39;</span><span class="p">)</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
+    <span class="s1">&#39;https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip&#39;</span>
+        <span class="p">)</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
-<span class="s2"># Load the data (signed 2 byte integers, big endian) ###########################</span>
-<span class="s2">import zipfile</span>
-<span class="s2">import numpy as np</span>
+<span class="c1"># Load the data (signed 2 byte integers, big endian) ###########################</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="s2">data = np.fromstring(zipfile.ZipFile(&#39;N36W113.hgt.zip&#39;).read(&#39;N36W113.hgt&#39;),</span>
-<span class="s2">                    &#39;&gt;i2&#39;)</span>
-<span class="s2">data.shape = (3601, 3601)</span>
-<span class="s2">data = data[200:400, 1200:1400]</span>
-<span class="s2">data = data.astype(np.float32)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt.zip&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;N36W113.hgt&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;&gt;i2&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3601</span><span class="p">,</span> <span class="mi">3601</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">200</span><span class="p">:</span><span class="mi">400</span><span class="p">,</span> <span class="mi">1200</span><span class="p">:</span><span class="mi">1400</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
-<span class="s2"># Plot an interecting section ##################################################</span>
-<span class="s2">from mayavi import mlab</span>
-<span class="s2">mlab.figure(1, size=(450, 390))</span>
-<span class="s2">mlab.clf()</span>
-<span class="s2">data = mlab.pipeline.array2d_source(data)</span>
+<span class="c1"># Plot an interecting section ##################################################</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">390</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">array2d_source</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-<span class="s2"># Use a greedy_terrain_decimation to created a decimated mesh</span>
-<span class="s2">terrain = mlab.pipeline.greedy_terrain_decimation(data)</span>
-<span class="s2">terrain.filter.error_measure = &#39;number_of_triangles&#39;</span>
-<span class="s2">terrain.filter.number_of_triangles = 5000</span>
-<span class="s2">terrain.filter.compute_normals = True</span>
+<span class="c1"># Use a greedy_terrain_decimation to created a decimated mesh</span>
+<span class="n">terrain</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">greedy_terrain_decimation</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">terrain</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">error_measure</span> <span class="o">=</span> <span class="s1">&#39;number_of_triangles&#39;</span>
+<span class="n">terrain</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">number_of_triangles</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">terrain</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">compute_normals</span> <span class="o">=</span> <span class="kc">True</span>
 
-<span class="s2"># Plot it black the lines of the mesh</span>
-<span class="s2">lines = mlab.pipeline.surface(terrain, color=(0, 0, 0),</span>
-<span class="s2">                                      representation=&#39;wireframe&#39;)</span>
-<span class="s2"># The terrain decimator has done the warping. We control the warping</span>
-<span class="s2"># scale via the actor&#39;s scale.</span>
-<span class="s2">lines.actor.actor.scale = [1, 1, 0.2]</span>
+<span class="c1"># Plot it black the lines of the mesh</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">terrain</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                      <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;wireframe&#39;</span><span class="p">)</span>
+<span class="c1"># The terrain decimator has done the warping. We control the warping</span>
+<span class="c1"># scale via the actor&#39;s scale.</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
 
-<span class="s2"># Display the surface itself.</span>
-<span class="s2">surf = mlab.pipeline.surface(terrain, colormap=&#39;gist_earth&#39;,</span>
-<span class="s2">                                      vmin=1450, vmax=1650)</span>
-<span class="s2">surf.actor.actor.scale = [1, 1, 0.2]</span>
+<span class="c1"># Display the surface itself.</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">terrain</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gist_earth&#39;</span><span class="p">,</span>
+                                      <span class="n">vmin</span><span class="o">=</span><span class="mi">1450</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1650</span><span class="p">)</span>
+<span class="n">surf</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
 
-<span class="s2"># Display the original regular grid. This time we have to use a</span>
-<span class="s2"># warp_scalar filter.</span>
-<span class="s2">warp = mlab.pipeline.warp_scalar(data, warp_scale=0.2)</span>
-<span class="s2">grid = mlab.pipeline.surface(warp, color=(1, 1, 1),</span>
-<span class="s2">                                      representation=&#39;wireframe&#39;)</span>
+<span class="c1"># Display the original regular grid. This time we have to use a</span>
+<span class="c1"># warp_scalar filter.</span>
+<span class="n">warp</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">warp_scalar</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">warp</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                      <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;wireframe&#39;</span><span class="p">)</span>
 
-<span class="s2">mlab.view(-17, 46, 143, [1.46, 8.46, 269.4])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">17</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">143</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.46</span><span class="p">,</span> <span class="mf">8.46</span><span class="p">,</span> <span class="mf">269.4</span><span class="p">])</span>
 
-<span class="s2">mlab.show()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -187,17 +188,15 @@ less-efficient decimate-pro filter (see <a class="reference internal" href="exam
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -217,14 +216,15 @@ less-efficient decimate-pro filter (see <a class="reference internal" href="exam
         <li class="right" >
           <a href="example_wigner.html" title="Wigner example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Canyon decimation example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

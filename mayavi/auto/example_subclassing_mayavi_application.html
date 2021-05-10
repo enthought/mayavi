@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Subclassing mayavi application example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Subclassing mayavi application example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_wx_mayavi_embed_in_notebook.html" title="Wx mayavi embed in notebook example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Subclassing mayavi application example</a></li> 
       </ul>
     </div>  
 
@@ -76,103 +76,104 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="subclassing-mayavi-application-example">
+  <section id="subclassing-mayavi-application-example">
 <span id="example-subclassing-mayavi-application"></span><h1>Subclassing mayavi application example<a class="headerlink" href="#subclassing-mayavi-application-example" title="Permalink to this headline">¶</a></h1>
 <p>This script demonstrates how one can script the Mayavi application by
 subclassing the application, create a new scene and create a few
 simple modules.</p>
 <p>This should be run as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ python test.py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test.py
 </pre></div>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/a4ace0be738a57a8cc8c6e8b40384eed/subclassing_mayavi_application.py"><code class="xref download docutils literal notranslate"><span class="pre">subclassing_mayavi_application.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;
-# Copyright (c) 2005-2020, Enthought, Inc.
-# License: BSD Style.
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/d6fe57f97c188818eecee7976804d397/subclassing_mayavi_application.py"><code class="xref download docutils literal notranslate"><span class="pre">subclassing_mayavi_application.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="c1"># Copyright (c) 2005-2020, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-# Standard library imports
-from os.path import join, abspath, dirname
+<span class="c1"># Standard library imports</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
 
-# Enthought library imports
-from mayavi.plugins.app import Mayavi
-from mayavi.scripts.util import get_data_dir
+<span class="c1"># Enthought library imports</span>
+<span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">Mayavi</span>
+<span class="kn">from</span> <span class="nn">mayavi.scripts.util</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
 
-class MyApp(Mayavi):
-    def run(self):
-        &quot;&quot;&quot;This is executed once the application GUI has started.
-        *Make sure all other MayaVi specific imports are made here!*
-        &quot;&quot;&quot;
-        # Various imports to do different things.
-        from mayavi.sources.vtk_file_reader import VTKFileReader
-        from mayavi.modules.outline import Outline
-        from mayavi.modules.axes import Axes
-        from mayavi.modules.grid_plane import GridPlane
-        from mayavi.modules.image_plane_widget import ImagePlaneWidget
-        from mayavi.modules.text import Text
+<span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">Mayavi</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This is executed once the application GUI has started.</span>
+<span class="sd">        *Make sure all other MayaVi specific imports are made here!*</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Various imports to do different things.</span>
+        <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.grid_plane</span> <span class="kn">import</span> <span class="n">GridPlane</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.image_plane_widget</span> <span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.text</span> <span class="kn">import</span> <span class="n">Text</span>
 
-        script = self.script
-        # Create a new scene.
-        script.new_scene()
+        <span class="n">script</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script</span>
+        <span class="c1"># Create a new scene.</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
-        # Read a VTK (old style) data file.
-        r = VTKFileReader()
-        r.initialize(join(get_data_dir(dirname(abspath(__file__))), &#39;heart.vtk&#39;))
-        script.add_source(r)
+        <span class="c1"># Read a VTK (old style) data file.</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">VTKFileReader</span><span class="p">()</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))),</span> <span class="s1">&#39;heart.vtk&#39;</span><span class="p">))</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-        # Put up some text.
-        t = Text(text=&#39;MayaVi rules!&#39;, x_position=0.2,
-                 y_position=0.9, width=0.8)
-        t.property.color = 1, 1, 0  # Bright yellow, yeah!
-        script.add_module(t)
+        <span class="c1"># Put up some text.</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;MayaVi rules!&#39;</span><span class="p">,</span> <span class="n">x_position</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                 <span class="n">y_position</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>  <span class="c1"># Bright yellow, yeah!</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-        # Create an outline for the data.
-        o = Outline()
-        script.add_module(o)
+        <span class="c1"># Create an outline for the data.</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 
-        # Create an axes for the data.
-        a = Axes()
-        script.add_module(a)
+        <span class="c1"># Create an axes for the data.</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">Axes</span><span class="p">()</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-        # Create an orientation axes for the scene.  This only works with
-        # VTK-4.5 and above which is why we have the try block.
-        try:
-            from mayavi.modules.orientation_axes import OrientationAxes
-        except ImportError:
-            pass
-        else:
-            a = OrientationAxes()
-            a.marker.set_viewport(0.0, 0.8, 0.2, 1.0)
-            script.add_module(a)
+        <span class="c1"># Create an orientation axes for the scene.  This only works with</span>
+        <span class="c1"># VTK-4.5 and above which is why we have the try block.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">mayavi.modules.orientation_axes</span> <span class="kn">import</span> <span class="n">OrientationAxes</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">OrientationAxes</span><span class="p">()</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">marker</span><span class="o">.</span><span class="n">set_viewport</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-        # Create three simple grid plane modules.
-        # First normal to &#39;x&#39; axis.
-        gp = GridPlane()
-        script.add_module(gp)
-        # Second normal to &#39;y&#39; axis.
-        gp = GridPlane()
-        gp.grid_plane.axis = &#39;y&#39;
-        script.add_module(gp)
-        # Third normal to &#39;z&#39; axis.
-        gp = GridPlane()
-        script.add_module(gp)
-        gp.grid_plane.axis = &#39;z&#39;
+        <span class="c1"># Create three simple grid plane modules.</span>
+        <span class="c1"># First normal to &#39;x&#39; axis.</span>
+        <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+        <span class="c1"># Second normal to &#39;y&#39; axis.</span>
+        <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+        <span class="c1"># Third normal to &#39;z&#39; axis.</span>
+        <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span>
 
-        # Create one ImagePlaneWidget.
-        ipw = ImagePlaneWidget()
-        script.add_module(ipw)
-        # Set the position to the middle of the data.
-        ipw.ipw.slice_position = 16
+        <span class="c1"># Create one ImagePlaneWidget.</span>
+        <span class="n">ipw</span> <span class="o">=</span> <span class="n">ImagePlaneWidget</span><span class="p">()</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ipw</span><span class="p">)</span>
+        <span class="c1"># Set the position to the middle of the data.</span>
+        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="mi">16</span>
 
 
 
-if __name__ == &#39;__main__&#39;:
-    a = MyApp()
-    a.main()
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">MyApp</span><span class="p">()</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -195,17 +196,15 @@ if __name__ == &#39;__main__&#39;:
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -225,14 +224,15 @@ if __name__ == &#39;__main__&#39;:
         <li class="right" >
           <a href="example_wx_mayavi_embed_in_notebook.html" title="Wx mayavi embed in notebook example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Subclassing mayavi application example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

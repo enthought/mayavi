@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Protein example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Protein example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_mri.html" title="Mri example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Protein example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="protein-example">
+  <section id="protein-example">
 <span id="example-protein"></span><h1>Protein example<a class="headerlink" href="#protein-example" title="Permalink to this headline">¶</a></h1>
 <p>Visualize a protein graph structure downloaded from the protein database in
 standard pdb format.</p>
@@ -108,114 +108,115 @@ volume rendering.</p>
 <p>Reference for the pdb file standard:
 <a class="reference external" href="http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html">http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html</a></p>
 <img alt="../_images/example_protein.jpg" class="align-center" src="../_images/example_protein.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/a97f26fbf24861517aad689e0844e2e2/protein.py"><code class="xref download docutils literal notranslate"><span class="pre">protein.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/2ae8f037976c6839ebeac2dd5e5728d5/protein.py"><code class="xref download docutils literal notranslate"><span class="pre">protein.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="s2"># Copyright (c) 2008-2020, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2008-2020, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2"># The pdb code for the protein.</span>
-<span class="s2">protein_code = &#39;2q09&#39;</span>
+<span class="c1"># The pdb code for the protein.</span>
+<span class="n">protein_code</span> <span class="o">=</span> <span class="s1">&#39;2q09&#39;</span>
 
-<span class="s2"># Retrieve the file from the protein database #################################</span>
-<span class="s2">import os</span>
-<span class="s2">if not os.path.exists(&#39;pdb</span><span class="si">%s</span><span class="s2">.ent.gz&#39; % protein_code):</span>
-<span class="s2">    # Download the data</span>
-<span class="s2">    try:</span>
-<span class="s2">        from urllib import urlopen</span>
-<span class="s2">    except ImportError:</span>
-<span class="s2">        from urllib.request import urlopen</span>
-<span class="s2">    print(&#39;Downloading protein data, please wait&#39;)</span>
-<span class="s2">    opener = urlopen(</span>
-<span class="s2">      &#39;ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb</span><span class="si">%s</span><span class="s2">.ent.gz&#39;</span>
-<span class="s2">      % protein_code)</span>
-<span class="s2">    open(&#39;pdb</span><span class="si">%s</span><span class="s2">.ent.gz&#39; % protein_code, &#39;wb&#39;).write(opener.read())</span>
+<span class="c1"># Retrieve the file from the protein database #################################</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">):</span>
+    <span class="c1"># Download the data</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading protein data, please wait&#39;</span><span class="p">)</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
+      <span class="s1">&#39;ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span>
+      <span class="o">%</span> <span class="n">protein_code</span><span class="p">)</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
-<span class="s2"># Parse the pdb file ##########################################################</span>
-<span class="s2">import gzip</span>
-<span class="s2">infile = gzip.GzipFile(&#39;pdb</span><span class="si">%s</span><span class="s2">.ent.gz&#39; % protein_code, &#39;rb&#39;)</span>
+<span class="c1"># Parse the pdb file ##########################################################</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="n">infile</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="s1">&#39;pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
 
-<span class="s2"># A graph represented by a dictionary associating nodes with keys</span>
-<span class="s2"># (numbers), and edges (pairs of node keys).</span>
-<span class="s2">nodes = dict()</span>
-<span class="s2">edges = list()</span>
-<span class="s2">atoms = set()</span>
+<span class="c1"># A graph represented by a dictionary associating nodes with keys</span>
+<span class="c1"># (numbers), and edges (pairs of node keys).</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-<span class="s2"># Build the graph from the PDB information</span>
-<span class="s2">last_atom_label = None</span>
-<span class="s2">last_chain_label = None</span>
-<span class="s2">for line in infile:</span>
-<span class="s2">    line = line.split()</span>
-<span class="s2">    if line[0] in (&#39;ATOM&#39;, &#39;HETATM&#39;):</span>
-<span class="s2">        nodes[line[1]] = (line[2], line[6], line[7], line[8])</span>
-<span class="s2">        atoms.add(line[2])</span>
-<span class="s2">        chain_label = line[5]</span>
-<span class="s2">        if chain_label == last_chain_label:</span>
-<span class="s2">            edges.append((line[1], last_atom_label))</span>
-<span class="s2">        last_atom_label = line[1]</span>
-<span class="s2">        last_chain_label = chain_label</span>
-<span class="s2">    elif line[0] == &#39;CONECT&#39;:</span>
-<span class="s2">        for start, stop in zip(line[1:-1], line[2:]):</span>
-<span class="s2">            edges.append((start, stop))</span>
+<span class="c1"># Build the graph from the PDB information</span>
+<span class="n">last_atom_label</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">last_chain_label</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;ATOM&#39;</span><span class="p">,</span> <span class="s1">&#39;HETATM&#39;</span><span class="p">):</span>
+        <span class="n">nodes</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">chain_label</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">chain_label</span> <span class="o">==</span> <span class="n">last_chain_label</span><span class="p">:</span>
+            <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">last_atom_label</span><span class="p">))</span>
+        <span class="n">last_atom_label</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">last_chain_label</span> <span class="o">=</span> <span class="n">chain_label</span>
+    <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CONECT&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">:]):</span>
+            <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">))</span>
 
-<span class="s2">atoms = list(atoms)</span>
-<span class="s2">atoms.sort()</span>
-<span class="s2">atoms = dict(zip(atoms, range(len(atoms))))</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+<span class="n">atoms</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))))</span>
 
-<span class="s2"># Turn the graph into 3D positions, and a connection list.</span>
-<span class="s2">labels = dict()</span>
+<span class="c1"># Turn the graph into 3D positions, and a connection list.</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-<span class="s2">x = list()</span>
-<span class="s2">y = list()</span>
-<span class="s2">z = list()</span>
-<span class="s2">scalars = list()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">z</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-<span class="s2">for index, label in enumerate(nodes):</span>
-<span class="s2">    labels[label] = index</span>
-<span class="s2">    this_scalar, this_x, this_y, this_z = nodes[label]</span>
-<span class="s2">    scalars.append(atoms[this_scalar])</span>
-<span class="s2">    x.append(float(this_x))</span>
-<span class="s2">    y.append(float(this_y))</span>
-<span class="s2">    z.append(float(this_z))</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nodes</span><span class="p">):</span>
+    <span class="n">labels</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+    <span class="n">this_scalar</span><span class="p">,</span> <span class="n">this_x</span><span class="p">,</span> <span class="n">this_y</span><span class="p">,</span> <span class="n">this_z</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+    <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atoms</span><span class="p">[</span><span class="n">this_scalar</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">this_x</span><span class="p">))</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">this_y</span><span class="p">))</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">this_z</span><span class="p">))</span>
 
-<span class="s2">connections = list()</span>
+<span class="n">connections</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-<span class="s2">for start, stop in edges:</span>
-<span class="s2">    connections.append((labels[start], labels[stop]))</span>
+<span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+    <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">labels</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="n">stop</span><span class="p">]))</span>
 
-<span class="s2">import numpy as np</span>
-<span class="s2">x = np.array(x)</span>
-<span class="s2">y = np.array(y)</span>
-<span class="s2">z = np.array(z)</span>
-<span class="s2">scalars = np.array(scalars)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scalars</span><span class="p">)</span>
 
-<span class="s2"># Visualize the data ##########################################################</span>
-<span class="s2">from mayavi import mlab</span>
-<span class="s2">mlab.figure(1, bgcolor=(0, 0, 0))</span>
-<span class="s2">mlab.clf()</span>
+<span class="c1"># Visualize the data ##########################################################</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 
-<span class="s2">pts = mlab.points3d(x, y, z, 1.5 * scalars.max() - scalars,</span>
-<span class="s2">                                    scale_factor=0.015, resolution=10)</span>
-<span class="s2">pts.mlab_source.dataset.lines = np.array(connections)</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">scalars</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">scalars</span><span class="p">,</span>
+                                    <span class="n">scale_factor</span><span class="o">=</span><span class="mf">0.015</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pts</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
 
-<span class="s2"># Use a tube fiter to plot tubes on the link, varying the radius with the</span>
-<span class="s2"># scalar value</span>
-<span class="s2">tube = mlab.pipeline.tube(pts, tube_radius=0.15)</span>
-<span class="s2">tube.filter.radius_factor = 1.</span>
-<span class="s2">tube.filter.vary_radius = &#39;vary_radius_by_scalar&#39;</span>
-<span class="s2">mlab.pipeline.surface(tube, color=(0.8, 0.8, 0))</span>
+<span class="c1"># Use a tube fiter to plot tubes on the link, varying the radius with the</span>
+<span class="c1"># scalar value</span>
+<span class="n">tube</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">tube</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">tube</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">radius_factor</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">tube</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">vary_radius</span> <span class="o">=</span> <span class="s1">&#39;vary_radius_by_scalar&#39;</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">tube</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="s2"># Visualize the local atomic density</span>
-<span class="s2">mlab.pipeline.volume(mlab.pipeline.gaussian_splatter(pts))</span>
+<span class="c1"># Visualize the local atomic density</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">gaussian_splatter</span><span class="p">(</span><span class="n">pts</span><span class="p">))</span>
 
-<span class="s2">mlab.view(49, 31.5, 52.8, (4.2, 37.3, 20.6))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">,</span> <span class="mf">52.8</span><span class="p">,</span> <span class="p">(</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">37.3</span><span class="p">,</span> <span class="mf">20.6</span><span class="p">))</span>
 
-<span class="s2">mlab.show()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -238,17 +239,15 @@ volume rendering.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -268,14 +267,15 @@ volume rendering.</p>
         <li class="right" >
           <a href="example_mri.html" title="Mri example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Protein example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

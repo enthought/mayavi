@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Qt embedding example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Qt embedding example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_compute_in_thread.html" title="Compute in thread example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Qt embedding example</a></li> 
       </ul>
     </div>  
 
@@ -76,117 +76,118 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="qt-embedding-example">
+  <section id="qt-embedding-example">
 <span id="example-qt-embedding"></span><h1>Qt embedding example<a class="headerlink" href="#qt-embedding-example" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrates using Mayavi as a component of a large Qt
 application.</p>
 <p>For this use, Mayavi is embedded in a QWidget. To understand this
 example, please read section <span class="xref std std-ref">builing-applications</span>.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/bbaa210aaffbb754c6746bedbb8a6923/qt_embedding.py"><code class="xref download docutils literal notranslate"><span class="pre">qt_embedding.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/138ce7c550118c4c397971b5c2ebd75c/qt_embedding.py"><code class="xref download docutils literal notranslate"><span class="pre">qt_embedding.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2"># First, and before importing any Enthought packages, set the ETS_TOOLKIT</span>
-<span class="s2"># environment variable to qt4, to tell Traits that we will use Qt.</span>
-<span class="s2">import os</span>
-<span class="s2">os.environ[&#39;ETS_TOOLKIT&#39;] = &#39;qt4&#39;</span>
-<span class="s2"># By default, the PySide binding will be used. If you want the PyQt bindings</span>
-<span class="s2"># to be used, you need to set the QT_API environment variable to &#39;pyqt&#39;</span>
-<span class="s2">#os.environ[&#39;QT_API&#39;] = &#39;pyqt&#39;</span>
+<span class="c1"># First, and before importing any Enthought packages, set the ETS_TOOLKIT</span>
+<span class="c1"># environment variable to qt4, to tell Traits that we will use Qt.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ETS_TOOLKIT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;qt4&#39;</span>
+<span class="c1"># By default, the PySide binding will be used. If you want the PyQt bindings</span>
+<span class="c1"># to be used, you need to set the QT_API environment variable to &#39;pyqt&#39;</span>
+<span class="c1">#os.environ[&#39;QT_API&#39;] = &#39;pyqt&#39;</span>
 
-<span class="s2"># To be able to use PySide or PyQt4 and not run in conflicts with traits,</span>
-<span class="s2"># we need to import QtGui and QtCore from pyface.qt</span>
-<span class="s2">from pyface.qt import QtGui, QtCore</span>
-<span class="s2"># Alternatively, you can bypass this line, but you need to make sure that</span>
-<span class="s2"># the following lines are executed before the import of PyQT:</span>
-<span class="s2">#   import sip</span>
-<span class="s2">#   sip.setapi(&#39;QString&#39;, 2)</span>
+<span class="c1"># To be able to use PySide or PyQt4 and not run in conflicts with traits,</span>
+<span class="c1"># we need to import QtGui and QtCore from pyface.qt</span>
+<span class="kn">from</span> <span class="nn">pyface.qt</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="c1"># Alternatively, you can bypass this line, but you need to make sure that</span>
+<span class="c1"># the following lines are executed before the import of PyQT:</span>
+<span class="c1">#   import sip</span>
+<span class="c1">#   sip.setapi(&#39;QString&#39;, 2)</span>
 
-<span class="s2">from traits.api import HasTraits, Instance, on_trait_change</span>
-<span class="s2">from traitsui.api import View, Item</span>
-<span class="s2">from mayavi.core.ui.api import MayaviScene, MlabSceneModel, </span><span class="se">\</span>
-<span class="s2">        SceneEditor</span>
-
-
-<span class="s2">################################################################################</span>
-<span class="s2">#The actual visualization</span>
-<span class="s2">class Visualization(HasTraits):</span>
-<span class="s2">    scene = Instance(MlabSceneModel, ())</span>
-
-<span class="s2">    @on_trait_change(&#39;scene.activated&#39;)</span>
-<span class="s2">    def update_plot(self):</span>
-<span class="s2">        # This function is called when the view is opened. We don&#39;t</span>
-<span class="s2">        # populate the scene when the view is not yet open, as some</span>
-<span class="s2">        # VTK features require a GLContext.</span>
-
-<span class="s2">        # We can do normal mlab calls on the embedded scene.</span>
-<span class="s2">        self.scene.mlab.test_points3d()</span>
-
-<span class="s2">    # the layout of the dialog screated</span>
-<span class="s2">    view = View(Item(&#39;scene&#39;, editor=SceneEditor(scene_class=MayaviScene),</span>
-<span class="s2">                     height=250, width=300, show_label=False),</span>
-<span class="s2">                resizable=True # We need this to resize with the parent widget</span>
-<span class="s2">                )</span>
+<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span>
+<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
+<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
+        <span class="n">SceneEditor</span>
 
 
-<span class="s2">################################################################################</span>
-<span class="s2"># The QWidget containing the visualization, this is pure PyQt4 code.</span>
-<span class="s2">class MayaviQWidget(QtGui.QWidget):</span>
-<span class="s2">    def __init__(self, parent=None):</span>
-<span class="s2">        QtGui.QWidget.__init__(self, parent)</span>
-<span class="s2">        layout = QtGui.QVBoxLayout(self)</span>
-<span class="s2">        layout.setContentsMargins(0,0,0,0)</span>
-<span class="s2">        layout.setSpacing(0)</span>
-<span class="s2">        self.visualization = Visualization()</span>
+<span class="c1">################################################################################</span>
+<span class="c1">#The actual visualization</span>
+<span class="k">class</span> <span class="nc">Visualization</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
 
-<span class="s2">        # If you want to debug, beware that you need to remove the Qt</span>
-<span class="s2">        # input hook.</span>
-<span class="s2">        #QtCore.pyqtRemoveInputHook()</span>
-<span class="s2">        #import pdb ; pdb.set_trace()</span>
-<span class="s2">        #QtCore.pyqtRestoreInputHook()</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene.activated&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This function is called when the view is opened. We don&#39;t</span>
+        <span class="c1"># populate the scene when the view is not yet open, as some</span>
+        <span class="c1"># VTK features require a GLContext.</span>
 
-<span class="s2">        # The edit_traits call will generate the widget to embed.</span>
-<span class="s2">        self.ui = self.visualization.edit_traits(parent=self,</span>
-<span class="s2">                                                 kind=&#39;subpanel&#39;).control</span>
-<span class="s2">        layout.addWidget(self.ui)</span>
-<span class="s2">        self.ui.setParent(self)</span>
+        <span class="c1"># We can do normal mlab calls on the embedded scene.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">test_points3d</span><span class="p">()</span>
+
+    <span class="c1"># the layout of the dialog screated</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
+                     <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                <span class="n">resizable</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># We need this to resize with the parent widget</span>
+                <span class="p">)</span>
 
 
-<span class="s2">if __name__ == &quot;__main__&quot;:</span>
-<span class="s2">    # Don&#39;t create a new QApplication, it would unhook the Events</span>
-<span class="s2">    # set by Traits on the existing QApplication. Simply use the</span>
-<span class="s2">    # &#39;.instance()&#39; method to retrieve the existing one.</span>
-<span class="s2">    app = QtGui.QApplication.instance()</span>
-<span class="s2">    container = QtGui.QWidget()</span>
-<span class="s2">    container.setWindowTitle(&quot;Embedding Mayavi in a PyQt4 Application&quot;)</span>
-<span class="s2">    # define a &quot;complex&quot; layout to test the behaviour</span>
-<span class="s2">    layout = QtGui.QGridLayout(container)</span>
+<span class="c1">################################################################################</span>
+<span class="c1"># The QWidget containing the visualization, this is pure PyQt4 code.</span>
+<span class="k">class</span> <span class="nc">MayaviQWidget</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualization</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">()</span>
 
-<span class="s2">    # put some stuff around mayavi</span>
-<span class="s2">    label_list = []</span>
-<span class="s2">    for i in range(3):</span>
-<span class="s2">        for j in range(3):</span>
-<span class="s2">            if (i==1) and (j==1):continue</span>
-<span class="s2">            label = QtGui.QLabel(container)</span>
-<span class="s2">            label.setText(&quot;Your QWidget at (</span><span class="si">%d</span><span class="s2">, </span><span class="si">%d</span><span class="s2">)&quot; % (i,j))</span>
-<span class="s2">            label.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)</span>
-<span class="s2">            layout.addWidget(label, i, j)</span>
-<span class="s2">            label_list.append(label)</span>
-<span class="s2">    mayavi_widget = MayaviQWidget(container)</span>
+        <span class="c1"># If you want to debug, beware that you need to remove the Qt</span>
+        <span class="c1"># input hook.</span>
+        <span class="c1">#QtCore.pyqtRemoveInputHook()</span>
+        <span class="c1">#import pdb ; pdb.set_trace()</span>
+        <span class="c1">#QtCore.pyqtRestoreInputHook()</span>
 
-<span class="s2">    layout.addWidget(mayavi_widget, 1, 1)</span>
-<span class="s2">    container.show()</span>
-<span class="s2">    window = QtGui.QMainWindow()</span>
-<span class="s2">    window.setCentralWidget(container)</span>
-<span class="s2">    window.show()</span>
+        <span class="c1"># The edit_traits call will generate the widget to embed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                                 <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;subpanel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">control</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<span class="s2">    # Start the main event loop.</span>
-<span class="s2">    app.exec_()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Don&#39;t create a new QApplication, it would unhook the Events</span>
+    <span class="c1"># set by Traits on the existing QApplication. Simply use the</span>
+    <span class="c1"># &#39;.instance()&#39; method to retrieve the existing one.</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="p">()</span>
+    <span class="n">container</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Embedding Mayavi in a PyQt4 Application&quot;</span><span class="p">)</span>
+    <span class="c1"># define a &quot;complex&quot; layout to test the behaviour</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QGridLayout</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+
+    <span class="c1"># put some stuff around mayavi</span>
+    <span class="n">label_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span><span class="k">continue</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+            <span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Your QWidget at (</span><span class="si">%d</span><span class="s2">, </span><span class="si">%d</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+            <span class="n">label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignHCenter</span><span class="o">|</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">)</span>
+            <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+            <span class="n">label_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">mayavi_widget</span> <span class="o">=</span> <span class="n">MayaviQWidget</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+
+    <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">mayavi_widget</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">container</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">()</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Start the main event loop.</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
 
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -209,17 +210,15 @@ example, please read section <span class="xref std std-ref">builing-applications
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -239,14 +238,15 @@ example, please read section <span class="xref std std-ref">builing-applications
         <li class="right" >
           <a href="example_compute_in_thread.html" title="Compute in thread example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Qt embedding example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>
