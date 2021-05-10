@@ -2,7 +2,7 @@
 Tests for mayavi.tools.engine_manager
 """
 import unittest
-from mock import patch
+from unittest.mock import patch
 
 from mayavi.core.null_engine import NullEngine
 from mayavi.plugins.envisage_engine import EnvisageEngine

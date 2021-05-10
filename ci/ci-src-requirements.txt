@@ -1,5 +1,4 @@
 pillow
-mock
 Sphinx
 coverage
 psutil

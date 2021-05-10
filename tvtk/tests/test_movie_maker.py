@@ -1,4 +1,3 @@
-import mock
 import os
 import shutil
 import tempfile
@@ -17,7 +16,7 @@ class TestMovieMaker(unittest.TestCase):
     def test_does_nothing_when_record_is_off(self):
         # Given
         mm = MovieMaker(record=False)
-        mm._save_scene = mock.MagicMock()
+        mm._save_scene = unittest.mock.MagicMock()
 
         # When
         mm.animation_start()
@@ -31,7 +30,7 @@ class TestMovieMaker(unittest.TestCase):
     def test_calls_save_scene_when_record_is_on(self):
         # Given
         mm = MovieMaker(record=True)
-        mm._save_scene = mock.MagicMock()
+        mm._save_scene = unittest.mock.MagicMock()
 
         # When
         mm.animation_start()
@@ -45,9 +44,9 @@ class TestMovieMaker(unittest.TestCase):
     def test_calls_save_scene_with_record_movie(self):
         # Given
         mm = MovieMaker(record=False)
-        mm._save_scene = mock.MagicMock()
-        mm.animation_start = mock.MagicMock()
-        mm.animation_stop = mock.MagicMock()
+        mm._save_scene = unittest.mock.MagicMock()
+        mm.animation_start = unittest.mock.MagicMock()
+        mm.animation_stop = unittest.mock.MagicMock()
 
         # When
         with mm.record_movie():
@@ -63,7 +62,7 @@ class TestMovieMaker(unittest.TestCase):
     def test_directory_updates_correctly(self):
         # Given
         mm = MovieMaker(record=True, directory=self.root)
-        mm._save_scene = mock.MagicMock()
+        mm._save_scene = unittest.mock.MagicMock()
 
         # When
         with mm.record_movie():

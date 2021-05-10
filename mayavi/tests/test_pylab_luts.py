@@ -1,7 +1,7 @@
 import sys
 import unittest
 
-from mock import patch
+from unittest.mock import patch
 
 
 class TestPylabLuts(unittest.TestCase):
