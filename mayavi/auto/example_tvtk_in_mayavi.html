@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tvtk in mayavi example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tvtk in mayavi example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_atomic_orbital.html" title="Atomic orbital example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tvtk in mayavi example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="tvtk-in-mayavi-example">
+  <section id="tvtk-in-mayavi-example">
 <span id="example-tvtk-in-mayavi"></span><h1>Tvtk in mayavi example<a class="headerlink" href="#tvtk-in-mayavi-example" title="Permalink to this headline">¶</a></h1>
 <p>An example of pure TVTK programming to build TVTK objects, which are then
 added to a Mayavi scene.</p>
@@ -91,73 +91,74 @@ for example of the UserDefined filter. For a full-blown example of a
 complex VTK pipeline built with Mayavi, see
 <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><span class="std std-ref">Tvtk segmentation example</span></a>.</p>
 <img alt="../_images/example_tvtk_in_mayavi.jpg" class="align-center" src="../_images/example_tvtk_in_mayavi.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/df33206383933f3de5d7f37dd909e015/tvtk_in_mayavi.py"><code class="xref download docutils literal notranslate"><span class="pre">tvtk_in_mayavi.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/f8168c437bba8290f58c0888e23c6be0/tvtk_in_mayavi.py"><code class="xref download docutils literal notranslate"><span class="pre">tvtk_in_mayavi.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="s2"># Copyright (c) 2008, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2">from mayavi import mlab</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 
-<span class="s2"># To access any VTK object, we use &#39;tvtk&#39;, which is a Python wrapping of</span>
-<span class="s2"># VTK replacing C++ setters and getters by Python properties and</span>
-<span class="s2"># converting numpy arrays to VTK arrays when setting data.</span>
-<span class="s2">from tvtk.api import tvtk</span>
-<span class="s2">from tvtk.common import configure_input_data</span>
+<span class="c1"># To access any VTK object, we use &#39;tvtk&#39;, which is a Python wrapping of</span>
+<span class="c1"># VTK replacing C++ setters and getters by Python properties and</span>
+<span class="c1"># converting numpy arrays to VTK arrays when setting data.</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">tvtk.common</span> <span class="kn">import</span> <span class="n">configure_input_data</span>
 
-<span class="s2">v = mlab.figure()</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 
-<span class="s2"># Create a first sphere</span>
-<span class="s2"># The source generates data points</span>
-<span class="s2">sphere = tvtk.SphereSource(center=(0, 0, 0), radius=0.5)</span>
-<span class="s2"># The mapper converts them into position in, 3D with optionally color (if</span>
-<span class="s2"># scalar information is available).</span>
-<span class="s2">sphere_mapper = tvtk.PolyDataMapper()</span>
-<span class="s2">configure_input_data(sphere_mapper, sphere.output)</span>
-<span class="s2">sphere.update()</span>
+<span class="c1"># Create a first sphere</span>
+<span class="c1"># The source generates data points</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">SphereSource</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># The mapper converts them into position in, 3D with optionally color (if</span>
+<span class="c1"># scalar information is available).</span>
+<span class="n">sphere_mapper</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
+<span class="n">configure_input_data</span><span class="p">(</span><span class="n">sphere_mapper</span><span class="p">,</span> <span class="n">sphere</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+<span class="n">sphere</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
-<span class="s2"># The Property will give the parameters of the material.</span>
-<span class="s2">p = tvtk.Property(opacity=0.2, color=(1, 0, 0))</span>
-<span class="s2"># The actor is the actually object in the scene.</span>
-<span class="s2">sphere_actor = tvtk.Actor(mapper=sphere_mapper, property=p)</span>
-<span class="s2">v.scene.add_actor(sphere_actor)</span>
+<span class="c1"># The Property will give the parameters of the material.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="c1"># The actor is the actually object in the scene.</span>
+<span class="n">sphere_actor</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">sphere_mapper</span><span class="p">,</span> <span class="nb">property</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">sphere_actor</span><span class="p">)</span>
 
-<span class="s2"># Create a second sphere</span>
-<span class="s2">sphere2 = tvtk.SphereSource(center=(7, 0, 1), radius=0.2)</span>
-<span class="s2">sphere_mapper2 = tvtk.PolyDataMapper()</span>
-<span class="s2">configure_input_data(sphere_mapper2, sphere2.output)</span>
-<span class="s2">sphere2.update()</span>
-<span class="s2">p = tvtk.Property(opacity=0.3, color=(1, 0, 0))</span>
-<span class="s2">sphere_actor2 = tvtk.Actor(mapper=sphere_mapper2, property=p)</span>
-<span class="s2">v.scene.add_actor(sphere_actor2)</span>
+<span class="c1"># Create a second sphere</span>
+<span class="n">sphere2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">SphereSource</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">sphere_mapper2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
+<span class="n">configure_input_data</span><span class="p">(</span><span class="n">sphere_mapper2</span><span class="p">,</span> <span class="n">sphere2</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+<span class="n">sphere2</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">sphere_actor2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">sphere_mapper2</span><span class="p">,</span> <span class="nb">property</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">sphere_actor2</span><span class="p">)</span>
 
-<span class="s2"># Create a line between the two spheres</span>
-<span class="s2">line = tvtk.LineSource(point1=(0, 0, 0), point2=(7, 0, 1))</span>
-<span class="s2">line_mapper = tvtk.PolyDataMapper()</span>
-<span class="s2">configure_input_data(line_mapper, line.output)</span>
-<span class="s2">line.update()</span>
-<span class="s2">line_actor = tvtk.Actor(mapper=line_mapper)</span>
-<span class="s2">v.scene.add_actor(line_actor)</span>
+<span class="c1"># Create a line between the two spheres</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">LineSource</span><span class="p">(</span><span class="n">point1</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">point2</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">line_mapper</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
+<span class="n">configure_input_data</span><span class="p">(</span><span class="n">line_mapper</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="n">line_actor</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">line_mapper</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">line_actor</span><span class="p">)</span>
 
-<span class="s2"># And display text</span>
-<span class="s2">vtext = tvtk.VectorText()</span>
-<span class="s2">vtext.text = &#39;Mayavi&#39;</span>
-<span class="s2">text_mapper = tvtk.PolyDataMapper()</span>
-<span class="s2">configure_input_data(text_mapper, vtext.get_output())</span>
-<span class="s2">vtext.update()</span>
-<span class="s2">p2 = tvtk.Property(color=(0, 0.3, 0.3))</span>
-<span class="s2">text_actor = tvtk.Follower(mapper=text_mapper, property=p2)</span>
-<span class="s2">text_actor.position = (0, 0, 0)</span>
-<span class="s2">v.scene.add_actor(text_actor)</span>
+<span class="c1"># And display text</span>
+<span class="n">vtext</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">VectorText</span><span class="p">()</span>
+<span class="n">vtext</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Mayavi&#39;</span>
+<span class="n">text_mapper</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
+<span class="n">configure_input_data</span><span class="p">(</span><span class="n">text_mapper</span><span class="p">,</span> <span class="n">vtext</span><span class="o">.</span><span class="n">get_output</span><span class="p">())</span>
+<span class="n">vtext</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">))</span>
+<span class="n">text_actor</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Follower</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">text_mapper</span><span class="p">,</span> <span class="nb">property</span><span class="o">=</span><span class="n">p2</span><span class="p">)</span>
+<span class="n">text_actor</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">text_actor</span><span class="p">)</span>
 
-<span class="s2"># Choose a view angle, and display the figure</span>
-<span class="s2">mlab.view(85, -17, 15, [3.5, -0.3, -0.8])</span>
-<span class="s2">mlab.show()</span>
+<span class="c1"># Choose a view angle, and display the figure</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="o">-</span><span class="mi">17</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">[</span><span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -180,17 +181,15 @@ complex VTK pipeline built with Mayavi, see
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -210,14 +209,15 @@ complex VTK pipeline built with Mayavi, see
         <li class="right" >
           <a href="example_atomic_orbital.html" title="Atomic orbital example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tvtk in mayavi example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

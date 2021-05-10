@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Plotting functions &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Plotting functions &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Plotting functions</a></li> 
       </ul>
     </div>  
 
@@ -77,30 +77,30 @@
           <div class="body" role="main">
             
   <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
 the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
+<p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<div class="section" id="plotting-functions">
+<section id="plotting-functions">
 <h1>Plotting functions<a class="headerlink" href="#plotting-functions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="barchart">
+<section id="barchart">
 <h2>barchart<a class="headerlink" href="#barchart" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.barchart">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">barchart</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.barchart">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">barchart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots vertical glyphs (like bars) scaled vertical, to do
 histogram-like plots.</p>
 <p>This functions accepts a wide variety of inputs, with positions given
 in 2-D or in 3-D.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">barchart(s, ...)</span>
-<span class="s2">barchart(x, y, s, ...)</span>
-<span class="s2">barchart(x, y, f, ...)</span>
-<span class="s2">barchart(x, y, z, s, ...)</span>
-<span class="s2">barchart(x, y, z, f, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">barchart</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">barchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If only one positional argument is passed, it can be a 1-D, 2-D, or 3-D
@@ -116,99 +116,113 @@ is an array s, or a callable, f, that returns an array giving the
 data value.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">auto_scale:</th><td class="field-body">whether to compute automatically the lateral scaling of
+<div><dl class="field-list simple">
+<dt class="field-odd">auto_scale</dt>
+<dd class="field-odd"><p>whether to compute automatically the lateral scaling of
 the glyphs. This might be computationally expensive. Must
-be a boolean. Default: True</td>
-</tr>
-<tr class="field-even field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+be a boolean. Default: True</p>
+</dd>
+<dt class="field-even">color</dt>
+<dd class="field-even"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-odd">colormap</dt>
+<dd class="field-odd"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-even">extent</dt>
+<dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">lateral_scale:</th><td class="field-body">The lateral scale of the glyph, in units of the
+created.</p>
+</dd>
+<dt class="field-odd">figure</dt>
+<dd class="field-odd"><p>Figure to populate.</p>
+</dd>
+<dt class="field-even">lateral_scale</dt>
+<dd class="field-even"><p>The lateral scale of the glyph, in units of the
 distance between nearest points Must be a float.
-Default: 0.9</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
+Default: 0.9</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">mask_points</dt>
+<dd class="field-even"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
-None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">The glyph used to represent the bars. Must be ‘2dcircle’ or
+None.</p>
+</dd>
+<dt class="field-odd">mode</dt>
+<dd class="field-odd"><p>The glyph used to represent the bars. Must be ‘2dcircle’ or
 ‘2dcross’ or ‘2ddiamond’ or ‘2dsquare’ or ‘2dthick_cross’ or
-‘2dtriangle’ or ‘2dvertex’ or ‘cube’. Default: cube</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+‘2dtriangle’ or ‘2dvertex’ or ‘cube’. Default: cube</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">resolution</dt>
+<dd class="field-odd"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
+phi. Must be an integer. Default: 8</p>
+</dd>
+<dt class="field-even">scale_factor</dt>
+<dd class="field-even"><p>the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
-units. Must be a float. Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(‘vector’, ‘scalar’, or ‘none’).</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+units. Must be a float. Default: 1.0</p>
+</dd>
+<dt class="field-odd">scale_mode</dt>
+<dd class="field-odd"><p>the scaling mode for the glyphs
+(‘vector’, ‘scalar’, or ‘none’).</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_barchart():</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="n">Demo</span> <span class="n">the</span> <span class="n">bar</span> <span class="n">chart</span> <span class="n">plot</span> <span class="k">with</span> <span class="n">a</span> <span class="mi">2</span><span class="n">D</span> <span class="n">array</span><span class="o">.</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    s = np.abs(np.random.random((3, 3)))</span>
-<span class="s2">    return barchart(s)</span>
+<span class="k">def</span> <span class="nf">test_barchart</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Demo the bar chart plot with a 2D array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">barchart</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="contour3d">
+</section>
+<section id="contour3d">
 <h2>contour3d<a class="headerlink" href="#contour3d" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.contour3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">contour3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.contour3d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">contour3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots iso-surfaces for a 3D volume of data supplied as arguments.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">contour3d(scalars, ...)</span>
-<span class="s2">contour3d(x, y, z, scalars, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">contour3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>scalars is a 3D numpy arrays giving the data on a grid.</p>
@@ -221,79 +235,87 @@ The function builds a scalar field assuming  the points are regularly
 spaced.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">contours</dt>
+<dd class="field-odd"><p>Integer/list specifying number/list of
 contours. Specifying a list of values will only
-give the requested contours asked for.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+give the requested contours asked for.</p>
+</dd>
+<dt class="field-even">extent</dt>
+<dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+created.</p>
+</dd>
+<dt class="field-odd">figure</dt>
+<dd class="field-odd"><p>Figure to populate.</p>
+</dd>
+<dt class="field-even">line_width</dt>
+<dd class="field-even"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-odd">reset_zoom</dt>
+<dd class="field-odd"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_contour3d():</span>
-<span class="s2">    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]</span>
+<span class="k">def</span> <span class="nf">test_contour3d</span><span class="p">():</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">]</span>
 
-<span class="s2">    scalars = x * x * 0.5 + y * y + z * z * 2.0</span>
+    <span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="mf">2.0</span>
 
-<span class="s2">    obj = contour3d(scalars, contours=4, transparent=True)</span>
-<span class="s2">    return obj</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="contour-surf">
+</section>
+<section id="contour-surf">
 <h2>contour_surf<a class="headerlink" href="#contour-surf" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.contour_surf">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">contour_surf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.contour_surf">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">contour_surf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a the contours of a surface using grid-spaced data for
 elevation supplied as a 2D array.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">contour_surf(s, ...)</span>
-<span class="s2">contour_surf(x, y, s, ...)</span>
-<span class="s2">contour_surf(x, y, f, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">contour_surf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">contour_surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">contour_surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>s is the elevation matrix, a 2D array. The contour lines plotted
@@ -312,82 +334,91 @@ or a callable, f, that returns an array. x and y give the
 coordinates of positions corresponding to the s values.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">contours</dt>
+<dd class="field-odd"><p>Integer/list specifying number/list of
 contours. Specifying a list of values will only
-give the requested contours asked for.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+give the requested contours asked for.</p>
+</dd>
+<dt class="field-even">extent</dt>
+<dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the warp scalar</td>
-</tr>
-</tbody>
-</table>
+created.</p>
+</dd>
+<dt class="field-odd">figure</dt>
+<dd class="field-odd"><p>Figure to populate.</p>
+</dd>
+<dt class="field-even">line_width</dt>
+<dd class="field-even"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-odd">reset_zoom</dt>
+<dd class="field-odd"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+<dt class="field-odd">warp_scale</dt>
+<dd class="field-odd"><p>scale of the warp scalar</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_contour_surf():</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="n">Test</span> <span class="n">contour_surf</span> <span class="n">on</span> <span class="n">regularly</span> <span class="n">spaced</span> <span class="n">co</span><span class="o">-</span><span class="n">ordinates</span> <span class="n">like</span> <span class="n">MayaVi</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    def f(x, y):</span>
-<span class="s2">        sin, cos = np.sin, np.cos</span>
-<span class="s2">        return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)</span>
+<span class="k">def</span> <span class="nf">test_contour_surf</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test contour_surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span>
+        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
 
-<span class="s2">    x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
-<span class="s2">    s = contour_surf(x, y, f)</span>
-<span class="s2">    return s</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">7.</span><span class="p">:</span><span class="mf">7.05</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">:</span><span class="mf">5.05</span><span class="p">:</span><span class="mf">0.05</span><span class="p">]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">contour_surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="flow">
+</section>
+<section id="flow">
 <h2>flow<a class="headerlink" href="#flow" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.flow">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">flow</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.flow">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a trajectory of particles following the flow of a vector field.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">flow(u, v, w, ...)</span>
-<span class="s2">flow(x, y, z, u, v, w, ...)</span>
-<span class="s2">flow(x, y, z, f, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">flow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">flow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>u, v, w are numpy arrays giving the components of the vectors.</p>
@@ -407,170 +438,190 @@ a callable, f, that returns vectors components (u, v, w) given the
 positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">integration_direction:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">The direction of the integration. Must be
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">integration_direction</dt>
+<dd class="field-odd"><p>The direction of the integration. Must be
 ‘forward’ or ‘backward’ or ‘both’. Default:
-forward</td>
-</tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
+forward</p>
+</dd>
+<dt class="field-even">line_width</dt>
+<dd class="field-even"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-odd">linetype</dt>
+<dd class="field-odd"><p>the type of line-like object used to display the
 streamline. Must be ‘line’ or ‘ribbon’ or ‘tube’. Default:
-line</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">The resolution of the seed. Determines the number of
-seed points Must be an integer or None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
-float. Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">seed_visible:</th><td class="field-body">Control the visibility of the seed. Must be a boolean.
-Default: True</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
-‘line’ or ‘plane’ or ‘point’ or ‘sphere’. Default: sphere</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+line</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">scalars</dt>
+<dd class="field-odd"><p>optional scalar data.</p>
+</dd>
+<dt class="field-even">seed_resolution</dt>
+<dd class="field-even"><p>The resolution of the seed. Determines the number of
+seed points Must be an integer or None.</p>
+</dd>
+<dt class="field-odd">seed_scale</dt>
+<dd class="field-odd"><p>Scales the seed around its default center Must be a
+float. Default: 1.0</p>
+</dd>
+<dt class="field-even">seed_visible</dt>
+<dd class="field-even"><p>Control the visibility of the seed. Must be a boolean.
+Default: True</p>
+</dd>
+<dt class="field-odd">seedtype</dt>
+<dd class="field-odd"><p>the widget used as a seed for the streamlines. Must be
+‘line’ or ‘plane’ or ‘point’ or ‘sphere’. Default: sphere</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_flow():</span>
-<span class="s2">    x, y, z = np.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]</span>
-<span class="s2">    r = np.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)</span>
-<span class="s2">    u = y * np.sin(r) / r</span>
-<span class="s2">    v = -x * np.sin(r) / r</span>
-<span class="s2">    w = np.ones_like(z)*0.05</span>
-<span class="s2">    obj = flow(u, v, w)</span>
-<span class="s2">    return obj</span>
+<span class="k">def</span> <span class="nf">test_flow</span><span class="p">():</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">20</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="mf">0.05</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="imshow">
+</section>
+<section id="imshow">
 <h2>imshow<a class="headerlink" href="#imshow" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.imshow">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">imshow</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.imshow">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">imshow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
 <dd><p>View a 2D array as an image.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">imshow(s, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>s is a 2 dimension array. The values of s are mapped to a color using
 the colormap.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">interpolate:</th><td class="field-body">if the pixels in the image are to be
-interpolated or not. Must be a boolean. Default: True</td>
-</tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">the opacity of the image. Must be a legal value. Default:
-1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">interpolate</dt>
+<dd class="field-odd"><p>if the pixels in the image are to be
+interpolated or not. Must be a boolean. Default: True</p>
+</dd>
+<dt class="field-even">line_width</dt>
+<dd class="field-even"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>the opacity of the image. Must be a legal value. Default:
+1.0</p>
+</dd>
+<dt class="field-odd">reset_zoom</dt>
+<dd class="field-odd"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_imshow():</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="n">Use</span> <span class="n">imshow</span> <span class="n">to</span> <span class="n">visualize</span> <span class="n">a</span> <span class="mi">2</span><span class="n">D</span> <span class="mi">10</span><span class="n">x10</span> <span class="n">random</span> <span class="n">array</span><span class="o">.</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    s = np.random.random((10, 10))</span>
-<span class="s2">    return imshow(s, colormap=&#39;gist_earth&#39;)</span>
+<span class="k">def</span> <span class="nf">test_imshow</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Use imshow to visualize a 2D 10x10 random array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gist_earth&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="mesh">
+</section>
+<section id="mesh">
 <h2>mesh<a class="headerlink" href="#mesh" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.mesh">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">mesh</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.mesh">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using grid-spaced data supplied as 2D arrays.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">mesh(x, y, z, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>x, y, z are 2D arrays, all of the same shape, giving the positions of
@@ -582,129 +633,146 @@ defined by triangles rather than regular implicit connectivity, see the
 <cite>triangular_mesh</cite> function.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">mask</dt>
+<dd class="field-even"><p>boolean mask array to suppress some data points.
 Note: this works based on colormapping of scalars and will
 not work if you specify a solid color using the
-<cite>color</cite> keyword.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
+<cite>color</cite> keyword.</p>
+</dd>
+<dt class="field-odd">mask_points</dt>
+<dd class="field-odd"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
-None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
+None.</p>
+</dd>
+<dt class="field-even">mode</dt>
+<dd class="field-even"><p>the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
 ‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
 ‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
 ‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
-‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-odd">representation</dt>
+<dd class="field-odd"><p>the representation type used for the surface. Must be
 ‘surface’ or ‘wireframe’ or ‘points’ or ‘mesh’ or
-‘fancymesh’. Default: surface</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+‘fancymesh’. Default: surface</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">resolution</dt>
+<dd class="field-odd"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
+phi. Must be an integer. Default: 8</p>
+</dd>
+<dt class="field-even">scalars</dt>
+<dd class="field-even"><p>optional scalar data.</p>
+</dd>
+<dt class="field-odd">scale_factor</dt>
+<dd class="field-odd"><p>scale factor of the glyphs used to represent
 the vertices, in fancy_mesh mode. Must be a float.
-Default: 0.05</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(‘vector’, ‘scalar’, or ‘none’).</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
-lines, in mesh mode. If None, simple lines are used.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
-represent the lines. Must be an integer. Default: 6</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+Default: 0.05</p>
+</dd>
+<dt class="field-even">scale_mode</dt>
+<dd class="field-even"><p>the scaling mode for the glyphs
+(‘vector’, ‘scalar’, or ‘none’).</p>
+</dd>
+<dt class="field-odd">transparent</dt>
+<dd class="field-odd"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-even">tube_radius</dt>
+<dd class="field-even"><p>radius of the tubes used to represent the
+lines, in mesh mode. If None, simple lines are used.</p>
+</dd>
+<dt class="field-odd">tube_sides</dt>
+<dd class="field-odd"><p>number of sides of the tubes used to
+represent the lines. Must be an integer. Default: 6</p>
+</dd>
+<dt class="field-even">vmax</dt>
+<dd class="field-even"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-odd">vmin</dt>
+<dd class="field-odd"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_mesh():</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="n">A</span> <span class="n">very</span> <span class="n">pretty</span> <span class="n">picture</span> <span class="n">of</span> <span class="n">spherical</span> <span class="n">harmonics</span> <span class="n">translated</span> <span class="kn">from</span>
-    <span class="nn">the</span> <span class="n">octaviz</span> <span class="n">example</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    pi = np.pi</span>
-<span class="s2">    cos = np.cos</span>
-<span class="s2">    sin = np.sin</span>
-<span class="s2">    dphi, dtheta = pi / 250.0, pi / 250.0</span>
-<span class="s2">    [phi, theta] = np.mgrid[0:pi + dphi * 1.5:dphi,</span>
-<span class="s2">                            0:2 * pi + dtheta * 1.5:dtheta]</span>
-<span class="s2">    m0 = 4</span>
-<span class="s2">    m1 = 3</span>
-<span class="s2">    m2 = 2</span>
-<span class="s2">    m3 = 3</span>
-<span class="s2">    m4 = 6</span>
-<span class="s2">    m5 = 2</span>
-<span class="s2">    m6 = 6</span>
-<span class="s2">    m7 = 4</span>
-<span class="s2">    r = sin(m0 * phi) ** m1 + cos(m2 * phi) ** m3 + </span><span class="se">\</span>
-<span class="s2">        sin(m4 * theta) ** m5 + cos(m6 * theta) ** m7</span>
-<span class="s2">    x = r * sin(phi) * cos(theta)</span>
-<span class="s2">    y = r * cos(phi)</span>
-<span class="s2">    z = r * sin(phi) * sin(theta)</span>
+<span class="k">def</span> <span class="nf">test_mesh</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;A very pretty picture of spherical harmonics translated from</span>
+<span class="sd">    the octaviz example.&quot;&quot;&quot;</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span>
+    <span class="n">sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span>
+    <span class="n">dphi</span><span class="p">,</span> <span class="n">dtheta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">250.0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">250.0</span>
+    <span class="p">[</span><span class="n">phi</span><span class="p">,</span> <span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span> <span class="o">+</span> <span class="n">dphi</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span><span class="n">dphi</span><span class="p">,</span>
+                            <span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">dtheta</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span><span class="n">dtheta</span><span class="p">]</span>
+    <span class="n">m0</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">m3</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">m4</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">m5</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">m6</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">m7</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">m0</span> <span class="o">*</span> <span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m2</span> <span class="o">*</span> <span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="n">m3</span> <span class="o">+</span> \
+        <span class="n">sin</span><span class="p">(</span><span class="n">m4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="n">m5</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m6</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="n">m7</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
 
-<span class="s2">    return mesh(x, y, z, colormap=&quot;bone&quot;)</span>
+    <span class="k">return</span> <span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;bone&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="plot3d">
+</section>
+<section id="plot3d">
 <h2>plot3d<a class="headerlink" href="#plot3d" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.plot3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">plot3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.plot3d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">plot3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws lines between points.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">plot3d(x, y, z, ...)</span>
-<span class="s2">plot3d(x, y, z, s, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>x, y, z and s are numpy arrays or lists of the same shape. x, y and z
@@ -712,89 +780,99 @@ give the positions of the successive points of the line. s is an
 optional scalar value associated with each point.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">representation</dt>
+<dd class="field-even"><p>the representation type used for the surface. Must be
 ‘surface’ or ‘wireframe’ or ‘points’. Default:
-surface</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
-lines, If None, simple lines are used.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
-represent the lines. Must be an integer. Default: 6</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+surface</p>
+</dd>
+<dt class="field-odd">reset_zoom</dt>
+<dd class="field-odd"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">tube_radius</dt>
+<dd class="field-odd"><p>radius of the tubes used to represent the
+lines, If None, simple lines are used.</p>
+</dd>
+<dt class="field-even">tube_sides</dt>
+<dd class="field-even"><p>number of sides of the tubes used to
+represent the lines. Must be an integer. Default: 6</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_plot3d():</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="n">Generates</span> <span class="n">a</span> <span class="n">pretty</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">lines</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    n_mer, n_long = 6, 11</span>
-<span class="s2">    dphi = np.pi / 1000.0</span>
-<span class="s2">    phi = np.arange(0.0, 2 * np.pi + 0.5 * dphi, dphi)</span>
-<span class="s2">    mu = phi * n_mer</span>
-<span class="s2">    x = np.cos(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)</span>
-<span class="s2">    y = np.sin(mu) * (1 + np.cos(n_long * mu / n_mer) * 0.5)</span>
-<span class="s2">    z = np.sin(n_long * mu / n_mer) * 0.5</span>
+<span class="k">def</span> <span class="nf">test_plot3d</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Generates a pretty set of lines.&quot;&quot;&quot;</span>
+    <span class="n">n_mer</span><span class="p">,</span> <span class="n">n_long</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span>
+    <span class="n">dphi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">1000.0</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">)</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">*</span> <span class="n">n_mer</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
 
-<span class="s2">    l = plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap=&#39;Spectral&#39;)</span>
-<span class="s2">    return l</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">l</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="points3d">
+</section>
+<section id="points3d">
 <h2>points3d<a class="headerlink" href="#points3d" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.points3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">points3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.points3d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">points3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like points) at the position of the supplied data.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">points3d(x, y, z...)</span>
-<span class="s2">points3d(x, y, z, s, ...)</span>
-<span class="s2">points3d(x, y, z, f, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">...</span><span class="p">)</span>
+<span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>x, y and z are numpy arrays, or lists, all of the same shape, giving
@@ -808,100 +886,112 @@ scalar value can be used to modulate the color and the size of the
 points.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">mask_points</dt>
+<dd class="field-even"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
-None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
+None.</p>
+</dd>
+<dt class="field-odd">mode</dt>
+<dd class="field-odd"><p>the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
 ‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
 ‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
 ‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
-‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">resolution</dt>
+<dd class="field-odd"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the size of the
+phi. Must be an integer. Default: 8</p>
+</dd>
+<dt class="field-even">scale_factor</dt>
+<dd class="field-even"><p>The scaling applied to the glyphs. the size of the
 glyph is by default calculated from the inter-glyph
 spacing. Specify a float to give the maximum glyph size
-in drawing units</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(‘vector’, ‘scalar’, or ‘none’).</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+in drawing units</p>
+</dd>
+<dt class="field-odd">scale_mode</dt>
+<dd class="field-odd"><p>the scaling mode for the glyphs
+(‘vector’, ‘scalar’, or ‘none’).</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_points3d():</span>
-<span class="s2">    t = np.linspace(0, 4 * np.pi, 20)</span>
+<span class="k">def</span> <span class="nf">test_points3d</span><span class="p">():</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 
-<span class="s2">    x = np.sin(2 * t)</span>
-<span class="s2">    y = np.cos(t)</span>
-<span class="s2">    z = np.cos(2 * t)</span>
-<span class="s2">    s = 2 + np.sin(t)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-<span class="s2">    return points3d(x, y, z, s, colormap=&quot;copper&quot;, scale_factor=.25)</span>
+    <span class="k">return</span> <span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;copper&quot;</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mf">.25</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="quiver3d">
+</section>
+<section id="quiver3d">
 <h2>quiver3d<a class="headerlink" href="#quiver3d" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.quiver3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">quiver3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.quiver3d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">quiver3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like arrows) indicating the direction of the vectors
 at the positions supplied.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">quiver3d(u, v, w, ...)</span>
-<span class="s2">quiver3d(x, y, z, u, v, w, ...)</span>
-<span class="s2">quiver3d(x, y, z, f, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>u, v, w are numpy arrays giving the components of the vectors.</p>
@@ -916,109 +1006,122 @@ a callable, f, that returns vectors components (u, v, w) given the
 positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">mask_points</dt>
+<dd class="field-even"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
-None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
+None.</p>
+</dd>
+<dt class="field-odd">mode</dt>
+<dd class="field-odd"><p>the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
 ‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
 ‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
 ‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
-‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: 2darrow</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: 2darrow</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">resolution</dt>
+<dd class="field-odd"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the size of the
+phi. Must be an integer. Default: 8</p>
+</dd>
+<dt class="field-even">scalars</dt>
+<dd class="field-even"><p>optional scalar data.</p>
+</dd>
+<dt class="field-odd">scale_factor</dt>
+<dd class="field-odd"><p>The scaling applied to the glyphs. the size of the
 glyph is by default calculated from the inter-glyph
 spacing. Specify a float to give the maximum glyph size
-in drawing units</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(‘vector’, ‘scalar’, or ‘none’).</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+in drawing units</p>
+</dd>
+<dt class="field-even">scale_mode</dt>
+<dd class="field-even"><p>the scaling mode for the glyphs
+(‘vector’, ‘scalar’, or ‘none’).</p>
+</dd>
+<dt class="field-odd">transparent</dt>
+<dd class="field-odd"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-even">vmax</dt>
+<dd class="field-even"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-odd">vmin</dt>
+<dd class="field-odd"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_quiver3d():</span>
-<span class="s2">    x, y, z = np.mgrid[-2:3, -2:3, -2:3]</span>
-<span class="s2">    r = np.sqrt(x ** 2 + y ** 2 + z ** 4)</span>
-<span class="s2">    u = y * np.sin(r) / (r + 0.001)</span>
-<span class="s2">    v = -x * np.sin(r) / (r + 0.001)</span>
-<span class="s2">    w = np.zeros_like(z)</span>
-<span class="s2">    obj = quiver3d(x, y, z, u, v, w, line_width=3, scale_factor=1)</span>
-<span class="s2">    return obj</span>
+<span class="k">def</span> <span class="nf">test_quiver3d</span><span class="p">():</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="set-picker-props">
+</section>
+<section id="set-picker-props">
 <h2>set_picker_props<a class="headerlink" href="#set-picker-props" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.set_picker_props">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">set_picker_props</code><span class="sig-paren">(</span><em>figure=None</em>, <em>pick_type='point_picker'</em>, <em>tolerance=0.025</em>, <em>text_color=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.set_picker_props" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.set_picker_props">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">set_picker_props</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pick_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point_picker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.set_picker_props" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="surf">
+</section>
+<section id="surf">
 <h2>surf<a class="headerlink" href="#surf" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.surf">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">surf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.surf">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">surf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using regularly-spaced elevation data supplied as a 2D
 array.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">surf(s, ...)</span>
-<span class="s2">surf(x, y, s, ...)</span>
-<span class="s2">surf(x, y, f, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">surf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>s is the elevation matrix, a 2D array, where indices along the first
@@ -1040,54 +1143,65 @@ or a callable, f, that returns an array. x and y give the
 coordinates of positions corresponding to the s values.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">mask</dt>
+<dd class="field-even"><p>boolean mask array to suppress some data points.
 Note: this works based on colormapping of scalars and will
 not work if you specify a solid color using the
-<cite>color</cite> keyword.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<cite>color</cite> keyword.</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-odd">representation</dt>
+<dd class="field-odd"><p>the representation type used for the surface. Must be
 ‘surface’ or ‘wireframe’ or ‘points’. Default:
-surface</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the z axis (warped from
+surface</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">transparent</dt>
+<dd class="field-odd"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-even">vmax</dt>
+<dd class="field-even"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-odd">vmin</dt>
+<dd class="field-odd"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+<dt class="field-even">warp_scale</dt>
+<dd class="field-even"><p>scale of the z axis (warped from
 the value of the scalar). By default this scale
 is a float value.                          If you specify
 ‘auto’, the scale is calculated to
@@ -1102,40 +1216,39 @@ are using explicit extents, this is the best way
 to control the vertical scale of your plots.
 If you want to control the extent (or range)
 of the surface object, rather than its scale,
-see the <cite>extent</cite> keyword argument.</td>
-</tr>
-</tbody>
-</table>
+see the <cite>extent</cite> keyword argument.</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_surf():</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="n">Test</span> <span class="n">surf</span> <span class="n">on</span> <span class="n">regularly</span> <span class="n">spaced</span> <span class="n">co</span><span class="o">-</span><span class="n">ordinates</span> <span class="n">like</span> <span class="n">MayaVi</span><span class="o">.</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    def f(x, y):</span>
-<span class="s2">        sin, cos = np.sin, np.cos</span>
-<span class="s2">        return sin(x + y) + sin(2 * x - y) + cos(3 * x + 4 * y)</span>
+<span class="k">def</span> <span class="nf">test_surf</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Test surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span>
+        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
 
-<span class="s2">    x, y = np.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]</span>
-<span class="s2">    s = surf(x, y, f)</span>
-<span class="s2">    #cs = contour_surf(x, y, f, contour_z=0)</span>
-<span class="s2">    return s</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">7.</span><span class="p">:</span><span class="mf">7.05</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">:</span><span class="mf">5.05</span><span class="p">:</span><span class="mf">0.05</span><span class="p">]</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="c1">#cs = contour_surf(x, y, f, contour_z=0)</span>
+    <span class="k">return</span> <span class="n">s</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="triangular-mesh">
+</section>
+<section id="triangular-mesh">
 <h2>triangular_mesh<a class="headerlink" href="#triangular-mesh" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.triangular_mesh">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">triangular_mesh</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.triangular_mesh">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">triangular_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using a mesh defined by the position of its vertices
 and the triangles connecting them.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">triangular_mesh(x, y, z, triangles ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">triangular_mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">triangles</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>x, y, z are arrays giving the positions of the vertices of the surface.
@@ -1146,124 +1259,141 @@ position arrays.</p>
 mesh functions, as they will create more efficient data structures.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">mask</dt>
+<dd class="field-even"><p>boolean mask array to suppress some data points.
 Note: this works based on colormapping of scalars and will
 not work if you specify a solid color using the
-<cite>color</cite> keyword.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of ‘mask_points’ data point is
+<cite>color</cite> keyword.</p>
+</dd>
+<dt class="field-odd">mask_points</dt>
+<dd class="field-odd"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
-None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
+None.</p>
+</dd>
+<dt class="field-even">mode</dt>
+<dd class="field-even"><p>the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
 ‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
 ‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
 ‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
-‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-odd">representation</dt>
+<dd class="field-odd"><p>the representation type used for the surface. Must be
 ‘surface’ or ‘wireframe’ or ‘points’ or ‘mesh’ or
-‘fancymesh’. Default: surface</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+‘fancymesh’. Default: surface</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">resolution</dt>
+<dd class="field-odd"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
-phi. Must be an integer. Default: 8</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
+phi. Must be an integer. Default: 8</p>
+</dd>
+<dt class="field-even">scalars</dt>
+<dd class="field-even"><p>optional scalar data.</p>
+</dd>
+<dt class="field-odd">scale_factor</dt>
+<dd class="field-odd"><p>scale factor of the glyphs used to represent
 the vertices, in fancy_mesh mode. Must be a float.
-Default: 0.05</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
-(‘vector’, ‘scalar’, or ‘none’).</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
-lines, in mesh mode. If None, simple lines are used.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
-represent the lines. Must be an integer. Default: 6</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+Default: 0.05</p>
+</dd>
+<dt class="field-even">scale_mode</dt>
+<dd class="field-even"><p>the scaling mode for the glyphs
+(‘vector’, ‘scalar’, or ‘none’).</p>
+</dd>
+<dt class="field-odd">transparent</dt>
+<dd class="field-odd"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-even">tube_radius</dt>
+<dd class="field-even"><p>radius of the tubes used to represent the
+lines, in mesh mode. If None, simple lines are used.</p>
+</dd>
+<dt class="field-odd">tube_sides</dt>
+<dd class="field-odd"><p>number of sides of the tubes used to
+represent the lines. Must be an integer. Default: 6</p>
+</dd>
+<dt class="field-even">vmax</dt>
+<dd class="field-even"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-odd">vmin</dt>
+<dd class="field-odd"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_triangular_mesh():</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="n">An</span> <span class="n">example</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cone</span><span class="p">,</span> <span class="n">ie</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">regular</span> <span class="n">mesh</span> <span class="n">defined</span> <span class="n">by</span> <span class="n">its</span>
-        <span class="n">triangles</span><span class="o">.</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    n = 8</span>
-<span class="s2">    t = np.linspace(-np.pi, np.pi, n)</span>
-<span class="s2">    z = np.exp(1j * t)</span>
-<span class="s2">    x = z.real.copy()</span>
-<span class="s2">    y = z.imag.copy()</span>
-<span class="s2">    z = np.zeros_like(x)</span>
+<span class="k">def</span> <span class="nf">test_triangular_mesh</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;An example of a cone, ie a non-regular mesh defined by its</span>
+<span class="sd">        triangles.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="s2">    triangles = [(0, i, i + 1) for i in range(1, n)]</span>
-<span class="s2">    x = np.r_[0, x]</span>
-<span class="s2">    y = np.r_[0, y]</span>
-<span class="s2">    z = np.r_[1, z]</span>
-<span class="s2">    t = np.r_[0, t]</span>
+    <span class="n">triangles</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
 
-<span class="s2">    return triangular_mesh(x, y, z, triangles, scalars=t)</span>
+    <span class="k">return</span> <span class="n">triangular_mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">triangles</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="volume-slice">
+</section>
+<section id="volume-slice">
 <h2>volume_slice<a class="headerlink" href="#volume-slice" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.volume_slice">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">volume_slice</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.volume_slice" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.volume_slice">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">volume_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.volume_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots an interactive image plane sliced through a 3D volume of data
 supplied as argument.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">volume_slice(scalars, ...)</span>
-<span class="s2">volume_slice(x, y, z, scalars, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">volume_slice</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">volume_slice</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>scalars is a 3D numpy arrays giving the data on a grid.</p>
@@ -1276,77 +1406,87 @@ The function builds a scalar field assuming  the points are regularly
 spaced.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">plane_opacity:</th><td class="field-body">the opacity of the plane actor. Must be a legal value.
-Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">the orientation of the plane Must be a legal
-value. Default: x_axes</td>
-</tr>
-<tr class="field-even field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">slice_index:</th><td class="field-body">The index along with the
-image is sliced.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Figure to populate.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">plane_opacity</dt>
+<dd class="field-even"><p>the opacity of the plane actor. Must be a legal value.
+Default: 1.0</p>
+</dd>
+<dt class="field-odd">plane_orientation</dt>
+<dd class="field-odd"><p>the orientation of the plane Must be a legal
+value. Default: x_axes</p>
+</dd>
+<dt class="field-even">reset_zoom</dt>
+<dd class="field-even"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-odd">slice_index</dt>
+<dd class="field-odd"><p>The index along with the
+image is sliced.</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">vmax</dt>
+<dd class="field-odd"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-even">vmin</dt>
+<dd class="field-even"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p><strong>Example</strong> (run in <code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">--gui=qt</span></code>, or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for more info):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy</span>
-<span class="s2">from mayavi.mlab import *</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="s2">def test_volume_slice():</span>
-<span class="s2">    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]</span>
+<span class="k">def</span> <span class="nf">test_volume_slice</span><span class="p">():</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">]</span>
 
-<span class="s2">    scalars = x * x * 0.5 + y * y + z * z * 2.0</span>
+    <span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="mf">2.0</span>
 
-<span class="s2">    obj = volume_slice(scalars, plane_orientation=&#39;x_axes&#39;)</span>
-<span class="s2">    return obj</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">volume_slice</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;x_axes&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -1389,17 +1529,15 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1419,14 +1557,15 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Plotting functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

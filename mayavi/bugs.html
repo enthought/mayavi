@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Known bugs and issues &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Known bugs and issues &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,7 +65,8 @@
         <li class="right" >
           <a href="api/core_view_objects.html" title="Main view and UI objects"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Known bugs and issues</a></li> 
       </ul>
     </div>  
 
@@ -75,7 +75,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="known-bugs-and-issues">
+  <section id="known-bugs-and-issues">
 <span id="known-bugs"></span><h1>Known bugs and issues<a class="headerlink" href="#known-bugs-and-issues" title="Permalink to this headline">¶</a></h1>
 <p>The Known Issues section contains those items that are big and
 important but are not currently actively worked on, because they need
@@ -83,7 +83,7 @@ a lot of effort or there is no solution yet for them. For a more detailed
 list of issues and bugs please check the list in <a class="reference external" href="https://github.com/enthought/mayavi/issues">issue tracker</a>.</p>
 <blockquote>
 <div><ul class="simple">
-<li><strong>Display bugs:</strong> Mayavi, and VTK, heavily use hardware rendering, as a
+<li><p><strong>Display bugs:</strong> Mayavi, and VTK, heavily use hardware rendering, as a
 result are very sensitive to hardware rendering bugs. Common
 issues include surfaces showing up as black instead of colored
 (mostly on windows or in virtual machines, I believe), z-ordering
@@ -94,16 +94,17 @@ moved out (often seen on Linux, when compiz is enabled). The
 solution is most often simply to turn off hardware rendering in the
 system settings (turn off compiz under Linux) or change
 graphics-card drivers (under Linux, try switching between the open
-source one, and the proprietary one).</li>
-<li><strong>Qt 5:</strong> Mayavi is built on top of the traitsui and pyface gui libraries. Thus
-support for Qt 5 is linked to these gui libraries supporting Qt 5.</li>
-<li><strong>wxPython 3:</strong> Similar to the Qt 5 issue support for wxPython 3 is linked with
-the necessary support arriving in the stable releases of the gui libraries.</li>
+source one, and the proprietary one).</p></li>
+<li><p><strong>Qt 5:</strong> Mayavi is built on top of the traitsui and pyface gui libraries. Thus
+support for Qt 5 is linked to these gui libraries supporting Qt 5.</p></li>
+<li><p><strong>wxPython 3:</strong> Similar to the Qt 5 issue support for wxPython 3 is linked with
+the necessary support arriving in the stable releases of the gui libraries.</p></li>
 </ul>
 </div></blockquote>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -126,17 +127,15 @@ the necessary support arriving in the stable releases of the gui libraries.</li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -156,13 +155,14 @@ the necessary support arriving in the stable releases of the gui libraries.</li>
         <li class="right" >
           <a href="api/core_view_objects.html" title="Main view and UI objects"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Known bugs and issues</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

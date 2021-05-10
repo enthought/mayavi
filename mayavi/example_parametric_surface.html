@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Parametric surfaces: a simple introduction to visualization &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Parametric surfaces: a simple introduction to visualization &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="application.html" title="Using the Mayavi application"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Parametric surfaces: a simple introduction to visualization</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="parametric-surfaces-a-simple-introduction-to-visualization">
+  <section id="parametric-surfaces-a-simple-introduction-to-visualization">
 <span id="parametric-surfaces-example"></span><h1>Parametric surfaces: a simple introduction to visualization<a class="headerlink" href="#parametric-surfaces-a-simple-introduction-to-visualization" title="Permalink to this headline">¶</a></h1>
 <p>Parametric surfaces are particularly handy if you are unable to find
 any data to play with right away.  Parametric surfaces are surfaces
@@ -88,7 +88,7 @@ More details on parametric surfaces in VTK may be obtained from Andrew
 Maclean’s <a class="reference external" href="http://www.vtk.org/pdf/ParametricSurfaces.pdf">Parametric Surfaces</a> document.</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">After starting mayavi2, create a simple Parametric surface source
+<li><p>After starting mayavi2, create a simple Parametric surface source
 by selecting <cite>File-&gt;Load data-&gt;Create Parametric Surface source</cite>.
 Once you create the data, you will see a new node on the Mayavi
 tree view on the left that says <cite>ParametricSurface</cite>.  Note that
@@ -96,67 +96,57 @@ you <strong>will not</strong> see anything visualized on the TVTK scene yet.</p>
 <p>You can modify the nature of the parametric surface by clicking
 on the node for the <cite>ParametricSurface</cite> source object.</p>
 </li>
-<li><p class="first">To see an outline (a box) of the data, navigate to the
+<li><p>To see an outline (a box) of the data, navigate to the
 <cite>Visualize-&gt;Modules</cite> menu item and select the <cite>Outline</cite> module.
 You can also right-click on the <cite>ParametricSurface</cite> node to bring up
 a context menu and select <cite>Add Module-&gt;Surface</cite>.
 You will immediately see a wireframe cube on the TVTK scene.
 You should also see two new nodes on the tree view, one called
-<cite>Colors and legends</cite> and one underneath that called <cite>Outline</cite>.</p>
-</li>
-<li><p class="first">You can change properties of the outline displayed by clicking on
+<cite>Colors and legends</cite> and one underneath that called <cite>Outline</cite>.</p></li>
+<li><p>You can change properties of the outline displayed by clicking on
 the <cite>Outline</cite> node on the left.  This will create an object editor
 window on left bottom of the window (the object editor tab) below
 the tree view.  Play with the settings here and look at the
 results.  For example, to change the color of the outline box
 modify the value in the color field.  If you double-click a node on
 the left it will pop up an editor dialog rather than show it in the
-embedded object editor.</p>
-</li>
-<li><p class="first">To navigate the scene look at the section on
+embedded object editor.</p></li>
+<li><p>To navigate the scene look at the section on
 <a class="reference internal" href="application.html#interaction-with-the-scene"><span class="std std-ref">Interaction with the scene</span></a> section for more details.  Experiment
-with these.</p>
-</li>
-<li><p class="first">To view the actual surface create a <cite>Surface</cite> module by selecting
+with these.</p></li>
+<li><p>To view the actual surface create a <cite>Surface</cite> module by selecting
 <cite>Visualize-&gt;Modules-&gt;Surface</cite>.  You can show contours of the
 scalar data on this surface by clicking on the <cite>Surface</cite> node on
-the left and switching on the <cite>Enable contours</cite> check-box.</p>
-</li>
-<li><p class="first">To view the color legend (used to map scalar values to colors),
+the left and switching on the <cite>Enable contours</cite> check-box.</p></li>
+<li><p>To view the color legend (used to map scalar values to colors),
 click on the <cite>Modules</cite> node on the tree view. Then, on the ‘Scalar LUT’
 tab, activate the <cite>Show scalar bar</cite> check-box.  This will show
 you a legend on the TVTK scene.  The legend can be moved around on
 the scene by clicking on it and dragging it.  It can also be
 resized by clicking and dragging on its edges.  You can change the
 nature of the color-mapping by choosing among different lookup
-tables on the object editor.</p>
-</li>
-<li><p class="first">You can add as many modules as you like.  Not all modules make
+tables on the object editor.</p></li>
+<li><p>You can add as many modules as you like.  Not all modules make
 sense for all data.  Mayavi does not yet grey out (or disable) menu
 items and options if they are invalid for the particular data
 chosen.  This will be implemented in the future.  However making a
 mistake should not in general be disastrous, so go ahead and
-experiment.</p>
-</li>
-<li><p class="first">You may add as many data sources as you like.  It is possible to
+experiment.</p></li>
+<li><p>You may add as many data sources as you like.  It is possible to
 view two different parametric surfaces on the same scene by selecting
 the scene node and then loading another parametric surface source.
 Whether this makes sense or not is up to the user.  You may also
 create as many scenes you want to and view anything in those.
 You can cut/paste/copy sources and modules between any nodes on
-the tree view using the right click options.</p>
-</li>
-<li><p class="first">To delete the <cite>Outline</cite> module say, right click on the <cite>Outline</cite>
+the tree view using the right click options.</p></li>
+<li><p>To delete the <cite>Outline</cite> module say, right click on the <cite>Outline</cite>
 node and select the Delete option.  You may also want to
-experiment with the other options.</p>
-</li>
-<li><p class="first">You can save the rendered visualization to a variety of file
-formats using the <cite>File-&gt;Save Scene As</cite> menu.</p>
-</li>
-<li><p class="first">The visualization may itself be saved out to a file via the
+experiment with the other options.</p></li>
+<li><p>You can save the rendered visualization to a variety of file
+formats using the <cite>File-&gt;Save Scene As</cite> menu.</p></li>
+<li><p>The visualization may itself be saved out to a file via the
 <cite>File-&gt;Save Visualization</cite> menu and reloaded using the <cite>Load
-visualization</cite> menu.</p>
-</li>
+visualization</cite> menu.</p></li>
 </ol>
 </div></blockquote>
 <p>Shown below is example visualization made using the parametric
@@ -164,9 +154,10 @@ source.  Note that the positioning of the different surfaces were effected by mo
 scene via the ‘a’ key.  For more details on this see the section on
 <a class="reference internal" href="application.html#interaction-with-the-scene"><span class="std std-ref">Interaction with the scene</span></a>.</p>
 <img alt="Sample visualization using parametric surfaces." src="_images/param.jpg" />
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -189,17 +180,15 @@ scene via the ‘a’ key.  For more details on this see the section on
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -219,14 +208,15 @@ scene via the ‘a’ key.  For more details on this see the section on
         <li class="right" >
           <a href="application.html" title="Using the Mayavi application"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Parametric surfaces: a simple introduction to visualization</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

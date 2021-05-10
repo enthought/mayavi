@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Structured points2d example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Structured points2d example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_glyph.html" title="Glyph example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Structured points2d example</a></li> 
       </ul>
     </div>  
 
@@ -76,72 +76,73 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="structured-points2d-example">
+  <section id="structured-points2d-example">
 <span id="example-structured-points2d"></span><h1>Structured points2d example<a class="headerlink" href="#structured-points2d-example" title="Permalink to this headline">¶</a></h1>
 <p>An example of how to generate a 2D structured points dataset
 using numpy arrays.  Also shown is a way to visualize this data with
 the mayavi2 application.</p>
 <p>The script can be run like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x structured_points2d.py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mayavi2 -x structured_points2d.py
 </pre></div>
 </div>
 <p>Alternatively, it can be run as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ python structured_points2d.py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python structured_points2d.py
 </pre></div>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/9b2d36df07a613d4024ecf2f3cd5f968/structured_points2d.py"><code class="xref download docutils literal notranslate"><span class="pre">structured_points2d.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
-<span class="s2"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="s2"># License: BSD style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/c01cd72051cab0ea1f240e7addb1ebb6/structured_points2d.py"><code class="xref download docutils literal notranslate"><span class="pre">structured_points2d.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
+<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD style.</span>
 
-<span class="s2">from numpy import arange, sqrt, sin</span>
-<span class="s2">from tvtk.api import tvtk</span>
-<span class="s2">from mayavi.scripts import mayavi2</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
 
-<span class="s2"># Generate the scalar values.</span>
-<span class="s2">x = (arange(0.1, 50.0)-25)/2.0</span>
-<span class="s2">y = (arange(0.1, 50.0)-25)/2.0</span>
-<span class="s2">r = sqrt(x[:,None]**2+y**2)</span>
-<span class="s2">z = 5.0*sin(r)/r  #</span>
+<span class="c1"># Generate the scalar values.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">)</span><span class="o">-</span><span class="mi">25</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">)</span><span class="o">-</span><span class="mi">25</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="kc">None</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mf">5.0</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>  <span class="c1">#</span>
 
-<span class="s2"># Make the tvtk dataset.</span>
-<span class="s2"># tvtk.ImageData is identical and could also be used here.</span>
-<span class="s2">spoints = tvtk.StructuredPoints(origin=(-12.5,-12.5,0),</span>
-<span class="s2">                                spacing=(0.5,0.5,1),</span>
-<span class="s2">                                dimensions=(50,50,1))</span>
-<span class="s2"># Transpose the array data due to VTK&#39;s implicit ordering. VTK assumes</span>
-<span class="s2"># an implicit ordering of the points: X co-ordinate increases first, Y</span>
-<span class="s2"># next and Z last.  We flatten it so the number of components is 1.</span>
-<span class="s2">spoints.point_data.scalars = z.T.flatten()</span>
-<span class="s2">spoints.point_data.scalars.name = &#39;scalar&#39;</span>
+<span class="c1"># Make the tvtk dataset.</span>
+<span class="c1"># tvtk.ImageData is identical and could also be used here.</span>
+<span class="n">spoints</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredPoints</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">12.5</span><span class="p">,</span><span class="o">-</span><span class="mf">12.5</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+                                <span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                                <span class="n">dimensions</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># Transpose the array data due to VTK&#39;s implicit ordering. VTK assumes</span>
+<span class="c1"># an implicit ordering of the points: X co-ordinate increases first, Y</span>
+<span class="c1"># next and Z last.  We flatten it so the number of components is 1.</span>
+<span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalar&#39;</span>
 
-<span class="s2"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
-<span class="s2">#w = tvtk.XMLImageDataWriter(input=spoints, file_name=&#39;spoints2d.vti&#39;)</span>
-<span class="s2">#w.write()</span>
+<span class="c1"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
+<span class="c1">#w = tvtk.XMLImageDataWriter(input=spoints, file_name=&#39;spoints2d.vti&#39;)</span>
+<span class="c1">#w.write()</span>
 
-<span class="s2"># Now view the data.</span>
-<span class="s2">@mayavi2.standalone</span>
-<span class="s2">def view():</span>
-<span class="s2">    from mayavi.sources.vtk_data_source import VTKDataSource</span>
-<span class="s2">    from mayavi.filters.warp_scalar import WarpScalar</span>
-<span class="s2">    from mayavi.filters.poly_data_normals import PolyDataNormals</span>
-<span class="s2">    from mayavi.modules.surface import Surface</span>
+<span class="c1"># Now view the data.</span>
+<span class="nd">@mayavi2</span><span class="o">.</span><span class="n">standalone</span>
+<span class="k">def</span> <span class="nf">view</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+    <span class="kn">from</span> <span class="nn">mayavi.filters.warp_scalar</span> <span class="kn">import</span> <span class="n">WarpScalar</span>
+    <span class="kn">from</span> <span class="nn">mayavi.filters.poly_data_normals</span> <span class="kn">import</span> <span class="n">PolyDataNormals</span>
+    <span class="kn">from</span> <span class="nn">mayavi.modules.surface</span> <span class="kn">import</span> <span class="n">Surface</span>
 
-<span class="s2">    mayavi.new_scene()</span>
-<span class="s2">    src = VTKDataSource(data = spoints)</span>
-<span class="s2">    mayavi.add_source(src)</span>
-<span class="s2">    mayavi.add_filter(WarpScalar())</span>
-<span class="s2">    mayavi.add_filter(PolyDataNormals())</span>
-<span class="s2">    s = Surface()</span>
-<span class="s2">    mayavi.add_module(s)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">spoints</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">WarpScalar</span><span class="p">())</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">PolyDataNormals</span><span class="p">())</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Surface</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
-<span class="s2">if __name__ == &#39;__main__&#39;:</span>
-<span class="s2">    view()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -164,17 +165,15 @@ the mayavi2 application.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -194,14 +193,15 @@ the mayavi2 application.</p>
         <li class="right" >
           <a href="example_glyph.html" title="Glyph example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Structured points2d example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

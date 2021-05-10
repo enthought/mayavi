@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Objects populating the Mayavi pipeline &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Objects populating the Mayavi pipeline &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objects populating the Mayavi pipeline</a></li> 
       </ul>
     </div>  
 
@@ -76,180 +76,179 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="objects-populating-the-mayavi-pipeline">
+  <section id="objects-populating-the-mayavi-pipeline">
 <h1>Objects populating the Mayavi pipeline<a class="headerlink" href="#objects-populating-the-mayavi-pipeline" title="Permalink to this headline">¶</a></h1>
 <p>Here we give a brief description of the key objects in the Mayavi pipeline.</p>
 <img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" />
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Given a Mayavi object, a simple way to see what important attribute
+<p class="admonition-title">Note</p>
+<p>Given a Mayavi object, a simple way to see what important attribute
 is, display it to call it’s <code class="docutils literal notranslate"><span class="pre">print_traits()</span></code>. Note that, for
 certain objects, when used in IPython, this can cause a segfault, due
 to threading problems in IPython.</p>
 </div>
-<div class="section" id="scene">
+<section id="scene">
 <h2>Scene<a class="headerlink" href="#scene" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key attributes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">scene</span></code></td>
-<td>a <code class="docutils literal notranslate"><span class="pre">TVTKScene</span></code> (<code class="docutils literal notranslate"><span class="pre">tvtk.pyface.tvtk_scene</span></code>)
-object which is where all the rendering occurs.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scene</span></code></p></td>
+<td><p>a <code class="docutils literal notranslate"><span class="pre">TVTKScene</span></code> (<code class="docutils literal notranslate"><span class="pre">tvtk.pyface.tvtk_scene</span></code>)
+object which is where all the rendering occurs.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">children</span></code></td>
-<td>a list of <code class="docutils literal notranslate"><span class="pre">Source</span></code> objects.</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">children</span></code></p></td>
+<td><p>a list of <code class="docutils literal notranslate"><span class="pre">Source</span></code> objects.</p></td>
 </tr>
 </tbody>
 </table>
 <p>The <code class="docutils literal notranslate"><span class="pre">Scene</span></code> class is defined in the <code class="docutils literal notranslate"><span class="pre">mayavi.core.scene</span></code> module.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Scene" title="mayavi.core.api.Scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scene</span></code></a> class.</p>
+<p class="admonition-title">See also</p>
+<p>API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Scene" title="mayavi.core.api.Scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scene</span></code></a> class.</p>
 </div>
-</div>
-<div class="section" id="source">
+</section>
+<section id="source">
 <h2>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
 <p>All the data sources, file readers, Parametric surface etc. are
 subclasses of the <code class="docutils literal notranslate"><span class="pre">Source</span></code> class.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key attributes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">children</span></code></td>
-<td>a list of either <code class="docutils literal notranslate"><span class="pre">Modules</span></code> or <code class="docutils literal notranslate"><span class="pre">Filters</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">children</span></code></p></td>
+<td><p>a list of either <code class="docutils literal notranslate"><span class="pre">Modules</span></code> or <code class="docutils literal notranslate"><span class="pre">Filters</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">outputs</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">List</span></code> of outputs produced by the source. These are
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">outputs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">List</span></code> of outputs produced by the source. These are
 TVTK datasets, that are explained in
-the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>.</td>
+the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>.</p></td>
 </tr>
 </tbody>
 </table>
 <p>The <code class="docutils literal notranslate"><span class="pre">Source</span></code> class is defined in the <code class="docutils literal notranslate"><span class="pre">mayavi.core.source</span></code>
 module.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Source" title="mayavi.core.api.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a> class.</p>
+<p class="admonition-title">See also</p>
+<p>API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Source" title="mayavi.core.api.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a> class.</p>
 </div>
-</div>
-<div class="section" id="filter">
+</section>
+<section id="filter">
 <h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
 <p>All the <code class="docutils literal notranslate"><span class="pre">Filters</span></code> described in the <a class="reference internal" href="filters.html#filters"><span class="std std-ref">Filters</span></a> section are
 subclasses of this class.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key attributes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">children</span></code></td>
-<td>a list of either <code class="docutils literal notranslate"><span class="pre">Modules</span></code> or other <code class="docutils literal notranslate"><span class="pre">Filters</span></code>.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">children</span></code></p></td>
+<td><p>a list of either <code class="docutils literal notranslate"><span class="pre">Modules</span></code> or other <code class="docutils literal notranslate"><span class="pre">Filters</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">inputs</span></code></td>
-<td>a <code class="docutils literal notranslate"><span class="pre">List</span></code> of input TVTK dataset objects that feed into
-the filter.</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code></p></td>
+<td><p>a <code class="docutils literal notranslate"><span class="pre">List</span></code> of input TVTK dataset objects that feed into
+the filter.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">outputs</span></code></td>
-<td>a list of outputs produced by the filter. These are
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">outputs</span></code></p></td>
+<td><p>a list of outputs produced by the filter. These are
 TVTK datasets, that are explained in
-the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>.</td>
+the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>.</p></td>
 </tr>
 </tbody>
 </table>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key methods</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">setup_pipeline()</span></code></td>
-<td>used to create the underlying TVTK pipeline objects if
-needed.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setup_pipeline()</span></code></p></td>
+<td><p>used to create the underlying TVTK pipeline objects if
+needed.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">update_pipeline()</span></code></td>
-<td>called when the upstream pipeline
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">update_pipeline()</span></code></p></td>
+<td><p>called when the upstream pipeline
 has been changed, i.e. an upstream object fires a
-<code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code> event.</td>
+<code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code> event.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">update_data()</span></code></td>
-<td>called when the upstream pipeline
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">update_data()</span></code></p></td>
+<td><p>called when the upstream pipeline
 has <strong>not</strong> been changed but the data in the
 pipeline has been changed.  This happens when the
-upstream object fires a <code class="docutils literal notranslate"><span class="pre">data_changed</span></code> event.</td>
+upstream object fires a <code class="docutils literal notranslate"><span class="pre">data_changed</span></code> event.</p></td>
 </tr>
 </tbody>
 </table>
 <p>The filter class is defined in the <code class="docutils literal notranslate"><span class="pre">mayavi.core.filter</span></code> module.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Filter" title="mayavi.core.api.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a> class.</p>
+<p class="admonition-title">See also</p>
+<p>API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Filter" title="mayavi.core.api.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a> class.</p>
 </div>
-</div>
-<div class="section" id="modulemanager-colors-and-legends-node">
+</section>
+<section id="modulemanager-colors-and-legends-node">
 <h2>ModuleManager: Colors and legends node<a class="headerlink" href="#modulemanager-colors-and-legends-node" title="Permalink to this headline">¶</a></h2>
 <p>This object is the one called <em>Colors and legends</em> in the tree view on
 the UI.  The main purpose of this object is to control how data is turned
 in colors in the <code class="docutils literal notranslate"><span class="pre">Modules</span></code> it manages.  All modules typically will use
 a lookup table (LUT) in order to produce a meaningful visualization.
 This lookup table is managed by the module manager.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key attributes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">source</span></code></td>
-<td>the <code class="docutils literal notranslate"><span class="pre">Source</span></code> or <code class="docutils literal notranslate"><span class="pre">Filter</span></code> object that is the input
-of this object.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>the <code class="docutils literal notranslate"><span class="pre">Source</span></code> or <code class="docutils literal notranslate"><span class="pre">Filter</span></code> object that is the input
+of this object.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">children</span></code></td>
-<td>a list of the <code class="docutils literal notranslate"><span class="pre">Modules</span></code> it manages.</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">children</span></code></p></td>
+<td><p>a list of the <code class="docutils literal notranslate"><span class="pre">Modules</span></code> it manages.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">scalar_lut_manager</span></code></td>
-<td>an instance of a <code class="docutils literal notranslate"><span class="pre">LUTManager</span></code> which
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scalar_lut_manager</span></code></p></td>
+<td><p>an instance of a <code class="docutils literal notranslate"><span class="pre">LUTManager</span></code> which
 basically manages the color mapping from
 scalar values to colors on the visualizations.
-This is basically a mapping from scalars to colors.</td>
+This is basically a mapping from scalars to colors.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">vector_lut_manager</span></code></td>
-<td>an instance of a <code class="docutils literal notranslate"><span class="pre">LUTManager</span></code> which manages the
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vector_lut_manager</span></code></p></td>
+<td><p>an instance of a <code class="docutils literal notranslate"><span class="pre">LUTManager</span></code> which manages the
 color mapping from vector values to colors on the
-visualizations.</td>
+visualizations.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">lut_data_mode</span></code></td>
-<td><dl class="first last docutils">
-<dt>‘auto’, ‘point data’ and ‘cell data’.</dt>
-<dd>Specifies the data type to use for the LUTs.  This can
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lut_data_mode</span></code></p></td>
+<td><dl class="simple">
+<dt>‘auto’, ‘point data’ and ‘cell data’.</dt><dd><p>Specifies the data type to use for the LUTs.  This can
 be changed inbetween .  Changing this setting will
 change the data range and name of the lookup
 table/legend bar.  If set to ‘auto’ (the default),
@@ -257,7 +256,8 @@ it automatically looks for cell and point data with
 point data being preferred over cell data and
 chooses the one available. If set to ‘point data’ it
 uses the input point data for the LUT and if set to
-‘cell data’ it uses the input cell data.</dd>
+‘cell data’ it uses the input cell data.</p>
+</dd>
 </dl>
 </td>
 </tr>
@@ -266,40 +266,40 @@ uses the input point data for the LUT and if set to
 <p>This class is defined in the <code class="docutils literal notranslate"><span class="pre">mayavi.core.module_manager</span></code>
 module.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.ModuleManager" title="mayavi.core.api.ModuleManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleManager</span></code></a> class.</p>
+<p class="admonition-title">See also</p>
+<p>API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.ModuleManager" title="mayavi.core.api.ModuleManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleManager</span></code></a> class.</p>
 </div>
-</div>
-<div class="section" id="module">
+</section>
+<section id="module">
 <h2>Module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h2>
 <p>These objects are the ones that typically produce a visualization on the
 scene.  All the modules defined in the <a class="reference internal" href="modules.html#modules"><span class="std std-ref">Modules</span></a> section are
 subclasses of this.</p>
 <p>A module is typically returned by the mlab
 <a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><span class="std std-ref">3D plotting functions</span></a>.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key attributes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">module_manager</span></code></td>
-<td>The <code class="docutils literal notranslate"><span class="pre">ModuleManager</span></code> instance that controls the
-colormaps and the legends of this <code class="docutils literal notranslate"><span class="pre">Module</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">module_manager</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">ModuleManager</span></code> instance that controls the
+colormaps and the legends of this <code class="docutils literal notranslate"><span class="pre">Module</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">actor</span></code></td>
-<td>The TVTK actor of the modules, in other words
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">actor</span></code></p></td>
+<td><p>The TVTK actor of the modules, in other words
 the object displayed in the scene. This is where
 you will have the properties such as scaling, or
-GL material properties.</td>
+GL material properties.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">components</span></code></td>
-<td>a list of various reusable components that are used
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">components</span></code></p></td>
+<td><p>a list of various reusable components that are used
 by the module.  These usually are never used directly
 by the user.  However, they are extremely useful
 when creating new modules.  A <code class="docutils literal notranslate"><span class="pre">Component</span></code> is
@@ -309,45 +309,45 @@ various other objects.  For example, almost every
 These are all “componentized” into a reusable
 <cite>Actor</cite> component that the modules use.  Thus,
 components are a means to promote reuse between
-mayavi pipeline objects.</td>
+mayavi pipeline objects.</p></td>
 </tr>
 </tbody>
 </table>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key methods</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">setup_pipeline()</span></code></td>
-<td>used to create the underlying TVTK pipeline objects if
-needed.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">setup_pipeline()</span></code></p></td>
+<td><p>used to create the underlying TVTK pipeline objects if
+needed.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">update_pipeline()</span></code></td>
-<td>called when the upstream pipeline
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">update_pipeline()</span></code></p></td>
+<td><p>called when the upstream pipeline
 has been changed, i.e. an upstream object fires a
-<code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code> event.</td>
+<code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code> event.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">update_data()</span></code></td>
-<td>called when the upstream pipeline
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">update_data()</span></code></p></td>
+<td><p>called when the upstream pipeline
 has <strong>not</strong> been changed but the data in the
 pipeline has been changed.  This happens when the
-upstream object fires a <code class="docutils literal notranslate"><span class="pre">data_changed</span></code> event.</td>
+upstream object fires a <code class="docutils literal notranslate"><span class="pre">data_changed</span></code> event.</p></td>
 </tr>
 </tbody>
 </table>
 <p>Defined in the <code class="docutils literal notranslate"><span class="pre">mayavi.core.module</span></code> module.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Module" title="mayavi.core.api.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> class.</p>
+<p class="admonition-title">See also</p>
+<p>API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Module" title="mayavi.core.api.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> class.</p>
 </div>
-</div>
-<div class="section" id="engine">
+</section>
+<section id="engine">
 <h2>Engine<a class="headerlink" href="#engine" title="Permalink to this headline">¶</a></h2>
 <p>The Mayavi engine is the central object dealing with life-cycle of
 visualization objects and scene, as well as connecting and updating the
@@ -361,91 +361,91 @@ important in a menu-driven graphical user interface.</p>
 load and save the entire visualization.</p>
 <p>When using mlab, the engine used by mlab can be retrieved using
 <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.get_engine" title="mayavi.mlab.get_engine"><code class="xref py py-func docutils literal notranslate"><span class="pre">mlab.get_engine()</span></code></a>.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key attributes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">scenes</span></code></td>
-<td>a list of <code class="docutils literal notranslate"><span class="pre">Scene</span></code> objects.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scenes</span></code></p></td>
+<td><p>a list of <code class="docutils literal notranslate"><span class="pre">Scene</span></code> objects.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">current_object</span></code></td>
-<td>the object on which contextual operations, such
-as <code class="docutils literal notranslate"><span class="pre">add_module</span></code> will apply.</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">current_object</span></code></p></td>
+<td><p>the object on which contextual operations, such
+as <code class="docutils literal notranslate"><span class="pre">add_module</span></code> will apply.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">current_scene</span></code></td>
-<td>the scene in which data sources will be added by
-default.</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">current_scene</span></code></p></td>
+<td><p>the scene in which data sources will be added by
+default.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">current_selection</span></code></td>
-<td>The object selected in the pipeline view.</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">current_selection</span></code></p></td>
+<td><p>The object selected in the pipeline view.</p></td>
 </tr>
 </tbody>
 </table>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key methods</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">new_scene()</span></code></td>
-<td>this is the method called to create a new scene.
-Subclasses override this method.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">new_scene()</span></code></p></td>
+<td><p>this is the method called to create a new scene.
+Subclasses override this method.</p></td>
 </tr>
 </tbody>
 </table>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Important sub-classes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Important sub-classes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">EnvisageEngine</span></code></td>
-<td>defined in the
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EnvisageEngine</span></code></p></td>
+<td><p>defined in the
 <code class="docutils literal notranslate"><span class="pre">mayavi.plugins.envisage_engine</span></code>
 module. It is the subclass of
-used in the <code class="docutils literal notranslate"><span class="pre">mayavi2</span></code> application.</td>
+used in the <code class="docutils literal notranslate"><span class="pre">mayavi2</span></code> application.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">OffScreenEngine</span></code></td>
-<td>defined in the
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OffScreenEngine</span></code></p></td>
+<td><p>defined in the
 <code class="docutils literal notranslate"><span class="pre">mayavi.core.off_screen_engine</span></code> module.
 It creates scenes that are not displayed on
-screen by default.</td>
+screen by default.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">NullEngine</span></code></td>
-<td>defined in the
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NullEngine</span></code></p></td>
+<td><p>defined in the
 <code class="docutils literal notranslate"><span class="pre">mayavi.core.null_engine</span></code> module.
 With this engine, visualization objects are
 not added to a scene, and thus cannot be rendered.
 This engine is useful for testing and pure-data
-handling use of Mayavi’s data structures.</td>
+handling use of Mayavi’s data structures.</p></td>
 </tr>
 </tbody>
 </table>
 <img alt="The ``Engine`` object." class="align-center" src="_images/design2c.jpg" />
 <p>The <cite>Engine</cite> base class is defined in the <code class="docutils literal notranslate"><span class="pre">mayavi.engine</span></code> module.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Engine" title="mayavi.core.api.Engine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Engine</span></code></a> class.</p>
+<p class="admonition-title">See also</p>
+<p>API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Engine" title="mayavi.core.api.Engine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Engine</span></code></a> class.</p>
 </div>
-</div>
-<div class="section" id="base-class-pipelinebase">
+</section>
+<section id="base-class-pipelinebase">
 <h2>Base class: PipelineBase<a class="headerlink" href="#base-class-pipelinebase" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">PipelineBase</span></code> is the base class for all
 objects in the mayavi pipeline except the <code class="docutils literal notranslate"><span class="pre">Scene</span></code> and <code class="docutils literal notranslate"><span class="pre">Engine</span></code>
@@ -453,71 +453,71 @@ objects in the mayavi pipeline except the <code class="docutils literal notransl
 Defined in the <code class="docutils literal notranslate"><span class="pre">mayavi.core.pipeline_base</span></code> module.
 Derives from <code class="docutils literal notranslate"><span class="pre">Base</span></code> which merely abstracts out common
 functionality.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key attributes</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key attributes</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code></td>
-<td><p class="first">This is an <code class="docutils literal notranslate"><span class="pre">Event</span></code> Trait: it can only be
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code></p></td>
+<td><p>This is an <code class="docutils literal notranslate"><span class="pre">Event</span></code> Trait: it can only be
 assigned to and determines when the pipeline has
 been changed. Therefore, if one does:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">object.pipeline_changed = True</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="o">.</span><span class="n">pipeline_changed</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
-<p class="last">then the <code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code> event is fired.
+<p>then the <code class="docutils literal notranslate"><span class="pre">pipeline_changed</span></code> event is fired.
 Objects downstream of <code class="docutils literal notranslate"><span class="pre">object</span></code> in the pipeline
 are automatically setup to listen to events from
 an upstream object and will call their
 <code class="docutils literal notranslate"><span class="pre">update_pipeline</span></code> method.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">data_changed</span></code></td>
-<td>Similarly, if the <code class="docutils literal notranslate"><span class="pre">data_changed</span></code> event is fired
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data_changed</span></code></p></td>
+<td><p>Similarly, if the <code class="docutils literal notranslate"><span class="pre">data_changed</span></code> event is fired
 then downstream objects will automatically call
-their <code class="docutils literal notranslate"><span class="pre">update_data</span></code> methods.</td>
+their <code class="docutils literal notranslate"><span class="pre">update_data</span></code> methods.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">outputs</span></code></td>
-<td>a list of outputs produced by the object.</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">outputs</span></code></p></td>
+<td><p>a list of outputs produced by the object.</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">scene</span></code></td>
-<td>the scene to which the object is attached.</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scene</span></code></p></td>
+<td><p>the scene to which the object is attached.</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">visible</span></code></td>
-<td>a boolean that toggle the Hide/Show status of the
-object and its downstream pipeline.</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">visible</span></code></p></td>
+<td><p>a boolean that toggle the Hide/Show status of the
+object and its downstream pipeline.</p></td>
 </tr>
 </tbody>
 </table>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="28%" />
-<col width="72%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key methods</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key methods</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">remove()</span></code></td>
-<td>can be used to remove the object (if added)
-from the mayavi pipeline.</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">remove()</span></code></p></td>
+<td><p>can be used to remove the object (if added)
+from the mayavi pipeline.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.PipelineBase" title="mayavi.core.api.PipelineBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineBase</span></code></a> class.</p>
+<p class="admonition-title">See also</p>
+<p>API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.PipelineBase" title="mayavi.core.api.PipelineBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineBase</span></code></a> class.</p>
 </div>
-</div>
-<div class="section" id="class-hierarchy">
+</section>
+<section id="class-hierarchy">
 <h2>Class hierarchy<a class="headerlink" href="#class-hierarchy" title="Permalink to this headline">¶</a></h2>
 <p>The following figures show the class hierarchy of the various objects
 involved.</p>
@@ -527,10 +527,11 @@ involved.</p>
 <img alt="More object hierarchy" class="align-center" src="_images/design2b.png" />
 <p><em>This hierarchy depicts the ``PipelineBase`` object, the ``Source``,
 ``Filter``, ``Module`` and the ``Component``.</em></p>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -568,17 +569,15 @@ involved.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -598,14 +597,15 @@ involved.</p>
         <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Objects populating the Mayavi pipeline</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

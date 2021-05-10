@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Other functions &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Other functions &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Other functions</a></li> 
       </ul>
     </div>  
 
@@ -77,20 +77,20 @@
           <div class="body" role="main">
             
   <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
 the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
+<p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<div class="section" id="other-functions">
+<section id="other-functions">
 <h1>Other functions<a class="headerlink" href="#other-functions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="animate">
+<section id="animate">
 <h2>animate<a class="headerlink" href="#animate" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.animate">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">animate</code><span class="sig-paren">(</span><em>func=None</em>, <em>delay=500</em>, <em>ui=True</em>, <em>support_movie=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.animate" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.animate">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">animate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">support_movie</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.animate" title="Permalink to this definition">¶</a></dt>
 <dd><p>::
 A convenient decorator to animate a generator performing an animation.</p>
 <blockquote>
@@ -103,26 +103,25 @@ makes it easy to record a movie with the decorator.  If this is turned
 off, one cannot record a movie of the animation.</p>
 <p>If an ordinary function is decorated a <cite>TypeError</cite> will be raised.</p>
 <p><strong>Parameters</strong></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">delay:</th><td class="field-body">int specifying the time interval in milliseconds between
-calls to the function.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ui:</th><td class="field-body">bool specifying if a UI controlling the animation is to be
-provided.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">support_movie:</th><td class="field-body">bool specifying if the animation will support
-recording of a movie.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">delay</dt>
+<dd class="field-odd"><p>int specifying the time interval in milliseconds between
+calls to the function.</p>
+</dd>
+<dt class="field-even">ui</dt>
+<dd class="field-even"><p>bool specifying if a UI controlling the animation is to be
+provided.</p>
+</dd>
+<dt class="field-odd">support_movie</dt>
+<dd class="field-odd"><p>bool specifying if the animation will support
+recording of a movie.</p>
+</dd>
+</dl>
 <p><strong>Returns</strong></p>
 <p>The decorated function returns an <cite>Animator</cite> instance.</p>
 <p><strong>Examples</strong></p>
 <p>Here is the example provided in the Animator class documentation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab</span><span class="o">.</span><span class="n">animate</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
@@ -135,7 +134,7 @@ recording of a movie.</td>
 </pre></div>
 </div>
 <p>For more specialized use you can pass arguments to the decorator:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">ui</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
@@ -153,79 +152,86 @@ please refer to the section on: <a class="reference internal" href="../mlab_anim
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="axes">
+</section>
+<section id="axes">
 <h2>axes<a class="headerlink" href="#axes" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.axes">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">axes</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.axes" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.axes">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.axes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates axes for the current (or given) object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the object’s extents.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels along each direction Must be a legal
-value. Default: 2</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ranges:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">extent</dt>
+<dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the object’s extents.</p>
+</dd>
+<dt class="field-odd">figure</dt>
+<dd class="field-odd"><p>Must be a Scene or None.</p>
+</dd>
+<dt class="field-even">line_width</dt>
+<dd class="field-even"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">nb_labels</dt>
+<dd class="field-even"><p>The number of labels along each direction Must be a legal
+value. Default: 2</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">ranges</dt>
+<dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Ranges of the labels displayed on the axes.
-Default is the object’s extents.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">x_axis_visibility:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Whether or not the x axis is visible (boolean)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">y_axis_visibility:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Whether or not the y axis is visible (boolean)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">z_axis_visibility:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Whether or not the z axis is visible (boolean)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
-</tr>
-</tbody>
-</table>
+Default is the object’s extents.</p>
+</dd>
+<dt class="field-odd">x_axis_visibility</dt>
+<dd class="field-odd"><p>Whether or not the x axis is visible (boolean)</p>
+</dd>
+<dt class="field-even">xlabel</dt>
+<dd class="field-even"><p>the label of the x axis</p>
+</dd>
+<dt class="field-odd">y_axis_visibility</dt>
+<dd class="field-odd"><p>Whether or not the y axis is visible (boolean)</p>
+</dd>
+<dt class="field-even">ylabel</dt>
+<dd class="field-even"><p>the label of the y axis</p>
+</dd>
+<dt class="field-odd">z_axis_visibility</dt>
+<dd class="field-odd"><p>Whether or not the z axis is visible (boolean)</p>
+</dd>
+<dt class="field-even">zlabel</dt>
+<dd class="field-even"><p>the label of the z axis</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="get-engine">
+</section>
+<section id="get-engine">
 <h2>get_engine<a class="headerlink" href="#get-engine" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.get_engine">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">get_engine</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.get_engine" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.get_engine">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">get_engine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.get_engine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an engine in agreement with the options.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="init-notebook">
+</section>
+<section id="init-notebook">
 <h2>init_notebook<a class="headerlink" href="#init-notebook" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.init_notebook">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">init_notebook</code><span class="sig-paren">(</span><em>backend='ipy'</em>, <em>width=None</em>, <em>height=None</em>, <em>local=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.init_notebook" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.init_notebook">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">init_notebook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ipy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.init_notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a suitable backend for Jupyter notebooks.</p>
 <p><strong>Parameters</strong></p>
 <p>backend :str: one of (‘png’, ‘x3d’, ‘ipy’)
@@ -234,107 +240,113 @@ height :int: suggested default height of the element
 local :bool: Use local copy of x3dom.js instead of online version.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="orientation-axes">
+</section>
+<section id="orientation-axes">
 <h2>orientation_axes<a class="headerlink" href="#orientation-axes" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.orientation_axes">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">orientation_axes</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.orientation_axes" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.orientation_axes">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">orientation_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.orientation_axes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the OrientationAxes mayavi module to the given VTK data object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
-</tr>
-<tr class="field-even field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
-</tr>
-</tbody>
-</table>
+1) for white.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Must be a Scene or None.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">xlabel</dt>
+<dd class="field-even"><p>the label of the x axis</p>
+</dd>
+<dt class="field-odd">ylabel</dt>
+<dd class="field-odd"><p>the label of the y axis</p>
+</dd>
+<dt class="field-even">zlabel</dt>
+<dd class="field-even"><p>the label of the z axis</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="outline">
+</section>
+<section id="outline">
 <h2>outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.outline">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">outline</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.outline" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.outline">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">outline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.outline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an outline for the current (or given) object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the object’s extents.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-</tbody>
-</table>
+1) for white.</p>
+</dd>
+<dt class="field-even">extent</dt>
+<dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the object’s extents.</p>
+</dd>
+<dt class="field-odd">figure</dt>
+<dd class="field-odd"><p>Must be a Scene or None.</p>
+</dd>
+<dt class="field-even">line_width</dt>
+<dd class="field-even"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="process-ui-events">
+</section>
+<section id="process-ui-events">
 <h2>process_ui_events<a class="headerlink" href="#process-ui-events" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.process_ui_events">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">process_ui_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.process_ui_events" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.process_ui_events">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">process_ui_events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.process_ui_events" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process GUI events.</p>
 <p>This function merely abstracts the function so nothing is done when
 no UI is running.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="set-engine">
+</section>
+<section id="set-engine">
 <h2>set_engine<a class="headerlink" href="#set-engine" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.set_engine">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">set_engine</code><span class="sig-paren">(</span><em>self</em>, <em>engine</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.set_engine" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.set_engine">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">set_engine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.set_engine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the mlab engine.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="show">
+</section>
+<section id="show">
 <h2>show<a class="headerlink" href="#show" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.show">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">show</code><span class="sig-paren">(</span><em>func=None</em>, <em>stop=False</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.show" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.show">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start interacting with the figure.</p>
 <p>By default, this function simply creates a GUI and starts its
 event loop if needed.</p>
@@ -348,19 +360,16 @@ user can stop the event loop.  Subsequent calls to <cite>show</cite> will
 restart the event loop.</p>
 <p><strong>Parameters</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">stop:</th><td class="field-body">A boolean which specifies if a UI dialog is displayed which
-allows the event loop to be stopped.</td>
-</tr>
-</tbody>
-</table>
+<div><dl class="field-list simple">
+<dt class="field-odd">stop</dt>
+<dd class="field-odd"><p>A boolean which specifies if a UI dialog is displayed which
+allows the event loop to be stopped.</p>
+</dd>
+</dl>
 </div></blockquote>
 <p><strong>Examples</strong></p>
 <p>Here is a simple example demonstrating the use of show:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -388,71 +397,68 @@ allows the event loop to be stopped.</td>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="show-engine">
+</section>
+<section id="show-engine">
 <h2>show_engine<a class="headerlink" href="#show-engine" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.show_engine">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">show_engine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.show_engine" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.show_engine">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">show_engine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.show_engine" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is deprecated, please use show_pipeline.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="show-pipeline">
+</section>
+<section id="show-pipeline">
 <h2>show_pipeline<a class="headerlink" href="#show-pipeline" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.show_pipeline">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">show_pipeline</code><span class="sig-paren">(</span><em>self</em>, <em>engine=None</em>, <em>rich_view=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.show_pipeline" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.show_pipeline">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">show_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rich_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.show_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show a dialog with the mayavi pipeline. This dialog allows to
 edit graphically the properties of the different objects on
 the scenes.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="start-recording">
+</section>
+<section id="start-recording">
 <h2>start_recording<a class="headerlink" href="#start-recording" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.start_recording">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">start_recording</code><span class="sig-paren">(</span><em>ui=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.start_recording" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.start_recording">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">start_recording</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.start_recording" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start automatic script recording.  If the <cite>ui</cite> parameter is
 <cite>True</cite>, it creates a recorder with a user interface, if not it
 creates a vanilla recorder without a UI.</p>
-<dl class="docutils">
-<dt><strong>Returns</strong></dt>
-<dd>The <cite>Recorder</cite> instance created.</dd>
+<dl class="simple">
+<dt><strong>Returns</strong></dt><dd><p>The <cite>Recorder</cite> instance created.</p>
+</dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="stop-recording">
+</section>
+<section id="stop-recording">
 <h2>stop_recording<a class="headerlink" href="#stop-recording" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.stop_recording">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">stop_recording</code><span class="sig-paren">(</span><em>file=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.stop_recording" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.stop_recording">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">stop_recording</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.stop_recording" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop the automatic script recording.</p>
 <p><strong>Parameters</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">file:</th><td class="field-body">An open file or a filename or <cite>None</cite>.  If this is <cite>None</cite>,
-nothing is saved.</td>
-</tr>
-</tbody>
-</table>
+<div><dl class="field-list simple">
+<dt class="field-odd">file</dt>
+<dd class="field-odd"><p>An open file or a filename or <cite>None</cite>.  If this is <cite>None</cite>,
+nothing is saved.</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="text">
+</section>
+<section id="text">
 <h2>text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.text">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">text</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.text" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.text">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a text on the figure.</p>
 <p><strong>Function signature</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">text(x, y, text, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>x, and y are the position of the origin of the text. If no z
@@ -461,134 +467,144 @@ figure, they belong to [0, 1]. If a z keyword  argument is given, the
 text is positioned in 3D, in figure coordinates.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The opacity of the text.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">width:</th><td class="field-body">width of the text.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">z:</th><td class="field-body">Optional z position. When specified, the
-text is positioned in 3D</td>
-</tr>
-</tbody>
-</table>
+1) for white.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Must be a Scene or None.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The opacity of the text.</p>
+</dd>
+<dt class="field-even">width</dt>
+<dd class="field-even"><p>width of the text.</p>
+</dd>
+<dt class="field-odd">z</dt>
+<dd class="field-odd"><p>Optional z position. When specified, the
+text is positioned in 3D</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="text3d">
+</section>
+<section id="text3d">
 <h2>text3d<a class="headerlink" href="#text3d" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.text3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">text3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.text3d" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.text3d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">text3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.text3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Positions text at a 3D location in the scene.</p>
 <p><strong>Function signature</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">text3d(x, y, z, text, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>x, y, and z are the position of the origin of the text. The
 text is positioned in 3D, in figure coordinates.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">orient_to_camera:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">if the text is kept oriented to the
+1) for white.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Must be a Scene or None.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">orient_to_camera</dt>
+<dd class="field-even"><p>if the text is kept oriented to the
 camera, or is pointing in a specific direction,
 regardless of the camera position. Must be a
-boolean. Default: True</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">orientation:</th><td class="field-body">the angles giving the orientation of the
+boolean. Default: True</p>
+</dd>
+<dt class="field-odd">orientation</dt>
+<dd class="field-odd"><p>the angles giving the orientation of the
 text. If the text is oriented to the camera,
 these angles are referenced to the axis of the
 camera. If not, these angles are referenced to
-the z axis. Must be an array with shape (3,).</td>
-</tr>
-<tr class="field-even field"><th class="field-name">scale:</th><td class="field-body">The scale of the text, in figure units.
-Either a float, or 3-tuple of floats.</td>
-</tr>
-</tbody>
-</table>
+the z axis. Must be an array with shape (3,).</p>
+</dd>
+<dt class="field-even">scale</dt>
+<dd class="field-even"><p>The scale of the text, in figure units.
+Either a float, or 3-tuple of floats.</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="title">
+</section>
+<section id="title">
 <h2>title<a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="mayavi.mlab.title">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">title</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.title" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.mlab.title">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a title for the figure.</p>
 <p><strong>Function signature</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">title(text, ...)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">title</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">height:</th><td class="field-body">height of the title, in portion of the
-figure height</td>
-</tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">size:</th><td class="field-body">the size of the title</td>
-</tr>
-</tbody>
-</table>
+1) for white.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Must be a Scene or None.</p>
+</dd>
+<dt class="field-odd">height</dt>
+<dd class="field-odd"><p>height of the title, in portion of the
+figure height</p>
+</dd>
+<dt class="field-even">line_width</dt>
+<dd class="field-even"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-even">opacity</dt>
+<dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-odd">size</dt>
+<dd class="field-odd"><p>the size of the title</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -634,17 +650,15 @@ Default: 1.0</td>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -664,14 +678,15 @@ Default: 1.0</td>
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Other functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Data representation in Mayavi &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Data representation in Mayavi &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data representation in Mayavi</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="data-representation-in-mayavi">
+  <section id="data-representation-in-mayavi">
 <span id="data-structures-used-by-mayavi"></span><h1>Data representation in Mayavi<a class="headerlink" href="#data-representation-in-mayavi" title="Permalink to this headline">¶</a></h1>
 <p>Describing data in three dimensions in the general case is a complex
 problem. Mayavi helps you focus on your visualization work and not worry
@@ -88,33 +88,33 @@ to create data with a specific structure for a more efficient
 visualization, or if you want to extract the data from the Mayavi
 pipeline.</p>
 <div class="contents local topic" id="outline">
-<p class="topic-title first">Outline</p>
+<p class="topic-title">Outline</p>
 <ul class="simple">
-<li><a class="reference internal" href="#introduction-to-tvtk-datasets" id="id1">Introduction to TVTK datasets</a></li>
-<li><a class="reference internal" href="#the-flow-of-data" id="id2">The flow of data</a></li>
-<li><a class="reference internal" href="#retrieving-the-data-from-mayavi-pipelines" id="id3">Retrieving the data from Mayavi pipelines</a></li>
-<li><a class="reference internal" href="#dissection-of-the-different-tvtk-datasets" id="id4">Dissection of the different TVTK datasets</a></li>
-<li><a class="reference internal" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" id="id5">Inserting TVTK datasets in the Mayavi pipeline</a></li>
+<li><p><a class="reference internal" href="#introduction-to-tvtk-datasets" id="id1">Introduction to TVTK datasets</a></p></li>
+<li><p><a class="reference internal" href="#the-flow-of-data" id="id2">The flow of data</a></p></li>
+<li><p><a class="reference internal" href="#retrieving-the-data-from-mayavi-pipelines" id="id3">Retrieving the data from Mayavi pipelines</a></p></li>
+<li><p><a class="reference internal" href="#dissection-of-the-different-tvtk-datasets" id="id4">Dissection of the different TVTK datasets</a></p></li>
+<li><p><a class="reference internal" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" id="id5">Inserting TVTK datasets in the Mayavi pipeline</a></p></li>
 </ul>
 </div>
 <hr class="docutils" />
 <div class="topic">
-<p class="topic-title first">Mayavi data sources and VTK datasets</p>
+<p class="topic-title">Mayavi data sources and VTK datasets</p>
 <ul class="simple">
-<li>When you load a file, or you expose data in Mayavi using one of the
+<li><p>When you load a file, or you expose data in Mayavi using one of the
 <cite>mlab.pipeline</cite> source functions (see <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><span class="std std-ref">Data sources</span></a>), you
 create an object in the Mayavi pipeline that is attached to a
 scene. This object is a Mayavi source, and serves to describe the
-data and its properties to the Mayavi pipeline.</li>
-<li>The internal structures use to represent to data in 3D all across
-Mayavi are VTK datasets, as described below.</li>
+data and its properties to the Mayavi pipeline.</p></li>
+<li><p>The internal structures use to represent to data in 3D all across
+Mayavi are VTK datasets, as described below.</p></li>
 </ul>
 <p>One should not confuse VTK (or TVTK) <cite>datasets</cite> and Mayavi <cite>data
 sources</cite>. There is a finite and small number of datasets. However,
 many pipeline objects could be constructed to fit in the pipeline
 below a scene and providing datasets to the pipeline.</p>
 </div>
-<div class="section" id="introduction-to-tvtk-datasets">
+<section id="introduction-to-tvtk-datasets">
 <h2><a class="toc-backref" href="#id1">Introduction to TVTK datasets</a><a class="headerlink" href="#introduction-to-tvtk-datasets" title="Permalink to this headline">¶</a></h2>
 <p>Mayavi uses the VTK library for all its visualization needs, via TVTK
 (Traited VTK). The data is exposed internally, by the sources, or at the
@@ -124,19 +124,17 @@ understand what happens when using filters to transform the data in the
 pipeline.</p>
 <p>A dataset is defined by many different characteristics:</p>
 <img alt="_images/dataset_diagram.jpg" src="_images/dataset_diagram.jpg" />
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Connectivity:</th><td class="field-body"><p class="first">Connectivity is not only necessary to draw lines between the
+<dl class="field-list">
+<dt class="field-odd">Connectivity</dt>
+<dd class="field-odd"><p>Connectivity is not only necessary to draw lines between the
 different points, it is also needed to define a volume.</p>
 <p><strong>Implicit connectivity</strong>: connectivity or positioning is implicit. In
 this case the data is considered as arranged on a lattice-like structure,
 with equal number of layers in each direction, x increasing first along
 the array, then y and finally z.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Data:</th><td class="field-body"><p class="first">Dataset are made of points positioned in 3D, with the corresponding
+</dd>
+<dt class="field-even">Data</dt>
+<dd class="field-even"><p>Dataset are made of points positioned in 3D, with the corresponding
 data. Each dataset can carry several data components.</p>
 <p><strong>Scalar or Vectors data</strong>: The data can be scalar, in which case VTK
 can perform operations such as taking the gradient and display the
@@ -149,28 +147,26 @@ positioned either on the vertices, in which case it is called point data,
 or associated with a cell, in which case it is called cell data.
 Point data is stored in the <cite>.point_data</cite> attribute of the dataset,
 and the cell data is stored in the <cite>.cell_data</cite> attribute.</p>
-<p class="last">In addition the data arrays have an associated name, which is used in
+<p>In addition the data arrays have an associated name, which is used in
 Mayavi to specify on which data component module or filter apply (eg:
 using the`SetActiveAttribute` filter).</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p><strong>VTK array ordering</strong></p>
 <p>All VTK arrays, whether it be for data or position, are exposed as (n, 3)
 numpy arrays for 3D components, and flat (n, ) array for 1D components.
 The index vary in the opposite order as numpy: z first, y and then x.
 Thus to go from a 3D numpy array to the corresponding flatten VTK array,
 the operation is:</p>
-<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">vtk_array = numpy_array.T.ravel()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vtk_array</span> <span class="o">=</span> <span class="n">numpy_array</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <p>An complete list of the VTK datasets used by Mayavi is given <a class="reference external" href="dissection_vtk_datasets">below</a>, after a tour of the Mayavi pipeline.</p>
-</div>
-<div class="section" id="the-flow-of-data">
+</section>
+<section id="the-flow-of-data">
 <h2><a class="toc-backref" href="#id2">The flow of data</a><a class="headerlink" href="#the-flow-of-data" title="Permalink to this headline">¶</a></h2>
 <p>As described <a class="reference internal" href="overview.html#pipeline-model"><span class="std std-ref">earlier</span></a>, Mayavi builds visualization by
 assembling pipelines, where the data is loaded in Mayavi by a <cite>data
@@ -184,10 +180,9 @@ how the data flows in it.</p>
 and modules is stored in VTK datasets. Each source or filter has an
 <cite>outputs</cite> attribute, which is a list of VTK <cite>datasets</cite> describing the
 data output by the object.</p>
-<dl class="docutils">
-<dt>For example:</dt>
-<dd><div class="first highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
+<dl>
+<dt>For example:</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iso</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
@@ -198,24 +193,24 @@ which is the source feeding into <cite>iso</cite>:</p>
 <span class="go">[&lt;tvtk_classes.image_data.ImageData object at 0xf08220c&gt;]</span>
 </pre></div>
 </div>
-<p class="last">Thus we can see that the Mayavi source created by <cite>mlab.surf</cite> exposes
+<p>Thus we can see that the Mayavi source created by <cite>mlab.surf</cite> exposes
 an <a class="reference internal" href="#imagedata">ImageData</a> VTK dataset.</p>
 </dd>
 </dl>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>To retrieve the VTK datasets feeding in an arbitrary object, the mlab
 function <a class="reference internal" href="auto/mlab_pipeline_tools.html#mayavi.tools.pipeline.get_vtk_src" title="mayavi.tools.pipeline.get_vtk_src"><code class="xref py py-func docutils literal notranslate"><span class="pre">pipeline.get_vtk_src()</span></code></a> may be useful. In the above
 example:</p>
-<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get_vtk_src</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get_vtk_src</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
 <span class="go">[&lt;tvtk_classes.image_data.ImageData object at 0xf08220c&gt;]</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="retrieving-the-data-from-mayavi-pipelines">
+</section>
+<section id="retrieving-the-data-from-mayavi-pipelines">
 <span id="retrieving-data"></span><h2><a class="toc-backref" href="#id3">Retrieving the data from Mayavi pipelines</a><a class="headerlink" href="#retrieving-the-data-from-mayavi-pipelines" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="probing-data-at-given-positions">
+<section id="probing-data-at-given-positions">
 <h3>Probing data at given positions<a class="headerlink" href="#probing-data-at-given-positions" title="Permalink to this headline">¶</a></h3>
 <p>If you simply want to retrieve the data values described by a Mayavi
 object a given position in space, you can use the
@@ -233,13 +228,13 @@ connectivity information:</p>
 </div>
 <p>and visualize these points for debugging:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">glyph</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
-<span class="gp">... </span>                                <span class="n">scale_factor</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>                                <span class="n">scale_factor</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The resulting data is not defined in the volume, but only at the given
 position: as there is no connectivity information, Mayavi cannot
 interpolate between the points:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
 <span class="go">array([ 0. ])</span>
 </pre></div>
 </div>
@@ -250,24 +245,24 @@ interpolate between the points:</p>
 <p>Now you can probe the value of the volumetric data anywhere. It will be
 non zero in the convex hull of the points:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe in the center of the cloud of points</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
 <span class="go">array([ 0.78386768])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe on the initial points</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_probed</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">data_probed</span><span class="p">)</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe outside the cloud</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">)</span>
 <span class="go">array([ 0.])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="inspecting-the-internals-of-the-data-structures">
+</section>
+<section id="inspecting-the-internals-of-the-data-structures">
 <h3>Inspecting the internals of the data structures<a class="headerlink" href="#inspecting-the-internals-of-the-data-structures" title="Permalink to this headline">¶</a></h3>
 <p>You may be interested in the data carried by the TVTK datasets themselves,
 rather than the values they represent, for instance to replicate them.
 For this, you can retrieve the TVTK datasets, and inspect them.</p>
-<div class="section" id="extracting-data-points-and-values">
+<section id="extracting-data-points-and-values">
 <h4>Extracting data points and values<a class="headerlink" href="#extracting-data-points-and-values" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>The positions of all the points of a TVTK dataset can be accessed via its
@@ -299,8 +294,8 @@ in the cells, and it is scalar data:</p>
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="extracting-lines">
+</section>
+<section id="extracting-lines">
 <h4>Extracting lines<a class="headerlink" href="#extracting-lines" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>If we want to extract the edges of the Delaunay tessellation, we can
@@ -328,9 +323,9 @@ of indices.</p>
 <p>A full example illustrating how to use the VTK Delaunay filter to extract
 a graph is given in <a class="reference internal" href="auto/example_delaunay_graph.html#example-delaunay-graph"><span class="std std-ref">Delaunay graph example</span></a>.</p>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="headless-use-of-mayavi-for-the-algorithms-without-visualization">
+</section>
+</section>
+<section id="headless-use-of-mayavi-for-the-algorithms-without-visualization">
 <h3>Headless use of Mayavi for the algorithms, without visualization<a class="headerlink" href="#headless-use-of-mayavi-for-the-algorithms-without-visualization" title="Permalink to this headline">¶</a></h3>
 <p>As you can see from the above example, it can be interesting to use
 Mayavi just for the numerical algorithm operating on 3D data, as the
@@ -342,55 +337,55 @@ probe the data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="dissection-of-the-different-tvtk-datasets">
+</section>
+</section>
+<section id="dissection-of-the-different-tvtk-datasets">
 <span id="dissection-vtk-datasets"></span><h2><a class="toc-backref" href="#id4">Dissection of the different TVTK datasets</a><a class="headerlink" href="#dissection-of-the-different-tvtk-datasets" title="Permalink to this headline">¶</a></h2>
 <p>The 5 TVTK structures used are the following (ordered by the cost of
 visualizing them).:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="17%" />
-<col width="11%" />
-<col width="22%" />
-<col width="50%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 22%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">VTK name</th>
-<th class="head">Connectivity</th>
-<th class="head">Suitable for</th>
-<th class="head">Required information</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>VTK name</p></th>
+<th class="head"><p>Connectivity</p></th>
+<th class="head"><p>Suitable for</p></th>
+<th class="head"><p>Required information</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><a class="reference internal" href="#imagedata">ImageData</a></td>
-<td>Implicit</td>
-<td>Volumes and surfaces</td>
-<td>3D data array and spacing along each axis</td>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#imagedata">ImageData</a></p></td>
+<td><p>Implicit</p></td>
+<td><p>Volumes and surfaces</p></td>
+<td><p>3D data array and spacing along each axis</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#rectilineargrid">RectilinearGrid</a></td>
-<td>Implicit</td>
-<td>Volumes and surfaces</td>
-<td>3D data array and 1D array of spacing for each axis</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rectilineargrid">RectilinearGrid</a></p></td>
+<td><p>Implicit</p></td>
+<td><p>Volumes and surfaces</p></td>
+<td><p>3D data array and 1D array of spacing for each axis</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#structuredgrid">StructuredGrid</a></td>
-<td>Implicit</td>
-<td>Volumes and surfaces</td>
-<td>3D data array and 3D position arrays for each axis</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#structuredgrid">StructuredGrid</a></p></td>
+<td><p>Implicit</p></td>
+<td><p>Volumes and surfaces</p></td>
+<td><p>3D data array and 3D position arrays for each axis</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#polydata">PolyData</a></td>
-<td>Explicit</td>
-<td>Points, lines and surfaces</td>
-<td>x, y, z, positions of vertices and arrays of surface Cells</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#polydata">PolyData</a></p></td>
+<td><p>Explicit</p></td>
+<td><p>Points, lines and surfaces</p></td>
+<td><p>x, y, z, positions of vertices and arrays of surface Cells</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#unstructuredgrid">UnstructuredGrid</a></td>
-<td>Explicit</td>
-<td>Volumes and surfaces</td>
-<td>x, y, z positions of vertices and arrays of volume Cells</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#unstructuredgrid">UnstructuredGrid</a></p></td>
+<td><p>Explicit</p></td>
+<td><p>Volumes and surfaces</p></td>
+<td><p>x, y, z positions of vertices and arrays of volume Cells</p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="imagedata">
+<section id="imagedata">
 <span id="image-data"></span><h3>ImageData<a class="headerlink" href="#imagedata" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of data points positioned on an orthogonal grid,
 with constant spacing along each axis. The position of the data points
@@ -401,95 +396,95 @@ structure created by the <cite>ArraySource</cite> mayavi source, from a 3D numpy
 array, as well as the <cite>mlab.pipeline.scalar_field</cite> and
 <cite>mlab.pipeline.vector_field</cite> factory functions, if the <cite>x</cite>, <cite>y</cite> and
 <cite>z</cite> arrays are not explicitly specified.</p>
-<img alt="_images/image_data1.jpg" src="_images/image_data1.jpg" />
+<img alt="_images/image_data.jpg" src="_images/image_data.jpg" />
 <p>Creating a <cite>tvtk.ImageData</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
-<span class="s2">from numpy import random</span>
-<span class="s2">data = random.random((3, 3, 3))</span>
-<span class="s2">i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))</span>
-<span class="s2">i.point_data.scalars = data.ravel()</span>
-<span class="s2">i.point_data.scalars.name = &#39;scalars&#39;</span>
-<span class="s2">i.dimensions = data.shape</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageData</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
+<span class="n">i</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="rectilineargrid">
+</section>
+<section id="rectilineargrid">
 <h3>RectilinearGrid<a class="headerlink" href="#rectilineargrid" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of data points positioned on an orthogonal grid,
 with arbitrary spacing along the various axis. The position of the data
 points are inferred from their position on the data array, an
 origin and the list of spacings of each axis.</p>
-<img alt="_images/rectilinear_grid1.jpg" src="_images/rectilinear_grid1.jpg" />
+<img alt="_images/rectilinear_grid.jpg" src="_images/rectilinear_grid.jpg" />
 <p>Creating a <cite>tvtk.RectilinearGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
-<span class="s2">from numpy import random, array</span>
-<span class="s2">data = random.random((3, 3, 3))</span>
-<span class="s2">r = tvtk.RectilinearGrid()</span>
-<span class="s2">r.point_data.scalars = data.ravel()</span>
-<span class="s2">r.point_data.scalars.name = &#39;scalars&#39;</span>
-<span class="s2">r.dimensions = data.shape</span>
-<span class="s2">r.x_coordinates = array((0, 0.7, 1.4))</span>
-<span class="s2">r.y_coordinates = array((0, 1, 3))</span>
-<span class="s2">r.z_coordinates = array((0, .5, 2))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span><span class="p">,</span> <span class="n">array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">RectilinearGrid</span><span class="p">()</span>
+<span class="n">r</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">r</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
+<span class="n">r</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">r</span><span class="o">.</span><span class="n">x_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">))</span>
+<span class="n">r</span><span class="o">.</span><span class="n">y_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">r</span><span class="o">.</span><span class="n">z_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="structuredgrid">
+</section>
+<section id="structuredgrid">
 <h3>StructuredGrid<a class="headerlink" href="#structuredgrid" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of data points positioned on arbitrary grid: each
 point is connected to its nearest neighbors on the data array. The
 position of the data points are fully described by 1 coordinate
 arrays, specifying x, y and z for each point.</p>
-<img alt="_images/structured_grid1.jpg" src="_images/structured_grid1.jpg" />
+<img alt="_images/structured_grid.jpg" src="_images/structured_grid.jpg" />
 <p>Creating a <cite>tvtk.StructuredGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from numpy import pi, cos, sin, empty, linspace, random</span>
-<span class="s2">from tvtk.api import tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 
-<span class="s2">def generate_annulus(r, theta, z):</span>
-<span class="s2">    &quot;&quot;&quot;</span> <span class="n">Generate</span> <span class="n">points</span> <span class="k">for</span> <span class="n">structured</span> <span class="n">grid</span> <span class="k">for</span> <span class="n">a</span> <span class="n">cylindrical</span> <span class="n">annular</span>
-        <span class="n">volume</span><span class="o">.</span>  <span class="n">This</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">useful</span> <span class="k">for</span> <span class="n">generating</span> <span class="n">a</span> <span class="n">unstructured</span>
-        <span class="n">cylindrical</span> <span class="n">mesh</span> <span class="k">for</span> <span class="n">VTK</span><span class="o">.</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    # Find the x values and y values for each plane.</span>
-<span class="s2">    x_plane = (cos(theta)*r[:,None]).ravel()</span>
-<span class="s2">    y_plane = (sin(theta)*r[:,None]).ravel()</span>
+<span class="k">def</span> <span class="nf">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Generate points for structured grid for a cylindrical annular</span>
+<span class="sd">        volume.  This method is useful for generating a unstructured</span>
+<span class="sd">        cylindrical mesh for VTK.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Find the x values and y values for each plane.</span>
+    <span class="n">x_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">y_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
-<span class="s2">    # Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
-<span class="s2">    # points on each plane, and we have a plane for each z value, so</span>
-<span class="s2">    # we need len(x_plane)*len(z) points.</span>
-<span class="s2">    points = empty([len(x_plane)*len(z), 3])</span>
+    <span class="c1"># Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
+    <span class="c1"># points on each plane, and we have a plane for each z value, so</span>
+    <span class="c1"># we need len(x_plane)*len(z) points.</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">empty</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="mi">3</span><span class="p">])</span>
 
-<span class="s2">    # Loop through the points for each plane and fill them with the</span>
-<span class="s2">    # correct x,y,z values.</span>
-<span class="s2">    start = 0</span>
-<span class="s2">    for z_plane in z:</span>
-<span class="s2">        end = start+len(x_plane)</span>
-<span class="s2">        # slice out a plane of the output points and fill it</span>
-<span class="s2">        # with the x,y, and z values for this plane.  The x,y</span>
-<span class="s2">        # values are the same for every plane.  The z value</span>
-<span class="s2">        # is set to the current z</span>
-<span class="s2">        plane_points = points[start:end]</span>
-<span class="s2">        plane_points[:,0] = x_plane</span>
-<span class="s2">        plane_points[:,1] = y_plane</span>
-<span class="s2">        plane_points[:,2] = z_plane</span>
-<span class="s2">        start = end</span>
+    <span class="c1"># Loop through the points for each plane and fill them with the</span>
+    <span class="c1"># correct x,y,z values.</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">z_plane</span> <span class="ow">in</span> <span class="n">z</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span>
+        <span class="c1"># slice out a plane of the output points and fill it</span>
+        <span class="c1"># with the x,y, and z values for this plane.  The x,y</span>
+        <span class="c1"># values are the same for every plane.  The z value</span>
+        <span class="c1"># is set to the current z</span>
+        <span class="n">plane_points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_plane</span>
+        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_plane</span>
+        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z_plane</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
 
-<span class="s2">    return points</span>
+    <span class="k">return</span> <span class="n">points</span>
 
-<span class="s2">dims = (3, 4, 3)</span>
-<span class="s2">r = linspace(5, 15, dims[0])</span>
-<span class="s2">theta = linspace(0, 0.5*pi, dims[1])</span>
-<span class="s2">z = linspace(0, 10, dims[2])</span>
-<span class="s2">pts = generate_annulus(r, theta, z)</span>
-<span class="s2">sgrid = tvtk.StructuredGrid(dimensions=(dims[1], dims[0], dims[2]))</span>
-<span class="s2">sgrid.points = pts</span>
-<span class="s2">s = random.random((dims[0]*dims[1]*dims[2]))</span>
-<span class="s2">sgrid.point_data.scalars = ravel(s.copy())</span>
-<span class="s2">sgrid.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="n">dims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="n">sgrid</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredGrid</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">(</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+<span class="n">sgrid</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">pts</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+<span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">ravel</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="polydata">
+</section>
+<section id="polydata">
 <span id="poly-data"></span><h3>PolyData<a class="headerlink" href="#polydata" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of arbitrarily positioned data points that can
 be connected to form lines, or grouped in polygons to from surfaces
@@ -499,171 +494,171 @@ created by the <cite>mlab.pipeline.scalar_scatter</cite> and
 <cite>mlab.pipeline.vector_scatter</cite> functions.</p>
 <img alt="_images/poly_data.jpg" src="_images/poly_data.jpg" />
 <p>Creating a <cite>tvtk.PolyData</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from numpy import array, random</span>
-<span class="s2">from tvtk.api import tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 
-<span class="s2"># The numpy array data.</span>
-<span class="s2">points = array([[0,-0.5,0], [1.5,0,0], [0,1,0], [0,0,0.5],</span>
-<span class="s2">                [-1,-1.5,0.1], [0,-1, 0.5], [-1, -0.5, 0],</span>
-<span class="s2">                [1,0.8,0]], &#39;f&#39;)</span>
-<span class="s2">triangles = array([[0,1,3], [1,2,3], [1,0,5],</span>
-<span class="s2">                   [2,3,4], [3,0,4], [0,5,4], [2, 4, 6],</span>
-<span class="s2">                    [2, 1, 7]])</span>
-<span class="s2">scalars = random.random(points.shape)</span>
+<span class="c1"># The numpy array data.</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span>
+                <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+<span class="n">triangles</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]])</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-<span class="s2"># The TVTK dataset.</span>
-<span class="s2">mesh = tvtk.PolyData(points=points, polys=triangles)</span>
-<span class="s2">mesh.point_data.scalars = scalars</span>
-<span class="s2">mesh.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="c1"># The TVTK dataset.</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">polys</span><span class="o">=</span><span class="n">triangles</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="unstructuredgrid">
+</section>
+<section id="unstructuredgrid">
 <h3>UnstructuredGrid<a class="headerlink" href="#unstructuredgrid" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is the most general dataset of all. It is made of data
 points positioned arbitrarily. The connectivity between data points
 can be arbitrary (any number of neighbors). It is described by
 specifying connectivity, defining volumetric cells made of adjacent
 data points.</p>
-<img alt="_images/unstructured_grid1.jpg" src="_images/unstructured_grid1.jpg" />
+<img alt="_images/unstructured_grid.jpg" src="_images/unstructured_grid.jpg" />
 <p>Creating a <cite>tvtk.UnstructuredGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from numpy import array, random</span>
-<span class="s2">from tvtk.api import tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 
-<span class="s2">points = array([[0,1.2,0.6], [1,0,0], [0,1,0], [1,1,1], # tetra</span>
-<span class="s2">                [1,0,-0.5], [2,0,0], [2,1.5,0], [0,1,0],</span>
-<span class="s2">                [1,0,0], [1.5,-0.2,1], [1.6,1,1.5], [1,1,1], # Hex</span>
-<span class="s2">                ], &#39;f&#39;)</span>
-<span class="s2"># The cells</span>
-<span class="s2">cells = array([4, 0, 1, 2, 3, # tetra</span>
-<span class="s2">               8, 4, 5, 6, 7, 8, 9, 10, 11 # hex</span>
-<span class="s2">               ])</span>
-<span class="s2"># The offsets for the cells, i.e. the indices where the cells</span>
-<span class="s2"># start.</span>
-<span class="s2">offset = array([0, 5])</span>
-<span class="s2">tetra_type = tvtk.Tetra().cell_type # VTK_TETRA == 10</span>
-<span class="s2">hex_type = tvtk.Hexahedron().cell_type # VTK_HEXAHEDRON == 12</span>
-<span class="s2">cell_types = array([tetra_type, hex_type])</span>
-<span class="s2"># Create the array of cells unambiguously.</span>
-<span class="s2">cell_array = tvtk.CellArray()</span>
-<span class="s2">cell_array.set_cells(2, cells)</span>
-<span class="s2"># Now create the UG.</span>
-<span class="s2">ug = tvtk.UnstructuredGrid(points=points)</span>
-<span class="s2"># Now just set the cell types and reuse the ug locations and cells.</span>
-<span class="s2">ug.set_cells(cell_types, offset, cell_array)</span>
-<span class="s2">scalars = random.random(points.shape[0])</span>
-<span class="s2">ug.point_data.scalars = scalars</span>
-<span class="s2">ug.point_data.scalars.name = &#39;scalars&#39;</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># tetra</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.6</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># Hex</span>
+                <span class="p">],</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+<span class="c1"># The cells</span>
+<span class="n">cells</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="c1"># tetra</span>
+               <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span> <span class="c1"># hex</span>
+               <span class="p">])</span>
+<span class="c1"># The offsets for the cells, i.e. the indices where the cells</span>
+<span class="c1"># start.</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">tetra_type</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Tetra</span><span class="p">()</span><span class="o">.</span><span class="n">cell_type</span> <span class="c1"># VTK_TETRA == 10</span>
+<span class="n">hex_type</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Hexahedron</span><span class="p">()</span><span class="o">.</span><span class="n">cell_type</span> <span class="c1"># VTK_HEXAHEDRON == 12</span>
+<span class="n">cell_types</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">tetra_type</span><span class="p">,</span> <span class="n">hex_type</span><span class="p">])</span>
+<span class="c1"># Create the array of cells unambiguously.</span>
+<span class="n">cell_array</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">CellArray</span><span class="p">()</span>
+<span class="n">cell_array</span><span class="o">.</span><span class="n">set_cells</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">cells</span><span class="p">)</span>
+<span class="c1"># Now create the UG.</span>
+<span class="n">ug</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">UnstructuredGrid</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">)</span>
+<span class="c1"># Now just set the cell types and reuse the ug locations and cells.</span>
+<span class="n">ug</span><span class="o">.</span><span class="n">set_cells</span><span class="p">(</span><span class="n">cell_types</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">cell_array</span><span class="p">)</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span>
+<span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Modifying the data</p>
+<p class="topic-title">Modifying the data</p>
 <p>If you want to modify the data of any of these low-level data
 structures, you need to reassign data to the corresponding arrays, but
 also reassign them a name. Once this is done, you should call the
 ‘modified()’ method of the object, to tell the pipeline that the data
 has been modified:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">ug.point_data.scalars = new_scalars</span>
-<span class="s2">ug.point_data.scalars.name = &#39;scalars&#39;</span>
-<span class="s2">ug.modified()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">new_scalars</span>
+<span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
+<span class="n">ug</span><span class="o">.</span><span class="n">modified</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="external-references">
+</section>
+<section id="external-references">
 <h3>External references<a class="headerlink" href="#external-references" title="Permalink to this headline">¶</a></h3>
 <p>This section of the user guide will be improved later.  For now, the
 following two presentations best describe how one can create data
 objects or data files for Mayavi and TVTK.</p>
 <blockquote>
 <div><ul>
-<li><p class="first">Presentation on TVTK and Mayavi2 for course at IIT Bombay</p>
+<li><p>Presentation on TVTK and Mayavi2 for course at IIT Bombay</p>
 <p><a class="reference external" href="https://github.com/enthought/mayavi/raw/master/docs/pdf/tvtk_mayavi2.pdf">https://github.com/enthought/mayavi/raw/master/docs/pdf/tvtk_mayavi2.pdf</a></p>
 <p>This presentation provides information on graphics in general, 3D
 data representation, creating VTK data files, creating datasets
 from numpy in Python, and also about mayavi.</p>
 </li>
-<li><p class="first">Presentation on making TVTK datasets using numpy arrays made for SciPy07.</p>
-<p>Prabhu Ramachandran. “TVTK and MayaVi2”, SciPy‘07:
+<li><p>Presentation on making TVTK datasets using numpy arrays made for SciPy07.</p>
+<p>Prabhu Ramachandran. “TVTK and MayaVi2”, SciPy’07:
 Python for Scientific Computing, CalTech, Pasadena, CA, 16–17 August, 2007.</p>
 <p>This presentation focuses on creating TVTK datasets using numpy
 arrays.</p>
 </li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="datasets-creation-examples">
+</section>
+<section id="datasets-creation-examples">
 <h3>Datasets creation examples<a class="headerlink" href="#datasets-creation-examples" title="Permalink to this headline">¶</a></h3>
 <p>There are several examples in the mayavi sources that highlight the
 creation of the most important datasets from numpy arrays. Specifically
 they are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="auto/example_datasets.html#example-datasets"><span class="std std-ref">Datasets example</span></a>: Generate a simple example for each type of
-VTK dataset.</li>
-<li><a class="reference internal" href="auto/example_polydata.html#example-polydata"><span class="std std-ref">Polydata example</span></a>:  Demonstrates how to create Polydata datasets
-from numpy arrays and visualize them in mayavi.</li>
-<li><a class="reference internal" href="auto/example_structured_points2d.html#example-structured-points2d"><span class="std std-ref">Structured points2d example</span></a>: Demonstrates how to create a 2D
+<li><p><a class="reference internal" href="auto/example_datasets.html#example-datasets"><span class="std std-ref">Datasets example</span></a>: Generate a simple example for each type of
+VTK dataset.</p></li>
+<li><p><a class="reference internal" href="auto/example_polydata.html#example-polydata"><span class="std std-ref">Polydata example</span></a>:  Demonstrates how to create Polydata datasets
+from numpy arrays and visualize them in mayavi.</p></li>
+<li><p><a class="reference internal" href="auto/example_structured_points2d.html#example-structured-points2d"><span class="std std-ref">Structured points2d example</span></a>: Demonstrates how to create a 2D
 structured points (an ImageData) dataset from numpy arrays and
 visualize them in mayavi.  This is basically a square of
-equispaced points.</li>
-<li><a class="reference internal" href="auto/example_structured_points3d.html#example-structured-points3d"><span class="std std-ref">Structured points3d example</span></a>: Demonstrates how to create a 3D
+equispaced points.</p></li>
+<li><p><a class="reference internal" href="auto/example_structured_points3d.html#example-structured-points3d"><span class="std std-ref">Structured points3d example</span></a>: Demonstrates how to create a 3D
 structured points (an ImageData) dataset from numpy arrays and
 visualize them in Mayavi.  This is a cube of points that are
-regularly spaced.</li>
-<li><a class="reference internal" href="auto/example_structured_grid.html#example-structured-grid"><span class="std std-ref">Structured grid example</span></a>: Demonstrates the creation and
-visualization of a 3D structured grid.</li>
-<li><a class="reference internal" href="auto/example_unstructured_grid.html#example-unstructured-grid"><span class="std std-ref">Unstructured grid example</span></a>: Demonstrates the creation and
-visualization of an unstructured grid.</li>
+regularly spaced.</p></li>
+<li><p><a class="reference internal" href="auto/example_structured_grid.html#example-structured-grid"><span class="std std-ref">Structured grid example</span></a>: Demonstrates the creation and
+visualization of a 3D structured grid.</p></li>
+<li><p><a class="reference internal" href="auto/example_unstructured_grid.html#example-unstructured-grid"><span class="std std-ref">Unstructured grid example</span></a>: Demonstrates the creation and
+visualization of an unstructured grid.</p></li>
 </ul>
 </div></blockquote>
 <p>These scripts may be run like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x structured_grid.py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mayavi2 -x structured_grid.py
 </pre></div>
 </div>
 <p>or better yet, all in one go like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">$ mayavi2 -x polydata.py -x structured_points2d.py </span><span class="se">\</span>
-<span class="s2">&gt; -x structured_points3d.py -x structured_grid.py -x unstructured_grid.py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mayavi2 -x polydata.py -x structured_points2d.py \
+&gt; -x structured_points3d.py -x structured_grid.py -x unstructured_grid.py
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="inserting-tvtk-datasets-in-the-mayavi-pipeline">
+</section>
+</section>
+<section id="inserting-tvtk-datasets-in-the-mayavi-pipeline">
 <h2><a class="toc-backref" href="#id5">Inserting TVTK datasets in the Mayavi pipeline</a><a class="headerlink" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" title="Permalink to this headline">¶</a></h2>
 <p>TVTK datasets can be created using directly TVTK, as illustrated in the
 examples above. A VTK data source can be inserted in the Mayavi pipeline
 using the VTKDataSource. For instance we can create an <cite>ImageData</cite>
 dataset:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from tvtk.api import tvtk</span>
-<span class="s2">import numpy as np</span>
-<span class="s2">a = np.random.random((10, 10, 10))</span>
-<span class="s2">i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))</span>
-<span class="s2">i.point_data.scalars = a.ravel()</span>
-<span class="s2">i.point_data.scalars.name = &#39;scalars&#39;</span>
-<span class="s2">i.dimensions = a.shape</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageData</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
+<span class="n">i</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 <ul>
-<li><p class="first">If you are scripting using <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab</span></a>, the
+<li><p>If you are scripting using <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab</span></a>, the
 simplest way to visualize your data is to use the <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">mlab.pipeline</span></a> to apply filters and
 modules to your data. Indeed these functions creating filters and
 modules accept VTK datasets and automatically insert them on the
 pipeline. A surface module could have been used to visualize the
 <cite>ImageData</cite> dataset created above as such:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from enthgouth.mayavi import mlab</span>
-<span class="s2">mlab.pipeline.surface(i)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">enthgouth.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">In addition, inserting this dataset on the Mayavi pipeline with direct
+<li><p>In addition, inserting this dataset on the Mayavi pipeline with direct
 control on the <cite>Engine</cite> is done as suchwith <cite>VTKDataSource</cite>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">from mayavi.sources.api import VTKDataSource</span>
-<span class="s2">src = VTKDataSource(data=i)</span>
-<span class="s2">from mayavi.api import Engine</span>
-<span class="s2">e = Engine()</span>
-<span class="s2">e.start()</span>
-<span class="s2">s = e.new_scene()</span>
-<span class="s2">e.add_source(src)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="kn">import</span> <span class="n">Engine</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">()</span>
+<span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+<span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -677,10 +672,11 @@ to a segmentation fault. An even easier way to create a data source for
 an <cite>ImageData</cite> is to use the <cite>mlab.pipeline.scalar_field</cite> function, as
 explained in the <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><span class="std std-ref">section on creating
 data sources with mlab</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -733,17 +729,15 @@ data sources with mlab</span></a>.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -763,14 +757,15 @@ data sources with mlab</span></a>.</p>
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data representation in Mayavi</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

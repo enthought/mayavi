@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Multiple engines example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Multiple engines example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_wx_embedding.html" title="Wx embedding example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Multiple engines example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="multiple-engines-example">
+  <section id="multiple-engines-example">
 <span id="example-multiple-engines"></span><h1>Multiple engines example<a class="headerlink" href="#multiple-engines-example" title="Permalink to this headline">¶</a></h1>
 <p>An example to show how you can have multiple engines in one application.</p>
 <p>Mutliple engines can be useful for more separation, eg to script each
@@ -85,71 +85,72 @@ engine separately, or to avoid side effects between scenes.</p>
 scene.</p>
 <p>To define default arguments, it makes use of the Traits initialization
 style, rather than overriding the __init__.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/ff68d33a53ae6c1ed3b43072db640a8e/multiple_engines.py"><code class="xref download docutils literal notranslate"><span class="pre">multiple_engines.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2"># Author:  Gael Varoquaux &lt;gael _dot_ varoquaux _at_ normalesup _dot_ org&gt;</span>
-<span class="s2"># Copyright (c) 2009, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/c2c780f9f345a377e8140a467a5de889/multiple_engines.py"><code class="xref download docutils literal notranslate"><span class="pre">multiple_engines.py</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author:  Gael Varoquaux &lt;gael _dot_ varoquaux _at_ normalesup _dot_ org&gt;</span>
+<span class="c1"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2">from traits.api import HasTraits, Instance, on_trait_change</span>
-<span class="s2">from traitsui.api import View, Group, Item</span>
+<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span>
+<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Item</span>
 
-<span class="s2">from mayavi.core.api import Engine</span>
-<span class="s2">from mayavi.core.ui.api import MayaviScene, MlabSceneModel, </span><span class="se">\</span>
-<span class="s2">            SceneEditor</span>
+<span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">Engine</span>
+<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
+            <span class="n">SceneEditor</span>
 
-<span class="s2">################################################################################</span>
-<span class="s2">class MyApp(HasTraits):</span>
+<span class="c1">################################################################################</span>
+<span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
-<span class="s2">    # The first engine. As default arguments (an empty tuple) are given,</span>
-<span class="s2">    # traits initializes it.</span>
-<span class="s2">    engine1 = Instance(Engine, args=())</span>
+    <span class="c1"># The first engine. As default arguments (an empty tuple) are given,</span>
+    <span class="c1"># traits initializes it.</span>
+    <span class="n">engine1</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Engine</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">())</span>
 
-<span class="s2">    scene1 = Instance(MlabSceneModel)</span>
+    <span class="n">scene1</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">)</span>
 
-<span class="s2">    def _scene1_default(self):</span>
-<span class="s2">        &quot; The default initializer for &#39;scene1&#39; &quot;</span>
-<span class="s2">        self.engine1.start()</span>
-<span class="s2">        scene1 = MlabSceneModel(engine=self.engine1)</span>
-<span class="s2">        return scene1</span>
+    <span class="k">def</span> <span class="nf">_scene1_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&quot; The default initializer for &#39;scene1&#39; &quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">scene1</span> <span class="o">=</span> <span class="n">MlabSceneModel</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">engine1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">scene1</span>
 
-<span class="s2">    engine2 = Instance(Engine, ())</span>
+    <span class="n">engine2</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Engine</span><span class="p">,</span> <span class="p">())</span>
 
-<span class="s2">    scene2 = Instance(MlabSceneModel)</span>
+    <span class="n">scene2</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">)</span>
 
-<span class="s2">    def _scene2_default(self):</span>
-<span class="s2">        &quot; The default initializer for &#39;scene2&#39; &quot;</span>
-<span class="s2">        self.engine2.start()</span>
-<span class="s2">        scene2 = MlabSceneModel(engine=self.engine2)</span>
-<span class="s2">        return scene2</span>
+    <span class="k">def</span> <span class="nf">_scene2_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&quot; The default initializer for &#39;scene2&#39; &quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">scene2</span> <span class="o">=</span> <span class="n">MlabSceneModel</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">engine2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">scene2</span>
 
-<span class="s2">    # We populate the scenes only when it is activated, to avoid problems</span>
-<span class="s2">    # with VTK objects that expect an active scene</span>
-<span class="s2">    @on_trait_change(&#39;scene1.activated&#39;)</span>
-<span class="s2">    def populate_scene1(self):</span>
-<span class="s2">        self.scene1.mlab.test_surf()</span>
+    <span class="c1"># We populate the scenes only when it is activated, to avoid problems</span>
+    <span class="c1"># with VTK objects that expect an active scene</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene1.activated&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">populate_scene1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene1</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">test_surf</span><span class="p">()</span>
 
-<span class="s2">    @on_trait_change(&#39;scene2.activated&#39;)</span>
-<span class="s2">    def populate_scene2(self):</span>
-<span class="s2">        self.scene2.mlab.test_mesh()</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene2.activated&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">populate_scene2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene2</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">test_mesh</span><span class="p">()</span>
 
-<span class="s2">    # The layout of the view</span>
-<span class="s2">    view = View(Group(Item(&#39;scene1&#39;,</span>
-<span class="s2">                        editor=SceneEditor(scene_class=MayaviScene),</span>
-<span class="s2">                        width=480, height=480)),</span>
-<span class="s2">                Group(Item(&#39;scene2&#39;,</span>
-<span class="s2">                        editor=SceneEditor(scene_class=MayaviScene),</span>
-<span class="s2">                        width=480, height=480)),</span>
-<span class="s2">                resizable=True)</span>
+    <span class="c1"># The layout of the view</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene1&#39;</span><span class="p">,</span>
+                        <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
+                        <span class="n">width</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">)),</span>
+                <span class="n">Group</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene2&#39;</span><span class="p">,</span>
+                        <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
+                        <span class="n">width</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">)),</span>
+                <span class="n">resizable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<span class="s2">if __name__ == &#39;__main__&#39;:</span>
-<span class="s2">    MyApp().configure_traits()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">MyApp</span><span class="p">()</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
 
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -172,17 +173,15 @@ style, rather than overriding the __init__.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -202,14 +201,15 @@ style, rather than overriding the __init__.</p>
         <li class="right" >
           <a href="example_wx_embedding.html" title="Wx embedding example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Multiple engines example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

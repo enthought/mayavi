@@ -1,3 +1,22 @@
+Mayavi 4.7.3
+============
+
+This is a small bug fix release mainly concerned with compatability with Traits
+6.2.0 and soon to be release TraitsUI 7.2.0.
+
+Fixes
+-----
+
+10 Dec 2021 `#983 <https://github.com/enthought/mayavi/pull/983>`_ (larsoner)
+   - MAINT: Support Python 3.9
+
+06 May 2021 `#1030 <https://github.com/enthought/mayavi/pull/1030>`_ (aaronayres35)
+   - import from pyface.image not traitsui.image
+
+06 May 2021 `#1035 <https://github.com/enthought/mayavi/pull/1035>`_ (aaronayres35)
+   - Pass a value in appropriate range to avoid failure
+
+
 Mayavi 4.7.2
 ============
 

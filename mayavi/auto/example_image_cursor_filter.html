@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Image cursor filter example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Image cursor filter example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_structured_points3d.html" title="Structured points3d example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Image cursor filter example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="image-cursor-filter-example">
+  <section id="image-cursor-filter-example">
 <span id="example-image-cursor-filter"></span><h1>Image cursor filter example<a class="headerlink" href="#image-cursor-filter-example" title="Permalink to this headline">¶</a></h1>
 <p>Excample using the UserDefined filter to paint a cross-shaped cursor on data,
 in order to point out a special position.</p>
@@ -99,63 +99,64 @@ more details about VTK datasets). In the dialog used to interactively
 add the UserDefined filet, we can therefore select <cite>ImageCursor3D</cite>.
 The documentation of the filter is displayed when selecting its name
 within the <cite>Class name</cite> field of the dialog.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/56142b34efc8c2d207aecbdf08a1f60e/image_cursor_filter.py"><code class="xref download docutils literal notranslate"><span class="pre">image_cursor_filter.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/81b3e4dcbcd277adfc7999a346ee6b40/image_cursor_filter.py"><code class="xref download docutils literal notranslate"><span class="pre">image_cursor_filter.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2"># Authors: Emmanuelle Gouillart &lt;emmanuelle.gouillart@normalesup.org&gt;</span>
-<span class="s2"># and Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="s2"># Copyright (c) 2009, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<span class="c1"># Authors: Emmanuelle Gouillart &lt;emmanuelle.gouillart@normalesup.org&gt;</span>
+<span class="c1"># and Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
 
-<span class="s2">from mayavi import mlab</span>
-<span class="s2">import numpy as np</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="s2"># Define Gaussian data field</span>
-<span class="s2">x, y, z = np.ogrid[0:1:40j, 0:1:40j, 0:1:40j]</span>
-<span class="s2">sig = 0.5</span>
-<span class="s2">center = 0.5</span>
-<span class="s2">g = np.exp(-((x-center)**2 + (y-center)**2 + (z-center)**2)/(2*sig**2))</span>
+<span class="c1"># Define Gaussian data field</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">]</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">center</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">z</span><span class="o">-</span><span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sig</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
-<span class="s2">################################################################################</span>
+<span class="c1">################################################################################</span>
 
-<span class="s2">mlab.figure(fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
-<span class="s2"># Define the cursor</span>
-<span class="s2">s = mlab.pipeline.scalar_field(g)</span>
-<span class="s2">cursor = mlab.pipeline.user_defined(s, filter=&#39;ImageCursor3D&#39;)</span>
+<span class="c1"># Define the cursor</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;ImageCursor3D&#39;</span><span class="p">)</span>
 
-<span class="s2"># The TVTK filter used by Mayavi is accessible as the &#39;.filter&#39;</span>
-<span class="s2"># attribute of the Mayavi filtered returned by user_defined.</span>
-<span class="s2"># We can set the graphical properties of the cross via attributes of</span>
-<span class="s2"># cursor.filter, and not of cursor itself. Here cursor is a Mayavi filter,</span>
-<span class="s2"># that is an object that inserts in the Mayavi pipeline, whereas</span>
-<span class="s2"># cursor.filter is the TVTK filter that actually does the work.</span>
+<span class="c1"># The TVTK filter used by Mayavi is accessible as the &#39;.filter&#39;</span>
+<span class="c1"># attribute of the Mayavi filtered returned by user_defined.</span>
+<span class="c1"># We can set the graphical properties of the cross via attributes of</span>
+<span class="c1"># cursor.filter, and not of cursor itself. Here cursor is a Mayavi filter,</span>
+<span class="c1"># that is an object that inserts in the Mayavi pipeline, whereas</span>
+<span class="c1"># cursor.filter is the TVTK filter that actually does the work.</span>
 
-<span class="s2"># Put the cursor at the center of the field volume (default is (0, 0, 0))</span>
-<span class="s2">cursor.filter.cursor_position = np.array([20, 20, 20])</span>
-<span class="s2"># Define the value of the cursor (default is 255) so that there is</span>
-<span class="s2"># enough contrast between the cursor and the data values in the neighbourhood</span>
-<span class="s2"># of the cursor. The cursor value is within the data value range so that</span>
-<span class="s2"># the contrast of the data is not altered.</span>
-<span class="s2">cursor.filter.cursor_value = 0</span>
-<span class="s2"># Define the radius of the cross (the extent of the cross is 2xcursor_radius)</span>
-<span class="s2">cursor.filter.cursor_radius = 10</span>
+<span class="c1"># Put the cursor at the center of the field volume (default is (0, 0, 0))</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="c1"># Define the value of the cursor (default is 255) so that there is</span>
+<span class="c1"># enough contrast between the cursor and the data values in the neighbourhood</span>
+<span class="c1"># of the cursor. The cursor value is within the data value range so that</span>
+<span class="c1"># the contrast of the data is not altered.</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># Define the radius of the cross (the extent of the cross is 2xcursor_radius)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_radius</span> <span class="o">=</span> <span class="mi">10</span>
 
 
-<span class="s2"># Display data and cursor using an image_plane_widget that intersects the</span>
-<span class="s2"># cursor.</span>
-<span class="s2">ipw = mlab.pipeline.image_plane_widget(cursor, plane_orientation=&#39;x_axes&#39;,</span>
-<span class="s2">            slice_index=20)</span>
+<span class="c1"># Display data and cursor using an image_plane_widget that intersects the</span>
+<span class="c1"># cursor.</span>
+<span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;x_axes&#39;</span><span class="p">,</span>
+            <span class="n">slice_index</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="s2"># View</span>
-<span class="s2">mlab.colorbar()</span>
-<span class="s2">mlab.view(15, 70, 100, [20, 20, 20])</span>
-<span class="s2">mlab.show()</span>
+<span class="c1"># View</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -178,17 +179,15 @@ within the <cite>Class name</cite> field of the dialog.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -208,14 +207,15 @@ within the <cite>Class name</cite> field of the dialog.</p>
         <li class="right" >
           <a href="example_structured_points3d.html" title="Structured points3d example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Image cursor filter example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

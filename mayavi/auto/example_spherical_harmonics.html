@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Spherical harmonics example &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Spherical harmonics example &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Spherical harmonics example</a></li> 
       </ul>
     </div>  
 
@@ -76,7 +76,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="spherical-harmonics-example">
+  <section id="spherical-harmonics-example">
 <span id="example-spherical-harmonics"></span><h1>Spherical harmonics example<a class="headerlink" href="#spherical-harmonics-example" title="Permalink to this headline">¶</a></h1>
 <p>Plot spherical harmonics on the surface of the sphere, as well as a 3D
 polar plot.</p>
@@ -89,49 +89,50 @@ be defined as functions of a 2D grid.</p>
 sphere, and then in polar. The polar plot is simply obtained by varying
 the radius of the previous sphere.</p>
 <img alt="../_images/example_spherical_harmonics.jpg" class="align-center" src="../_images/example_spherical_harmonics.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/04ff37eb3a480f22db2d55b3d18b22a0/spherical_harmonics.py"><code class="xref download docutils literal notranslate"><span class="pre">spherical_harmonics.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/315269042e8a83966ff3151fa9de738d/spherical_harmonics.py"><code class="xref download docutils literal notranslate"><span class="pre">spherical_harmonics.py</span></code></a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="s2"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="s2"># Copyright (c) 2008, Enthought, Inc.</span>
-<span class="s2"># License: BSD Style.</span>
+<span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="s2">from mayavi import mlab</span>
-<span class="s2">import numpy as np</span>
-<span class="s2">from scipy.special import sph_harm</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">sph_harm</span>
 
-<span class="s2"># Create a sphere</span>
-<span class="s2">r = 0.3</span>
-<span class="s2">pi = np.pi</span>
-<span class="s2">cos = np.cos</span>
-<span class="s2">sin = np.sin</span>
-<span class="s2">phi, theta = np.mgrid[0:pi:101j, 0:2 * pi:101j]</span>
+<span class="c1"># Create a sphere</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span>
+<span class="n">sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span>
+<span class="n">phi</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span><span class="p">:</span><span class="mi">101</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">:</span><span class="mi">101</span><span class="n">j</span><span class="p">]</span>
 
-<span class="s2">x = r * sin(phi) * cos(theta)</span>
-<span class="s2">y = r * sin(phi) * sin(theta)</span>
-<span class="s2">z = r * cos(phi)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
 
-<span class="s2">mlab.figure(1, bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), size=(400, 300))</span>
-<span class="s2">mlab.clf()</span>
-<span class="s2"># Represent spherical harmonics on the surface of the sphere</span>
-<span class="s2">for n in range(1, 6):</span>
-<span class="s2">    for m in range(n):</span>
-<span class="s2">        s = sph_harm(m, n, theta, phi).real</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="c1"># Represent spherical harmonics on the surface of the sphere</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">sph_harm</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>
 
-<span class="s2">        mlab.mesh(x - m, y - n, z, scalars=s, colormap=&#39;jet&#39;)</span>
+        <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 
-<span class="s2">        s[s &lt; 0] *= 0.97</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">0.97</span>
 
-<span class="s2">        s /= s.max()</span>
-<span class="s2">        mlab.mesh(s * x - m, s * y - n, s * z + 1.3,</span>
-<span class="s2">                  scalars=s, colormap=&#39;Spectral&#39;)</span>
+        <span class="n">s</span> <span class="o">/=</span> <span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span> <span class="mf">1.3</span><span class="p">,</span>
+                  <span class="n">scalars</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
 
-<span class="s2">mlab.view(90, 70, 6.2, (-1.3, -2.9, 0.25))</span>
-<span class="s2">mlab.show()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -154,17 +155,15 @@ the radius of the previous sphere.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -184,14 +183,15 @@ the radius of the previous sphere.</p>
         <li class="right" >
           <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Spherical harmonics example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

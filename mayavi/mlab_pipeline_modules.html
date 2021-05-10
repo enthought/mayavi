@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Modules and Filters &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Modules and Filters &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,9 +65,10 @@
         <li class="right" >
           <a href="auto/mlab_pipeline_data.html" title="Data"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="auto/mlab_reference.html" >MLab reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Modules and Filters</a></li> 
       </ul>
     </div>  
 
@@ -77,7 +77,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="modules-and-filters">
+  <section id="modules-and-filters">
 <h1>Modules and Filters<a class="headerlink" href="#modules-and-filters" title="Permalink to this headline">¶</a></h1>
 <p>For each Mayavi module or filter, there is a corresponding
 <cite>mlab.pipeline</cite> factory function that takes as an input argument, the
@@ -92,69 +92,78 @@ automatically added if necessary.</p>
 the object added to the pipeline.</p>
 <p>For instance, the <cite>ScalarCutPlane</cite> module can be added with the following
 function:</p>
-<dl class="function">
-<dt id="mayavi.tools.modules.scalar_cut_plane">
-<code class="descclassname">mayavi.tools.modules.</code><code class="descname">scalar_cut_plane</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.modules.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="mayavi.tools.modules.scalar_cut_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.modules.</span></span><span class="sig-name descname"><span class="pre">scalar_cut_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.modules.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the ScalarCutPlane mayavi module to the given data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<div><dl class="field-list simple">
+<dt class="field-odd">color</dt>
+<dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+1) for white.</p>
+</dd>
+<dt class="field-even">colormap</dt>
+<dd class="field-even"><p>type of colormap to use.</p>
+</dd>
+<dt class="field-odd">extent</dt>
+<dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">the orientation of the plane Must be a legal
-value. Default: x_axes</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on
-the scalar.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
-shown. Must be a boolean. Default: True</td>
-</tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
+created.</p>
+</dd>
+<dt class="field-even">figure</dt>
+<dd class="field-even"><p>Must be a Scene or None.</p>
+</dd>
+<dt class="field-odd">line_width</dt>
+<dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
+Default: 2.0</p>
+</dd>
+<dt class="field-even">name</dt>
+<dd class="field-even"><p>the name of the vtk object created.</p>
+</dd>
+<dt class="field-odd">opacity</dt>
+<dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
+Default: 1.0</p>
+</dd>
+<dt class="field-even">plane_orientation</dt>
+<dd class="field-even"><p>the orientation of the plane Must be a legal
+value. Default: x_axes</p>
+</dd>
+<dt class="field-odd">reset_zoom</dt>
+<dd class="field-odd"><p>Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</p>
+</dd>
+<dt class="field-even">transparent</dt>
+<dd class="field-even"><p>make the opacity of the actor depend on
+the scalar.</p>
+</dd>
+<dt class="field-odd">view_controls</dt>
+<dd class="field-odd"><p>Whether or not the controls of the cut plane are
+shown. Must be a boolean. Default: True</p>
+</dd>
+<dt class="field-even">vmax</dt>
+<dd class="field-even"><p>vmax is used to scale the colormap.
+If None, the max of the data will be used</p>
+</dd>
+<dt class="field-odd">vmin</dt>
+<dd class="field-odd"><p>vmin is used to scale the colormap.
+If None, the min of the data will be used</p>
+</dd>
+</dl>
 </div></blockquote>
 </dd></dl>
 
 <p>As the list is long, we shall not enumerate here all the factory function
 for adding modules or filters. You are invited to refer to their
 docstring for information on the keyword arguments they accept.</p>
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -177,17 +186,15 @@ docstring for information on the keyword arguments they accept.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -207,15 +214,16 @@ docstring for information on the keyword arguments they accept.</p>
         <li class="right" >
           <a href="auto/mlab_pipeline_data.html" title="Data"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="auto/mlab_reference.html" >MLab reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Modules and Filters</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>

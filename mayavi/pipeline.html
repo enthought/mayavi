@@ -1,20 +1,19 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Organisation of Mayavi visualizations: the pipeline &#8212; mayavi 4.7.2 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Organisation of Mayavi visualizations: the pipeline &#8212; mayavi 4.7.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,8 +65,9 @@
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Organisation of Mayavi visualizations: the pipeline</a></li> 
       </ul>
     </div>  
 
@@ -76,10 +76,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="organisation-of-mayavi-visualizations-the-pipeline">
+  <section id="organisation-of-mayavi-visualizations-the-pipeline">
 <span id="organisation-mayavi-visualisations"></span><h1>Organisation of Mayavi visualizations: the pipeline<a class="headerlink" href="#organisation-of-mayavi-visualizations-the-pipeline" title="Permalink to this headline">¶</a></h1>
 <div class="topic">
-<p class="topic-title first">Mayavi and VTK pipelines</p>
+<p class="topic-title">Mayavi and VTK pipelines</p>
 <p>Mayavi uses <a class="reference external" href="http://www.vtk.org">VTK</a> for all its visualization needs.
 A pipeline concept underlies all the visualization in VTK. However,
 it is important to note that the pipeline used by Mayavi does not
@@ -88,27 +88,27 @@ is different, the objects are not the same, and there are more nodes
 in a VTK pipeline. The two pipelines share some similarities, but in
 this section, we are only concerned by the Mayavi pipeline.</p>
 </div>
-<div class="section" id="anatomy-of-a-mayavi-pipeline">
+<section id="anatomy-of-a-mayavi-pipeline">
 <h2>Anatomy of a Mayavi pipeline<a class="headerlink" href="#anatomy-of-a-mayavi-pipeline" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="layout-of-a-pipeline">
+<section id="layout-of-a-pipeline">
 <h3>Layout of a pipeline<a class="headerlink" href="#layout-of-a-pipeline" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>The top node of a Mayavi pipeline is called the <cite>Engine</cite>. It is
+<li><p>The top node of a Mayavi pipeline is called the <cite>Engine</cite>. It is
 responsible of the creation and destruction of the scenes. It is not
-displayed in the pipeline view.</li>
-<li>Below the <cite>Engine</cite>, you find <cite>Scenes</cite>.</li>
-<li>Each <cite>Scene</cite> has a set of data <cite>Sources</cite>: they expose the data to
-visualize to Mayavi.</li>
-<li><cite>Filters</cite> can be applied to the <cite>Sources</cite> to transform the data they
-wrap.</li>
-<li>A <cite>Module Manager</cite> controls the colors used to represent the scalar or
+displayed in the pipeline view.</p></li>
+<li><p>Below the <cite>Engine</cite>, you find <cite>Scenes</cite>.</p></li>
+<li><p>Each <cite>Scene</cite> has a set of data <cite>Sources</cite>: they expose the data to
+visualize to Mayavi.</p></li>
+<li><p><cite>Filters</cite> can be applied to the <cite>Sources</cite> to transform the data they
+wrap.</p></li>
+<li><p>A <cite>Module Manager</cite> controls the colors used to represent the scalar or
 vector data. It is represented in the pipeline view as the node called
-<cite>Colors and legends</cite>.</li>
-<li>Visualization <cite>Modules</cite> finally display a reprensation of the data in
-the Scene, such as a surface, or lines.</li>
+<cite>Colors and legends</cite>.</p></li>
+<li><p>Visualization <cite>Modules</cite> finally display a reprensation of the data in
+the Scene, such as a surface, or lines.</p></li>
 </ul>
-</div>
-<div class="section" id="navigating-in-the-pipeline">
+</section>
+<section id="navigating-in-the-pipeline">
 <h3>Navigating in the pipeline<a class="headerlink" href="#navigating-in-the-pipeline" title="Permalink to this headline">¶</a></h3>
 <p>Each object in the pipeline has a <cite>parent</cite> attribute that points to its
 parent in the pipeline, as well as a <cite>children</cite> attribute, giving the
@@ -120,48 +120,48 @@ the <cite>edit_traits()</cite> method of this object.</p>
 <cite>.scene</cite> attribute point to this scene (see the
 <a class="reference internal" href="auto/example_volume_slicer.html#example-volume-slicer"><span class="std std-ref">Volume slicer example</span></a> for an example of how the data can be shared
 between scenes).</p>
-</div>
-</div>
-<div class="section" id="the-link-between-different-mayavi-entry-points">
+</section>
+</section>
+<section id="the-link-between-different-mayavi-entry-points">
 <h2>The link between different Mayavi entry points<a class="headerlink" href="#the-link-between-different-mayavi-entry-points" title="Permalink to this headline">¶</a></h2>
 <p>Every visualization created in Mayavi is constructed with a pipeline,
 although the construction of the pipeline may be hidden from the user:</p>
 <ul class="simple">
-<li>The easiest way to make a Mayavi visualization is to create a pipeline
+<li><p>The easiest way to make a Mayavi visualization is to create a pipeline
 via the user interface, as, for instance, exposed in the
-<a class="reference internal" href="example_parametric_surface.html#parametric-surfaces-example"><span class="std std-ref">Parametric surfaces examples</span></a>.</li>
-<li>The <a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><span class="std std-ref">mlab 3d plotting functions</span></a>,
+<a class="reference internal" href="example_parametric_surface.html#parametric-surfaces-example"><span class="std std-ref">Parametric surfaces examples</span></a>.</p></li>
+<li><p>The <a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><span class="std std-ref">mlab 3d plotting functions</span></a>,
 create full piplelines, comprising sources, modules, and possibly
 filters, to visualize numpy arrays. Displaying the
 <a class="reference internal" href="mlab_changing_object_looks.html#mlab-changing-objects-interactively"><span class="std std-ref">pipeline view</span></a> is the
-easiest way to understand what pipeline was built.</li>
-<li>Pipelines can also be built node-by-node with mlab, using the
+easiest way to understand what pipeline was built.</p></li>
+<li><p>Pipelines can also be built node-by-node with mlab, using the
 <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">mlab.pipeline functions</span></a>.
 The name of the functions to call can simply be deduced
 from the names of the pipeline nodes as they appear in the pipeline
-view.</li>
-<li>The objects composing a pipeline can be instantiated and added to the
+view.</p></li>
+<li><p>The objects composing a pipeline can be instantiated and added to the
 pipeline manually, as exposed
-<a class="reference internal" href="advanced_scripting.html#oo-construction-visualization"><span class="std std-ref">further below</span></a>.</li>
+<a class="reference internal" href="advanced_scripting.html#oo-construction-visualization"><span class="std std-ref">further below</span></a>.</p></li>
 </ul>
-</div>
-<div class="section" id="a-pipeline-example-examined">
+</section>
+<section id="a-pipeline-example-examined">
 <h2>A pipeline example examined<a class="headerlink" href="#a-pipeline-example-examined" title="Permalink to this headline">¶</a></h2>
 <p>Let us study the pipeline created by the <cite>mlab.plot3d</cite> function to
 represent lines:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">import numpy as np</span>
-<span class="s2">phi = np.linspace(0., 2*np.pi, 1000)</span>
-<span class="s2">x   = np.cos(6*phi)*(1 + .5*np.cos(11*phi))</span>
-<span class="s2">y   = np.sin(6*phi)*(1 + .5*np.cos(11*phi))</span>
-<span class="s2">z   = .5*np.sin(11*phi)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">x</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
+<span class="n">y</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
+<span class="n">z</span>   <span class="o">=</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span>
 
-<span class="s2">from mayavi import mlab</span>
-<span class="s2">surface = mlab.plot3d(x, y, z, np.sin(6*phi), tube_radius=0.025, colormap=&#39;Spectral&#39;, opacity=.5)</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="_images/pipeline_and_scene.jpg" src="_images/pipeline_and_scene.jpg" />
-</div>
+</figure>
 <p>The <cite>mlab.plot3d</cite> function first creates a source made of points
 connected by lines. Then it applies the <cite>Stripper</cite> filter, which
 transforms this succession of lines in a ‘strip’. Second, a <cite>Tube</cite>
@@ -171,16 +171,16 @@ tubes. The <cite>surface</cite> object returned by the <cite>mlab.plot3d</cite> 
 that final <cite>Surface</cite> module.</p>
 <p>Let us have a look at the data in the pipeline before the tube filter was
 applied. First we retrive the <cite>Stripper</cite> filter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">stripper = surface.parent.parent.parent</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stripper</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
 </pre></div>
 </div>
 <p>Then we apply on it a <cite>Surface</cite> module to represent the <cite>strip</cite>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">lines = mlab.pipeline.surface(stripper, color=(0, 0, 0))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">stripper</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="_images/pipeline_and_scene2.jpg" src="_images/pipeline_and_scene2.jpg" />
-</div>
+</figure>
 <p>All the properties of the different steps can be adjusted in the pipeline
 view. In addition, they correspond to attributes on the various objects:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
@@ -192,10 +192,11 @@ view. In addition, they correspond to attributes on the various objects:</p>
 attributes in the objects they correspond to. However, it can be fairly
 challenging to find this correspondance. We suggest to use the
 <a class="reference internal" href="mlab_changing_object_looks.html#record-feature"><span class="std std-ref">record feature</span></a> for this purpose.</p>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -232,17 +233,15 @@ challenging to find this correspondance. We suggest to use the
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -262,14 +261,15 @@ challenging to find this correspondance. We suggest to use the
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Organisation of Mayavi visualizations: the pipeline</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Aug 31, 2020.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Last updated on May 10, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
     </div>
   </body>
 </html>
