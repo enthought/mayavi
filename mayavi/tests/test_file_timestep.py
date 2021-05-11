@@ -1,5 +1,6 @@
 import os
 import unittest
+from unittest.mock import MagicMock, Mock
 import tempfile
 import shutil
 
@@ -14,10 +15,10 @@ from tvtk.pyface.tvtk_scene import TVTKScene
 def make_mock_scene():
     """Mocks a scene suitable for testing the movie generation.
     """
-    s = unittest.mock.Mock(spec=TVTKScene)
+    s = Mock(spec=TVTKScene)
     s.foreground = (1,0,0)
     s.off_screen_rendering = True
-    mm = unittest.mock.MagicMock(spec=MovieMaker)
+    mm = MagicMock(spec=MovieMaker)
     s.movie_maker = mm
     return s
 
