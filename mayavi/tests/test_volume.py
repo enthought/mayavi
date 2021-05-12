@@ -1,7 +1,7 @@
 # Standard library imports.
 import numpy as np
 import unittest
-from mock import patch
+from unittest.mock import patch
 
 # Enthought library imports
 from mayavi.tests.common import get_example_data

@@ -7,8 +7,7 @@ This also tests some numerics with VTK.
 import os
 import tempfile
 import unittest
-
-import mock
+from unittest.mock import patch
 
 import numpy as np
 from numpy.testing import assert_allclose
@@ -554,7 +553,7 @@ class TestMlabAnimate(TestMlabNullEngine):
 
         # When
         from mayavi.core.file_data_source import NoUITimer
-        with mock.patch('mayavi.tools.animator.Timer', NoUITimer):
+        with patch('mayavi.tools.animator.Timer', NoUITimer):
             a = anim()
             a.timer.Start()
 

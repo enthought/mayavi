@@ -28,7 +28,7 @@ cache:
 before_install:
   - mkdir -p "${HOME}/.cache/download"
   - if [[ ${TRAVIS_OS_NAME} == 'linux' ]]; then ./ci/install-edm-linux.sh; export PATH="${HOME}/edm/bin:${PATH}"; fi
-  - edm install --version ${RUNTIME} -y wheel numpy nose mock Sphinx coverage psutil
+  - edm install --version ${RUNTIME} -y wheel numpy nose Sphinx coverage psutil
 
 install:
   - if [[ ${ETS_TOOLKIT} == 'wx' ]]; then edm install -y wxpython; fi
