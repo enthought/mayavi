@@ -10,9 +10,6 @@ functionality. See the class docs for more details.
 # Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
-
-from __future__ import print_function
-
 import os
 import os.path
 

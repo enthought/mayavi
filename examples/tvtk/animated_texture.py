@@ -10,8 +10,6 @@ TVTK sees a view of this array without doing any data transfers.
 # Copyright (c) 2006-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 from numpy import arange, zeros, uint8, exp, sqrt, pi
 
 from tvtk.api import tvtk

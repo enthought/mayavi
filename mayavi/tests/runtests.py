@@ -10,8 +10,6 @@ thing.
 # Copyright (c) 2009-2020,  Enthought Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 import sys
 from os.path import dirname, join, isfile, isdir
 from glob import glob

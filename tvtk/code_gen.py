@@ -5,8 +5,6 @@
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 import vtk_module as vtk
 import os
 import os.path
