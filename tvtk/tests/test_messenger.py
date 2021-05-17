@@ -5,7 +5,7 @@
 # Copyright (c) 2004-2020,  Enthought, Inc.
 # License: BSD Style.
 
-from six.moves import reload_module
+from importlib import reload
 import unittest
 
 from tvtk import messenger
@@ -77,7 +77,7 @@ class TestMessenger(unittest.TestCase):
         b = B()
         m = messenger.Messenger()
         orig_len = len(m._signals)
-        reload_module(messenger)
+        reload(messenger)
         m = messenger.Messenger()
         self.assertEqual(len(m._signals), orig_len)
         b.send(1, test=1)
