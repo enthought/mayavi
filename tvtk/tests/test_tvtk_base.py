@@ -6,13 +6,12 @@ test_tvtk.py.
 # Author: Prabhu Ramachandran
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
-
+from importlib import reload
 import unittest
 import pickle
 import weakref
 import vtk
 import gc
-from six.moves import reload_module
 
 from traits import api as traits
 from tvtk import tvtk_base
@@ -321,7 +320,7 @@ class TestTVTKBase(unittest.TestCase):
         # Check reload-safety.
         p = Prop()
         l1 = len(tvtk_base._object_cache)
-        reload_module(tvtk_base)
+        reload(tvtk_base)
         self.assertEqual(l1, len(tvtk_base._object_cache))
 
     # Reloading causes havoc with nosetests based tests so we skip in
