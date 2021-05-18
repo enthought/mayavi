@@ -6,8 +6,6 @@ type information, and organizes them.
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 import collections.abc
 import re
 import types

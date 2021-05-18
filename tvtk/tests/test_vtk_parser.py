@@ -13,8 +13,6 @@ error messages but they are usually harmless.
 
 """
 
-from __future__ import print_function
-
 import unittest
 from tvtk import vtk_parser
 

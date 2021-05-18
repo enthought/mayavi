@@ -12,8 +12,6 @@ Mayavi2: http://docs.enthought.com/mayavi/mayavi/overview.html
 # Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 # Standard library imports.
 import sys
 import getopt

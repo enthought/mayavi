@@ -1,7 +1,5 @@
 """Functionality to display Mayavi scenes inside Jupyter notebooks.
 """
-from __future__ import print_function
-
 import base64
 from itertools import count
 

@@ -4,8 +4,6 @@
 # Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 # Standard library imports
 import gc
 import os
