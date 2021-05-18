@@ -44,10 +44,6 @@ To generate tvtk_classes.zip you must do the following::
 # Only used for testing.
 from tvtk.tvtk_classes import tvtk_helper
 
-PY_VER = sys.version_info[0]
-if PY_VER > 2:
-    long = int
-
 
 def mysum(arr):
     val = arr
@@ -134,10 +130,7 @@ class TestTVTK(unittest.TestCase):
         r = tvtk.XMLDataReader()
         self.assertEqual(r.f(), 'f')
         if len(vtk.vtkObjectBase.__bases__) > 0:
-            if vtk_major_version == 7 and PY_VER < 3:
-                expect = ()
-            else:
-                expect = (object,)
+            expect = (object,)
         else:
             expect = tuple()
 
@@ -337,19 +330,14 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(p.color, (0.5, 0.5, 0.5))
 
     def test_points_lookup(self):
-        """ Test if points can be looked up with both int and long keys.
-            Fixes GH Issue 173.
+        """ Test if points can be looked up.
         """
         points = tvtk.Points()
         points.insert_next_point((0, 1, 2))
         pt = points[0]
         self.assertEqual(pt, (0, 1, 2))
-        ptl = points[long(0)]
-        self.assertEqual(ptl, (0, 1, 2))
         get_pt = points.get_point(0)
         self.assertEqual(get_pt, (0, 1, 2))
-        get_ptl = points.get_point(long(0))
-        self.assertEqual(get_ptl, (0, 1, 2))
 
     def test_cell_array(self):
         """ Test if cell array insertion updates number of cells.
@@ -503,13 +491,7 @@ class TestTVTK(unittest.TestCase):
             self.assertEqual(i, j)
         self.assertEqual(f[-1], 3)
         self.assertEqual(f[0], 0)
-        if sys.version_info[0] > 2:
-            self.assertEqual(repr(f), '[0, 1, 2, 3]')
-        else:
-            if type(f[0]) is long:
-                self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
-            else:
-                self.assertEqual(repr(f), '[0, 1, 2, 3]')
+        self.assertEqual(repr(f), '[0, 1, 2, 3]')
         f.append(4)
         f.extend([5, 6])
         self.assertEqual(len(f), 7)
@@ -1053,12 +1035,6 @@ class TestTVTKModule(unittest.TestCase):
         self.assertFalse('QtCore' in output)
         self.assertFalse('wx' in output)
 
-    @unittest.skipIf(PY_VER > 2, "Irrelevant for python 3")
-    def test_unicode_traits(self):
-        reader = tvtk.DelimitedTextReader()
-        self.assertIsInstance(reader.unicode_record_delimiters, unicode)
-        self.assertIsInstance(reader.unicode_string_delimiters, unicode)
-        self.assertIsInstance(reader.unicode_field_delimiters, unicode)
 
 if __name__ == "__main__":
     unittest.main()

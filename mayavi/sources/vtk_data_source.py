@@ -164,20 +164,14 @@ class VTKDataSource(Source):
         data = self.data
         if data is not None:
             sdata = write_dataset_to_string(data)
-            if sys.version_info[0] > 2:
-                z = gzip_string(sdata.encode('ascii'))
-            else:
-                z = gzip_string(sdata)
+            z = gzip_string(sdata.encode('ascii'))
             d['data'] = z
         return d
 
     def __set_pure_state__(self, state):
         z = state.data
         if z is not None:
-            if sys.version_info[0] > 2:
-                d = gunzip_string(z).decode('ascii')
-            else:
-                d = gunzip_string(z)
+            d = gunzip_string(z).decode('ascii')
             r = tvtk.DataSetReader(read_from_input_string=1,
                                    input_string=d)
             warn = r.global_warning_display
