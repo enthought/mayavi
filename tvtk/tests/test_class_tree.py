@@ -3,10 +3,10 @@
 # Copyright (c) 2004, Enthought, Inc.
 
 """Tests class_tree.py.  Uses the vtk module to test the code.  Also
-tests if the tree generation works for the __builtin__ module.
+tests if the tree generation works for the builtins module.
 
 """
-
+import builtins
 import sys
 import unittest
 from contextlib import contextmanager
@@ -14,12 +14,6 @@ from contextlib import contextmanager
 from tvtk import class_tree
 
 import vtk
-if sys.version_info[0] > 2:
-    import builtins as __builtin__
-    PY_VER = 3
-else:
-    import __builtin__
-    PY_VER = 2
 
 # This computation can be expensive, so we cache it.
 _cache = class_tree.ClassTree(vtk)
@@ -42,14 +36,14 @@ class TestClassTree(unittest.TestCase):
     @contextmanager
     def _remove_loader_from_builtin(self):
         self._loader = None
-        if hasattr(__builtin__, '__loader__'):
-            self._loader = __builtin__.__loader__
-            del __builtin__.__loader__
+        if hasattr(builtins, '__loader__'):
+            self._loader = builtins.__loader__
+            del builtins.__loader__
         try:
             yield
         finally:
             if self._loader:
-                __builtin__.__loader__ = self._loader
+                builtins.__loader__ = self._loader
 
     def test_basic_vtk(self):
         """Basic tests for the VTK module."""
@@ -76,16 +70,11 @@ class TestClassTree(unittest.TestCase):
                 expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                           'vtkQuaternion', 'vtkRect',
                           'vtkSparseArray', 'vtkTuple',
-                          'vtkTypedArray', 'vtkVariantStrictWeakOrderKey',
-                          'vtkVector', 'vtkVector2', 'vtkVector3']
-                if PY_VER == 3:
-                    expect.remove('vtkVariantStrictWeakOrderKey')
+                          'vtkTypedArray','vtkVector',
+                          'vtkVector2', 'vtkVector3']
             else:
                 self.assertGreaterEqual(vtk_major_version, 8)
-                if PY_VER == 3:
-                    expect = ['object']
-                else:
-                    expect = ['object', 'vtkVariantStrictWeakOrderKey']
+                expect = ['object']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkVector')):
             self.assertEqual(len(t.tree[0]), 11)
@@ -133,9 +122,9 @@ class TestClassTree(unittest.TestCase):
                 bases.extend(_get_ancestors(base))
             return bases
 
-        # Simple __builtin__ test.
+        # Simple builtins test.
         with self._remove_loader_from_builtin():
-            t = class_tree.ClassTree(__builtin__)
+            t = class_tree.ClassTree(builtins)
             t.create()
             n = t.get_node('TabError')
             bases = [x.__name__ for x in _get_ancestors(TabError)]
@@ -176,12 +165,12 @@ class TestClassTree(unittest.TestCase):
                 self.assertEqual(n.level, level)
 
     def test_builtin(self):
-        """Check if tree structure for __builtin__ works."""
+        """Check if tree structure for builtins works."""
 
         # This tests to see if the tree structure generation works for
-        # the __builtin__ module.
+        # the builtins module.
         with self._remove_loader_from_builtin():
-            t = class_tree.ClassTree(__builtin__)
+            t = class_tree.ClassTree(builtins)
             t.create()
             self.t = t
             self.test_parent_child()

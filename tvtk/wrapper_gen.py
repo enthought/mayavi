@@ -30,8 +30,6 @@ except ImportError:
 else:
     faulthandler.enable()
 
-PY_VER = sys.version_info[0]
-
 
 def get_trait_def(value, **kwargs):
     """ Return the appropriate trait type, reformatted string and
@@ -78,10 +76,6 @@ def get_trait_def(value, **kwargs):
     number_map = {int: 'traits.Int',
                   float: 'traits.Float'}
 
-    # In Python 2 there is long type
-    if PY_VER < 3:
-        number_map[long] = 'traits.Int'
-
     if type_ in number_map:
         return number_map[type_], str(value), kwargs_code
 
@@ -89,11 +83,6 @@ def get_trait_def(value, **kwargs):
         if value == '\x00':
             value = ''
         return 'traits.String', '{!r}'.format(value), kwargs_code
-
-    elif PY_VER < 3 and type_ is unicode:
-        if value == u'\x00':
-            value = u''
-        return 'traits.Unicode', '{!r}'.format(value), kwargs_code
 
     elif type_ in (tuple, list):
         shape = (len(value),)
