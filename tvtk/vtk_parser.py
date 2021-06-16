@@ -632,6 +632,9 @@ class VTKMethodParser:
             elif (klass_name == 'vtkPiecewisePointHandleItem' and
                   method[3:] == 'PiecewiseFunction'):
                 continue
+            # These hang on Windows (and maybe Fedora 34)
+            elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
+                continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]
@@ -646,7 +649,10 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
+            # Useful for debugging on failures:
+            # print('get instance', klass)
             obj = self._get_instance(klass)
+            # print('got instance', obj.__class__)
             if obj:
                 for key, value in gsm.items():
                     if not is_version_9() and (
@@ -679,7 +685,7 @@ class VTKMethodParser:
                     else:
                         try:
                             # Useful for debugging on failures:
-                            # print(klass_name, key)
+                            # print('Get', klass_name, key)
                             default = getattr(obj, 'Get%s' % key)()
                         except TypeError:
                             default = None
@@ -694,7 +700,7 @@ class VTKMethodParser:
                 # Segfaults can be exposed by uncommenting these lines,
                 # leave them commented while running because they
                 # slow things down quite a bit
-                # print(klass_name)
+                # print('GC', klass_name)
                 # import gc
                 # gc.collect()
             else:
