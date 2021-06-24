@@ -7,7 +7,7 @@ services:
 addons:
   apt:
     packages:
-      - libglu
+      - libglu1-mesa
 
 env:
   global:
