@@ -44,11 +44,11 @@ class TestIndent(unittest.TestCase):
         self.assertEqual(t1, '    class foo:\n')
 
         # test multi-line text.
-        txt = """print "hi!"
+        txt = """print("hi!")
         if name == 'hi':
-            print "hi, hi!"
+            print("hi, hi!")
         """
-        res = """    print "hi!"\n    if name == 'hi':\n        print "hi, hi!"\n"""
+        res = """    print("hi!")\n    if name == 'hi':\n        print("hi, hi!")\n"""
         self.assertEqual(id.format(txt), res)
 
         txt = """
@@ -124,8 +124,6 @@ class TestVTKDocMassager(unittest.TestCase):
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
-        #print ret
-        #print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc
@@ -154,8 +152,6 @@ class TestVTKDocMassager(unittest.TestCase):
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
-        #print ret
-        #print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc.
@@ -190,8 +186,6 @@ class TestVTKDocMassager(unittest.TestCase):
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
-        #print ret
-        #print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc.
@@ -207,8 +201,6 @@ class TestVTKDocMassager(unittest.TestCase):
     V.get_output(int) -> StructuredPoints
     V.get_output() -> StructuredPoints
     """\n'''
-        #print ret
-        #print correct
         self.assertEqual(ret, correct)
 
 
@@ -227,8 +219,6 @@ class TestVTKDocMassager(unittest.TestCase):
                   'LODProperty, XMLDataReader, ThreeDSImporter\n'\
                   'set_representation_to_wireframe, '\
                   'write3d_props_as_raster_image'
-        #print ret
-        #print correct
         self.assertEqual(ret, correct)
 
         # Test empty doc (only signature exists).

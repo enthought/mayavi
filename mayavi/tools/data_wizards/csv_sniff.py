@@ -21,8 +21,8 @@ class Sniff(object):
         Example::
 
             s = Sniff('mydata.csv')
-            print repr(s.delimiter())     # ','
-            print s.skiprows()            # 2
+            print(repr(s.delimiter()))    # ','
+            print(s.skiprows())           # 2
             a = s.loadtxt()               # a is now the array
 
             from numpy import loadtxt     # make sure it's numpy 1.1.0 or
