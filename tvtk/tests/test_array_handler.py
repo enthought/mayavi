@@ -166,7 +166,6 @@ class TestArrayHandler(unittest.TestCase):
                        if x().dtype.name not in ('float16', 'float128')]
         for dtype in (numpy.sctypes['int'] + numpy.sctypes['uint'] +
                       float_types):
-            print(dtype)
             array_handler.array2vtk(numpy.zeros((1,), dtype=dtype))
 
     def test_arr2cell_array(self):
