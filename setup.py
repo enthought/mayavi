@@ -464,6 +464,11 @@ if __name__ == '__main__':
                 'null = tvtk.pyface.ui.null.init:toolkit_object',
             ]
         },
+        package_data={
+            "mayavi.tests": [
+                "data/*",
+            ],
+        },
         extras_require=info['__extras_require__'],
         include_package_data=True,
         install_requires=info['__requires__'],
