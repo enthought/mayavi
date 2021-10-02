@@ -95,10 +95,8 @@ class TestArrayHandler(unittest.TestCase):
             if len(z.shape) == 1:
                 self.assertEqual(len(z1.shape), 1)
             if z.dtype.char != 'c':
-                #print z1
                 self.assertEqual(sum(numpy.ravel(z) - numpy.ravel(z1)), 0)
             else:
-                #print z1.astype('c')
                 self.assertEqual(z, z1.astype('c'))
 
         # Check if type conversion works correctly.
@@ -315,7 +313,6 @@ class TestArrayHandler(unittest.TestCase):
                                   args[i], sigs[i])
             else:
                 s = array_handler.get_correct_sig(args[i], sigs[i])
-                #print(s, res[i])
                 self.assertEqual(s, res[i])
 
     def test_deref_array(self):
