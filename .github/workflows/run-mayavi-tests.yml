@@ -38,17 +38,12 @@ jobs:
         python -m pip install vtk==8.1.2
         python -m pip install pillow
         python -m pip install nose
-        python -m pip install .[app]
-    - name: Create clean test directory
-      run: |
-        mkdir testdir
+        python -m pip install -e .[app]
     - name: Test Mayavi package
       uses: GabrielBB/xvfb-action@v1
       with:
-        working-directory: testdir
         run: python -m nose.core -v mayavi
     - name: Test tvtk package
       uses: GabrielBB/xvfb-action@v1
       with:
-        working-directory: testdir
         run: python -m nose.core -v tvtk
