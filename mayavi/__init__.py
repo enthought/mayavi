@@ -10,7 +10,6 @@ __version__ = '4.7.4.dev0'
 __requires__ = [
     'apptools',
     'envisage',
-    'importlib-resources>=1.1.0; python_version<"3.9"',
     'numpy',
     'pyface>=6.1.1',
     'pygments',  # This is only needed for the Qt backend but we add it anyway.
