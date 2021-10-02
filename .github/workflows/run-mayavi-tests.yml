@@ -46,3 +46,8 @@ jobs:
       with:
         working-directory: testdir
         run: python -m unittest discover -v mayavi
+    - name: Test tvtk package
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        working-directory: testdir
+        run: python -m unittest discover -v tvtk
