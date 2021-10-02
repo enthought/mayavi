@@ -35,8 +35,9 @@ jobs:
         python -m pip install --upgrade pip setuptools wheel
         python -m pip install pyqt5
         python -m pip install numpy
-        python -m pip install vtk==9.0.1
+        python -m pip install vtk==8.1.2
         python -m pip install pillow
+        python -m pip install nose
         python -m pip install .[app]
     - name: Create clean test directory
       run: |
@@ -45,9 +46,9 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
         working-directory: testdir
-        run: python -m unittest discover -v mayavi
+        run: python -m nose.core -v mayavi
     - name: Test tvtk package
       uses: GabrielBB/xvfb-action@v1
       with:
         working-directory: testdir
-        run: python -m unittest discover -v tvtk
+        run: python -m nose.core -v tvtk
