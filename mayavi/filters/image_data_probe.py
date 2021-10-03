@@ -143,14 +143,8 @@ class ImageDataProbe(Filter):
             fac = 3.0*npnt/tot_len
             dims = (l*fac).astype(int) + 1
             extent = (0, dims[0] - 1, 0, dims[1] - 1, 0, dims[2] - 1)
-            if tvtk_common.is_old_pipeline():
-                pd.trait_set(extent=extent,
-                             update_extent=extent,
-                             whole_extent=extent,
-                             dimensions=dims)
-            else:
-                pd.trait_set(extent=extent,
-                             dimensions=dims)
+            pd.trait_set(extent=extent,
+                         dimensions=dims)
 
             max_dim = dims.max()
             dims = (dims-1).clip(min=1, max=max_dim+1)
@@ -228,16 +222,9 @@ class ImageDataProbe(Filter):
         dims = self.dimensions
         spacing = self.spacing
         extent = (0, dims[0] - 1, 0, dims[1] - 1, 0, dims[2] - 1)
-        if tvtk_common.is_old_pipeline():
-            pd.trait_set(extent=extent,
-                         update_extent=extent,
-                         whole_extent=extent,
-                         dimensions=dims,
-                         spacing=spacing)
-        else:
-            pd.trait_set(extent=extent,
-                         dimensions=dims,
-                         spacing=spacing)
+        pd.trait_set(extent=extent,
+                     dimensions=dims,
+                     spacing=spacing)
         pd.modified()
         fil = self.filter
         w = fil.global_warning_display

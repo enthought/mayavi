@@ -64,10 +64,6 @@ def get_tvtk_name(vtk_name):
         return vtk_name
 
 
-def is_old_pipeline():
-    return vtk_major_version < 6
-
-
 def is_version_7():
     return vtk_major_version > 6
 
@@ -88,62 +84,44 @@ def configure_connection(obj, inp):
 
 def configure_input_data(obj, data):
     """ Configure the input data for vtk pipeline object obj."""
-    if is_old_pipeline():
-        obj.input = data
-    else:
-        obj.set_input_data(data)
+    obj.set_input_data(data)
 
 
 def configure_port_input_data(obj, port, data):
     """ Configure the input data for vtk pipeline object obj at port."""
-    if is_old_pipeline():
-        obj.set_input(port, data)
-    else:
-        obj.set_input_data(port, data)
+    obj.set_input_data(port, data)
 
 
 def configure_input(inp, op):
     """ Configure the inp using op."""
-    if is_old_pipeline():
-        if op.is_a('vtkDataSet'):
-            inp.input = op
-        else:
-            inp.input = op.output
+    if hasattr(op, 'output_port'):
+        if hasattr(inp, 'input_connection'):
+            inp.input_connection = op.output_port
+        elif hasattr(inp, 'set_input_connection'):
+            inp.set_input_connection(op.output_port)
+    elif op.is_a('vtkAlgorithmOutput'):
+        inp.input_connection = op
+    elif op.is_a('vtkDataSet'):
+        inp.set_input_data(op)
     else:
-        if hasattr(op, 'output_port'):
-            if hasattr(inp, 'input_connection'):
-                inp.input_connection = op.output_port
-            elif hasattr(inp, 'set_input_connection'):
-                inp.set_input_connection(op.output_port)
-        elif op.is_a('vtkAlgorithmOutput'):
-            inp.input_connection = op
-        elif op.is_a('vtkDataSet'):
-            inp.set_input_data(op)
-        else:
-            raise ValueError('Unknown input type for object %s' % op)
+        raise ValueError('Unknown input type for object %s' % op)
 
 
 def configure_outputs(obj, tvtk_obj):
-    if is_old_pipeline():
-        obj.outputs = [tvtk_obj.output]
+    if hasattr(tvtk_obj, 'output_port'):
+        obj.outputs = [tvtk_obj.output_port]
     else:
-        if hasattr(tvtk_obj, 'output_port'):
-            obj.outputs = [tvtk_obj.output_port]
-        else:
-            obj.outputs = [tvtk_obj]
+        obj.outputs = [tvtk_obj]
 
 
 def configure_source_data(obj, data):
     """ Configure the source data for vtk pipeline object obj."""
-    if is_old_pipeline():
-        obj.source = data
+    if data.is_a('vtkAlgorithmOutput'):
+        obj.set_source_connection(data)
+    elif hasattr(data, 'output_port'):
+        obj.set_source_connection(data.output_port)
     else:
-        if data.is_a('vtkAlgorithmOutput'):
-            obj.set_source_connection(data)
-        elif hasattr(data, 'output_port'):
-            obj.set_source_connection(data.output_port)
-        else:
-            obj.set_source_data(data)
+        obj.set_source_data(data)
 
 
 class _Camel2Enthought:
