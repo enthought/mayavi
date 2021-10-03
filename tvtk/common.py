@@ -63,10 +63,6 @@ def get_tvtk_name(vtk_name):
         return vtk_name
 
 
-def is_version_7():
-    return vtk_major_version > 6
-
-
 def is_version_9():
     return vtk_major_version > 8
 
