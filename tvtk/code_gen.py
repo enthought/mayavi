@@ -103,6 +103,12 @@ class TVTKGenerator:
             ignore = ['vtkOpenGLGL2PSHelperImpl'] + [
                 'vtkSOADataArrayTemplate_I%sE' % l
                 for l in 'acdfhijlmstxy']
+            # Trying to wrap these is causing the build to hang with vtk 9.0.3
+            ignore += [
+                'vtkDataEncoder',
+                'vtkWebApplication',
+            ]
+
             include = ['VTKPythonAlgorithmBase']
             for node in wrap_gen.get_tree():
                 name = node.name
