@@ -5,8 +5,6 @@
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
-from distutils.version import StrictVersion
-
 # Enthought library imports.
 from traits.api import Instance, Range, Str, Bool, Property, \
                                     Float
@@ -17,8 +15,6 @@ from apptools.persistence import state_pickler
 # Local imports
 from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
-
-VTK_VER = StrictVersion(tvtk.Version().vtk_version)
 
 
 ######################################################################
@@ -70,22 +66,13 @@ class Text(Module):
     ########################################
     # The view of this object.
 
-    if VTK_VER > '5.1':
-        _text_actor_group = Group(Item(name='visibility'),
-                                  Item(name='text_scale_mode'),
-                                  Item(name='alignment_point'),
-                                  Item(name='minimum_size'),
-                                  Item(name='maximum_line_height'),
-                                  show_border=True,
-                                  label='Text Actor')
-    else:
-        _text_actor_group = Group(Item(name='visibility'),
-                                  Item(name='scaled_text'),
-                                  Item(name='alignment_point'),
-                                  Item(name='minimum_size'),
-                                  Item(name='maximum_line_height'),
-                                  show_border=True,
-                                  label='Text Actor')
+    _text_actor_group = Group(Item(name='visibility'),
+                              Item(name='text_scale_mode'),
+                              Item(name='alignment_point'),
+                              Item(name='minimum_size'),
+                              Item(name='maximum_line_height'),
+                              show_border=True,
+                              label='Text Actor')
 
     _position_group_2d = Group(Item(name='_x_position_2d',
                                     label='X position'),

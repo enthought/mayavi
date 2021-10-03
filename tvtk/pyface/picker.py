@@ -29,7 +29,6 @@ from tvtk.tvtk_base import RevPrefixMap, false_bool_trait
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
-from tvtk.common import vtk_major_version
 import numpy as np
 
 
@@ -446,12 +445,8 @@ class Picker(HasTraits):
             # Need to create the probe each time because otherwise it
             # does not seem to work properly.
             probe = tvtk.ProbeFilter()
-            if vtk_major_version >= 6:
-                probe.set_source_data(data)
-                probe.set_input_data(self.probe_data)
-            else:
-                probe.source = data
-                probe.input = self.probe_data
+            probe.set_source_data(data)
+            probe.set_input_data(self.probe_data)
             probe.update()
             data = probe.output.point_data
             bounds = cp.mapper.input.bounds
