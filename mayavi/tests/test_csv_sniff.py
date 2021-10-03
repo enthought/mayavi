@@ -66,7 +66,8 @@ class Test(Util):
                   dtype=[('A', float), ('B', float), ('C', float)])
         self.assertNamedClose(x, y)
 
-        y = loadtxt(fo, **s.kwds())
+        with open(fo) as fh:
+            y = loadtxt(fh, **s.kwds())
         self.assertNamedClose(x, y)
 
         y = loadtxt_unknown(fo)
@@ -154,7 +155,8 @@ class Test_csv_py_files(Util):
         if not sys.platform.startswith('win'):
             nan = float('nan') # must be in namespace for some .py files
 
-        d = eval(open(f_py).read())
+        with open(f_py) as fh:
+            d = eval(fh.read())
 
         self.assertEqual(d['kwds'], s.kwds())
         self.assertNamedClose(d['array'], s.loadtxt())
