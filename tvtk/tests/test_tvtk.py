@@ -26,9 +26,6 @@ from numpy.testing import assert_array_equal
 
 from traits.api import TraitError
 
-vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
-
 try:
     from tvtk.api import tvtk
 except ImportError:
@@ -93,17 +90,10 @@ class TestTVTK(unittest.TestCase):
         # Shut off pesky warnings.
         vtk.vtkObject.GlobalWarningDisplayOff()
         o = tvtk.ImageFFT()
-        vtk_ver = vtk.vtkVersion().GetVTKVersion()
-        if vtk_ver[:3] in ['4.2', '4.4']:
-            cached = ['ImageFourierFilter', 'ImageDecomposeFilter',
-                      'ImageIterateFilter', 'ImageToImageFilter',
-                      'ImageSource', 'Source', 'ProcessObject',
-                      'Object', 'ObjectBase']
-        else:
-            cached = ['ImageFourierFilter', 'ImageDecomposeFilter',
-                      'ImageIterateFilter', 'ThreadedImageAlgorithm',
-                      'ImageAlgorithm', 'Algorithm', 'Object',
-                      'ObjectBase']
+        cached = ['ImageFourierFilter', 'ImageDecomposeFilter',
+                    'ImageIterateFilter', 'ThreadedImageAlgorithm',
+                    'ImageAlgorithm', 'Algorithm', 'Object',
+                    'ObjectBase']
 
         for i in cached:
             self.assertIn(i, tvtk_helper._cache)
@@ -145,12 +135,8 @@ class TestTVTK(unittest.TestCase):
         # If this works without any problems, we are ok.
         cs = tvtk.ConeSource()
         m = tvtk.PolyDataMapper()
-        if vtk_major_version < 6:
-            m.input = cs.output  # This should work
-            m.input = cs.get_output()  # This should also work.
-        else:
-            m.input_connection = cs.output_port  # This should work.
-            m.set_input_data(cs.get_output())  # This should also work.
+        m.input_connection = cs.output_port  # This should work.
+        m.set_input_data(cs.get_output())  # This should also work.
         a = tvtk.Actor()
         a.mapper = m
         cs.resolution = 36
@@ -186,12 +172,6 @@ class TestTVTK(unittest.TestCase):
 
         obj.SetRepresentationToPoints()
         self.assertEqual(p.representation, 'points')
-
-        # color traits have been made non updateable
-        if vtk_major_version <= 5 and vtk_minor_version < 10:
-            val = (1.0, 1.0, 0.0)
-            obj.SetColor(val)
-            self.assertEqual(p.color, val)
 
         val = (1.0, 0.0, 0.0)
         obj.SetDiffuseColor(val)
@@ -247,8 +227,7 @@ class TestTVTK(unittest.TestCase):
         # For VTK 5.x this test is inconsistent, hence skipeed for 5.x
         # See http://review.source.kitware.com/#/c/15095/
         ##############################################################
-        if vtk_major_version > 5:
-            self.assertEqual(hash1 != hash(src), True)
+        self.assertEqual(hash1 != hash(src), True)
         self.assertEqual(hash(cs), hash(src))
 
         # Test for a bug with collections and the object cache.
@@ -533,24 +512,15 @@ class TestTVTK(unittest.TestCase):
         z = Junk()
         cs = tvtk.ConeSource()
         m = tvtk.PolyDataMapper()
-        if vtk_major_version < 6:
-            m.on_trait_change(z.f, 'input')
-            m.input = cs.output
-            self.assertEqual(z.data, (m, 'input', None, cs.output))
-            m.input = None
-            self.assertEqual(z.data, (m, 'input', cs.output, None))
-            m.on_trait_change(z.f, 'input', remove=True)
-            m.input = cs.output
-        else:
-            m.on_trait_change(z.f, 'input_connection')
-            m.input_connection = cs.output_port
-            self.assertEqual(
-                z.data, (m, 'input_connection', None, cs.output_port))
-            m.input_connection = None
-            self.assertEqual(
-                z.data, (m, 'input_connection', cs.output_port, None))
-            m.on_trait_change(z.f, 'input_connection', remove=True)
-            m.input_connection = cs.output_port
+        m.on_trait_change(z.f, 'input_connection')
+        m.input_connection = cs.output_port
+        self.assertEqual(
+            z.data, (m, 'input_connection', None, cs.output_port))
+        m.input_connection = None
+        self.assertEqual(
+            z.data, (m, 'input_connection', cs.output_port, None))
+        m.on_trait_change(z.f, 'input_connection', remove=True)
+        m.input_connection = cs.output_port
         a = tvtk.Actor()
         a.on_trait_change(z.f, 'mapper')
         a.on_trait_change(z.f, 'property')
@@ -564,24 +534,12 @@ class TestTVTK(unittest.TestCase):
         # Check if property notification occurs on add_input/remove_input
         a = tvtk.AppendPolyData()
         pd = tvtk.PolyData()
-        if vtk_major_version < 6:
-            a.on_trait_change(z.f, 'input')
-            a.add_input(pd)
-            old, new = None, pd
-            self.assertEqual(z.data, (a, 'input', old, new))
-            a.remove_input(pd)
-            old, new = pd, None
-            self.assertEqual(z.data, (a, 'input', old, new))
-            a.remove_all_inputs()
-            old, new = None, None
-            self.assertEqual(z.data, (a, 'input', old, new))
-        else:
-            a.add_input_data(pd)
-            self.assertEqual(a.input, pd)
-            a.remove_input_data(pd)
-            self.assertEqual(a.input, None)
-            a.remove_all_inputs()
-            self.assertEqual(a.input, None)
+        a.add_input_data(pd)
+        self.assertEqual(a.input, pd)
+        a.remove_input_data(pd)
+        self.assertEqual(a.input, None)
+        a.remove_all_inputs()
+        self.assertEqual(a.input, None)
 
     def test_tuple_array_handling(self):
         """Test if methods can take any sequence rather than only tuples."""
@@ -606,31 +564,13 @@ class TestTVTK(unittest.TestCase):
 
     def test_parent_child_input(self):
         """Case where parent has GetInput and child SetInput."""
-        if (vtk_major_version >= 6 and vtk_minor_version > 1) or \
-            vtk_major_version >= 7:
-            vm = tvtk.SmartVolumeMapper()
-        else:
-            vm = tvtk.VolumeTextureMapper2D()
+        vm = tvtk.SmartVolumeMapper()
         # In this case if the wrapping is not done right, the input
         # trait is made read-only which is a bug.  We set the input
         # below to test this.
         configure_input_data(vm, tvtk.ImageData())
         spw = tvtk.StructuredPointsWriter()
-        if vtk_major_version < 6:
-            spw.input = None
-        else:
-            spw.input_connection = None
-
-    @unittest.skipIf(
-        vtk_major_version >= 6, "Setting scalar type is no longer supported on VTK 6")
-    def test_image_data_scalar_type(self):
-        """Does ImageData support all scalar types?.
-        """
-        img = tvtk.ImageData()
-        # There are 22 scalar types in VTK-5.2.  We should be able to
-        # use them all.
-        for i in range(0, 22):
-            img.scalar_type = i
+        spw.input_connection = None
 
     def test_null_string_wrapper(self):
         "Check if a null string default is wrapped as a String trait."
@@ -655,39 +595,21 @@ class TestTVTK(unittest.TestCase):
         tvtk_filter = tvtk.ImageConvolve()
         expected = numpy.arange(9.)
 
-        if vtk_major_version < 6:
-            # Before VTK 6, the ImageConvolve.GetKernel3x3
-            # requires an array as argument
+        # Since VTK 6.x, ImageConvolve.GetKernel3x3
+        # can take either no argument or an array
+        # With that change in the API, kernel3x3
+        # is a Trait (similarly for kernel3x3x3, ...)
+        tvtk_filter.kernel3x3 = expected
 
-            # Set the kernel
-            tvtk_filter.set_kernel3x3(expected)
+        # Get it back
+        result = numpy.empty(9)
+        tvtk_filter._vtk_obj.GetKernel3x3(result)
 
-            # Get it back
-            result = numpy.empty(9)
-            tvtk_filter.get_kernel3x3(result)
+        self.assertTrue(numpy.allclose(result, expected), True)
 
-            self.assertTrue(numpy.allclose(result, expected), True)
-
-            with self.assertRaises(TypeError):
-                # VTK Set method raises the TypeError
-                tvtk_filter.set_kernel3x3(range(2))
-
-        else:
-            # Since VTK 6.x, ImageConvolve.GetKernel3x3
-            # can take either no argument or an array
-            # With that change in the API, kernel3x3
-            # is a Trait (similarly for kernel3x3x3, ...)
-            tvtk_filter.kernel3x3 = expected
-
-            # Get it back
-            result = numpy.empty(9)
-            tvtk_filter._vtk_obj.GetKernel3x3(result)
-
-            self.assertTrue(numpy.allclose(result, expected), True)
-
-            # The shape is validated by Trait
-            with self.assertRaises(TraitError):
-                tvtk_filter.kernel3x3 = range(2)
+        # The shape is validated by Trait
+        with self.assertRaises(TraitError):
+            tvtk_filter.kernel3x3 = range(2)
 
     @skipUnlessTVTKHasattr('DistanceRepresentation2D')
     def test_distance_representation_2d_point1_world_position(self):
@@ -696,42 +618,24 @@ class TestTVTK(unittest.TestCase):
         tvtk_filter = tvtk.DistanceRepresentation2D()
         tvtk_filter.instantiate_handle_representation()
 
-        if vtk_major_version < 6:
-            # Before VTK 6, the DistanceRepresentation2D.GetPoint1WorldPosition
-            # requires an array as argument
+        # Since VTK 6.x, DistanceRepresentation2D.GetPoint1WorldPosition
+        # can take either no argument or an array
+        # With that change in the API, point1_world_position
+        # is a Trait (similarly for point2_world_position ...)
 
-            # Set the kernel
-            expected = (1, 2, 3)
-            tvtk_filter.set_point1_world_position(expected)
+        # Set the position
+        expected = (1, 2, 3)
+        tvtk_filter.point1_world_position = expected
 
-            # Get it back
-            result = numpy.empty(3)
-            tvtk_filter.get_point1_world_position(result)
+        # Get it back
+        result = numpy.empty(3)
+        tvtk_filter._vtk_obj.GetPoint1WorldPosition(result)
 
-            self.assertTrue(numpy.allclose(result, expected), True)
+        self.assertTrue(numpy.allclose(result, expected), True)
 
-            with self.assertRaises(TypeError):
-                # VTK Set method raises the TypeError
-                tvtk_filter.set_point1_world_position(range(2))
-        else:
-            # Since VTK 6.x, DistanceRepresentation2D.GetPoint1WorldPosition
-            # can take either no argument or an array
-            # With that change in the API, point1_world_position
-            # is a Trait (similarly for point2_world_position ...)
-
-            # Set the position
-            expected = (1, 2, 3)
-            tvtk_filter.point1_world_position = expected
-
-            # Get it back
-            result = numpy.empty(3)
-            tvtk_filter._vtk_obj.GetPoint1WorldPosition(result)
-
-            self.assertTrue(numpy.allclose(result, expected), True)
-
-            # The shape is validated by Trait
-            with self.assertRaises(TraitError):
-                tvtk_filter.point1_world_position = range(2)
+        # The shape is validated by Trait
+        with self.assertRaises(TraitError):
+            tvtk_filter.point1_world_position = range(2)
 
     @skipUnlessTVTKHasattr('XOpenGLRenderWindow')
     def test_xopengl_render_window(self):
@@ -748,9 +652,6 @@ class TestTVTK(unittest.TestCase):
         with self.assertRaises(TraitError):
             window.position = 1
 
-    @unittest.skipIf(vtk_major_version < 6,
-                     ('vtkHardwareSelector.PropColorValue is not available '
-                      'for vtk version < 6'))
     @skipUnlessTVTKHasattr('HardwareSelector')
     def test_hardware_selector_prop_color_value(self):
         """ Test that PropColorValue of HardwareSelector works

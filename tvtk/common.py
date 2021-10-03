@@ -76,14 +76,6 @@ def is_version_9():
     return vtk_major_version > 8
 
 
-def is_version_62():
-    return vtk_major_version == 6 and vtk_minor_version == 2
-
-
-def is_version_58():
-    return vtk_major_version == 5 and vtk_minor_version == 8
-
-
 def configure_connection(obj, inp):
     """ Configure topology for vtk pipeline obj."""
     if hasattr(inp, 'output_port'):
