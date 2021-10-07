@@ -171,7 +171,8 @@ class Sniff(object):
         """ Return the array (by using numpy.loadtxt), using the sniffed
             information in the keyword arguments.
         """
-        return loadtxt(self._filename, **self.kwds())
+        with open(self._filename, encoding="latin1") as fh:
+            return loadtxt(fh, **self.kwds())
 
 
 def loadtxt_unknown(filename, verbose=0):
