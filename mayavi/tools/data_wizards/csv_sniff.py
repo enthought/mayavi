@@ -172,8 +172,7 @@ class Sniff(object):
             information in the keyword arguments.
         """
         with open(self._filename, encoding="latin1") as fh:
-            data = loadtxt(fh, **self.kwds())
-        return data
+            return loadtxt(fh, **self.kwds())
 
 
 def loadtxt_unknown(filename, verbose=0):
