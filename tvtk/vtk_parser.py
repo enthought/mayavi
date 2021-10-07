@@ -50,15 +50,15 @@ class VTKMethodParser:
        >>> import vtk
        >>> p = VTKMethodParser()
        >>> p.parse(vtk.vtkProperty)
-       >>> print p.get_toggle_methods()
+       >>> print(p.get_toggle_methods())
        {'EdgeVisibility': 0, 'BackfaceCulling': 0, 'FrontfaceCulling': 0}
-       >>> print p.get_state_methods()['Representation']
+       >>> print(p.get_state_methods()['Representation'])
        [['Surface', 2], ['Points', 0], ['Surface', 2], ['Wireframe', 1]]
-       >>> print p.get_get_set_methods()['Opacity']
+       >>> print(p.get_get_set_methods()['Opacity'])
        (1.0, (0.0, 1.0))
-       >>> print p.get_get_methods()
+       >>> print(p.get_get_methods())
        ['GetClassName']
-       >>> print p.get_other_methods()[:3]
+       >>> print(p.get_other_methods()[:3])
        ['BackfaceRender', 'DeepCopy', 'IsA']
 
 
@@ -68,11 +68,11 @@ class VTKMethodParser:
 
        >>> import vtk
        >>> o = vtk.vtkProperty
-       >>> print VTKMethodParser.get_method_signature(o.GetClassName)
+       >>> print(VTKMethodParser.get_method_signature(o.GetClassName))
        [(['string'], None)]
-       >>> print VTKMethodParser.get_method_signature(o.GetColor)[0]
+       >>> print(VTKMethodParser.get_method_signature(o.GetColor)[0])
        ([('float', 'float', 'float')], None)
-       >>> print VTKMethodParser.get_method_signature(o.GetColor)[1]
+       >>> print(VTKMethodParser.get_method_signature(o.GetColor)[1])
        ([None], (('float', 'float', 'float'),))
 
     The `get_method_signature` is fairly efficient and obtaining the

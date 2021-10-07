@@ -37,7 +37,6 @@ class TestScriptRecording(unittest.TestCase):
         tape.recording = True
         tape.register(e, known=True, script_id='engine')
         e.new_scene()
-        #print tape.script
         self.assertEqual(tape.lines[-1],
                          "dummy_viewer = engine.new_scene()")
 
@@ -90,8 +89,6 @@ class TestScriptRecording(unittest.TestCase):
         s.actor.mapper.scalar_visibility = False
         self.assertEqual(tape.lines[-1],
                          "surface.actor.mapper.scalar_visibility = False")
-
-        #print tape.script
 
         # Stop recording and test.
         tape.unregister(e)
