@@ -187,6 +187,7 @@ class RevPrefixMap(PrefixMap):
     def __init__(self, map, *extra_values, **kwargs):
         super().__init__(map, **kwargs)
         self._rmap = {}
+        self._map = {value: value for value in map}
         for key, value in map.items():
             self._rmap[value] = key
         for key in extra_values:
