@@ -9,18 +9,6 @@ TVTK docs: http://docs.enthought.com/mayavi/tvtk
    :target: https://pypi.org/project/mayavi/
    :alt: Package on PyPI
 
-.. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
-   :target: https://travis-ci.org/enthought/mayavi
-   :alt: Build status
-
-.. image:: https://ci.appveyor.com/api/projects/status/lnb24gj70yidfnrl/branch/master
-   :target: https://ci.appveyor.com/project/EnthoughtOSS/mayavi
-   :alt: Appveyor build status
-
-.. image:: http://codecov.io/github/enthought/mayavi/coverage.svg?branch=master
-   :target: http://codecov.io/github/enthought/mayavi?branch=master
-   :alt: Code coverage status
-
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
    :target: https://opensource.org/licenses/BSD-3-Clause
    :alt: BSD 3 Clause

@@ -49,7 +49,7 @@ class Test(Util):
 
     def test_API(self):
         fo = tempfile.mktemp()
-        with open(fo, 'w') as f:
+        with open(fo, 'w', encoding="utf-8") as f:
             f.write(''' "A", "B", "C"
                          1, 2, 3.2
                          7, 4, 1.87''')
@@ -66,7 +66,8 @@ class Test(Util):
                   dtype=[('A', float), ('B', float), ('C', float)])
         self.assertNamedClose(x, y)
 
-        y = loadtxt(fo, **s.kwds())
+        with open(fo, 'r', encoding="utf-8") as fh:
+            y = loadtxt(fh, **s.kwds())
         self.assertNamedClose(x, y)
 
         y = loadtxt_unknown(fo)
@@ -81,7 +82,7 @@ class Test(Util):
 
     def test_comment(self):
         fo = tempfile.mktemp()
-        with open(fo, 'w') as f:
+        with open(fo, 'w', encoding="utf-8") as f:
             f.write('''
             % "A"  "B"  "C"
                1    2   4.2   % comment''')
@@ -97,7 +98,7 @@ class Test(Util):
 
     def test_tabs(self):
         fo = tempfile.mktemp()
-        with open(fo, 'w') as f:
+        with open(fo, 'w', encoding="utf-8") as f:
             f.write('''54\t87\n21\t32''')
 
         s = Sniff(fo)
@@ -107,7 +108,7 @@ class Test(Util):
 
     def test_nohead(self):
         fo = tempfile.mktemp()
-        with open(fo, 'w') as f:
+        with open(fo, 'w', encoding="utf-8") as f:
             f.write('''Hello;54;87\nWorld;42;86.5''')
 
         s = Sniff(fo)
@@ -121,7 +122,7 @@ class Test(Util):
 
     def test_empty_file(self):
         fo = tempfile.mktemp()
-        with open(fo, 'w') as f:
+        with open(fo, 'w', encoding="utf-8") as f:
             f.write('')
         self.assertRaises(IndexError, Sniff, fo)
 
@@ -154,7 +155,8 @@ class Test_csv_py_files(Util):
         if not sys.platform.startswith('win'):
             nan = float('nan') # must be in namespace for some .py files
 
-        d = eval(open(f_py).read())
+        with open(f_py, 'r', encoding="utf-8") as fh:
+            d = eval(fh.read())
 
         self.assertEqual(d['kwds'], s.kwds())
         self.assertNamedClose(d['array'], s.loadtxt())

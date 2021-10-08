@@ -805,7 +805,6 @@ class WrapperGenerator:
             # -------------------------------------------------------
             if default is None or isinstance(default, vtk.vtkObjectBase):
                 # Bunch of hacks to work around issues.
-                #print get_sig, vtk_get_meth, klass.__name__
                 if len(get_sig) == 0:
                     get_sig = [([None], None)]
 

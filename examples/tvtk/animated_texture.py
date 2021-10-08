@@ -121,7 +121,6 @@ for i in range(N):
     array_3d[1:] = array_3d[:-1]
     img.modified()
     rwi.render()
-    #print i
 t2 = time.time()
 print('texture size:', array_3d.shape)
 print('fps:', N/(t2-t1))

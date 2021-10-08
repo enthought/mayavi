@@ -21,8 +21,8 @@ class Sniff(object):
         Example::
 
             s = Sniff('mydata.csv')
-            print repr(s.delimiter())     # ','
-            print s.skiprows()            # 2
+            print(repr(s.delimiter()))    # ','
+            print(s.skiprows())           # 2
             a = s.loadtxt()               # a is now the array
 
             from numpy import loadtxt     # make sure it's numpy 1.1.0 or
@@ -171,7 +171,8 @@ class Sniff(object):
         """ Return the array (by using numpy.loadtxt), using the sniffed
             information in the keyword arguments.
         """
-        return loadtxt(self._filename, **self.kwds())
+        with open(self._filename, encoding="latin1") as fh:
+            return loadtxt(fh, **self.kwds())
 
 
 def loadtxt_unknown(filename, verbose=0):

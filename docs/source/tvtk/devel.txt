@@ -57,7 +57,7 @@ is invoked.  Here is an example of a VTK observer callback::
     >>> import vtk
     >>> p = vtk.vtkProperty()
     >>> def cb(obj, evt):
-    ...     print obj.__class__.__name__, evt
+    ...     print(obj.__class__.__name__, evt)
     ...
     >>> p.AddObserver("ModifiedEvent", cb)
     1
