@@ -17,8 +17,6 @@ from traitsui.api import (View, Group, Item, InstanceEditor,
 from tvtk.api import tvtk
 from tvtk.common import vtk_major_version
 
-VTK_VER = tvtk.Version().vtk_version
-
 # The properties view group.
 _prop_base_group = Group(Item(name='representation'),
                          Item(name='color'),
@@ -35,13 +33,10 @@ _prop_group = Group(Item(name='property', style='custom', show_label=False,
 
 
 # The mapper's view group.
-if VTK_VER[:3] in ['4.2', '4.4']:
-    _mapper_base_group = Group(Item(name='scalar_visibility'))
-else:
-    _mapper_base_group = Group(
-        Item(name='scalar_visibility'),
-        Item(name='interpolate_scalars_before_mapping'),
-    )
+_mapper_base_group = Group(
+    Item(name='scalar_visibility'),
+    Item(name='interpolate_scalars_before_mapping'),
+)
 
 _mapper_group = Group(
     Item(name='mapper', style='custom', show_label=False,

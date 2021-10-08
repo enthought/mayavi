@@ -13,7 +13,6 @@ from traitsui.api import View, Group, Item, Include
 from tvtk.api import tvtk
 
 # Local imports.
-from tvtk.common import is_old_pipeline
 from mayavi.core.file_data_source import FileDataSource
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.common import error
@@ -127,15 +126,9 @@ class UnstructuredGridReader(FileDataSource):
 
     def __reader_dict_default(self):
         """Default value for reader dict."""
-        if is_old_pipeline():
-            rd = {'inp':tvtk.AVSucdReader(),
-                 'neu':tvtk.GAMBITReader(),
-                 'exii':tvtk.ExodusReader()
-                }
-        else:
-            rd = {'inp':tvtk.AVSucdReader(),
-                 'neu':tvtk.GAMBITReader(),
-                 'ex2':tvtk.ExodusIIReader()
-                }
+        rd = {'inp':tvtk.AVSucdReader(),
+              'neu':tvtk.GAMBITReader(),
+              'ex2':tvtk.ExodusIIReader()
+        }
 
         return rd

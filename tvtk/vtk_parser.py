@@ -13,7 +13,7 @@ import types
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_62, is_version_9
+from .common import is_version_9
 
 
 class VTKMethodParser:
@@ -312,12 +312,6 @@ class VTKMethodParser:
           A VTK method object.
 
         """
-        # VTK 6.2 false built in funcs/methods are ignored
-        if is_version_62():
-            built_in_func = isinstance(method, types.BuiltinFunctionType)
-            built_in_meth = isinstance(method, types.BuiltinMethodType)
-            if not (built_in_func or built_in_meth):
-                return None
         # Remove all the C++ function signatures.
         doc = method.__doc__
         if doc is None:

@@ -29,7 +29,7 @@ from traits.api import HasTraits, Range, false, \
 from traitsui.api import View, Group, Handler, ListEditor, Item
 from tvtk.api import tvtk
 from tvtk.tvtk_base import vtk_color_trait, RevPrefixMap
-from tvtk.common import is_old_pipeline, configure_input, configure_input_data
+from tvtk.common import configure_input, configure_input_data
 from apptools.persistence import state_pickler
 
 ######################################################################
@@ -229,10 +229,7 @@ class CameraLight(HasTraits):
         self.source.intensity = val
 
     def _color_changed(self, val):
-        if is_old_pipeline():
-            self.source.color = val
-        else:
-            self.source.set_color(val)
+        self.source.set_color(val)
         self.glyph.set_color(val)
 
     def _elevation_changed(self, val):

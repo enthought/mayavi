@@ -13,7 +13,6 @@ from traits.api import Instance, Enum, Property, Bool, \
     DelegatesTo
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
-from tvtk.common import is_old_pipeline
 
 # Local imports
 from mayavi.core.module import Module
@@ -142,8 +141,7 @@ class Outline(Module):
         self.data_changed = True
 
     def render(self):
-        if not is_old_pipeline():
-            self.outline_filter.update()
+        self.outline_filter.update()
         super(Outline, self).render()
 
     ######################################################################
@@ -185,10 +183,7 @@ class Outline(Module):
 
     def _manual_bounds_changed(self):
         if self.manual_bounds:
-            if is_old_pipeline():
-                self.outline_filter.input = self.outline_source.output
-            else:
-                self.outline_filter.input_connection = self.outline_source.output_port
+            self.outline_filter.input_connection = self.outline_source.output_port
         else:
             # Set the input of the filter.
             mm = self.module_manager

@@ -255,9 +255,6 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             os.remove(tmpfname)
 
     def test_slice_unstructured_grid(self):
-        v = tvtk.Version()
-        if v.vtk_major_version < 6 and v.vtk_minor_version < 10:
-            raise unittest.SkipTest('Broken on Travis with VTK-5.8?')
         # Given
         src = mlab.pipeline.open(get_example_data('uGridEx.vtk'))
         eg = mlab.pipeline.extract_unstructured_grid(src)
@@ -352,23 +349,13 @@ class TestMlabPipeline(TestMlabNullEngine):
     """
 
     def setUp(self):
-        ver = tvtk.Version()
-        self.less_than_or_equal_to_vtk_5_10 = True
-        if ver.vtk_major_version >= 5 and ver.vtk_minor_version > 10:
-            self.less_than_or_equal_to_vtk_5_10 = False
-        if self.less_than_or_equal_to_vtk_5_10:
-            super(TestMlabPipeline, self).setUp()
-        else:
-            e = Engine()
-            e.start()
-            mlab.set_engine(e)
+        e = Engine()
+        e.start()
+        mlab.set_engine(e)
 
     def tearDown(self):
-        if self.less_than_or_equal_to_vtk_5_10:
-            super(TestMlabPipeline, self).tearDown()
-        else:
-            for engine in list(registry.engines.keys()):
-                registry.unregister_engine(engine)
+        for engine in list(registry.engines.keys()):
+            registry.unregister_engine(engine)
 
     def test_probe_data(self):
         """ Test probe_data
