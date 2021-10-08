@@ -141,10 +141,7 @@ class Text(Module):
         set the `actors` attribute up at this point.
         """
         actor = self.actor = tvtk.TextActor(input=str(self.text))
-        if VTK_VER > '5.1':
-            actor.trait_set(text_scale_mode='prop', width=0.4, height=1.0)
-        else:
-            actor.trait_set(scaled_text=True, width=0.4, height=1.0)
+        actor.trait_set(text_scale_mode='prop', width=0.4, height=1.0)
 
         c = actor.position_coordinate
         c.trait_set(coordinate_system='normalized_viewport',
