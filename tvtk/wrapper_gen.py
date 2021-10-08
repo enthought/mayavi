@@ -16,8 +16,7 @@ from itertools import chain
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from .common import (get_tvtk_name, camel2enthought, is_version_58,
-                     vtk_major_version)
+from .common import get_tvtk_name, camel2enthought, vtk_major_version
 
 from . import vtk_parser
 from . import indenter
@@ -806,7 +805,6 @@ class WrapperGenerator:
             # -------------------------------------------------------
             if default is None or isinstance(default, vtk.vtkObjectBase):
                 # Bunch of hacks to work around issues.
-                #print get_sig, vtk_get_meth, klass.__name__
                 if len(get_sig) == 0:
                     get_sig = [([None], None)]
 
@@ -1791,12 +1789,6 @@ class WrapperGenerator:
 
         default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
 
-        if is_version_58():
-            message = ("vtkAxesTransformRepresentation: "
-                       "tolerance not updatable "
-                       "(VTK 5.8 bug - value not properly initialized)")
-            print(message)
-            default = rng[0]
         t_def = ('traits.Trait({default}, traits.Range{rng}, '
                  'enter_set=True, auto_set=False)').format(default=default,
                                                            rng=rng)

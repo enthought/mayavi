@@ -54,19 +54,7 @@ class TestClassTree(unittest.TestCase):
         if (hasattr(vtk, 'vtkTuple')):
             names = [x.name for x in t.tree[0]]
             names.sort()
-            if vtk_major_version < 6:
-                expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                          'vtkObjectBase', 'vtkRect',
-                          'vtkSparseArray', 'vtkTuple',
-                          'vtkTypedArray', 'vtkVector', 'vtkVector2',
-                          'vtkVector3']
-            elif vtk_major_version == 6:
-                expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                          'vtkObjectBase', 'vtkQuaternion', 'vtkRect',
-                          'vtkSparseArray', 'vtkTuple',
-                          'vtkTypedArray', 'vtkVector', 'vtkVector2',
-                          'vtkVector3']
-            elif vtk_major_version == 7:
+            if vtk_major_version == 7:
                 expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                           'vtkQuaternion', 'vtkRect',
                           'vtkSparseArray', 'vtkTuple',

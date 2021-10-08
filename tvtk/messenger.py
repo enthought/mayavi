@@ -15,7 +15,7 @@ Here is example usage with VTK::
 
     >>> import messenger, vtk
     >>> def cb(obj, evt):
-    ...  print obj.__class__.__name__, evt
+    ...  print(obj.__class__.__name__, evt)
     ...
     >>> o = vtk.vtkProperty()
     >>> o.AddObserver('ModifiedEvent', messenger.send)
