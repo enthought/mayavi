@@ -8,12 +8,10 @@ from .remote_scene import SceneManager
 from .remote_widget import RemoteWidget
 from ..figure import gcf
 
-decode_func = getattr(base64, 'decodebytes', getattr(base64, 'decodestring'))
-
 
 def base64_to_bytes(str_or_bytes):
     data = str_or_bytes.encode('ascii')
-    return decode_func(data)
+    return base64.decodebytes(data)
 
 
 class IPyRemoteWidget(RemoteWidget):

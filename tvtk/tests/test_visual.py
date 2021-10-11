@@ -4,7 +4,6 @@ import numpy as np
 from numpy.testing import assert_allclose
 
 from tvtk.tools import visual
-from tvtk.common import vtk_major_version
 
 
 def get_bounds(pos, sz):

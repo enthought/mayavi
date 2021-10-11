@@ -13,8 +13,6 @@ error messages but they are usually harmless.
 
 """
 
-from __future__ import print_function
-
 import unittest
 from tvtk import vtk_parser
 
@@ -52,16 +50,8 @@ class TestVTKParser(unittest.TestCase):
             self.assertIn(p.get_toggle_methods(),
                           [{'Debug': False, 'GlobalWarningDisplay': 1},
                            {'Debug': False, 'GlobalWarningDisplay': 0}])
-        if (vtk_major_version >= 5 and vtk_minor_version >= 10) or \
-           (vtk_major_version >= 6):
-            self.assertEqual(p.get_state_methods(), {})
-            self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
-        elif vtk_major_version >= 5 and vtk_minor_version >= 6:
-            self.assertEqual(p.get_state_methods(), {})
-            self.assertEqual(p.get_get_methods(), ['GetMTime'])
-        else:
-            self.assertEqual(p.get_state_methods(), {'ReferenceCount':(1, None)})
-            self.assertEqual(p.get_get_methods(), ['GetMTime'])
+        self.assertEqual(p.get_state_methods(), {})
+        self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
 
         self.assertEqual(p.get_get_set_methods(), {})
 
@@ -165,21 +155,15 @@ class TestVTKParser(unittest.TestCase):
 
         res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
-            if vtk_major_version >= 6:
-                res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                       'ReleaseGraphicsResources', 'RemoveAllTextures',
-                       'RemoveTexture', 'Render']
-                if (vtk_major_version >= 7 or vtk_minor_version >= 2) and \
-                        vtk_major_version < 9:
-                    res.append('VTKTextureUnit')
-                if vtk_major_version >= 9:
-                    res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
-                                'SetNormalTexture', 'SetORMTexture'])
-            else:
-                res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                       'LoadMaterial', 'LoadMaterialFromString',
-                       'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
-                       'Render']
+            res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
+                    'ReleaseGraphicsResources', 'RemoveAllTextures',
+                    'RemoveTexture', 'Render']
+            if (vtk_major_version >= 7 or vtk_minor_version >= 2) and \
+                    vtk_major_version < 9:
+                res.append('VTKTextureUnit')
+            if vtk_major_version >= 9:
+                res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
+                            'SetNormalTexture', 'SetORMTexture'])
         if hasattr(obj, 'PostRender'):
             res.append('PostRender')
             res.sort()
@@ -229,28 +213,12 @@ class TestVTKParser(unittest.TestCase):
                               ([None], (('float', 'float', 'float'),))],
                              p.get_method_signature(o.SetColor))
 
-        # Get VTK version to handle changed APIs.
-        vtk_ver = vtk.vtkVersion().GetVTKVersion()
-
         # Test vtkObjects args.
         o = vtk.vtkContourFilter()
-        if vtk_major_version < 6:
-            sig = p.get_method_signature(o.SetInput)
-        else:
-            sig = p.get_method_signature(o.SetInputData)
+        sig = p.get_method_signature(o.SetInputData)
         if len(sig) == 1:
             self.assertEqual([([None], ['vtkDataSet'])],
                              sig)
-        elif vtk_ver[:3] in ['4.2', '4.4']:
-            self.assertEqual([([None], ['vtkDataObject']),
-                              ([None], ('int', 'vtkDataObject')),
-                              ([None], ['vtkDataSet']),
-                              ([None], ('int', 'vtkDataSet'))
-                              ], sig)
-        elif vtk_ver[:2] == '5.' or vtk_ver[:3] == '4.5':
-            self.assertEqual([([None], ['vtkDataObject']),
-                              ([None], ('int', 'vtkDataObject')),
-                              ], sig)
 
         self.assertEqual([(['vtkPolyData'], None),
                           (['vtkPolyData'], ['int'])],
@@ -273,8 +241,6 @@ class TestVTKParser(unittest.TestCase):
         p = self.p
         p.parse(vtk.vtkDataObject)
         self.assertTrue('UpdateExtent' not in p.get_state_methods())
-        if vtk_major_version < 6:
-            self.assertTrue('UpdateExtent' in p.get_get_set_methods())
 
         p.parse(vtk.vtkImageImport)
         self.assertTrue('DataExtent' not in p.get_state_methods())

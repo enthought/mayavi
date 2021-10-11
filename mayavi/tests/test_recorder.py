@@ -153,8 +153,6 @@ class TestRecorder(unittest.TestCase):
         toy.type = 'rat'
         self.assertEqual(tape.lines[-1], "child.toy.type = 'teddy'")
 
-        #print tape.script
-
         # Stop recording.
         n = len(tape.lines)
         tape.unregister(p)

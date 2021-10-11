@@ -7,8 +7,6 @@ this see the devel.txt in the TVTK documentation directory.
 # Copyright (c) 2007-2020,  Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 from os.path import exists, join, dirname, isdir
 
 # The tvtk wrapper code is all typically inside one zip file.  We try to

@@ -9,7 +9,7 @@ from io import BytesIO
 import copy
 import numpy
 import unittest
-from mock import patch
+from unittest.mock import patch
 
 
 # Enthought library imports

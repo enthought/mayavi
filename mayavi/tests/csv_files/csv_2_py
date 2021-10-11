@@ -22,7 +22,7 @@ out = out.replace("<type 'float'>", 'float')
 out = out.replace("'<f8'", 'float')
 out = out.replace("|S", 'S')
 
-print out
+print(out)
 
 
 # Local Variables:

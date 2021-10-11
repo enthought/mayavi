@@ -136,7 +136,7 @@ traverse
     the pipeline::
     
         for obj in mlab.pipeline.traverse(mlab.gcf()):
-            print obj.name
+            print(obj.name)
     
     
 

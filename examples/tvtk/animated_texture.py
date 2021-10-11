@@ -10,13 +10,10 @@ TVTK sees a view of this array without doing any data transfers.
 # Copyright (c) 2006-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 from numpy import arange, zeros, uint8, exp, sqrt, pi
 
 from tvtk.api import tvtk
-from tvtk.common import configure_input_data, configure_source_data, \
-                        is_old_pipeline
+from tvtk.common import configure_input_data, configure_source_data
 
 # Source for glyph.  Note that you need to pick a source that has
 # texture co-ords already set.  If not you'll have to generate them.
@@ -83,11 +80,7 @@ def image_from_array(ary):
         img.point_data.scalars = ary
 
     elif dims == 3:
-        # 2D array of pixels.
-        if is_old_pipeline():
-            img.whole_extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
-        else:
-            img.extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
+        img.extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
         img.dimensions = sz[0], sz[1], 1
 
         # create a 2d view of the array
@@ -128,7 +121,6 @@ for i in range(N):
     array_3d[1:] = array_3d[:-1]
     img.modified()
     rwi.render()
-    #print i
 t2 = time.time()
 print('texture size:', array_3d.shape)
 print('fps:', N/(t2-t1))

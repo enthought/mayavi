@@ -9,9 +9,9 @@ from traitsui.api import EnumEditor, View, Item, HGroup, \
     TabularEditor, TitleEditor, Label, ArrayEditor, ImageEditor
 
 from traitsui.tabular_adapter import TabularAdapter
-from traitsui.image.image import ImageLibrary
 
 from pyface.api import ImageResource
+from pyface.image.image import ImageLibrary
 
 from .data_source_factory import DataSourceFactory
 from .preview_window import PreviewWindow
