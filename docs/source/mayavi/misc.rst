@@ -139,7 +139,7 @@ of time to write and improve. You can easily help us with documentation.
 You will find the documentation sources in ``docs/sources/mayavi``. The
 documentation is written in `sphinx`_. It is
 easy to edit the `.rst` files to modify or extend the text. Once you have
-done your modifications, you can build the documentation using by
+done your modifications, you can build the documentation by
 running::
 
     python setup.py build_docs
