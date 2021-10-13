@@ -24,12 +24,6 @@ from numpy import pi
 from .engine_manager import get_engine
 
 
-if sys.version_info[0] > 2:
-    string_types = (str,)
-else:
-    string_types = (basestring,)
-
-
 def world_to_display(x, y, z, figure=None):
     """ Converts 3D world coordinates to screenshot pixel coordinates.
 
@@ -285,14 +279,14 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     # bounds.
     bounds = np.array(ren.compute_visible_prop_bounds())
     if distance is not None and not (
-            isinstance(distance, string_types) and distance == 'auto'):
+            isinstance(distance, str) and distance == 'auto'):
         r = distance
     else:
         r = max(bounds[1::2] - bounds[::2]) * 2.0
 
     cen = (bounds[1::2] + bounds[::2]) * 0.5
     if focalpoint is not None and not (
-            isinstance(focalpoint, string_types) and focalpoint == 'auto'):
+            isinstance(focalpoint, str) and focalpoint == 'auto'):
         cen = np.asarray(focalpoint)
 
     # Find camera position.

@@ -19,7 +19,6 @@ from tvtk.util.gradient_editor import (
     ColorControlPoint, ChannelBase, FunctionControl, GradientEditorWidget
 )
 
-PY3 = sys.version_info[0] > 2
 
 ##########################################################################
 # `QGradientControl` class.
@@ -163,17 +162,12 @@ class QFunctionControl(QtGui.QWidget, FunctionControl):
         set_status_text: a callback used to set the status text
              when using the editor.
         """
-        if PY3:
-            kw = dict(
-                master=master, gradient_table=gradient_table,
-                color_space=color_space, width=width,
-                height=height
-            )
-            super().__init__(**kw)
-        else:
-            FunctionControl.__init__(self, master, gradient_table, color_space,
-                                     width, height)
-            QtGui.QWidget.__init__(self, parent=master)
+        kw = dict(
+            master=master, gradient_table=gradient_table,
+            color_space=color_space, width=width,
+            height=height
+        )
+        super().__init__(**kw)
         self.resize(width, height)
         self.setMinimumSize(100, 50)
 
@@ -303,15 +297,10 @@ class QGradientEditorWidget(QtGui.QWidget, GradientEditorWidget):
                  'h', 's', 'v', 'r', 'g', 'b', 'a' separately
                  specified creates different panels for each.
         """
-        if PY3:
-            kw = dict(master=master, vtk_table=vtk_table,
-                      on_change_color_table=on_change_color_table,
-                      colors=colors)
-            super().__init__(**kw)
-        else:
-            QtGui.QWidget.__init__(self, master)
-            GradientEditorWidget.__init__(self, master, vtk_table,
-                                          on_change_color_table, colors)
+        kw = dict(master=master, vtk_table=vtk_table,
+                    on_change_color_table=on_change_color_table,
+                    colors=colors)
+        super().__init__(**kw)
 
         gradient_preview_width = self.gradient_preview_width
         gradient_preview_height = self.gradient_preview_height

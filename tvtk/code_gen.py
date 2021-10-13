@@ -5,8 +5,6 @@
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 import vtk_module as vtk
 import os
 import os.path
@@ -222,10 +220,7 @@ class TVTKGenerator:
         # The only reason this method is separate is to generate code
         # for an individual class when debugging.
         fname = camel2enthought(tvtk_name) + '.py'
-        if sys.version_info[0] > 2:
-            out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
-        else:
-            out = open(os.path.join(self.out_dir, fname), 'w')
+        out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
         self.wrap_gen.generate_code(node, out)
         out.close()
 

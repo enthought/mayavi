@@ -45,8 +45,6 @@ with the vanilla python interpretor.  ::
 # License: BSD Style.
 # Year : 2007-2016
 
-from __future__ import print_function
-
 # Standard library imports.
 import sys
 import numpy

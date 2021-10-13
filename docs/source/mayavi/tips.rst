@@ -376,7 +376,7 @@ preference option.  The following code shows how this may be accessed
 from a Python script::
 
    >>> from mayavi.preferences.api import preference_manager
-   >>> print preference_manager.root.contrib_packages
+   >>> print(preference_manager.root.contrib_packages)
    []
    >>> preference_manager.configure_traits() # Pop up a UI.
 

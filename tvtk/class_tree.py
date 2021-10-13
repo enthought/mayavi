@@ -10,10 +10,7 @@ traitified VTK classes in the correct order.
 
 import sys
 
-if sys.version_info[0] > 2:
-    import builtins
-else:
-    import __builtin__ as builtins
+import builtins
 
 
 class TreeNode:
@@ -115,11 +112,11 @@ class ClassTree:
         >>> import vtk
         >>> t = ClassTree(vtk)
         >>> t.create()
-        >>> print t.get_node('vtkObject').name
+        >>> print(t.get_node('vtkObject').name)
         vtkObject
-        >>> print t.get_node('vtkObject').parents[0].name
+        >>> print(t.get_node('vtkObject').parents[0].name)
         vtkObjectBase
-        >>> print len(t.tree[0])
+        >>> print(len(t.tree[0]))
         1
         >>> t.tree[0][0].name
         vtkObjectBase

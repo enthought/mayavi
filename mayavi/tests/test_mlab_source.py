@@ -7,7 +7,7 @@ Test for MlabSource and its subclasses.
 
 import unittest
 import numpy as np
-from mock import patch
+from unittest.mock import patch
 
 from tvtk.api import tvtk
 from mayavi.tools import sources

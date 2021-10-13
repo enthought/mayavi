@@ -21,8 +21,6 @@ custom plugins.
 # Copyright (c) 2008-2020, Prabhu Ramachandran, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 # Standard library imports.
 import sys
 import traceback

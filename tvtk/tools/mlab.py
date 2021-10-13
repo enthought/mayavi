@@ -92,8 +92,6 @@ functions::
 # Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
-from distutils.version import StrictVersion
-
 import numpy
 
 from traits.api import HasTraits, List, Instance, Any, Float, Bool, \
@@ -108,7 +106,6 @@ from tvtk.tools import ivtk
 # Set this to False to not use LOD Actors.
 USE_LOD_ACTOR = True
 
-VTK_VER = StrictVersion(tvtk.Version().vtk_version)
 
 ######################################################################
 # Utility functions.
@@ -641,10 +638,7 @@ class Title(MLabBase):
         super(Title, self).__init__(**traits)
 
         ta = self.text_actor
-        if VTK_VER > '5.1':
-            ta.trait_set(text_scale_mode='prop', height=0.05, input=self.text)
-        else:
-            ta.trait_set(scaled_text=True, height=0.05, input=self.text)
+        ta.trait_set(text_scale_mode='prop', height=0.05, input=self.text)
         pc = ta.position_coordinate
         pc.coordinate_system = 'normalized_viewport'
         pc.value = 0.25, 0.925, 0.0

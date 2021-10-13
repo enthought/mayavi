@@ -5,8 +5,6 @@
 # Copyright (c) 2004-2020,  Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 import sys
 import weakref
 import os
@@ -176,10 +174,10 @@ class RevPrefixMap(PrefixMap):
       ...
       >>> a = A()
       >>> a.a = 'c'
-      >>> print a.a
+      >>> print(a.a)
       'cd'
       >>> a.a = 1
-      >>> print a.a
+      >>> print(a.a)
       'ab'
 
     That is, you can set the trait to the value itself.  If multiple

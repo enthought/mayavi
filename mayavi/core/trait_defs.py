@@ -176,7 +176,7 @@ class ShadowProperty(TraitType):
             class Thing(HasTraits):
                 x = ShadowProperty(Float, smart_notify=False)
                 def _x_changed(self, value):
-                    print value
+                    print(value)
 
         In this example, the actual value of the property (`x`) will be
         stored in `_x` and `_x_changed` will be called regardless

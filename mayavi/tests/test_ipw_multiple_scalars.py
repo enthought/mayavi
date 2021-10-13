@@ -2,7 +2,6 @@ import unittest
 
 from numpy import zeros, random
 from tvtk.api import tvtk
-from tvtk.common import is_old_pipeline
 from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.core.null_engine import NullEngine
 from mayavi.modules.image_plane_widget import ImagePlaneWidget
@@ -17,11 +16,7 @@ class TestIPWMultipleScalars(unittest.TestCase):
         arr3 = arr1 + 2.0*(0.5 - random.random(27))
         arr3 = arr3.astype('f')
 
-        if is_old_pipeline():
-            p = tvtk.ImageData(dimensions=[3,3,3],spacing=[1,1,1],
-                               scalar_type='int')
-        else:
-            p = tvtk.ImageData(dimensions=[3,3,3],spacing=[1,1,1])
+        p = tvtk.ImageData(dimensions=[3,3,3],spacing=[1,1,1])
         p.point_data.scalars = arr1
         p.point_data.scalars.name = 'first'
         j2 = p.point_data.add_array(arr2)
@@ -62,10 +57,7 @@ class TestIPWMultipleScalars(unittest.TestCase):
         self.assertEqual(r, expect)
         o = self.src.outputs[0]
         o.update_traits()
-        if is_old_pipeline():
-            st = ipw.input.scalar_type
-        else:
-            st = ipw.input.scalar_type_as_string
+        st = ipw.input.scalar_type_as_string
         self.assertEqual(scalars.data_type, 10)
         self.assertEqual(st, 'float')
 
@@ -75,10 +67,7 @@ class TestIPWMultipleScalars(unittest.TestCase):
         expect = min(arr2), max(arr2)
         self.assertEqual(r, expect)
         o.update_traits()
-        if is_old_pipeline():
-            st = ipw.input.scalar_type
-        else:
-            st = ipw.input.scalar_type_as_string
+        st = ipw.input.scalar_type_as_string
         self.assertEqual(scalars.data_type, 11)
         self.assertEqual(st, 'double')
 
@@ -88,10 +77,7 @@ class TestIPWMultipleScalars(unittest.TestCase):
         expect = min(arr3), max(arr3)
         self.assertEqual(r, expect)
         o.update_traits()
-        if is_old_pipeline():
-            st = ipw.input.scalar_type
-        else:
-            st = ipw.input.scalar_type_as_string
+        st = ipw.input.scalar_type_as_string
         self.assertEqual(scalars.data_type, 10)
         self.assertEqual(st, 'float')
 

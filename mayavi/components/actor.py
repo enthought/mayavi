@@ -11,7 +11,6 @@ import vtk
 from traits.api import Instance, Bool, Enum
 from tvtk.api import tvtk
 from traits.api import DelegatesTo
-from tvtk.common import is_old_pipeline
 
 # Local imports.
 from mayavi.core.component import Component
@@ -116,15 +115,14 @@ class Actor(Component):
         sends a `data_changed` event.
         """
         # Invoke render to update any changes.
-        if not is_old_pipeline():
-            from mayavi.modules.outline import Outline
-            from mayavi.components.glyph import Glyph
-            #FIXME: A bad hack, but without these checks results in seg fault
-            input = self.inputs[0]
-            if isinstance(input, Outline) or isinstance(input, Glyph):
-                self.mapper.update(0)
-            else:
-                self.mapper.update()
+        from mayavi.modules.outline import Outline
+        from mayavi.components.glyph import Glyph
+        #FIXME: A bad hack, but without these checks results in seg fault
+        input = self.inputs[0]
+        if isinstance(input, Outline) or isinstance(input, Glyph):
+            self.mapper.update(0)
+        else:
+            self.mapper.update()
         self.render()
 
     ######################################################################

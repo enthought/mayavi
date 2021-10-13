@@ -2,7 +2,6 @@
 # Setup script for TVTK, numpy.distutils based.
 #
 #
-from __future__ import print_function
 
 import os
 import sys

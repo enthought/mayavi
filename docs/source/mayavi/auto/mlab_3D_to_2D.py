@@ -111,8 +111,6 @@ Now that the prelimenaries are out of the way, lets get started.
 # Copyright (c) 2009, S. Chris Colbert
 # License: BSD Style
 
-from __future__ import print_function
-
 # this import is here because we need to ensure that matplotlib uses the
 # wx backend and having regular code outside the main block is PyTaboo.
 # It needs to be imported first, so that matplotlib can impose the

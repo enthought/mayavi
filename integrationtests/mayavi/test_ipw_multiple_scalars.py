@@ -7,7 +7,7 @@
 from common import TestCase
 from numpy import zeros, random
 from tvtk.api import tvtk
-from tvtk.common import is_old_pipeline
+
 
 class TestIPWMultipleScalars(TestCase):
 
@@ -34,8 +34,6 @@ class TestIPWMultipleScalars(TestCase):
         arr3 = arr3.astype('f')
 
         p = tvtk.ImageData(dimensions=[3,3,3], spacing=[1,1,1])
-        if is_old_pipeline():
-            p.scalar_type = 'int'
 
         p.point_data.scalars = arr1
         p.point_data.scalars.name = 'first'
@@ -43,8 +41,6 @@ class TestIPWMultipleScalars(TestCase):
         p.point_data.get_array(j2).name='second'
         j3 = p.point_data.add_array(arr3)
         p.point_data.get_array(j3).name='third'
-        if is_old_pipeline():
-            p.update()
 
         # Make the pipeline.
         self.new_scene()
@@ -61,10 +57,6 @@ class TestIPWMultipleScalars(TestCase):
         assert r == expect
         o = src.outputs[0]
         o.update_traits()
-        if is_old_pipeline():
-            st = ipw.input.scalar_type
-            assert scalars.data_type == 10
-            assert st == 'float'
 
         src.point_scalars_name = 'second'
         scalars = ipw.input.point_data.scalars
@@ -72,10 +64,6 @@ class TestIPWMultipleScalars(TestCase):
         expect = min(arr2), max(arr2)
         assert r == expect
         o.update_traits()
-        if is_old_pipeline():
-            st = ipw.input.scalar_type
-            assert scalars.data_type == 11
-            assert st == 'double'
 
         src.point_scalars_name = 'third'
         scalars = ipw.input.point_data.scalars
@@ -83,10 +71,6 @@ class TestIPWMultipleScalars(TestCase):
         expect = min(arr3), max(arr3)
         assert r == expect
         o.update_traits()
-        if is_old_pipeline():
-            st = ipw.input.scalar_type
-            assert scalars.data_type == 10
-            assert st == 'float'
 
 
 if __name__ == '__main__':

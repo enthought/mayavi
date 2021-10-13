@@ -121,16 +121,7 @@ class PipelineBase(Base):
                 if hasattr(actor, 'mapper'):
                     m = actor.mapper
                     if m is not None:
-                        if tvtk_common.is_old_pipeline():
-                            m.update()
-                        else:
-                            m.update(0)
-            if tvtk_common.is_old_pipeline():
-                for widget in self.widgets:
-                    if hasattr(widget, 'input'):
-                        input = widget.input
-                        if input is not None:
-                            input.update()
+                        m.update(0)
         if hasattr(self, 'components'):
             for component in self.components:
                     component.render()

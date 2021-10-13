@@ -10,8 +10,6 @@ from traits.api import HasTraits, Dict, Instance, \
 from mayavi.core.scene import Scene
 from tvtk.api import tvtk
 
-VTK_VERSION =        tvtk.Version().vtk_major_version \
-                + .1*tvtk.Version().vtk_minor_version
 
 ################################################################################
 # class `MousePickDispatcher`
@@ -93,10 +91,7 @@ class MousePickDispatcher(HasTraits):
                                                 self.on_pick)
 
         # Register the callbacks on the scene interactor
-        if VTK_VERSION>5:
-            move_event = "RenderEvent"
-        else:
-            move_event = 'MouseMoveEvent'
+        move_event = "RenderEvent"
         if not self._mouse_mvt_callback_nb:
             self._mouse_mvt_callback_nb = \
                 self.scene.scene.interactor.add_observer(move_event,
@@ -106,10 +101,7 @@ class MousePickDispatcher(HasTraits):
                 self.scene.scene.interactor.add_observer(
                                     '%sButtonPressEvent' % button,
                                     self.on_button_press)
-        if VTK_VERSION>5:
-            release_event = "EndInteractionEvent"
-        else:
-            release_event = '%sButtonReleaseEvent' % button
+        release_event = "EndInteractionEvent"
         if not button in self._mouse_release_callback_nbs:
             self._mouse_release_callback_nbs[button] = \
                 self.scene.scene.interactor.add_observer(

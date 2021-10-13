@@ -1,4 +1,3 @@
-from __future__ import print_function
 import base64
 from collections import namedtuple
 import time
@@ -13,8 +12,6 @@ from ..engine_manager import options
 from tvtk.tvtk_base import global_disable_update
 
 options.offscreen = True
-
-encode_func = getattr(base64, 'encodebytes', getattr(base64, 'encodestring'))
 
 EventInfo = namedtuple('EventInfo', ['id', 'name', 'event', 'data'])
 
@@ -136,7 +133,7 @@ class RemoteScene(HasTraits):
 
     def get_image(self):
         data = self.get_raw_image()
-        return encode_func(data).decode('ascii')
+        return base64.encodebytes(data).decode('ascii')
 
     def call_rwi(self, method, *args):
         if method == 'SetSize':
