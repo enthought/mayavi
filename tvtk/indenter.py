@@ -234,11 +234,14 @@ class VTKDocMassager:
 
           The documentation string.
         """
-        orig_name = doc[2:doc.find('(')]
+        if doc.startswith('V.'):  # VTK < 9.1.0, e.g., V.GetAddre...
+            doc = doc[2:]
+        # VTK > 9.1.0 has just GetAddre...
+        orig_name = doc[:doc.find('(')]
         name = camel2enthought(orig_name)
         my_sig = self._rename_class(doc[:doc.find('\n\n')])
         my_sig = self.cpp_method_re.sub('', my_sig)
-        my_sig = my_sig.replace('V.'+orig_name, 'V.'+name)
+        my_sig = my_sig.replace('V.'+orig_name, 'V.'+name).replace(orig_name+'(', name+'(')
         ret = self.massage(self._remove_sig(doc))
         if ret:
             return my_sig + '\n' + ret

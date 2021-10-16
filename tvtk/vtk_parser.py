@@ -319,11 +319,13 @@ class VTKMethodParser:
         doc = doc[:doc.find('\n\n')]
         sig = []
         c_sig = [] # The C++ signature
+        never_in_sig = True
         in_sig = False
         in_c_sig = False
         counter = 0
         for line in doc.split('\n'):
-            if line.startswith('V.'):
+            if '(' in line and never_in_sig:
+                never_in_sig = False
                 in_sig = True
                 in_c_sig = False
                 sig.append(line.strip())
@@ -337,9 +339,9 @@ class VTKMethodParser:
             elif in_c_sig:
                 c_sig[counter-1] = c_sig[counter-1] + line.strip()
 
-
         # Remove the V.<method_name>
-        sig = [x.replace('V.' + method.__name__, '') for x in sig]
+        sig = [x.replace('V.' + method.__name__, '')
+               .replace(method.__name__ + '(', '(') for x in sig]
         c_sig = [x[x.find('('):] for x in c_sig]
 
         pat = re.compile(r'\b')
@@ -395,6 +397,10 @@ class VTKMethodParser:
                             else:
                                 args.append(x)
                         arg = ', '.join(args)
+            # sanitize type hints
+            if arg is not None:
+                arg = re.sub(':\\[[\\w\\s]+\\]', arg, '')  # thing:[float, float, float]
+                arg = ', '.join(a.strip().split(':')[0] for a in arg.split(','))  # thing:float
 
             if ret is not None and ret.startswith('(') and '...' in ret:
                 # A tuple (new in VTK-5.7)
@@ -417,7 +423,7 @@ class VTKMethodParser:
                     arg = eval(pat.sub('\"', arg))
                     if type(arg) == type('str'):
                         arg = [arg]
-            except SyntaxError:
+            except SyntaxError:  # e.g., ret = 'vtkFXAAOptions.DebugOption'
                 pass
             else:
                 sig.append(([ret], arg))

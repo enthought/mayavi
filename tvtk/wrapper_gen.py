@@ -1315,6 +1315,8 @@ class WrapperGenerator:
         indent = self.indent
         out.write(indent.format(decl))
         indent.incr()
+        # sanitize \ in doc (e.g., chart_xyz.get_axes_text_property)
+        doc = doc.replace('\\', '\\\\')
         if doc:
             out.write(indent.format('"""\n' + doc + '"""\n'))
         out.write(indent.format(body))
