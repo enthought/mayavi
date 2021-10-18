@@ -174,10 +174,10 @@ class RevPrefixMap(PrefixMap):
       ...
       >>> a = A()
       >>> a.a = 'c'
-      >>> print a.a
+      >>> print(a.a)
       'cd'
       >>> a.a = 1
-      >>> print a.a
+      >>> print(a.a)
       'ab'
 
     That is, you can set the trait to the value itself.  If multiple

@@ -13,8 +13,6 @@ from mayavi.sources.vtk_file_reader import VTKFileReader
 # Local imports.
 from mayavi.tests.common import get_example_data
 
-vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
 class TestVTKFileReader(unittest.TestCase):
     def setUp(self):

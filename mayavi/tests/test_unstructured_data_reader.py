@@ -6,14 +6,12 @@
 import unittest
 
 # Enthought library imports
-from tvtk.common import is_old_pipeline
 from mayavi.sources.unstructured_grid_reader import UnstructuredGridReader
 from mayavi.tests.data_reader_test_base import DataReaderTestBase
 
 # Local imports.
 from mayavi.tests.common import get_example_data
 
-old_pipeline = is_old_pipeline()
 
 class TestAVSUCDReader(DataReaderTestBase):
 
@@ -47,39 +45,6 @@ class TestAVSUCDReader(DataReaderTestBase):
 
         self.check_deepcopying(self.scene, self.bounds)
 
-@unittest.skipIf(not old_pipeline,
-                    "ExodusReader is not supported VTK 6.0 onwards.")
-class TestExodusReader(DataReaderTestBase):
-
-    def setup_reader(self):
-
-        """"Setup the reader in here.  This is called after the engine
-        has been created and started.  The engine is available as
-        self.e.  This method is called by setUp().
-        """
-        # Read a Exodus data file.
-        r = UnstructuredGridReader()
-        r.initialize(get_example_data('edgeFaceElem.exii'))
-        self.e.add_source(r)
-        self.bounds =(-3.0, 3.0, -3.0, 3.0, -3.0, 3.0)
-
-    def test_exodus_data_reader(self):
-        "Test if the test fixture works"
-        #Now test.
-
-        self.check(self.scene, self.bounds)
-
-    def test_save_and_restore(self):
-        """Test if saving a visualization and restoring it works."""
-
-        self.check_saving(self.e, self.scene, self.bounds)
-
-    def test_deepcopied(self):
-        """Test if the MayaVi2 visualization can be deep-copied."""
-        ############################################################
-        # Test if the MayaVi2 visualization can be deep-copied.
-
-        self.check_deepcopying(self.scene, self.bounds)
 
 #TODO: Update the ExodusIIReader test for scenarios as for the other readers
 #in this module.

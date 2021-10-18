@@ -307,7 +307,7 @@ handy to be able to navigate to a particular module/object.  In the
 above this could be achieved as follows::
 
   x = mayavi.engine.scenes[0].children[0].children[0].children[-1]
-  print x
+  print(x)
 
 In this case ``x`` will be set to the ``Streamline`` instance that we
 just created.

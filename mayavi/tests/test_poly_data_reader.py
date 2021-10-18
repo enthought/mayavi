@@ -15,9 +15,6 @@ from mayavi.tests.data_reader_test_base import DataReaderTestBase
 # External library imports
 import vtk
 
-vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
-
 
 class TestPDBReader(DataReaderTestBase):
 
