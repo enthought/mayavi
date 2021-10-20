@@ -33,7 +33,7 @@ class Prop(tvtk_base.TVTKBase):
 
     representation = tvtk_base.RevPrefixMap(
         {'points': 0, 'wireframe': 1, 'surface': 2},
-        default_value='surface')
+        4, 5, default_value='surface')
 
     def _representation_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetRepresentation, self.representation_)
@@ -274,6 +274,11 @@ class TestTVTKBase(unittest.TestCase):
 
         # test_zz_object_cache will fail unless we delete our extra reference
         del exception_context
+
+        # Test extra values
+        p.representation = 4
+        self.assertEqual(p.representation, "surface")
+        self.assertEqual(p.representation_, 2)
 
     def test_deref_vtk(self):
         """Test the `deref_vtk` function."""

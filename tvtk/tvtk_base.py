@@ -179,8 +179,9 @@ class RevPrefixMap(traits.TraitType):
         for key in map.keys():
             self._map[key] = key
 
+        metadata = kwargs.copy()
         try:
-            default_value = kwargs.pop("default_value")
+            default_value = metadata.pop("default_value")
         except KeyError:
             if len(self.map) > 0:
                 default_value = next(iter(self.map))
@@ -191,7 +192,7 @@ class RevPrefixMap(traits.TraitType):
         else:
             default_value = self.value_for(default_value)
 
-        super().__init__(default_value, **kwargs)
+        super().__init__(default_value, **metadata)
 
         self._rmap = {}
         for key, value in map.items():
