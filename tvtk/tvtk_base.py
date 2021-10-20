@@ -195,13 +195,14 @@ class RevPrefixMap(traits.TraitType):
 
         self._map = {key: key for key in self.map}
         self._rmap = {value: key for key, value in self.map.items()}
-        for key in extra_values:
-            self._rmap[key] = default_value
 
         if default_value is None:
             default_value = next(iter(self.map))
         else:
             default_value = self.value_for(default_value)
+
+        for key in extra_values:
+            self._rmap[key] = default_value
 
         super().__init__(default_value, **kwargs)
 
