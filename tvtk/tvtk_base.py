@@ -173,32 +173,24 @@ class RevPrefixMap(traits.TraitType):
     """
     is_mapped = True
 
-    def __init__(self, map, *extra_values, **kwargs):
-        self.map = map
-        self._map = {}
-        for key in map.keys():
-            self._map[key] = key
+    def __init__(self, map, *extra_values, default_value=None, **kwargs):
+        self.map = dict(map)
+        if not self.map:
+            raise ValueError(
+                "The dictionary of valid values can not be empty."
+            )
 
-        metadata = kwargs.copy()
-        try:
-            default_value = metadata.pop("default_value")
-        except KeyError:
-            if len(self.map) > 0:
-                default_value = next(iter(self.map))
-            else:
-                raise ValueError(
-                    "The dictionary of valid values can not be empty."
-                ) from None
+        self._map = {key: key for key in self.map}
+        self._rmap = {value: key for key, value in self.map.items()}
+        for key in extra_values:
+            self._rmap[key] = default_value
+
+        if default_value is None:
+            default_value = next(iter(self.map))
         else:
             default_value = self.value_for(default_value)
 
-        super().__init__(default_value, **metadata)
-
-        self._rmap = {}
-        for key, value in map.items():
-            self._rmap[value] = key
-        for key in extra_values:
-            self._rmap[key] = kwargs['default_value']
+        super().__init__(default_value, **kwargs)
 
     def value_for(self, value):
         if not isinstance(value, str):
