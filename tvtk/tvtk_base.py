@@ -16,10 +16,23 @@ import vtk
 from traits import api as traits
 from . import messenger
 
-# Not used in this module, but there's code elsewhere that imports PrefixList
-# and PrefixMap from here.
-from traits.api import PrefixList, PrefixMap  # noqa: F401
+try:
+    from traits.api import PrefixMap, PrefixList
+except ImportError:  # use deprecated name
+    from traits.api import TraitPrefixMap, TraitPrefixList, Trait
 
+    class PrefixMap(Trait):
+        def __init__(self, map, *args, **kwargs):
+            if args:
+                args = (kwargs.pop('default_value'),) * args + (map,)
+            else:
+                args = (kwargs.pop('default_value'), map)
+            super().__init__(*args, **kwargs)
+
+    class PrefixList(Trait):
+        def __init__(self, list_, **kwargs):
+            super().__init__(kwargs['default_value'], TraitPrefixList(list_),
+                             **kwargs)
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
