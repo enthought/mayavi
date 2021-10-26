@@ -33,7 +33,7 @@ class Prop(tvtk_base.TVTKBase):
 
     representation = tvtk_base.RevPrefixMap(
         {'points': 0, 'wireframe': 1, 'surface': 2},
-        default_value='surface')
+        4, 5, default_value='surface')
 
     def _representation_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetRepresentation, self.representation_)
@@ -235,15 +235,50 @@ class TestTVTKBase(unittest.TestCase):
     def test_rev_prefix_map(self):
         """Test the reverse prefix map trait we use."""
         p = Prop()
+        self.assertEqual(p.representation, 'surface')
+        self.assertEqual(p.representation_, 2)
+
         p.representation = 'p'
+        self.assertEqual(p.representation, 'points')
+        self.assertEqual(p.representation_, 0)
+
         p.representation = 'wire'
+        self.assertEqual(p.representation, 'wireframe')
+        self.assertEqual(p.representation_, 1)
+
         p.representation = 'points'
+        self.assertEqual(p.representation, 'points')
+        self.assertEqual(p.representation_, 0)
+
         p.representation = 2
         self.assertEqual(p.representation, 'surface')
+        self.assertEqual(p.representation_, 2)
+
         self.assertRaises(traits.TraitError, setattr, p,
                           'representation', 'points1')
         self.assertRaises(traits.TraitError, setattr, p,
                           'representation', 'POINTS')
+        self.assertRaises(traits.TraitError, setattr, p,
+                          'representation', 3)
+
+        with self.assertRaises(traits.TraitError) as exception_context:
+            p.representation = "q"
+        expected_info_text = (
+            "'points' or 'surface' or 'wireframe' (or any unique prefix) "
+            "or 0 or 1 or 2"
+        )
+        self.assertIn(
+            expected_info_text,
+            str(exception_context.exception),
+        )
+
+        # test_zz_object_cache will fail unless we delete our extra reference
+        del exception_context
+
+        # Test extra values
+        p.representation = 4
+        self.assertEqual(p.representation, "surface")
+        self.assertEqual(p.representation_, 2)
 
     def test_deref_vtk(self):
         """Test the `deref_vtk` function."""

@@ -165,7 +165,7 @@ true_bool_trait = traits.Trait('true',
 false_bool_trait = traits.Trait('false', true_bool_trait)
 
 
-class RevPrefixMap(PrefixMap):
+class RevPrefixMap(traits.TraitType):
     """A reverse mapped PrefixMap.  This handler allows for
     something like the following::
 
@@ -184,13 +184,47 @@ class RevPrefixMap(PrefixMap):
     keys map to the same value, one of the valid keys will be used.
 
     """
-    def __init__(self, map, *extra_values, **kwargs):
-        super().__init__(map, **kwargs)
-        self._rmap = {}
-        for key, value in map.items():
-            self._rmap[value] = key
+    is_mapped = True
+
+    def __init__(self, map, *extra_values, default_value=None, **kwargs):
+        self.map = dict(map)
+        if not self.map:
+            raise ValueError(
+                "The dictionary of valid values can not be empty."
+            )
+
+        self._map = {key: key for key in self.map}
+        self._rmap = {value: key for key, value in self.map.items()}
+
+        if default_value is None:
+            default_value = next(iter(self.map))
+        else:
+            default_value = self.value_for(default_value)
+
         for key in extra_values:
-            self._rmap[key] = kwargs['default_value']
+            self._rmap[key] = default_value
+
+        super().__init__(default_value, **kwargs)
+
+    def value_for(self, value):
+        if not isinstance(value, str):
+            raise traits.TraitError(
+                "Value must be {}, but a value {!r} was specified.".format(
+                    self.info(), value)
+            )
+
+        if value in self._map:
+            return self._map[value]
+
+        matches = [key for key in self.map if key.startswith(value)]
+        if len(matches) == 1:
+            self._map[value] = match = matches[0]
+            return match
+
+        raise traits.TraitError(
+            "Value must be {}, but a value {!r} was specified.".format(
+                self.info(), value)
+        )
 
     def validate(self, object, name, value):
         try:
@@ -212,11 +246,24 @@ class RevPrefixMap(PrefixMap):
         except:
             self.error(object, name, value)
 
+    def mapped_value(self, value):
+        """ Get the mapped value for a value. """
+        return self.map[value]
+
+    def post_setattr(self, object, name, value):
+        setattr(object, name + "_", self.mapped_value(value))
+
     def info(self):
-        keys = [repr(x) for x in self._rmap.keys()]
-        keys.sort()
-        msg = ' or '.join(keys)
-        return PrefixMap.info(self) + ' or ' + msg
+        return (
+            " or ".join(sorted(repr(x) for x in self.map.keys()))
+            + ' (or any unique prefix) or '
+            + ' or '.join(sorted(repr(x) for x in self._rmap.keys()))
+        )
+
+    def get_editor(self, trait):
+        from traitsui.api import EnumEditor
+
+        return EnumEditor(values=self, cols=trait.cols or 3)
 
 
 def vtk_color_trait(default, **metadata):
