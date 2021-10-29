@@ -15,10 +15,11 @@ error messages but they are usually harmless.
 
 import unittest
 from tvtk import vtk_parser
+from tvtk import vtk_module as vtk
 
 import time # Only used when timing.
 import sys  # Only used when debugging.
-import vtk
+
 
 # This is a little expensive to create so we cache it.
 _cache = vtk_parser.VTKMethodParser()

@@ -9,7 +9,7 @@ need to be wrapped.
 """
 
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007-2020,  Enthought, Inc.
+# Copyright (c) 2007-2021,  Enthought, Inc.
 # License: BSD Style.
 
 from vtk import *
@@ -22,3 +22,12 @@ try:
     from tvtk_local import *
 except ImportError:
     pass
+
+
+vtk_version = vtkVersion.GetVTKVersion()
+SKIP = []
+
+if vtk_version == '9.0.3':
+    # Cause problems if used so ignore these.
+    SKIP = ['vtkDataEncoder', 'vtkWebApplication']
+    del vtkDataEncoder, vtkWebApplication

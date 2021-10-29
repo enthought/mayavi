@@ -17,8 +17,6 @@ docs are shown.
 # License: BSD Style.
 
 # Standard library imports.
-import vtk
-import types
 import inspect
 import sys
 
@@ -29,6 +27,7 @@ from traitsui.api import View, Group, Item, EnumEditor,\
                                     ListEditor, TextEditor
 from tvtk.api import tvtk
 from tvtk.common import get_tvtk_name
+import tvtk.vtk_module as vtk
 
 ################################################################################
 # Utility functions.
