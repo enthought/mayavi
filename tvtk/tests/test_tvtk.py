@@ -18,10 +18,10 @@ import types
 import inspect
 import re
 import numpy
-import vtk
 
 from tvtk import tvtk_base
 from tvtk.common import get_tvtk_name, configure_input_data
+from tvtk import vtk_module as vtk
 from numpy.testing import assert_array_equal
 
 from traits.api import TraitError
@@ -780,13 +780,15 @@ class TestTVTK(unittest.TestCase):
 # the functioning of the other tests.
 class TestTVTKModule(unittest.TestCase):
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
         tvtk_helper._cache.clear()
         vtk.vtkObject.GlobalWarningDisplayOn()
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         vtk.vtkObject.GlobalWarningDisplayOff()
-        self.names = []
+        cls.names = []
         # Filter the ones that are abstract or not implemented
         for name in dir(vtk):
             if (not name.startswith('vtk') or name.startswith('vtkQt') or
@@ -801,7 +803,7 @@ class TestTVTKModule(unittest.TestCase):
                 except (TypeError, NotImplementedError):
                     continue
                 else:
-                    self.names.append(name)
+                    cls.names.append(name)
 
     def test_all_instantiable(self):
         """Test if all the TVTK classes can be instantiated"""
@@ -853,6 +855,8 @@ class TestTVTKModule(unittest.TestCase):
                 pass
 
             for trait_name in obj.editable_traits():
+                if trait_name in ['_in_set', '_vtk_obj']:
+                    continue
                 vtk_attr_name = to_camel_case(trait_name)
                 min_value, max_value = get_min_max_value(vtk_klass,
                                                          vtk_attr_name)
