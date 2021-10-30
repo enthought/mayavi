@@ -344,7 +344,7 @@ class Picker(HasTraits):
         if self.widgets is False:
             self.setup_widgets()
 
-        if self.data.valid:
+        if self.data.valid_:
             self.text_widget.enabled = 1
             self.pick_handler.handle_pick(self.data)
             self.data.text_actor._get_text_property().trait_set(
@@ -466,12 +466,14 @@ class Picker(HasTraits):
     def close_picker(self):
         """This method makes the picker actor invisible when a non
         data point is selected"""
-        self.p_actor.visibility = 0
-        self.data.renwin.renderer.remove_actor(self.p_actor)
-        self.data.text_actor.visibility = 0
-        self.data.renwin.renderer.remove_actor(self.data.text_actor)
-        self.text_widget.enabled = 0
-        self.widgets = False
+        if self.widgets:
+            self.p_actor.visibility = 0
+            self.data.renwin.renderer.remove_actor(self.p_actor)
+            self.data.text_actor.visibility = 0
+            self.data.renwin.renderer.remove_actor(self.data.text_actor)
+            self.text_widget.enabled = 0
+            self.widgets = False
+            self.data.renwin.render()
 
     #################################################################
     # Non-public interface.
