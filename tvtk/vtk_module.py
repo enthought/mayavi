@@ -27,7 +27,7 @@ except ImportError:
 vtk_version = vtkVersion.GetVTKVersion()
 SKIP = []
 
-if vtk_version == '9.0.3':
+if vtk_version in ['9.0.3', '9.0.2']:
     # Cause problems if used so ignore these.
     SKIP = ['vtkDataEncoder', 'vtkWebApplication']
     del vtkDataEncoder, vtkWebApplication
