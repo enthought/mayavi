@@ -366,6 +366,7 @@ class Scene(TVTKScene, Widget):
                 return
             if key.lower() in ['q', 'e'] or keycode == wx.WXK_ESCAPE:
                 self._disable_fullscreen()
+                self.picker.close_picker()
             if key.lower() in ['w']:
                 event.Skip()
                 return

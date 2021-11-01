@@ -105,6 +105,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
 
         if key in [QtCore.Qt.Key_E, QtCore.Qt.Key_Q, QtCore.Qt.Key_Escape]:
             scene._disable_fullscreen()
+            scene.picker.close_picker()
             return
 
         if key in [QtCore.Qt.Key_W]:
