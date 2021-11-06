@@ -220,7 +220,7 @@ class MGlyphSource(MlabSource):
         # First set the polys to None to avoid accessing invalid points.
         pd.polys = None
         pd.trait_set(points=points)
-        pd.trait_set(polys=polys)
+        pd.trait_set(verts=polys)
 
         if self.vectors is not None:
             pd.point_data.vectors = self.vectors
@@ -605,8 +605,8 @@ class MArray2DSource(MlabSource):
             ds = self.m_data
         old_scalar = ds.scalar_data
         ds.trait_set(origin=[x.min(), y.min(), 0],
-               spacing=[dx, dy, 1],
-               scalar_data=scalars)
+                     spacing=[dx, dy, 1],
+                     scalar_data=scalars)
         if old_scalar is scalars:
             ds._scalar_data_changed(scalars)
 
