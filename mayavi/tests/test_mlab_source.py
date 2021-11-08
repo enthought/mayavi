@@ -63,7 +63,6 @@ class TestMGlyphSource(unittest.TestCase):
 
     def test_geometry_filter_works(self):
         # This tests the bug #1071 and segfaults without the fix on VTK 9.x.
-        x, y, z, v, s, src = self.get_data()
         f = tvtk.GeometryFilter(extent_clipping=True)
         f.set_input_data_object(self.src.dataset)
         f.update()
