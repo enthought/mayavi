@@ -29,9 +29,13 @@ from tvtk.api import tvtk
 from tvtk.common import get_tvtk_name
 import tvtk.vtk_module as vtk
 
-################################################################################
+# GLOBALS
+TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = None, None, None, None
+
+
+# ##############################################################################
 # Utility functions.
-################################################################################
+# ##############################################################################
 def get_tvtk_class_names():
     """Returns 4 lists:
 
@@ -95,6 +99,7 @@ def get_tvtk_class_names():
 
     return result
 
+
 def get_func_doc(func, fname):
     """Returns function documentation."""
     if inspect.isfunction(func):
@@ -110,6 +115,7 @@ def get_func_doc(func, fname):
     if d is not None:
         doc += '\n\n' + d + '\n\n'
     return doc
+
 
 def get_tvtk_class_doc(obj):
     """Return's the objects documentation."""
@@ -134,12 +140,17 @@ def get_tvtk_class_doc(obj):
 
     return doc
 
-# GLOBALS
-TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = get_tvtk_class_names()
 
-################################################################################
+def _setup_tvtk_names():
+    global TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS
+    if TVTK_CLASSES is None:
+        r = get_tvtk_class_names()
+        TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = r
+
+
+# ##############################################################################
 # `DocSearch` class.
-################################################################################
+# ##############################################################################
 class DocSearch(object):
 
     """A simple class that provides a method to search through class
@@ -290,7 +301,7 @@ class TVTKClassChooser(HasTraits):
     completions = List(Str)
 
     # List of available class names as strings.
-    available = List(TVTK_CLASSES)
+    available = List
 
     ########################################
     # Private traits.
@@ -328,7 +339,7 @@ class TVTKClassChooser(HasTraits):
                 width=800,
                 height=600,
                 title='TVTK class chooser',
-                buttons = ["OK", "Cancel"]
+                buttons=["OK", "Cancel"]
                 )
     ######################################################################
     # `object` interface.
@@ -383,24 +394,42 @@ class TVTKClassChooser(HasTraits):
             self.available = result
             self.completions = result[:self.n_completion]
 
+    def _available_default(self):
+        _setup_tvtk_names()
+        return TVTK_CLASSES
+
 
 ################################################################################
 # `TVTKSourceChooser` class.
 ################################################################################
 class TVTKSourceChooser(TVTKClassChooser):
-    available = List(TVTK_SOURCES)
+    available = List
 
-################################################################################
+    def _available_default(self):
+        _setup_tvtk_names()
+        return TVTK_SOURCES
+
+
+# ##############################################################################
 # `TVTKFilterChooser` class.
-################################################################################
+# ##############################################################################
 class TVTKFilterChooser(TVTKClassChooser):
-    available = List(TVTK_FILTERS)
+    available = List
 
-################################################################################
+    def _available_default(self):
+        _setup_tvtk_names()
+        return TVTK_FILTERS
+
+
+# ##############################################################################
 # `TVTKSinkChooser` class.
-################################################################################
+# ##############################################################################
 class TVTKSinkChooser(TVTKClassChooser):
-    available = List(TVTK_SINKS)
+    available = List
+
+    def _available_default(self):
+        _setup_tvtk_names()
+        return TVTK_SINKS
 
 
 def main():
@@ -409,6 +438,7 @@ def main():
     """
     s = TVTKClassChooser()
     s.configure_traits()
+
 
 if __name__ == '__main__':
     main()
