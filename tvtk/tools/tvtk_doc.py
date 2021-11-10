@@ -148,6 +148,26 @@ def _setup_tvtk_names():
         TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = r
 
 
+def get_tvtk_classes():
+    _setup_tvtk_names()
+    return TVTK_CLASSES
+
+
+def get_tvtk_sources():
+    _setup_tvtk_names()
+    return TVTK_SOURCES
+
+
+def get_tvtk_filters():
+    _setup_tvtk_names()
+    return TVTK_FILTERS
+
+
+def get_tvtk_sinks():
+    _setup_tvtk_names()
+    return TVTK_SINKS
+
+
 # ##############################################################################
 # `DocSearch` class.
 # ##############################################################################
@@ -395,8 +415,7 @@ class TVTKClassChooser(HasTraits):
             self.completions = result[:self.n_completion]
 
     def _available_default(self):
-        _setup_tvtk_names()
-        return TVTK_CLASSES
+        return get_tvtk_classes()
 
 
 ################################################################################
@@ -406,8 +425,7 @@ class TVTKSourceChooser(TVTKClassChooser):
     available = List
 
     def _available_default(self):
-        _setup_tvtk_names()
-        return TVTK_SOURCES
+        return get_tvtk_sources()
 
 
 # ##############################################################################
@@ -417,8 +435,7 @@ class TVTKFilterChooser(TVTKClassChooser):
     available = List
 
     def _available_default(self):
-        _setup_tvtk_names()
-        return TVTK_FILTERS
+        return get_tvtk_filters()
 
 
 # ##############################################################################
@@ -428,8 +445,7 @@ class TVTKSinkChooser(TVTKClassChooser):
     available = List
 
     def _available_default(self):
-        _setup_tvtk_names()
-        return TVTK_SINKS
+        return get_tvtk_sinks()
 
 
 def main():
