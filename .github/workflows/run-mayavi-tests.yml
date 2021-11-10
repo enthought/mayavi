@@ -1,4 +1,7 @@
 name: Tests
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}-${{ github.event.type }}
+  cancel-in-progress: true
 
 on:
   pull_request
@@ -9,6 +12,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: [3.6]
+      fail-fast: false
 
     runs-on: ${{ matrix.os }}
 
