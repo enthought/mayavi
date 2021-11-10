@@ -214,8 +214,8 @@ class TestVTKDocMassager(unittest.TestCase):
               'vtkLODProperty, vtkXMLDataReader, vtk3DSImporter\n'\
               'SetRepresentationToWireframe, Write3DPropsAsRasterImage'
         ret = dm.get_method_doc(doc)
-        correct = 'V.get_output(int) -> StructuredPoints\n'\
-                  'V.get_output() -> StructuredPoints\n\n'\
+        correct = 'get_output(int) -> StructuredPoints\n'\
+                  'get_output() -> StructuredPoints\n\n'\
                   'LODProperty, XMLDataReader, ThreeDSImporter\n'\
                   'set_representation_to_wireframe, '\
                   'write3d_props_as_raster_image'
@@ -227,8 +227,8 @@ class TestVTKDocMassager(unittest.TestCase):
               'V.GetOutput() -> vtkStructuredPoints\n'\
               'C++: vtkStructuredPoints *GetOutput ();\n\n'
         ret = dm.get_method_doc(doc)
-        correct = 'V.get_output(int) -> StructuredPoints\n'\
-                  'V.get_output() -> StructuredPoints\n'
+        correct = 'get_output(int) -> StructuredPoints\n'\
+                  'get_output() -> StructuredPoints\n'
         self.assertEqual(ret, correct)
 
 

@@ -1,11 +1,18 @@
 """This module generates tvtk (Traited VTK) classes from the VTK-Python API.
 
+This can be evoked for example by:
+
+..code-block:: console
+
+    $ python -ic "from tvtk.code_gen import main; main()" -szv
+
+On failures you can then for example do ``import pdb; pdb.pm()`` to do
+post-mortem debugging.
 """
 # Author: Prabhu Ramachandran
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
-import vtk_module as vtk
 import os
 import os.path
 import zipfile
@@ -13,6 +20,7 @@ import tempfile
 import shutil
 import glob
 import logging
+import traceback
 from optparse import OptionParser
 import sys
 
@@ -22,10 +30,12 @@ try:
     from .common import get_tvtk_name, camel2enthought
     from .wrapper_gen import WrapperGenerator
     from .special_gen import HelperGenerator
+    from . import vtk_module as vtk
 except SystemError:
     from common import get_tvtk_name, camel2enthought
     from wrapper_gen import WrapperGenerator
     from special_gen import HelperGenerator
+    import vtk_module as vtk
 
 
 logger = logging.getLogger(__name__)
@@ -132,8 +142,9 @@ class TVTKGenerator:
                             self._write_wrapper_class(node, tvtk_name)
                         except Exception:
                             print('\n\nFailed on %s\n(#%d of %d nodes, #%d of '
-                                  '%d subnodes)\n'
-                                  % (tvtk_name, ti, len(tree), ni, len(nodes)))
+                                  '%d subnodes):\n%s\n'
+                                  % (tvtk_name, ti, len(tree), ni, len(nodes),
+                                     traceback.format_exc()))
                             raise
                         helper_gen.add_class(tvtk_name, helper_file)
 

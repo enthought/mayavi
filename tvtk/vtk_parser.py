@@ -317,13 +317,15 @@ class VTKMethodParser:
         if doc is None:
             return None
         doc = doc[:doc.find('\n\n')]
+        new_sig = not doc.startswith('V.')
         sig = []
         c_sig = [] # The C++ signature
         in_sig = False
         in_c_sig = False
         counter = 0
+        py_sig_pat = re.compile(r'(V\.)|(\w+\()')
         for line in doc.split('\n'):
-            if line.startswith('V.'):
+            if py_sig_pat.match(line):
                 in_sig = True
                 in_c_sig = False
                 sig.append(line.strip())
@@ -337,9 +339,15 @@ class VTKMethodParser:
             elif in_c_sig:
                 c_sig[counter-1] = c_sig[counter-1] + line.strip()
 
-
         # Remove the V.<method_name>
-        sig = [x.replace('V.' + method.__name__, '') for x in sig]
+        def _process(x):
+            if new_sig:
+                x = x.replace(method.__name__, '')
+                return x.replace('(self, ', '(').replace('(self', '(')
+            else:
+                return x.replace('V.' + method.__name__, '')
+
+        sig = [_process(x) for x in sig]
         c_sig = [x[x.find('('):] for x in c_sig]
 
         pat = re.compile(r'\b')
@@ -354,6 +362,8 @@ class VTKMethodParser:
             x = [y.strip() for y in x]
 
             if len(x) == 1: # No return value
+                x = [None, x[0]]
+            elif x[1] == 'None':
                 x = [None, x[0]]
             else:
                 x.reverse()
@@ -374,7 +384,7 @@ class VTKMethodParser:
 
             n_arg = 0
             arg_map = {'unsigned int': 'int', 'unsigned char': 'int',
-                    'unsigned long': 'long', 'unsigned short': 'int'}
+                       'unsigned long': 'long', 'unsigned short': 'int'}
             if arg is not None and c_sig:
                 n_arg = arg.count(',') + 1
                 # The carguments have parenthesis like: (int, int)
@@ -395,10 +405,22 @@ class VTKMethodParser:
                             else:
                                 args.append(x)
                         arg = ', '.join(args)
+            # sanitize type hints
+            if arg is not None:
+                # thing:value -> value
+                arg = re.sub(r'\w+:', lambda mo: '', arg)
+                # str -> string
+                arg = re.sub(r'\bstr\b', lambda mo: 'string', arg)
+                # float=1.0 -> float
+                arg = re.sub(r'=[\-e0-9.]+', lambda mo: '', arg)
+                # Callback -> function
+                arg = re.sub(r'\bCallback\b', lambda mo: 'function', arg)
 
             if ret is not None and ret.startswith('(') and '...' in ret:
                 # A tuple (new in VTK-5.7)
                 ret = "tuple"
+            if ret == 'str':
+                ret = 'string'
 
             if arg is not None:
                 if '[float, ...]' in arg:
@@ -417,7 +439,7 @@ class VTKMethodParser:
                     arg = eval(pat.sub('\"', arg))
                     if type(arg) == type('str'):
                         arg = [arg]
-            except SyntaxError:
+            except SyntaxError:  # e.g., ret = 'vtkFXAAOptions.DebugOption'
                 pass
             else:
                 sig.append(([ret], arg))
