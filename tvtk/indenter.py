@@ -143,7 +143,7 @@ class VTKDocMassager:
     def __init__(self):
         self.renamer = re.compile(r'(vtk[A-Z0-9]\S+)')
         self.ren_func = lambda m: get_tvtk_name(m.group(1))
-        self.func_re = re.compile(r'([a-z0-9]+[A-Z])')
+        self.func_re = re.compile(r'([A-Z][a-z0-9]+[A-Z]\w+)')
         self.cpp_method_re = re.compile(r'C\+\+: .*?;\n*')
 
     #################################################################
@@ -281,9 +281,8 @@ class VTKDocMassager:
                 if word[:3] == 'vtk':
                     nw.append(word)
                 else:
-                    if self.func_re.search(word):
-                        nw.append(camel2enthought(word))
-                    else:
-                        nw.append(word)
+                    nw.append(self.func_re.sub(
+                        lambda mo: camel2enthought(mo.group()), word
+                    ))
             nl.append(' '.join(nw))
         return '\n'.join(nl)
