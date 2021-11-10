@@ -31,3 +31,10 @@ if vtk_version in ['9.0.3', '9.0.2']:
     # Cause problems if used so ignore these.
     SKIP = ['vtkDataEncoder', 'vtkWebApplication']
     del vtkDataEncoder, vtkWebApplication
+
+if vtk_version == '9.1.0':
+    SKIP = ['vtkOpenGLAvatar']
+    try:
+        del vtkOpenGLAvatar
+    except NameError:
+        pass
