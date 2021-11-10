@@ -121,6 +121,19 @@ class TestVTKParser(unittest.TestCase):
             res['NormalScale'] = (1., None)
             res['OcclusionStrength'] = (1., float_max)
             res['Roughness'] = (0.5, float_max)
+        if vtk_major_version >= 9 and vtk_minor_version > 0:
+            res['Anisotropy'] = (0.0, (0.0, 1.0))
+            res['AnisotropyRotation'] = (0.0, (0.0, 1.0))
+            res['BaseIOR'] = (1.5, (1.0, 9.999999680285692e+37))
+            res['CoatColor'] = ((1.0, 1.0, 1.0), None)
+            res['CoatIOR'] = (2.0, (1.0, 9.999999680285692e+37))
+            res['CoatNormalScale'] = (1.0, (0.0, 1.0))
+            res['CoatRoughness'] = (0.0, (0.0, 1.0))
+            res['CoatStrength'] = (0.0, (0.0, 1.0))
+            res['EdgeTint'] = ((1.0, 1.0, 1.0), None)
+            res['SelectionColor'] = ((1.0, 0.0, 0.0, 1.0), None)
+            res['SelectionLineWidth'] = (2.0, None)
+            res['SelectionPointSize'] = (2.0, None)
 
         result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):
@@ -157,14 +170,21 @@ class TestVTKParser(unittest.TestCase):
         res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
             res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                    'ReleaseGraphicsResources', 'RemoveAllTextures',
-                    'RemoveTexture', 'Render']
+                   'ReleaseGraphicsResources', 'RemoveAllTextures',
+                   'RemoveTexture', 'Render']
             if (vtk_major_version >= 7 or vtk_minor_version >= 2) and \
                     vtk_major_version < 9:
                 res.append('VTKTextureUnit')
-            if vtk_major_version >= 9:
+            if vtk_major_version == 9:
                 res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
                             'SetNormalTexture', 'SetORMTexture'])
+            if vtk_major_version == 9 and vtk_minor_version > 0:
+                res.extend([
+                    'ComputeIORFromReflectance', 'ComputeReflectanceFromIOR',
+                    'ComputeReflectanceOfBaseLayer', 'SetAnisotropyTexture',
+                    'SetCoatNormalTexture'
+                ])
+
         if hasattr(obj, 'PostRender'):
             res.append('PostRender')
             res.sort()
@@ -206,7 +226,7 @@ class TestVTKParser(unittest.TestCase):
                              p.get_method_signature(o.GetColor))
         if hasattr(vtk, 'vtkArrayCoordinates'):
             self.assertEqual([([None], ('float', 'float', 'float')),
-                ([None], (['float', 'float', 'float'],))],
+                              ([None], (['float', 'float', 'float'],))],
                              p.get_method_signature(o.SetColor))
 
         else:
@@ -226,8 +246,12 @@ class TestVTKParser(unittest.TestCase):
                          p.get_method_signature(o.GetOutput))
 
         # Test if function arguments work.
-        self.assertEqual([(['int'], ('int', 'function'))],
-                         p.get_method_signature(o.AddObserver))
+        if vtk_major_version == 9 and vtk_minor_version > 0:
+            self.assertEqual([(['int'], ('int', 'function', 'float'))],
+                             p.get_method_signature(o.AddObserver))
+        else:
+            self.assertEqual([(['int'], ('int', 'function'))],
+                             p.get_method_signature(o.AddObserver))
         # This one's for completeness.
         if ((len(p.get_method_signature(o.RemoveObserver))) == 2):
             self.assertEqual([([None], ['vtkCommand']), ([None], ['int'])],
@@ -260,7 +284,11 @@ class TestVTKParser(unittest.TestCase):
         # abstract classes that have state methods
         abs_class = [vtk.vtkDicer, vtk.vtkMapper, vtk.vtkScalarsToColors,
                      vtk.vtkUnstructuredGridVolumeMapper,
-                     vtk.vtkVolumeMapper, vtk.vtkXMLWriter]
+                     vtk.vtkVolumeMapper]
+        if hasattr(vtk, 'vtkXMLWriterBase'):
+            abs_class.append(vtk.vtkXMLWriterBase)
+        else:
+            abs_class.append(vtk.vtkXMLWriter)
         if hasattr(vtk, 'vtkStreamer'):
             abs_class.append(vtk.vtkStreamer)
 
@@ -292,7 +320,9 @@ class TestVTKParser(unittest.TestCase):
                 # sys.stdout.flush()
                 p.parse(k)
                 for method in p.get_methods(k):
-                    p.get_method_signature(getattr(k, method))
+                    meth = getattr(k, method)
+                    if callable(meth):
+                        p.get_method_signature(meth)
         # print(time.clock() - t1, 'seconds')
 
 

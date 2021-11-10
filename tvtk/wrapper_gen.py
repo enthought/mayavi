@@ -595,17 +595,17 @@ class WrapperGenerator:
             if klass.__name__ == 'vtkCellQuality' \
                     and m == 'QualityMeasure':
                 vtk_val = 1
-            if klass.__name__ == 'vtkRenderView' \
+            elif klass.__name__ == 'vtkRenderView' \
                     and m == 'InteractionMode':
                 vtk_val = 1
-            if klass.__name__ == 'vtkMatrixMathFilter' \
+            elif klass.__name__ == 'vtkMatrixMathFilter' \
                     and m == 'Operation':
                 vtk_val = 1
-            if klass.__name__ == 'vtkResliceImageViewer' \
+            elif klass.__name__ == 'vtkResliceImageViewer' \
                     and m == 'ResliceMode':
                 vtk_val = 'axis_aligned'
-            if  klass.__name__ == 'vtkThreshold' \
-                   and m == 'PointsDataType':
+            elif klass.__name__ == 'vtkThreshold' \
+                 and m == 'PointsDataType':
                 vtk_val = 10
 
             if (not hasattr(klass, 'Set' + m)):
@@ -614,8 +614,8 @@ class WrapperGenerator:
                 # vtkExtentTranslator::SetSplitMode does not exist.
                 # In this case wrap it specially.
                 vtk_val = 1
-            if  vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
-                                       'UpdateExtent']:
+            if vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
+                                      'UpdateExtent']:
                 vtk_val = 2
 
             # Sometimes, some methods have default values that are
@@ -623,20 +623,20 @@ class WrapperGenerator:
             # these.
             extra_val = None
             if vtk_val == 0 and klass.__name__ == 'vtkGenericEnSightReader' \
-                   and m == 'ByteOrder':
+               and m == 'ByteOrder':
                 extra_val = 2
             if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
-                   and m == 'ScalarType':
+               and m == 'ScalarType':
                 extra_val = list(range(0, 22))
             if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
-                   and m == 'PlaneOrientation':
+               and m == 'PlaneOrientation':
                 extra_val = 3
             if (vtk_val == 0) and (klass.__name__ == 'vtkThreshold') \
-                   and (m == 'AttributeMode'):
+               and (m == 'AttributeMode'):
                 extra_val = -1
             if (sys.platform == 'darwin') and (vtk_val == 0) \
-                   and (klass.__name__ == 'vtkRenderWindow') \
-                   and (m == 'StereoType'):
+               and (klass.__name__ == 'vtkRenderWindow') \
+               and (m == 'StereoType'):
                 extra_val = 0
 
             if not vtk_val:
@@ -652,7 +652,7 @@ class WrapperGenerator:
                 # vtkExtentTranslator::SetSplitMode does not exist.
                 # In this case wrap it specially.
                 vtk_val = 1
-            if  vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
+            if vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
                                        'UpdateExtent']:
                 vtk_val = 2
 
@@ -661,18 +661,22 @@ class WrapperGenerator:
             # these.
             extra_val = None
             if vtk_val == 0 and klass.__name__ == 'vtkGenericEnSightReader' \
-                   and m == 'ByteOrder':
+               and m == 'ByteOrder':
                 extra_val = 2
-            if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
-                   and m == 'ScalarType':
+            elif (vtk_val == 0 and
+                  klass.__name__ == 'vtkPolyDataEdgeConnectivityFilter' and
+                  m == 'RegionGrowing'):
+                extra_val = 0
+            elif vtk_val == 0 and klass.__name__ == 'vtkImageData' \
+                 and m == 'ScalarType':
                 extra_val = list(range(0, 22))
-            if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
+            elif vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
                    and m == 'PlaneOrientation':
                 extra_val = 3
-            if (vtk_val == 0) and (klass.__name__ == 'vtkThreshold') \
+            elif (vtk_val == 0) and (klass.__name__ == 'vtkThreshold') \
                    and (m == 'AttributeMode'):
                 extra_val = -1
-            if (sys.platform == 'darwin') and (vtk_val == 0) \
+            elif (sys.platform == 'darwin') and (vtk_val == 0) \
                    and (klass.__name__ == 'vtkRenderWindow') \
                    and (m == 'StereoType'):
                 extra_val = 0

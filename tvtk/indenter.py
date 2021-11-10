@@ -226,7 +226,7 @@ class VTKDocMassager:
     def get_method_doc(self, doc):
         """Return processed method documentation string from `doc`.
 
-        The method signature is appopriately massaged.
+        The method signature is appropriately massaged.
 
         Parameters
         ----------
@@ -235,13 +235,13 @@ class VTKDocMassager:
           The documentation string.
         """
         if doc.startswith('V.'):  # VTK < 9.1.0, e.g., V.GetAddre...
-            doc = doc[2:]
+            doc = doc.replace('V.', '')
         # VTK > 9.1.0 has just GetAddre...
         orig_name = doc[:doc.find('(')]
         name = camel2enthought(orig_name)
         my_sig = self._rename_class(doc[:doc.find('\n\n')])
         my_sig = self.cpp_method_re.sub('', my_sig)
-        my_sig = my_sig.replace('V.'+orig_name, 'V.'+name).replace(orig_name+'(', name+'(')
+        my_sig = my_sig.replace(orig_name+'(', name+'(')
         ret = self.massage(self._remove_sig(doc))
         if ret:
             return my_sig + '\n' + ret

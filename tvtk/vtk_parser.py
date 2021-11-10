@@ -407,8 +407,14 @@ class VTKMethodParser:
                         arg = ', '.join(args)
             # sanitize type hints
             if arg is not None:
+                # thing:value -> value
                 arg = re.sub(r'\w+:', lambda mo: '', arg)
-                arg = re.sub(r'str\b', lambda mo: 'string', arg)
+                # str -> string
+                arg = re.sub(r'\bstr\b', lambda mo: 'string', arg)
+                # float=1.0 -> float
+                arg = re.sub(r'=[\-e0-9.]+', lambda mo: '', arg)
+                # Callback -> function
+                arg = re.sub(r'\bCallback\b', lambda mo: 'function', arg)
 
             if ret is not None and ret.startswith('(') and '...' in ret:
                 # A tuple (new in VTK-5.7)
