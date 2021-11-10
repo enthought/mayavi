@@ -7,7 +7,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: [3.6]
 
     runs-on: ${{ matrix.os }}
@@ -35,7 +35,7 @@ jobs:
         python -m pip install --upgrade pip setuptools wheel
         python -m pip install pyqt5
         python -m pip install numpy
-        python -m pip install vtk
+        python -m pip install vtk==9.0.3
         python -m pip install pillow
         python -m pip install nose
         python -m pip install -e .[app]
