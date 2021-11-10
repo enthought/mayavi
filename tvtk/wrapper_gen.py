@@ -1638,6 +1638,11 @@ class WrapperGenerator:
         'vtkHyperTreeGridCellCenters.VertexCells$': (
             True, True, '_write_hyper_tree_grid_cell_centers_vertex_cells'
         ),
+        # In VTK 9.x, EuclideanClusterExtraction's Get/Radius is initialized
+        # to some random value.
+        'vtkEuclideanClusterExtraction.Radius$': (
+            True, True, '_write_euclidean_cluster_extraction_radius'
+        ),
     }
 
     @classmethod
@@ -1858,6 +1863,28 @@ class WrapperGenerator:
 
         t_def = 'tvtk_base.true_bool_trait'
 
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_euclidean_cluster_extraction_radius(
+            self, klass, out, vtk_attr_name
+    ):
+        if vtk_attr_name != 'Radius':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with Radius. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        if vtk_major_version >= 8:
+            message = ("vtkEuclideanClusterExtraction: "
+                       "Radius not updatable "
+                       "(VTK 9.1 bug - value not properly initialized)")
+            print(message)
+            default = rng[0]
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
