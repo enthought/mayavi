@@ -3,7 +3,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from tvtk.tools.tvtk_doc import TVTKFilterChooser, TVTK_FILTERS
+from tvtk.tools.tvtk_doc import TVTKFilterChooser, get_tvtk_filters
 
 # Local imports.
 from mayavi.filters.filter_base import FilterBase
@@ -73,11 +73,11 @@ class UserDefined(FilterBase):
     def _check_object(self, obj):
         if obj is None:
             return False
-        if obj.__class__.__name__ in TVTK_FILTERS:
+        tvtk_filters = get_tvtk_filters()
+        if obj.__class__.__name__ in tvtk_filters:
             return True
         return False
 
     def _filter_changed(self, old, new):
         self.name = 'UserDefined:%s'%new.__class__.__name__
         super(UserDefined, self)._filter_changed(old, new)
-
