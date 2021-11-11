@@ -5,6 +5,7 @@
 # Copyright (c) 2015, Enthought, Inc.
 # License: BSD Style.
 
+import sys
 import unittest
 import weakref
 import gc
@@ -15,6 +16,8 @@ from tvtk.tests.common import restore_gc_state
 
 class TestTVTKScene(unittest.TestCase):
 
+    @unittest.skipIf(sys.platform.startswith('win'),
+                     'CI with windows fails due to lack of OpenGL')
     def test_tvtk_scene_garbage_collected(self):
 
         # given

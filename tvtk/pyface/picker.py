@@ -29,7 +29,6 @@ from tvtk.tvtk_base import RevPrefixMap, false_bool_trait
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
-from tvtk.common import vtk_major_version
 import numpy as np
 
 
@@ -345,7 +344,7 @@ class Picker(HasTraits):
         if self.widgets is False:
             self.setup_widgets()
 
-        if self.data.valid:
+        if self.data.valid_:
             self.text_widget.enabled = 1
             self.pick_handler.handle_pick(self.data)
             self.data.text_actor._get_text_property().trait_set(
@@ -446,12 +445,8 @@ class Picker(HasTraits):
             # Need to create the probe each time because otherwise it
             # does not seem to work properly.
             probe = tvtk.ProbeFilter()
-            if vtk_major_version >= 6:
-                probe.set_source_data(data)
-                probe.set_input_data(self.probe_data)
-            else:
-                probe.source = data
-                probe.input = self.probe_data
+            probe.set_source_data(data)
+            probe.set_input_data(self.probe_data)
             probe.update()
             data = probe.output.point_data
             bounds = cp.mapper.input.bounds
@@ -471,12 +466,14 @@ class Picker(HasTraits):
     def close_picker(self):
         """This method makes the picker actor invisible when a non
         data point is selected"""
-        self.p_actor.visibility = 0
-        self.data.renwin.renderer.remove_actor(self.p_actor)
-        self.data.text_actor.visibility = 0
-        self.data.renwin.renderer.remove_actor(self.data.text_actor)
-        self.text_widget.enabled = 0
-        self.widgets = False
+        if self.widgets:
+            self.p_actor.visibility = 0
+            self.data.renwin.renderer.remove_actor(self.p_actor)
+            self.data.text_actor.visibility = 0
+            self.data.renwin.renderer.remove_actor(self.data.text_actor)
+            self.text_widget.enabled = 0
+            self.widgets = False
+            self.data.renwin.render()
 
     #################################################################
     # Non-public interface.

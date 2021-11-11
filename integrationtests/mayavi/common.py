@@ -4,8 +4,6 @@
 # Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 # Standard library imports
 import gc
 import os
@@ -531,10 +529,7 @@ class TestCase(Mayavi):
         g.start_event_loop()
         if self.exception_info is not None:
             type, value, tb = self.exception_info
-            if sys.version_info[0] > 2:
-                raise type(value).with_traceback(tb)
-            else:
-                raise type(value)
+            raise type(value).with_traceback(tb)
 
     def run(self):
         """This starts everything up and runs the test.  Call main to

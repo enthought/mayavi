@@ -27,7 +27,7 @@ import wx
 from pyface.api import ImageResource
 from pyface.action.api import ToolBarManager, Group, Action
 from tvtk.api import tvtk
-from traits.api import Bool, Instance, List, Either
+from traits.api import Bool, Instance, List, Either, TraitError
 
 # Local imports.
 from .scene import Scene, popup_save
@@ -197,11 +197,13 @@ class DecoratedScene(Scene):
             m = self.marker
             s = value[0] + value[1] + value[2]
             if s <= 1.0:
-                p.color = (1,1,1)
-                m.set_outline_color(1,1,1)
+                p.color = (1, 1, 1)
             else:
-                p.color = (0,0,0)
-                m.set_outline_color(0,0,0)
+                p.color = (0, 0, 0)
+            try:
+                m.outline_color = p.color  #VTK 9+
+            except TraitError:
+                m.set_outline_color(*p.color)
             self.render()
 
 

@@ -7,7 +7,7 @@ Test for MlabSource and its subclasses.
 
 import unittest
 import numpy as np
-from mock import patch
+from unittest.mock import patch
 
 from tvtk.api import tvtk
 from mayavi.tools import sources
@@ -60,6 +60,12 @@ class TestMGlyphSource(unittest.TestCase):
         sc = src.dataset.point_data.scalars.to_array()
         self.assertEqual(np.alltrue(vec == v), True)
         self.assertEqual(np.alltrue(sc == s.ravel()), True)
+
+    def test_geometry_filter_works(self):
+        # This tests the bug #1071 and segfaults without the fix on VTK 9.x.
+        f = tvtk.GeometryFilter(extent_clipping=True)
+        f.set_input_data_object(self.src.dataset)
+        f.update()
 
     def test_reset_with_same_size_data(self):
         x, y, z, v, s, src = self.get_data()

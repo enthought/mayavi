@@ -18,7 +18,6 @@ from tvtk.vtk_module import VTK_MAJOR_VERSION
 from mayavi.core.common import error
 from mayavi.filters.filter_base import FilterBase
 from mayavi.core.pipeline_info import PipelineInfo
-from tvtk.common import is_old_pipeline
 
 ######################################################################
 # `ExtractGrid` class.
@@ -190,9 +189,7 @@ class ExtractGrid(FilterBase):
     # Non-public methods.
     ######################################################################
     def _update_limits(self):
-        if is_old_pipeline():
-            extents = self.filter.input.whole_extent
-        elif VTK_MAJOR_VERSION <= 7:
+        if VTK_MAJOR_VERSION <= 7:
             extents = self.filter.get_update_extent()
         else:
             extents = self.filter.input.extent

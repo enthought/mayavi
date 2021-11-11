@@ -13,14 +13,13 @@ error messages but they are usually harmless.
 
 """
 
-from __future__ import print_function
-
 import unittest
 from tvtk import vtk_parser
+from tvtk import vtk_module as vtk
 
 import time # Only used when timing.
 import sys  # Only used when debugging.
-import vtk
+
 
 # This is a little expensive to create so we cache it.
 _cache = vtk_parser.VTKMethodParser()
@@ -52,16 +51,8 @@ class TestVTKParser(unittest.TestCase):
             self.assertIn(p.get_toggle_methods(),
                           [{'Debug': False, 'GlobalWarningDisplay': 1},
                            {'Debug': False, 'GlobalWarningDisplay': 0}])
-        if (vtk_major_version >= 5 and vtk_minor_version >= 10) or \
-           (vtk_major_version >= 6):
-            self.assertEqual(p.get_state_methods(), {})
-            self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
-        elif vtk_major_version >= 5 and vtk_minor_version >= 6:
-            self.assertEqual(p.get_state_methods(), {})
-            self.assertEqual(p.get_get_methods(), ['GetMTime'])
-        else:
-            self.assertEqual(p.get_state_methods(), {'ReferenceCount':(1, None)})
-            self.assertEqual(p.get_get_methods(), ['GetMTime'])
+        self.assertEqual(p.get_state_methods(), {})
+        self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
 
         self.assertEqual(p.get_get_set_methods(), {})
 
@@ -130,6 +121,19 @@ class TestVTKParser(unittest.TestCase):
             res['NormalScale'] = (1., None)
             res['OcclusionStrength'] = (1., float_max)
             res['Roughness'] = (0.5, float_max)
+        if vtk_major_version >= 9 and vtk_minor_version > 0:
+            res['Anisotropy'] = (0.0, (0.0, 1.0))
+            res['AnisotropyRotation'] = (0.0, (0.0, 1.0))
+            res['BaseIOR'] = (1.5, (1.0, 9.999999680285692e+37))
+            res['CoatColor'] = ((1.0, 1.0, 1.0), None)
+            res['CoatIOR'] = (2.0, (1.0, 9.999999680285692e+37))
+            res['CoatNormalScale'] = (1.0, (0.0, 1.0))
+            res['CoatRoughness'] = (0.0, (0.0, 1.0))
+            res['CoatStrength'] = (0.0, (0.0, 1.0))
+            res['EdgeTint'] = ((1.0, 1.0, 1.0), None)
+            res['SelectionColor'] = ((1.0, 0.0, 0.0, 1.0), None)
+            res['SelectionLineWidth'] = (2.0, None)
+            res['SelectionPointSize'] = (2.0, None)
 
         result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):
@@ -165,21 +169,22 @@ class TestVTKParser(unittest.TestCase):
 
         res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
-            if vtk_major_version >= 6:
-                res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                       'ReleaseGraphicsResources', 'RemoveAllTextures',
-                       'RemoveTexture', 'Render']
-                if (vtk_major_version >= 7 or vtk_minor_version >= 2) and \
-                        vtk_major_version < 9:
-                    res.append('VTKTextureUnit')
-                if vtk_major_version >= 9:
-                    res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
-                                'SetNormalTexture', 'SetORMTexture'])
-            else:
-                res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                       'LoadMaterial', 'LoadMaterialFromString',
-                       'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
-                       'Render']
+            res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
+                   'ReleaseGraphicsResources', 'RemoveAllTextures',
+                   'RemoveTexture', 'Render']
+            if (vtk_major_version >= 7 or vtk_minor_version >= 2) and \
+                    vtk_major_version < 9:
+                res.append('VTKTextureUnit')
+            if vtk_major_version == 9:
+                res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
+                            'SetNormalTexture', 'SetORMTexture'])
+            if vtk_major_version == 9 and vtk_minor_version > 0:
+                res.extend([
+                    'ComputeIORFromReflectance', 'ComputeReflectanceFromIOR',
+                    'ComputeReflectanceOfBaseLayer', 'SetAnisotropyTexture',
+                    'SetCoatNormalTexture'
+                ])
+
         if hasattr(obj, 'PostRender'):
             res.append('PostRender')
             res.sort()
@@ -221,7 +226,7 @@ class TestVTKParser(unittest.TestCase):
                              p.get_method_signature(o.GetColor))
         if hasattr(vtk, 'vtkArrayCoordinates'):
             self.assertEqual([([None], ('float', 'float', 'float')),
-                ([None], (['float', 'float', 'float'],))],
+                              ([None], (['float', 'float', 'float'],))],
                              p.get_method_signature(o.SetColor))
 
         else:
@@ -229,36 +234,24 @@ class TestVTKParser(unittest.TestCase):
                               ([None], (('float', 'float', 'float'),))],
                              p.get_method_signature(o.SetColor))
 
-        # Get VTK version to handle changed APIs.
-        vtk_ver = vtk.vtkVersion().GetVTKVersion()
-
         # Test vtkObjects args.
         o = vtk.vtkContourFilter()
-        if vtk_major_version < 6:
-            sig = p.get_method_signature(o.SetInput)
-        else:
-            sig = p.get_method_signature(o.SetInputData)
+        sig = p.get_method_signature(o.SetInputData)
         if len(sig) == 1:
             self.assertEqual([([None], ['vtkDataSet'])],
                              sig)
-        elif vtk_ver[:3] in ['4.2', '4.4']:
-            self.assertEqual([([None], ['vtkDataObject']),
-                              ([None], ('int', 'vtkDataObject')),
-                              ([None], ['vtkDataSet']),
-                              ([None], ('int', 'vtkDataSet'))
-                              ], sig)
-        elif vtk_ver[:2] == '5.' or vtk_ver[:3] == '4.5':
-            self.assertEqual([([None], ['vtkDataObject']),
-                              ([None], ('int', 'vtkDataObject')),
-                              ], sig)
 
         self.assertEqual([(['vtkPolyData'], None),
                           (['vtkPolyData'], ['int'])],
                          p.get_method_signature(o.GetOutput))
 
         # Test if function arguments work.
-        self.assertEqual([(['int'], ('int', 'function'))],
-                         p.get_method_signature(o.AddObserver))
+        if vtk_major_version == 9 and vtk_minor_version > 0:
+            self.assertEqual([(['int'], ('int', 'function', 'float'))],
+                             p.get_method_signature(o.AddObserver))
+        else:
+            self.assertEqual([(['int'], ('int', 'function'))],
+                             p.get_method_signature(o.AddObserver))
         # This one's for completeness.
         if ((len(p.get_method_signature(o.RemoveObserver))) == 2):
             self.assertEqual([([None], ['vtkCommand']), ([None], ['int'])],
@@ -273,8 +266,6 @@ class TestVTKParser(unittest.TestCase):
         p = self.p
         p.parse(vtk.vtkDataObject)
         self.assertTrue('UpdateExtent' not in p.get_state_methods())
-        if vtk_major_version < 6:
-            self.assertTrue('UpdateExtent' in p.get_get_set_methods())
 
         p.parse(vtk.vtkImageImport)
         self.assertTrue('DataExtent' not in p.get_state_methods())
@@ -293,7 +284,11 @@ class TestVTKParser(unittest.TestCase):
         # abstract classes that have state methods
         abs_class = [vtk.vtkDicer, vtk.vtkMapper, vtk.vtkScalarsToColors,
                      vtk.vtkUnstructuredGridVolumeMapper,
-                     vtk.vtkVolumeMapper, vtk.vtkXMLWriter]
+                     vtk.vtkVolumeMapper]
+        if hasattr(vtk, 'vtkXMLWriterBase'):
+            abs_class.append(vtk.vtkXMLWriterBase)
+        else:
+            abs_class.append(vtk.vtkXMLWriter)
         if hasattr(vtk, 'vtkStreamer'):
             abs_class.append(vtk.vtkStreamer)
 
@@ -325,7 +320,9 @@ class TestVTKParser(unittest.TestCase):
                 # sys.stdout.flush()
                 p.parse(k)
                 for method in p.get_methods(k):
-                    p.get_method_signature(getattr(k, method))
+                    meth = getattr(k, method)
+                    if callable(meth):
+                        p.get_method_signature(meth)
         # print(time.clock() - t1, 'seconds')
 
 

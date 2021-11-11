@@ -6,16 +6,14 @@ type information, and organizes them.
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
-import collections
+import collections.abc
 import re
 import types
 
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_62, is_version_9
+from .common import is_version_9
 
 
 class VTKMethodParser:
@@ -52,15 +50,15 @@ class VTKMethodParser:
        >>> import vtk
        >>> p = VTKMethodParser()
        >>> p.parse(vtk.vtkProperty)
-       >>> print p.get_toggle_methods()
+       >>> print(p.get_toggle_methods())
        {'EdgeVisibility': 0, 'BackfaceCulling': 0, 'FrontfaceCulling': 0}
-       >>> print p.get_state_methods()['Representation']
+       >>> print(p.get_state_methods()['Representation'])
        [['Surface', 2], ['Points', 0], ['Surface', 2], ['Wireframe', 1]]
-       >>> print p.get_get_set_methods()['Opacity']
+       >>> print(p.get_get_set_methods()['Opacity'])
        (1.0, (0.0, 1.0))
-       >>> print p.get_get_methods()
+       >>> print(p.get_get_methods())
        ['GetClassName']
-       >>> print p.get_other_methods()[:3]
+       >>> print(p.get_other_methods()[:3])
        ['BackfaceRender', 'DeepCopy', 'IsA']
 
 
@@ -70,11 +68,11 @@ class VTKMethodParser:
 
        >>> import vtk
        >>> o = vtk.vtkProperty
-       >>> print VTKMethodParser.get_method_signature(o.GetClassName)
+       >>> print(VTKMethodParser.get_method_signature(o.GetClassName))
        [(['string'], None)]
-       >>> print VTKMethodParser.get_method_signature(o.GetColor)[0]
+       >>> print(VTKMethodParser.get_method_signature(o.GetColor)[0])
        ([('float', 'float', 'float')], None)
-       >>> print VTKMethodParser.get_method_signature(o.GetColor)[1]
+       >>> print(VTKMethodParser.get_method_signature(o.GetColor)[1])
        ([None], (('float', 'float', 'float'),))
 
     The `get_method_signature` is fairly efficient and obtaining the
@@ -314,24 +312,20 @@ class VTKMethodParser:
           A VTK method object.
 
         """
-        # VTK 6.2 false built in funcs/methods are ignored
-        if is_version_62():
-            built_in_func = isinstance(method, types.BuiltinFunctionType)
-            built_in_meth = isinstance(method, types.BuiltinMethodType)
-            if not (built_in_func or built_in_meth):
-                return None
         # Remove all the C++ function signatures.
         doc = method.__doc__
         if doc is None:
             return None
         doc = doc[:doc.find('\n\n')]
+        new_sig = not doc.startswith('V.')
         sig = []
         c_sig = [] # The C++ signature
         in_sig = False
         in_c_sig = False
         counter = 0
+        py_sig_pat = re.compile(r'(V\.)|(\w+\()')
         for line in doc.split('\n'):
-            if line.startswith('V.'):
+            if py_sig_pat.match(line):
                 in_sig = True
                 in_c_sig = False
                 sig.append(line.strip())
@@ -345,9 +339,15 @@ class VTKMethodParser:
             elif in_c_sig:
                 c_sig[counter-1] = c_sig[counter-1] + line.strip()
 
-
         # Remove the V.<method_name>
-        sig = [x.replace('V.' + method.__name__, '') for x in sig]
+        def _process(x):
+            if new_sig:
+                x = x.replace(method.__name__, '')
+                return x.replace('(self, ', '(').replace('(self', '(')
+            else:
+                return x.replace('V.' + method.__name__, '')
+
+        sig = [_process(x) for x in sig]
         c_sig = [x[x.find('('):] for x in c_sig]
 
         pat = re.compile(r'\b')
@@ -362,6 +362,8 @@ class VTKMethodParser:
             x = [y.strip() for y in x]
 
             if len(x) == 1: # No return value
+                x = [None, x[0]]
+            elif x[1] == 'None':
                 x = [None, x[0]]
             else:
                 x.reverse()
@@ -382,7 +384,7 @@ class VTKMethodParser:
 
             n_arg = 0
             arg_map = {'unsigned int': 'int', 'unsigned char': 'int',
-                    'unsigned long': 'long', 'unsigned short': 'int'}
+                       'unsigned long': 'long', 'unsigned short': 'int'}
             if arg is not None and c_sig:
                 n_arg = arg.count(',') + 1
                 # The carguments have parenthesis like: (int, int)
@@ -403,10 +405,22 @@ class VTKMethodParser:
                             else:
                                 args.append(x)
                         arg = ', '.join(args)
+            # sanitize type hints
+            if arg is not None:
+                # thing:value -> value
+                arg = re.sub(r'\w+:', lambda mo: '', arg)
+                # str -> string
+                arg = re.sub(r'\bstr\b', lambda mo: 'string', arg)
+                # float=1.0 -> float
+                arg = re.sub(r'=[\-e0-9.]+', lambda mo: '', arg)
+                # Callback -> function
+                arg = re.sub(r'\bCallback\b', lambda mo: 'function', arg)
 
             if ret is not None and ret.startswith('(') and '...' in ret:
                 # A tuple (new in VTK-5.7)
                 ret = "tuple"
+            if ret == 'str':
+                ret = 'string'
 
             if arg is not None:
                 if '[float, ...]' in arg:
@@ -425,7 +439,7 @@ class VTKMethodParser:
                     arg = eval(pat.sub('\"', arg))
                     if type(arg) == type('str'):
                         arg = [arg]
-            except SyntaxError:
+            except SyntaxError:  # e.g., ret = 'vtkFXAAOptions.DebugOption'
                 pass
             else:
                 sig.append(([ret], arg))
@@ -475,7 +489,7 @@ class VTKMethodParser:
         meths = self._find_get_methods(klass, meths)
         self.other_meths = [
             x for x in meths \
-            if isinstance(getattr(klass, x), collections.Callable)
+            if isinstance(getattr(klass, x), collections.abc.Callable)
         ]
 
     def _remove_method(self, meths, method):
@@ -634,6 +648,9 @@ class VTKMethodParser:
             elif (klass_name == 'vtkPiecewisePointHandleItem' and
                   method[3:] == 'PiecewiseFunction'):
                 continue
+            # These hang on Windows (and maybe Fedora 34)
+            elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
+                continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]
@@ -648,7 +665,10 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
+            # Useful for debugging on failures:
+            # print('get instance', klass)
             obj = self._get_instance(klass)
+            # print('got instance', obj.__class__)
             if obj:
                 for key, value in gsm.items():
                     if not is_version_9() and (
@@ -681,7 +701,7 @@ class VTKMethodParser:
                     else:
                         try:
                             # Useful for debugging on failures:
-                            # print(klass_name, key)
+                            # print('Get', klass_name, key)
                             default = getattr(obj, 'Get%s' % key)()
                         except TypeError:
                             default = None
@@ -696,7 +716,7 @@ class VTKMethodParser:
                 # Segfaults can be exposed by uncommenting these lines,
                 # leave them commented while running because they
                 # slow things down quite a bit
-                # print(klass_name)
+                # print('GC', klass_name)
                 # import gc
                 # gc.collect()
             else:

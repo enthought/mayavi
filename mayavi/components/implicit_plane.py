@@ -13,8 +13,6 @@ from tvtk.api import tvtk
 from mayavi.core.component import Component
 from mayavi.core.utils import DataSetHelper
 
-VTK_VER = tvtk.Version().vtk_version
-
 
 ######################################################################
 # `ImplicitPlane` class.
@@ -54,29 +52,17 @@ class ImplicitPlane(Component):
     ########################################
     # View related traits.
 
-    if VTK_VER[:3] in ['4.2', '4.4']:
-        _widget_group = Group(Item(name='enabled'),
-                              Item(name='normal_to_x_axis'),
-                              Item(name='normal_to_y_axis'),
-                              Item(name='normal_to_z_axis'),
-                              Item(name='outline_translation'),
-                              Item(name='tubing'),
-                              Item(name='draw_plane'),
-                              Item(name='normal'),
-                              Item(name='origin')
-                              )
-    else:
-        _widget_group = Group(Item(name='enabled'),
-                              Item(name='normal_to_x_axis'),
-                              Item(name='normal_to_y_axis'),
-                              Item(name='normal_to_z_axis'),
-                              Item(name='outline_translation'),
-                              Item(name='scale_enabled'),
-                              Item(name='tubing'),
-                              Item(name='draw_plane'),
-                              Item(name='normal'),
-                              Item(name='origin')
-                              )
+    _widget_group = Group(Item(name='enabled'),
+                          Item(name='normal_to_x_axis'),
+                          Item(name='normal_to_y_axis'),
+                          Item(name='normal_to_z_axis'),
+                          Item(name='outline_translation'),
+                          Item(name='scale_enabled'),
+                          Item(name='tubing'),
+                          Item(name='draw_plane'),
+                          Item(name='normal'),
+                          Item(name='origin')
+                          )
 
     view = View(Group(Item(name='widget', style='custom',
                            editor=InstanceEditor(view=View(_widget_group))),

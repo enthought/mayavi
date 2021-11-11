@@ -366,6 +366,7 @@ class Scene(TVTKScene, Widget):
                 return
             if key.lower() in ['q', 'e'] or keycode == wx.WXK_ESCAPE:
                 self._disable_fullscreen()
+                self.picker.close_picker()
             if key.lower() in ['w']:
                 event.Skip()
                 return
@@ -702,27 +703,9 @@ class Scene(TVTKScene, Widget):
             fs.close()
             self._fullscreen = None
         elif fs is None:
-            ver = tvtk.Version()
-            popup = False
-            if wx.Platform == '__WXMSW__':
-                popup = True
-            elif ver.vtk_major_version > 5:
-                popup = True
-            elif (ver.vtk_major_version == 5) and \
-                 ((ver.vtk_minor_version >= 1) or \
-                  (ver.vtk_build_version > 2)):
-                popup = True
-            if popup:
-                # There is a bug with earlier versions of VTK that
-                # breaks reparenting a window which is why we test for
-                # the version above.
-                f = PopupScene(self)
-                self._fullscreen = f
-                f.fullscreen()
-            else:
-                f = FullScreen(self)
-                f.run() # This will block.
-                self._fullscreen = None
+            f = PopupScene(self)
+            self._fullscreen = f
+            f.fullscreen()
 
     def _disable_fullscreen(self):
         fs = self._fullscreen

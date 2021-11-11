@@ -10,9 +10,6 @@ functionality. See the class docs for more details.
 # Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
-
-from __future__ import print_function
-
 import os
 import os.path
 
@@ -26,9 +23,6 @@ from traits.api import HasPrivateTraits, HasTraits, Any, Int, \
      Property, Instance, Event, Range, Bool, Trait, Str
 
 from tvtk.pyface import light_manager
-
-
-VTK_VER = tvtk.Version().vtk_version
 
 
 def set_magnification(w2if, magnification):
@@ -552,57 +546,7 @@ class TVTKScene(HasPrivateTraits):
         ex.render_window = self._renwin
         ex.background = bg
 
-        if VTK_VER[:3] in ['4.2', '4.4']:
-            # The vtkRIBExporter is broken in respect to VTK light
-            # types.  Therefore we need to convert all lights into
-            # scene lights before the save and later convert them
-            # back.
-
-            ########################################
-            # Internal functions
-            def x3to4(x):
-                # convert 3-vector to 4-vector (w=1 -> point in space)
-                return (x[0], x[1], x[2], 1.0 )
-            def x4to3(x):
-                # convert 4-vector to 3-vector
-                return (x[0], x[1], x[2])
-
-            def cameralight_transform(light, xform, light_type):
-                # transform light by 4x4 matrix xform
-                origin = x3to4(light.position)
-                focus = x3to4(light.focal_point)
-                neworigin = xform.multiply_point(origin)
-                newfocus = xform.multiply_point(focus)
-                light.position = x4to3(neworigin)
-                light.focal_point = x4to3(newfocus)
-                light.light_type = light_type
-            ########################################
-
-            save_lights_type = []
-            for light in self.light_manager.lights:
-                save_lights_type.append(light.source.light_type)
-
-            # Convert lights to scene lights.
-            cam = self.camera
-            xform = tvtk.Matrix4x4()
-            xform.deep_copy(cam.camera_light_transform_matrix)
-            for light in self.light_manager.lights:
-                cameralight_transform(light.source, xform, "scene_light")
-
-            # Write the RIB file.
-            self._exporter_write(ex)
-
-            # Now re-convert lights to camera lights.
-            xform.invert()
-            for i, light in enumerate(self.light_manager.lights):
-                cameralight_transform(light.source, xform, save_lights_type[i])
-
-            # Change the camera position. Otherwise VTK would render
-            # one broken frame after the export.
-            cam.roll(0.5)
-            cam.roll(-0.5)
-        else:
-            self._exporter_write(ex)
+        self._exporter_write(ex)
 
     def save_wavefront(self, file_name):
         """Save scene to a Wavefront OBJ file.  Two files are

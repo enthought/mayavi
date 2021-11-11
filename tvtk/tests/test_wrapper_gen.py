@@ -60,10 +60,11 @@ class TestWrapperGenerator(unittest.TestCase):
 
     def test_unicode_return_value(self):
         wg = self.wg
-
         meth = vtk.vtkDelimitedTextReader.GetUnicodeRecordDelimiters
+        expect = 'unicode' if '-> unicode' in meth.__doc__ else 'string'
         sig = wg.parser.get_method_signature(meth)
-        self.assertEqual(sig[0][0][0], 'unicode')
+        self.assertEqual(sig[0][0][0], expect)
+
 
 if __name__ == "__main__":
     unittest.main()

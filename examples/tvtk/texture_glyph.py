@@ -10,7 +10,7 @@ the input of the Glyph using Python lists.
 # License: BSD Style.
 
 from tvtk.api import tvtk
-from tvtk.common import is_old_pipeline, configure_input_data, configure_source_data
+from tvtk.common import configure_input_data, configure_source_data
 
 # Source for glyph.  Note that you need to pick a source that has
 # texture co-ords already set.  If not you'll have to generate them.
@@ -54,10 +54,7 @@ a = tvtk.Actor(mapper=m)
 # will do (you must use a suitable reader though).
 img = tvtk.JPEGReader(file_name='images/masonry.jpg')
 t = tvtk.Texture(interpolate = 1)
-if is_old_pipeline():
-    t.input = img.output
-else:
-    t.input_connection = img.output_port
+t.input_connection = img.output_port
 a.texture = t
 
 # Renderwindow stuff and add actor.

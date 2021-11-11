@@ -143,7 +143,7 @@ class VTKDocMassager:
     def __init__(self):
         self.renamer = re.compile(r'(vtk[A-Z0-9]\S+)')
         self.ren_func = lambda m: get_tvtk_name(m.group(1))
-        self.func_re = re.compile(r'([a-z0-9]+[A-Z])')
+        self.func_re = re.compile(r'([A-Z][a-z0-9]+[A-Z]\w+)')
         self.cpp_method_re = re.compile(r'C\+\+: .*?;\n*')
 
     #################################################################
@@ -226,7 +226,7 @@ class VTKDocMassager:
     def get_method_doc(self, doc):
         """Return processed method documentation string from `doc`.
 
-        The method signature is appopriately massaged.
+        The method signature is appropriately massaged.
 
         Parameters
         ----------
@@ -234,11 +234,14 @@ class VTKDocMassager:
 
           The documentation string.
         """
-        orig_name = doc[2:doc.find('(')]
+        if doc.startswith('V.'):  # VTK < 9.1.0, e.g., V.GetAddre...
+            doc = doc.replace('V.', '')
+        # VTK > 9.1.0 has just GetAddre...
+        orig_name = doc[:doc.find('(')]
         name = camel2enthought(orig_name)
         my_sig = self._rename_class(doc[:doc.find('\n\n')])
         my_sig = self.cpp_method_re.sub('', my_sig)
-        my_sig = my_sig.replace('V.'+orig_name, 'V.'+name)
+        my_sig = my_sig.replace(orig_name+'(', name+'(')
         ret = self.massage(self._remove_sig(doc))
         if ret:
             return my_sig + '\n' + ret
@@ -278,9 +281,8 @@ class VTKDocMassager:
                 if word[:3] == 'vtk':
                     nw.append(word)
                 else:
-                    if self.func_re.search(word):
-                        nw.append(camel2enthought(word))
-                    else:
-                        nw.append(word)
+                    nw.append(self.func_re.sub(
+                        lambda mo: camel2enthought(mo.group()), word
+                    ))
             nl.append(' '.join(nw))
         return '\n'.join(nl)

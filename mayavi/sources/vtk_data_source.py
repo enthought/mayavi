@@ -22,7 +22,7 @@ from apptools.persistence.state_pickler \
 from tvtk.api import tvtk
 from tvtk import messenger
 from tvtk.array_handler import array2vtk
-from tvtk.common import is_old_pipeline, configure_input_data
+from tvtk.common import configure_input_data
 from mayavi.core.source import Source
 from mayavi.core.common import handle_children_state
 from mayavi.core.trait_defs import DEnum
@@ -164,20 +164,14 @@ class VTKDataSource(Source):
         data = self.data
         if data is not None:
             sdata = write_dataset_to_string(data)
-            if sys.version_info[0] > 2:
-                z = gzip_string(sdata.encode('ascii'))
-            else:
-                z = gzip_string(sdata)
+            z = gzip_string(sdata.encode('ascii'))
             d['data'] = z
         return d
 
     def __set_pure_state__(self, state):
         z = state.data
         if z is not None:
-            if sys.version_info[0] > 2:
-                d = gunzip_string(z).decode('ascii')
-            else:
-                d = gunzip_string(z)
+            d = gunzip_string(z).decode('ascii')
             r = tvtk.DataSetReader(read_from_input_string=1,
                                    input_string=d)
             warn = r.global_warning_display
@@ -347,9 +341,6 @@ class VTKDataSource(Source):
             # get garbage rendered or worse.
             s = getattr(dataset, attr_type + '_data').scalars
             r = s.range
-            if is_old_pipeline():
-                dataset.scalar_type = s.data_type
-                aa.output.scalar_type = s.data_type
         aa.update()
         # Fire an event, so the changes propagate.
         self.data_changed = True
@@ -384,9 +375,6 @@ class VTKDataSource(Source):
             # the data through to prevent some really strange errors
             # when using an ImagePlaneWidget.
             r = scalars.range
-            if is_old_pipeline():
-                self._assign_attribute.output.scalar_type = scalars.data_type
-                self.data.scalar_type = scalars.data_type
 
         def _setup_data_traits(obj, attributes, d_type):
             """Given the object, the dict of the attributes from the

@@ -1,13 +1,18 @@
 """This module generates tvtk (Traited VTK) classes from the VTK-Python API.
 
+This can be evoked for example by:
+
+..code-block:: console
+
+    $ python -ic "from tvtk.code_gen import main; main()" -szv
+
+On failures you can then for example do ``import pdb; pdb.pm()`` to do
+post-mortem debugging.
 """
 # Author: Prabhu Ramachandran
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
-import vtk_module as vtk
 import os
 import os.path
 import zipfile
@@ -15,6 +20,7 @@ import tempfile
 import shutil
 import glob
 import logging
+import traceback
 from optparse import OptionParser
 import sys
 
@@ -24,10 +30,12 @@ try:
     from .common import get_tvtk_name, camel2enthought
     from .wrapper_gen import WrapperGenerator
     from .special_gen import HelperGenerator
+    from . import vtk_module as vtk
 except SystemError:
     from common import get_tvtk_name, camel2enthought
     from wrapper_gen import WrapperGenerator
     from special_gen import HelperGenerator
+    import vtk_module as vtk
 
 
 logger = logging.getLogger(__name__)
@@ -134,8 +142,9 @@ class TVTKGenerator:
                             self._write_wrapper_class(node, tvtk_name)
                         except Exception:
                             print('\n\nFailed on %s\n(#%d of %d nodes, #%d of '
-                                  '%d subnodes)\n'
-                                  % (tvtk_name, ti, len(tree), ni, len(nodes)))
+                                  '%d subnodes):\n%s\n'
+                                  % (tvtk_name, ti, len(tree), ni, len(nodes),
+                                     traceback.format_exc()))
                             raise
                         helper_gen.add_class(tvtk_name, helper_file)
 
@@ -222,10 +231,7 @@ class TVTKGenerator:
         # The only reason this method is separate is to generate code
         # for an individual class when debugging.
         fname = camel2enthought(tvtk_name) + '.py'
-        if sys.version_info[0] > 2:
-            out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
-        else:
-            out = open(os.path.join(self.out_dir, fname), 'w')
+        out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
         self.wrap_gen.generate_code(node, out)
         out.close()
 
