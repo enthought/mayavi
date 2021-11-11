@@ -51,7 +51,8 @@ cylinder_mapper = tvtk.PolyDataMapper()
 configure_input_data(cylinder_mapper, cylinder.output)
 cylinder.update()
 p = tvtk.Property(opacity=0.3, color=(0, 0, 1))
-cylinder_actor = tvtk.Actor(position=(7, 0, 1), mapper=cylinder_mapper, property=p, orientation=(90, 0, 90))
+cylinder_actor = tvtk.Actor(position=(7, 0, 1), mapper=cylinder_mapper,
+                            property=p, orientation=(90, 0, 90))
 v.scene.add_actor(cylinder_actor)
 
 # Create a line between the two spheres
