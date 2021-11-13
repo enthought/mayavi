@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Installation &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installation &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Installation</a></li> 
       </ul>
     </div>  
@@ -75,7 +74,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="installation">
+  <div class="section" id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="topic">
 <p class="topic-title">Section summary</p>
@@ -104,13 +103,13 @@ this. On 2.7.x you have more options, and can use <a class="reference external" 
 <a class="reference external" href="https://github.com/enthought/traitsui">traitsui</a>, <a class="reference external" href="https://github.com/enthought/pyface">pyface</a>, and other ETS packages do not yet support it so the UI
 will not work correctly. Older versions should work. PyQt/PySide should work
 largely out of the box. PySide2 is still young so YMMV.</p>
-<section id="installing-with-pip">
+<div class="section" id="installing-with-pip">
 <span id="install-with-pip"></span><h2>Installing with <cite>pip</cite><a class="headerlink" href="#installing-with-pip" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> is the <a class="reference external" href="https://packaging.python.org/en/latest/current/">PyPA</a> recommended tool for installing Python packages from <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a>.
 The latest version of Mayavi available on PyPI can be found
 <a class="reference external" href="https://pypi.python.org/pypi/mayavi">here</a>.</p>
 <p>Required python packages can be automatically fetched and installed with <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>.</p>
-<section id="latest-stable-release">
+<div class="section" id="latest-stable-release">
 <h3>Latest stable release<a class="headerlink" href="#latest-stable-release" title="Permalink to this headline">¶</a></h3>
 <p>As of the latest release, i.e. 4.6.0 and above, if you are using Python 3.x
 and are on a 64 bit machine, installation via <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> is the easiest and is as
@@ -131,9 +130,9 @@ $ jupyter nbextension enable --py mayavi --user
 </div>
 <p>You will also need to have <a class="reference external" href="https://ipywidgets.readthedocs.io">ipywidgets</a> and <a class="reference external" href="https://github.com/mwcraig/ipyevents">ipyevents</a> installed. These can be
 installed via pip or your favorite package manager.</p>
-</section>
-</section>
-<section id="bleeding-edge">
+</div>
+</div>
+<div class="section" id="bleeding-edge">
 <span id="installing-git"></span><h2>Bleeding edge<a class="headerlink" href="#bleeding-edge" title="Permalink to this headline">¶</a></h2>
 <p>If you want to install the latest version of Mayavi from github, you can
 simply do the following:</p>
@@ -152,8 +151,8 @@ feature of an unreleased component.  The ETS packages that Mayavi
 depends on are <a class="reference external" href="https://github.com/enthought/apptools">apptools</a>, <a href="#id4"><span class="problematic" id="id5">traits_</span></a>, <a class="reference external" href="https://github.com/enthought/traitsui">traitsui</a>, <a class="reference external" href="https://github.com/enthought/pyface">pyface</a>, and <a href="#id6"><span class="problematic" id="id7">envisage_</span></a>.
 In case one of these are required these can also be installed via git.
 They are all relatively easy to install packages.</p>
-</section>
-<section id="installing-ready-made-distributions">
+</div>
+<div class="section" id="installing-ready-made-distributions">
 <h2>Installing ready-made distributions<a class="headerlink" href="#installing-ready-made-distributions" title="Permalink to this headline">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Windows</dt>
@@ -219,8 +218,8 @@ $ conda install -c menpo mayavi
 </pre></div>
 </div>
 <p>You should be all set with this.  As of Mayavi 4.6.0 you can also use <code class="docutils literal notranslate"><span class="pre">pyqt=5</span></code>.</p>
-</section>
-<section id="installing-with-conda-forge">
+</div>
+<div class="section" id="installing-with-conda-forge">
 <h2>Installing with <cite>Conda-forge</cite><a class="headerlink" href="#installing-with-conda-forge" title="Permalink to this headline">¶</a></h2>
 <p>Conda-forge is a community-led conda channel of installable packages. For more information on conda-forge, you can vist their their <a class="reference external" href="https://conda-forge.org">website</a>.</p>
 <p>Follow these steps to install using conda-forge:</p>
@@ -247,8 +246,8 @@ $ conda install pyqt=4
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install mayavi
 </pre></div>
 </div>
-</section>
-<section id="testing-your-installation">
+</div>
+<div class="section" id="testing-your-installation">
 <h2>Testing your installation<a class="headerlink" href="#testing-your-installation" title="Permalink to this headline">¶</a></h2>
 <p>The easiest way to test if your installation is OK is to run the mayavi2
 application like so:</p>
@@ -273,7 +272,7 @@ from the github repository, you can run the examples in
 <code class="docutils literal notranslate"><span class="pre">mayavi*/examples</span></code>.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
 <code class="docutils literal notranslate"><span class="pre">mayavi*/tests</span></code> sub-directory.</p>
-<section id="test-suite">
+<div class="section" id="test-suite">
 <h3>Test suite<a class="headerlink" href="#test-suite" title="Permalink to this headline">¶</a></h3>
 <p>The basic test suites for tvtk and mayavi can be run using nose:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">-</span><span class="n">v</span> <span class="n">tvtk</span><span class="o">/</span><span class="n">tests</span>
@@ -285,15 +284,15 @@ illustrating various features.  Tests are available in the
 <span class="n">python</span> <span class="n">run</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="troubleshooting">
+</div>
+</div>
+<div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>If you are having trouble with the installation you may want to check
 the <a class="reference internal" href="misc.html#getting-help"><span class="std std-ref">Getting help</span></a> page for more details on how you can search for
 information or email the mailing list.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -366,14 +365,14 @@ information or email the mailing list.</p>
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Installation</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

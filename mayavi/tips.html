@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Tips and Tricks &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tips and Tricks &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Tips and Tricks</a></li> 
       </ul>
     </div>  
@@ -75,11 +74,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="tips-and-tricks">
+  <div class="section" id="tips-and-tricks">
 <h1>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h1>
 <p>Below are a few tips and tricks that you may find useful when you use
 Mayavi2.</p>
-<section id="using-mayavi-in-jupyter-notebooks">
+<div class="section" id="using-mayavi-in-jupyter-notebooks">
 <span id="jupyter-notebook"></span><h2>Using Mayavi in Jupyter notebooks<a class="headerlink" href="#using-mayavi-in-jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
 <p>There are three different ways in which one can embed Mayavi
 visualizations in a Jupyter notebook.  The best way is to use the
@@ -148,10 +147,10 @@ scenes have a lot of polygons, these files can be large.  With the PNG
 backend, the PNG’s are also embedded and these are smaller files.  The
 PNG backend relies on offscreen rendering working correctly on your
 platform.</p>
-</section>
-<section id="off-screen-rendering">
+</div>
+<div class="section" id="off-screen-rendering">
 <span id="offscreen-rendering"></span><h2>Off screen rendering<a class="headerlink" href="#off-screen-rendering" title="Permalink to this headline">¶</a></h2>
-<section id="avoiding-the-rendering-window">
+<div class="section" id="avoiding-the-rendering-window">
 <h3>Avoiding the rendering window<a class="headerlink" href="#avoiding-the-rendering-window" title="Permalink to this headline">¶</a></h3>
 <p>Often you write Mayavi scripts to render a whole batch of images to make
 an animation or so and find that each time you save an image, Mayavi
@@ -186,8 +185,8 @@ and set the “Off screen rendering” option on.  Or from a script:</p>
 </div>
 <p>This will stop raising the window.  However, this may not be enough.
 Please see below on the situation on different platforms.</p>
-</section>
-<section id="platform-summary">
+</div>
+<div class="section" id="platform-summary">
 <h3>Platform Summary<a class="headerlink" href="#platform-summary" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><strong>Windows</strong>: If you are using win32 then off screen rendering should work
@@ -211,8 +210,8 @@ consider either using a virtual framebuffer or building VTK with Mesa
 + OSMesa to give you a pure software rendering approach.</p>
 </li>
 </ul>
-</section>
-<section id="rendering-using-the-virtual-framebuffer">
+</div>
+<div class="section" id="rendering-using-the-virtual-framebuffer">
 <h3>Rendering using the virtual framebuffer<a class="headerlink" href="#rendering-using-the-virtual-framebuffer" title="Permalink to this headline">¶</a></h3>
 <p>VTK uses openGL for all its rendering. Under any conventional Unix
 (including Linux), you need an Xserver running to open a GL context
@@ -273,8 +272,8 @@ still do off screen rendering.</p>
 </pre></div>
 </div>
 </div>
-</section>
-<section id="using-vtk-with-mesa-for-pure-software-rendering">
+</div>
+<div class="section" id="using-vtk-with-mesa-for-pure-software-rendering">
 <h3>Using VTK with Mesa for pure software rendering<a class="headerlink" href="#using-vtk-with-mesa-for-pure-software-rendering" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you might want to run Mayavi/VTK completely headless on a
 machine with no X server at all and are interested in pure offscreen
@@ -315,8 +314,8 @@ this from the command line you may also do (for example):</p>
 <span class="o">-</span><span class="n">DVTK_USE_OFFSCREEN</span><span class="o">=</span><span class="n">ON</span> \
 <span class="o">-</span><span class="n">DCMAKE_INSTALL_PREFIX</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">vtk</span><span class="o">-</span><span class="n">offscreen</span> \
 <span class="o">-</span><span class="n">DVTK_WRAP_PYTHON</span><span class="o">=</span><span class="n">ON</span> \
-<span class="o">-</span><span class="n">DPYTHON_EXECUTABLE</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python2</span><span class="mf">.5</span> \
-<span class="o">-</span><span class="n">DPYTHON_LIBRARY</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libpython2</span><span class="mf">.5</span><span class="o">.</span><span class="n">so</span> \
+<span class="o">-</span><span class="n">DPYTHON_EXECUTABLE</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">5</span> \
+<span class="o">-</span><span class="n">DPYTHON_LIBRARY</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libpython2</span><span class="o">.</span><span class="mf">5.</span><span class="n">so</span> \
 <span class="o">-</span><span class="n">DBUILD_SHARED_LIBS</span><span class="o">=</span><span class="n">ON</span> \
 <span class="o">-</span><span class="n">DVTK_USE_GL2PS</span><span class="o">=</span><span class="n">ON</span> \
 <span class="o">-</span><span class="n">DOSMESA_INCLUDE_DIR</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">Mesa</span><span class="o">-</span><span class="mf">7.2</span><span class="o">/</span><span class="n">include</span><span class="o">/</span> \
@@ -356,9 +355,9 @@ to explicitly set the render window’s <code class="docutils literal notranslat
 <code class="docutils literal notranslate"><span class="pre">False</span></code> to force a mapped window.  For this reason if you might need
 to popup a full UI, it might be better to <em>not set</em>
 <code class="docutils literal notranslate"><span class="pre">VTK_USE_OFFSCREEN=ON</span></code>.</p>
-</section>
-</section>
-<section id="extending-mayavi-with-customizations">
+</div>
+</div>
+<div class="section" id="extending-mayavi-with-customizations">
 <h2>Extending Mayavi with customizations<a class="headerlink" href="#extending-mayavi-with-customizations" title="Permalink to this headline">¶</a></h2>
 <p>A developer may wish to customize Mayavi by adding new sources, filters
 or modules.  These can be done by writing the respective filters and
@@ -406,7 +405,7 @@ selected packages is stored as the <code class="docutils literal notranslate"><s
 preference option.  The following code shows how this may be accessed
 from a Python script:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.preferences.api</span> <span class="kn">import</span> <span class="n">preference_manager</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">preference_manager</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">contrib_packages</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">preference_manager</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">contrib_packages</span><span class="p">)</span>
 <span class="go">[]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">preference_manager</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span> <span class="c1"># Pop up a UI.</span>
 </pre></div>
@@ -418,8 +417,8 @@ attention to the warnings in that file.  It is a very good idea to
 ensure that the <code class="docutils literal notranslate"><span class="pre">user_mayavi.py</span></code> does not implement any
 sources/modules/filters and only registers the metadata.  This will
 avoid issues with circular imports.</p>
-</section>
-<section id="customizing-mayavi2">
+</div>
+<div class="section" id="customizing-mayavi2">
 <h2>Customizing Mayavi2<a class="headerlink" href="#customizing-mayavi2" title="Permalink to this headline">¶</a></h2>
 <p>There are three ways a user can customize Mayavi:</p>
 <blockquote>
@@ -468,16 +467,16 @@ new modules, we strongly recommend that the modules be defined in
 another module or be defined in a factory function as done in the
 example <code class="docutils literal notranslate"><span class="pre">user_mayavi.py</span></code> provided.</p>
 </div>
-</section>
-<section id="scripting-mayavi-without-using-envisage">
+</div>
+<div class="section" id="scripting-mayavi-without-using-envisage">
 <h2>Scripting Mayavi without using Envisage<a class="headerlink" href="#scripting-mayavi-without-using-envisage" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="auto/example_standalone.html#example-standalone"><span class="std std-ref">Standalone example</span></a> demonstrates how one can use the core
 Mayavi API without using Envisage.  This is useful when you want to
 minimize dependencies.  <a class="reference internal" href="auto/example_offscreen.html#example-offscreen"><span class="std std-ref">Offscreen example</span></a> demonstrates how to use
 Mayavi without the envisage UI or even a traits UI (i.e. with a pure TVTK
 window) and do off screen rendering.</p>
-</section>
-<section id="computing-in-a-thread">
+</div>
+<div class="section" id="computing-in-a-thread">
 <h2>Computing in a thread<a class="headerlink" href="#computing-in-a-thread" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="auto/example_compute_in_thread.html#example-compute-in-thread"><span class="std std-ref">Compute in thread example</span></a> demonstrates how to visualize a 2D
 numpy array and visualize it as image data using a few modules.  It also
@@ -485,8 +484,8 @@ shows how one can do a computation in another thread and update the
 Mayavi pipeline once the computation is done.  This allows a user to
 interact with  the user interface when the computation is performed in
 another thread.</p>
-</section>
-<section id="polling-a-file-and-auto-updating-mayavi">
+</div>
+<div class="section" id="polling-a-file-and-auto-updating-mayavi">
 <h2>Polling a file and auto-updating Mayavi<a class="headerlink" href="#polling-a-file-and-auto-updating-mayavi" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you have a separate computational process that generates data
 suitable for visualization.  You’d like Mayavi to visualize the data but
@@ -495,8 +494,8 @@ computation.  This is easily achieved by polling the data file and
 checking if it has been modified.  The <a class="reference internal" href="auto/example_poll_file.html#example-poll-file"><span class="std std-ref">Poll file example</span></a>
 demonstrates this.  To see it in action will require that you edit the
 scalar data in the <code class="docutils literal notranslate"><span class="pre">examples/data/heart.vtk</span></code> data file.</p>
-</section>
-<section id="serving-mayavi-on-the-network">
+</div>
+<div class="section" id="serving-mayavi-on-the-network">
 <h2>Serving Mayavi on the network<a class="headerlink" href="#serving-mayavi-on-the-network" title="Permalink to this headline">¶</a></h2>
 <p>Say you have a little visualization script and you’d like to run some
 kind of server where you can script the running Mayavi UI from a TCP/UDP
@@ -510,7 +509,7 @@ connection.  It turns out there is a simple way to do this  if you have
 </div>
 <p>There is no need to call <code class="docutils literal notranslate"><span class="pre">mlab.show()</span></code> in the above.  The TCP server
 will listen on port 8007 by default in the above (this can be changed
-with suitable arguments to <code class="xref py py-func docutils literal notranslate"><span class="pre">serve_tcp()</span></code>).  Any data sent to the server
+with suitable arguments to <a class="reference internal" href="#mayavi.tools.server.serve_tcp" title="mayavi.tools.server.serve_tcp"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve_tcp()</span></code></a>).  Any data sent to the server
 is simply exec’d, meaning you can do pretty much anything you want.  The
 names <code class="docutils literal notranslate"><span class="pre">engine</span></code>, <code class="docutils literal notranslate"><span class="pre">scene</span></code>, <code class="docutils literal notranslate"><span class="pre">camera</span></code> and <code class="docutils literal notranslate"><span class="pre">mlab</span></code> are all available
 and can be scripted with Python code.  For example after running the
@@ -528,7 +527,7 @@ scene.camera.zoom(1.5)
 <p>The nice thing about this is that you do not loose any interactivity of
 the application and can continue to use its UI as before, any network
 commands will be simply run on top of this.  To serve on a UDP port use
-the <code class="xref py py-func docutils literal notranslate"><span class="pre">serve_udp()</span></code> function.  For more details on the <code class="docutils literal notranslate"><span class="pre">server</span></code> module
+the <a class="reference internal" href="#mayavi.tools.server.serve_udp" title="mayavi.tools.server.serve_udp"><code class="xref py py-func docutils literal notranslate"><span class="pre">serve_udp()</span></code></a> function.  For more details on the <code class="docutils literal notranslate"><span class="pre">server</span></code> module
 please look at the source code – it is thoroughly documented.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -536,14 +535,112 @@ please look at the source code – it is thoroughly documented.</p>
 since the remote user can do pretty much anything they want once
 connected to the server.</p>
 </div>
-<section id="tcp-server-the-serve-tcp-function">
+<div class="section" id="tcp-server-the-serve-tcp-function">
 <h3>TCP server: the <cite>serve_tcp</cite> function<a class="headerlink" href="#tcp-server-the-serve-tcp-function" title="Permalink to this headline">¶</a></h3>
-</section>
-<section id="udp-server-the-serve-udp-function">
+<dl class="py function">
+<dt id="mayavi.tools.server.serve_tcp">
+<code class="sig-prename descclassname"><span class="pre">mayavi.tools.server.</span></code><code class="sig-name descname"><span class="pre">serve_tcp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">engine=None</span></em>, <em class="sig-param"><span class="pre">port=8007</span></em>, <em class="sig-param"><span class="pre">logto=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></em>, <em class="sig-param"><span class="pre">max_connect=1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.server.serve_tcp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serve the <cite>M2TCP</cite> protocol using the given <cite>engine</cite> on the
+specified <cite>port</cite> logging messages to given <cite>logto</cite> which is a
+file-like object.  This function will block till the service is
+closed.  There is no need to call <cite>mlab.show()</cite> after or before
+this.  The Mayavi UI will be fully responsive.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">engine</dt>
+<dd class="field-odd"><p>Mayavi engine to use. If this is <cite>None</cite>,
+<cite>mlab.get_engine()</cite> is used to find an appropriate engine.</p>
+</dd>
+<dt class="field-even">port</dt>
+<dd class="field-even"><p>int: port to serve on.</p>
+</dd>
+<dt class="field-odd">logto</dt>
+<dd class="field-odd"><p>file: File like object to log messages to.  If this is
+<cite>None</cite> it disables logging.</p>
+</dd>
+<dt class="field-even">max_connect</dt>
+<dd class="field-even"><p>int: Maximum number of simultaneous connections to
+support.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Examples</strong></p>
+<p>Here is a very simple example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">mayavi.tools</span> <span class="kn">import</span> <span class="n">server</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">test_plot3d</span><span class="p">()</span>
+<span class="n">server</span><span class="o">.</span><span class="n">serve_tcp</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The TCP server will listen on port 8007 by default in the above.
+Any data sent to the server is simply exec’d, meaning you can do
+pretty much anything you want.  The <cite>engine</cite>, <cite>scene</cite>, <cite>camera</cite> and
+<cite>mlab</cite> are all available and can be used.  For example after running
+the above you can do this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ telnet localhost 8007
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is &#39;^]&#39;.
+scene.camera.azimuth(45)
+mlab.clf()
+mlab.test_contour3d()
+scene.camera.zoom(1.5)
+</pre></div>
+</div>
+<p><strong>Warning</strong></p>
+<p>Data sent is exec’d so this is a security hole.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="udp-server-the-serve-udp-function">
 <h3>UDP server: the <cite>serve_udp</cite> function<a class="headerlink" href="#udp-server-the-serve-udp-function" title="Permalink to this headline">¶</a></h3>
-</section>
-</section>
-<section id="animating-a-timeseries">
+<dl class="py function">
+<dt id="mayavi.tools.server.serve_udp">
+<code class="sig-prename descclassname"><span class="pre">mayavi.tools.server.</span></code><code class="sig-name descname"><span class="pre">serve_udp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">engine=None</span></em>, <em class="sig-param"><span class="pre">port=9007</span></em>, <em class="sig-param"><span class="pre">logto=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.server.serve_udp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serve the <cite>M2UDP</cite> protocol using the given <cite>engine</cite> on the
+specified <cite>port</cite> logging messages to given <cite>logto</cite> which is a
+file-like object.  This function will block till the service is
+closed.  There is no need to call <cite>mlab.show()</cite> after or before
+this.  The Mayavi UI will be fully responsive.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">engine</dt>
+<dd class="field-odd"><p>Mayavi engine to use. If this is <cite>None</cite>,
+<cite>mlab.get_engine()</cite> is used to find an appropriate engine.</p>
+</dd>
+<dt class="field-even">port</dt>
+<dd class="field-even"><p>int: port to serve on.</p>
+</dd>
+<dt class="field-odd">logto</dt>
+<dd class="field-odd"><p>file : File like object to log messages to.  If this is
+<cite>None</cite> it disables logging.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Examples</strong></p>
+<p>Here is a very simple example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">mayavi.tools</span> <span class="kn">import</span> <span class="n">server</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">test_plot3d</span><span class="p">()</span>
+<span class="n">server</span><span class="o">.</span><span class="n">serve_udp</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Test it like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">9008</span><span class="p">))</span>
+<span class="n">s</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="s1">&#39;camera.azimuth(10)&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">9007</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Warning</strong></p>
+<p>Data sent is exec’d so this is a security hole.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="animating-a-timeseries">
 <span id="id1"></span><h2>Animating a timeseries<a class="headerlink" href="#animating-a-timeseries" title="Permalink to this headline">¶</a></h2>
 <p>If a file that mayavi can load has the form <code class="docutils literal notranslate"><span class="pre">some_name[0-9]*.ext</span></code>,
 then it is treated as part of a timeseries.  For example let us say
@@ -568,8 +665,8 @@ choose the “sync timestep” option.  This will sync all the timesteps
 of the other files that have the same number of timesteps as the
 current reader. The “Rescan files” button will rescan the files on the
 disc to find newer ones that are part of the timeseries.</p>
-</section>
-<section id="animating-a-visualization">
+</div>
+<div class="section" id="animating-a-visualization">
 <span id="id2"></span><h2>Animating a visualization<a class="headerlink" href="#animating-a-visualization" title="Permalink to this headline">¶</a></h2>
 <p>Often users like to animate visualization without affecting the
 interactive capabilities of the view.  For example you may want to
@@ -638,7 +735,7 @@ alongside with the <cite>visual</cite> handy for object-movement animation, see
 <p>If you want to change the data of an object in an animation, see
 <a class="reference internal" href="mlab_animating.html#mlab-animating-data"><span class="std std-ref">Animating the data</span></a></p>
 </div>
-<section id="creating-a-movie-from-an-animation">
+<div class="section" id="creating-a-movie-from-an-animation">
 <h3>Creating a movie from an animation<a class="headerlink" href="#creating-a-movie-from-an-animation" title="Permalink to this headline">¶</a></h3>
 <p>It is easy to create a movie from either an animation or by playing a
 timeseries.  To do this on the UI, select the Mayavi Scene and
@@ -656,8 +753,8 @@ one runs an animation as discussed in <a class="reference internal" href="#anima
 </div>
 <p>This will create a set of images, one for each step of the animation.
 The <code class="docutils literal notranslate"><span class="pre">movie_maker</span></code> instance is available on each created scene.</p>
-</section>
-<section id="animating-a-series-of-images">
+</div>
+<div class="section" id="animating-a-series-of-images">
 <h3>Animating a series of images<a class="headerlink" href="#animating-a-series-of-images" title="Permalink to this headline">¶</a></h3>
 <p>Let’s say you have a stack of PNG or JPEG files that are numbered
 serially that you want to animate on a Mayavi scene.  Here is a simple
@@ -687,8 +784,8 @@ the first data source by default.  This may be changed easily.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mayavi2 -d your_image000.png -m ImageActor -x img_movie.py
 </pre></div>
 </div>
-</section>
-<section id="making-movies-from-a-stack-of-images">
+</div>
+<div class="section" id="making-movies-from-a-stack-of-images">
 <h3>Making movies from a stack of images<a class="headerlink" href="#making-movies-from-a-stack-of-images" title="Permalink to this headline">¶</a></h3>
 <p>This isn’t really related to Mayavi but is a useful trick nonetheless.
 Let’s say you generate a stack of images using Mayavi say of the form
@@ -703,9 +800,9 @@ this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ffmpeg -f image2 -r 10 -i anim%03d.png -sameq anim.mov -pass 2
 </pre></div>
 </div>
-</section>
-</section>
-<section id="scripting-from-the-command-line">
+</div>
+</div>
+<div class="section" id="scripting-from-the-command-line">
 <h2>Scripting from the command line<a class="headerlink" href="#scripting-from-the-command-line" title="Permalink to this headline">¶</a></h2>
 <p>The Mayavi application allows for very powerful
 <a class="reference internal" href="application.html#command-line-arguments"><span class="std std-ref">Command line arguments</span></a> that lets you build a complex
@@ -730,8 +827,8 @@ display:</p>
 </pre></div>
 </div>
 <p>Note the use of <code class="docutils literal notranslate"><span class="pre">last_obj</span></code> in the above.</p>
-</section>
-<section id="texture-mapping-actors">
+</div>
+<div class="section" id="texture-mapping-actors">
 <h2>Texture mapping actors<a class="headerlink" href="#texture-mapping-actors" title="Permalink to this headline">¶</a></h2>
 <p>Here is a simple example showing how to texture map an iso-surface with
 the data that ships with the Mayavi sources (the data files are in the
@@ -750,8 +847,8 @@ examples directory):</p>
 Notice how the texture image (<code class="docutils literal notranslate"><span class="pre">masonry.jpg</span></code>) is set in the last line
 of the above.  The image reader is the first child of the current scene
 and we set it as the <code class="docutils literal notranslate"><span class="pre">texture_source_object</span></code> of the isosurface actor.</p>
-</section>
-<section id="shifting-data-and-plotting">
+</div>
+<div class="section" id="shifting-data-and-plotting">
 <h2>Shifting data and plotting<a class="headerlink" href="#shifting-data-and-plotting" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you need to shift/transform your input data in space and
 visualize that in addition to the original data.  This is useful when
@@ -776,8 +873,8 @@ filter.  Here is a simple example with the standard Mayavi image data:</p>
 -m Outline -m ImagePlaneWidget
 </pre></div>
 </div>
-</section>
-<section id="using-the-userdefined-filter">
+</div>
+<div class="section" id="using-the-userdefined-filter">
 <span id="using-userdefined-filter"></span><h2>Using the <code class="docutils literal notranslate"><span class="pre">UserDefined</span></code> filter<a class="headerlink" href="#using-the-userdefined-filter" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">UserDefined</span></code> filter in Mayavi lets you wrap around existing VTK
 filters easily.  Here are a few examples:</p>
@@ -813,8 +910,8 @@ filter object.</p>
 UserDefined filter. The <a class="reference internal" href="auto/example_tvtk_segmentation.html#example-tvtk-segmentation"><span class="std std-ref">Tvtk segmentation example</span></a> is a full
 example of building a complex VTK pipeline with a heavy use of the
 UserDefined filter.</p>
-</section>
-<section id="sharing-the-same-data-between-scenes">
+</div>
+<div class="section" id="sharing-the-same-data-between-scenes">
 <span id="sharing-data-between-scenes"></span><h2>Sharing the same data between scenes<a class="headerlink" href="#sharing-the-same-data-between-scenes" title="Permalink to this headline">¶</a></h2>
 <p>If you want to display different views of the same data on different, you
 will have to create different Mayavi data sources, as a data source can
@@ -823,7 +920,7 @@ the data, or recreate the source from scratch. The trick is to create a
 second Mayavi data source pointing to the same underlying VTK dataset,
 and attach it to another scene (see <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>
 for the difference between a Mayavi source and a VTK dataset).</p>
-<section id="using-mlab">
+<div class="section" id="using-mlab">
 <h3>Using mlab<a class="headerlink" href="#using-mlab" title="Permalink to this headline">¶</a></h3>
 <p>Every visualization object returned by <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab</span></a> has a <cite>mlab_source</cite> attribute, which
 exposes the VTK dataset as <cite>dataset</cite>. In addition, the <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">mlab
@@ -852,8 +949,8 @@ rather than a script:</p>
 </div>
 <p>The <a class="reference internal" href="auto/example_volume_slicer.html#example-volume-slicer"><span class="std std-ref">Volume slicer example</span></a> shows a complex dialog exposing the same
 data through different views via <cite>mlab.pipeline</cite>.</p>
-</section>
-<section id="using-the-core-mayavi-api">
+</div>
+<div class="section" id="using-the-core-mayavi-api">
 <h3>Using the core Mayavi API<a class="headerlink" href="#using-the-core-mayavi-api" title="Permalink to this headline">¶</a></h3>
 <p>You can also do this fully explicitly by creating the objects yourself
 through the Mayavi core api, and adding them to the pipeline, rather than
@@ -871,9 +968,9 @@ using factories:</p>
 <span class="n">scene2</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">src2</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="changing-the-interaction-with-a-scene">
+</div>
+</div>
+<div class="section" id="changing-the-interaction-with-a-scene">
 <h2>Changing the interaction with a scene<a class="headerlink" href="#changing-the-interaction-with-a-scene" title="Permalink to this headline">¶</a></h2>
 <p>The default 3D interaction with the scene (left click on the background
 rotates the scene, right click scales, middle click pans) is not suited
@@ -905,8 +1002,8 @@ pointing in the ‘z’ direction:</p>
 display the VTK class browser (via the help menu, in the <cite>mayavi2</cite>
 application) and to search for “Interactor”. Another option is to tab
 complete on Ipython, on <cite>tvtk.InteractorStyle</cite>.</p>
-</section>
-<section id="accelerating-a-mayavi-script">
+</div>
+<div class="section" id="accelerating-a-mayavi-script">
 <span id="acceleration-mayavi-scripts"></span><h2>Accelerating a Mayavi script<a class="headerlink" href="#accelerating-a-mayavi-script" title="Permalink to this headline">¶</a></h2>
 <p>You’ve just created a nice Mayavi/mlab script and now want to generate
 an animation or a series of images.  You realize that it is way too slow
@@ -934,8 +1031,8 @@ in the rendered image but any smooth lines will now appear slightly
 jagged. However, the rendering will be much faster.  So if this is
 acceptable (try it) this is a mechanism to speed up the generation of
 images.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -1032,14 +1129,14 @@ images.</p>
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Tips and Tricks</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

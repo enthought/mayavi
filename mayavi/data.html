@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Data representation in Mayavi &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data representation in Mayavi &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Data representation in Mayavi</a></li> 
       </ul>
@@ -76,7 +75,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="data-representation-in-mayavi">
+  <div class="section" id="data-representation-in-mayavi">
 <span id="data-structures-used-by-mayavi"></span><h1>Data representation in Mayavi<a class="headerlink" href="#data-representation-in-mayavi" title="Permalink to this headline">¶</a></h1>
 <p>Describing data in three dimensions in the general case is a complex
 problem. Mayavi helps you focus on your visualization work and not worry
@@ -114,7 +113,7 @@ sources</cite>. There is a finite and small number of datasets. However,
 many pipeline objects could be constructed to fit in the pipeline
 below a scene and providing datasets to the pipeline.</p>
 </div>
-<section id="introduction-to-tvtk-datasets">
+<div class="section" id="introduction-to-tvtk-datasets">
 <h2><a class="toc-backref" href="#id1">Introduction to TVTK datasets</a><a class="headerlink" href="#introduction-to-tvtk-datasets" title="Permalink to this headline">¶</a></h2>
 <p>Mayavi uses the VTK library for all its visualization needs, via TVTK
 (Traited VTK). The data is exposed internally, by the sources, or at the
@@ -165,8 +164,8 @@ the operation is:</p>
 </div>
 </div>
 <p>An complete list of the VTK datasets used by Mayavi is given <a class="reference external" href="dissection_vtk_datasets">below</a>, after a tour of the Mayavi pipeline.</p>
-</section>
-<section id="the-flow-of-data">
+</div>
+<div class="section" id="the-flow-of-data">
 <h2><a class="toc-backref" href="#id2">The flow of data</a><a class="headerlink" href="#the-flow-of-data" title="Permalink to this headline">¶</a></h2>
 <p>As described <a class="reference internal" href="overview.html#pipeline-model"><span class="std std-ref">earlier</span></a>, Mayavi builds visualization by
 assembling pipelines, where the data is loaded in Mayavi by a <cite>data
@@ -207,10 +206,10 @@ example:</p>
 </pre></div>
 </div>
 </div>
-</section>
-<section id="retrieving-the-data-from-mayavi-pipelines">
+</div>
+<div class="section" id="retrieving-the-data-from-mayavi-pipelines">
 <span id="retrieving-data"></span><h2><a class="toc-backref" href="#id3">Retrieving the data from Mayavi pipelines</a><a class="headerlink" href="#retrieving-the-data-from-mayavi-pipelines" title="Permalink to this headline">¶</a></h2>
-<section id="probing-data-at-given-positions">
+<div class="section" id="probing-data-at-given-positions">
 <h3>Probing data at given positions<a class="headerlink" href="#probing-data-at-given-positions" title="Permalink to this headline">¶</a></h3>
 <p>If you simply want to retrieve the data values described by a Mayavi
 object a given position in space, you can use the
@@ -228,13 +227,13 @@ connectivity information:</p>
 </div>
 <p>and visualize these points for debugging:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">glyph</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">scale_mode</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
-<span class="gp">... </span>                                <span class="n">scale_factor</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+<span class="gp">... </span>                                <span class="n">scale_factor</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The resulting data is not defined in the volume, but only at the given
 position: as there is no connectivity information, Mayavi cannot
 interpolate between the points:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">array([ 0. ])</span>
 </pre></div>
 </div>
@@ -245,24 +244,24 @@ interpolate between the points:</p>
 <p>Now you can probe the value of the volumetric data anywhere. It will be
 non zero in the convex hull of the points:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe in the center of the cloud of points</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">array([ 0.78386768])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe on the initial points</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_probed</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">data_probed</span><span class="p">)</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Probe outside the cloud</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">probe_data</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">array([ 0.])</span>
 </pre></div>
 </div>
-</section>
-<section id="inspecting-the-internals-of-the-data-structures">
+</div>
+<div class="section" id="inspecting-the-internals-of-the-data-structures">
 <h3>Inspecting the internals of the data structures<a class="headerlink" href="#inspecting-the-internals-of-the-data-structures" title="Permalink to this headline">¶</a></h3>
 <p>You may be interested in the data carried by the TVTK datasets themselves,
 rather than the values they represent, for instance to replicate them.
 For this, you can retrieve the TVTK datasets, and inspect them.</p>
-<section id="extracting-data-points-and-values">
+<div class="section" id="extracting-data-points-and-values">
 <h4>Extracting data points and values<a class="headerlink" href="#extracting-data-points-and-values" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>The positions of all the points of a TVTK dataset can be accessed via its
@@ -294,8 +293,8 @@ in the cells, and it is scalar data:</p>
 </pre></div>
 </div>
 </div></blockquote>
-</section>
-<section id="extracting-lines">
+</div>
+<div class="section" id="extracting-lines">
 <h4>Extracting lines<a class="headerlink" href="#extracting-lines" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><p>If we want to extract the edges of the Delaunay tessellation, we can
@@ -323,9 +322,9 @@ of indices.</p>
 <p>A full example illustrating how to use the VTK Delaunay filter to extract
 a graph is given in <a class="reference internal" href="auto/example_delaunay_graph.html#example-delaunay-graph"><span class="std std-ref">Delaunay graph example</span></a>.</p>
 </div></blockquote>
-</section>
-</section>
-<section id="headless-use-of-mayavi-for-the-algorithms-without-visualization">
+</div>
+</div>
+<div class="section" id="headless-use-of-mayavi-for-the-algorithms-without-visualization">
 <h3>Headless use of Mayavi for the algorithms, without visualization<a class="headerlink" href="#headless-use-of-mayavi-for-the-algorithms-without-visualization" title="Permalink to this headline">¶</a></h3>
 <p>As you can see from the above example, it can be interesting to use
 Mayavi just for the numerical algorithm operating on 3D data, as the
@@ -337,9 +336,9 @@ probe the data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="dissection-of-the-different-tvtk-datasets">
+</div>
+</div>
+<div class="section" id="dissection-of-the-different-tvtk-datasets">
 <span id="dissection-vtk-datasets"></span><h2><a class="toc-backref" href="#id4">Dissection of the different TVTK datasets</a><a class="headerlink" href="#dissection-of-the-different-tvtk-datasets" title="Permalink to this headline">¶</a></h2>
 <p>The 5 TVTK structures used are the following (ordered by the cost of
 visualizing them).:</p>
@@ -385,7 +384,7 @@ visualizing them).:</p>
 </tr>
 </tbody>
 </table>
-<section id="imagedata">
+<div class="section" id="imagedata">
 <span id="image-data"></span><h3>ImageData<a class="headerlink" href="#imagedata" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of data points positioned on an orthogonal grid,
 with constant spacing along each axis. The position of the data points
@@ -407,8 +406,8 @@ array, as well as the <cite>mlab.pipeline.scalar_field</cite> and
 <span class="n">i</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
-</section>
-<section id="rectilineargrid">
+</div>
+<div class="section" id="rectilineargrid">
 <h3>RectilinearGrid<a class="headerlink" href="#rectilineargrid" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of data points positioned on an orthogonal grid,
 with arbitrary spacing along the various axis. The position of the data
@@ -425,11 +424,11 @@ origin and the list of spacings of each axis.</p>
 <span class="n">r</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
 <span class="n">r</span><span class="o">.</span><span class="n">x_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">))</span>
 <span class="n">r</span><span class="o">.</span><span class="n">y_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">r</span><span class="o">.</span><span class="n">z_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">r</span><span class="o">.</span><span class="n">z_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
-</section>
-<section id="structuredgrid">
+</div>
+<div class="section" id="structuredgrid">
 <h3>StructuredGrid<a class="headerlink" href="#structuredgrid" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of data points positioned on arbitrary grid: each
 point is connected to its nearest neighbors on the data array. The
@@ -483,8 +482,8 @@ arrays, specifying x, y and z for each point.</p>
 <span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 </pre></div>
 </div>
-</section>
-<section id="polydata">
+</div>
+<div class="section" id="polydata">
 <span id="poly-data"></span><h3>PolyData<a class="headerlink" href="#polydata" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is made of arbitrarily positioned data points that can
 be connected to form lines, or grouped in polygons to from surfaces
@@ -512,8 +511,8 @@ created by the <cite>mlab.pipeline.scalar_scatter</cite> and
 <span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 </pre></div>
 </div>
-</section>
-<section id="unstructuredgrid">
+</div>
+<div class="section" id="unstructuredgrid">
 <h3>UnstructuredGrid<a class="headerlink" href="#unstructuredgrid" title="Permalink to this headline">¶</a></h3>
 <p>This dataset is the most general dataset of all. It is made of data
 points positioned arbitrarily. The connectivity between data points
@@ -564,8 +563,8 @@ has been modified:</p>
 </pre></div>
 </div>
 </div>
-</section>
-<section id="external-references">
+</div>
+<div class="section" id="external-references">
 <h3>External references<a class="headerlink" href="#external-references" title="Permalink to this headline">¶</a></h3>
 <p>This section of the user guide will be improved later.  For now, the
 following two presentations best describe how one can create data
@@ -586,8 +585,8 @@ arrays.</p>
 </li>
 </ul>
 </div></blockquote>
-</section>
-<section id="datasets-creation-examples">
+</div>
+<div class="section" id="datasets-creation-examples">
 <h3>Datasets creation examples<a class="headerlink" href="#datasets-creation-examples" title="Permalink to this headline">¶</a></h3>
 <p>There are several examples in the mayavi sources that highlight the
 creation of the most important datasets from numpy arrays. Specifically
@@ -621,9 +620,9 @@ visualization of an unstructured grid.</p></li>
 &gt; -x structured_points3d.py -x structured_grid.py -x unstructured_grid.py
 </pre></div>
 </div>
-</section>
-</section>
-<section id="inserting-tvtk-datasets-in-the-mayavi-pipeline">
+</div>
+</div>
+<div class="section" id="inserting-tvtk-datasets-in-the-mayavi-pipeline">
 <h2><a class="toc-backref" href="#id5">Inserting TVTK datasets in the Mayavi pipeline</a><a class="headerlink" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" title="Permalink to this headline">¶</a></h2>
 <p>TVTK datasets can be created using directly TVTK, as illustrated in the
 examples above. A VTK data source can be inserted in the Mayavi pipeline
@@ -672,8 +671,8 @@ to a segmentation fault. An even easier way to create a data source for
 an <cite>ImageData</cite> is to use the <cite>mlab.pipeline.scalar_field</cite> function, as
 explained in the <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><span class="std std-ref">section on creating
 data sources with mlab</span></a>.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -757,15 +756,15 @@ data sources with mlab</span></a>.</p>
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Data representation in Mayavi</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

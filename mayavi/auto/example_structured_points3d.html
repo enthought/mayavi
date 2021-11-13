@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Structured points3d example &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Structured points3d example &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="example_numeric_source.html" title="Numeric source example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Structured points3d example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="structured-points3d-example">
+  <div class="section" id="structured-points3d-example">
 <span id="example-structured-points3d"></span><h1>Structured points3d example<a class="headerlink" href="#structured-points3d-example" title="Permalink to this headline">¶</a></h1>
 <p>An example of how to generate a 3D structured points dataset
 using numpy arrays.  Also shown is a way to visualize this data with
@@ -96,7 +95,6 @@ the mayavi2 application.</p>
 
 <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="kn">from</span> <span class="nn">tvtk.array_handler</span> <span class="kn">import</span> <span class="n">get_vtk_array_type</span>
-<span class="kn">from</span> <span class="nn">tvtk.common</span> <span class="kn">import</span> <span class="n">is_old_pipeline</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">ravel</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
 
@@ -123,12 +121,6 @@ the mayavi2 application.</p>
 <span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">ravel</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 
-<span class="c1"># This is needed in slightly older versions of VTK (like the 5.0.2</span>
-<span class="c1"># release) to prevent a segfault.  VTK does not detect the correct</span>
-<span class="c1"># data type.</span>
-<span class="k">if</span> <span class="n">is_old_pipeline</span><span class="p">():</span>
-    <span class="n">spoints</span><span class="o">.</span><span class="n">scalar_type</span> <span class="o">=</span> <span class="n">get_vtk_array_type</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-
 <span class="c1"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
 <span class="c1">#w = tvtk.XMLImageDataWriter(input=spoints, file_name=&#39;spoints3d.vti&#39;)</span>
 <span class="c1">#w.write()</span>
@@ -150,7 +142,7 @@ the mayavi2 application.</p>
     <span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
+</div>
 
 
             <div class="clearer"></div>
@@ -204,15 +196,15 @@ the mayavi2 application.</p>
         <li class="right" >
           <a href="example_numeric_source.html" title="Numeric source example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Structured points3d example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

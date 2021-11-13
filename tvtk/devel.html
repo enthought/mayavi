@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Development guide for TVTK &#8212; tvtk 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Development guide for TVTK &#8212; tvtk 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -28,7 +27,7 @@
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Development guide for TVTK</a></li> 
       </ul>
     </div>  
@@ -38,7 +37,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="development-guide-for-tvtk">
+  <div class="section" id="development-guide-for-tvtk">
 <h1><a class="toc-backref" href="#id1">Development guide for TVTK</a><a class="headerlink" href="#development-guide-for-tvtk" title="Permalink to this headline">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
@@ -72,14 +71,14 @@
 </li>
 </ul>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>This document provides some details on how TVTK works and how it is
 implemented.  Basic documentation on the installation, features and
 usage of tvtk is provided in the README.txt file that should be in the
 same directory as this file.</p>
-</section>
-<section id="how-tvtk-works">
+</div>
+<div class="section" id="how-tvtk-works">
 <h2><a class="toc-backref" href="#id3">How tvtk works</a><a class="headerlink" href="#how-tvtk-works" title="Permalink to this headline">¶</a></h2>
 <p>All tvtk classes derive from <cite>TVTKBase</cite>.  This is defined in
 <cite>tvtk_base.py</cite>.  <cite>TVTKBase</cite> provides basic functionality common to all
@@ -102,7 +101,7 @@ changed.</p></li>
 </div></blockquote>
 <p>As mentioned above, tvtk classes can either wrap an existing VTK
 object or create a new one and manage the new object.</p>
-<section id="automatic-trait-updation">
+<div class="section" id="automatic-trait-updation">
 <h3><a class="toc-backref" href="#id4">Automatic trait updation</a><a class="headerlink" href="#automatic-trait-updation" title="Permalink to this headline">¶</a></h3>
 <p>One very important feature of tvtk objects is that any VTK related
 traits of object are dynamically updated if the underlying VTK object
@@ -112,7 +111,7 @@ is invoked.  Here is an example of a VTK observer callback:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkProperty</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cb</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="nb">print</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">evt</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">evt</span><span class="p">)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s2">&quot;ModifiedEvent&quot;</span><span class="p">,</span> <span class="n">cb</span><span class="p">)</span>
 <span class="go">1</span>
@@ -149,8 +148,8 @@ calls the relevant VTK ‘get’ function and updates the value of the
 trait.</p>
 <p>While this whole process seems to be inefficient, it actually works
 quite well in practice and does not appear to be slow at all.</p>
-</section>
-<section id="messaging">
+</div>
+<div class="section" id="messaging">
 <h3><a class="toc-backref" href="#id5">Messaging</a><a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
 <p>The messaging functionality is defined in <cite>tvtk/messenger.py</cite>.  Unit
 tests are in the ‘tests/’ directory.  As described in the previous
@@ -181,8 +180,8 @@ all callbacks for a particular event or the entire object.</p>
 implementation that makes it easy to do inter-object communication.
 For further details please read the code and docstrings.  Also look at
 the test suite in <cite>tests/test_messenger.py</cite>.</p>
-</section>
-<section id="pickling">
+</div>
+<div class="section" id="pickling">
 <h3><a class="toc-backref" href="#id6">Pickling</a><a class="headerlink" href="#pickling" title="Permalink to this headline">¶</a></h3>
 <p><cite>TVTKBase</cite> provides the basic functionality for pickling.
 Essentially, the dictionary (<cite>self.__dict__</cite>) of the tvtk object is
@@ -192,8 +191,8 @@ are not picklable.  Other irrelevant attributes are also removed.
 <cite>self._vtk_obj</cite> exists.  Some of the tvtk classes override these
 methods to implement them better.  For example look at the code for
 the <cite>Matrix4x4</cite> class.</p>
-</section>
-<section id="array-handling">
+</div>
+<div class="section" id="array-handling">
 <h3><a class="toc-backref" href="#id7">Array handling</a><a class="headerlink" href="#array-handling" title="Permalink to this headline">¶</a></h3>
 <p>TVTK lets the user pass Numeric arrays/Python lists in place of the
 <cite>DataArray</cite>, <cite>CellArray</cite>, <cite>Points</cite> etc. classes.  This is done by
@@ -225,8 +224,8 @@ Cython can build it.</p>
 <p><cite>special_gen.py</cite> defines all the additional methods for the
 <cite>DataArray</cite> and other classes that allow these objects to support
 iteration, <cite>__repr__</cite>, <cite>__getitem__</cite> etc.</p>
-</section>
-<section id="the-magical-tvtk-instance">
+</div>
+<div class="section" id="the-magical-tvtk-instance">
 <h3><a class="toc-backref" href="#id8">The magical <cite>tvtk</cite> instance</a><a class="headerlink" href="#the-magical-tvtk-instance" title="Permalink to this headline">¶</a></h3>
 <p>When one does the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
@@ -267,8 +266,8 @@ These parent classes are also cached.</p>
 instance.</p>
 <p>Note that any files inside the <cite>tvtk_classes.zip</cite> are automatically
 generated.</p>
-</section>
-<section id="miscellaneous-details">
+</div>
+<div class="section" id="miscellaneous-details">
 <h3><a class="toc-backref" href="#id9">Miscellaneous details</a><a class="headerlink" href="#miscellaneous-details" title="Permalink to this headline">¶</a></h3>
 <p><cite>tvtk_base.py</cite> defines some important and frequently used traits that
 are used in tvtk.  It is used by all the tvtk classes.  It provides a
@@ -277,9 +276,9 @@ perform name mangling so one can change the VTK method name to an
 enthought style name.  The module also provides the function
 <cite>deref_vtk</cite>, that lets one obtain the underlying VTK object from the
 tvtk object.</p>
-</section>
-</section>
-<section id="code-generation">
+</div>
+</div>
+<div class="section" id="code-generation">
 <h2><a class="toc-backref" href="#id10">Code Generation</a><a class="headerlink" href="#code-generation" title="Permalink to this headline">¶</a></h2>
 <p>All the tvtk classes are dynamically generated.  <cite>code_gen.py</cite> is the
 main driver module that is responsible for this.  Code generation
@@ -352,8 +351,8 @@ generate the code for a few classes alone:</p>
 </div>
 <p>The <cite>-n</cite> option ensures that ‘/tmp/tvtk_tmp’ is not removed.  <cite>-z</cite>
 inhibits ZIP file generation.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -413,14 +412,14 @@ inhibits ZIP file generation.</p>
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Development guide for TVTK</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2016, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

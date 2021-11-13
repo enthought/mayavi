@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Probe filter example &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Probe filter example &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="example_contour.html" title="Contour example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Probe filter example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="probe-filter-example">
+  <div class="section" id="probe-filter-example">
 <span id="example-probe-filter"></span><h1>Probe filter example<a class="headerlink" href="#probe-filter-example" title="Permalink to this headline">¶</a></h1>
 <p>Using the probe filter to visualize a scalar field along an arbitrary
 surface.</p>
@@ -121,7 +120,7 @@ and more efficient to directly sample it on the sphere.</p>
 <span class="kn">from</span> <span class="nn">tvtk.common</span> <span class="kn">import</span> <span class="n">configure_source_data</span><span class="p">,</span> <span class="n">configure_input</span>
 
 <span class="c1"># The angular par of the spherical harmonic (3, 2)</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">.5</span><span class="p">:</span><span class="mf">.5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">:</span><span class="mf">.5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">:</span><span class="mf">.5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
 <span class="n">Phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
 
 <span class="n">field</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Phi</span><span class="p">)</span>
@@ -130,7 +129,7 @@ and more efficient to directly sample it on the sphere.</p>
 
 <span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">builtin_surface</span><span class="p">()</span>
 <span class="n">surface</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;sphere&#39;</span>
-<span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="mf">.4</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
 <span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">phi_resolution</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">theta_resolution</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">probe_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ProbeFilter</span><span class="p">()</span>
@@ -155,7 +154,7 @@ and more efficient to directly sample it on the sphere.</p>
 
 </pre></div>
 </div>
-</section>
+</div>
 
 
             <div class="clearer"></div>
@@ -209,15 +208,15 @@ and more efficient to directly sample it on the sphere.</p>
         <li class="right" >
           <a href="example_contour.html" title="Contour example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Probe filter example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

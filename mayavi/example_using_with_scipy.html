@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Using Mayavi with scipy &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using Mayavi with scipy &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Using Mayavi with scipy</a></li> 
       </ul>
@@ -76,7 +75,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="using-mayavi-with-scipy">
+  <div class="section" id="using-mayavi-with-scipy">
 <h1>Using Mayavi with scipy<a class="headerlink" href="#using-mayavi-with-scipy" title="Permalink to this headline">¶</a></h1>
 <p>This tutorial example shows you how you can use Mayavi interactively
 to visualize <a class="reference external" href="http://www.scipy.org">numpy</a> arrays while doing numerical work with <a class="reference external" href="http://www.scipy.org">scipy</a>. It
@@ -183,7 +182,7 @@ interesting dynamic.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flow</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; The dynamical flow of the system &quot;&quot;&quot;</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">r</span>
-    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">x</span><span class="o">-</span><span class="mf">.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">y</span><span class="o">-</span><span class="mf">.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">z</span><span class="o">-</span><span class="mf">.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">x</span><span class="o">-.</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">y</span><span class="o">-.</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">z</span><span class="o">-.</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span><span class="p">,</span> <span class="o">-</span><span class="n">fx</span> <span class="o">-</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">vx</span><span class="p">,</span> <span class="o">-</span><span class="n">fy</span> <span class="o">-</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">vy</span><span class="p">,</span> <span class="o">-</span><span class="n">fz</span> <span class="o">-</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">vz</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -210,7 +209,7 @@ colormap:</p>
 </pre></div>
 </div>
 <img alt="_images/example_trajectories.jpg" src="_images/example_trajectories.jpg" />
-</section>
+</div>
 
 
             <div class="clearer"></div>
@@ -264,15 +263,15 @@ colormap:</p>
         <li class="right" >
           <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Using Mayavi with scipy</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

@@ -8,8 +8,6 @@ data and visualize it as image data using a few modules.
 # Copyright (c) 2007-2020, Enthought, Inc.
 # License: BSD Style.
 
-from __future__ import print_function
-
 # Standard library imports
 import numpy
 from threading import Thread

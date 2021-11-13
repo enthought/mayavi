@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Organisation of Mayavi visualizations: the pipeline &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organisation of Mayavi visualizations: the pipeline &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Organisation of Mayavi visualizations: the pipeline</a></li> 
       </ul>
@@ -76,7 +75,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="organisation-of-mayavi-visualizations-the-pipeline">
+  <div class="section" id="organisation-of-mayavi-visualizations-the-pipeline">
 <span id="organisation-mayavi-visualisations"></span><h1>Organisation of Mayavi visualizations: the pipeline<a class="headerlink" href="#organisation-of-mayavi-visualizations-the-pipeline" title="Permalink to this headline">¶</a></h1>
 <div class="topic">
 <p class="topic-title">Mayavi and VTK pipelines</p>
@@ -88,9 +87,9 @@ is different, the objects are not the same, and there are more nodes
 in a VTK pipeline. The two pipelines share some similarities, but in
 this section, we are only concerned by the Mayavi pipeline.</p>
 </div>
-<section id="anatomy-of-a-mayavi-pipeline">
+<div class="section" id="anatomy-of-a-mayavi-pipeline">
 <h2>Anatomy of a Mayavi pipeline<a class="headerlink" href="#anatomy-of-a-mayavi-pipeline" title="Permalink to this headline">¶</a></h2>
-<section id="layout-of-a-pipeline">
+<div class="section" id="layout-of-a-pipeline">
 <h3>Layout of a pipeline<a class="headerlink" href="#layout-of-a-pipeline" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>The top node of a Mayavi pipeline is called the <cite>Engine</cite>. It is
@@ -107,8 +106,8 @@ vector data. It is represented in the pipeline view as the node called
 <li><p>Visualization <cite>Modules</cite> finally display a reprensation of the data in
 the Scene, such as a surface, or lines.</p></li>
 </ul>
-</section>
-<section id="navigating-in-the-pipeline">
+</div>
+<div class="section" id="navigating-in-the-pipeline">
 <h3>Navigating in the pipeline<a class="headerlink" href="#navigating-in-the-pipeline" title="Permalink to this headline">¶</a></h3>
 <p>Each object in the pipeline has a <cite>parent</cite> attribute that points to its
 parent in the pipeline, as well as a <cite>children</cite> attribute, giving the
@@ -120,9 +119,9 @@ the <cite>edit_traits()</cite> method of this object.</p>
 <cite>.scene</cite> attribute point to this scene (see the
 <a class="reference internal" href="auto/example_volume_slicer.html#example-volume-slicer"><span class="std std-ref">Volume slicer example</span></a> for an example of how the data can be shared
 between scenes).</p>
-</section>
-</section>
-<section id="the-link-between-different-mayavi-entry-points">
+</div>
+</div>
+<div class="section" id="the-link-between-different-mayavi-entry-points">
 <h2>The link between different Mayavi entry points<a class="headerlink" href="#the-link-between-different-mayavi-entry-points" title="Permalink to this headline">¶</a></h2>
 <p>Every visualization created in Mayavi is constructed with a pipeline,
 although the construction of the pipeline may be hidden from the user:</p>
@@ -144,24 +143,24 @@ view.</p></li>
 pipeline manually, as exposed
 <a class="reference internal" href="advanced_scripting.html#oo-construction-visualization"><span class="std std-ref">further below</span></a>.</p></li>
 </ul>
-</section>
-<section id="a-pipeline-example-examined">
+</div>
+<div class="section" id="a-pipeline-example-examined">
 <h2>A pipeline example examined<a class="headerlink" href="#a-pipeline-example-examined" title="Permalink to this headline">¶</a></h2>
 <p>Let us study the pipeline created by the <cite>mlab.plot3d</cite> function to
 represent lines:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="n">x</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
-<span class="n">y</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
-<span class="n">z</span>   <span class="o">=</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span>
+<span class="n">x</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
+<span class="n">y</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
+<span class="n">z</span>   <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+<span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
-<figure class="align-center">
+<div class="figure align-center">
 <img alt="_images/pipeline_and_scene.jpg" src="_images/pipeline_and_scene.jpg" />
-</figure>
+</div>
 <p>The <cite>mlab.plot3d</cite> function first creates a source made of points
 connected by lines. Then it applies the <cite>Stripper</cite> filter, which
 transforms this succession of lines in a ‘strip’. Second, a <cite>Tube</cite>
@@ -178,9 +177,9 @@ applied. First we retrive the <cite>Stripper</cite> filter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">stripper</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </pre></div>
 </div>
-<figure class="align-center">
+<div class="figure align-center">
 <img alt="_images/pipeline_and_scene2.jpg" src="_images/pipeline_and_scene2.jpg" />
-</figure>
+</div>
 <p>All the properties of the different steps can be adjusted in the pipeline
 view. In addition, they correspond to attributes on the various objects:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
@@ -192,8 +191,8 @@ view. In addition, they correspond to attributes on the various objects:</p>
 attributes in the objects they correspond to. However, it can be fairly
 challenging to find this correspondance. We suggest to use the
 <a class="reference internal" href="mlab_changing_object_looks.html#record-feature"><span class="std std-ref">record feature</span></a> for this purpose.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -261,15 +260,15 @@ challenging to find this correspondance. We suggest to use the
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Organisation of Mayavi visualizations: the pipeline</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

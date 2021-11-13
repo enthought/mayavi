@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Wigner example &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wigner example &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="example_chemistry.html" title="Chemistry example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Wigner example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="wigner-example">
+  <div class="section" id="wigner-example">
 <span id="example-wigner"></span><h1>Wigner example<a class="headerlink" href="#wigner-example" title="Permalink to this headline">¶</a></h1>
 <p>An example in which 3 functions of x and y  are displayed with a surf plot,
 while the z scaling is kept constant, to allow comparison between them.</p>
@@ -130,8 +129,8 @@ and ranges in order to make them fit with the data.</p>
 <span class="n">cat1_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">surf_cat1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat1</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">,</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">,</span>
             <span class="n">ranges</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
             <span class="n">zlabel</span><span class="o">=</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span>
             <span class="n">x_axis_visibility</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">z_axis_visibility</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -141,14 +140,14 @@ and ranges in order to make them fit with the data.</p>
 <span class="n">cat2_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">surf_cat2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat2</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">cat2_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat2_extent</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat2_extent</span><span class="p">)</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;2 photons&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.14</span><span class="p">)</span>
 
 <span class="n">cat3_extent</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">surf_cat3</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat3</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">cat3_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="mf">.7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat3_extent</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat3_extent</span><span class="p">)</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="s1">&#39;3 photons&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.14</span><span class="p">)</span>
 
@@ -159,7 +158,7 @@ and ranges in order to make them fit with the data.</p>
 <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
+</div>
 
 
             <div class="clearer"></div>
@@ -213,15 +212,15 @@ and ranges in order to make them fit with the data.</p>
         <li class="right" >
           <a href="example_chemistry.html" title="Chemistry example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Wigner example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

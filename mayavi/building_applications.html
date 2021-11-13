@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Building applications using Mayavi &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building applications using Mayavi &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Building applications using Mayavi</a></li> 
       </ul>
     </div>  
@@ -75,7 +74,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="building-applications-using-mayavi">
+  <div class="section" id="building-applications-using-mayavi">
 <span id="builing-applications"></span><h1>Building applications using Mayavi<a class="headerlink" href="#building-applications-using-mayavi" title="Permalink to this headline">¶</a></h1>
 <div class="topic">
 <p class="topic-title">Section summary</p>
@@ -89,7 +88,7 @@ including the data visualized itself.</p>
 <p>In this section, we first show how an interactive dialog embedding a
 Mayavi scene can be built, using <cite>Traits</cite>. Then we show how to integrate
 this dialog in a WxPython or a PyQt (or PySide) application.</p>
-<section id="custom-interactive-dialogs">
+<div class="section" id="custom-interactive-dialogs">
 <h2>Custom interactive dialogs<a class="headerlink" href="#custom-interactive-dialogs" title="Permalink to this headline">¶</a></h2>
 <p>Mayavi and TVTK are entirely built using the Traits library which provides
 easy callbacks and visualization for objects attribute. All the different
@@ -102,7 +101,7 @@ visualization object is modified, the scene can update automatically.</p>
 for more details.  There are also a list of introductory
 <cite>materials &lt;https://support.enthought.com/hc/en-us/articles/204469620-Introductory-materials-for-Traits-and-Traits-UI&gt;</cite>
 for learning Traits and Traits UI.</p>
-<section id="embedding-a-mayavi-scene-in-a-traits-dialog">
+<div class="section" id="embedding-a-mayavi-scene-in-a-traits-dialog">
 <span id="embedding-mayavi-traits"></span><h3>Embedding a Mayavi scene in a Traits dialog<a class="headerlink" href="#embedding-a-mayavi-scene-in-a-traits-dialog" title="Permalink to this headline">¶</a></h3>
 <p>To build a custom dialog with a Mayavi scene, the best option is to
 create a class deriving from the base <cite>Traits</cite> class. A special
@@ -148,8 +147,8 @@ toolbar by specifying a different scene view to the <cite>SceneEditor</cite>:</p
 <p>The <a class="reference internal" href="auto/example_mayavi_traits_ui.html#example-mayavi-traits-ui"><span class="std std-ref">Mayavi traits ui example</span></a> is a fairly comprehensive example that
 demonstrates how you can embed almost the entire Mayavi UI into your traits
 based UI.</p>
-</section>
-<section id="a-scene-with-mlab-embedded">
+</div>
+<div class="section" id="a-scene-with-mlab-embedded">
 <h3>A scene, with <cite>mlab</cite> embedded<a class="headerlink" href="#a-scene-with-mlab-embedded" title="Permalink to this headline">¶</a></h3>
 <p>An object representing a scene is interesting only if you can visualize
 data with the scene. For this we can instanciate an <cite>Engine</cite> and assign
@@ -180,8 +179,8 @@ mlab’s figure keyword argument:</p>
 insert them in different engines. This is demonstrated in
 <a class="reference internal" href="auto/example_multiple_engines.html#example-multiple-engines"><span class="std std-ref">Multiple engines example</span></a></p>
 </div>
-</section>
-<section id="making-the-visualization-live">
+</div>
+<div class="section" id="making-the-visualization-live">
 <h3>Making the visualization live<a class="headerlink" href="#making-the-visualization-live" title="Permalink to this headline">¶</a></h3>
 <p>Having an interactive application is interesting only if you can do
 custom, domain-specific, interaction with the visualization.</p>
@@ -295,9 +294,9 @@ a coil, and integration of the resulting magnetic field with real-time
 visualization of the field and the coil structure.</p></li>
 </ul>
 </div>
-</section>
-</section>
-<section id="integrating-in-a-wxpython-application">
+</div>
+</div>
+<div class="section" id="integrating-in-a-wxpython-application">
 <h2>Integrating in a WxPython application<a class="headerlink" href="#integrating-in-a-wxpython-application" title="Permalink to this headline">¶</a></h2>
 <p>Using the <cite>Visualization</cite> class defined above:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wx</span>
@@ -324,8 +323,8 @@ given:</p>
 showing 2 different Mayavi views embedded in a Wx notebook.</p></li>
 </ul>
 </div></blockquote>
-</section>
-<section id="integrating-in-a-qt-application">
+</div>
+<div class="section" id="integrating-in-a-qt-application">
 <span id="integrating-pyqt"></span><h2>Integrating in a Qt application<a class="headerlink" href="#integrating-in-a-qt-application" title="Permalink to this headline">¶</a></h2>
 <p>Mayavi dialogs can also be integrated in a PyQt or PySide application.</p>
 <p>Before defining the <cite>Visualization</cite> class, you should set the toolkit
@@ -375,8 +374,8 @@ result if you instanciate a new one, using for instance:</p>
 </div>
 <p>Your Traits application will not work.</p>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -445,14 +444,14 @@ result if you instanciate a new one, using for instance:</p>
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Building applications using Mayavi</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

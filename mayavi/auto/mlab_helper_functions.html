@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Plotting functions &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plotting functions &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Plotting functions</a></li> 
       </ul>
@@ -84,13 +83,13 @@ mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</
 <p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<section id="plotting-functions">
+<div class="section" id="plotting-functions">
 <h1>Plotting functions<a class="headerlink" href="#plotting-functions" title="Permalink to this headline">¶</a></h1>
-<section id="barchart">
+<div class="section" id="barchart">
 <h2>barchart<a class="headerlink" href="#barchart" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.barchart">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">barchart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.barchart">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">barchart</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots vertical glyphs (like bars) scaled vertical, to do
 histogram-like plots.</p>
 <p>This functions accepts a wide variety of inputs, with positions given
@@ -213,12 +212,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">barchart</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="contour3d">
+</div>
+<div class="section" id="contour3d">
 <h2>contour3d<a class="headerlink" href="#contour3d" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.contour3d">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">contour3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.contour3d">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">contour3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots iso-surfaces for a 3D volume of data supplied as arguments.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -304,12 +303,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</section>
-<section id="contour-surf">
+</div>
+<div class="section" id="contour-surf">
 <h2>contour_surf<a class="headerlink" href="#contour-surf" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.contour_surf">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">contour_surf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.contour_surf">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">contour_surf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a the contours of a surface using grid-spaced data for
 elevation supplied as a 2D array.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -408,12 +407,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">s</span>
 </pre></div>
 </div>
-</section>
-<section id="flow">
+</div>
+<div class="section" id="flow">
 <h2>flow<a class="headerlink" href="#flow" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.flow">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.flow">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">flow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a trajectory of particles following the flow of a vector field.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -532,12 +531,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</section>
-<section id="imshow">
+</div>
+<div class="section" id="imshow">
 <h2>imshow<a class="headerlink" href="#imshow" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.imshow">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">imshow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.imshow">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">imshow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
 <dd><p>View a 2D array as an image.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -613,12 +612,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gist_earth&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="mesh">
+</div>
+<div class="section" id="mesh">
 <h2>mesh<a class="headerlink" href="#mesh" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.mesh">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.mesh">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">mesh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using grid-spaced data supplied as 2D arrays.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -763,12 +762,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;bone&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="plot3d">
+</div>
+<div class="section" id="plot3d">
 <h2>plot3d<a class="headerlink" href="#plot3d" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.plot3d">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">plot3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.plot3d">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">plot3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws lines between points.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -862,12 +861,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">l</span>
 </pre></div>
 </div>
-</section>
-<section id="points3d">
+</div>
+<div class="section" id="points3d">
 <h2>points3d<a class="headerlink" href="#points3d" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.points3d">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">points3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.points3d">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">points3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like points) at the position of the supplied data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">...</span><span class="p">)</span>
@@ -977,15 +976,15 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;copper&quot;</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mf">.25</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;copper&quot;</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=.</span><span class="mi">25</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="quiver3d">
+</div>
+<div class="section" id="quiver3d">
 <h2>quiver3d<a class="headerlink" href="#quiver3d" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.quiver3d">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">quiver3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.quiver3d">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">quiver3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like arrows) indicating the direction of the vectors
 at the positions supplied.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1102,20 +1101,20 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</section>
-<section id="set-picker-props">
+</div>
+<div class="section" id="set-picker-props">
 <h2>set_picker_props<a class="headerlink" href="#set-picker-props" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.set_picker_props">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">set_picker_props</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pick_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point_picker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.set_picker_props" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.set_picker_props">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">set_picker_props</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pick_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point_picker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.set_picker_props" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</section>
-<section id="surf">
+</div>
+<div class="section" id="surf">
 <h2>surf<a class="headerlink" href="#surf" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.surf">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">surf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.surf">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">surf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using regularly-spaced elevation data supplied as a 2D
 array.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1239,12 +1238,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">s</span>
 </pre></div>
 </div>
-</section>
-<section id="triangular-mesh">
+</div>
+<div class="section" id="triangular-mesh">
 <h2>triangular_mesh<a class="headerlink" href="#triangular-mesh" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.triangular_mesh">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">triangular_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.triangular_mesh">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">triangular_mesh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using a mesh defined by the position of its vertices
 and the triangles connecting them.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1383,12 +1382,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">triangular_mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">triangles</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="volume-slice">
+</div>
+<div class="section" id="volume-slice">
 <h2>volume_slice<a class="headerlink" href="#volume-slice" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="mayavi.mlab.volume_slice">
-<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">volume_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.volume_slice" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.volume_slice">
+<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">volume_slice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.volume_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots an interactive image plane sliced through a 3D volume of data
 supplied as argument.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1482,8 +1481,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="k">return</span> <span class="n">obj</span>
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -1557,15 +1556,15 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Plotting functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>

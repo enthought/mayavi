@@ -4,13 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Using the Mayavi application &#8212; mayavi 4.7.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using the Mayavi application &#8212; mayavi 4.7.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -65,7 +64,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Using the Mayavi application</a></li> 
       </ul>
     </div>  
@@ -75,7 +74,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="using-the-mayavi-application">
+  <div class="section" id="using-the-mayavi-application">
 <span id="id1"></span><h1>Using the Mayavi application<a class="headerlink" href="#using-the-mayavi-application" title="Permalink to this headline">¶</a></h1>
 <div class="topic">
 <p class="topic-title">Section summary</p>
@@ -98,7 +97,7 @@ deeper understanding.</p>
 <li><p><a class="reference internal" href="#command-line-arguments" id="id11">Command line arguments</a></p></li>
 </ul>
 </div>
-<section id="tutorial-examples-to-learn-mayavi">
+<div class="section" id="tutorial-examples-to-learn-mayavi">
 <span id="learning-mayavi-by-example"></span><h2><a class="toc-backref" href="#id6">Tutorial examples to learn Mayavi</a><a class="headerlink" href="#tutorial-examples-to-learn-mayavi" title="Permalink to this headline">¶</a></h2>
 <p>To get acquainted with mayavi you may start up the Mayavi2 application,
 <code class="docutils literal notranslate"><span class="pre">mayavi2</span></code> in the command line, like so:</p>
@@ -131,8 +130,8 @@ from here: <a class="reference external" href="https://github.com/enthought/maya
 </ul>
 </div>
 </div>
-</section>
-<section id="general-layout-of-ui">
+</div>
+<div class="section" id="general-layout-of-ui">
 <span id="id2"></span><h2><a class="toc-backref" href="#id7">General layout of UI</a><a class="headerlink" href="#general-layout-of-ui" title="Permalink to this headline">¶</a></h2>
 <p>When the <cite>mayavi2</cite> application is started it will provide a user
 interface that looks something like the figure shown below.</p>
@@ -195,8 +194,8 @@ In addition, you can save different layouts into different
 <p>Shown below is a specifically configured Mayavi user interface view.
 In this view the size of the various parts are changed.</p>
 <img alt="Figure of Mayavi's UI after being configured by a user." class="align-center" src="_images/mayavi_ui_second.jpg" />
-</section>
-<section id="visualizing-data">
+</div>
+<div class="section" id="visualizing-data">
 <h2><a class="toc-backref" href="#id8">Visualizing data</a><a class="headerlink" href="#visualizing-data" title="Permalink to this headline">¶</a></h2>
 <p>Visualization data in Mayavi is performed by loading some data as <cite>data
 sources</cite>, and applying visualization modules to these sources to
@@ -223,8 +222,8 @@ as a reference:</p>
 </ul>
 </div>
 </div>
-</section>
-<section id="interaction-with-the-scene">
+</div>
+<div class="section" id="interaction-with-the-scene">
 <span id="id3"></span><h2><a class="toc-backref" href="#id9">Interaction with the scene</a><a class="headerlink" href="#interaction-with-the-scene" title="Permalink to this headline">¶</a></h2>
 <p>The Mayavi scenes on the UI can be closed by clicking on the little ‘x’
 icon on the tab.  Each scene features a toolbar that supports various
@@ -248,7 +247,7 @@ the file.</p></li>
 </div></blockquote>
 <p>The primary means to interact with the scene is to use the mouse and
 keyboard.</p>
-<section id="mouse-interaction">
+<div class="section" id="mouse-interaction">
 <h3>Mouse interaction<a class="headerlink" href="#mouse-interaction" title="Permalink to this headline">¶</a></h3>
 <p>There are two modes of mouse interaction:</p>
 <blockquote>
@@ -288,8 +287,8 @@ scene or translate the object.</p></li>
 zoom out.</p></li>
 </ul>
 </div></blockquote>
-</section>
-<section id="keyboard-interaction">
+</div>
+<div class="section" id="keyboard-interaction">
 <h3>Keyboard interaction<a class="headerlink" href="#keyboard-interaction" title="Permalink to this headline">¶</a></h3>
 <p>The scene supports several features activated via keystrokes.  These
 are:</p>
@@ -345,7 +344,7 @@ default mode for the mouse interaction.</p>
 <dt class="field-even">‘=’/’+’</dt>
 <dd class="field-even"><p>Zoom in.</p>
 </dd>
-<dt class="field-odd">‘-’</dt>
+<dt class="field-odd">‘-‘</dt>
 <dd class="field-odd"><p>Zoom out.</p>
 </dd>
 <dt class="field-even">‘left’/’right’/’up’/’down’ arrows</dt>
@@ -354,13 +353,13 @@ down arrow let you rotate the camera in those directions.  When
 “SHIFT” modifier is also held down the camera is panned.</p>
 </dd>
 </dl>
-</section>
-</section>
-<section id="from-interactive-usage-to-scripting">
+</div>
+</div>
+<div class="section" id="from-interactive-usage-to-scripting">
 <h2><a class="toc-backref" href="#id10">From interactive usage to scripting</a><a class="headerlink" href="#from-interactive-usage-to-scripting" title="Permalink to this headline">¶</a></h2>
 <p>It is easy to learn how to script Mayavi when using the interactive application.
 In this sub-section, we give a few tips for this purpose.</p>
-<section id="the-embedded-python-interpreter">
+<div class="section" id="the-embedded-python-interpreter">
 <span id="id4"></span><h3>The embedded Python interpreter<a class="headerlink" href="#the-embedded-python-interpreter" title="Permalink to this headline">¶</a></h3>
 <p>The embedded Python interpreter offers extremely powerful
 possibilities.  The interpreter features command completion, automatic
@@ -395,8 +394,8 @@ but is a mouthful.</p>
 </li>
 </ul>
 </div></blockquote>
-</section>
-<section id="recording-mayavi-actions-to-a-script">
+</div>
+<div class="section" id="recording-mayavi-actions-to-a-script">
 <span id="automatic-script-generation"></span><h3>Recording Mayavi actions to a script<a class="headerlink" href="#recording-mayavi-actions-to-a-script" title="Permalink to this headline">¶</a></h3>
 <p>Mayavi features a very handy and powerful script recording facility.
 This can be used to:</p>
@@ -431,7 +430,7 @@ these will generate suitable Python code.  For the camera only the
 end position is stored (otherwise you’ll see millions of useless
 lines of code).  The major keyboard actions on the scene are
 recorded (except for the ‘c’/’t’/’j’/’a’ keys).  This implies that
-it will record any left/right/up/down arrows the ‘+’/’-’ keys etc.</p>
+it will record any left/right/up/down arrows the ‘+’/’-‘ keys etc.</p>
 <p>Since the code is updated as the actions are performed, this is a
 nice way to learn the Mayavi API.</p>
 </li>
@@ -498,9 +497,9 @@ not record anything typically.</p>
 </li>
 </ul>
 </div>
-</section>
-</section>
-<section id="command-line-arguments">
+</div>
+</div>
+<div class="section" id="command-line-arguments">
 <span id="id5"></span><h2><a class="toc-backref" href="#id11">Command line arguments</a><a class="headerlink" href="#command-line-arguments" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">mayavi2</span></code> application features several useful command line
 arguments that are described in the following section.  These options
@@ -655,8 +654,8 @@ $ mayavi2 -d fire_ug.vtu -m Axes -m Outline -m VectorCutPlane \
 be found in the <code class="docutils literal notranslate"><span class="pre">examples/data</span></code> directory in the source.  They may
 also be installed on your computer depending on your particular
 platform.</p>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -731,14 +730,14 @@ platform.</p>
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Using the Mayavi application</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 10, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.0.
+      Last updated on Nov 13, 2021.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
     </div>
   </body>
 </html>
