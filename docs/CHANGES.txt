@@ -1,3 +1,76 @@
+Mayavi 4.7.4
+============
+
+This is primarily a bugfix release that resolves issues with VTK-9.0.3 and
+VTK-9.1.x compatibility. CI now uses GitHub Actions and a few other minor bugs
+have been fixed. `mlab` imports may be a little faster thanks to some cleanup.
+
+Many thanks to the following who contributed to this release (in alphabetical
+order): Aaron Ayres, Eric Larson, @marekyggdrasil, Mark Dickinson, Poruri Sai
+Rahul, Prabhu Ramachandran, Topi Kuutela.
+
+21 pull requests were merged.
+
+Fixes
+------
+
+11 Nov 2021 `#1105 <https://github.com/enthought/mayavi/pull/1105>`_ (prabhuramachandran)
+   - Fix the crashes on VTK-9.1.0.
+   - Speed up imports by cleaning up the `tvtk_doc` module to be a bit lazier.
+
+10 Nov 2021 `#1104 <https://github.com/enthought/mayavi/pull/1104>`_ (larsoner)
+   - Improve CI behavior on GitHub Actions.
+
+08 Nov 2021 `#1103 <https://github.com/enthought/mayavi/pull/1103>`_ (prabhuramachandran)
+   - BUG: Fix issue `#1071 <https://github.com/enthought/mayavi/issues/1071>`_
+     which caused a crash.
+
+01 Nov 2021 `#1102 <https://github.com/enthought/mayavi/pull/1102>`_ (prabhuramachandran)
+   - BUG: Fix bug with picker and picker UI.
+
+26 Oct 2021 `#1098 <https://github.com/enthought/mayavi/pull/1098>`_ (mdickinson)
+   - Fix RevPrefixMap to inherit directly from TraitType
+     Fixes `#1094 <https://github.com/enthought/mayavi/issues/1094>`_.
+
+10 Nov 2021 `#1097 <https://github.com/enthought/mayavi/pull/1097>`_ (larsoner)
+   - Workarounds for VTK 9.1.0
+
+07 Oct 2021 `#1089 <https://github.com/enthought/mayavi/pull/1089>`_ (rahulporuri)
+   - Address "ResourceWarning"s observed in the testsuite
+
+08 Oct 2021 `#1086 <https://github.com/enthought/mayavi/pull/1086>`_ (rahulporuri)
+   - Remove code that handles unsupported vtk versions (< 7)
+     See related `#1082 <https://github.com/enthought/mayavi/issues/1082>`_ .
+
+07 Oct 2021 `#1076 <https://github.com/enthought/mayavi/pull/1076>`_ (rahulporuri)
+   - Setup GitHub Actions CI
+
+18 Oct 2021 `#1050 <https://github.com/enthought/mayavi/pull/1050>`_ (larsoner)
+   - MAINT: Update for latest VTK
+     Closes `#1049 <https://github.com/enthought/mayavi/issues/1049>`_
+
+18 May 2021 `#1045 <https://github.com/enthought/mayavi/pull/1045>`_ (aaronayres35)
+   - Remove code for older Python versions; part of `#987
+     <https://github.com/enthought/mayavi/issues/987>`_
+
+18 May 2021 `#1044 <https://github.com/enthought/mayavi/pull/1044>`_ (aaronayres35)
+   - Remove all __future__ imports; part of `#987
+     <https://github.com/enthought/mayavi/issues/987>`_
+
+18 May 2021 `#1043 <https://github.com/enthought/mayavi/pull/1043>`_ (aaronayres35)
+   - Remove use of six
+     part of `#987 <https://github.com/enthought/mayavi/issues/987>`_
+
+12 May 2021 `#1040 <https://github.com/enthought/mayavi/pull/1040>`_ (aaronayres35)
+   - Use mock through unittest
+
+24 March 2021 `#1020 <https://github.com/enthought/mayavi/pull/1020>`_ (topikuu)
+   - Fix volume pipeline range check to work with cell_data
+
+2 November 2020 `#974 <https://github.com/enthought/mayavi/pull/974>`_ (marekyggdrasil)
+   - More meaningful example of using TVTK with Mayavi.
+
+
 Mayavi 4.7.3
 ============
 
