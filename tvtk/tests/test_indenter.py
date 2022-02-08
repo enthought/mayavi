@@ -120,7 +120,7 @@ class TestVTKDocMassager(unittest.TestCase):
         dm.write_class_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
-        correct = '''    """
+        correct = '''    r"""
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
@@ -132,7 +132,7 @@ class TestVTKDocMassager(unittest.TestCase):
         dm.write_class_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
-        self.assertEqual(ret, '    """\n    \n    """\n')
+        self.assertEqual(ret, '    r"""\n    \n    """\n')
 
     def test_trait_doc(self):
         """Test if trait docs are generated correctly."""
@@ -148,7 +148,7 @@ class TestVTKDocMassager(unittest.TestCase):
         dm.write_trait_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
-        correct = '''    """
+        correct = '''    r"""
     LODProperty, XMLDataReader, ThreeDSImporter
     set_representation_to_wireframe, write3d_props_as_raster_image
     """\n'''
@@ -163,7 +163,7 @@ class TestVTKDocMassager(unittest.TestCase):
         dm.write_trait_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
-        self.assertEqual(ret, '    """\n    \n    """\n')
+        self.assertEqual(ret, '    r"""\n    \n    """\n')
 
     def test_method_doc(self):
         """Test if method docs are generated correctly."""
@@ -179,7 +179,7 @@ class TestVTKDocMassager(unittest.TestCase):
         dm.write_method_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
-        correct = '''    """
+        correct = '''    r"""
     V.get_output(int) -> StructuredPoints
     V.get_output() -> StructuredPoints
 
@@ -197,12 +197,43 @@ class TestVTKDocMassager(unittest.TestCase):
         dm.write_method_doc(doc, out, indent)
         out.seek(0)
         ret = out.read()
-        correct = '''    """
+        correct = '''    r"""
     V.get_output(int) -> StructuredPoints
     V.get_output() -> StructuredPoints
     """\n'''
         self.assertEqual(ret, correct)
 
+        # Test doc with escape characters in it. xref: enthought/mayavi#1130
+        out = cStringIO.StringIO()
+        doc = r"""
+GetProminentComponentValues(self, comp:int,
+    values:vtkVariantArray, uncertainty:float=1.e-6,
+    minimumProminence:float=1.e-3) -> None
+C++: virtual void GetProminentComponentValues(int comp,
+    vtkVariantArray *values, double uncertainty=1.e-6,
+    double minimumProminence=1.e-3)
+
+Populate the given vtkVariantArray with a set of distinct values.
+In practice, $N >= \frac{5}{P}\mathrm{ln}\left(\frac{1}{PU}\right)$
+""".lstrip()
+        dm.write_method_doc(doc, out, indent)
+        ret = out.getvalue()
+        correct = '''    r"""
+    GetProminentComponentValues(self, comp:int,
+    values:VariantArray, uncertainty:float=1.e-6,
+    minimumProminence:float=1.e-3) -> None
+     virtual void GetProminentComponentValues(int comp,
+    VariantArray *values, double uncertainty=1.e-6,
+    double minimumProminence=1.e-3)
+
+    Populate the given VariantArray with a set of distinct values.
+    In practice, $N >= \\frac{5}{P}\\mathrm{ln}\\left(\\frac{1}{PU}\\right)$
+    """\n'''
+        self.assertEqual(ret, correct)
+        # Check that ret is a valid representation of a string. This
+        # will raise a DeprecationWarning if ret still contains invalid
+        # escape sequences.
+        self.assertIsInstance(eval(ret), str)
 
     def test_get_method_doc(self):
         """Test if get_method_doc works correctly."""
