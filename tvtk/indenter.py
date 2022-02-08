@@ -165,7 +165,7 @@ class VTKDocMassager:
         """
         ret = self.massage(doc)
         indent.incr()
-        out.write(indent.format('"""'))
+        out.write(indent.format('r"""'))
         out.write(indent.format('\n' + ret))
         out.write(indent.format('"""'))
         indent.decr()
@@ -188,7 +188,7 @@ class VTKDocMassager:
         """
         ret = self._remove_sig(doc)
         indent.incr()
-        out.write(indent.format('"""'))
+        out.write(indent.format('r"""'))
         out.write(indent.format('\n'+self.massage(ret)))
         out.write(indent.format('"""'))
         indent.decr()
@@ -214,7 +214,7 @@ class VTKDocMassager:
         my_sig = self.cpp_method_re.sub('', my_sig)
         my_sig = my_sig.replace('V.'+orig_name, 'V.'+name)
         indent.incr()
-        out.write(indent.format('"""'))
+        out.write(indent.format('r"""'))
         out.write(indent.format(my_sig))
         ret = self._remove_sig(doc)
         if ret:
