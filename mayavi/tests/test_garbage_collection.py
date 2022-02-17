@@ -4,6 +4,8 @@
 # Copyright (c) 2015, Enthought, Inc.
 # License: BSD Style.
 
+import unittest
+
 from numpy import sqrt, sin, mgrid
 from traits.api import Instance, HasTraits
 from traitsui.api import View, Item
@@ -15,9 +17,12 @@ from mayavi.core.engine import Engine
 from mayavi.core.null_engine import NullEngine
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 
+
 class TestMayaviGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
+    @unittest.skipIf(ETSConfig.toolkit == 'null',
+                     'Test should not run when the ETS toolkit is null')
     def test_mlab_scene_model_with_gui(self):
         """ Tests if MlabSceneModel with GUI can be garbage collected."""
         class MlabApp(HasTraits):

@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
+from traits.etsconfig.api import ETSConfig
 
 from pyface.api import FileDialog, NO, OK
 
@@ -12,6 +13,8 @@ class TestPopupSave(unittest.TestCase):
         m.path = 'mock'
         return m
 
+    @unittest.skipIf(ETSConfig.toolkit == 'null',
+                     'Test meaningless with null toolkit.')
     def test_popup_save_with_user_ok(self):
         with patch('pyface.api.FileDialog') as fd:
             fd.return_value = self._make_mock_file_dialog(OK)
@@ -20,6 +23,8 @@ class TestPopupSave(unittest.TestCase):
 
         self.assertEqual(x, 'mock')
 
+    @unittest.skipIf(ETSConfig.toolkit == 'null',
+                     'Test meaningless with null toolkit.')
     def test_popup_save_with_user_not_ok(self):
         with patch('pyface.api.FileDialog') as fd:
             fd.return_value = self._make_mock_file_dialog(NO)

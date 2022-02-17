@@ -3,6 +3,7 @@ Central registry for figures with mlab.
 """
 
 # Standard library imports
+import os
 import warnings
 
 # Enthought librairies imports
@@ -20,6 +21,7 @@ from .preferences_mirror import PreferencesMirror
 # The mlab options.
 options = PreferencesMirror()
 options.preferences = preference_manager.mlab
+env_toolkit = os.environ.get('ETS_TOOLKIT', '')
 
 
 ######################################################################
@@ -33,7 +35,7 @@ def check_backend():
 
     toolkit()  # This forces the selection of a toolkit.
     if (options.backend != 'test' and not options.offscreen) and \
-            ETSConfig.toolkit in ('null', ''):
+       (ETSConfig.toolkit in ('null', '') and env_toolkit != 'null'):
         msg = '''Could not import backend for traitsui.  Make sure you
         have a suitable UI toolkit like PyQt/PySide or wxPython
         installed.'''

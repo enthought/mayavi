@@ -10,14 +10,17 @@ import unittest
 import weakref
 import gc
 
+from traits.etsconfig.api import ETSConfig
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.tests.common import restore_gc_state
 
 
 class TestTVTKScene(unittest.TestCase):
 
-    @unittest.skipIf(sys.platform.startswith('win'),
-                     'CI with windows fails due to lack of OpenGL')
+    @unittest.skipIf(
+        sys.platform.startswith('win') or ETSConfig.toolkit == 'null',
+        'CI with windows fails due to lack of OpenGL, or toolkit is null.'
+    )
     def test_tvtk_scene_garbage_collected(self):
 
         # given

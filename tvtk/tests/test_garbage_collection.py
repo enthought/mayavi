@@ -17,8 +17,10 @@ from tvtk.tests.common import TestGarbageCollection
 class TestTVTKGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
-    @unittest.skipIf(sys.platform.startswith('win'),
-                     'CI with windows fails due to lack of OpenGL')
+    @unittest.skipIf(
+        sys.platform.startswith('win') or ETSConfig.toolkit == 'null',
+        'CI with windows fails due to lack of OpenGL, or toolkit is null.'
+    )
     def test_tvtk_scene(self):
         """ Tests if TVTK scene can be garbage collected."""
         def create_fn():
@@ -29,8 +31,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
 
         self.check_object_garbage_collected(create_fn, close_fn)
 
-    @unittest.skipIf(ETSConfig.toolkit == 'wx',
-                     'Test segfaults using WX (issue #216)')
+    @unittest.skipIf(ETSConfig.toolkit in ('wx', 'null'),
+                     'Test segfaults using WX (issue #216) and fails on null')
     def test_scene(self):
         """ Tests if Scene can be garbage collected."""
         def create_fn():
@@ -41,8 +43,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
 
         self.check_object_garbage_collected(create_fn, close_fn)
 
-    @unittest.skipIf(ETSConfig.toolkit == 'wx',
-                     'Test segfaults using WX (issue #216)')
+    @unittest.skipIf(ETSConfig.toolkit in ('wx', 'null'),
+                     'Test segfaults using WX (issue #216) and fails on null')
     def test_decorated_scene(self):
         """ Tests if Decorated Scene can be garbage collected."""
         def create_fn():
