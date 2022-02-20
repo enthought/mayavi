@@ -6,6 +6,9 @@ on:
     # Run test at 0400 UTC on Saturday.
     - cron: '0 4 * * 6'
 
+env:
+  ETS_TOOLKIT: null
+
 jobs:
   tests:
     strategy:
@@ -28,9 +31,9 @@ jobs:
         python -m pip install numpy
         python -m pip install vtk
         python -m pip install pillow
-        python -m pip install nose
+        python -m pip install pytest
         python setup.py install
     - name: Test tvtk package
-      run: python -m nose.core -v tvtk
+      run: python -m pytest -v --pyargs tvtk
     - name: Test Mayavi package
-      run: python -m nose.core -v mayavi
+      run: python -m pytest -v --pyargs mayavi
