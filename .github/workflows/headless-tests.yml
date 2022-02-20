@@ -6,9 +6,6 @@ on:
     # Run test at 0400 UTC on Saturday.
     - cron: '0 4 * * 6'
 
-env:
-  ETS_TOOLKIT: null
-
 jobs:
   tests:
     strategy:
@@ -36,4 +33,4 @@ jobs:
     - name: Test tvtk package
       run: pytest -v --pyargs tvtk
     - name: Test Mayavi package
-      run: pytest -v --pyargs mayavi
+      run: ETS_TOOLKIT=null pytest -v --pyargs mayavi
