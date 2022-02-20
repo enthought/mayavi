@@ -34,6 +34,6 @@ jobs:
         python -m pip install pytest
         python setup.py install
     - name: Test tvtk package
-      run: python -m pytest -v --pyargs tvtk
+      run: pytest -v --pyargs tvtk
     - name: Test Mayavi package
-      run: python -m pytest -v --pyargs mayavi
+      run: pytest -v --pyargs mayavi
