@@ -31,8 +31,6 @@ jobs:
         python -m pip install nose
         python setup.py install
     - name: Test tvtk package
-      with:
-        run: python -m nose.core -v tvtk
+      run: python -m nose.core -v tvtk
     - name: Test Mayavi package
-      with:
-        run: python -m nose.core -v mayavi
+      run: python -m nose.core -v mayavi
