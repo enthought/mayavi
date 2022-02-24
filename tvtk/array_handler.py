@@ -224,6 +224,7 @@ def get_vtk_to_numeric_typemap():
         vtkConstants.VTK_UNSIGNED_INT: numpy.uint32,
         vtkConstants.VTK_LONG: LONG_TYPE_CODE,
         vtkConstants.VTK_UNSIGNED_LONG: ULONG_TYPE_CODE,
+        vtkConstants.VTK_LONG_LONG: numpy.int64,
         vtkConstants.VTK_ID_TYPE: ID_TYPE_CODE,
         vtkConstants.VTK_FLOAT: numpy.float32,
         vtkConstants.VTK_DOUBLE: numpy.float64
@@ -248,6 +249,7 @@ def get_sizeof_vtk_array(vtk_array_type):
         vtkConstants.VTK_UNSIGNED_INT: 4,
         vtkConstants.VTK_LONG: VTK_LONG_TYPE_SIZE,
         vtkConstants.VTK_UNSIGNED_LONG: VTK_LONG_TYPE_SIZE,
+        vtkConstants.VTK_LONG_LONG: 8,
         vtkConstants.VTK_ID_TYPE: VTK_ID_TYPE_SIZE,
         vtkConstants.VTK_FLOAT: 4,
         vtkConstants.VTK_DOUBLE: 8
