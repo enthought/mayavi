@@ -66,7 +66,6 @@ class TestArrayHandler(unittest.TestCase):
         t_z.append(numpy.array([0, 255], numpy.uint8))
         t_z.append(numpy.array([0, 65535], numpy.uint16))
         t_z.append(numpy.array([0, 4294967295], numpy.uint32))
-        t_z.append(numpy.array([0, 18446744073709551615], numpy.uint64))
         t_z.append(numpy.array([-1.0e38, 0, 1.0e38], 'f'))
         t_z.append(numpy.array([-1.0e299, 0, 1.0e299], 'd'))
 
