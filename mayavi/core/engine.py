@@ -2,8 +2,8 @@
 highest level.
 
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2020, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
+# Copyright (c) 2005-2022, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -11,14 +11,14 @@ highest level.
 try:
     import vtk
 except ImportError as m:
-    m.args = ('%s\n%s\nDo you have vtk and its Python bindings installed properly?' %
-                    (m.args[0], '_'*80),)
+    m.args = ('%s\n%s\nDo you have vtk and its Python bindings '
+              'installed properly?' % (m.args[0], '_'*80),)
     raise
 
 # Enthought library imports.
 from traits.api import (HasStrictTraits, List, Str,
-        Property, Instance, Event, HasTraits, Callable, Dict,
-        Bool, on_trait_change, WeakRef)
+                        Property, Instance, Event, HasTraits, Callable, Dict,
+                        Bool, on_trait_change, WeakRef)
 from traitsui.api import View, Item
 from apptools.persistence import state_pickler
 from apptools.scripting.api import Recorder, recordable
@@ -43,13 +43,17 @@ def _id_generator():
     while True:
         yield(n)
         n += 1
+
+
 scene_id_generator = _id_generator()
+
 
 def get_args(function):
     """ Simple inspect-like function to inspect the arguments a function
         takes.
     """
     return function.__code__.co_varnames[:function.__code__.co_argcount]
+
 
 ######################################################################
 # `Engine` class
@@ -115,13 +119,14 @@ class Engine(HasStrictTraits):
     _viewer_ref = Dict
 
     # View related traits.
-    current_selection_view = View(Item(name='_current_selection',
-                                       enabled_when='_current_selection is not None',
-                                       style='custom', springy=True,
-                                       show_label=False,),
-                                  resizable=True,
-                                  scrollable=True
-                                  )
+    current_selection_view = View(
+        Item(name='_current_selection',
+             enabled_when='_current_selection is not None',
+             style='custom', springy=True,
+             show_label=False,),
+        resizable=True,
+        scrollable=True
+    )
 
     ######################################################################
     # `object` interface
@@ -134,8 +139,9 @@ class Engine(HasStrictTraits):
 
         # To remove ref cycle with root preferences helper, the trait change
         # handler is an instance method
-        preference_manager.root.on_trait_change(self._show_helper_nodes_changed,
-                                                'show_helper_nodes')
+        preference_manager.root.on_trait_change(
+            self._show_helper_nodes_changed, 'show_helper_nodes'
+        )
 
     def __get_pure_state__(self):
         d = self.__dict__.copy()
@@ -188,7 +194,6 @@ class Engine(HasStrictTraits):
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a
         scene is given in the scene keyword argument."""
-        passed_scene = scene
         if scene is not None:
             tvtk_scene = scene.scene
             for sc in self.scenes:
@@ -214,7 +219,6 @@ class Engine(HasStrictTraits):
         to the selected object, or to an object passed as the
         kwarg `obj`.
         """
-        passed_obj = obj
         if obj is None:
             obj = self.current_object
         if not isinstance(obj, Base):
@@ -252,10 +256,10 @@ class Engine(HasStrictTraits):
         # Save the state of VTK's global warning display.
         o = vtk.vtkObject
         w = o.GetGlobalWarningDisplay()
-        o.SetGlobalWarningDisplay(0) # Turn it off.
+        o.SetGlobalWarningDisplay(0)  # Turn it off.
         try:
-            #FIXME: This is for streamline seed point widget position which
-            #does not get serialized correctly
+            # FIXME: This is for streamline seed point widget position which
+            # does not get serialized correctly
             state = state_pickler.get_state(self)
             st = state.scenes[0].children[0].children[0].children[4]
             l_pos = st.seed.widget.position
@@ -304,7 +308,7 @@ class Engine(HasStrictTraits):
         passed_scene = scene
         reader = registry.get_file_reader(filename)
         if reader is None:
-            msg = 'No suitable reader found for the file %s'%filename
+            msg = 'No suitable reader found for the file %s' % filename
             error(msg)
         else:
             src = None
@@ -367,7 +371,7 @@ class Engine(HasStrictTraits):
             if hasattr(scene, 'name'):
                 name = scene.name
             else:
-                name = 'Mayavi Scene %d'%next(scene_id_generator)
+                name = 'Mayavi Scene %d' % next(scene_id_generator)
 
         s = Scene(scene=scene, name=name, parent=self)
         s.start()
@@ -463,7 +467,6 @@ class Engine(HasStrictTraits):
             if hasattr(viewer, 'title'):
                 self.current_scene.sync_trait('name', viewer, 'title')
         return viewer
-
 
     @recordable
     def close_scene(self, scene):
@@ -575,9 +578,9 @@ class Engine(HasStrictTraits):
         """
         self._viewer_ref.clear()
         self.scenes = []
-        preference_manager.root.on_trait_change(self._show_helper_nodes_changed,
-                                                'show_helper_nodes',
-                                                remove=True)
+        preference_manager.root.on_trait_change(
+            self._show_helper_nodes_changed, 'show_helper_nodes', remove=True
+        )
         registry.unregister_engine(self)
 
     def _show_helper_nodes_changed(self):
@@ -587,8 +590,8 @@ class Engine(HasStrictTraits):
     def _get_children_ui_list(self):
         """ Trait getter for children_ui_list Property.
         """
-        if preference_manager.root.show_helper_nodes \
-                    and len(self.scenes) == 0:
+        if (preference_manager.root.show_helper_nodes and
+           len(self.scenes) == 0):
             return [SceneAdderNode(object=self)]
         else:
             return self.scenes
