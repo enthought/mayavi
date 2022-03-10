@@ -119,11 +119,18 @@ class ITKBackend(JupyterBackend):
         if hasattr(widget_viewer, 'have_mayavi'):
             widget_viewer.have_mayavi = False
 
+    def _update_pipeline(self, actors):
+        for a in actors:
+            m = a.GetMapper()
+            if m:
+                m.Update()
+
     def display(self, obj):
         from IPython.display import display as idisplay
         scene = get_scene(obj)
         if scene is not None:
             actors = get_all_actors(scene)
+            self._update_pipeline(actors)
             # Works around bug in released itkwidgets-0.32.1.
             # Can remove when this PR is merged and in a release:
             # https://github.com/InsightSoftwareConsortium/itkwidgets/pull/438

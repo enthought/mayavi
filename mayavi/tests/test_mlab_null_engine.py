@@ -48,13 +48,34 @@ class TestRealMlabNullEngine(unittest.TestCase):
         for engine in list(registry.engines):
             registry.unregister_engine(engine)
 
-    def test_test_backend(self):
+    def test_test_backend_clf(self):
         """Test if setting the backend to 'test' works."""
         mlab.options.backend = 'test'
         mlab.test_contour3d()
+        e = mlab.get_engine()
+        self.assertEqual(len(e.scenes), 1)
+        self.assertEqual(len(e.scenes[0].children), 1)
         mlab.clf()
+        self.assertEqual(len(e.scenes), 1)
+        self.assertEqual(len(e.scenes[0].children), 0)
         mlab.pipeline.open(get_example_data('cube.vti'))
         mlab.clf()
+        self.assertEqual(len(e.scenes), 1)
+        self.assertEqual(len(e.scenes[0].children), 0)
+
+    def test_points3d_test_backend(self):
+        # Given
+        mlab.options.backend = 'test'
+        # When
+        g = mlab.test_points3d()
+        pd = g.actor.mapper.input
+        # Then
+        self.assertTrue(pd.number_of_polys == 0)
+        # When
+        g.render()
+        # Then
+        self.assertTrue(pd.number_of_polys == 1920)
+
 
 if __name__ == '__main__':
     unittest.main()

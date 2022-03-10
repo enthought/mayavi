@@ -121,10 +121,10 @@ class PipelineBase(Base):
                 if hasattr(actor, 'mapper'):
                     m = actor.mapper
                     if m is not None:
-                        m.update(0)
+                        m.update()
         if hasattr(self, 'components'):
             for component in self.components:
-                    component.render()
+                component.render()
 
     ######################################################################
     # `PipelineBase` interface.
