@@ -42,6 +42,7 @@ jobs:
         python -m pip install vtk
         python -m pip install pillow
         python -m pip install nose
+        python -m pip install traitsui==7.2.1
         python -m pip install -e .[app]
     - name: Test Mayavi package
       uses: GabrielBB/xvfb-action@v1

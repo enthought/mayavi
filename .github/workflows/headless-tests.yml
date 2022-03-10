@@ -29,6 +29,7 @@ jobs:
         python -m pip install vtk
         python -m pip install pillow
         python -m pip install pytest
+        python -m pip install traitsui==7.2.1
         python setup.py install
     - name: Test tvtk package
       run: pytest -v --pyargs tvtk

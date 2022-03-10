@@ -23,7 +23,10 @@ def _ipython_display_(self):
     '''Method attached to Mayavi objects.
 
     Note that here `self` is the Mayavi object that is going to be
-    visualized.
+    visualized. This method is used by IPython to display objects on a
+    notebook, see here:
+    https://ipython.readthedocs.io/en/stable/config/integrating.html#custom-methods
+
     '''
     return _backend.display(self)
 
