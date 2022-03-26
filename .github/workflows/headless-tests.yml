@@ -30,7 +30,7 @@ jobs:
         python -m pip install pillow
         python -m pip install pytest
         python -m pip install traitsui==7.2.1
-        python setup.py install
+        python -m pip install .
     - name: Test tvtk package
       run: pytest -v --pyargs tvtk
     - name: Test Mayavi package
