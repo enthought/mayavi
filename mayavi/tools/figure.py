@@ -128,11 +128,13 @@ def clf(figure=None):
             scene = gcf()
         else:
             scene = figure
-        disable_render = scene.scene.disable_render
-        scene.scene.disable_render = True
+        if scene.scene is not None:
+            disable_render = scene.scene.disable_render
+            scene.scene.disable_render = True
         scene.children[:] = []
         scene._mouse_pick_dispatcher.clear_callbacks()
-        scene.scene.disable_render = disable_render
+        if scene.scene is not None:
+            scene.scene.disable_render = disable_render
     except AttributeError:
         pass
     gc.collect()
