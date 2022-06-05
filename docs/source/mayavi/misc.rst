@@ -174,7 +174,7 @@ Detail is here: https://docs.transifex.com/getting-started-1/translators
 .. _sphinx: https://www.sphinx-doc.org
 .. _Travis: https://travis-ci.org/enthought/mayavi
 .. _Appveyor: https://ci.appveyor.com/project/itziakos/mayavi
-.. _`mayavi translation page`: https://www.transifex.com/getfem-doc/mayavi/
+.. _`mayavi translation page`: https://www.transifex.com/tkoyama010/mayavi/
 .. _Transifex: https://www.transifex.com/
 .. _`Read The Docs`: https://mayavi.readthedocs.io/en/latest
 
