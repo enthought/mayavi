@@ -72,8 +72,6 @@ class DecoratedScene(Scene):
     def _closed_fired(self):
         super(DecoratedScene, self)._closed_fired()
         # Remove potential cycles.
-        self._content = None
-        self._panel = None
         tbm = self._tool_bar.tool_bar_manager
         if hasattr(tbm, '_toolbars'):
             # Qt backend. Workaround for PySide2/6 before the cleanup in
@@ -83,6 +81,8 @@ class DecoratedScene(Scene):
                     if item.control is not None:
                         if hasattr(item.control, '_tool_instance'):
                             del item.control._tool_instance
+        self._content = None
+        self._panel = None
         self._tool_bar = None
 
     ##########################################################################
