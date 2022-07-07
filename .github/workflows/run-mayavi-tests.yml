@@ -16,6 +16,13 @@ jobs:
         include:
           - python-version: '3.8'
             qt-api: 'pyside6'
+            os: ubuntu-latest
+          - python-version: '3.8'
+            qt-api: 'pyside6'
+            os: windows-latest
+          - python-version: '3.8'
+            qt-api: 'pyside6'
+            os: macos-latest
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
