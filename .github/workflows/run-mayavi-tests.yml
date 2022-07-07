@@ -22,7 +22,7 @@ jobs:
 
     env:
       ETS_TOOLKIT: qt4
-      QT_API: {{ matrix.qt-api }}
+      QT_API: ${{ matrix.qt-api }}
 
     steps:
     - uses: actions/checkout@v2
