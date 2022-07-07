@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ['3.6', '3.8']
+        python-version: ['3.6']
         qt-api: ['pyqt5']
         include:
           - python-version: '3.8'
@@ -21,8 +21,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      ETS_TOOLKIT=qt4
-      QT_API={{ matrix.qt-api }}
+      ETS_TOOLKIT: qt4
+      QT_API: {{ matrix.qt-api }}
 
     steps:
     - uses: actions/checkout@v2
