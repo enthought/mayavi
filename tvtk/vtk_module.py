@@ -38,3 +38,10 @@ if vtk_version == '9.1.0':
         del vtkOpenGLAvatar
     except NameError:
         pass
+
+if vtk_version == '9.2.0':
+    SKIP = ['vtkPlotBar']
+    try:
+        del vtkPlotBar
+    except NameError:
+        pass
