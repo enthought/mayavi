@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plotting many lines example &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Plotting many lines example &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
@@ -64,7 +66,7 @@
         <li class="right" >
           <a href="example_canyon_decimation.html" title="Canyon decimation example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Plotting many lines example</a></li> 
       </ul>
@@ -75,8 +77,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="plotting-many-lines-example">
-<span id="example-plotting-many-lines"></span><h1>Plotting many lines example<a class="headerlink" href="#plotting-many-lines-example" title="Permalink to this headline">¶</a></h1>
+  <section id="plotting-many-lines-example">
+<span id="example-plotting-many-lines"></span><h1>Plotting many lines example<a class="headerlink" href="#plotting-many-lines-example" title="Permalink to this heading">¶</a></h1>
 <p>This examples shows how many lines can be grouped together in a single
 object, for convenience and efficiency.</p>
 <p>We want to plot a large number of lines. We could use mlab.plot3d for
@@ -124,8 +126,8 @@ connected to the following one.</p>
 <span class="c1"># Create each line one after the other in a loop</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
     <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
-    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="mi">2</span> <span class="o">+</span> <span class="o">.</span><span class="mi">02</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
-    <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="mi">3</span> <span class="o">+</span> <span class="o">.</span><span class="mi">02</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">.02</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="mi">3</span> <span class="o">+</span> <span class="mf">.02</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
     <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
     <span class="c1"># This is the tricky part: in a line, each point is connected</span>
     <span class="c1"># to the one following it. We have to express this with the indices</span>
@@ -134,7 +136,7 @@ connected to the following one.</p>
     <span class="c1"># points already created (index)</span>
     <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
                        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">index</span><span class="p">,</span>   <span class="n">index</span> <span class="o">+</span> <span class="n">N</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">),</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="n">N</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">)]</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="n">N</span> <span class="o">-</span> <span class="mf">.5</span><span class="p">)]</span>
                             <span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
     <span class="n">index</span> <span class="o">+=</span> <span class="n">N</span>
 
@@ -156,15 +158,15 @@ connected to the following one.</p>
 <span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">stripper</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 
 <span class="c1"># Finally, display the set of lines</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Accent&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=.</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Accent&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">.4</span><span class="p">)</span>
 
 <span class="c1"># And choose a nice view</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mf">33.6</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mf">33.6</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.05</span><span class="p">])</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="mi">125</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -176,12 +178,16 @@ connected to the following one.</p>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="example_canyon_decimation.html"
-                        title="previous chapter">Canyon decimation example</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="example_magnetic_field_lines.html"
-                        title="next chapter">Magnetic field lines example</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="example_canyon_decimation.html"
+                          title="previous chapter">Canyon decimation example</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="example_magnetic_field_lines.html"
+                          title="next chapter">Magnetic field lines example</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -193,12 +199,12 @@ connected to the following one.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -218,15 +224,15 @@ connected to the following one.</p>
         <li class="right" >
           <a href="example_canyon_decimation.html" title="Canyon decimation example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Plotting many lines example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

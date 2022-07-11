@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Plotting functions for numpy arrays &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>3D Plotting functions for numpy arrays &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -56,7 +58,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">3D Plotting functions for numpy arrays</a></li> 
       </ul>
     </div>  
@@ -66,8 +68,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="d-plotting-functions-for-numpy-arrays">
-<span id="mlab-plotting-functions"></span><h1>3D Plotting functions for numpy arrays<a class="headerlink" href="#d-plotting-functions-for-numpy-arrays" title="Permalink to this headline">¶</a></h1>
+  <section id="d-plotting-functions-for-numpy-arrays">
+<span id="mlab-plotting-functions"></span><h1>3D Plotting functions for numpy arrays<a class="headerlink" href="#d-plotting-functions-for-numpy-arrays" title="Permalink to this heading">¶</a></h1>
 <p>Visualization can be created in <cite>mlab</cite> by a set of functions operating on
 numpy arrays.</p>
 <p>The mlab plotting functions take numpy arrays as input, describing the
@@ -84,13 +86,9 @@ module.</p>
 is described in detail in the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><span class="std std-ref">MLab reference</span></a>, at the end of
 the user guide, with figures and examples. Please follow the links.</p>
 </div>
-<div class="section" id="d-and-1d-data">
-<h2>0D and 1D data<a class="headerlink" href="#d-and-1d-data" title="Permalink to this headline">¶</a></h2>
+<section id="d-and-1d-data">
+<h2>0D and 1D data<a class="headerlink" href="#d-and-1d-data" title="Permalink to this heading">¶</a></h2>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"></th>
@@ -112,14 +110,10 @@ Plots line between the supplied data, described by <code class="docutils literal
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="d-data">
-<h2>2D data<a class="headerlink" href="#d-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="d-data">
+<h2>2D data<a class="headerlink" href="#d-data" title="Permalink to this heading">¶</a></h2>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"></th>
@@ -176,15 +170,15 @@ the triangles.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Vertical scale of  <code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">contour_surf()</span></code></p>
 <p><code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">contour_surf()</span></code> can be used as 3D
 representation of 2D data. By default the z-axis is supposed to
 be in the same units as the x and y axis, but it can be
 auto-scaled to give a 2/3 aspect ratio. This behavior can be
 controlled by specifying the “warp_scale=’auto’”.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">From data points to surfaces.</p>
 <p>Knowing the positions of data points is not enough to define a
 surface, connectivity information is also required. With the
@@ -198,15 +192,11 @@ advance either. The data points lie on a surface, and we want to
 plot the surface implicitly defined. The <cite>delaunay2d</cite> filter does
 the required nearest-neighbor matching, and interpolation, as
 shown in the (<a class="reference internal" href="auto/example_surface_from_irregular_data.html#example-surface-from-irregular-data"><span class="std std-ref">Surface from irregular data example</span></a>).</p>
-</div>
-</div>
-<div class="section" id="id1">
-<h2>3D data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</aside>
+</section>
+<section id="id1">
+<h2>3D data<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"></th>
@@ -242,13 +232,13 @@ volumetric data.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Structured or unstructured data</p>
 <p><code class="xref py py-func docutils literal notranslate"><span class="pre">contour3d()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">volume_slice()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">flow()</span></code> require
 ordered data (to be able to interpolate between the points), whereas
 <code class="xref py py-func docutils literal notranslate"><span class="pre">quiver3d()</span></code> works with any set of points. The required structure
 is detailed in the functions’ documentation.</p>
-</div>
+</aside>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Many richer visualizations can be created by assembling data sources
@@ -256,8 +246,8 @@ filters and modules. See the
 <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">Assembling pipelines with mlab</span></a> and the
 <a class="reference internal" href="mlab_case_studies.html#mlab-case-studies"><span class="std std-ref">Case studies of some visualizations</span></a> sections.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -269,8 +259,9 @@ filters and modules. See the
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">3D Plotting functions for numpy arrays</a><ul>
 <li><a class="reference internal" href="#d-and-1d-data">0D and 1D data</a></li>
 <li><a class="reference internal" href="#d-data">2D data</a></li>
@@ -279,6 +270,7 @@ filters and modules. See the
 </li>
 </ul>
 
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -290,12 +282,12 @@ filters and modules. See the
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -309,14 +301,14 @@ filters and modules. See the
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">3D Plotting functions for numpy arrays</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

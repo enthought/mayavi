@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modules and Filters &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Modules and Filters &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -64,7 +66,7 @@
         <li class="right" >
           <a href="auto/mlab_pipeline_data.html" title="Data"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="auto/mlab_reference.html" >MLab reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Modules and Filters</a></li> 
@@ -76,8 +78,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="modules-and-filters">
-<h1>Modules and Filters<a class="headerlink" href="#modules-and-filters" title="Permalink to this headline">¶</a></h1>
+  <section id="modules-and-filters">
+<h1>Modules and Filters<a class="headerlink" href="#modules-and-filters" title="Permalink to this heading">¶</a></h1>
 <p>For each Mayavi module or filter, there is a corresponding
 <cite>mlab.pipeline</cite> factory function that takes as an input argument, the
 source on which the new module or filter will be added, and returns the
@@ -92,63 +94,63 @@ the object added to the pipeline.</p>
 <p>For instance, the <cite>ScalarCutPlane</cite> module can be added with the following
 function:</p>
 <dl class="py function">
-<dt id="mayavi.tools.modules.scalar_cut_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.modules.</span></code><code class="sig-name descname"><span class="pre">scalar_cut_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.modules.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.modules.scalar_cut_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.modules.</span></span><span class="sig-name descname"><span class="pre">scalar_cut_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.modules.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the ScalarCutPlane mayavi module to the given data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">plane_orientation</dt>
+<dt class="field-even">plane_orientation<span class="colon">:</span></dt>
 <dd class="field-even"><p>the orientation of the plane Must be a legal
 value. Default: x_axes</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">view_controls</dt>
+<dt class="field-odd">view_controls<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Whether or not the controls of the cut plane are
 shown. Must be a boolean. Default: True</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -159,7 +161,7 @@ If None, the min of the data will be used</p>
 <p>As the list is long, we shall not enumerate here all the factory function
 for adding modules or filters. You are invited to refer to their
 docstring for information on the keyword arguments they accept.</p>
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -171,12 +173,16 @@ docstring for information on the keyword arguments they accept.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="auto/mlab_pipeline_data.html"
-                        title="previous chapter">Data</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="api/index.html"
-                        title="next chapter">Mayavi API reference</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="auto/mlab_pipeline_data.html"
+                          title="previous chapter">Data</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="api/index.html"
+                          title="next chapter">Mayavi API reference</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -188,12 +194,12 @@ docstring for information on the keyword arguments they accept.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -213,7 +219,7 @@ docstring for information on the keyword arguments they accept.</p>
         <li class="right" >
           <a href="auto/mlab_pipeline_data.html" title="Data"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="auto/mlab_reference.html" >MLab reference</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Modules and Filters</a></li> 
@@ -221,8 +227,8 @@ docstring for information on the keyword arguments they accept.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

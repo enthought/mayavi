@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Figure decoration functions &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Figure decoration functions &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
@@ -64,7 +66,7 @@
         <li class="right" >
           <a href="mlab_figure.html" title="Figure handling functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Figure decoration functions</a></li> 
       </ul>
@@ -83,13 +85,13 @@ mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</
 <p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<div class="section" id="figure-decoration-functions">
-<h1>Figure decoration functions<a class="headerlink" href="#figure-decoration-functions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="colorbar">
-<h2>colorbar<a class="headerlink" href="#colorbar" title="Permalink to this headline">¶</a></h2>
+<section id="figure-decoration-functions">
+<h1>Figure decoration functions<a class="headerlink" href="#figure-decoration-functions" title="Permalink to this heading">¶</a></h1>
+<section id="colorbar">
+<h2>colorbar<a class="headerlink" href="#colorbar" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.colorbar">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">colorbar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.colorbar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.colorbar">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">colorbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.colorbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the color mapping of the given object.</p>
 <p>If the object has scalar data, the scalar color mapping is
 represented. Elsewhere the vector color mapping is represented, if
@@ -99,23 +101,23 @@ is used.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">object</dt>
+<dt class="field-odd">object<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Optional object to get the color map from</p>
 </dd>
-<dt class="field-even">title</dt>
+<dt class="field-even">title<span class="colon">:</span></dt>
 <dd class="field-even"><p>The title string</p>
 </dd>
-<dt class="field-odd">orientation</dt>
+<dt class="field-odd">orientation<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Can be ‘horizontal’ or ‘vertical’</p>
 </dd>
-<dt class="field-even">nb_labels</dt>
+<dt class="field-even">nb_labels<span class="colon">:</span></dt>
 <dd class="field-even"><p>The number of labels to display on the colorbar.</p>
 </dd>
-<dt class="field-odd">label_fmt</dt>
+<dt class="field-odd">label_fmt<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The string formater for the labels. This needs to be
 a formater for float number, eg ‘%.1f’.</p>
 </dd>
-<dt class="field-even">nb_colors</dt>
+<dt class="field-even">nb_colors<span class="colon">:</span></dt>
 <dd class="field-even"><p>The maximum number of colors displayed on the
 colorbar.</p>
 </dd>
@@ -123,35 +125,35 @@ colorbar.</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="scalarbar">
-<h2>scalarbar<a class="headerlink" href="#scalarbar" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="scalarbar">
+<h2>scalarbar<a class="headerlink" href="#scalarbar" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.scalarbar">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">scalarbar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.scalarbar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.scalarbar">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">scalarbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.scalarbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the scalar color mapping of the given object.</p>
 <p>If no object is specified, the first object with scalar data in the scene
 is used.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">object</dt>
+<dt class="field-odd">object<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Optional object to get the scalar color map from</p>
 </dd>
-<dt class="field-even">title</dt>
+<dt class="field-even">title<span class="colon">:</span></dt>
 <dd class="field-even"><p>The title string</p>
 </dd>
-<dt class="field-odd">orientation</dt>
+<dt class="field-odd">orientation<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Can be ‘horizontal’ or ‘vertical’</p>
 </dd>
-<dt class="field-even">nb_labels</dt>
+<dt class="field-even">nb_labels<span class="colon">:</span></dt>
 <dd class="field-even"><p>The number of labels to display on the colorbar.</p>
 </dd>
-<dt class="field-odd">label_fmt</dt>
+<dt class="field-odd">label_fmt<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The string formater for the labels. This needs to be
 a formater for float number, eg ‘%.1f’.</p>
 </dd>
-<dt class="field-even">nb_colors</dt>
+<dt class="field-even">nb_colors<span class="colon">:</span></dt>
 <dd class="field-even"><p>The maximum number of colors displayed on the
 colorbar.</p>
 </dd>
@@ -159,35 +161,35 @@ colorbar.</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="vectorbar">
-<h2>vectorbar<a class="headerlink" href="#vectorbar" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vectorbar">
+<h2>vectorbar<a class="headerlink" href="#vectorbar" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.vectorbar">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">vectorbar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.vectorbar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.vectorbar">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">vectorbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.vectorbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the vector color mapping of the given object.</p>
 <p>If no object is specified, the first object with vector data in the scene
 is used.</p>
 <p><strong>Keyword arguments</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">object</dt>
+<dt class="field-odd">object<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Optional object to get the vector color map from</p>
 </dd>
-<dt class="field-even">title</dt>
+<dt class="field-even">title<span class="colon">:</span></dt>
 <dd class="field-even"><p>The title string</p>
 </dd>
-<dt class="field-odd">orientation</dt>
+<dt class="field-odd">orientation<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Can be ‘horizontal’ or ‘vertical’</p>
 </dd>
-<dt class="field-even">nb_labels</dt>
+<dt class="field-even">nb_labels<span class="colon">:</span></dt>
 <dd class="field-even"><p>The number of labels to display on the colorbar.</p>
 </dd>
-<dt class="field-odd">label_fmt</dt>
+<dt class="field-odd">label_fmt<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The string formater for the labels. This needs to be
 a formater for float number, eg ‘%.1f’.</p>
 </dd>
-<dt class="field-even">nb_colors</dt>
+<dt class="field-even">nb_colors<span class="colon">:</span></dt>
 <dd class="field-even"><p>The maximum number of colors displayed on the
 colorbar.</p>
 </dd>
@@ -195,17 +197,17 @@ colorbar.</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="xlabel">
-<h2>xlabel<a class="headerlink" href="#xlabel" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="xlabel">
+<h2>xlabel<a class="headerlink" href="#xlabel" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.xlabel">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">xlabel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.xlabel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.xlabel">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">xlabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.xlabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn’t already one, and sets the x label</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">object</dt>
+<dt class="field-odd">object<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The object to apply the module to, if not the whole scene
 is searched for a suitable object.</p>
 </dd>
@@ -213,17 +215,17 @@ is searched for a suitable object.</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="ylabel">
-<h2>ylabel<a class="headerlink" href="#ylabel" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="ylabel">
+<h2>ylabel<a class="headerlink" href="#ylabel" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.ylabel">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">ylabel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.ylabel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.ylabel">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">ylabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.ylabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn’t already one, and sets the y label</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">object</dt>
+<dt class="field-odd">object<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The object to apply the module to, if not the whole scene
 is searched for a suitable object.</p>
 </dd>
@@ -231,17 +233,17 @@ is searched for a suitable object.</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="zlabel">
-<h2>zlabel<a class="headerlink" href="#zlabel" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="zlabel">
+<h2>zlabel<a class="headerlink" href="#zlabel" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.zlabel">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">zlabel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.zlabel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.zlabel">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">zlabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.zlabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn’t already one, and sets the z label</p>
 <p><strong>Keyword arguments</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">object</dt>
+<dt class="field-odd">object<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The object to apply the module to, if not the whole scene
 is searched for a suitable object.</p>
 </dd>
@@ -249,8 +251,8 @@ is searched for a suitable object.</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -262,8 +264,9 @@ is searched for a suitable object.</p>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Figure decoration functions</a><ul>
 <li><a class="reference internal" href="#colorbar">colorbar</a></li>
 <li><a class="reference internal" href="#scalarbar">scalarbar</a></li>
@@ -275,12 +278,17 @@ is searched for a suitable object.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="mlab_figure.html"
-                        title="previous chapter">Figure handling functions</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mlab_camera.html"
-                        title="next chapter">Camera handling functions</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="mlab_figure.html"
+                          title="previous chapter">Figure handling functions</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="mlab_camera.html"
+                          title="next chapter">Camera handling functions</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -292,12 +300,12 @@ is searched for a suitable object.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -317,15 +325,15 @@ is searched for a suitable object.</p>
         <li class="right" >
           <a href="mlab_figure.html" title="Figure handling functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Figure decoration functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

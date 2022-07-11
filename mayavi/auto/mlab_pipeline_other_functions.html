@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Filters, modules, other functions &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Filters, modules, other functions &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
@@ -56,7 +58,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Filters, modules, other functions</a></li> 
       </ul>
     </div>  
@@ -74,73 +76,73 @@ mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</
 <p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<div class="section" id="filters-modules-other-functions">
-<h1>Filters, modules, other functions<a class="headerlink" href="#filters-modules-other-functions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="cell-derivatives">
-<h2>cell_derivatives<a class="headerlink" href="#cell-derivatives" title="Permalink to this headline">¶</a></h2>
+<section id="filters-modules-other-functions">
+<h1>Filters, modules, other functions<a class="headerlink" href="#filters-modules-other-functions" title="Permalink to this heading">¶</a></h1>
+<section id="cell-derivatives">
+<h2>cell_derivatives<a class="headerlink" href="#cell-derivatives" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.cell_derivatives">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">cell_derivatives</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.cell_derivatives" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.cell_derivatives">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">cell_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.cell_derivatives" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate derivatives of input point/vector data and output these as cell data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="cell-to-point-data">
-<h2>cell_to_point_data<a class="headerlink" href="#cell-to-point-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cell-to-point-data">
+<h2>cell_to_point_data<a class="headerlink" href="#cell-to-point-data" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.cell_to_point_data">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">cell_to_point_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.cell_to_point_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.cell_to_point_data">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">cell_to_point_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.cell_to_point_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert cell data to point data for the active data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="contour">
-<h2>contour<a class="headerlink" href="#contour" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="contour">
+<h2>contour<a class="headerlink" href="#contour" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.contour">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">contour</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.contour" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.contour">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">contour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.contour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute contours of the input dataset</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="contour-grid-plane">
-<h2>contour_grid_plane<a class="headerlink" href="#contour-grid-plane" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="contour-grid-plane">
+<h2>contour_grid_plane<a class="headerlink" href="#contour-grid-plane" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.contour_grid_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">contour_grid_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.contour_grid_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.contour_grid_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">contour_grid_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.contour_grid_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>::</dt><dd><p>Applies the ContourGridPlane mayavi module to the given data</p>
 </dd>
@@ -149,53 +151,53 @@ instructions on running the examples.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">contours</dt>
+<dt class="field-odd">contours<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Integer/list specifying number/list of
 contours. Specifying a list of values will only
 give the requested contours asked for.</p>
 </dd>
-<dt class="field-even">extent</dt>
+<dt class="field-even">extent<span class="colon">:</span></dt>
 <dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">line_width</dt>
+<dt class="field-even">line_width<span class="colon">:</span></dt>
 <dd class="field-even"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-even">opacity</dt>
+<dt class="field-even">opacity<span class="colon">:</span></dt>
 <dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -203,64 +205,64 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="contour-surface">
-<h2>contour_surface<a class="headerlink" href="#contour-surface" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="contour-surface">
+<h2>contour_surface<a class="headerlink" href="#contour-surface" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.contour_surface">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">contour_surface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.contour_surface" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.contour_surface">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">contour_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.contour_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Surface mayavi module to the given data
 source (Mayavi source, or VTK dataset) and turns contours on.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">contours</dt>
+<dt class="field-odd">contours<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Integer/list specifying number/list of
 contours. Specifying a list of values will only
 give the requested contours asked for.</p>
 </dd>
-<dt class="field-even">extent</dt>
+<dt class="field-even">extent<span class="colon">:</span></dt>
 <dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">line_width</dt>
+<dt class="field-even">line_width<span class="colon">:</span></dt>
 <dd class="field-even"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-even">opacity</dt>
+<dt class="field-even">opacity<span class="colon">:</span></dt>
 <dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -268,12 +270,12 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="custom-grid-plane">
-<h2>custom_grid_plane<a class="headerlink" href="#custom-grid-plane" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="custom-grid-plane">
+<h2>custom_grid_plane<a class="headerlink" href="#custom-grid-plane" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.custom_grid_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">custom_grid_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.custom_grid_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.custom_grid_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">custom_grid_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.custom_grid_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>::</dt><dd><p>Applies the CustomGridPlane mayavi module to the given VTK data</p>
 </dd>
@@ -282,53 +284,53 @@ If None, the min of the data will be used</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">contours</dt>
+<dt class="field-odd">contours<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Integer/list specifying number/list of
 contours. Specifying a list of values will only
 give the requested contours asked for.</p>
 </dd>
-<dt class="field-even">extent</dt>
+<dt class="field-even">extent<span class="colon">:</span></dt>
 <dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">line_width</dt>
+<dt class="field-even">line_width<span class="colon">:</span></dt>
 <dd class="field-even"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-even">opacity</dt>
+<dt class="field-even">opacity<span class="colon">:</span></dt>
 <dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -336,374 +338,374 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="cut-plane">
-<h2>cut_plane<a class="headerlink" href="#cut-plane" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cut-plane">
+<h2>cut_plane<a class="headerlink" href="#cut-plane" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.cut_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">cut_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.cut_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">cut_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Slice the input dataset with a cut plane</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="data-set-clipper">
-<h2>data_set_clipper<a class="headerlink" href="#data-set-clipper" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="data-set-clipper">
+<h2>data_set_clipper<a class="headerlink" href="#data-set-clipper" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.data_set_clipper">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">data_set_clipper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.data_set_clipper" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.data_set_clipper">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">data_set_clipper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.data_set_clipper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clip the input dataset</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="decimate-pro">
-<h2>decimate_pro<a class="headerlink" href="#decimate-pro" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="decimate-pro">
+<h2>decimate_pro<a class="headerlink" href="#decimate-pro" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.decimate_pro">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">decimate_pro</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.decimate_pro" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.decimate_pro">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">decimate_pro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.decimate_pro" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simpilies a mesh using the DecimatePro filter</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="delaunay2d">
-<h2>delaunay2d<a class="headerlink" href="#delaunay2d" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="delaunay2d">
+<h2>delaunay2d<a class="headerlink" href="#delaunay2d" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.delaunay2d">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">delaunay2d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.delaunay2d" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.delaunay2d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">delaunay2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.delaunay2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a 2D Delaunay triangulation for the given data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="delaunay3d">
-<h2>delaunay3d<a class="headerlink" href="#delaunay3d" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="delaunay3d">
+<h2>delaunay3d<a class="headerlink" href="#delaunay3d" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.delaunay3d">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">delaunay3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.delaunay3d" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.delaunay3d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">delaunay3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.delaunay3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a 3D Delaunay triangulation for the given data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="elevation">
-<h2>elevation<a class="headerlink" href="#elevation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="elevation">
+<h2>elevation<a class="headerlink" href="#elevation" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.elevation">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">elevation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.elevation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.elevation">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">elevation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.elevation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates scalar data from the elevation along a direction</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="elevation-filter">
-<h2>elevation_filter<a class="headerlink" href="#elevation-filter" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="elevation-filter">
+<h2>elevation_filter<a class="headerlink" href="#elevation-filter" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.elevation_filter">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">elevation_filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.elevation_filter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.elevation_filter">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">elevation_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.elevation_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Elevation Filter mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">high_point</dt>
+<dt class="field-even">high_point<span class="colon">:</span></dt>
 <dd class="field-even"><p>The end point of the projection line</p>
 </dd>
-<dt class="field-odd">low_point</dt>
+<dt class="field-odd">low_point<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The start point of the projection line</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="extract-edges">
-<h2>extract_edges<a class="headerlink" href="#extract-edges" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="extract-edges">
+<h2>extract_edges<a class="headerlink" href="#extract-edges" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.extract_edges">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">extract_edges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_edges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.extract_edges">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">extract_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_edges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns edges into lines.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="extract-grid">
-<h2>extract_grid<a class="headerlink" href="#extract-grid" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="extract-grid">
+<h2>extract_grid<a class="headerlink" href="#extract-grid" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.extract_grid">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">extract_grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_grid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.extract_grid">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">extract_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract/subsample part of any structured grid</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="extract-tensor-components">
-<h2>extract_tensor_components<a class="headerlink" href="#extract-tensor-components" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="extract-tensor-components">
+<h2>extract_tensor_components<a class="headerlink" href="#extract-tensor-components" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.extract_tensor_components">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">extract_tensor_components</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_tensor_components" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.extract_tensor_components">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">extract_tensor_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_tensor_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract tensor components from tensor data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="extract-unstructured-grid">
-<h2>extract_unstructured_grid<a class="headerlink" href="#extract-unstructured-grid" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="extract-unstructured-grid">
+<h2>extract_unstructured_grid<a class="headerlink" href="#extract-unstructured-grid" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.extract_unstructured_grid">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">extract_unstructured_grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_unstructured_grid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.extract_unstructured_grid">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">extract_unstructured_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_unstructured_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract part of an unstructured grid</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="extract-vector-components">
-<h2>extract_vector_components<a class="headerlink" href="#extract-vector-components" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="extract-vector-components">
+<h2>extract_vector_components<a class="headerlink" href="#extract-vector-components" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.extract_vector_components">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">extract_vector_components</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_vector_components" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.extract_vector_components">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">extract_vector_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_vector_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract vector components from vector data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="extract-vector-norm">
-<h2>extract_vector_norm<a class="headerlink" href="#extract-vector-norm" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="extract-vector-norm">
+<h2>extract_vector_norm<a class="headerlink" href="#extract-vector-norm" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.extract_vector_norm">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">extract_vector_norm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_vector_norm" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.extract_vector_norm">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">extract_vector_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.extract_vector_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the vector norm for the current vector data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="gaussian-splatter">
-<h2>gaussian_splatter<a class="headerlink" href="#gaussian-splatter" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="gaussian-splatter">
+<h2>gaussian_splatter<a class="headerlink" href="#gaussian-splatter" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.gaussian_splatter">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">gaussian_splatter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.gaussian_splatter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.gaussian_splatter">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">gaussian_splatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.gaussian_splatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a structured set of points from a cloud of points,
 the local density defining the scalar.  It is essentially equivalent
 to a 3D Gaussian kernel density estimate.
 <strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="glyph">
-<h2>glyph<a class="headerlink" href="#glyph" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="glyph">
+<h2>glyph<a class="headerlink" href="#glyph" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.glyph">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">glyph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.glyph" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.glyph">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">glyph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.glyph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Glyph mayavi module to the given VTK data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">mask_points</dt>
+<dt class="field-even">mask_points<span class="colon">:</span></dt>
 <dd class="field-even"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
 None.</p>
 </dd>
-<dt class="field-odd">mode</dt>
+<dt class="field-odd">mode<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
 ‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
 ‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
 ‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
 ‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: sphere</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">resolution</dt>
+<dt class="field-odd">resolution<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</p>
 </dd>
-<dt class="field-even">scale_factor</dt>
+<dt class="field-even">scale_factor<span class="colon">:</span></dt>
 <dd class="field-even"><p>the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</p>
 </dd>
-<dt class="field-odd">scale_mode</dt>
+<dt class="field-odd">scale_mode<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the scaling mode for the glyphs
 (‘vector’, ‘scalar’, or ‘none’).</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -711,78 +713,78 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="greedy-terrain-decimation">
-<h2>greedy_terrain_decimation<a class="headerlink" href="#greedy-terrain-decimation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="greedy-terrain-decimation">
+<h2>greedy_terrain_decimation<a class="headerlink" href="#greedy-terrain-decimation" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.greedy_terrain_decimation">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">greedy_terrain_decimation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.greedy_terrain_decimation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.greedy_terrain_decimation">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">greedy_terrain_decimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.greedy_terrain_decimation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simplifies image data and performs a triangulation</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="grid-plane">
-<h2>grid_plane<a class="headerlink" href="#grid-plane" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="grid-plane">
+<h2>grid_plane<a class="headerlink" href="#grid-plane" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.grid_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">grid_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.grid_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.grid_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">grid_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.grid_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows a grid plane for the given input</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -790,58 +792,58 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="hyper-streamline">
-<h2>hyper_streamline<a class="headerlink" href="#hyper-streamline" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="hyper-streamline">
+<h2>hyper_streamline<a class="headerlink" href="#hyper-streamline" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.hyper_streamline">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">hyper_streamline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.hyper_streamline" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.hyper_streamline">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">hyper_streamline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.hyper_streamline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows hyper streamlines for tensor data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -849,62 +851,62 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="image-actor">
-<h2>image_actor<a class="headerlink" href="#image-actor" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="image-actor">
+<h2>image_actor<a class="headerlink" href="#image-actor" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.image_actor">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">image_actor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_actor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.image_actor">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">image_actor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_actor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the ImageActor mayavi module to the given VTK data object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">interpolate</dt>
+<dt class="field-odd">interpolate<span class="colon">:</span></dt>
 <dd class="field-odd"><p>if the pixels in the image are to be
 interpolated or not. Must be a boolean. Default: True</p>
 </dd>
-<dt class="field-even">line_width</dt>
+<dt class="field-even">line_width<span class="colon">:</span></dt>
 <dd class="field-even"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-even">opacity</dt>
+<dt class="field-even">opacity<span class="colon">:</span></dt>
 <dd class="field-even"><p>the opacity of the image. Must be a legal value. Default:
 1.0</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -912,52 +914,52 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="image-change-information">
-<h2>image_change_information<a class="headerlink" href="#image-change-information" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="image-change-information">
+<h2>image_change_information<a class="headerlink" href="#image-change-information" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.image_change_information">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">image_change_information</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_change_information" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.image_change_information">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">image_change_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_change_information" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the origin, spacing and extents of an image dataset</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="image-data-probe">
-<h2>image_data_probe<a class="headerlink" href="#image-data-probe" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="image-data-probe">
+<h2>image_data_probe<a class="headerlink" href="#image-data-probe" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.image_data_probe">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">image_data_probe</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_data_probe" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.image_data_probe">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">image_data_probe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_data_probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples arbitrary datasets onto an image dataset (cube of data)</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="image-plane-widget">
-<h2>image_plane_widget<a class="headerlink" href="#image-plane-widget" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="image-plane-widget">
+<h2>image_plane_widget<a class="headerlink" href="#image-plane-widget" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.image_plane_widget">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">image_plane_widget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_plane_widget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.image_plane_widget">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">image_plane_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.image_plane_widget" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>::</dt><dd><p>Applies the ImagePlaneWidget mayavi module to the given data</p>
 </dd>
@@ -966,60 +968,60 @@ If None, the min of the data will be used</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">plane_opacity</dt>
+<dt class="field-even">plane_opacity<span class="colon">:</span></dt>
 <dd class="field-even"><p>the opacity of the plane actor. Must be a legal value.
 Default: 1.0</p>
 </dd>
-<dt class="field-odd">plane_orientation</dt>
+<dt class="field-odd">plane_orientation<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the orientation of the plane Must be a legal
 value. Default: x_axes</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">slice_index</dt>
+<dt class="field-odd">slice_index<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The index along with the
 image is sliced.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1027,64 +1029,64 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="iso-surface">
-<h2>iso_surface<a class="headerlink" href="#iso-surface" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="iso-surface">
+<h2>iso_surface<a class="headerlink" href="#iso-surface" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.iso_surface">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">iso_surface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.iso_surface" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.iso_surface">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">iso_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.iso_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the IsoSurface mayavi module to the given data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">contours</dt>
+<dt class="field-odd">contours<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Integer/list specifying number/list of
 contours. Specifying a list of values will only
 give the requested contours asked for.</p>
 </dd>
-<dt class="field-even">extent</dt>
+<dt class="field-even">extent<span class="colon">:</span></dt>
 <dd class="field-even"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">line_width</dt>
+<dt class="field-even">line_width<span class="colon">:</span></dt>
 <dd class="field-even"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-even">opacity</dt>
+<dt class="field-even">opacity<span class="colon">:</span></dt>
 <dd class="field-even"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1092,58 +1094,58 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="labels">
-<h2>labels<a class="headerlink" href="#labels" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="labels">
+<h2>labels<a class="headerlink" href="#labels" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.labels">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">labels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.labels" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.labels">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.labels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display labels for active dataset or active module</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1151,78 +1153,78 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="mask-points">
-<h2>mask_points<a class="headerlink" href="#mask-points" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mask-points">
+<h2>mask_points<a class="headerlink" href="#mask-points" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.mask_points">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">mask_points</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.mask_points" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.mask_points">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">mask_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.mask_points" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mask the input points in the data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="outline">
-<h2>outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="outline">
+<h2>outline<a class="headerlink" href="#outline" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.outline">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">outline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.outline" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.outline">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">outline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.outline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw an outline for given input</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1230,72 +1232,72 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="point-to-cell-data">
-<h2>point_to_cell_data<a class="headerlink" href="#point-to-cell-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="point-to-cell-data">
+<h2>point_to_cell_data<a class="headerlink" href="#point-to-cell-data" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.point_to_cell_data">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">point_to_cell_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.point_to_cell_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.point_to_cell_data">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">point_to_cell_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.point_to_cell_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert point data to cell data for the active data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="poly-data-normals">
-<h2>poly_data_normals<a class="headerlink" href="#poly-data-normals" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="poly-data-normals">
+<h2>poly_data_normals<a class="headerlink" href="#poly-data-normals" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.poly_data_normals">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">poly_data_normals</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.poly_data_normals" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.poly_data_normals">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">poly_data_normals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.poly_data_normals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute normals and smooth the appearance</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="quadric-decimation">
-<h2>quadric_decimation<a class="headerlink" href="#quadric-decimation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="quadric-decimation">
+<h2>quadric_decimation<a class="headerlink" href="#quadric-decimation" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.quadric_decimation">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">quadric_decimation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.quadric_decimation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.quadric_decimation">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">quadric_decimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.quadric_decimation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simplifies a triangular mesh</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="scalar-cut-plane">
-<h2>scalar_cut_plane<a class="headerlink" href="#scalar-cut-plane" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="scalar-cut-plane">
+<h2>scalar_cut_plane<a class="headerlink" href="#scalar-cut-plane" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.scalar_cut_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">scalar_cut_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.scalar_cut_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">scalar_cut_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>::</dt><dd><p>Applies the ScalarCutPlane mayavi module to the given data</p>
 </dd>
@@ -1304,56 +1306,56 @@ If None, the min of the data will be used</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">plane_orientation</dt>
+<dt class="field-even">plane_orientation<span class="colon">:</span></dt>
 <dd class="field-even"><p>the orientation of the plane Must be a legal
 value. Default: x_axes</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">view_controls</dt>
+<dt class="field-odd">view_controls<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Whether or not the controls of the cut plane are
 shown. Must be a boolean. Default: True</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1361,32 +1363,32 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="select-output">
-<h2>select_output<a class="headerlink" href="#select-output" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="select-output">
+<h2>select_output<a class="headerlink" href="#select-output" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.select_output">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">select_output</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.select_output" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.select_output">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">select_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.select_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Choose the output of the source that should be used</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="set-active-attribute">
-<h2>set_active_attribute<a class="headerlink" href="#set-active-attribute" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="set-active-attribute">
+<h2>set_active_attribute<a class="headerlink" href="#set-active-attribute" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.set_active_attribute">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">set_active_attribute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.set_active_attribute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.set_active_attribute">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">set_active_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.set_active_attribute" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>::</dt><dd><p>Applies the SetActiveAttribute Filter mayavi filter to the given</p>
 </dd>
@@ -1395,86 +1397,86 @@ If None, the min of the data will be used</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">cell_scalars</dt>
+<dt class="field-odd">cell_scalars<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The name of the active cell scalars</p>
 </dd>
-<dt class="field-even">cell_tensors</dt>
+<dt class="field-even">cell_tensors<span class="colon">:</span></dt>
 <dd class="field-even"><p>The name of the active cell tensors</p>
 </dd>
-<dt class="field-odd">cell_vectors</dt>
+<dt class="field-odd">cell_vectors<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The name of the active cell vectors</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-even">point_scalars</dt>
+<dt class="field-even">point_scalars<span class="colon">:</span></dt>
 <dd class="field-even"><p>The name of the active point scalars</p>
 </dd>
-<dt class="field-odd">point_tensors</dt>
+<dt class="field-odd">point_tensors<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The name of the active point tensors</p>
 </dd>
-<dt class="field-even">point_vectors</dt>
+<dt class="field-even">point_vectors<span class="colon">:</span></dt>
 <dd class="field-even"><p>The name of the active point vectors</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="slice-unstructured-grid">
-<h2>slice_unstructured_grid<a class="headerlink" href="#slice-unstructured-grid" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="slice-unstructured-grid">
+<h2>slice_unstructured_grid<a class="headerlink" href="#slice-unstructured-grid" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.slice_unstructured_grid">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">slice_unstructured_grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.slice_unstructured_grid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.slice_unstructured_grid">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">slice_unstructured_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.slice_unstructured_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Slice an unstructured grid to show cells</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1482,84 +1484,84 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="streamline">
-<h2>streamline<a class="headerlink" href="#streamline" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="streamline">
+<h2>streamline<a class="headerlink" href="#streamline" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.streamline">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">streamline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.streamline" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.streamline">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">streamline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.streamline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Streamline mayavi module to the given VTK data object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">integration_direction</dt>
+<dt class="field-odd">integration_direction<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The direction of the integration. Must be
 ‘forward’ or ‘backward’ or ‘both’. Default:
 forward</p>
 </dd>
-<dt class="field-even">line_width</dt>
+<dt class="field-even">line_width<span class="colon">:</span></dt>
 <dd class="field-even"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-odd">linetype</dt>
+<dt class="field-odd">linetype<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the type of line-like object used to display the
 streamline. Must be ‘line’ or ‘ribbon’ or ‘tube’. Default:
 line</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">seed_resolution</dt>
+<dt class="field-odd">seed_resolution<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The resolution of the seed. Determines the number of
 seed points Must be an integer or None.</p>
 </dd>
-<dt class="field-even">seed_scale</dt>
+<dt class="field-even">seed_scale<span class="colon">:</span></dt>
 <dd class="field-even"><p>Scales the seed around its default center Must be a
 float. Default: 1.0</p>
 </dd>
-<dt class="field-odd">seed_visible</dt>
+<dt class="field-odd">seed_visible<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Control the visibility of the seed. Must be a boolean.
 Default: True</p>
 </dd>
-<dt class="field-even">seedtype</dt>
+<dt class="field-even">seedtype<span class="colon">:</span></dt>
 <dd class="field-even"><p>the widget used as a seed for the streamlines. Must be
 ‘line’ or ‘plane’ or ‘point’ or ‘sphere’. Default: sphere</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1567,78 +1569,78 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="stripper">
-<h2>stripper<a class="headerlink" href="#stripper" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="stripper">
+<h2>stripper<a class="headerlink" href="#stripper" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.stripper">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">stripper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.stripper" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.stripper">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">stripper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.stripper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Regularizes surfaces by creating triangle strips</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="structured-grid-outline">
-<h2>structured_grid_outline<a class="headerlink" href="#structured-grid-outline" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="structured-grid-outline">
+<h2>structured_grid_outline<a class="headerlink" href="#structured-grid-outline" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.structured_grid_outline">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">structured_grid_outline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.structured_grid_outline" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.structured_grid_outline">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">structured_grid_outline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.structured_grid_outline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw a grid-conforming outline for structured grids</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1646,64 +1648,64 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="surface">
-<h2>surface<a class="headerlink" href="#surface" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="surface">
+<h2>surface<a class="headerlink" href="#surface" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.surface">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">surface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.surface" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.surface">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Surface mayavi module to the given data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">representation</dt>
+<dt class="field-even">representation<span class="colon">:</span></dt>
 <dd class="field-even"><p>the representation type used for the surface. Must be
 ‘surface’ or ‘wireframe’ or ‘points’. Default:
 surface</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1711,58 +1713,58 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="tensor-glyph">
-<h2>tensor_glyph<a class="headerlink" href="#tensor-glyph" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="tensor-glyph">
+<h2>tensor_glyph<a class="headerlink" href="#tensor-glyph" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.tensor_glyph">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">tensor_glyph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.tensor_glyph" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.tensor_glyph">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">tensor_glyph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.tensor_glyph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays glyphs scaled and oriented as per tensor data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1770,58 +1772,58 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="text3d">
-<h2>text3d<a class="headerlink" href="#text3d" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="text3d">
+<h2>text3d<a class="headerlink" href="#text3d" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.text3d">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">text3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.text3d" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.text3d">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">text3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.text3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays user-specified text at a 3D location in the scene</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -1829,96 +1831,96 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="threshold">
-<h2>threshold<a class="headerlink" href="#threshold" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="threshold">
+<h2>threshold<a class="headerlink" href="#threshold" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.threshold">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">threshold</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.threshold" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.threshold">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.threshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Threshold mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">filter_type</dt>
+<dt class="field-even">filter_type<span class="colon">:</span></dt>
 <dd class="field-even"><p>If threshold is put on cells or points</p>
 </dd>
-<dt class="field-odd">low</dt>
+<dt class="field-odd">low<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The lower threshold</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">up</dt>
+<dt class="field-odd">up<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The upper threshold</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="transform-data">
-<h2>transform_data<a class="headerlink" href="#transform-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="transform-data">
+<h2>transform_data<a class="headerlink" href="#transform-data" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.transform_data">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">transform_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.transform_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.transform_data">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">transform_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.transform_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform (rotate/translate/scale) non ImageData datasets</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="triangle-filter">
-<h2>triangle_filter<a class="headerlink" href="#triangle-filter" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="triangle-filter">
+<h2>triangle_filter<a class="headerlink" href="#triangle-filter" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.triangle_filter">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">triangle_filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.triangle_filter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.triangle_filter">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">triangle_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.triangle_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert input polygons and triangle strips to triangles</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="tube">
-<h2>tube<a class="headerlink" href="#tube" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="tube">
+<h2>tube<a class="headerlink" href="#tube" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.tube">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">tube</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.tube" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.tube">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">tube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.tube" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Tube mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">tube_radius</dt>
+<dt class="field-odd">tube_radius<span class="colon">:</span></dt>
 <dd class="field-odd"><p>radius of the tubes used to represent the
 lines. Must be a float. Default: 0.05</p>
 </dd>
-<dt class="field-even">tube_sides</dt>
+<dt class="field-even">tube_sides<span class="colon">:</span></dt>
 <dd class="field-even"><p>number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</p>
 </dd>
@@ -1926,36 +1928,36 @@ represent the lines. Must be an integer. Default: 6</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="user-defined">
-<h2>user_defined<a class="headerlink" href="#user-defined" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="user-defined">
+<h2>user_defined<a class="headerlink" href="#user-defined" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.user_defined">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">user_defined</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.user_defined" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.user_defined">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">user_defined</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.user_defined" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the UserDefined mayavi filter to the given TVTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">filter</dt>
+<dt class="field-even">filter<span class="colon">:</span></dt>
 <dd class="field-even"><p>the tvtk filter to adapt. Thisbe either an instance of the
 filter, or thename of this filter.</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="vector-cut-plane">
-<h2>vector_cut_plane<a class="headerlink" href="#vector-cut-plane" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vector-cut-plane">
+<h2>vector_cut_plane<a class="headerlink" href="#vector-cut-plane" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.vector_cut_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">vector_cut_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vector_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.vector_cut_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">vector_cut_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vector_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>::</dt><dd><p>Applies the VectorCutPlane mayavi module to the given data</p>
 </dd>
@@ -1964,83 +1966,83 @@ filter, or thename of this filter.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">mask_points</dt>
+<dt class="field-even">mask_points<span class="colon">:</span></dt>
 <dd class="field-even"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
 None.</p>
 </dd>
-<dt class="field-odd">mode</dt>
+<dt class="field-odd">mode<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
 ‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
 ‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
 ‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
 ‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: 2darrow</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">plane_orientation</dt>
+<dt class="field-even">plane_orientation<span class="colon">:</span></dt>
 <dd class="field-even"><p>the orientation of the plane Must be a legal
 value. Default: x_axes</p>
 </dd>
-<dt class="field-odd">reset_zoom</dt>
+<dt class="field-odd">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-even">resolution</dt>
+<dt class="field-even">resolution<span class="colon">:</span></dt>
 <dd class="field-even"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</p>
 </dd>
-<dt class="field-odd">scale_factor</dt>
+<dt class="field-odd">scale_factor<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</p>
 </dd>
-<dt class="field-even">scale_mode</dt>
+<dt class="field-even">scale_mode<span class="colon">:</span></dt>
 <dd class="field-even"><p>the scaling mode for the glyphs
 (‘vector’, ‘scalar’, or ‘none’).</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">view_controls</dt>
+<dt class="field-even">view_controls<span class="colon">:</span></dt>
 <dd class="field-even"><p>Whether or not the controls of the cut plane are
 shown. Must be a boolean. Default: True</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -2048,86 +2050,86 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="vectors">
-<h2>vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vectors">
+<h2>vectors<a class="headerlink" href="#vectors" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.vectors">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">vectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vectors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.vectors">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Vectors mayavi module to the given data object
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">mask_points</dt>
+<dt class="field-even">mask_points<span class="colon">:</span></dt>
 <dd class="field-even"><p>If supplied, only one out of ‘mask_points’ data point is
 displayed. This option is useful to reduce the number of
 points displayed on large datasets Must be an integer or
 None.</p>
 </dd>
-<dt class="field-odd">mode</dt>
+<dt class="field-odd">mode<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the mode of the glyphs. Must be ‘2darrow’ or ‘2dcircle’ or
 ‘2dcross’ or ‘2ddash’ or ‘2ddiamond’ or ‘2dhooked_arrow’ or
 ‘2dsquare’ or ‘2dthick_arrow’ or ‘2dthick_cross’ or
 ‘2dtriangle’ or ‘2dvertex’ or ‘arrow’ or ‘axes’ or ‘cone’ or
 ‘cube’ or ‘cylinder’ or ‘point’ or ‘sphere’. Default: 2darrow</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">resolution</dt>
+<dt class="field-odd">resolution<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</p>
 </dd>
-<dt class="field-even">scale_factor</dt>
+<dt class="field-even">scale_factor<span class="colon">:</span></dt>
 <dd class="field-even"><p>the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</p>
 </dd>
-<dt class="field-odd">scale_mode</dt>
+<dt class="field-odd">scale_mode<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the scaling mode for the glyphs
 (‘vector’, ‘scalar’, or ‘none’).</p>
 </dd>
-<dt class="field-even">transparent</dt>
+<dt class="field-even">transparent<span class="colon">:</span></dt>
 <dd class="field-even"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-odd">vmax</dt>
+<dt class="field-odd">vmax<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-even">vmin</dt>
+<dt class="field-even">vmin<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -2135,12 +2137,12 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="volume">
-<h2>volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="volume">
+<h2>volume<a class="headerlink" href="#volume" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.volume">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">volume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.volume" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.volume">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">volume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.volume" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>::</dt><dd><p>Applies the Volume mayavi module to the given VTK data</p>
 </dd>
@@ -2179,24 +2181,24 @@ transfer function), or the otf (opacity transfer function):</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">name</dt>
+<dt class="field-odd">name<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the transparency
 gradient. If None, the max of the data will be
 used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the transparency
 gradient. If None, the min of the data will be
 used</p>
@@ -2205,121 +2207,121 @@ used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="vorticity">
-<h2>vorticity<a class="headerlink" href="#vorticity" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vorticity">
+<h2>vorticity<a class="headerlink" href="#vorticity" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.vorticity">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">vorticity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vorticity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.vorticity">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">vorticity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.vorticity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the vorticity (curl) of input vector field</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="warp-scalar">
-<h2>warp_scalar<a class="headerlink" href="#warp-scalar" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="warp-scalar">
+<h2>warp_scalar<a class="headerlink" href="#warp-scalar" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.warp_scalar">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">warp_scalar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.warp_scalar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.warp_scalar">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">warp_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.warp_scalar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the WarpScalar mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">warp_scale</dt>
+<dt class="field-odd">warp_scale<span class="colon">:</span></dt>
 <dd class="field-odd"><p>scale of the warp scalar</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="warp-vector">
-<h2>warp_vector<a class="headerlink" href="#warp-vector" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="warp-vector">
+<h2>warp_vector<a class="headerlink" href="#warp-vector" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.warp_vector">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">warp_vector</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.warp_vector" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.warp_vector">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">warp_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.warp_vector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move points of data along the vector data at point</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
 </dl>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="warp-vector-cut-plane">
-<h2>warp_vector_cut_plane<a class="headerlink" href="#warp-vector-cut-plane" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="warp-vector-cut-plane">
+<h2>warp_vector_cut_plane<a class="headerlink" href="#warp-vector-cut-plane" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.tools.pipeline.warp_vector_cut_plane">
-<code class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></code><code class="sig-name descname"><span class="pre">warp_vector_cut_plane</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.warp_vector_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.tools.pipeline.warp_vector_cut_plane">
+<span class="sig-prename descclassname"><span class="pre">mayavi.tools.pipeline.</span></span><span class="sig-name descname"><span class="pre">warp_vector_cut_plane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.tools.pipeline.warp_vector_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Warp cut plane along scaled input vectors</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">color</dt>
+<dt class="field-odd">color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</p>
 </dd>
-<dt class="field-even">colormap</dt>
+<dt class="field-even">colormap<span class="colon">:</span></dt>
 <dd class="field-even"><p>type of colormap to use.</p>
 </dd>
-<dt class="field-odd">extent</dt>
+<dt class="field-odd">extent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</p>
 </dd>
-<dt class="field-even">figure</dt>
+<dt class="field-even">figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>Must be a Scene or None.</p>
 </dd>
-<dt class="field-odd">line_width</dt>
+<dt class="field-odd">line_width<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The width of the lines, if any used. Must be a float.
 Default: 2.0</p>
 </dd>
-<dt class="field-even">name</dt>
+<dt class="field-even">name<span class="colon">:</span></dt>
 <dd class="field-even"><p>the name of the vtk object created.</p>
 </dd>
-<dt class="field-odd">opacity</dt>
+<dt class="field-odd">opacity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The overall opacity of the vtk object. Must be a float.
 Default: 1.0</p>
 </dd>
-<dt class="field-even">reset_zoom</dt>
+<dt class="field-even">reset_zoom<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reset the zoom to accomodate the data newly
 added to the scene. Defaults to True.</p>
 </dd>
-<dt class="field-odd">transparent</dt>
+<dt class="field-odd">transparent<span class="colon">:</span></dt>
 <dd class="field-odd"><p>make the opacity of the actor depend on
 the scalar.</p>
 </dd>
-<dt class="field-even">vmax</dt>
+<dt class="field-even">vmax<span class="colon">:</span></dt>
 <dd class="field-even"><p>vmax is used to scale the colormap.
 If None, the max of the data will be used</p>
 </dd>
-<dt class="field-odd">vmin</dt>
+<dt class="field-odd">vmin<span class="colon">:</span></dt>
 <dd class="field-odd"><p>vmin is used to scale the colormap.
 If None, the min of the data will be used</p>
 </dd>
@@ -2327,8 +2329,8 @@ If None, the min of the data will be used</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -2340,8 +2342,9 @@ If None, the min of the data will be used</p>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Filters, modules, other functions</a><ul>
 <li><a class="reference internal" href="#cell-derivatives">cell_derivatives</a></li>
 <li><a class="reference internal" href="#cell-to-point-data">cell_to_point_data</a></li>
@@ -2404,6 +2407,7 @@ If None, the min of the data will be used</p>
 </li>
 </ul>
 
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -2415,12 +2419,12 @@ If None, the min of the data will be used</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -2434,14 +2438,14 @@ If None, the min of the data will be used</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Filters, modules, other functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mlab: Python scripting for 3D plotting &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>mlab: Python scripting for 3D plotting &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -64,7 +66,7 @@
         <li class="right" >
           <a href="filters.html" title="Filters"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href=""><code class="docutils literal notranslate"><span class="pre">mlab</span></code>: Python scripting for 3D plotting</a></li> 
       </ul>
     </div>  
@@ -74,16 +76,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="mlab-python-scripting-for-3d-plotting">
-<span id="simple-scripting-with-mlab"></span><h1><code class="docutils literal notranslate"><span class="pre">mlab</span></code>: Python scripting for 3D plotting<a class="headerlink" href="#mlab-python-scripting-for-3d-plotting" title="Permalink to this headline">¶</a></h1>
-<div class="topic">
+  <section id="mlab-python-scripting-for-3d-plotting">
+<span id="simple-scripting-with-mlab"></span><h1><code class="docutils literal notranslate"><span class="pre">mlab</span></code>: Python scripting for 3D plotting<a class="headerlink" href="#mlab-python-scripting-for-3d-plotting" title="Permalink to this heading">¶</a></h1>
+<aside class="topic">
 <p class="topic-title">Section summary</p>
 <p>This section describes the <cite>mlab</cite> API, for use of Mayavi as a simple
 plotting in scripts or interactive sessions. This is the main entry
 point for people interested in doing 3D plotting à la Matlab or IDL
 in Python. If you are interested in a list of all the
 functions exposed in mlab, see the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><span class="std std-ref">MLab reference</span></a>.</p>
-</div>
+</aside>
 <p>The <a class="reference internal" href="auto/mlab_reference.html#module-mayavi.mlab" title="mayavi.mlab"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mayavi.mlab</span></code></a> module, that we call mlab, provides an easy
 way to visualize data in a script or from an interactive prompt with
 one-liners as done in the <a class="reference external" href="http://matplotlib.sf.net">matplotlib</a> <code class="docutils literal notranslate"><span class="pre">pylab</span></code> interface but with an
@@ -130,7 +132,7 @@ animations can be ran. Finally, we expose a more advanced use of <cite>mlab</cit
 in which full visualization pipeline are built in scripts, and we give
 some detailed examples of applying these tools to visualizing volumetric
 scalar and vector data.</p>
-<div class="contents local topic" id="section-contents">
+<nav class="contents local" id="section-contents">
 <p class="topic-title">Section contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#a-demo" id="id5">A demo</a></p></li>
@@ -142,9 +144,9 @@ scalar and vector data.</p>
 <li><p><a class="reference internal" href="#assembling-pipelines-with-mlab" id="id11">Assembling pipelines with <cite>mlab</cite></a></p></li>
 <li><p><a class="reference internal" href="#case-studies-of-some-visualizations" id="id12">Case studies of some visualizations</a></p></li>
 </ul>
-</div>
-<div class="section" id="a-demo">
-<span id="mlab-demo"></span><h2><a class="toc-backref" href="#id5">A demo</a><a class="headerlink" href="#a-demo" title="Permalink to this headline">¶</a></h2>
+</nav>
+<section id="a-demo">
+<span id="mlab-demo"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink">A demo</a><a class="headerlink" href="#a-demo" title="Permalink to this heading">¶</a></h2>
 <p>To get you started, here is a pretty example showing a spherical harmonic
 as a surface:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the data.</span>
@@ -172,9 +174,9 @@ suffices to visualize it.  This produces the following visualization:</p>
 demo is available as <cite>test_mesh</cite>.  Under IPython these may be found by
 tab completing on <cite>mlab.test</cite>.  You can also inspect the source in
 IPython via the handy <cite>mlab.test_contour3d??</cite>.</p>
-</div>
-<div class="section" id="d-plotting-functions-for-numpy-arrays">
-<span id="mlab-plotting-functions"></span><h2><a class="toc-backref" href="#id6">3D Plotting functions for numpy arrays</a><a class="headerlink" href="#d-plotting-functions-for-numpy-arrays" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="d-plotting-functions-for-numpy-arrays">
+<span id="mlab-plotting-functions"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">3D Plotting functions for numpy arrays</a><a class="headerlink" href="#d-plotting-functions-for-numpy-arrays" title="Permalink to this heading">¶</a></h2>
 <p>Visualization can be created in <cite>mlab</cite> by a set of functions operating on
 numpy arrays.</p>
 <p>The mlab plotting functions take numpy arrays as input, describing the
@@ -191,13 +193,9 @@ module.</p>
 is described in detail in the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><span class="std std-ref">MLab reference</span></a>, at the end of
 the user guide, with figures and examples. Please follow the links.</p>
 </div>
-<div class="section" id="d-and-1d-data">
-<h3>0D and 1D data<a class="headerlink" href="#d-and-1d-data" title="Permalink to this headline">¶</a></h3>
+<section id="d-and-1d-data">
+<h3>0D and 1D data<a class="headerlink" href="#d-and-1d-data" title="Permalink to this heading">¶</a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"></th>
@@ -219,14 +217,10 @@ Plots line between the supplied data, described by <code class="docutils literal
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="d-data">
-<h3>2D data<a class="headerlink" href="#d-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="d-data">
+<h3>2D data<a class="headerlink" href="#d-data" title="Permalink to this heading">¶</a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"></th>
@@ -283,15 +277,15 @@ the triangles.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Vertical scale of  <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.surf" title="mayavi.mlab.surf"><code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code></a> and <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour_surf" title="mayavi.mlab.contour_surf"><code class="xref py py-func docutils literal notranslate"><span class="pre">contour_surf()</span></code></a></p>
 <p><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.surf" title="mayavi.mlab.surf"><code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code></a> and <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour_surf" title="mayavi.mlab.contour_surf"><code class="xref py py-func docutils literal notranslate"><span class="pre">contour_surf()</span></code></a> can be used as 3D
 representation of 2D data. By default the z-axis is supposed to
 be in the same units as the x and y axis, but it can be
 auto-scaled to give a 2/3 aspect ratio. This behavior can be
 controlled by specifying the “warp_scale=’auto’”.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">From data points to surfaces.</p>
 <p>Knowing the positions of data points is not enough to define a
 surface, connectivity information is also required. With the
@@ -305,15 +299,11 @@ advance either. The data points lie on a surface, and we want to
 plot the surface implicitly defined. The <cite>delaunay2d</cite> filter does
 the required nearest-neighbor matching, and interpolation, as
 shown in the (<a class="reference internal" href="auto/example_surface_from_irregular_data.html#example-surface-from-irregular-data"><span class="std std-ref">Surface from irregular data example</span></a>).</p>
-</div>
-</div>
-<div class="section" id="id1">
-<h3>3D data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</aside>
+</section>
+<section id="id1">
+<h3>3D data<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"></th>
@@ -349,13 +339,13 @@ volumetric data.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Structured or unstructured data</p>
 <p><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal notranslate"><span class="pre">contour3d()</span></code></a>, <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.volume_slice" title="mayavi.mlab.volume_slice"><code class="xref py py-func docutils literal notranslate"><span class="pre">volume_slice()</span></code></a> and <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><code class="xref py py-func docutils literal notranslate"><span class="pre">flow()</span></code></a> require
 ordered data (to be able to interpolate between the points), whereas
 <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.quiver3d" title="mayavi.mlab.quiver3d"><code class="xref py py-func docutils literal notranslate"><span class="pre">quiver3d()</span></code></a> works with any set of points. The required structure
 is detailed in the functions’ documentation.</p>
-</div>
+</aside>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Many richer visualizations can be created by assembling data sources
@@ -363,14 +353,14 @@ filters and modules. See the
 <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">Assembling pipelines with mlab</span></a> and the
 <a class="reference internal" href="mlab_case_studies.html#mlab-case-studies"><span class="std std-ref">Case studies of some visualizations</span></a> sections.</p>
 </div>
-</div>
-</div>
-<div class="section" id="changing-the-looks-of-the-visual-objects-created">
-<h2><a class="toc-backref" href="#id7">Changing the looks of the visual objects created</a><a class="headerlink" href="#changing-the-looks-of-the-visual-objects-created" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="adding-color-or-size-variations">
-<h3>Adding color or size variations<a class="headerlink" href="#adding-color-or-size-variations" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="changing-the-looks-of-the-visual-objects-created">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Changing the looks of the visual objects created</a><a class="headerlink" href="#changing-the-looks-of-the-visual-objects-created" title="Permalink to this heading">¶</a></h2>
+<section id="adding-color-or-size-variations">
+<h3>Adding color or size variations<a class="headerlink" href="#adding-color-or-size-variations" title="Permalink to this heading">¶</a></h3>
 <dl class="field-list">
-<dt class="field-odd">Color</dt>
+<dt class="field-odd">Color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The color of the objects created by a plotting function can be specified
 explicitly using the ‘color’ keyword argument of the function. This color
 is then applied uniformly to all the objects created.</p>
@@ -401,7 +391,7 @@ to set the colormap can be found in the <cite>Colors and legends</cite> node.</p
 <p>To use a custom-defined colormap, for the time being, you need to write
 specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><span class="std std-ref">Custom colormap example</span></a>.</p>
 </dd>
-<dt class="field-even">Size of the glyph</dt>
+<dt class="field-even">Size of the glyph<span class="colon">:</span></dt>
 <dd class="field-even"><p>The scalar information can also be displayed in many different ways.
 For instance it can be used to adjust the size of glyphs positioned at
 the data points.</p>
@@ -413,7 +403,7 @@ Given six points positioned on a line with interpoint spacing 1:</p>
 </pre></div>
 </div>
 <p>If we represent a scalar varying from 0.5 to 1 on this dataset:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">.9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>We represent the dataset as spheres, using <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.points3d" title="mayavi.mlab.points3d"><code class="xref py py-func docutils literal notranslate"><span class="pre">points3d()</span></code></a>, and the
@@ -449,14 +439,14 @@ absolutely, unless you specify:</p>
 </div>
 </div>
 </dd>
-<dt class="field-odd">More representations of the attached scalars or vectors</dt>
+<dt class="field-odd">More representations of the attached scalars or vectors<span class="colon">:</span></dt>
 <dd class="field-odd"><p>There are many more ways to represent the scalar or vector information
 attached to the data. For instance, scalar data can be ‘warped’ into a
 displacement, e.g. using a <cite>WarpScalar</cite> filter, or the norm of scalar
 data can be extracted to a scalar component that can be visualized using
 iso-surfaces with the <cite>ExtractVectorNorm</cite> filter.</p>
 </dd>
-<dt class="field-even">Displaying more than one quantity</dt>
+<dt class="field-even">Displaying more than one quantity<span class="colon">:</span></dt>
 <dd class="field-even"><p>You may want to display color related to one scalar quantity while
 using a second for the iso-contours, or the elevation. This is possible
 but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><span class="std std-ref">Atomic orbital example</span></a>.</p>
@@ -474,9 +464,9 @@ glyphs, and use scalars to represent the color:</p>
 </div>
 </dd>
 </dl>
-</div>
-<div class="section" id="changing-the-scale-and-position-of-objects">
-<h3>Changing the scale and position of objects<a class="headerlink" href="#changing-the-scale-and-position-of-objects" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="changing-the-scale-and-position-of-objects">
+<h3>Changing the scale and position of objects<a class="headerlink" href="#changing-the-scale-and-position-of-objects" title="Permalink to this heading">¶</a></h3>
 <p>Each mlab function takes an <cite>extent</cite> keyword argument, that allows to set
 its (x, y, z) extents. This give both control on the scaling in the
 different directions and the displacement of the center. Beware that when
@@ -486,9 +476,9 @@ will not share the same displacement and scale.</p>
 <p>The <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.surf" title="mayavi.mlab.surf"><code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code></a>, <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour_surf" title="mayavi.mlab.contour_surf"><code class="xref py py-func docutils literal notranslate"><span class="pre">contour_surf()</span></code></a>, and <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.barchart" title="mayavi.mlab.barchart"><code class="xref py py-func docutils literal notranslate"><span class="pre">barchart()</span></code></a> functions, which
 display 2D arrays by converting the values in height, also take a
 <cite>warp_scale</cite> parameter, to control the vertical scaling.</p>
-</div>
-<div class="section" id="changing-object-properties-interactively">
-<span id="mlab-changing-objects-interactively"></span><h3>Changing object properties interactively<a class="headerlink" href="#changing-object-properties-interactively" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="changing-object-properties-interactively">
+<span id="mlab-changing-objects-interactively"></span><h3>Changing object properties interactively<a class="headerlink" href="#changing-object-properties-interactively" title="Permalink to this heading">¶</a></h3>
 <p>Mayavi, and thus mlab, allows you to interactively modify your
 visualization.</p>
 <p>The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
@@ -499,7 +489,7 @@ this manual, or add new modules or filters by using this icons on the
 pipeline, or through the right-click menus on the objects in the
 pipeline.</p>
 <img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" />
-<div class="topic" id="record-feature">
+<aside class="topic" id="record-feature">
 <p class="topic-title">The record feature</p>
 <p>A <strong>very useful feature</strong> of this dialog can be found by pressing the
 red round button of the toolbar of the pipeline view. This opens up a
@@ -507,12 +497,12 @@ recorder that tracks the changes made interactively to the
 visualization via the dialogs, and generates valid lines of Python
 code. To find out about navigating through a program in the pipeline, see
 <a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><span class="std std-ref">Organisation of Mayavi visualizations: the pipeline</span></a>.</p>
-</div>
+</aside>
 <p>In addition, for every object returned by a mlab function,
 <code class="docutils literal notranslate"><span class="pre">this_object.edit_traits()</span></code> brings up a dialog that can be used to
 interactively edit the object’s properties. If the dialog doesn’t show up
 when you enter this command, please see <a class="reference internal" href="mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a>.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Using <code class="docutils literal notranslate"><span class="pre">mlab</span></code> with the full Envisage UI</p>
 <p>Sometimes it is convenient to write an mlab script but still use the
 full envisage application so you can click on the menus and use other
@@ -526,13 +516,13 @@ mlab figure:</p>
 </div>
 <p>This will give you the full-fledged UI instead of the default simple
 window.</p>
-</div>
-</div>
-</div>
-<div class="section" id="figures-legends-camera-and-decorations">
-<h2><a class="toc-backref" href="#id8">Figures, legends, camera and decorations</a><a class="headerlink" href="#figures-legends-camera-and-decorations" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="handling-several-figures">
-<h3>Handling several figures<a class="headerlink" href="#handling-several-figures" title="Permalink to this headline">¶</a></h3>
+</aside>
+</section>
+</section>
+<section id="figures-legends-camera-and-decorations">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Figures, legends, camera and decorations</a><a class="headerlink" href="#figures-legends-camera-and-decorations" title="Permalink to this heading">¶</a></h2>
+<section id="handling-several-figures">
+<h3>Handling several figures<a class="headerlink" href="#handling-several-figures" title="Permalink to this heading">¶</a></h3>
 <p>All mlab functions operate on the current scene, that we also call
 <a class="reference internal" href="auto/mlab_figure.html#mayavi.mlab.figure" title="mayavi.mlab.figure"><code class="xref py py-func docutils literal notranslate"><span class="pre">figure()</span></code></a>, for compatibility with matlab and pylab. The different
 figures are indexed by key that can be an integer or a string. A call to
@@ -541,9 +531,9 @@ figure, if it exists, or create a new one. The current figure can be
 retrieved with the <a class="reference internal" href="auto/mlab_figure.html#mayavi.mlab.gcf" title="mayavi.mlab.gcf"><code class="xref py py-func docutils literal notranslate"><span class="pre">gcf()</span></code></a> function. It can be refreshed using the
 <a class="reference internal" href="auto/mlab_figure.html#mayavi.mlab.draw" title="mayavi.mlab.draw"><code class="xref py py-func docutils literal notranslate"><span class="pre">draw()</span></code></a> function, saved to a picture file using <a class="reference internal" href="auto/mlab_figure.html#mayavi.mlab.savefig" title="mayavi.mlab.savefig"><code class="xref py py-func docutils literal notranslate"><span class="pre">savefig()</span></code></a> and
 cleared using <a class="reference internal" href="auto/mlab_figure.html#mayavi.mlab.clf" title="mayavi.mlab.clf"><code class="xref py py-func docutils literal notranslate"><span class="pre">clf()</span></code></a>.</p>
-</div>
-<div class="section" id="figure-decorations">
-<h3>Figure decorations<a class="headerlink" href="#figure-decorations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="figure-decorations">
+<h3>Figure decorations<a class="headerlink" href="#figure-decorations" title="Permalink to this heading">¶</a></h3>
 <p>Axes can be added around a visualization object with the <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.axes" title="mayavi.mlab.axes"><code class="xref py py-func docutils literal notranslate"><span class="pre">axes()</span></code></a>
 function, and the labels can be set using the <a class="reference internal" href="auto/mlab_decorations.html#mayavi.mlab.xlabel" title="mayavi.mlab.xlabel"><code class="xref py py-func docutils literal notranslate"><span class="pre">xlabel()</span></code></a>, <a class="reference internal" href="auto/mlab_decorations.html#mayavi.mlab.ylabel" title="mayavi.mlab.ylabel"><code class="xref py py-func docutils literal notranslate"><span class="pre">ylabel()</span></code></a>
 and <a class="reference internal" href="auto/mlab_decorations.html#mayavi.mlab.zlabel" title="mayavi.mlab.zlabel"><code class="xref py py-func docutils literal notranslate"><span class="pre">zlabel()</span></code></a> functions. Similarly, <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.outline" title="mayavi.mlab.outline"><code class="xref py py-func docutils literal notranslate"><span class="pre">outline()</span></code></a> creates an
@@ -561,9 +551,9 @@ for scalar or vector data.</p>
 <p>The <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.orientation_axes" title="mayavi.mlab.orientation_axes"><code class="xref py py-func docutils literal notranslate"><span class="pre">orientation_axes()</span></code></a> was named <cite>orientationaxes</cite>
 before release 3.2.</p>
 </div>
-</div>
-<div class="section" id="moving-the-camera">
-<h3>Moving the camera<a class="headerlink" href="#moving-the-camera" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="moving-the-camera">
+<h3>Moving the camera<a class="headerlink" href="#moving-the-camera" title="Permalink to this heading">¶</a></h3>
 <p>The position and direction of the camera can be set using the <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.view" title="mayavi.mlab.view"><code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code></a>
 function. They are described in terms of Euler angles and distance to a
 focal point. The <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.view" title="mayavi.mlab.view"><code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code></a> function tries to guess the right roll angle
@@ -583,7 +573,7 @@ view point obtained interactively can be stored and reset using:</p>
 <span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">roll</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Rotating the camera around itself</p>
 <blockquote>
 <div><p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
@@ -596,8 +586,8 @@ and <cite>pitch</cite> methods of the camera object. This moves the focal point:
 </div></blockquote>
 <p>Unlike the <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.view" title="mayavi.mlab.view"><code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code></a> and <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.roll" title="mayavi.mlab.roll"><code class="xref py py-func docutils literal notranslate"><span class="pre">roll()</span></code></a> function, the angles
 are incremental, and not absolute.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Modifying zoom and view angle</p>
 <p>The camera is entirely defined by its position, its focal point, and
 its view angle (attributes ‘position’, ‘focal_point’, ‘view_angle’).
@@ -605,7 +595,7 @@ The camera method ‘zoom’ changes the view angle incrementally by the
 specify ratio, where as the method ‘dolly’ translates the camera along
 its axis while keeping the focal point constant. The <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.move" title="mayavi.mlab.move"><code class="xref py py-func docutils literal notranslate"><span class="pre">move()</span></code></a>
 function can also be useful in these regards.</p>
-</div>
+</aside>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Camera parallel scale</p>
@@ -619,18 +609,18 @@ be read (or set) with the following code:</p>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="running-mlab-scripts">
-<span id="id2"></span><h2><a class="toc-backref" href="#id9">Running mlab scripts</a><a class="headerlink" href="#running-mlab-scripts" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="running-mlab-scripts">
+<span id="id2"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Running mlab scripts</a><a class="headerlink" href="#running-mlab-scripts" title="Permalink to this heading">¶</a></h2>
 <p>Mlab, like the rest of Mayavi, is an interactive application. If you are
 not already in an interactive environment (see next paragraph), to
 interact with the figures or the rest of the drawing elements, you need
 to use the <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.show" title="mayavi.mlab.show"><code class="xref py py-func docutils literal notranslate"><span class="pre">show()</span></code></a> function. For instance, if you are writing a
 script, you need to call <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.show" title="mayavi.mlab.show"><code class="xref py py-func docutils literal notranslate"><span class="pre">show()</span></code></a> each time you want to display one
 or more figures and allow the user to interact with them.</p>
-<div class="section" id="using-mlab-interactively">
-<h3>Using mlab interactively<a class="headerlink" href="#using-mlab-interactively" title="Permalink to this headline">¶</a></h3>
+<section id="using-mlab-interactively">
+<h3>Using mlab interactively<a class="headerlink" href="#using-mlab-interactively" title="Permalink to this heading">¶</a></h3>
 <p>Using <a class="reference external" href="http://ipython.scipy.org">IPython</a>, mlab instructions can be run interactively, or in
 scripts using <a class="reference external" href="http://ipython.scipy.org">IPython</a>’s <code class="docutils literal notranslate"><span class="pre">%run</span></code> command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="o">%</span><span class="n">run</span> <span class="n">my_script</span>
@@ -644,9 +634,9 @@ immediate effect on the figure, alleviating the need to use the
 application, or in any interactive Python shell of wxPython-based
 application (such as other Envisage-based applications, or SPE, Stani’s
 Python Editor).</p>
-</div>
-<div class="section" id="using-together-with-matplotlib">
-<h3>Using together with Matplotlib<a class="headerlink" href="#using-together-with-matplotlib" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-together-with-matplotlib">
+<h3>Using together with Matplotlib<a class="headerlink" href="#using-together-with-matplotlib" title="Permalink to this heading">¶</a></h3>
 <p>If you want to use Matplotlib’s interactive plotting with Mayavi’s
 mlab in IPython you should:</p>
 <blockquote>
@@ -700,15 +690,15 @@ Qt.  The possible options for <code class="docutils literal notranslate"><span c
 <li><p><cite>null</cite>: to use no UI toolkit.</p></li>
 </ul>
 </div></blockquote>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Capturing mlab plots to integrate in pylab</p>
 <p>Starting from Mayavi version 3.4.0, the mlab <a class="reference internal" href="auto/mlab_figure.html#mayavi.mlab.screenshot" title="mayavi.mlab.screenshot"><code class="xref py py-func docutils literal notranslate"><span class="pre">screenshot()</span></code></a> can
 be used to take a screenshot of the current figure, to integrate in a
 matplotlib plot.</p>
-</div>
-</div>
-<div class="section" id="in-scripts">
-<h3>In scripts<a class="headerlink" href="#in-scripts" title="Permalink to this headline">¶</a></h3>
+</aside>
+</section>
+<section id="in-scripts">
+<h3>In scripts<a class="headerlink" href="#in-scripts" title="Permalink to this heading">¶</a></h3>
 <p>Mlab commands can be written to a file, to form a script. This script
 can be loaded in the Mayavi application using the <em>File-&gt;Open file</em> menu
 entry, and executed using the <em>File-&gt;Refresh code</em> menu entry or by
@@ -732,10 +722,10 @@ the event-loop, which gives you more flexibility:</p>
 makes sure an interactive environment is running before executing the
 <cite>image</cite> function. If an interactive environment is not running, <cite>mlab</cite>
 will start one and the image function will not return until it is closed.</p>
-</div>
-</div>
-<div class="section" id="animating-the-data">
-<span id="mlab-animating-data"></span><h2><a class="toc-backref" href="#id10">Animating the data</a><a class="headerlink" href="#animating-the-data" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="animating-the-data">
+<span id="mlab-animating-data"></span><h2><a class="toc-backref" href="#id10" role="doc-backlink">Animating the data</a><a class="headerlink" href="#animating-the-data" title="Permalink to this heading">¶</a></h2>
 <p>Often it isn’t sufficient to just plot the data.  You may also want to
 change the data of the plot and update the plot without having to
 recreate the entire visualization, for instance to do animations, or in
@@ -860,9 +850,9 @@ refresh of the scene. This operation might take time, and thus slow
 your animation. In this case, the tip
 <a class="reference internal" href="tips.html#acceleration-mayavi-scripts"><span class="std std-ref">Accelerating a Mayavi script</span></a> may come in handy.</p>
 </div>
-</div>
-<div class="section" id="assembling-pipelines-with-mlab">
-<span id="controlling-the-pipeline-with-mlab-scripts"></span><h2><a class="toc-backref" href="#id11">Assembling pipelines with <cite>mlab</cite></a><a class="headerlink" href="#assembling-pipelines-with-mlab" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="assembling-pipelines-with-mlab">
+<span id="controlling-the-pipeline-with-mlab-scripts"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">Assembling pipelines with <cite>mlab</cite></a><a class="headerlink" href="#assembling-pipelines-with-mlab" title="Permalink to this heading">¶</a></h2>
 <p>The plotting functions reviewed above explore only a small fraction of
 the visualization possibilities of Mayavi. The full power of Mayavi can
 only be unleashed through the control of the pipeline itself. As
@@ -908,8 +898,8 @@ on the pipeline. As an example, let us create a visualization using
 <span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="data-sources">
-<span id="mlab-data-source"></span><h3>Data sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h3>
+<section id="data-sources">
+<span id="mlab-data-source"></span><h3>Data sources<a class="headerlink" href="#data-sources" title="Permalink to this heading">¶</a></h3>
 <p>The <cite>mlab.pipeline</cite> module contains functions for creating various data
 sources from arrays. They are fully documented in details in the
 <a class="reference internal" href="mlab_pipeline_reference.html#mlab-pipeline-reference"><span class="std std-ref">Mlab pipeline-control reference</span></a>. We give a small summary of the
@@ -921,7 +911,7 @@ sets of <strong>unconnected points</strong>, with data attached to them, or
 can be interpolated between data points, often called <cite>fields</cite> in physics
 or engineering.</p>
 <dl class="field-list">
-<dt class="field-odd">Unconnected sources</dt>
+<dt class="field-odd">Unconnected sources<span class="colon">:</span></dt>
 <dd class="field-odd"><table class="hlist"><tr><td><ul>
 <li><p><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_scatter" title="mayavi.tools.pipeline.scalar_scatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">scalar_scatter()</span></code></a> (creates a <a class="reference internal" href="data.html#poly-data"><span class="std std-ref">PolyData</span></a>)</p>
 <a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_points3d.jpg"><img alt="_images/enthought_mayavi_mlab_points3d.jpg" src="_images/enthought_mayavi_mlab_points3d.jpg" style="width: 121.98px; height: 122.36px;" /></a>
@@ -934,7 +924,7 @@ or engineering.</p>
 </ul>
 </td></tr></table>
 </dd>
-<dt class="field-even">implicitly-connected sources</dt>
+<dt class="field-even">implicitly-connected sources<span class="colon">:</span></dt>
 <dd class="field-even"><table class="hlist"><tr><td><ul>
 <li><p><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><code class="xref py py-func docutils literal notranslate"><span class="pre">scalar_field()</span></code></a> (creates an <a class="reference internal" href="data.html#image-data"><span class="std std-ref">ImageData</span></a>)</p>
 <a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_contour3d.jpg"><img alt="_images/enthought_mayavi_mlab_contour3d.jpg" src="_images/enthought_mayavi_mlab_contour3d.jpg" style="width: 140.22px; height: 128.44px;" /></a>
@@ -950,7 +940,7 @@ or engineering.</p>
 </ul>
 </td></tr></table>
 </dd>
-<dt class="field-odd">Explicitly-connected sources</dt>
+<dt class="field-odd">Explicitly-connected sources<span class="colon">:</span></dt>
 <dd class="field-odd"><table class="hlist"><tr><td><ul>
 <li><p><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.line_source" title="mayavi.tools.pipeline.line_source"><code class="xref py py-func docutils literal notranslate"><span class="pre">line_source()</span></code></a> (creates an <a class="reference internal" href="data.html#poly-data"><span class="std std-ref">PolyData</span></a>)</p>
 <a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_plot3d.jpg"><img alt="_images/enthought_mayavi_mlab_plot3d.jpg" src="_images/enthought_mayavi_mlab_plot3d.jpg" style="width: 153.0px; height: 113.0px;" /></a>
@@ -976,9 +966,9 @@ other words, the array describes an image, possibly 3 dimensional.</p>
 grids or non-orthogonal grid. See
 <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">the section on data structures</span></a>.</p>
 </div>
-</div>
-<div class="section" id="modules-and-filters">
-<h3>Modules and filters<a class="headerlink" href="#modules-and-filters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="modules-and-filters">
+<h3>Modules and filters<a class="headerlink" href="#modules-and-filters" title="Permalink to this heading">¶</a></h3>
 <p>For each Mayavi module or filter (see <a class="reference internal" href="modules.html#modules"><span class="std std-ref">Modules</span></a> and <a class="reference internal" href="filters.html#filters"><span class="std std-ref">Filters</span></a>),
 there is a corresponding <cite>mlab.pipeline</cite> function. The name of this
 function is created by replacing the alternating capitals in the module
@@ -995,12 +985,12 @@ be thus easier to use the keyword arguments, when available, than to set
 the attributes of the objects created. For more information, please check
 out the docstrings. Full, detailed, usage examples are given in the next
 subsection.</p>
-</div>
-</div>
-<div class="section" id="case-studies-of-some-visualizations">
-<span id="mlab-case-studies"></span><h2><a class="toc-backref" href="#id12">Case studies of some visualizations</a><a class="headerlink" href="#case-studies-of-some-visualizations" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="visualizing-volumetric-scalar-data">
-<h3>Visualizing volumetric scalar data<a class="headerlink" href="#visualizing-volumetric-scalar-data" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="case-studies-of-some-visualizations">
+<span id="mlab-case-studies"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Case studies of some visualizations</a><a class="headerlink" href="#case-studies-of-some-visualizations" title="Permalink to this heading">¶</a></h2>
+<section id="visualizing-volumetric-scalar-data">
+<h3>Visualizing volumetric scalar data<a class="headerlink" href="#visualizing-volumetric-scalar-data" title="Permalink to this heading">¶</a></h3>
 <p>There are three main ways of visualizing a 3D scalar field. Given the
 following field:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1009,7 +999,7 @@ following field:</p>
 </pre></div>
 </div>
 <dl class="field-list">
-<dt class="field-odd">Iso-Surfaces</dt>
+<dt class="field-odd">Iso-Surfaces<span class="colon">:</span></dt>
 <dd class="field-odd"><p>To display iso surfaces of the field, the simplest solution is
 simply to use the <code class="docutils literal notranslate"><span class="pre">mlab</span></code> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal notranslate"><span class="pre">contour3d()</span></code></a> function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -1019,7 +1009,7 @@ simply to use the <code class="docutils literal notranslate"><span class="pre">m
 <p>The problem with this method is that the outer iso-surfaces tend to hide inner
 ones. As a result, quite often only one iso-surface can be visible.</p>
 </dd>
-<dt class="field-even">Volume rendering</dt>
+<dt class="field-even">Volume rendering<span class="colon">:</span></dt>
 <dd class="field-even"><p>Volume rendering is an advanced technique in which each voxel is
 given a partly transparent color. This can be achieved with
 <cite>mlab.pipeline</cite> using the <a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><code class="xref py py-func docutils literal notranslate"><span class="pre">scalar_field()</span></code></a> source, and the
@@ -1048,7 +1038,7 @@ it.</p>
 </dd>
 </dl>
 <dl class="field-list">
-<dt class="field-odd">Cut planes</dt>
+<dt class="field-odd">Cut planes<span class="colon">:</span></dt>
 <dd class="field-odd"><p>While less impressive, cut planes are a very informative way of
 visualizing the details of a scalar field:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
@@ -1074,7 +1064,7 @@ should thus be prefered to the scalar cut plane, when possible.</p>
 <p>Clicking and dragging the cut plane is an excellent way of exploring
 the field.</p>
 </dd>
-<dt class="field-even">A combination of techniques</dt>
+<dt class="field-even">A combination of techniques<span class="colon">:</span></dt>
 <dd class="field-even"><p>Finally, it can be interesting to combine cut planes with
 iso-surfaces and thresholding to give a view of the peak areas using
 the iso-surfaces, visualize the details of the field with the cut
@@ -1099,13 +1089,13 @@ needs to be implemented with <cite>mlab.pipeline.scalar_cut_plane</cite> as the 
 looses its structure after thresholding.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="visualizing-a-vector-field">
-<h3>Visualizing a vector field<a class="headerlink" href="#visualizing-a-vector-field" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="visualizing-a-vector-field">
+<h3>Visualizing a vector field<a class="headerlink" href="#visualizing-a-vector-field" title="Permalink to this heading">¶</a></h3>
 <p>A vector field, i.e., vectors continuously defined in a volume, can be
 difficult to visualize, as it contains a lot of information. Let us
 explore different visualizations for the velocity field of a multi-axis
-convection cell <a class="footnote-reference brackets" href="#id4" id="id3">1</a>, in hydrodynamics, as defined by its components
+convection cell <a class="footnote-reference brackets" href="#id4" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, in hydrodynamics, as defined by its components
 sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="n">j</span><span class="p">]</span>
@@ -1116,7 +1106,7 @@ sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
 </pre></div>
 </div>
 <dl class="field-list">
-<dt class="field-odd">Quiver</dt>
+<dt class="field-odd">Quiver<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The simplest visualization of a set of vectors, is using the <cite>mlab</cite>
 function <cite>quiver3d</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
@@ -1128,7 +1118,7 @@ function <cite>quiver3d</cite>:</p>
 arrow for each sampling point on the grid. As a result the
 visualization is very busy.</p>
 </dd>
-<dt class="field-even">Masking vectors</dt>
+<dt class="field-even">Masking vectors<span class="colon">:</span></dt>
 <dd class="field-even"><p>We can use the fact that we are visualizing a vector field, and not
 just a bunch of vectors, to reduce the amount of arrows displayed. For
 this we need to build a <cite>vector_field</cite> source, and apply to it the
@@ -1140,7 +1130,7 @@ point out of 20):</p>
 </div>
 <img alt="_images/vector_field_vectors.jpg" src="_images/vector_field_vectors.jpg" />
 </dd>
-<dt class="field-odd">A cut plane</dt>
+<dt class="field-odd">A cut plane<span class="colon">:</span></dt>
 <dd class="field-odd"><p>If we are interested in displaying the vectors along a cut, we can
 use a cut plane. In particular, we can inspect interactively the
 vector field by moving the cut plane along: clicking on it and
@@ -1150,7 +1140,7 @@ dragging it can give a very clear understanding of the vector field:</p>
 </div>
 <img alt="_images/vector_field_cut_plane.jpg" src="_images/vector_field_cut_plane.jpg" />
 </dd>
-<dt class="field-even">Iso-Surfaces of the magnitude</dt>
+<dt class="field-even">Iso-Surfaces of the magnitude<span class="colon">:</span></dt>
 <dd class="field-even"><p>An important parameter of the vector field is its magnitude. It can
 be interesting to display iso-surfaces of the normal of the vectors.
 For this we can create a scalar field from the vector field using the
@@ -1164,7 +1154,7 @@ object’s property dialog.</p>
 </div>
 <img alt="_images/vector_field_isosurface.jpg" src="_images/vector_field_isosurface.jpg" />
 </dd>
-<dt class="field-odd">The Flow, or the field lines</dt>
+<dt class="field-odd">The Flow, or the field lines<span class="colon">:</span></dt>
 <dd class="field-odd"><p>For certain vector fields, the line of flow along the field can
 have an interesting meaning. For instance this can be interpreted as a
 trajectory in hydrodynamics, or field lines in electro-magnetism.
@@ -1178,7 +1168,7 @@ which relies on <cite>streamline</cite> internally:</p>
 </div>
 <img alt="_images/vector_field_flow.jpg" src="_images/vector_field_flow.jpg" />
 </dd>
-<dt class="field-even">A combination of techniques</dt>
+<dt class="field-even">A combination of techniques<span class="colon">:</span></dt>
 <dd class="field-even"><p>Giving a meaningful visualization of a vector field is a hard task,
 and one must use all the tools at hand to illustrate his purposes. It
 is important to choose the message conveyed. No one visualization
@@ -1194,7 +1184,7 @@ visualization made by combining the different tools above:</p>
 
 <span class="n">vec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
                                     <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">),</span>
+                                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">),</span>
                                     <span class="n">scale_factor</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
 
 <span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span>
@@ -1239,15 +1229,14 @@ link between the lines of code generated by the record feature and
 .</p>
 </div>
 <hr class="docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
-<dd><p>Toussaint, V.; Carriere, P. &amp; Raynal, F. A numerical Eulerian
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p>Toussaint, V.; Carriere, P. &amp; Raynal, F. A numerical Eulerian
 approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
-</dd>
-</dl>
-</div>
-</div>
-</div>
+</aside>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -1259,8 +1248,9 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">mlab</span></code>: Python scripting for 3D plotting</a><ul>
 <li><a class="reference internal" href="#a-demo">A demo</a></li>
 <li><a class="reference internal" href="#d-plotting-functions-for-numpy-arrays">3D Plotting functions for numpy arrays</a><ul>
@@ -1302,12 +1292,17 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="filters.html"
-                        title="previous chapter">Filters</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="advanced_use.html"
-                        title="next chapter">Advanced use of Mayavi</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="filters.html"
+                          title="previous chapter">Filters</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="advanced_use.html"
+                          title="next chapter">Advanced use of Mayavi</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -1319,12 +1314,12 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1344,14 +1339,14 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
         <li class="right" >
           <a href="filters.html" title="Filters"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href=""><code class="docutils literal notranslate"><span class="pre">mlab</span></code>: Python scripting for 3D plotting</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

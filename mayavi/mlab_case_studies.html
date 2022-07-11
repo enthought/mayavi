@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Case studies of some visualizations &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Case studies of some visualizations &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -56,7 +58,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Case studies of some visualizations</a></li> 
       </ul>
     </div>  
@@ -66,10 +68,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="case-studies-of-some-visualizations">
-<span id="mlab-case-studies"></span><h1>Case studies of some visualizations<a class="headerlink" href="#case-studies-of-some-visualizations" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="visualizing-volumetric-scalar-data">
-<h2>Visualizing volumetric scalar data<a class="headerlink" href="#visualizing-volumetric-scalar-data" title="Permalink to this headline">¶</a></h2>
+  <section id="case-studies-of-some-visualizations">
+<span id="mlab-case-studies"></span><h1>Case studies of some visualizations<a class="headerlink" href="#case-studies-of-some-visualizations" title="Permalink to this heading">¶</a></h1>
+<section id="visualizing-volumetric-scalar-data">
+<h2>Visualizing volumetric scalar data<a class="headerlink" href="#visualizing-volumetric-scalar-data" title="Permalink to this heading">¶</a></h2>
 <p>There are three main ways of visualizing a 3D scalar field. Given the
 following field:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -78,7 +80,7 @@ following field:</p>
 </pre></div>
 </div>
 <dl class="field-list">
-<dt class="field-odd">Iso-Surfaces</dt>
+<dt class="field-odd">Iso-Surfaces<span class="colon">:</span></dt>
 <dd class="field-odd"><p>To display iso surfaces of the field, the simplest solution is
 simply to use the <code class="docutils literal notranslate"><span class="pre">mlab</span></code> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal notranslate"><span class="pre">contour3d()</span></code></a> function:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -88,7 +90,7 @@ simply to use the <code class="docutils literal notranslate"><span class="pre">m
 <p>The problem with this method is that the outer iso-surfaces tend to hide inner
 ones. As a result, quite often only one iso-surface can be visible.</p>
 </dd>
-<dt class="field-even">Volume rendering</dt>
+<dt class="field-even">Volume rendering<span class="colon">:</span></dt>
 <dd class="field-even"><p>Volume rendering is an advanced technique in which each voxel is
 given a partly transparent color. This can be achieved with
 <cite>mlab.pipeline</cite> using the <a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><code class="xref py py-func docutils literal notranslate"><span class="pre">scalar_field()</span></code></a> source, and the
@@ -117,7 +119,7 @@ it.</p>
 </dd>
 </dl>
 <dl class="field-list">
-<dt class="field-odd">Cut planes</dt>
+<dt class="field-odd">Cut planes<span class="colon">:</span></dt>
 <dd class="field-odd"><p>While less impressive, cut planes are a very informative way of
 visualizing the details of a scalar field:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
@@ -143,7 +145,7 @@ should thus be prefered to the scalar cut plane, when possible.</p>
 <p>Clicking and dragging the cut plane is an excellent way of exploring
 the field.</p>
 </dd>
-<dt class="field-even">A combination of techniques</dt>
+<dt class="field-even">A combination of techniques<span class="colon">:</span></dt>
 <dd class="field-even"><p>Finally, it can be interesting to combine cut planes with
 iso-surfaces and thresholding to give a view of the peak areas using
 the iso-surfaces, visualize the details of the field with the cut
@@ -168,13 +170,13 @@ needs to be implemented with <cite>mlab.pipeline.scalar_cut_plane</cite> as the 
 looses its structure after thresholding.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="visualizing-a-vector-field">
-<h2>Visualizing a vector field<a class="headerlink" href="#visualizing-a-vector-field" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="visualizing-a-vector-field">
+<h2>Visualizing a vector field<a class="headerlink" href="#visualizing-a-vector-field" title="Permalink to this heading">¶</a></h2>
 <p>A vector field, i.e., vectors continuously defined in a volume, can be
 difficult to visualize, as it contains a lot of information. Let us
 explore different visualizations for the velocity field of a multi-axis
-convection cell <a class="footnote-reference brackets" href="#id2" id="id1">1</a>, in hydrodynamics, as defined by its components
+convection cell <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, in hydrodynamics, as defined by its components
 sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="n">j</span><span class="p">]</span>
@@ -185,7 +187,7 @@ sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
 </pre></div>
 </div>
 <dl class="field-list">
-<dt class="field-odd">Quiver</dt>
+<dt class="field-odd">Quiver<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The simplest visualization of a set of vectors, is using the <cite>mlab</cite>
 function <cite>quiver3d</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
@@ -197,7 +199,7 @@ function <cite>quiver3d</cite>:</p>
 arrow for each sampling point on the grid. As a result the
 visualization is very busy.</p>
 </dd>
-<dt class="field-even">Masking vectors</dt>
+<dt class="field-even">Masking vectors<span class="colon">:</span></dt>
 <dd class="field-even"><p>We can use the fact that we are visualizing a vector field, and not
 just a bunch of vectors, to reduce the amount of arrows displayed. For
 this we need to build a <cite>vector_field</cite> source, and apply to it the
@@ -209,7 +211,7 @@ point out of 20):</p>
 </div>
 <img alt="_images/vector_field_vectors.jpg" src="_images/vector_field_vectors.jpg" />
 </dd>
-<dt class="field-odd">A cut plane</dt>
+<dt class="field-odd">A cut plane<span class="colon">:</span></dt>
 <dd class="field-odd"><p>If we are interested in displaying the vectors along a cut, we can
 use a cut plane. In particular, we can inspect interactively the
 vector field by moving the cut plane along: clicking on it and
@@ -219,7 +221,7 @@ dragging it can give a very clear understanding of the vector field:</p>
 </div>
 <img alt="_images/vector_field_cut_plane.jpg" src="_images/vector_field_cut_plane.jpg" />
 </dd>
-<dt class="field-even">Iso-Surfaces of the magnitude</dt>
+<dt class="field-even">Iso-Surfaces of the magnitude<span class="colon">:</span></dt>
 <dd class="field-even"><p>An important parameter of the vector field is its magnitude. It can
 be interesting to display iso-surfaces of the normal of the vectors.
 For this we can create a scalar field from the vector field using the
@@ -233,7 +235,7 @@ object’s property dialog.</p>
 </div>
 <img alt="_images/vector_field_isosurface.jpg" src="_images/vector_field_isosurface.jpg" />
 </dd>
-<dt class="field-odd">The Flow, or the field lines</dt>
+<dt class="field-odd">The Flow, or the field lines<span class="colon">:</span></dt>
 <dd class="field-odd"><p>For certain vector fields, the line of flow along the field can
 have an interesting meaning. For instance this can be interpreted as a
 trajectory in hydrodynamics, or field lines in electro-magnetism.
@@ -247,7 +249,7 @@ which relies on <cite>streamline</cite> internally:</p>
 </div>
 <img alt="_images/vector_field_flow.jpg" src="_images/vector_field_flow.jpg" />
 </dd>
-<dt class="field-even">A combination of techniques</dt>
+<dt class="field-even">A combination of techniques<span class="colon">:</span></dt>
 <dd class="field-even"><p>Giving a meaningful visualization of a vector field is a hard task,
 and one must use all the tools at hand to illustrate his purposes. It
 is important to choose the message conveyed. No one visualization
@@ -263,7 +265,7 @@ visualization made by combining the different tools above:</p>
 
 <span class="n">vec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
                                     <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">),</span>
+                                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">.8</span><span class="p">),</span>
                                     <span class="n">scale_factor</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
 
 <span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span>
@@ -308,14 +310,13 @@ link between the lines of code generated by the record feature and
 .</p>
 </div>
 <hr class="docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Toussaint, V.; Carriere, P. &amp; Raynal, F. A numerical Eulerian
+<aside class="footnote brackets" id="id2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Toussaint, V.; Carriere, P. &amp; Raynal, F. A numerical Eulerian
 approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
-</dd>
-</dl>
-</div>
-</div>
+</aside>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -327,8 +328,9 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Case studies of some visualizations</a><ul>
 <li><a class="reference internal" href="#visualizing-volumetric-scalar-data">Visualizing volumetric scalar data</a></li>
 <li><a class="reference internal" href="#visualizing-a-vector-field">Visualizing a vector field</a></li>
@@ -336,6 +338,7 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
 </li>
 </ul>
 
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -347,12 +350,12 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -366,14 +369,14 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Case studies of some visualizations</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

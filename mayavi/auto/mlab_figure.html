@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Figure handling functions &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Figure handling functions &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
@@ -64,7 +66,7 @@
         <li class="right" >
           <a href="mlab_helper_functions.html" title="Plotting functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Figure handling functions</a></li> 
       </ul>
@@ -83,23 +85,23 @@ mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</
 <p>Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
-<div class="section" id="figure-handling-functions">
-<h1>Figure handling functions<a class="headerlink" href="#figure-handling-functions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="clf">
-<h2>clf<a class="headerlink" href="#clf" title="Permalink to this headline">¶</a></h2>
+<section id="figure-handling-functions">
+<h1>Figure handling functions<a class="headerlink" href="#figure-handling-functions" title="Permalink to this heading">¶</a></h1>
+<section id="clf">
+<h2>clf<a class="headerlink" href="#clf" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.clf">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">clf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.clf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.clf">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">clf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.clf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the current figure.</p>
 <p>You can also supply the figure that you want to clear.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="close">
-<h2>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="close">
+<h2>close<a class="headerlink" href="#close" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.close">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.close">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Close a figure window</p>
 <p>close() by itself closes the current figure.</p>
 <p>close(num) closes figure number num.</p>
@@ -109,42 +111,42 @@ figure.</p>
 <p>close(all=True) closes all figures controlled by mlab</p>
 </dd></dl>
 
-</div>
-<div class="section" id="draw">
-<h2>draw<a class="headerlink" href="#draw" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="draw">
+<h2>draw<a class="headerlink" href="#draw" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.draw">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">draw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.draw" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.draw">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forces a redraw of the current figure.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="figure">
-<h2>figure<a class="headerlink" href="#figure" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="figure">
+<h2>figure<a class="headerlink" href="#figure" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.figure">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">figure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(400,</span> <span class="pre">350)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.figure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.figure">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(400,</span> <span class="pre">350)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.figure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new scene or retrieves an existing scene. If the mayavi
 engine is not running this also starts it.</p>
 <p><strong>Keyword arguments</strong></p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">figure</dt>
+<dt class="field-odd">figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The name of the figure, or handle to it.</p>
 </dd>
-<dt class="field-even">bgcolor</dt>
+<dt class="field-even">bgcolor<span class="colon">:</span></dt>
 <dd class="field-even"><p>The color of the background (None is default).</p>
 </dd>
-<dt class="field-odd">fgcolor</dt>
+<dt class="field-odd">fgcolor<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The color of the foreground, that is the color of all text
 annotation labels (axes, orientation axes, scalar bar
 labels). It should be sufficiently far from <cite>bgcolor</cite>
 to see the annotation texts. (None is default).</p>
 </dd>
-<dt class="field-even">engine</dt>
+<dt class="field-even">engine<span class="colon">:</span></dt>
 <dd class="field-even"><p>The mayavi engine that controls the figure.</p>
 </dd>
-<dt class="field-odd">size</dt>
+<dt class="field-odd">size<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The size of the scene created, in pixels. May not apply
 for certain scene viewer.</p>
 </dd>
@@ -152,23 +154,23 @@ for certain scene viewer.</p>
 </div></blockquote>
 </dd></dl>
 
-</div>
-<div class="section" id="gcf">
-<h2>gcf<a class="headerlink" href="#gcf" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="gcf">
+<h2>gcf<a class="headerlink" href="#gcf" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.gcf">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">gcf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.gcf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.gcf">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">gcf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.gcf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a handle to the current figure.</p>
 <p>You can supply the engine from which you want to retrieve the
 current figure, if you have several mayavi engines.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="savefig">
-<h2>savefig<a class="headerlink" href="#savefig" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="savefig">
+<h2>savefig<a class="headerlink" href="#savefig" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.savefig">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">savefig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.savefig" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.savefig">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">savefig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.savefig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the current scene.
 The output format are deduced by the extension to filename.
 Possibilities are png, jpg, bmp, tiff, ps, eps, pdf, rib (renderman),
@@ -176,15 +178,15 @@ oogl (geomview), iv (OpenInventor), wrl, vrml, obj (wavefront),
 x3d, pov (povray).</p>
 <p><strong>Parameters</strong></p>
 <dl class="field-list simple">
-<dt class="field-odd">Size</dt>
+<dt class="field-odd">Size<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the size of the image created (unless magnification is
 set, in which case it is the size of the window used
 for rendering).</p>
 </dd>
-<dt class="field-even">Figure</dt>
+<dt class="field-even">Figure<span class="colon">:</span></dt>
 <dd class="field-even"><p>the figure instance to save to a file.</p>
 </dd>
-<dt class="field-odd">Magnification</dt>
+<dt class="field-odd">Magnification<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the magnification is the scaling between the
 pixels on the screen, and the pixels in the
 file saved. If you do not specify it, it will be
@@ -205,24 +207,24 @@ cost.</p>
 image format’s save method.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="screenshot">
-<h2>screenshot<a class="headerlink" href="#screenshot" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="screenshot">
+<h2>screenshot<a class="headerlink" href="#screenshot" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.screenshot">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">screenshot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antialiased</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.screenshot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.screenshot">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">screenshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antialiased</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.screenshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the current figure pixmap as an array.</p>
 <p><strong>Parameters</strong></p>
 <dl class="field-list simple">
-<dt class="field-odd">Figure</dt>
+<dt class="field-odd">Figure<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a figure instance or None, optional
 If specified, the figure instance to capture the view of.</p>
 </dd>
-<dt class="field-even">Mode</dt>
+<dt class="field-even">Mode<span class="colon">:</span></dt>
 <dd class="field-even"><p>{‘rgb’, ‘rgba’}
 The color mode of the array captured.</p>
 </dd>
-<dt class="field-odd">Antialiased</dt>
+<dt class="field-odd">Antialiased<span class="colon">:</span></dt>
 <dd class="field-odd"><p>{True, False}
 Use anti-aliasing for rendering the screenshot.
 Uses the number of aa frames set by
@@ -248,18 +250,18 @@ Mayavi in a 2D plot created by matplotlib.</p>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="sync-camera">
-<h2>sync_camera<a class="headerlink" href="#sync-camera" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="sync-camera">
+<h2>sync_camera<a class="headerlink" href="#sync-camera" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mayavi.mlab.sync_camera">
-<code class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></code><code class="sig-name descname"><span class="pre">sync_camera</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_figure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.sync_camera" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mayavi.mlab.sync_camera">
+<span class="sig-prename descclassname"><span class="pre">mayavi.mlab.</span></span><span class="sig-name descname"><span class="pre">sync_camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_figure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_figure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.sync_camera" title="Permalink to this definition">¶</a></dt>
 <dd><p>Synchronise the camera of the target_figure on the camera of the
 reference_figure.</p>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -271,8 +273,9 @@ reference_figure.</p>
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="../index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Figure handling functions</a><ul>
 <li><a class="reference internal" href="#clf">clf</a></li>
 <li><a class="reference internal" href="#close">close</a></li>
@@ -286,12 +289,17 @@ reference_figure.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="mlab_helper_functions.html"
-                        title="previous chapter">Plotting functions</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mlab_decorations.html"
-                        title="next chapter">Figure decoration functions</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="mlab_helper_functions.html"
+                          title="previous chapter">Plotting functions</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="mlab_decorations.html"
+                          title="next chapter">Figure decoration functions</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -303,12 +311,12 @@ reference_figure.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -328,15 +336,15 @@ reference_figure.</p>
         <li class="right" >
           <a href="mlab_helper_functions.html" title="Plotting functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Figure handling functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Figures, legends, camera and decorations &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Figures, legends, camera and decorations &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -56,7 +58,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Figures, legends, camera and decorations</a></li> 
       </ul>
     </div>  
@@ -66,10 +68,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="figures-legends-camera-and-decorations">
-<h1>Figures, legends, camera and decorations<a class="headerlink" href="#figures-legends-camera-and-decorations" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="handling-several-figures">
-<h2>Handling several figures<a class="headerlink" href="#handling-several-figures" title="Permalink to this headline">¶</a></h2>
+  <section id="figures-legends-camera-and-decorations">
+<h1>Figures, legends, camera and decorations<a class="headerlink" href="#figures-legends-camera-and-decorations" title="Permalink to this heading">¶</a></h1>
+<section id="handling-several-figures">
+<h2>Handling several figures<a class="headerlink" href="#handling-several-figures" title="Permalink to this heading">¶</a></h2>
 <p>All mlab functions operate on the current scene, that we also call
 <code class="xref py py-func docutils literal notranslate"><span class="pre">figure()</span></code>, for compatibility with matlab and pylab. The different
 figures are indexed by key that can be an integer or a string. A call to
@@ -78,9 +80,9 @@ figure, if it exists, or create a new one. The current figure can be
 retrieved with the <code class="xref py py-func docutils literal notranslate"><span class="pre">gcf()</span></code> function. It can be refreshed using the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">draw()</span></code> function, saved to a picture file using <code class="xref py py-func docutils literal notranslate"><span class="pre">savefig()</span></code> and
 cleared using <code class="xref py py-func docutils literal notranslate"><span class="pre">clf()</span></code>.</p>
-</div>
-<div class="section" id="figure-decorations">
-<h2>Figure decorations<a class="headerlink" href="#figure-decorations" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="figure-decorations">
+<h2>Figure decorations<a class="headerlink" href="#figure-decorations" title="Permalink to this heading">¶</a></h2>
 <p>Axes can be added around a visualization object with the <code class="xref py py-func docutils literal notranslate"><span class="pre">axes()</span></code>
 function, and the labels can be set using the <code class="xref py py-func docutils literal notranslate"><span class="pre">xlabel()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">ylabel()</span></code>
 and <code class="xref py py-func docutils literal notranslate"><span class="pre">zlabel()</span></code> functions. Similarly, <code class="xref py py-func docutils literal notranslate"><span class="pre">outline()</span></code> creates an
@@ -98,9 +100,9 @@ for scalar or vector data.</p>
 <p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">orientation_axes()</span></code> was named <cite>orientationaxes</cite>
 before release 3.2.</p>
 </div>
-</div>
-<div class="section" id="moving-the-camera">
-<h2>Moving the camera<a class="headerlink" href="#moving-the-camera" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="moving-the-camera">
+<h2>Moving the camera<a class="headerlink" href="#moving-the-camera" title="Permalink to this heading">¶</a></h2>
 <p>The position and direction of the camera can be set using the <code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code>
 function. They are described in terms of Euler angles and distance to a
 focal point. The <code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code> function tries to guess the right roll angle
@@ -120,7 +122,7 @@ view point obtained interactively can be stored and reset using:</p>
 <span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">roll</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Rotating the camera around itself</p>
 <blockquote>
 <div><p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
@@ -133,8 +135,8 @@ and <cite>pitch</cite> methods of the camera object. This moves the focal point:
 </div></blockquote>
 <p>Unlike the <code class="xref py py-func docutils literal notranslate"><span class="pre">view()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">roll()</span></code> function, the angles
 are incremental, and not absolute.</p>
-</div>
-<div class="topic">
+</aside>
+<aside class="topic">
 <p class="topic-title">Modifying zoom and view angle</p>
 <p>The camera is entirely defined by its position, its focal point, and
 its view angle (attributes ‘position’, ‘focal_point’, ‘view_angle’).
@@ -142,7 +144,7 @@ The camera method ‘zoom’ changes the view angle incrementally by the
 specify ratio, where as the method ‘dolly’ translates the camera along
 its axis while keeping the focal point constant. The <code class="xref py py-func docutils literal notranslate"><span class="pre">move()</span></code>
 function can also be useful in these regards.</p>
-</div>
+</aside>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Camera parallel scale</p>
@@ -156,8 +158,8 @@ be read (or set) with the following code:</p>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -169,8 +171,9 @@ be read (or set) with the following code:</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Figures, legends, camera and decorations</a><ul>
 <li><a class="reference internal" href="#handling-several-figures">Handling several figures</a></li>
 <li><a class="reference internal" href="#figure-decorations">Figure decorations</a></li>
@@ -179,6 +182,7 @@ be read (or set) with the following code:</p>
 </li>
 </ul>
 
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -190,12 +194,12 @@ be read (or set) with the following code:</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -209,14 +213,14 @@ be read (or set) with the following code:</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Figures, legends, camera and decorations</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

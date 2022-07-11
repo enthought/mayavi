@@ -17,23 +17,38 @@ ipywidgets_ and ipyevents_ packages be installed.  It behaves almost
 exactly like a normal Mayavi UI window and supports any Mayavi/VTK
 visualization and is fully interactive.  This backend relies on VTK's
 off screen support and depending on how your VTK is configured may
-require a windowing system.
+require a windowing system.  This option is essentially performs
+server-side rendering of the visualization.
 
 .. _ipywidgets: https://ipywidgets.readthedocs.io
 .. _ipyevents: https://github.com/mwcraig/ipyevents
 
+The other very powerful backend is the ``'itk'`` backend which uses a
+client-side approach (renders on your browser using WebGL) and does
+not rely on VTK's offscreen support.  This requires that the
+itkwidgets_ package be installed.  This is probably the most
+convenient backend if your primary usage is for a web-based notebook.
+This feature was first introduced in Mayavi-4.8.0.
+
+.. _itkwidgets: https://github.com/InsightSoftwareConsortium/itkwidgets
+
+A simple example notebook demonstrating the notebook interface is
+available here: https://github.com/enthought/mayavi/blob/master/examples/mayavi/mayavi_jupyter.ipynb
+
 There are two other backends, the simplest one is the ``'png'``
 backend which produces images that can be embedded in the notebook.
-These are static and not interactive.
+These are static and not interactive and this too uses server-side
+rendering.
 
-In between these two extremes is the ``'x3d'`` backend which displays
-X3D_ elements on the notebook.  The X3D output produces a fully
-interactive 3D scene, however, this will not support VTK's interactive
-widgets.  It does not support transparency and other advanced
-visualizations either.  For information on how to interact with the
-X3D scene, see here: http://www.x3dom.org/documentation/interaction/
+There is also an ``'x3d'`` backend which displays X3D_ elements on the
+notebook.  The X3D output produces a fully interactive 3D scene,
+however, this will not support VTK's interactive widgets.  It does not
+support transparency and other advanced visualizations either.  For
+information on how to interact with the X3D scene, see here:
+http://www.x3dom.org/documentation/interaction/
 
-Mayavi ships with some javascript files that can be installed as::
+For the X3D backend, Mayavi ships with some javascript files that can
+be installed as::
 
   $ jupyter nbextension install --py mayavi --user
 
@@ -61,13 +76,13 @@ objects so they can be rendered on the Jupyter notebook.
 .. note::
 
    One can call ``init_notebook`` multiple times if one wishes to
-   change the backend between ``ipy``, ``png``, and ``x3d`` for some
+   change the backend between ``ipy``, ``itk``, ``png``, and ``x3d`` for some
    reason.
 
 There are several optional arguments to ``init_notebook``.
 
 - The first is the backend which defaults to ``'ipy'``, and can also
-  be set to ``'x3d'`` or ``'png'``.
+  be set to ``'itk'``, ``'x3d'`` or ``'png'``.
 - One can set the pixel width and height of the figure to create (as
   integers) (for example ``mlab.init_notebook('x3d', 800, 800)``).
   This only applies to the ``x3d`` backend.  For the ``ipy`` backend

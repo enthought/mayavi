@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Filters &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Filters &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -64,7 +66,7 @@
         <li class="right" >
           <a href="modules.html" title="Modules"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="application.html" accesskey="U">Using the Mayavi application</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Filters</a></li> 
       </ul>
@@ -75,142 +77,142 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="filters">
-<span id="id1"></span><h1>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h1>
+  <section id="filters">
+<span id="id1"></span><h1>Filters<a class="headerlink" href="#filters" title="Permalink to this heading">¶</a></h1>
 <p>Filters transform the data, but do not display it. They are used as an
 intermediate between the data sources and the modules.</p>
 <p>Here is a list of the Mayavi Filters.</p>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">CellDerivatives</dt>
+<dt class="field-odd">CellDerivatives<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Computes derivatives from input point scalar and vector data
 and produces cell data on the gradients.  Can be used to
 approximately calculate the vorticity for example.</p>
 </dd>
-<dt class="field-even">CellToPointData</dt>
+<dt class="field-even">CellToPointData<span class="colon">:</span></dt>
 <dd class="field-even"><p>Transforms cell attribute data to point data by
 averaging the cell data from the cells at the point.</p>
 </dd>
-<dt class="field-odd">Contour</dt>
+<dt class="field-odd">Contour<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A contour filter that wraps around the Contour component to
 generate iso-surfaces on any input dataset.</p>
 </dd>
-<dt class="field-even">CutPlane</dt>
+<dt class="field-even">CutPlane<span class="colon">:</span></dt>
 <dd class="field-even"><p>This filter represents a cut plane that can be used to slice
 through any dataset.  It also provides a 3D widget interface
 to position and move the slice interactively.</p>
 </dd>
-<dt class="field-odd">DataSetClipper</dt>
+<dt class="field-odd">DataSetClipper<span class="colon">:</span></dt>
 <dd class="field-odd"><p>This filter clips the dataset in an area.  The area can be
 defined interactively as a box, a sphere…</p>
 </dd>
-<dt class="field-even">DecimatePro</dt>
+<dt class="field-even">DecimatePro<span class="colon">:</span></dt>
 <dd class="field-even"><p>Reduces the number of triangles in a triangular mesh by
 approximating the original mesh.</p>
 </dd>
-<dt class="field-odd">Delaunay2D</dt>
+<dt class="field-odd">Delaunay2D<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Performs a 2D Delaunay triangulation.</p>
 </dd>
-<dt class="field-even">Delaunay3D</dt>
+<dt class="field-even">Delaunay3D<span class="colon">:</span></dt>
 <dd class="field-even"><p>Performs a 3D Delaunay triangulation.</p>
 </dd>
-<dt class="field-odd">ElevationFilter</dt>
+<dt class="field-odd">ElevationFilter<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Creates scalar data corresponding to the elevation of the
 points along a line.</p>
 </dd>
-<dt class="field-even">ExtractEdges</dt>
+<dt class="field-even">ExtractEdges<span class="colon">:</span></dt>
 <dd class="field-even"><p>This filter extracts cell edges from any input data.</p>
 </dd>
-<dt class="field-odd">ExtractGrid</dt>
+<dt class="field-odd">ExtractGrid<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Allows a user to select a part of a structured grid.</p>
 </dd>
-<dt class="field-even">ExtractTensorComponents</dt>
+<dt class="field-even">ExtractTensorComponents<span class="colon">:</span></dt>
 <dd class="field-even"><p>Wraps the TVTK <code class="docutils literal notranslate"><span class="pre">ExtractTensorComponents</span></code> filter to extract
 components from a tensor field.</p>
 </dd>
-<dt class="field-odd">ExtractUnstructuredGrid</dt>
+<dt class="field-odd">ExtractUnstructuredGrid<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Allows a user to select a part of an unstructured grid.</p>
 </dd>
-<dt class="field-even">ExtractVectorNorm</dt>
+<dt class="field-even">ExtractVectorNorm<span class="colon">:</span></dt>
 <dd class="field-even"><p>Computes the norm (Euclidean) of the input vector data
 (with optional scaling between [0, 1]). This is useful
 when the input data has vector input but no scalar data
 for the magnitude of the vectors.</p>
 </dd>
-<dt class="field-odd">ExtractVectorComponents</dt>
+<dt class="field-odd">ExtractVectorComponents<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Wraps the TVTK ExtractVectorComponents filter to extract
 components of a vector. This is useful for analyzing
 individual components of a vector data.</p>
 </dd>
-<dt class="field-even">GaussianSplatter</dt>
+<dt class="field-even">GaussianSplatter<span class="colon">:</span></dt>
 <dd class="field-even"><p>This filter splat points into a volume with an elliptical,
 Gaussian distribution. This is useful to estimate a density
 field from a set of scattered points.</p>
 </dd>
-<dt class="field-odd">GreedyTerrainDecimation</dt>
+<dt class="field-odd">GreedyTerrainDecimation<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Approximates a height field (2D image data) with a triangle mesh,
 keeping the number of triangles minimum.</p>
 </dd>
-<dt class="field-even">ImageChangeInformation</dt>
+<dt class="field-even">ImageChangeInformation<span class="colon">:</span></dt>
 <dd class="field-even"><p>A filter that can be used to change the origin, spacing and
 extents of an input image data dataset without changing the
 data itself.</p>
 </dd>
-<dt class="field-odd">ImageDataProbe</dt>
+<dt class="field-odd">ImageDataProbe<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A filter that can be used to probe any dataset using a
 Structured Points dataset.  The filter also allows one to
 convert the scalar data to an unsigned short array so that the
 scalars can be used for volume visualization.</p>
 </dd>
-<dt class="field-even">MaskPoints</dt>
+<dt class="field-even">MaskPoints<span class="colon">:</span></dt>
 <dd class="field-even"><p>Selectively passes the input points downstream. This can
 be used to subsample the input points.  Note that this
 does not pass geometry data, this means all grid
 information is lost.</p>
 </dd>
-<dt class="field-odd">PointToCellData</dt>
+<dt class="field-odd">PointToCellData<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Does the inverse of the CellToPointData filter: converts data
 located on the points to data located on the cells.</p>
 </dd>
-<dt class="field-even">PolyDataNormals</dt>
+<dt class="field-even">PolyDataNormals<span class="colon">:</span></dt>
 <dd class="field-even"><p>Computes normals from input data. This gives meshes a
 smoother appearance. This should work for any input
 dataset. Note: this filter is called “Compute Normals”
 in Mayavi2 GUI (Visualize/Filters/Compute Normals).</p>
 </dd>
-<dt class="field-odd">QuadricDecimation</dt>
+<dt class="field-odd">QuadricDecimation<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Reduce triangles in a mesh, forming a good approximation of the
 original mesh.</p>
 </dd>
-<dt class="field-even">SelectOutput</dt>
+<dt class="field-even">SelectOutput<span class="colon">:</span></dt>
 <dd class="field-even"><p>A filter that allows a user to select one among several of the
 outputs of a given input.  This is typically very useful for a
 multi-block data source.</p>
 </dd>
-<dt class="field-odd">SetActiveAttribute</dt>
+<dt class="field-odd">SetActiveAttribute<span class="colon">:</span></dt>
 <dd class="field-odd"><p>This filter lets a user set the active data attribute
 (scalars, vectors and tensors) on a VTK dataset.  This is
 particularly useful if you need to do something like compute
 contours of one scalar on the contour of another scalar.</p>
 </dd>
-<dt class="field-even">Stripper</dt>
+<dt class="field-even">Stripper<span class="colon">:</span></dt>
 <dd class="field-even"><p>Create triangle strips and/or poly-lines. Useful for regularizing
 broken up surfaces, such as those created by the Tube filter.</p>
 </dd>
-<dt class="field-odd">Threshold</dt>
+<dt class="field-odd">Threshold<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A simple filter that thresholds on input data.</p>
 </dd>
-<dt class="field-even">TransformData</dt>
+<dt class="field-even">TransformData<span class="colon">:</span></dt>
 <dd class="field-even"><p>Performs a linear transformation to input data.</p>
 </dd>
-<dt class="field-odd">Tube</dt>
+<dt class="field-odd">Tube<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Turns lines into tubes.</p>
 </dd>
-<dt class="field-even">UserDefined</dt>
+<dt class="field-even">UserDefined<span class="colon">:</span></dt>
 <dd class="field-even"><p>This filter lets the user define their own filter
 dynamically/interactively.</p>
 </dd>
-<dt class="field-odd">Vorticity</dt>
+<dt class="field-odd">Vorticity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>This filter computes the vorticity of an input vector field.
 For convenience, the filter allows one to optionally
 pass-through the given input vector field.  The filter also
@@ -218,21 +220,21 @@ allows the user to show the component of the vorticity along a
 particular cartesian co-ordinate axes.  It produces point data
 on output which is ready to visualize.</p>
 </dd>
-<dt class="field-even">WarpScalar</dt>
+<dt class="field-even">WarpScalar<span class="colon">:</span></dt>
 <dd class="field-even"><p>Warps the input data along a particular direction
 (either the normals or a specified direction) with a
 scale specified by the local scalar value. Useful for
 making carpet plots. The scalar value of a dataset can be, for
 instance, converted in elevation.</p>
 </dd>
-<dt class="field-odd">WarpVector</dt>
+<dt class="field-odd">WarpVector<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Warps the input data along the point vector attribute
 scaled as per a scale factor.  Useful for showing flow
 profiles or displacements.</p>
 </dd>
 </dl>
 </div></blockquote>
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -244,12 +246,16 @@ profiles or displacements.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="modules.html"
-                        title="previous chapter">Modules</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mlab.html"
-                        title="next chapter"><code class="docutils literal notranslate"><span class="pre">mlab</span></code>: Python scripting for 3D plotting</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="modules.html"
+                          title="previous chapter">Modules</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="mlab.html"
+                          title="next chapter"><code class="docutils literal notranslate"><span class="pre">mlab</span></code>: Python scripting for 3D plotting</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -261,12 +267,12 @@ profiles or displacements.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -286,15 +292,15 @@ profiles or displacements.</p>
         <li class="right" >
           <a href="modules.html" title="Modules"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="application.html" >Using the Mayavi application</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Filters</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

@@ -1,17 +1,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Changing the looks of the visual objects created &#8212; mayavi 4.7.4 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Changing the looks of the visual objects created &#8212; mayavi 4.8.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -56,7 +58,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Changing the looks of the visual objects created</a></li> 
       </ul>
     </div>  
@@ -66,12 +68,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="changing-the-looks-of-the-visual-objects-created">
-<h1>Changing the looks of the visual objects created<a class="headerlink" href="#changing-the-looks-of-the-visual-objects-created" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="adding-color-or-size-variations">
-<h2>Adding color or size variations<a class="headerlink" href="#adding-color-or-size-variations" title="Permalink to this headline">¶</a></h2>
+  <section id="changing-the-looks-of-the-visual-objects-created">
+<h1>Changing the looks of the visual objects created<a class="headerlink" href="#changing-the-looks-of-the-visual-objects-created" title="Permalink to this heading">¶</a></h1>
+<section id="adding-color-or-size-variations">
+<h2>Adding color or size variations<a class="headerlink" href="#adding-color-or-size-variations" title="Permalink to this heading">¶</a></h2>
 <dl class="field-list">
-<dt class="field-odd">Color</dt>
+<dt class="field-odd">Color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The color of the objects created by a plotting function can be specified
 explicitly using the ‘color’ keyword argument of the function. This color
 is then applied uniformly to all the objects created.</p>
@@ -102,7 +104,7 @@ to set the colormap can be found in the <cite>Colors and legends</cite> node.</p
 <p>To use a custom-defined colormap, for the time being, you need to write
 specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><span class="std std-ref">Custom colormap example</span></a>.</p>
 </dd>
-<dt class="field-even">Size of the glyph</dt>
+<dt class="field-even">Size of the glyph<span class="colon">:</span></dt>
 <dd class="field-even"><p>The scalar information can also be displayed in many different ways.
 For instance it can be used to adjust the size of glyphs positioned at
 the data points.</p>
@@ -114,7 +116,7 @@ Given six points positioned on a line with interpoint spacing 1:</p>
 </pre></div>
 </div>
 <p>If we represent a scalar varying from 0.5 to 1 on this dataset:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.7</span><span class="p">,</span> <span class="mf">.8</span><span class="p">,</span> <span class="mf">.9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>We represent the dataset as spheres, using <code class="xref py py-func docutils literal notranslate"><span class="pre">points3d()</span></code>, and the
@@ -150,14 +152,14 @@ absolutely, unless you specify:</p>
 </div>
 </div>
 </dd>
-<dt class="field-odd">More representations of the attached scalars or vectors</dt>
+<dt class="field-odd">More representations of the attached scalars or vectors<span class="colon">:</span></dt>
 <dd class="field-odd"><p>There are many more ways to represent the scalar or vector information
 attached to the data. For instance, scalar data can be ‘warped’ into a
 displacement, e.g. using a <cite>WarpScalar</cite> filter, or the norm of scalar
 data can be extracted to a scalar component that can be visualized using
 iso-surfaces with the <cite>ExtractVectorNorm</cite> filter.</p>
 </dd>
-<dt class="field-even">Displaying more than one quantity</dt>
+<dt class="field-even">Displaying more than one quantity<span class="colon">:</span></dt>
 <dd class="field-even"><p>You may want to display color related to one scalar quantity while
 using a second for the iso-contours, or the elevation. This is possible
 but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><span class="std std-ref">Atomic orbital example</span></a>.</p>
@@ -175,9 +177,9 @@ glyphs, and use scalars to represent the color:</p>
 </div>
 </dd>
 </dl>
-</div>
-<div class="section" id="changing-the-scale-and-position-of-objects">
-<h2>Changing the scale and position of objects<a class="headerlink" href="#changing-the-scale-and-position-of-objects" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="changing-the-scale-and-position-of-objects">
+<h2>Changing the scale and position of objects<a class="headerlink" href="#changing-the-scale-and-position-of-objects" title="Permalink to this heading">¶</a></h2>
 <p>Each mlab function takes an <cite>extent</cite> keyword argument, that allows to set
 its (x, y, z) extents. This give both control on the scaling in the
 different directions and the displacement of the center. Beware that when
@@ -187,9 +189,9 @@ will not share the same displacement and scale.</p>
 <p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">surf()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">contour_surf()</span></code>, and <code class="xref py py-func docutils literal notranslate"><span class="pre">barchart()</span></code> functions, which
 display 2D arrays by converting the values in height, also take a
 <cite>warp_scale</cite> parameter, to control the vertical scaling.</p>
-</div>
-<div class="section" id="changing-object-properties-interactively">
-<span id="mlab-changing-objects-interactively"></span><h2>Changing object properties interactively<a class="headerlink" href="#changing-object-properties-interactively" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="changing-object-properties-interactively">
+<span id="mlab-changing-objects-interactively"></span><h2>Changing object properties interactively<a class="headerlink" href="#changing-object-properties-interactively" title="Permalink to this heading">¶</a></h2>
 <p>Mayavi, and thus mlab, allows you to interactively modify your
 visualization.</p>
 <p>The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
@@ -200,7 +202,7 @@ this manual, or add new modules or filters by using this icons on the
 pipeline, or through the right-click menus on the objects in the
 pipeline.</p>
 <img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" />
-<div class="topic" id="record-feature">
+<aside class="topic" id="record-feature">
 <p class="topic-title">The record feature</p>
 <p>A <strong>very useful feature</strong> of this dialog can be found by pressing the
 red round button of the toolbar of the pipeline view. This opens up a
@@ -208,12 +210,12 @@ recorder that tracks the changes made interactively to the
 visualization via the dialogs, and generates valid lines of Python
 code. To find out about navigating through a program in the pipeline, see
 <a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><span class="std std-ref">Organisation of Mayavi visualizations: the pipeline</span></a>.</p>
-</div>
+</aside>
 <p>In addition, for every object returned by a mlab function,
 <code class="docutils literal notranslate"><span class="pre">this_object.edit_traits()</span></code> brings up a dialog that can be used to
 interactively edit the object’s properties. If the dialog doesn’t show up
 when you enter this command, please see <a class="reference internal" href="mlab_running_scripts.html#running-mlab-scripts"><span class="std std-ref">Running mlab scripts</span></a>.</p>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Using <code class="docutils literal notranslate"><span class="pre">mlab</span></code> with the full Envisage UI</p>
 <p>Sometimes it is convenient to write an mlab script but still use the
 full envisage application so you can click on the menus and use other
@@ -227,9 +229,9 @@ mlab figure:</p>
 </div>
 <p>This will give you the full-fledged UI instead of the default simple
 window.</p>
-</div>
-</div>
-</div>
+</aside>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -241,8 +243,9 @@ window.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Changing the looks of the visual objects created</a><ul>
 <li><a class="reference internal" href="#adding-color-or-size-variations">Adding color or size variations</a></li>
 <li><a class="reference internal" href="#changing-the-scale-and-position-of-objects">Changing the scale and position of objects</a></li>
@@ -251,6 +254,7 @@ window.</p>
 </li>
 </ul>
 
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -262,12 +266,12 @@ window.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -281,14 +285,14 @@ window.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.7.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Changing the looks of the visual objects created</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Nov 13, 2021.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+      Last updated on Jul 11, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>
