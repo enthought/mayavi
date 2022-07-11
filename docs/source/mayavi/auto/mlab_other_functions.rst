@@ -156,7 +156,7 @@ init_notebook
     
     **Parameters**
     
-    backend :str: one of ('png', 'x3d', 'ipy')
+    backend :str: one of ('itk', 'ipy', 'x3d', 'png')
     width :int: suggested default width of the element
     height :int: suggested default height of the element
     local :bool: Use local copy of x3dom.js instead of online version.

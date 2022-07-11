@@ -1,3 +1,52 @@
+Mayavi 4.8.0
+============
+
+This release introduces a few useful new features and fixes some bugs. The
+primary feature is the addition of support for an itkwidgets_ backend for
+jupyter notebook support using entirely client-side rendering. This version
+also makes it possible to build and install Mayavi on headless servers.
+
+.. _itkwidgets: https://github.com/InsightSoftwareConsortium/itkwidgets
+
+8 pull requests were merged.
+
+Many thanks to the following folks who contributed to this release in
+alphabetical order horiem (@yellowshippo), Mark Dickinson, Prabhu
+Ramachandran, and Tetsuo Koyama.
+
+Enhancements
+-------------
+
+28 Mar 2022 `#1139 <https://github.com/enthought/mayavi/pull/1139>`_ (prabhuramachandran)
+   - Refactor jupyter backends and add support for using itkwidgets_. This
+     allows us to use Mayavi in a headless manner unlike the other backends
+     which require offscreen support.
+   - Also issues with the test backend which is used for the new ``'itk'``
+     backend.
+
+
+Fixes
+------
+
+11 Jul 2022 `#1159 <https://github.com/enthought/mayavi/pull/1159>`_ (prabhuramachandran)
+   - BUG: Temporary fix to build with VTK 9.2.0rc1
+
+24 Feb 2022 `#1135 <https://github.com/enthought/mayavi/pull/1135>`_ (yellowshippo)
+   - Support VTK_LONG_LONG and VTK_UNSIGNED_LONG_LONG array handler.
+
+21 Feb 2022 `#1134 <https://github.com/enthought/mayavi/pull/1134>`_ (prabhuramachandran)
+   - Fix bug with cell_to_point_data filter.
+
+18 Feb 2022 `#1133 <https://github.com/enthought/mayavi/pull/1133>`_ (prabhuramachandran)
+   - Fix headless build
+     - Ensure that tests can run when toolkit is null.
+     - Do not generate docs on build as this will fail on headless servers.
+
+08 Feb 2022 `#1131 <https://github.com/enthought/mayavi/pull/1131>`_ (mdickinson)
+   - Use raw strings for generated docstrings
+
+
+
 Mayavi 4.7.4
 ============
 
