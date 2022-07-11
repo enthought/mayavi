@@ -42,7 +42,7 @@ Changes by Fabian Wenzel, Jan. 2016
 
 import sys
 
-from pyface.qt import qt_api
+from pyface.qt import qt_api, is_qt4
 if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
 elif qt_api == 'pyqt5':
@@ -275,7 +275,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         # add wheel timer to fix scrolling issue with trackpad
         self.wheel_timer = None
-        if PyQtImpl != 'PyQt5':
+        if is_qt4:
             self.wheel_timer = QTimer()
             self.wheel_timer.setSingleShot(True)
             self.wheel_timer.setInterval(25)
