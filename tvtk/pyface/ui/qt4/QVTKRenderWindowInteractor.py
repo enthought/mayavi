@@ -42,13 +42,15 @@ Changes by Fabian Wenzel, Jan. 2016
 
 import sys
 
-from pyface.qt import qt_api
+from pyface.qt import qt_api, is_qt4
 if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
 elif qt_api == 'pyqt5':
     PyQtImpl = "PyQt5"
 elif qt_api == 'pyside2':
     PyQtImpl = "PySide2"
+elif qt_api == 'pyside6':
+    PyQtImpl = "PySide6"
 else:
     PyQtImpl = "PySide"
 
@@ -93,6 +95,15 @@ elif PyQtImpl == "PySide2":
     from PySide2.QtWidgets import QWidget, QSizePolicy, QApplication
     from PySide2.QtGui import QWheelEvent
     from PySide2.QtCore import Qt, QTimer, QObject, QSize, QEvent
+elif PyQtImpl == "PySide6":
+    if QVTKRWIBase == "QGLWidget":
+        try:
+            from PySide6.QtWidgets import QOpenGLWidget as QGLWidget
+        except:
+            from PySide6.QtOpenGL import QGLWidget
+    from PySide6.QtWidgets import QWidget, QSizePolicy, QApplication
+    from PySide6.QtGui import QWheelEvent
+    from PySide6.QtCore import Qt, QTimer, QObject, QSize, QEvent
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
 
@@ -264,7 +275,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         # add wheel timer to fix scrolling issue with trackpad
         self.wheel_timer = None
-        if PyQtImpl != 'PyQt5':
+        if is_qt4:
             self.wheel_timer = QTimer()
             self.wheel_timer.setSingleShot(True)
             self.wheel_timer.setInterval(25)

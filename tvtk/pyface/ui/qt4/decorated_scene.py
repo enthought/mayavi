@@ -66,6 +66,25 @@ class DecoratedScene(Scene):
             d.pop(x, None)
         return d
 
+    ###########################################################################
+    # 'event' interface.
+    ###########################################################################
+    def _closed_fired(self):
+        super(DecoratedScene, self)._closed_fired()
+        # Remove potential cycles.
+        tbm = self._tool_bar.tool_bar_manager
+        if hasattr(tbm, '_toolbars'):
+            # Qt backend. Workaround for PySide2/6 before the cleanup in
+            # enthought/pyface#1143 is available.
+            for bar in tbm._toolbars:
+                for item in bar.tools:
+                    if item.control is not None:
+                        if hasattr(item.control, '_tool_instance'):
+                            del item.control._tool_instance
+        self._content = None
+        self._panel = None
+        self._tool_bar = None
+
     ##########################################################################
     # Non-public interface.
     ##########################################################################

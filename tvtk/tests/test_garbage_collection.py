@@ -51,7 +51,7 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
             return DecoratedScene(parent=None)
 
         def close_fn(o):
-            o.closing = True
+            o.close()
 
         self.check_object_garbage_collected(create_fn, close_fn)
 
