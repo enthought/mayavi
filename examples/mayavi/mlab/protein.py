@@ -73,17 +73,17 @@ last_atom_label = None
 last_chain_label = None
 for line in infile:
     line = line.split()
-    if line[0] in ('ATOM', 'HETATM'):
-        nodes[line[1]] = (line[2], line[6], line[7], line[8])
-        atoms.add(line[2])
-        chain_label = line[5]
+    if line[0].decode("utf-8") in ('ATOM', 'HETATM'):
+        nodes[line[1].decode("utf-8")] = (line[2].decode("utf-8"), line[6].decode("utf-8"), line[7].decode("utf-8"), line[8].decode("utf-8"))
+        atoms.add(line[2].decode("utf-8"))
+        chain_label = line[5].decode("utf-8")
         if chain_label == last_chain_label:
-            edges.append((line[1], last_atom_label))
-        last_atom_label = line[1]
+            edges.append((line[1].decode("utf-8"), last_atom_label))
+        last_atom_label = line[1].decode("utf-8")
         last_chain_label = chain_label
-    elif line[0] == 'CONECT':
+    elif line[0].decode("utf-8") == 'CONECT':
         for start, stop in zip(line[1:-1], line[2:]):
-            edges.append((start, stop))
+            edges.append((start.decode("utf-8"), stop.decode("utf-8")))
 
 atoms = list(atoms)
 atoms.sort()
