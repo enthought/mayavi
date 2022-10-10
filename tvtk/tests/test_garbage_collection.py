@@ -21,7 +21,7 @@ if ETSConfig.toolkit in ('qt4', 'qt'):
     import pyface
     from pyface.qt import api_name
     if api_name in ('pyqt', 'pyqt5') and \
-             Version(pyface.__version__) < Version('7.5.0.dev0'):
+            Version(pyface.__version__) < Version('7.5.0.dev0'):
         bad_pyqt5 = True
 
 
