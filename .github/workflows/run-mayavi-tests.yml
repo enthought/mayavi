@@ -56,14 +56,14 @@ jobs:
         python -m pip install numpy
         python -m pip install vtk
         python -m pip install pillow
-        python -m pip install nose
+        python -m pip install pytest
         python -m pip install traitsui==7.2.1
         python -m pip install -e .[app]
     - name: Test Mayavi package
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: python -m nose.core -v mayavi
+        run: python -m pytest -v mayavi
     - name: Test tvtk package
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: python -m nose.core -v tvtk
+        run: python -m pytest -v tvtk
