@@ -18,6 +18,7 @@ docs are shown.
 
 # Standard library imports.
 import inspect
+import os
 import sys
 
 # Enthought library imports.
@@ -51,18 +52,27 @@ def get_tvtk_class_names():
     # Shut of VTK warnings for the time being.
     o = vtk.vtkObject
     w = o.GetGlobalWarningDisplay()
-    o.SetGlobalWarningDisplay(0) # Turn it off.
+    o.SetGlobalWarningDisplay(1) # Turn it off.
 
     old_stdout = sys.stdout
     old_stderr = sys.stderr
+    verbose = os.getenv('TVTK_VERBOSE', '').lower() in ('1', 'true')
 
     all = []
     src = []
     filter = []
     sink = []
+    bad_names = []
+    ver = vtk.vtkVersion()
+    if (ver.GetVTKMajorVersion(), ver.GetVTKMinorVersion()) == (9, 2):
+        bad_names.append('vtkOpenGLAvatar')
+
     for name in dir(vtk):
-        if name.startswith('vtk') and not name.startswith('vtkQt'):
+        if name.startswith('vtk') and not name.startswith('vtkQt') and \
+                name not in bad_names:
             klass = getattr(vtk, name)
+            if verbose:
+                print(f'Trying {name}', file=sys.__stdout__)
             try:
                 c = klass()
                 # Some classes hijack sys.stdout/sys.stderr.
