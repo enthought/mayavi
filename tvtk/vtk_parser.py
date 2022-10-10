@@ -9,6 +9,7 @@ type information, and organizes them.
 import collections.abc
 import re
 import types
+import os
 
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
@@ -113,6 +114,8 @@ class VTKMethodParser:
         else:
             self._tree = None
         self._state_patn = re.compile('To[A-Z0-9]')
+        self.verbose = \
+            os.getenv('VTK_METHOD_PARSER_VERBOSE', '').lower() in ('1', 'true')
         self._initialize()
 
     #################################################################
@@ -665,8 +668,8 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
-            # Useful for debugging on failures:
-            # print('get instance', klass)
+            if self.verbose:
+                print(f'Instantiating {klass}')
             obj = self._get_instance(klass)
             # print('got instance', obj.__class__)
             if obj:
@@ -696,12 +699,15 @@ class VTKMethodParser:
                             (klass_name == 'vtkHigherOrderTetra' and
                              key == 'ParametricCoords') or
                             (klass_name == 'vtkGenericAttributeCollection' and
-                             key == 'AttributesToInterpolate')):
+                             key == 'AttributesToInterpolate') or
+                            (klass_name == 'vtkPlotBar' and
+                             key == 'LookupTable') or
+                            False):  # just to simplify indentation/updates
                         default = None
                     else:
                         try:
-                            # Useful for debugging on failures:
-                            # print('Get', klass_name, key)
+                            if self.verbose:
+                                print(f'  Calling {klass_name}.Get{key}()')
                             default = getattr(obj, 'Get%s' % key)()
                         except TypeError:
                             default = None
