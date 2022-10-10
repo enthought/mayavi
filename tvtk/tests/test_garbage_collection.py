@@ -8,32 +8,26 @@ import sys
 import unittest
 from traits.etsconfig.api import ETSConfig
 
+from packaging.version import Version
+
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.pyface.api import DecoratedScene, Scene
 from tvtk.pyface.scene_model import SceneModel
 from tvtk.tests.common import TestGarbageCollection
 
+# This should be okay to do once the tvtk.pyface.api.DecoratedScene is imported
+bad_pyqt5 = False
+if ETSConfig.toolkit in ('qt4', 'qt'):
+    import pyface
+    from pyface.qt import api_name
+    if api_name == 'pyqt5' and \
+             Version(pyface.__version__) < Version('7.5.0.dev0'):
+        bad_pyqt5 = True
+
 
 class TestTVTKGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
-
-    def _check_skip_pyqt5(self, *, name):
-        if ETSConfig.toolkit in ('qt4', 'qt'):
-            import pyface
-            from pyface.qt import api_name
-            from packaging.version import Version
-            if api_name == 'pyqt5' and \
-                    Version(pyface.__version__) < Version('7.5.0.dev0'):
-                raise unittest.SkipTest(
-                    'Test segfaults using PyQt5 '
-                    '(https://github.com/enthought/pyface/pull/1161)')
-            else:
-                print(f'\nRunning {name}: api_name={repr(api_name)} and '
-                      f'pyface.__version__={repr(pyface.__version__)}')
-        else:
-            print(
-                f'\nRunning test: ETSConfig.toolkit={repr(ETSConfig.toolkit)}')
 
     @unittest.skipIf(
         sys.platform.startswith('win') or ETSConfig.toolkit == 'null',
@@ -66,10 +60,9 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
     @unittest.skipIf(ETSConfig.toolkit in ('wx', 'null'),
                      'Test segfaults using WX (issue #216) and fails on null, '
                      f'got toolkit={ETSConfig.toolkit}')
+    @unittest.skipIf(bad_pyqt5, 'Test segfaults using PyQt5 with older PyFace')
     def test_decorated_scene(self):
         """ Tests if Decorated Scene can be garbage collected."""
-        self._check_skip_pyqt5(name='decorated_scene')
-
         def create_fn():
             return DecoratedScene(parent=None)
 
