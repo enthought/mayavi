@@ -17,6 +17,18 @@ from tvtk.tests.common import TestGarbageCollection
 class TestTVTKGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
+
+    def _check_skip_pyqt5(self):
+        if ETSConfig.toolkit in ('qt4', 'qt'):
+            import pyface
+            from pyface.qt import api_name
+            from packaging.version import Version
+            if api_name == 'pyqt5' and \
+                    Version(pyface.__version__) < Version('7.5.0.dev0'):
+                raise unittest.SkipTest(
+                    'Test segfaults using PyQt5 '
+                    '(https://github.com/enthought/pyface/pull/1161)')
+
     @unittest.skipIf(
         sys.platform.startswith('win') or ETSConfig.toolkit == 'null',
         'CI with windows fails due to lack of OpenGL, or toolkit is null, '
@@ -50,6 +62,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
                      f'got toolkit={ETSConfig.toolkit}')
     def test_decorated_scene(self):
         """ Tests if Decorated Scene can be garbage collected."""
+        self._check_skip_pyqt5()
+
         def create_fn():
             return DecoratedScene(parent=None)
 
@@ -60,12 +74,6 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
 
     def test_scene_model(self):
         """ Tests if SceneModel can be garbage collected."""
-        if ETSConfig.toolkit == 'qt4':
-            import pyface.qt
-            if pyface.qt.api_name == 'pyqt5':
-                raise unittest.SkipTest(
-                    'Test segfaults using PyQt5 '
-                    '(https://github.com/enthought/pyface/pull/1161)')
         def create_fn():
             return SceneModel()
 
