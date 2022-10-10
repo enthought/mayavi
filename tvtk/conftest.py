@@ -3,8 +3,11 @@ import importlib
 
 def pytest_report_header(config, start_path, startdir):
     """Make pytest report some useful information about the environment."""
-    from tvtk.pyface.api import DecoratedScene  # noqa
     from traits.etsconfig.api import ETSConfig
+    try:
+        from tvtk.pyface.api import DecoratedScene  # noqa
+    except ImportError:  # Cannot import any of ...
+        pass
     infos = list()
     for module in ('pyface', 'traitsui', 'traits'):
         mod = importlib.import_module(module)
