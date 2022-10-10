@@ -19,7 +19,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
     """
     @unittest.skipIf(
         sys.platform.startswith('win') or ETSConfig.toolkit == 'null',
-        'CI with windows fails due to lack of OpenGL, or toolkit is null.'
+        'CI with windows fails due to lack of OpenGL, or toolkit is null, '
+        f'got toolkit={ETSConfig.toolkit}'
     )
     def test_tvtk_scene(self):
         """ Tests if TVTK scene can be garbage collected."""
@@ -32,7 +33,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
         self.check_object_garbage_collected(create_fn, close_fn)
 
     @unittest.skipIf(ETSConfig.toolkit in ('wx', 'null'),
-                     'Test segfaults using WX (issue #216) and fails on null')
+                     'Test segfaults using WX (issue #216) and fails on null, '
+                     f'got toolkit={ETSConfig.toolkit}')
     def test_scene(self):
         """ Tests if Scene can be garbage collected."""
         def create_fn():
@@ -44,7 +46,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
         self.check_object_garbage_collected(create_fn, close_fn)
 
     @unittest.skipIf(ETSConfig.toolkit in ('wx', 'null'),
-                     'Test segfaults using WX (issue #216) and fails on null')
+                     'Test segfaults using WX (issue #216) and fails on null, '
+                     f'got toolkit={ETSConfig.toolkit}')
     def test_decorated_scene(self):
         """ Tests if Decorated Scene can be garbage collected."""
         def create_fn():
@@ -57,6 +60,12 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
 
     def test_scene_model(self):
         """ Tests if SceneModel can be garbage collected."""
+        if ETSConfig.toolkit == 'qt4':
+            import pyface.qt
+            if pyface.qt.api_name == 'pyqt5':
+                raise unittest.SkipTest(
+                    'Test segfaults using PyQt5 '
+                    '(https://github.com/enthought/pyface/pull/1161)')
         def create_fn():
             return SceneModel()
 

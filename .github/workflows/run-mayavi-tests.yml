@@ -30,6 +30,7 @@ jobs:
     env:
       ETS_TOOLKIT: qt4
       QT_API: ${{ matrix.qt-api }}
+      TVTK_VERBOSE: 'true'
 
     steps:
     - uses: actions/checkout@v2
@@ -66,4 +67,4 @@ jobs:
     - name: Test tvtk package
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: python -m pytest -v tvtk
+        run: python -m pytest -sv tvtk
