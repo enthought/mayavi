@@ -32,7 +32,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
                 print(f'\nRunning {name}: api_name={repr(api_name)} and '
                       f'pyface.__version__={repr(pyface.__version__)}')
         else:
-            print(f'Running test: ETSConfig.toolkit={repr(ETSConfig.toolkit)}')
+            print(
+                f'\nRunning test: ETSConfig.toolkit={repr(ETSConfig.toolkit)}')
 
     @unittest.skipIf(
         sys.platform.startswith('win') or ETSConfig.toolkit == 'null',

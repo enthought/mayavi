@@ -61,12 +61,12 @@ jobs:
         python -m pip install pytest
         python -m pip install traitsui==7.2.1
     - name: Install mayavi and tvtk
-      run: python -m pip install -e .[app]
+      run: python -m pip install -ve .[app]
     - name: Test Mayavi package
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: python -m pytest -v mayavi
+        run: pytest -v mayavi
     - name: Test tvtk package
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: python -m pytest -sv tvtk
+        run: pytest -sv tvtk
