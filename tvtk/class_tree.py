@@ -257,7 +257,8 @@ class ClassTree:
                 # in the vtk module which we ignore.
                 continue
             klass = self.get_class(name)
-            if klass and hasattr(klass, '__bases__'):
+            if klass is not NotImplemented \
+                    and klass and hasattr(klass, '__bases__'):
                 self._generate_hierarchy(klass)
 
         # Compute the inheritance level and store the nodes in the tree.

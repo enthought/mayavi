@@ -114,7 +114,7 @@ class VTKMethodParser:
         else:
             self._tree = None
         self._state_patn = re.compile('To[A-Z0-9]')
-        self.verbose = \
+        self._verbose = \
             os.getenv('VTK_METHOD_PARSER_VERBOSE', '').lower() in ('1', 'true')
         self._initialize()
 
@@ -668,7 +668,7 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
-            if self.verbose:
+            if self._verbose:
                 print(f'Instantiating {klass}')
             obj = self._get_instance(klass)
             # print('got instance', obj.__class__)
@@ -706,7 +706,7 @@ class VTKMethodParser:
                         default = None
                     else:
                         try:
-                            if self.verbose:
+                            if self._verbose:
                                 print(f'  Calling {klass_name}.Get{key}()')
                             default = getattr(obj, 'Get%s' % key)()
                         except TypeError:
