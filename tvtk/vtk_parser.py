@@ -115,7 +115,7 @@ class VTKMethodParser:
             self._tree = None
         self._state_patn = re.compile('To[A-Z0-9]')
         self._verbose = \
-            os.getenv('VTK_METHOD_PARSER_VERBOSE', '').lower() in ('1', 'true')
+            os.getenv('VTK_PARSER_VERBOSE', '').lower() in ('1', 'true')
         self._initialize()
 
     #################################################################

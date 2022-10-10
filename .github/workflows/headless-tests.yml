@@ -1,4 +1,7 @@
 name: Headless tests
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}-${{ github.event.ref }}
+  cancel-in-progress: true
 
 on:
   pull_request:
@@ -11,10 +14,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: [3.9]
+        python-version: [3.10]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
+    env:
+      VTK_PARSER_VERBOSE: 'true'
 
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +27,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies and local packages
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
         python -m pip install numpy
@@ -30,7 +35,8 @@ jobs:
         python -m pip install pillow
         python -m pip install pytest
         python -m pip install traitsui==7.2.1
-        python -m pip install .
+    - name: Install mayavi and tvtk
+      run: python -m pip install .
     - name: Test tvtk package
       run: pytest -v --pyargs tvtk
     - name: Test Mayavi package

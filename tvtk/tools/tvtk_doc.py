@@ -52,7 +52,7 @@ def get_tvtk_class_names():
     # Shut of VTK warnings for the time being.
     o = vtk.vtkObject
     w = o.GetGlobalWarningDisplay()
-    o.SetGlobalWarningDisplay(1) # Turn it off.
+    o.SetGlobalWarningDisplay(0)  # Turn it off.
 
     old_stdout = sys.stdout
     old_stderr = sys.stderr

@@ -18,7 +18,7 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
 
-    def _check_skip_pyqt5(self):
+    def _check_skip_pyqt5(self, *, name):
         if ETSConfig.toolkit in ('qt4', 'qt'):
             import pyface
             from pyface.qt import api_name
@@ -28,6 +28,11 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
                 raise unittest.SkipTest(
                     'Test segfaults using PyQt5 '
                     '(https://github.com/enthought/pyface/pull/1161)')
+            else:
+                print(f'\nRunning {name}: api_name={repr(api_name)} and '
+                      f'pyface.__version__={repr(pyface.__version__)}')
+        else:
+            print(f'Running test: ETSConfig.toolkit={repr(ETSConfig.toolkit)}')
 
     @unittest.skipIf(
         sys.platform.startswith('win') or ETSConfig.toolkit == 'null',
@@ -62,7 +67,7 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
                      f'got toolkit={ETSConfig.toolkit}')
     def test_decorated_scene(self):
         """ Tests if Decorated Scene can be garbage collected."""
-        self._check_skip_pyqt5()
+        self._check_skip_pyqt5(name='decorated_scene')
 
         def create_fn():
             return DecoratedScene(parent=None)
