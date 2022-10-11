@@ -6,6 +6,7 @@
 *~
 .DS_Store
 _configtest.*
+.hypothesis
 
 # ignore the build directories
 *.egg-info/

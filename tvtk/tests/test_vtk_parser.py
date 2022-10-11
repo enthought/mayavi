@@ -54,7 +54,13 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual(p.get_state_methods(), {})
         self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
 
-        self.assertEqual(p.get_get_set_methods(), {})
+        # Tolerate old and new (9.2.2+)
+        msg = f'{p} get_get_set_methods() dict should be (nearly) empty'
+        try:
+            self.assertEqual(p.get_get_set_methods(), {}, msg=msg)
+        except AssertionError:
+            self.assertEqual(p.get_get_set_methods(),
+                             {'ObjectName': ('', None)}, msg=msg)
 
         res = ['AddObserver', 'BreakOnError', 'HasObserver',
                'InvokeEvent', 'IsA', 'Modified', 'NewInstance',

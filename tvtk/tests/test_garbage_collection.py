@@ -8,18 +8,31 @@ import sys
 import unittest
 from traits.etsconfig.api import ETSConfig
 
+from packaging.version import Version
+
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.pyface.api import DecoratedScene, Scene
 from tvtk.pyface.scene_model import SceneModel
 from tvtk.tests.common import TestGarbageCollection
 
+# This should be okay to do once the tvtk.pyface.api.DecoratedScene is imported
+bad_pyqt5 = False
+if ETSConfig.toolkit in ('qt4', 'qt'):
+    import pyface
+    from pyface.qt import api_name
+    if api_name in ('pyqt', 'pyqt5') and \
+            Version(pyface.__version__) < Version('7.5.0.dev0'):
+        bad_pyqt5 = True
+
 
 class TestTVTKGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
+
     @unittest.skipIf(
         sys.platform.startswith('win') or ETSConfig.toolkit == 'null',
-        'CI with windows fails due to lack of OpenGL, or toolkit is null.'
+        'CI with windows fails due to lack of OpenGL, or toolkit is null, '
+        f'got toolkit={ETSConfig.toolkit}'
     )
     def test_tvtk_scene(self):
         """ Tests if TVTK scene can be garbage collected."""
@@ -32,7 +45,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
         self.check_object_garbage_collected(create_fn, close_fn)
 
     @unittest.skipIf(ETSConfig.toolkit in ('wx', 'null'),
-                     'Test segfaults using WX (issue #216) and fails on null')
+                     'Test segfaults using WX (issue #216) and fails on null, '
+                     f'got toolkit={ETSConfig.toolkit}')
     def test_scene(self):
         """ Tests if Scene can be garbage collected."""
         def create_fn():
@@ -44,7 +58,9 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
         self.check_object_garbage_collected(create_fn, close_fn)
 
     @unittest.skipIf(ETSConfig.toolkit in ('wx', 'null'),
-                     'Test segfaults using WX (issue #216) and fails on null')
+                     'Test segfaults using WX (issue #216) and fails on null, '
+                     f'got toolkit={ETSConfig.toolkit}')
+    @unittest.skipIf(bad_pyqt5, 'Test segfaults using PyQt5 with older PyFace')
     def test_decorated_scene(self):
         """ Tests if Decorated Scene can be garbage collected."""
         def create_fn():
