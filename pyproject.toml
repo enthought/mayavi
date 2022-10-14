@@ -1,0 +1,8 @@
+[build-system]
+requires = [
+    "oldest-supported-numpy",
+    "setuptools",
+    "vtk",
+    "wheel"
+]
+build-backend = 'setuptools.build_meta'
