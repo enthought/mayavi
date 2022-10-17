@@ -54,7 +54,7 @@ if not os.path.exists('pdb%s.ent.gz' % protein_code):
         from urllib.request import urlopen
     print('Downloading protein data, please wait')
     opener = urlopen(
-      'ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
+       'https://files.rcsb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
       % protein_code)
     open('pdb%s.ent.gz' % protein_code, 'wb').write(opener.read())
 
@@ -72,18 +72,18 @@ atoms = set()
 last_atom_label = None
 last_chain_label = None
 for line in infile:
-    line = line.split()
-    if line[0].decode("utf-8") in ('ATOM', 'HETATM'):
-        nodes[line[1].decode("utf-8")] = (line[2].decode("utf-8"), line[6].decode("utf-8"), line[7].decode("utf-8"), line[8].decode("utf-8"))
-        atoms.add(line[2].decode("utf-8"))
-        chain_label = line[5].decode("utf-8")
+    line = line.decode('utf-8').split()
+    if line[0] in ('ATOM', 'HETATM'):
+        nodes[line[1]] = (line[2], line[6], line[7], line[8])
+        atoms.add(line[2])
+        chain_label = line[5]
         if chain_label == last_chain_label:
-            edges.append((line[1].decode("utf-8"), last_atom_label))
-        last_atom_label = line[1].decode("utf-8")
+            edges.append((line[1], last_atom_label))
+        last_atom_label = line[1]
         last_chain_label = chain_label
-    elif line[0].decode("utf-8") == 'CONECT':
+    elif line[0] == 'CONECT':
         for start, stop in zip(line[1:-1], line[2:]):
-            edges.append((start.decode("utf-8"), stop.decode("utf-8")))
+            edges.append((start, stop))
 
 atoms = list(atoms)
 atoms.sort()
