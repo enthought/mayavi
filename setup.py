@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2020 by Enthought, Inc.
+# Copyright (c) 2008-2022 by Enthought, Inc.
 # All rights reserved.
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
@@ -10,7 +10,7 @@ from setuptools import Command
 
 try:
     import numpy
-    from numpy.distutils.command import build, install_data
+    from numpy.distutils.command import build, install_data, build_src
     from numpy.distutils.core import setup
     HAS_NUMPY = True
 except ImportError:
@@ -19,6 +19,7 @@ except ImportError:
     from distutils.core import setup
 import io
 import os
+import time
 import subprocess
 import shutil
 import re
@@ -243,9 +244,27 @@ def list_docs_data_files(project):
     return return_list
 
 
+def _tvtk_built_recently(zipfile, delay):
+    """Returns True if the TVTK classes in zipfile was built in the last
+    delay seconds.
+    """
+    if not os.path.exists(zipfile):
+        return False
+
+    ctime = os.stat(zipfile).st_ctime
+    tdiff = time.time() - ctime
+    return tdiff < delay
+
+
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
     MY_DIR = os.path.dirname(__file__)
+    zipfile = os.path.join(MY_DIR, 'tvtk', 'tvtk_classes.zip')
+    if _tvtk_built_recently(zipfile, delay=120):
+        print("Already built tvtk_classes.zip")
+        return
+    else:
+        print("Building tvtk_classes.zip")
     sys.path.insert(0, MY_DIR)
     import tvtk
     tvtk_dir = 'tvtk'
@@ -267,6 +286,18 @@ class MyBuild(build.build):
     def run(self):
         build_tvtk_classes_zip()
         build.build.run(self)
+
+
+class MyBuildSrc(build_src.build_src):
+    """Build hook to generate the TVTK ZIP files.
+
+    We do it here also because for editable installs, setup.py build is not
+    called.
+    """
+
+    def run(self):
+        build_tvtk_classes_zip()
+        build_src.build_src.run(self)
 
 
 class MyDevelop(develop.develop):
@@ -428,6 +459,7 @@ if __name__ == '__main__':
             # setuptools' sdist command.
             'sdist': setuptools.command.sdist.sdist,
             'build': MyBuild,
+            'build_src': MyBuildSrc,
             'clean': MyClean,
             'develop': MyDevelop,
             'install_data': MyInstallData,

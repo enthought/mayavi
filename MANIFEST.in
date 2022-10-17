@@ -1,4 +1,4 @@
-include *.rst *.txt *.py
+include *.rst *.txt *.py *.toml
 recursive-include artwork *.*
 recursive-include docs *.* Makefile*
 recursive-include examples *.py *.txt *.jpg *.ipynb

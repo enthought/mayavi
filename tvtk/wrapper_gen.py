@@ -1643,6 +1643,11 @@ class WrapperGenerator:
         'vtkEuclideanClusterExtraction.Radius$': (
             True, True, '_write_euclidean_cluster_extraction_radius'
         ),
+        # In VTK 9.2, LineIntegralConvolution2D's Get/MaxNoiseValue is initialized
+        # to some random value this happens mostly on MacOS.
+        'vtkLineIntegralConvolution2D.MaxNoiseValue$': (
+            True, True, '_write_line_integral_conv_2d_max_noise_value'
+        ),
     }
 
     @classmethod
@@ -1880,6 +1885,28 @@ class WrapperGenerator:
             message = ("vtkEuclideanClusterExtraction: "
                        "Radius not updatable "
                        "(VTK 9.1 bug - value not properly initialized)")
+            print(message)
+            default = rng[0]
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_line_integral_conv_2d_max_noise_value(
+        self, klass, out, vtk_attr_name
+    ):
+        if vtk_attr_name != 'MaxNoiseValue':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with MaxNoiseValue. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        if vtk_major_version >= 9:
+            message = ("vtkLineIntegralConvolution2D: "
+                       "MaxNoiseValue not updatable "
+                       "(VTK 9.2 bug - value not properly initialized)")
             print(message)
             default = rng[0]
         t_def = ('traits.Trait({default}, traits.Range{rng}, '
