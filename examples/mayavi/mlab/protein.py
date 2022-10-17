@@ -54,7 +54,7 @@ if not os.path.exists('pdb%s.ent.gz' % protein_code):
         from urllib.request import urlopen
     print('Downloading protein data, please wait')
     opener = urlopen(
-      'ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
+       'https://files.rcsb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
       % protein_code)
     open('pdb%s.ent.gz' % protein_code, 'wb').write(opener.read())
 
@@ -72,7 +72,7 @@ atoms = set()
 last_atom_label = None
 last_chain_label = None
 for line in infile:
-    line = line.split()
+    line = line.decode('utf-8').split()
     if line[0] in ('ATOM', 'HETATM'):
         nodes[line[1]] = (line[2], line[6], line[7], line[8])
         atoms.add(line[2])
