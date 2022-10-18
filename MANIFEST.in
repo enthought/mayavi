@@ -20,5 +20,6 @@ recursive-include tvtk/pipeline/images *.*
 recursive-include tvtk/plugins/scene *.ini
 recursive-include tvtk/pyface/images *.*
 recursive-include tvtk/tools/images *.*
+exclude tvtk/tvtk_classes.zip
 prune docs/build
 prune docs/pdf
