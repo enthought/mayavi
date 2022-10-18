@@ -1,3 +1,30 @@
+Mayavi 4.8.1
+============
+
+This is a bugfix release to work correctly with VTK-9.2.2 and also resolve
+pep517 related issues. 3 PRs were merged.
+
+Many thanks to the following folks who contributed to this release in
+alphabetical order, Eric Larson, GN (giammi56), Prabhu Ramachandran
+
+Fixes
+------
+
+17 Oct 2022 `#1183 <https://github.com/enthought/mayavi/pull/1183>`_ (PR)
+   - Add a pyproject.toml.
+
+11 Oct 2022 `#1180 <https://github.com/enthought/mayavi/pull/1180>`_ (larsoner)
+   - BUG: Work around 9.2.2 bug
+   - Adds a `VTK_PARSER_VERBOSE` env var that can be set to `1` or `true` to
+     get it to print instantiations/methods as they are tried.
+   - Adds a `TVTK_VERBOSE` env var that enables printing during the TVTK tests
+     (which were segfaulting at one point).
+
+17 Oct 2022 `#1174 <https://github.com/enthought/mayavi/pull/1174>`_ (giammi56)
+   - Update protein.py to work correctly.
+
+
+
 Mayavi 4.8.0
 ============
 
