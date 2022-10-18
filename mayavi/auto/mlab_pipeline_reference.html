@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>MLab pipeline reference &#8212; mayavi 4.8.0 documentation</title>
+    <title>MLab pipeline reference &#8212; mayavi 4.8.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
@@ -15,6 +15,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -58,7 +59,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">MLab pipeline reference</a></li> 
       </ul>
     </div>  
@@ -82,94 +83,331 @@ pipeline than the main mlab interface. For usage examples, see
 <span class="target" id="module-mayavi.tools.pipeline"></span><div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_sources.html">Sources</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#array2d-source">array2d_source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#builtin-image">builtin_image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#builtin-surface">builtin_surface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#chaco-file">chaco_file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#grid-source">grid_source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#line-source">line_source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#open">open</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#parametric-surface">parametric_surface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#point-load">point_load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#scalar-field">scalar_field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#scalar-scatter">scalar_scatter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#triangular-mesh-source">triangular_mesh_source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vector-field">vector_field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vector-scatter">vector_scatter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vertical-vectors-source">vertical_vectors_source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#volume-file">volume_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#array2d-source">array2d_source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.array2d_source"><code class="docutils literal notranslate"><span class="pre">array2d_source()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#builtin-image">builtin_image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.builtin_image"><code class="docutils literal notranslate"><span class="pre">builtin_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#builtin-surface">builtin_surface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.builtin_surface"><code class="docutils literal notranslate"><span class="pre">builtin_surface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#chaco-file">chaco_file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.chaco_file"><code class="docutils literal notranslate"><span class="pre">chaco_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#grid-source">grid_source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.grid_source"><code class="docutils literal notranslate"><span class="pre">grid_source()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#line-source">line_source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.line_source"><code class="docutils literal notranslate"><span class="pre">line_source()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#open">open</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.open"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#parametric-surface">parametric_surface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.parametric_surface"><code class="docutils literal notranslate"><span class="pre">parametric_surface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#point-load">point_load</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.point_load"><code class="docutils literal notranslate"><span class="pre">point_load()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#scalar-field">scalar_field</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field"><code class="docutils literal notranslate"><span class="pre">scalar_field()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#scalar-scatter">scalar_scatter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_scatter"><code class="docutils literal notranslate"><span class="pre">scalar_scatter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#triangular-mesh-source">triangular_mesh_source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.triangular_mesh_source"><code class="docutils literal notranslate"><span class="pre">triangular_mesh_source()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vector-field">vector_field</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.vector_field"><code class="docutils literal notranslate"><span class="pre">vector_field()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vector-scatter">vector_scatter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.vector_scatter"><code class="docutils literal notranslate"><span class="pre">vector_scatter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vertical-vectors-source">vertical_vectors_source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.vertical_vectors_source"><code class="docutils literal notranslate"><span class="pre">vertical_vectors_source()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#volume-file">volume_file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_sources.html#mayavi.tools.pipeline.volume_file"><code class="docutils literal notranslate"><span class="pre">volume_file()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_tools.html">Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#add-dataset">add_dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#add-module-manager">add_module_manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#get-vtk-src">get_vtk_src</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#set-extent">set_extent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#traverse">traverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#add-dataset">add_dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_tools.html#mayavi.tools.pipeline.add_dataset"><code class="docutils literal notranslate"><span class="pre">add_dataset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#add-module-manager">add_module_manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_tools.html#mayavi.tools.pipeline.add_module_manager"><code class="docutils literal notranslate"><span class="pre">add_module_manager()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#get-vtk-src">get_vtk_src</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_tools.html#mayavi.tools.pipeline.get_vtk_src"><code class="docutils literal notranslate"><span class="pre">get_vtk_src()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#set-extent">set_extent</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_tools.html#mayavi.tools.pipeline.set_extent"><code class="docutils literal notranslate"><span class="pre">set_extent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#traverse">traverse</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_tools.html#mayavi.tools.pipeline.traverse"><code class="docutils literal notranslate"><span class="pre">traverse()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_data.html">Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_data.html#probe-data">probe_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_data.html#probe-data">probe_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_data.html#mayavi.tools.pipeline.probe_data"><code class="docutils literal notranslate"><span class="pre">probe_data()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_other_functions.html">Filters, modules, other functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cell-derivatives">cell_derivatives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cell-to-point-data">cell_to_point_data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour">contour</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour-grid-plane">contour_grid_plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour-surface">contour_surface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#custom-grid-plane">custom_grid_plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cut-plane">cut_plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#data-set-clipper">data_set_clipper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#decimate-pro">decimate_pro</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#delaunay2d">delaunay2d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#delaunay3d">delaunay3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#elevation">elevation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#elevation-filter">elevation_filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-edges">extract_edges</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-grid">extract_grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-tensor-components">extract_tensor_components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-unstructured-grid">extract_unstructured_grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-vector-components">extract_vector_components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-vector-norm">extract_vector_norm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#gaussian-splatter">gaussian_splatter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#glyph">glyph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#greedy-terrain-decimation">greedy_terrain_decimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#grid-plane">grid_plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#hyper-streamline">hyper_streamline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-actor">image_actor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-change-information">image_change_information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-data-probe">image_data_probe</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-plane-widget">image_plane_widget</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#iso-surface">iso_surface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#labels">labels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#mask-points">mask_points</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#outline">outline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#point-to-cell-data">point_to_cell_data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#poly-data-normals">poly_data_normals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#quadric-decimation">quadric_decimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#scalar-cut-plane">scalar_cut_plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#select-output">select_output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#set-active-attribute">set_active_attribute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#slice-unstructured-grid">slice_unstructured_grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#streamline">streamline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#stripper">stripper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#structured-grid-outline">structured_grid_outline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#surface">surface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#tensor-glyph">tensor_glyph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#text3d">text3d</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#threshold">threshold</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#transform-data">transform_data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#triangle-filter">triangle_filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#tube">tube</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#user-defined">user_defined</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vector-cut-plane">vector_cut_plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vectors">vectors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#volume">volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vorticity">vorticity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-scalar">warp_scalar</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-vector">warp_vector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-vector-cut-plane">warp_vector_cut_plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cell-derivatives">cell_derivatives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.cell_derivatives"><code class="docutils literal notranslate"><span class="pre">cell_derivatives()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cell-to-point-data">cell_to_point_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.cell_to_point_data"><code class="docutils literal notranslate"><span class="pre">cell_to_point_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour">contour</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.contour"><code class="docutils literal notranslate"><span class="pre">contour()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour-grid-plane">contour_grid_plane</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.contour_grid_plane"><code class="docutils literal notranslate"><span class="pre">contour_grid_plane()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour-surface">contour_surface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.contour_surface"><code class="docutils literal notranslate"><span class="pre">contour_surface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#custom-grid-plane">custom_grid_plane</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.custom_grid_plane"><code class="docutils literal notranslate"><span class="pre">custom_grid_plane()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cut-plane">cut_plane</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.cut_plane"><code class="docutils literal notranslate"><span class="pre">cut_plane()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#data-set-clipper">data_set_clipper</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.data_set_clipper"><code class="docutils literal notranslate"><span class="pre">data_set_clipper()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#decimate-pro">decimate_pro</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.decimate_pro"><code class="docutils literal notranslate"><span class="pre">decimate_pro()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#delaunay2d">delaunay2d</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.delaunay2d"><code class="docutils literal notranslate"><span class="pre">delaunay2d()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#delaunay3d">delaunay3d</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.delaunay3d"><code class="docutils literal notranslate"><span class="pre">delaunay3d()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#elevation">elevation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.elevation"><code class="docutils literal notranslate"><span class="pre">elevation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#elevation-filter">elevation_filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.elevation_filter"><code class="docutils literal notranslate"><span class="pre">elevation_filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-edges">extract_edges</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.extract_edges"><code class="docutils literal notranslate"><span class="pre">extract_edges()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-grid">extract_grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.extract_grid"><code class="docutils literal notranslate"><span class="pre">extract_grid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-tensor-components">extract_tensor_components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.extract_tensor_components"><code class="docutils literal notranslate"><span class="pre">extract_tensor_components()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-unstructured-grid">extract_unstructured_grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.extract_unstructured_grid"><code class="docutils literal notranslate"><span class="pre">extract_unstructured_grid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-vector-components">extract_vector_components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.extract_vector_components"><code class="docutils literal notranslate"><span class="pre">extract_vector_components()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-vector-norm">extract_vector_norm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.extract_vector_norm"><code class="docutils literal notranslate"><span class="pre">extract_vector_norm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#gaussian-splatter">gaussian_splatter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.gaussian_splatter"><code class="docutils literal notranslate"><span class="pre">gaussian_splatter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#glyph">glyph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.glyph"><code class="docutils literal notranslate"><span class="pre">glyph()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#greedy-terrain-decimation">greedy_terrain_decimation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.greedy_terrain_decimation"><code class="docutils literal notranslate"><span class="pre">greedy_terrain_decimation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#grid-plane">grid_plane</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.grid_plane"><code class="docutils literal notranslate"><span class="pre">grid_plane()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#hyper-streamline">hyper_streamline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.hyper_streamline"><code class="docutils literal notranslate"><span class="pre">hyper_streamline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-actor">image_actor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.image_actor"><code class="docutils literal notranslate"><span class="pre">image_actor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-change-information">image_change_information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.image_change_information"><code class="docutils literal notranslate"><span class="pre">image_change_information()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-data-probe">image_data_probe</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.image_data_probe"><code class="docutils literal notranslate"><span class="pre">image_data_probe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-plane-widget">image_plane_widget</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.image_plane_widget"><code class="docutils literal notranslate"><span class="pre">image_plane_widget()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#iso-surface">iso_surface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.iso_surface"><code class="docutils literal notranslate"><span class="pre">iso_surface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#labels">labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.labels"><code class="docutils literal notranslate"><span class="pre">labels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#mask-points">mask_points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.mask_points"><code class="docutils literal notranslate"><span class="pre">mask_points()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#outline">outline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.outline"><code class="docutils literal notranslate"><span class="pre">outline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#point-to-cell-data">point_to_cell_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.point_to_cell_data"><code class="docutils literal notranslate"><span class="pre">point_to_cell_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#poly-data-normals">poly_data_normals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.poly_data_normals"><code class="docutils literal notranslate"><span class="pre">poly_data_normals()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#quadric-decimation">quadric_decimation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.quadric_decimation"><code class="docutils literal notranslate"><span class="pre">quadric_decimation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#scalar-cut-plane">scalar_cut_plane</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.scalar_cut_plane"><code class="docutils literal notranslate"><span class="pre">scalar_cut_plane()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#select-output">select_output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.select_output"><code class="docutils literal notranslate"><span class="pre">select_output()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#set-active-attribute">set_active_attribute</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.set_active_attribute"><code class="docutils literal notranslate"><span class="pre">set_active_attribute()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#slice-unstructured-grid">slice_unstructured_grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.slice_unstructured_grid"><code class="docutils literal notranslate"><span class="pre">slice_unstructured_grid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#streamline">streamline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.streamline"><code class="docutils literal notranslate"><span class="pre">streamline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#stripper">stripper</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.stripper"><code class="docutils literal notranslate"><span class="pre">stripper()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#structured-grid-outline">structured_grid_outline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.structured_grid_outline"><code class="docutils literal notranslate"><span class="pre">structured_grid_outline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#surface">surface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.surface"><code class="docutils literal notranslate"><span class="pre">surface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#tensor-glyph">tensor_glyph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.tensor_glyph"><code class="docutils literal notranslate"><span class="pre">tensor_glyph()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#text3d">text3d</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.text3d"><code class="docutils literal notranslate"><span class="pre">text3d()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#threshold">threshold</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.threshold"><code class="docutils literal notranslate"><span class="pre">threshold()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#transform-data">transform_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.transform_data"><code class="docutils literal notranslate"><span class="pre">transform_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#triangle-filter">triangle_filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.triangle_filter"><code class="docutils literal notranslate"><span class="pre">triangle_filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#tube">tube</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.tube"><code class="docutils literal notranslate"><span class="pre">tube()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#user-defined">user_defined</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.user_defined"><code class="docutils literal notranslate"><span class="pre">user_defined()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vector-cut-plane">vector_cut_plane</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.vector_cut_plane"><code class="docutils literal notranslate"><span class="pre">vector_cut_plane()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vectors">vectors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.vectors"><code class="docutils literal notranslate"><span class="pre">vectors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#volume">volume</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.volume"><code class="docutils literal notranslate"><span class="pre">volume()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vorticity">vorticity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.vorticity"><code class="docutils literal notranslate"><span class="pre">vorticity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-scalar">warp_scalar</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.warp_scalar"><code class="docutils literal notranslate"><span class="pre">warp_scalar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-vector">warp_vector</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.warp_vector"><code class="docutils literal notranslate"><span class="pre">warp_vector()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-vector-cut-plane">warp_vector_cut_plane</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_other_functions.html#mayavi.tools.pipeline.warp_vector_cut_plane"><code class="docutils literal notranslate"><span class="pre">warp_vector_cut_plane()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -216,14 +454,14 @@ pipeline than the main mlab interface. For usage examples, see
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">MLab pipeline reference</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 11, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+      Last updated on Oct 18, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

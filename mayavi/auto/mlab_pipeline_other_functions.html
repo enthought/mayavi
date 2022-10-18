@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Filters, modules, other functions &#8212; mayavi 4.8.0 documentation</title>
+    <title>Filters, modules, other functions &#8212; mayavi 4.8.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
@@ -15,6 +15,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -58,7 +59,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Filters, modules, other functions</a></li> 
       </ul>
     </div>  
@@ -2346,63 +2347,234 @@ If None, the min of the data will be used</p>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Filters, modules, other functions</a><ul>
-<li><a class="reference internal" href="#cell-derivatives">cell_derivatives</a></li>
-<li><a class="reference internal" href="#cell-to-point-data">cell_to_point_data</a></li>
-<li><a class="reference internal" href="#contour">contour</a></li>
-<li><a class="reference internal" href="#contour-grid-plane">contour_grid_plane</a></li>
-<li><a class="reference internal" href="#contour-surface">contour_surface</a></li>
-<li><a class="reference internal" href="#custom-grid-plane">custom_grid_plane</a></li>
-<li><a class="reference internal" href="#cut-plane">cut_plane</a></li>
-<li><a class="reference internal" href="#data-set-clipper">data_set_clipper</a></li>
-<li><a class="reference internal" href="#decimate-pro">decimate_pro</a></li>
-<li><a class="reference internal" href="#delaunay2d">delaunay2d</a></li>
-<li><a class="reference internal" href="#delaunay3d">delaunay3d</a></li>
-<li><a class="reference internal" href="#elevation">elevation</a></li>
-<li><a class="reference internal" href="#elevation-filter">elevation_filter</a></li>
-<li><a class="reference internal" href="#extract-edges">extract_edges</a></li>
-<li><a class="reference internal" href="#extract-grid">extract_grid</a></li>
-<li><a class="reference internal" href="#extract-tensor-components">extract_tensor_components</a></li>
-<li><a class="reference internal" href="#extract-unstructured-grid">extract_unstructured_grid</a></li>
-<li><a class="reference internal" href="#extract-vector-components">extract_vector_components</a></li>
-<li><a class="reference internal" href="#extract-vector-norm">extract_vector_norm</a></li>
-<li><a class="reference internal" href="#gaussian-splatter">gaussian_splatter</a></li>
-<li><a class="reference internal" href="#glyph">glyph</a></li>
-<li><a class="reference internal" href="#greedy-terrain-decimation">greedy_terrain_decimation</a></li>
-<li><a class="reference internal" href="#grid-plane">grid_plane</a></li>
-<li><a class="reference internal" href="#hyper-streamline">hyper_streamline</a></li>
-<li><a class="reference internal" href="#image-actor">image_actor</a></li>
-<li><a class="reference internal" href="#image-change-information">image_change_information</a></li>
-<li><a class="reference internal" href="#image-data-probe">image_data_probe</a></li>
-<li><a class="reference internal" href="#image-plane-widget">image_plane_widget</a></li>
-<li><a class="reference internal" href="#iso-surface">iso_surface</a></li>
-<li><a class="reference internal" href="#labels">labels</a></li>
-<li><a class="reference internal" href="#mask-points">mask_points</a></li>
-<li><a class="reference internal" href="#outline">outline</a></li>
-<li><a class="reference internal" href="#point-to-cell-data">point_to_cell_data</a></li>
-<li><a class="reference internal" href="#poly-data-normals">poly_data_normals</a></li>
-<li><a class="reference internal" href="#quadric-decimation">quadric_decimation</a></li>
-<li><a class="reference internal" href="#scalar-cut-plane">scalar_cut_plane</a></li>
-<li><a class="reference internal" href="#select-output">select_output</a></li>
-<li><a class="reference internal" href="#set-active-attribute">set_active_attribute</a></li>
-<li><a class="reference internal" href="#slice-unstructured-grid">slice_unstructured_grid</a></li>
-<li><a class="reference internal" href="#streamline">streamline</a></li>
-<li><a class="reference internal" href="#stripper">stripper</a></li>
-<li><a class="reference internal" href="#structured-grid-outline">structured_grid_outline</a></li>
-<li><a class="reference internal" href="#surface">surface</a></li>
-<li><a class="reference internal" href="#tensor-glyph">tensor_glyph</a></li>
-<li><a class="reference internal" href="#text3d">text3d</a></li>
-<li><a class="reference internal" href="#threshold">threshold</a></li>
-<li><a class="reference internal" href="#transform-data">transform_data</a></li>
-<li><a class="reference internal" href="#triangle-filter">triangle_filter</a></li>
-<li><a class="reference internal" href="#tube">tube</a></li>
-<li><a class="reference internal" href="#user-defined">user_defined</a></li>
-<li><a class="reference internal" href="#vector-cut-plane">vector_cut_plane</a></li>
-<li><a class="reference internal" href="#vectors">vectors</a></li>
-<li><a class="reference internal" href="#volume">volume</a></li>
-<li><a class="reference internal" href="#vorticity">vorticity</a></li>
-<li><a class="reference internal" href="#warp-scalar">warp_scalar</a></li>
-<li><a class="reference internal" href="#warp-vector">warp_vector</a></li>
-<li><a class="reference internal" href="#warp-vector-cut-plane">warp_vector_cut_plane</a></li>
+<li><a class="reference internal" href="#cell-derivatives">cell_derivatives</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.cell_derivatives"><code class="docutils literal notranslate"><span class="pre">cell_derivatives()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cell-to-point-data">cell_to_point_data</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.cell_to_point_data"><code class="docutils literal notranslate"><span class="pre">cell_to_point_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contour">contour</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.contour"><code class="docutils literal notranslate"><span class="pre">contour()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contour-grid-plane">contour_grid_plane</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.contour_grid_plane"><code class="docutils literal notranslate"><span class="pre">contour_grid_plane()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contour-surface">contour_surface</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.contour_surface"><code class="docutils literal notranslate"><span class="pre">contour_surface()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#custom-grid-plane">custom_grid_plane</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.custom_grid_plane"><code class="docutils literal notranslate"><span class="pre">custom_grid_plane()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cut-plane">cut_plane</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.cut_plane"><code class="docutils literal notranslate"><span class="pre">cut_plane()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data-set-clipper">data_set_clipper</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.data_set_clipper"><code class="docutils literal notranslate"><span class="pre">data_set_clipper()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#decimate-pro">decimate_pro</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.decimate_pro"><code class="docutils literal notranslate"><span class="pre">decimate_pro()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delaunay2d">delaunay2d</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.delaunay2d"><code class="docutils literal notranslate"><span class="pre">delaunay2d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delaunay3d">delaunay3d</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.delaunay3d"><code class="docutils literal notranslate"><span class="pre">delaunay3d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#elevation">elevation</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.elevation"><code class="docutils literal notranslate"><span class="pre">elevation()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#elevation-filter">elevation_filter</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.elevation_filter"><code class="docutils literal notranslate"><span class="pre">elevation_filter()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extract-edges">extract_edges</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.extract_edges"><code class="docutils literal notranslate"><span class="pre">extract_edges()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extract-grid">extract_grid</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.extract_grid"><code class="docutils literal notranslate"><span class="pre">extract_grid()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extract-tensor-components">extract_tensor_components</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.extract_tensor_components"><code class="docutils literal notranslate"><span class="pre">extract_tensor_components()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extract-unstructured-grid">extract_unstructured_grid</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.extract_unstructured_grid"><code class="docutils literal notranslate"><span class="pre">extract_unstructured_grid()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extract-vector-components">extract_vector_components</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.extract_vector_components"><code class="docutils literal notranslate"><span class="pre">extract_vector_components()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extract-vector-norm">extract_vector_norm</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.extract_vector_norm"><code class="docutils literal notranslate"><span class="pre">extract_vector_norm()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gaussian-splatter">gaussian_splatter</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.gaussian_splatter"><code class="docutils literal notranslate"><span class="pre">gaussian_splatter()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#glyph">glyph</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.glyph"><code class="docutils literal notranslate"><span class="pre">glyph()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#greedy-terrain-decimation">greedy_terrain_decimation</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.greedy_terrain_decimation"><code class="docutils literal notranslate"><span class="pre">greedy_terrain_decimation()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grid-plane">grid_plane</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.grid_plane"><code class="docutils literal notranslate"><span class="pre">grid_plane()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hyper-streamline">hyper_streamline</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.hyper_streamline"><code class="docutils literal notranslate"><span class="pre">hyper_streamline()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#image-actor">image_actor</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.image_actor"><code class="docutils literal notranslate"><span class="pre">image_actor()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#image-change-information">image_change_information</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.image_change_information"><code class="docutils literal notranslate"><span class="pre">image_change_information()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#image-data-probe">image_data_probe</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.image_data_probe"><code class="docutils literal notranslate"><span class="pre">image_data_probe()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#image-plane-widget">image_plane_widget</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.image_plane_widget"><code class="docutils literal notranslate"><span class="pre">image_plane_widget()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iso-surface">iso_surface</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.iso_surface"><code class="docutils literal notranslate"><span class="pre">iso_surface()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#labels">labels</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.labels"><code class="docutils literal notranslate"><span class="pre">labels()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mask-points">mask_points</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.mask_points"><code class="docutils literal notranslate"><span class="pre">mask_points()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#outline">outline</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.outline"><code class="docutils literal notranslate"><span class="pre">outline()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#point-to-cell-data">point_to_cell_data</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.point_to_cell_data"><code class="docutils literal notranslate"><span class="pre">point_to_cell_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#poly-data-normals">poly_data_normals</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.poly_data_normals"><code class="docutils literal notranslate"><span class="pre">poly_data_normals()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#quadric-decimation">quadric_decimation</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.quadric_decimation"><code class="docutils literal notranslate"><span class="pre">quadric_decimation()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scalar-cut-plane">scalar_cut_plane</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.scalar_cut_plane"><code class="docutils literal notranslate"><span class="pre">scalar_cut_plane()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#select-output">select_output</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.select_output"><code class="docutils literal notranslate"><span class="pre">select_output()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#set-active-attribute">set_active_attribute</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.set_active_attribute"><code class="docutils literal notranslate"><span class="pre">set_active_attribute()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#slice-unstructured-grid">slice_unstructured_grid</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.slice_unstructured_grid"><code class="docutils literal notranslate"><span class="pre">slice_unstructured_grid()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#streamline">streamline</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.streamline"><code class="docutils literal notranslate"><span class="pre">streamline()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stripper">stripper</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.stripper"><code class="docutils literal notranslate"><span class="pre">stripper()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structured-grid-outline">structured_grid_outline</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.structured_grid_outline"><code class="docutils literal notranslate"><span class="pre">structured_grid_outline()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#surface">surface</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.surface"><code class="docutils literal notranslate"><span class="pre">surface()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tensor-glyph">tensor_glyph</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.tensor_glyph"><code class="docutils literal notranslate"><span class="pre">tensor_glyph()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text3d">text3d</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.text3d"><code class="docutils literal notranslate"><span class="pre">text3d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#threshold">threshold</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.threshold"><code class="docutils literal notranslate"><span class="pre">threshold()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#transform-data">transform_data</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.transform_data"><code class="docutils literal notranslate"><span class="pre">transform_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#triangle-filter">triangle_filter</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.triangle_filter"><code class="docutils literal notranslate"><span class="pre">triangle_filter()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tube">tube</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.tube"><code class="docutils literal notranslate"><span class="pre">tube()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#user-defined">user_defined</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.user_defined"><code class="docutils literal notranslate"><span class="pre">user_defined()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vector-cut-plane">vector_cut_plane</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.vector_cut_plane"><code class="docutils literal notranslate"><span class="pre">vector_cut_plane()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vectors">vectors</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.vectors"><code class="docutils literal notranslate"><span class="pre">vectors()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#volume">volume</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.volume"><code class="docutils literal notranslate"><span class="pre">volume()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vorticity">vorticity</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.vorticity"><code class="docutils literal notranslate"><span class="pre">vorticity()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#warp-scalar">warp_scalar</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.warp_scalar"><code class="docutils literal notranslate"><span class="pre">warp_scalar()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#warp-vector">warp_vector</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.warp_vector"><code class="docutils literal notranslate"><span class="pre">warp_vector()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#warp-vector-cut-plane">warp_vector_cut_plane</a><ul>
+<li><a class="reference internal" href="#mayavi.tools.pipeline.warp_vector_cut_plane"><code class="docutils literal notranslate"><span class="pre">warp_vector_cut_plane()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2438,14 +2610,14 @@ If None, the min of the data will be used</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Filters, modules, other functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 11, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+      Last updated on Oct 18, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

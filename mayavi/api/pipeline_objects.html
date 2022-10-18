@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Pipeline base objects &#8212; mayavi 4.8.0 documentation</title>
+    <title>Pipeline base objects &#8212; mayavi 4.8.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
@@ -15,6 +15,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,7 +67,7 @@
         <li class="right" >
           <a href="index.html" title="Mayavi API reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Mayavi API reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Pipeline base objects</a></li> 
       </ul>
@@ -556,6 +557,8 @@ the mayavi engine so that mayavi can manage the scene.  This
 is used when the user creates a scene.  Note that for the
 <cite>EnvisageEngine</cite> this is automatically taken care of when you
 create a new scene using the TVTK scene plugin.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h3>
 <blockquote>
 <div><p>scene - <cite>pyface.tvtk.scene.Scene</cite></p>
 <blockquote>
@@ -568,6 +571,7 @@ is not possible it defaults to ‘Mayavi Scene’.</p>
 </dd>
 </dl>
 </div></blockquote>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -582,11 +586,14 @@ scene is given in the scene keyword argument.</p>
 <span class="sig-name descname"><span class="pre">close_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.close_scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a scene created from new_scene, this method closes it
 and removes the scene from the list of scenes we manage.</p>
+<section id="id1">
+<h3>Parameters:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <blockquote>
 <div><p>scene - <cite>pyface.tvtk.scene.Scene</cite> or an object that holds a
 reference to a <cite>pyface.tvtk.scene.Scene</cite> in a <cite>scene</cite>
 attribute.</p>
 </div></blockquote>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -599,9 +606,12 @@ attribute.</p>
 <dt class="sig sig-object py" id="mayavi.core.api.Engine.get_viewer">
 <span class="sig-name descname"><span class="pre">get_viewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.api.Engine.get_viewer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the viewer associated with a given scene.</p>
+<section id="id2">
+<h3>Parameters:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <blockquote>
 <div><p>scene - An <cite>mayavi.core.scene.Scene</cite> instance.</p>
 </div></blockquote>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -621,12 +631,15 @@ it creates an <cite>ivtk</cite> viewer.  This code requires that the
 <cite>pyface.tvtk.scene.Scene</cite>.  It also works best if the viewer
 supports <cite>closing</cite> and <cite>activated</cite> events.</p>
 <p>The method returns the created viewer.</p>
+<section id="id3">
+<h3>Parameters:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <blockquote>
 <div><p>viewer - The viewer object, if None, one is created for you.</p>
 <p>name - The name attribute of the viewer</p>
 <p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> - The extra keyword arguments are passed along to
 the scene factory.</p>
 </div></blockquote>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -651,12 +664,15 @@ instance) from the mayavi engine if it is already being
 managed by mayavi.  Note that for the <cite>EnvisageEngine</cite> this is
 automatically taken care of when you close a scene started
 using the TVTK scene plugin.</p>
+<section id="id4">
+<h3>Parameters:<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <blockquote>
 <div><p>scene - <cite>pyface.tvtk.scene.Scene</cite></p>
 <blockquote>
 <div><p>The scene that needs to be removed from mayavi.</p>
 </div></blockquote>
 </div></blockquote>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -692,13 +708,111 @@ starts.</p>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Pipeline base objects</a><ul>
-<li><a class="reference internal" href="#scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scene</span></code></a></li>
-<li><a class="reference internal" href="#source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a></li>
-<li><a class="reference internal" href="#filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
-<li><a class="reference internal" href="#modulemanager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleManager</span></code></a></li>
-<li><a class="reference internal" href="#module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></li>
-<li><a class="reference internal" href="#pipelinebase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineBase</span></code></a></li>
-<li><a class="reference internal" href="#engine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Engine</span></code></a></li>
+<li><a class="reference internal" href="#scene"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scene</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Scene"><code class="docutils literal notranslate"><span class="pre">Scene</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.add_child"><code class="docutils literal notranslate"><span class="pre">Scene.add_child()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.on_mouse_pick"><code class="docutils literal notranslate"><span class="pre">Scene.on_mouse_pick()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.remove"><code class="docutils literal notranslate"><span class="pre">Scene.remove()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.remove_child"><code class="docutils literal notranslate"><span class="pre">Scene.remove_child()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.start"><code class="docutils literal notranslate"><span class="pre">Scene.start()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.stop"><code class="docutils literal notranslate"><span class="pre">Scene.stop()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.tno_can_add"><code class="docutils literal notranslate"><span class="pre">Scene.tno_can_add()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Scene.tno_drop_object"><code class="docutils literal notranslate"><span class="pre">Scene.tno_drop_object()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Source"><code class="docutils literal notranslate"><span class="pre">Source</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Source.add_child"><code class="docutils literal notranslate"><span class="pre">Source.add_child()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Source.add_module"><code class="docutils literal notranslate"><span class="pre">Source.add_module()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Source.remove_child"><code class="docutils literal notranslate"><span class="pre">Source.remove_child()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Source.save_output"><code class="docutils literal notranslate"><span class="pre">Source.save_output()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Source.start"><code class="docutils literal notranslate"><span class="pre">Source.start()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Source.stop"><code class="docutils literal notranslate"><span class="pre">Source.stop()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Source.tno_can_add"><code class="docutils literal notranslate"><span class="pre">Source.tno_can_add()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Source.tno_drop_object"><code class="docutils literal notranslate"><span class="pre">Source.tno_drop_object()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Filter.setup_pipeline"><code class="docutils literal notranslate"><span class="pre">Filter.setup_pipeline()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Filter.start"><code class="docutils literal notranslate"><span class="pre">Filter.start()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Filter.stop"><code class="docutils literal notranslate"><span class="pre">Filter.stop()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Filter.update_data"><code class="docutils literal notranslate"><span class="pre">Filter.update_data()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Filter.update_pipeline"><code class="docutils literal notranslate"><span class="pre">Filter.update_pipeline()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modulemanager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleManager</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager"><code class="docutils literal notranslate"><span class="pre">ModuleManager</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager.add_child"><code class="docutils literal notranslate"><span class="pre">ModuleManager.add_child()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager.remove_child"><code class="docutils literal notranslate"><span class="pre">ModuleManager.remove_child()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager.start"><code class="docutils literal notranslate"><span class="pre">ModuleManager.start()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager.stop"><code class="docutils literal notranslate"><span class="pre">ModuleManager.stop()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager.tno_can_add"><code class="docutils literal notranslate"><span class="pre">ModuleManager.tno_can_add()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager.tno_drop_object"><code class="docutils literal notranslate"><span class="pre">ModuleManager.tno_drop_object()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.ModuleManager.update"><code class="docutils literal notranslate"><span class="pre">ModuleManager.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Module.add_child"><code class="docutils literal notranslate"><span class="pre">Module.add_child()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.setup_pipeline"><code class="docutils literal notranslate"><span class="pre">Module.setup_pipeline()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.start"><code class="docutils literal notranslate"><span class="pre">Module.start()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.stop"><code class="docutils literal notranslate"><span class="pre">Module.stop()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.tno_allows_children"><code class="docutils literal notranslate"><span class="pre">Module.tno_allows_children()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.tno_get_children"><code class="docutils literal notranslate"><span class="pre">Module.tno_get_children()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.tno_has_children"><code class="docutils literal notranslate"><span class="pre">Module.tno_has_children()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.update_data"><code class="docutils literal notranslate"><span class="pre">Module.update_data()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Module.update_pipeline"><code class="docutils literal notranslate"><span class="pre">Module.update_pipeline()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pipelinebase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineBase</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase"><code class="docutils literal notranslate"><span class="pre">PipelineBase</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.add_actors"><code class="docutils literal notranslate"><span class="pre">PipelineBase.add_actors()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.configure_connection"><code class="docutils literal notranslate"><span class="pre">PipelineBase.configure_connection()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.configure_input"><code class="docutils literal notranslate"><span class="pre">PipelineBase.configure_input()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.configure_input_data"><code class="docutils literal notranslate"><span class="pre">PipelineBase.configure_input_data()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.configure_source_data"><code class="docutils literal notranslate"><span class="pre">PipelineBase.configure_source_data()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.get_output_dataset"><code class="docutils literal notranslate"><span class="pre">PipelineBase.get_output_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.get_output_object"><code class="docutils literal notranslate"><span class="pre">PipelineBase.get_output_object()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.has_output_port"><code class="docutils literal notranslate"><span class="pre">PipelineBase.has_output_port()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.remove_actors"><code class="docutils literal notranslate"><span class="pre">PipelineBase.remove_actors()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.render"><code class="docutils literal notranslate"><span class="pre">PipelineBase.render()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.start"><code class="docutils literal notranslate"><span class="pre">PipelineBase.start()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.PipelineBase.stop"><code class="docutils literal notranslate"><span class="pre">PipelineBase.stop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#engine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Engine</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Engine"><code class="docutils literal notranslate"><span class="pre">Engine</span></code></a><ul>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.add_filter"><code class="docutils literal notranslate"><span class="pre">Engine.add_filter()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.add_module"><code class="docutils literal notranslate"><span class="pre">Engine.add_module()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.add_scene"><code class="docutils literal notranslate"><span class="pre">Engine.add_scene()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.add_source"><code class="docutils literal notranslate"><span class="pre">Engine.add_source()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.close_scene"><code class="docutils literal notranslate"><span class="pre">Engine.close_scene()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.dialog_view"><code class="docutils literal notranslate"><span class="pre">Engine.dialog_view()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.get_viewer"><code class="docutils literal notranslate"><span class="pre">Engine.get_viewer()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.load_visualization"><code class="docutils literal notranslate"><span class="pre">Engine.load_visualization()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.new_scene"><code class="docutils literal notranslate"><span class="pre">Engine.new_scene()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.open"><code class="docutils literal notranslate"><span class="pre">Engine.open()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.record"><code class="docutils literal notranslate"><span class="pre">Engine.record()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.remove_scene"><code class="docutils literal notranslate"><span class="pre">Engine.remove_scene()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.save_visualization"><code class="docutils literal notranslate"><span class="pre">Engine.save_visualization()</span></code></a></li>
+<li><a class="reference internal" href="#mayavi.core.api.Engine.start"><code class="docutils literal notranslate"><span class="pre">Engine.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -750,15 +864,15 @@ starts.</p>
         <li class="right" >
           <a href="index.html" title="Mayavi API reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Mayavi API reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Pipeline base objects</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 11, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+      Last updated on Oct 18, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

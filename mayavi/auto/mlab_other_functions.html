@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Other functions &#8212; mayavi 4.8.0 documentation</title>
+    <title>Other functions &#8212; mayavi 4.8.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
@@ -15,6 +15,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,7 +67,7 @@
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Other functions</a></li> 
       </ul>
@@ -618,22 +619,70 @@ Default: 1.0</p>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Other functions</a><ul>
-<li><a class="reference internal" href="#animate">animate</a></li>
-<li><a class="reference internal" href="#axes">axes</a></li>
-<li><a class="reference internal" href="#get-engine">get_engine</a></li>
-<li><a class="reference internal" href="#init-notebook">init_notebook</a></li>
-<li><a class="reference internal" href="#orientation-axes">orientation_axes</a></li>
-<li><a class="reference internal" href="#outline">outline</a></li>
-<li><a class="reference internal" href="#process-ui-events">process_ui_events</a></li>
-<li><a class="reference internal" href="#set-engine">set_engine</a></li>
-<li><a class="reference internal" href="#show">show</a></li>
-<li><a class="reference internal" href="#show-engine">show_engine</a></li>
-<li><a class="reference internal" href="#show-pipeline">show_pipeline</a></li>
-<li><a class="reference internal" href="#start-recording">start_recording</a></li>
-<li><a class="reference internal" href="#stop-recording">stop_recording</a></li>
-<li><a class="reference internal" href="#text">text</a></li>
-<li><a class="reference internal" href="#text3d">text3d</a></li>
-<li><a class="reference internal" href="#title">title</a></li>
+<li><a class="reference internal" href="#animate">animate</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.animate"><code class="docutils literal notranslate"><span class="pre">animate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#axes">axes</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.axes"><code class="docutils literal notranslate"><span class="pre">axes()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#get-engine">get_engine</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.get_engine"><code class="docutils literal notranslate"><span class="pre">get_engine()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#init-notebook">init_notebook</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.init_notebook"><code class="docutils literal notranslate"><span class="pre">init_notebook()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#orientation-axes">orientation_axes</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.orientation_axes"><code class="docutils literal notranslate"><span class="pre">orientation_axes()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#outline">outline</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.outline"><code class="docutils literal notranslate"><span class="pre">outline()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#process-ui-events">process_ui_events</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.process_ui_events"><code class="docutils literal notranslate"><span class="pre">process_ui_events()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#set-engine">set_engine</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.set_engine"><code class="docutils literal notranslate"><span class="pre">set_engine()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#show">show</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.show"><code class="docutils literal notranslate"><span class="pre">show()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#show-engine">show_engine</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.show_engine"><code class="docutils literal notranslate"><span class="pre">show_engine()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#show-pipeline">show_pipeline</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.show_pipeline"><code class="docutils literal notranslate"><span class="pre">show_pipeline()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#start-recording">start_recording</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.start_recording"><code class="docutils literal notranslate"><span class="pre">start_recording()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stop-recording">stop_recording</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.stop_recording"><code class="docutils literal notranslate"><span class="pre">stop_recording()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text">text</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.text"><code class="docutils literal notranslate"><span class="pre">text()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text3d">text3d</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.text3d"><code class="docutils literal notranslate"><span class="pre">text3d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#title">title</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.title"><code class="docutils literal notranslate"><span class="pre">title()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -685,15 +734,15 @@ Default: 1.0</p>
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Other functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 11, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+      Last updated on Oct 18, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

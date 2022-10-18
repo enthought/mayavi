@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Changelog &#8212; mayavi 4.8.0 documentation</title>
+    <title>Changelog &#8212; mayavi 4.8.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
@@ -15,10 +15,11 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Mayavi 4.8.0" href="auto/changes.html" />
+    <link rel="next" title="Mayavi 4.8.1" href="auto/changes.html" />
     <link rel="prev" title="Known bugs and issues" href="bugs.html" />
 <style type="text/css">
   body {
@@ -61,12 +62,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="auto/changes.html" title="Mayavi 4.8.0"
+          <a href="auto/changes.html" title="Mayavi 4.8.1"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="bugs.html" title="Known bugs and issues"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Changelog</a></li> 
       </ul>
     </div>  
@@ -80,108 +81,112 @@
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html">Mayavi 4.8.0</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#enhancements">Enhancements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html">Mayavi 4.8.1</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#fixes">Fixes</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-8-0">Mayavi 4.8.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#enhancements">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id5">Fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-7-4">Mayavi 4.7.4</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id7">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id11">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-7-3">Mayavi 4.7.3</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id31">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id35">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-7-2">Mayavi 4.7.2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id35">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id37">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id39">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id41">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-7-1">Mayavi 4.7.1</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id57">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id61">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-7-0">Mayavi 4.7.0</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id61">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id65">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id65">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id69">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-6-2">Mayavi 4.6.2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id86">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id91">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id90">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id95">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-6-1">Mayavi 4.6.1</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id97">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id102">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id101">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id106">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-6-0">Mayavi 4.6.0</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id110">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id113">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id114">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id117">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-5-0">Mayavi 4.5.0</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id160">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id164">Fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id164">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id168">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-4">Mayavi 4.4.4</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id211">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id212">Fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-3">Mayavi 4.4.3</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id213">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id214">Fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-2">Mayavi 4.4.2</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id215">Enhancements</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-1">Mayavi 4.4.1</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id216">Fixes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-0">Mayavi 4.4.0</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-3">Mayavi 4.4.3</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id217">Enhancements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id218">Fixes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-3-1">Mayavi 4.3.1</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-2">Mayavi 4.4.2</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id219">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-1">Mayavi 4.4.1</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id220">Fixes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-3-0">Mayavi 4.3.0</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-4-0">Mayavi 4.4.0</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id221">Enhancements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id222">Fixes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-2-1">Mayavi 4.2.1</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-3-1">Mayavi 4.3.1</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id223">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id224">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-3-0">Mayavi 4.3.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id225">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id226">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-4-2-1">Mayavi 4.2.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id227">Enhancements</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-4-0-oct-15-2010">Mayavi 3.4.0 (Oct 15, 2010)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id224">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id225">Fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-3-2-may-25-2010">Mayavi 3.3.2 (May 25, 2010)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id226">Enhancements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id227">Fixes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-3-1-feb-24-2010">Mayavi 3.3.1 (Feb 24, 2010)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id228">Enhancements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id229">Fixes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-3-0-july-15-2009">Mayavi 3.3.0 (July 15, 2009)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-3-2-may-25-2010">Mayavi 3.3.2 (May 25, 2010)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id230">Enhancements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id231">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-3-1-feb-24-2010">Mayavi 3.3.1 (Feb 24, 2010)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id232">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id233">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-3-0-july-15-2009">Mayavi 3.3.0 (July 15, 2009)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id234">Enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#id235">Fixes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto/changes.html#mayavi-3-2-0-march-23-2009">Mayavi 3.2.0 (March 23, 2009)</a></li>
@@ -211,7 +216,7 @@
   <div>
     <h4>Next topic</h4>
     <p class="topless"><a href="auto/changes.html"
-                          title="next chapter">Mayavi 4.8.0</a></p>
+                          title="next chapter">Mayavi 4.8.1</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -244,19 +249,19 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="auto/changes.html" title="Mayavi 4.8.0"
+          <a href="auto/changes.html" title="Mayavi 4.8.1"
              >next</a> |</li>
         <li class="right" >
           <a href="bugs.html" title="Known bugs and issues"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Changelog</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 11, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+      Last updated on Oct 18, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

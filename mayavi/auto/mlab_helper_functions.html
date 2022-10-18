@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Plotting functions &#8212; mayavi 4.8.0 documentation</title>
+    <title>Plotting functions &#8212; mayavi 4.8.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
@@ -15,6 +15,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,7 +67,7 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Plotting functions</a></li> 
       </ul>
@@ -1500,19 +1501,58 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Plotting functions</a><ul>
-<li><a class="reference internal" href="#barchart">barchart</a></li>
-<li><a class="reference internal" href="#contour3d">contour3d</a></li>
-<li><a class="reference internal" href="#contour-surf">contour_surf</a></li>
-<li><a class="reference internal" href="#flow">flow</a></li>
-<li><a class="reference internal" href="#imshow">imshow</a></li>
-<li><a class="reference internal" href="#mesh">mesh</a></li>
-<li><a class="reference internal" href="#plot3d">plot3d</a></li>
-<li><a class="reference internal" href="#points3d">points3d</a></li>
-<li><a class="reference internal" href="#quiver3d">quiver3d</a></li>
-<li><a class="reference internal" href="#set-picker-props">set_picker_props</a></li>
-<li><a class="reference internal" href="#surf">surf</a></li>
-<li><a class="reference internal" href="#triangular-mesh">triangular_mesh</a></li>
-<li><a class="reference internal" href="#volume-slice">volume_slice</a></li>
+<li><a class="reference internal" href="#barchart">barchart</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.barchart"><code class="docutils literal notranslate"><span class="pre">barchart()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contour3d">contour3d</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.contour3d"><code class="docutils literal notranslate"><span class="pre">contour3d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contour-surf">contour_surf</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.contour_surf"><code class="docutils literal notranslate"><span class="pre">contour_surf()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flow">flow</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.flow"><code class="docutils literal notranslate"><span class="pre">flow()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#imshow">imshow</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.imshow"><code class="docutils literal notranslate"><span class="pre">imshow()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mesh">mesh</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#plot3d">plot3d</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.plot3d"><code class="docutils literal notranslate"><span class="pre">plot3d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#points3d">points3d</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.points3d"><code class="docutils literal notranslate"><span class="pre">points3d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#quiver3d">quiver3d</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.quiver3d"><code class="docutils literal notranslate"><span class="pre">quiver3d()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#set-picker-props">set_picker_props</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.set_picker_props"><code class="docutils literal notranslate"><span class="pre">set_picker_props()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#surf">surf</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.surf"><code class="docutils literal notranslate"><span class="pre">surf()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#triangular-mesh">triangular_mesh</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.triangular_mesh"><code class="docutils literal notranslate"><span class="pre">triangular_mesh()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#volume-slice">volume_slice</a><ul>
+<li><a class="reference internal" href="#mayavi.mlab.volume_slice"><code class="docutils literal notranslate"><span class="pre">volume_slice()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1564,15 +1604,15 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="mlab_reference.html" >MLab reference</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Plotting functions</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Jul 11, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+      Last updated on Oct 18, 2022.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>
