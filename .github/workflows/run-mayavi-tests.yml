@@ -10,13 +10,13 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-20.04, windows-latest, macos-latest]
         python-version: ['3.7']
         qt-api: ['pyqt5']
         include:
           - python-version: '3.11'
             qt-api: 'pyside6'
-            os: ubuntu-latest
+            os: ubuntu-20.04
           - python-version: '3.11'
             qt-api: 'pyside6'
             os: windows-latest
@@ -40,7 +40,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install Linux packages for Qt5 support
       run: |
-        sudo apt-add-repository universe
         sudo apt-get update
         sudo apt-get install qt5-default
         sudo apt-get install libxkbcommon-x11-0
