@@ -38,6 +38,7 @@ jobs:
     - name: Install Linux packages for Qt5 support
       run: |
         sudo apt-get update
+        sudo apt-add-repository universe
         sudo apt-get install qt5-default
         sudo apt-get install libxkbcommon-x11-0
         sudo apt-get install libxcb-icccm4
