@@ -42,7 +42,7 @@ jobs:
     - name: Install Linux packages for Qt5 support
       run: |
         sudo apt-get update
-        sudo apt-get install sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+        sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
         sudo apt-get install libxkbcommon-x11-0
         sudo apt-get install libxcb-icccm4
         sudo apt-get install libxcb-image0
@@ -50,7 +50,7 @@ jobs:
         sudo apt-get install libxcb-randr0
         sudo apt-get install libxcb-render-util0
         sudo apt-get install libxcb-xinerama0
-      if: matrix.os == 'ubuntu-latest'
+      if: startsWith(matrix.os, 'ubuntu')
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
