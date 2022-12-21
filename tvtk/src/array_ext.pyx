@@ -1,5 +1,7 @@
+#cython: language_level=3
+
 """
-A Pyrex extension module for numpy.  Currently this extension module
+A Cython extension module for numpy.  Currently this extension module
 allows us to massage a 2D scipy array into a form usable as a
 `vtkIdTypeArray`.  This is then used to set the cells of a
 `vtkCellArray` instance.
@@ -8,6 +10,7 @@ allows us to massage a 2D scipy array into a form usable as a
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2005-2020, Enthought, Inc.
 # License: BSD Style.
+
 
 import numpy
 
@@ -59,8 +62,8 @@ cdef c_set_id_type_array(ndarray id_array, ndarray out_array):
     dim0 = id_array.dimensions[0]
     id_data = <int*> id_array.data
     out_data = <int*> out_array.data
-    stride0 = id_array.strides[0]/sizeof(int)
-    stride1 = id_array.strides[1]/sizeof(int)
+    stride0 = id_array.strides[0]//sizeof(int)
+    stride1 = id_array.strides[1]//sizeof(int)
 
     cdef int i, j, in_idx, out_idx
     for i from 0 <= i < dim0:
@@ -88,8 +91,8 @@ cdef c_set_id_type_array_long(ndarray id_array, ndarray out_array):
     dim0 = id_array.dimensions[0]
     id_data = <Py_ssize_t*> id_array.data
     out_data = <Py_ssize_t*> out_array.data
-    stride0 = id_array.strides[0]/sizeof(Py_ssize_t)
-    stride1 = id_array.strides[1]/sizeof(Py_ssize_t)
+    stride0 = id_array.strides[0]//sizeof(Py_ssize_t)
+    stride1 = id_array.strides[1]//sizeof(Py_ssize_t)
 
     cdef int i, j, in_idx, out_idx
     for i from 0 <= i < dim0:
@@ -139,4 +142,3 @@ def set_id_type_array(id_array, out_array):
     else:
         raise ValueError('Unsupported VTK_ID_TYPE_SIZE=%d'\
                          %VTK_ID_TYPE_SIZE)
-
