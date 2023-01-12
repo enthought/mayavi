@@ -497,6 +497,13 @@ class TestTVTK(unittest.TestCase):
         temp.from_array(temperature)
         mesh.point_data.scalars = temp
 
+    def test_to_array_signed_char_array(self):
+        signed_chars = tvtk.SignedCharArray()
+        data = numpy.array([1, 2], dtype=numpy.int8)
+        signed_chars.from_array(data)
+        actual = signed_chars.to_array()
+        numpy.testing.assert_array_equal(actual, data)
+
     def test_append_poly_data_input(self):
         """Test if AppendPolyData has its get_input wrapped right."""
         a = tvtk.AppendPolyData()
