@@ -15,13 +15,13 @@ jobs:
         qt-api: ['pyqt5']
         include:
           # Should run 3.11 once VTK releases a 3.11-compatible version on PyPI
-          - python-version: '3.10'
+          - python-version: '3.11'
             qt-api: 'pyside6'
             os: ubuntu-latest
-          - python-version: '3.10'
+          - python-version: '3.11'
             qt-api: 'pyside6'
             os: windows-latest
-          - python-version: '3.10'
+          - python-version: '3.11'
             qt-api: 'pyside6'
             os: macos-latest
       fail-fast: false
