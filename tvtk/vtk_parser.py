@@ -702,6 +702,8 @@ class VTKMethodParser:
                              key == 'AttributesToInterpolate') or
                             (klass_name == 'vtkPlotBar' and
                              key == 'LookupTable') or
+                            (klass_name == 'vtkLagrangianParticleTracker' and
+                             key == 'IntegrationModel') or
                             False):  # just to simplify indentation/updates
                         default = None
                     else:
