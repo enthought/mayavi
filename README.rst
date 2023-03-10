@@ -133,7 +133,9 @@ If you are unable to do this, read the documentation above and find a way to
 install VTK and a suitable UI toolkit and then repeat the above.
 
 If you are interested in the jupyter notebook support as well, do the
-following (after ensuring that you have jupyter installed of course)::
+following (after ensuring that you have jupyter installed of course. 
+**Note, the Jupyter notebook function is only supported starting mayavi
+version 4.5.0**)::
 
   $ jupyter nbextension install --py mayavi --user
   $ jupyter nbextension enable --py mayavi --user
