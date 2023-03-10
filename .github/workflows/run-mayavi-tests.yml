@@ -37,6 +37,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install Linux packages for Qt5 support
       run: |
+        sudo apt-get update
+        sudo apt-get install qtbase5-dev
+        sudo apt-get install qtchooser
+        sudo apt-get install qt5-qmake
+        sudo apt-get install qtbase5-dev-tools
         sudo apt-get install libxkbcommon-x11-0
         sudo apt-get install libxcb-icccm4
         sudo apt-get install libxcb-image0
