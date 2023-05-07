@@ -14,6 +14,7 @@ jobs:
         python-version: ['3.7']
         qt-api: ['pyqt5']
         include:
+          # Should run 3.11 once the traits bug goes away
           - python-version: '3.10'
             qt-api: 'pyside6'
             os: ubuntu-latest
@@ -24,6 +25,10 @@ jobs:
             qt-api: 'pyside6'
             os: macos-latest
       fail-fast: false
+    defaults:
+      run:
+        shell: bash -e {0}
+    timeout-minutes: 30  # these usually take < 8 minutes
 
     runs-on: ${{ matrix.os }}
 
@@ -38,7 +43,7 @@ jobs:
     - name: Install Linux packages for Qt5 support
       run: |
         sudo apt-get update
-        sudo apt-get install qt5-default
+        sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
         sudo apt-get install libxkbcommon-x11-0
         sudo apt-get install libxcb-icccm4
         sudo apt-get install libxcb-image0
@@ -46,7 +51,7 @@ jobs:
         sudo apt-get install libxcb-randr0
         sudo apt-get install libxcb-render-util0
         sudo apt-get install libxcb-xinerama0
-      if: matrix.os == 'ubuntu-latest'
+      if: startsWith(matrix.os, 'ubuntu')
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -61,7 +66,7 @@ jobs:
         python -m pip install pytest
         python -m pip install traitsui==7.2.1
     - name: Install mayavi and tvtk
-      run: python -m pip install -ve .[app]
+      run: python -um pip install -ve .[app]
     - name: Test Mayavi package
       uses: GabrielBB/xvfb-action@v1
       with:
