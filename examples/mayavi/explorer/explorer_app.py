@@ -107,7 +107,6 @@ class Explorer3D(HasTraits):
     ######################################################################
     def _make_data(self):
         dims = self.dimensions.tolist()
-        np = dims[0]*dims[1]*dims[2]
         xmin, xmax, ymin, ymax, zmin, zmax = self.volume
         x, y, z = np.ogrid[xmin:xmax:dims[0]*1j,
                            ymin:ymax:dims[1]*1j,
