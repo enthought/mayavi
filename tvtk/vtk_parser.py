@@ -632,6 +632,10 @@ class VTKMethodParser:
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
+            elif (is_version_9() and
+                 klass_name == 'vtkLagrangianParticleTracker' and
+                 method[3:] == 'IntegrationModel'):
+                 continue
             elif (not is_version_9()) and (
                 (klass_name == 'vtkGenericAttributeCollection' and
                  method[3:] == 'AttributesToInterpolate') or
