@@ -217,6 +217,7 @@ def get_vtk_to_numeric_typemap():
     _vtk_arr = {
         vtkConstants.VTK_BIT: numpy.bool_,
         vtkConstants.VTK_CHAR: numpy.int8,
+        vtkConstants.VTK_SIGNED_CHAR: numpy.int8,
         vtkConstants.VTK_UNSIGNED_CHAR: numpy.uint8,
         vtkConstants.VTK_SHORT: numpy.int16,
         vtkConstants.VTK_UNSIGNED_SHORT: numpy.uint16,
@@ -242,6 +243,7 @@ def get_sizeof_vtk_array(vtk_array_type):
     _size_dict = {
         vtkConstants.VTK_BIT: 1,
         vtkConstants.VTK_CHAR: 1,
+        vtkConstants.VTK_SIGNED_CHAR: 1,
         vtkConstants.VTK_UNSIGNED_CHAR: 1,
         vtkConstants.VTK_SHORT: 2,
         vtkConstants.VTK_UNSIGNED_SHORT: 2,
