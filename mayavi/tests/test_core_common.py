@@ -6,6 +6,8 @@ Tests for the mayavi.core.common module.
 # License: BSD Style.
 
 import os
+from subprocess import check_output
+import sys
 import unittest
 
 from traitsui.api import View
@@ -18,6 +20,40 @@ from mayavi.modules.outline import Outline
 from mayavi.modules.surface import Surface
 
 from mayavi.core.null_engine import NullEngine
+
+
+def test_core_common_pyface_import_honors_env_var():
+    # Given
+    cmd = [sys.executable, "-c",
+           "import mayavi.core.common as C; print(C.pyface)"]
+
+    # When
+    out = check_output(cmd, env={})
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result != 'None'
+
+    # When
+    out = check_output(cmd, env={'ETS_TOOLKIT': 'qt'})
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result != 'None'
+
+    # When
+    out = check_output(cmd, env={'ETS_TOOLKIT': 'null'})
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result == 'None'
+
+    # When
+    out = check_output(cmd, env={'ETS_TOOLKIT': 'qt', 'CI': '1'})
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result == 'None'
 
 
 class TestCoreCommon(unittest.TestCase):

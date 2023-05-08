@@ -15,7 +15,7 @@ import traceback
 # Enthought library imports.
 from apptools.persistence.state_pickler import create_instance
 from traits.etsconfig.api import ETSConfig
-if (ETSConfig.toolkit in ('null', '')) or os.environ.get('CI'):
+if (ETSConfig.toolkit == 'null') or os.environ.get('CI'):
     pyface = None
 else:
     from pyface import api as pyface
