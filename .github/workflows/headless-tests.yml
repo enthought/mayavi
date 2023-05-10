@@ -20,6 +20,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       VTK_PARSER_VERBOSE: 'true'
+      ETS_TOOLKIT: 'null'
 
     steps:
     - uses: actions/checkout@v2
@@ -40,4 +41,4 @@ jobs:
     - name: Test tvtk package
       run: pytest -v --pyargs tvtk
     - name: Test Mayavi package
-      run: ETS_TOOLKIT=null pytest -v --pyargs mayavi
+      run: pytest -v --pyargs mayavi

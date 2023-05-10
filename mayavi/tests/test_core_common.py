@@ -6,6 +6,8 @@ Tests for the mayavi.core.common module.
 # License: BSD Style.
 
 import os
+from subprocess import check_output
+import sys
 import unittest
 
 from traitsui.api import View
@@ -18,6 +20,52 @@ from mayavi.modules.outline import Outline
 from mayavi.modules.surface import Surface
 
 from mayavi.core.null_engine import NullEngine
+
+
+def test_core_common_pyface_import_honors_env_var():
+    # Given
+    cmd = [sys.executable, "-c",
+           "import mayavi.core.common as C; print(C.pyface)"]
+
+    def _make_env(ets=None, ci=None):
+        env = dict(os.environ)
+        if 'ETS_TOOLKIT' in env:
+            del env['ETS_TOOLKIT']
+        if 'CI' in env:
+            del env['CI']
+        if ets is not None:
+            env['ETS_TOOLKIT'] = ets
+        if ci is not None:
+            env['CI'] = ci
+        return env
+
+    # When
+    out = check_output(cmd, env=_make_env())
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result != 'None'
+
+    # When
+    out = check_output(cmd, env=_make_env(ets='qt'))
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result != 'None'
+
+    # When
+    out = check_output(cmd, env=_make_env(ets='null'))
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result == 'None'
+
+    # When
+    out = check_output(cmd, env=_make_env(ets='qt', ci='1'))
+    result = out.strip().decode('utf-8')
+
+    # Then
+    assert result == 'None'
 
 
 class TestCoreCommon(unittest.TestCase):
