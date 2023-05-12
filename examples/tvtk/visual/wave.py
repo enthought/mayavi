@@ -5,7 +5,7 @@
 
 from math import sin, pi
 
-from numpy import zeros, float, arange
+from numpy import zeros, arange
 
 from tvtk.tools.visual import show, Curve, iterate, MVector
 
