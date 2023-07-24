@@ -12,6 +12,7 @@ allows us to massage a 2D scipy array into a form usable as a
 # License: BSD Style.
 
 import numpy
+cimport numpy
 
 ######################################################################
 # External declarations.
@@ -34,9 +35,7 @@ cdef extern from "numpy/arrayobject.h":
         cdef PyArray_Descr *descr
         cdef int flags
 
-    void import_array()
-
-import_array()
+numpy.import_array()
 
 ######################################################################
 # Internal C functions.
