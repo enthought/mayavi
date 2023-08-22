@@ -47,6 +47,8 @@ if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
 elif qt_api == 'pyqt5':
     PyQtImpl = "PyQt5"
+elif qt_api == 'pyqt6':
+    PyQtImpl = "PyQt6"
 elif qt_api == 'pyside2':
     PyQtImpl = "PySide2"
 elif qt_api == 'pyside6':
@@ -67,56 +69,125 @@ try:
 except (ImportError, AttributeError):
     pass
 
-if PyQtImpl == "PyQt5":
+# Check the compatibility of PyQtImpl and QVTKRWIBase
+if QVTKRWIBase != "QWidget":
+    if PyQtImpl in ["PySide6", "PyQt6"] and QVTKRWIBase == "QOpenGLWidget":
+        pass  # compatible
+    elif PyQtImpl in ["PyQt5", "PySide2","PyQt4", "PySide"] and QVTKRWIBase == "QGLWidget":
+        pass  # compatible
+    else:
+        raise ImportError("Cannot load " + QVTKRWIBase + " from " + PyQtImpl)
+
+if PyQtImpl == "PySide6":
+    if QVTKRWIBase == "QOpenGLWidget":
+        from PySide6.QtOpenGLWidgets import QOpenGLWidget
+    from PySide6.QtWidgets import QWidget
+    from PySide6.QtWidgets import QSizePolicy
+    from PySide6.QtWidgets import QApplication
+    from PySide6.QtWidgets import QMainWindow
+    from PySide6.QtGui import QCursor
+    from PySide6.QtCore import Qt
+    from PySide6.QtCore import QTimer
+    from PySide6.QtCore import QObject
+    from PySide6.QtCore import QSize
+    from PySide6.QtCore import QEvent
+elif PyQtImpl == "PyQt6":
+    if QVTKRWIBase == "QOpenGLWidget":
+        from PyQt6.QtOpenGLWidgets import QOpenGLWidget
+    from PyQt6.QtWidgets import QWidget
+    from PyQt6.QtWidgets import QSizePolicy
+    from PyQt6.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QMainWindow
+    from PyQt6.QtGui import QCursor
+    from PyQt6.QtCore import Qt
+    from PyQt6.QtCore import QTimer
+    from PyQt6.QtCore import QObject
+    from PyQt6.QtCore import QSize
+    from PyQt6.QtCore import QEvent
+elif PyQtImpl == "PyQt5":
     if QVTKRWIBase == "QGLWidget":
-        try:
-            from PyQt5.QtWidgets import QOpenGLWidget as QGLWidget
-        except:
-            from PyQt5.QtOpenGL import QGLWidget
-    from PyQt5.QtWidgets import QWidget, QSizePolicy, QApplication
-    from PyQt5.QtGui import QWheelEvent
-    from PyQt5.QtCore import Qt, QTimer, QObject, QSize, QEvent
+        from PyQt5.QtOpenGL import QGLWidget
+    from PyQt5.QtWidgets import QWidget
+    from PyQt5.QtWidgets import QSizePolicy
+    from PyQt5.QtWidgets import QApplication
+    from PyQt5.QtWidgets import QMainWindow
+    from PyQt5.QtGui import QCursor
+    from PyQt5.QtCore import Qt
+    from PyQt5.QtCore import QTimer
+    from PyQt5.QtCore import QObject
+    from PyQt5.QtCore import QSize
+    from PyQt5.QtCore import QEvent
+elif PyQtImpl == "PySide2":
+    if QVTKRWIBase == "QGLWidget":
+        from PySide2.QtOpenGL import QGLWidget
+    from PySide2.QtWidgets import QWidget
+    from PySide2.QtWidgets import QSizePolicy
+    from PySide2.QtWidgets import QApplication
+    from PySide2.QtWidgets import QMainWindow
+    from PySide2.QtGui import QCursor
+    from PySide2.QtCore import Qt
+    from PySide2.QtCore import QTimer
+    from PySide2.QtCore import QObject
+    from PySide2.QtCore import QSize
+    from PySide2.QtCore import QEvent
 elif PyQtImpl == "PyQt4":
     if QVTKRWIBase == "QGLWidget":
         from PyQt4.QtOpenGL import QGLWidget
-    from PyQt4.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
-    from PyQt4.QtCore import Qt, QTimer, QObject, QSize, QEvent
+    from PyQt4.QtGui import QWidget
+    from PyQt4.QtGui import QSizePolicy
+    from PyQt4.QtGui import QApplication
+    from PyQt4.QtGui import QMainWindow
+    from PyQt4.QtCore import Qt
+    from PyQt4.QtCore import QTimer
+    from PyQt4.QtCore import QObject
+    from PyQt4.QtCore import QSize
+    from PyQt4.QtCore import QEvent
 elif PyQtImpl == "PySide":
     if QVTKRWIBase == "QGLWidget":
         from PySide.QtOpenGL import QGLWidget
-    from PySide.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
-    from PySide.QtCore import Qt, QTimer, QObject, QSize, QEvent
-elif PyQtImpl == "PySide2":
-    if QVTKRWIBase == "QGLWidget":
-        try:
-            from PySide2.QtWidgets import QOpenGLWidget as QGLWidget
-        except:
-            from PySide2.QtOpenGL import QGLWidget
-    from PySide2.QtWidgets import QWidget, QSizePolicy, QApplication
-    from PySide2.QtGui import QWheelEvent
-    from PySide2.QtCore import Qt, QTimer, QObject, QSize, QEvent
-elif PyQtImpl == "PySide6":
-    if QVTKRWIBase == "QGLWidget":
-        try:
-            from PySide6.QtWidgets import QOpenGLWidget as QGLWidget
-        except:
-            from PySide6.QtOpenGL import QGLWidget
-    from PySide6.QtWidgets import QWidget, QSizePolicy, QApplication
-    from PySide6.QtGui import QWheelEvent
-    from PySide6.QtCore import Qt, QTimer, QObject, QSize, QEvent
+    from PySide.QtGui import QWidget
+    from PySide.QtGui import QSizePolicy
+    from PySide.QtGui import QApplication
+    from PySide.QtGui import QMainWindow
+    from PySide.QtCore import Qt
+    from PySide.QtCore import QTimer
+    from PySide.QtCore import QObject
+    from PySide.QtCore import QSize
+    from PySide.QtCore import QEvent
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
-
 
 # Define types for base class, based on string
 if QVTKRWIBase == "QWidget":
     QVTKRWIBaseClass = QWidget
 elif QVTKRWIBase == "QGLWidget":
     QVTKRWIBaseClass = QGLWidget
+elif QVTKRWIBase == "QOpenGLWidget":
+    QVTKRWIBaseClass = QOpenGLWidget
 else:
-    raise ImportError(
-        "Unknown base class for QVTKRenderWindowInteractor " + QVTKRWIBase
-    )
+    raise ImportError("Unknown base class for QVTKRenderWindowInteractor " + QVTKRWIBase)
+
+if PyQtImpl == 'PyQt6':
+    CursorShape = Qt.CursorShape
+    MouseButton = Qt.MouseButton
+    WindowType = Qt.WindowType
+    WidgetAttribute = Qt.WidgetAttribute
+    KeyboardModifier = Qt.KeyboardModifier
+    FocusPolicy = Qt.FocusPolicy
+    ConnectionType = Qt.ConnectionType
+    Key = Qt.Key
+    SizePolicy = QSizePolicy.Policy
+    EventType = QEvent.Type
+else:
+    CursorShape = MouseButton = WindowType = WidgetAttribute = \
+        KeyboardModifier = FocusPolicy = ConnectionType = Key = Qt
+    SizePolicy = QSizePolicy
+    EventType = QEvent
+
+if PyQtImpl in ('PyQt4', 'PySide'):
+    MiddleButton = MouseButton.MidButton
+else:
+    MiddleButton = MouseButton.MiddleButton
 
 
 class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
@@ -190,17 +261,17 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
     # Map between VTK and Qt cursors.
     _CURSOR_MAP = {
-        0:  Qt.ArrowCursor,          # VTK_CURSOR_DEFAULT
-        1:  Qt.ArrowCursor,          # VTK_CURSOR_ARROW
-        2:  Qt.SizeBDiagCursor,      # VTK_CURSOR_SIZENE
-        3:  Qt.SizeFDiagCursor,      # VTK_CURSOR_SIZENWSE
-        4:  Qt.SizeBDiagCursor,      # VTK_CURSOR_SIZESW
-        5:  Qt.SizeFDiagCursor,      # VTK_CURSOR_SIZESE
-        6:  Qt.SizeVerCursor,        # VTK_CURSOR_SIZENS
-        7:  Qt.SizeHorCursor,        # VTK_CURSOR_SIZEWE
-        8:  Qt.SizeAllCursor,        # VTK_CURSOR_SIZEALL
-        9:  Qt.PointingHandCursor,   # VTK_CURSOR_HAND
-        10: Qt.CrossCursor,          # VTK_CURSOR_CROSSHAIR
+        0:  CursorShape.ArrowCursor,          # VTK_CURSOR_DEFAULT
+        1:  CursorShape.ArrowCursor,          # VTK_CURSOR_ARROW
+        2:  CursorShape.SizeBDiagCursor,      # VTK_CURSOR_SIZENE
+        3:  CursorShape.SizeFDiagCursor,      # VTK_CURSOR_SIZENWSE
+        4:  CursorShape.SizeBDiagCursor,      # VTK_CURSOR_SIZESW
+        5:  CursorShape.SizeFDiagCursor,      # VTK_CURSOR_SIZESE
+        6:  CursorShape.SizeVerCursor,        # VTK_CURSOR_SIZENS
+        7:  CursorShape.SizeHorCursor,        # VTK_CURSOR_SIZEWE
+        8:  CursorShape.SizeAllCursor,        # VTK_CURSOR_SIZEALL
+        9:  CursorShape.PointingHandCursor,   # VTK_CURSOR_HAND
+        10: CursorShape.CrossCursor,          # VTK_CURSOR_CROSSHAIR
     }
 
     def __init__(self, parent=None, **kw):
@@ -605,98 +676,98 @@ def QVTKRenderWidgetConeExample():
 
 
 _keysyms = {
-    Qt.Key_Backspace: 'BackSpace',
-    Qt.Key_Tab: 'Tab',
-    Qt.Key_Backtab: 'Tab',
-    # Qt.Key_Clear : 'Clear',
-    Qt.Key_Return: 'Return',
-    Qt.Key_Enter: 'Return',
-    Qt.Key_Shift: 'Shift_L',
-    Qt.Key_Control: 'Control_L',
-    Qt.Key_Alt: 'Alt_L',
-    Qt.Key_Pause: 'Pause',
-    Qt.Key_CapsLock: 'Caps_Lock',
-    Qt.Key_Escape: 'Escape',
-    Qt.Key_Space: 'space',
-    # Qt.Key_Prior : 'Prior',
-    # Qt.Key_Next : 'Next',
-    Qt.Key_End: 'End',
-    Qt.Key_Home: 'Home',
-    Qt.Key_Left: 'Left',
-    Qt.Key_Up: 'Up',
-    Qt.Key_Right: 'Right',
-    Qt.Key_Down: 'Down',
-    Qt.Key_SysReq: 'Snapshot',
-    Qt.Key_Insert: 'Insert',
-    Qt.Key_Delete: 'Delete',
-    Qt.Key_Help: 'Help',
-    Qt.Key_0: '0',
-    Qt.Key_1: '1',
-    Qt.Key_2: '2',
-    Qt.Key_3: '3',
-    Qt.Key_4: '4',
-    Qt.Key_5: '5',
-    Qt.Key_6: '6',
-    Qt.Key_7: '7',
-    Qt.Key_8: '8',
-    Qt.Key_9: '9',
-    Qt.Key_A: 'a',
-    Qt.Key_B: 'b',
-    Qt.Key_C: 'c',
-    Qt.Key_D: 'd',
-    Qt.Key_E: 'e',
-    Qt.Key_F: 'f',
-    Qt.Key_G: 'g',
-    Qt.Key_H: 'h',
-    Qt.Key_I: 'i',
-    Qt.Key_J: 'j',
-    Qt.Key_K: 'k',
-    Qt.Key_L: 'l',
-    Qt.Key_M: 'm',
-    Qt.Key_N: 'n',
-    Qt.Key_O: 'o',
-    Qt.Key_P: 'p',
-    Qt.Key_Q: 'q',
-    Qt.Key_R: 'r',
-    Qt.Key_S: 's',
-    Qt.Key_T: 't',
-    Qt.Key_U: 'u',
-    Qt.Key_V: 'v',
-    Qt.Key_W: 'w',
-    Qt.Key_X: 'x',
-    Qt.Key_Y: 'y',
-    Qt.Key_Z: 'z',
-    Qt.Key_Asterisk: 'asterisk',
-    Qt.Key_Plus: 'plus',
-    Qt.Key_Minus: 'minus',
-    Qt.Key_Period: 'period',
-    Qt.Key_Slash: 'slash',
-    Qt.Key_F1: 'F1',
-    Qt.Key_F2: 'F2',
-    Qt.Key_F3: 'F3',
-    Qt.Key_F4: 'F4',
-    Qt.Key_F5: 'F5',
-    Qt.Key_F6: 'F6',
-    Qt.Key_F7: 'F7',
-    Qt.Key_F8: 'F8',
-    Qt.Key_F9: 'F9',
-    Qt.Key_F10: 'F10',
-    Qt.Key_F11: 'F11',
-    Qt.Key_F12: 'F12',
-    Qt.Key_F13: 'F13',
-    Qt.Key_F14: 'F14',
-    Qt.Key_F15: 'F15',
-    Qt.Key_F16: 'F16',
-    Qt.Key_F17: 'F17',
-    Qt.Key_F18: 'F18',
-    Qt.Key_F19: 'F19',
-    Qt.Key_F20: 'F20',
-    Qt.Key_F21: 'F21',
-    Qt.Key_F22: 'F22',
-    Qt.Key_F23: 'F23',
-    Qt.Key_F24: 'F24',
-    Qt.Key_NumLock: 'Num_Lock',
-    Qt.Key_ScrollLock: 'Scroll_Lock',
+    Key.Key_Backspace: 'BackSpace',
+    Key.Key_Tab: 'Tab',
+    Key.Key_Backtab: 'Tab',
+    # Key.Key_Clear : 'Clear',
+    Key.Key_Return: 'Return',
+    Key.Key_Enter: 'Return',
+    Key.Key_Shift: 'Shift_L',
+    Key.Key_Control: 'Control_L',
+    Key.Key_Alt: 'Alt_L',
+    Key.Key_Pause: 'Pause',
+    Key.Key_CapsLock: 'Caps_Lock',
+    Key.Key_Escape: 'Escape',
+    Key.Key_Space: 'space',
+    # Key.Key_Prior : 'Prior',
+    # Key.Key_Next : 'Next',
+    Key.Key_End: 'End',
+    Key.Key_Home: 'Home',
+    Key.Key_Left: 'Left',
+    Key.Key_Up: 'Up',
+    Key.Key_Right: 'Right',
+    Key.Key_Down: 'Down',
+    Key.Key_SysReq: 'Snapshot',
+    Key.Key_Insert: 'Insert',
+    Key.Key_Delete: 'Delete',
+    Key.Key_Help: 'Help',
+    Key.Key_0: '0',
+    Key.Key_1: '1',
+    Key.Key_2: '2',
+    Key.Key_3: '3',
+    Key.Key_4: '4',
+    Key.Key_5: '5',
+    Key.Key_6: '6',
+    Key.Key_7: '7',
+    Key.Key_8: '8',
+    Key.Key_9: '9',
+    Key.Key_A: 'a',
+    Key.Key_B: 'b',
+    Key.Key_C: 'c',
+    Key.Key_D: 'd',
+    Key.Key_E: 'e',
+    Key.Key_F: 'f',
+    Key.Key_G: 'g',
+    Key.Key_H: 'h',
+    Key.Key_I: 'i',
+    Key.Key_J: 'j',
+    Key.Key_K: 'k',
+    Key.Key_L: 'l',
+    Key.Key_M: 'm',
+    Key.Key_N: 'n',
+    Key.Key_O: 'o',
+    Key.Key_P: 'p',
+    Key.Key_Q: 'q',
+    Key.Key_R: 'r',
+    Key.Key_S: 's',
+    Key.Key_T: 't',
+    Key.Key_U: 'u',
+    Key.Key_V: 'v',
+    Key.Key_W: 'w',
+    Key.Key_X: 'x',
+    Key.Key_Y: 'y',
+    Key.Key_Z: 'z',
+    Key.Key_Asterisk: 'asterisk',
+    Key.Key_Plus: 'plus',
+    Key.Key_Minus: 'minus',
+    Key.Key_Period: 'period',
+    Key.Key_Slash: 'slash',
+    Key.Key_F1: 'F1',
+    Key.Key_F2: 'F2',
+    Key.Key_F3: 'F3',
+    Key.Key_F4: 'F4',
+    Key.Key_F5: 'F5',
+    Key.Key_F6: 'F6',
+    Key.Key_F7: 'F7',
+    Key.Key_F8: 'F8',
+    Key.Key_F9: 'F9',
+    Key.Key_F10: 'F10',
+    Key.Key_F11: 'F11',
+    Key.Key_F12: 'F12',
+    Key.Key_F13: 'F13',
+    Key.Key_F14: 'F14',
+    Key.Key_F15: 'F15',
+    Key.Key_F16: 'F16',
+    Key.Key_F17: 'F17',
+    Key.Key_F18: 'F18',
+    Key.Key_F19: 'F19',
+    Key.Key_F20: 'F20',
+    Key.Key_F21: 'F21',
+    Key.Key_F22: 'F22',
+    Key.Key_F23: 'F23',
+    Key.Key_F24: 'F24',
+    Key.Key_NumLock: 'Num_Lock',
+    Key.Key_ScrollLock: 'Scroll_Lock',
     }
 
 

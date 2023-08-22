@@ -435,7 +435,7 @@ if __name__ == '__main__':
         author="Prabhu Ramachandran, et al.",
         author_email="prabhu@aero.iitb.ac.in",
         maintainer='ETS Developers',
-        python_requires='>=3.7',
+        python_requires='>=3.8',
         maintainer_email='mayavi-users@lists.sf.net',
         url='http://docs.enthought.com/mayavi/mayavi/',
         classifiers=[c.strip() for c in """\
