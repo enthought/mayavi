@@ -341,7 +341,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         self.setAttribute(WidgetAttribute.WA_PaintOnScreen)
         self.setMouseTracking(True) # get all mouse events
         self.setFocusPolicy(FocusPolicy.WheelFocus)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
+        self.setSizePolicy(QSizePolicy(SizePolicy.Expanding, SizePolicy.Expanding))
 
         self._Timer = QTimer(self)
         self._Timer.timeout.connect(self.TimerEvent)
