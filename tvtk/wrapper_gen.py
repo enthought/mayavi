@@ -770,7 +770,10 @@ class WrapperGenerator:
             # --------------------------------------------------------
             # Has a specified range of valid values.  Write and done
             # --------------------------------------------------------
-            if rng:
+            # vtkOpenGLCellGridRenderRequest.ShapesToDraw is a char between
+            # 1 and 9 which we don't handle yet... so add a conditional
+            # on the first `rng` element
+            if rng and not isinstance(rng[0], str):
                 self._write_trait_with_range(klass, out, vtk_attr_name)
                 continue
 
