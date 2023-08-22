@@ -1,5 +1,6 @@
 """Simple tests for the color transfer function utilities in tvtk."""
 
+import pytest
 import unittest
 
 from tvtk.util.ctf import (load_ctfs, save_ctfs, \
@@ -57,6 +58,7 @@ class TestCTFUtil(unittest.TestCase):
         # check that both the data are identical.
         self.assertEqual(mdata, data)
 
+    @pytest.mark.xfail(reason="Failing on osmesa / headless tests")
     def test_rescale_ctf(self):
         """Test rescaling a CTF."""
         # Expected data.
@@ -71,4 +73,3 @@ class TestCTFUtil(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
