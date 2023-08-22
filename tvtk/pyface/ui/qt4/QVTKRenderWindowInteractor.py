@@ -276,13 +276,13 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
     def __init__(self, parent=None, **kw):
         # the current button
-        self._ActiveButton = Qt.NoButton
+        self._ActiveButton = MouseButton.NoButton
 
         # private attributes
         self.__saveX = 0
         self.__saveY = 0
-        self.__saveModifiers = Qt.NoModifier
-        self.__saveButtons = Qt.NoButton
+        self.__saveModifiers = KeyboardModifier.NoModifier
+        self.__saveButtons = MouseButton.NoButton
         self.__wheelDelta = 0
 
         # do special handling of some keywords:
@@ -298,15 +298,17 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         except KeyError:
             rw = None
 
-        # create qt-level widget
+        # create base qt-level widget
         if QVTKRWIBase == "QWidget":
             if "wflags" in kw:
                 wflags = kw['wflags']
             else:
-                wflags = Qt.WindowFlags()
-            QWidget.__init__(self, parent, wflags | Qt.MSWindowsOwnDC)
+                wflags = WindowType.Widget  # what Qt.WindowFlags() returns (0)
+            QWidget.__init__(self, parent, wflags | WindowType.MSWindowsOwnDC)
         elif QVTKRWIBase == "QGLWidget":
             QGLWidget.__init__(self, parent)
+        elif QVTKRWIBase == "QOpenGLWidget":
+            QOpenGLWidget.__init__(self, parent)
 
         if rw:  # user-supplied render window
             self._RenderWindow = rw
@@ -335,10 +337,10 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
             self._pixel_ratio = 1.0
 
         # do all the necessary qt setup
-        self.setAttribute(Qt.WA_OpaquePaintEvent)
-        self.setAttribute(Qt.WA_PaintOnScreen)
+        self.setAttribute(WidgetAttribute.WA_OpaquePaintEvent)
+        self.setAttribute(WidgetAttribute.WA_PaintOnScreen)
         self.setMouseTracking(True) # get all mouse events
-        self.setFocusPolicy(Qt.WheelFocus)
+        self.setFocusPolicy(FocusPolicy.WheelFocus)
         self.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
 
         self._Timer = QTimer(self)
@@ -431,12 +433,12 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
     def HideCursor(self):
         """Hides the cursor."""
-        self.setCursor(Qt.BlankCursor)
+        self.setCursor(CursorShape.BlankCursor)
 
     def ShowCursor(self):
         """Shows the cursor."""
         vtk_cursor = self._Iren.GetRenderWindow().GetCurrentCursor()
-        qt_cursor = self._CURSOR_MAP.get(vtk_cursor, Qt.ArrowCursor)
+        qt_cursor = self._CURSOR_MAP.get(vtk_cursor, CursorShape.ArrowCursor)
         self.setCursor(qt_cursor)
 
     def closeEvent(self, evt):
@@ -478,14 +480,14 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         ctrl = shift = False
 
         if hasattr(ev, 'modifiers'):
-            if ev.modifiers() & Qt.ShiftModifier:
+            if ev.modifiers() & KeyboardModifier.ShiftModifier:
                 shift = True
-            if ev.modifiers() & Qt.ControlModifier:
+            if ev.modifiers() & KeyboardModifier.ControlModifier:
                 ctrl = True
         else:
-            if self.__saveModifiers & Qt.ShiftModifier:
+            if self.__saveModifiers & KeyboardModifier.ShiftModifier:
                 shift = True
-            if self.__saveModifiers & Qt.ControlModifier:
+            if self.__saveModifiers & KeyboardModifier.ControlModifier:
                 ctrl = True
 
         return ctrl, shift
@@ -505,7 +507,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
     def mousePressEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
         repeat = 0
-        if ev.type() == QEvent.MouseButtonDblClick:
+        if ev.type() == EventType.MouseButtonDblClick:
             repeat = 1
 
         pxr = self._pixel_ratio
@@ -514,11 +516,11 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         self._ActiveButton = ev.button()
 
-        if self._ActiveButton == Qt.LeftButton:
+        if self._ActiveButton == MouseButton.LeftButton:
             self._Iren.LeftButtonPressEvent()
-        elif self._ActiveButton == Qt.RightButton:
+        elif self._ActiveButton == MouseButton.RightButton:
             self._Iren.RightButtonPressEvent()
-        elif self._ActiveButton == Qt.MidButton:
+        elif self._ActiveButton == MiddleButton:
             self._Iren.MiddleButtonPressEvent()
 
     def mouseReleaseEvent(self, ev):
@@ -527,11 +529,11 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         self._Iren.SetEventInformationFlipY(int(ev.x()*pxr), int(ev.y()*pxr),
                                             ctrl, shift, chr(0), 0, None)
 
-        if self._ActiveButton == Qt.LeftButton:
+        if self._ActiveButton == MouseButton.LeftButton:
             self._Iren.LeftButtonReleaseEvent()
-        elif self._ActiveButton == Qt.RightButton:
+        elif self._ActiveButton == MouseButton.RightButton:
             self._Iren.RightButtonReleaseEvent()
-        elif self._ActiveButton == Qt.MidButton:
+        elif self._ActiveButton == MiddleButton:
             self._Iren.MiddleButtonReleaseEvent()
 
     def mouseMoveEvent(self, ev):
