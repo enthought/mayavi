@@ -55,7 +55,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install ${{ matrix.qt-api }} numpy vtk pillow pytest
+        python -m pip install --upgrade ${{ matrix.qt-api }} numpy vtk pillow pytest traits pyface traitsui
     - name: Install mayavi and tvtk
       run: python -um pip install -ve .[app]
     - name: Test Mayavi package
