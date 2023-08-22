@@ -24,7 +24,7 @@ docs for more details.
 import os
 import tempfile
 
-from pyface.qt import qt_api, QtCore, QtGui
+from pyface.qt import QtCore, QtGui
 
 from tvtk.api import tvtk
 from tvtk import messenger
@@ -37,15 +37,12 @@ from tvtk.pyface import light_manager
 from tvtk.pyface.utils import popup_save
 from tvtk.pyface.tvtk_scene import TVTKScene
 
-from .QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
-
-if qt_api == 'pyqt6':
-    CursorShape = QtCore.Qt.CursorShape
-    Key = QtCore.Qt.Key
-    KeyboardModifier = QtCore.Qt.KeyboardModifier
-else:
-    CursorShape = Key = KeyboardModifier = QtCore.Qt
-del QtCore
+from .QVTKRenderWindowInteractor import (
+    QVTKRenderWindowInteractor,
+    CursorShape,
+    Key,
+    KeyboardModifier,
+)
 
 
 ######################################################################
