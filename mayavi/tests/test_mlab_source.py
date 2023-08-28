@@ -38,28 +38,28 @@ class TestMGlyphSource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, z, v, s, src = self.get_data()
         # Check if points are set correctly.
-        self.assertEqual(np.alltrue(src.points[:, 0].ravel() == x.ravel()),
+        self.assertEqual(np.all(src.points[:, 0].ravel() == x.ravel()),
                          True)
-        self.assertEqual(np.alltrue(src.points[:, 1].ravel() == y.ravel()),
+        self.assertEqual(np.all(src.points[:, 1].ravel() == y.ravel()),
                          True)
-        self.assertEqual(np.alltrue(src.points[:, 2].ravel() == z.ravel()),
+        self.assertEqual(np.all(src.points[:, 2].ravel() == z.ravel()),
                          True)
         # Check the vectors and scalars.
-        self.assertEqual(np.alltrue(src.vectors == v), True)
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.vectors == v), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
         x, y, z, v, s, src = self.get_data()
         # Check if the dataset is setup right.
         pts = src.dataset.points.to_array()
-        self.assertEqual(np.alltrue(pts[:, 0].ravel() == x.ravel()), True)
-        self.assertEqual(np.alltrue(pts[:, 1].ravel() == y.ravel()), True)
-        self.assertEqual(np.alltrue(pts[:, 2].ravel() == z.ravel()), True)
+        self.assertEqual(np.all(pts[:, 0].ravel() == x.ravel()), True)
+        self.assertEqual(np.all(pts[:, 1].ravel() == y.ravel()), True)
+        self.assertEqual(np.all(pts[:, 2].ravel() == z.ravel()), True)
         vec = src.dataset.point_data.vectors.to_array()
         sc = src.dataset.point_data.scalars.to_array()
-        self.assertEqual(np.alltrue(vec == v), True)
-        self.assertEqual(np.alltrue(sc == s.ravel()), True)
+        self.assertEqual(np.all(vec == v), True)
+        self.assertEqual(np.all(sc == s.ravel()), True)
 
     def test_geometry_filter_works(self):
         # This tests the bug #1071 and segfaults without the fix on VTK 9.x.
@@ -217,27 +217,27 @@ class TestMVerticalSource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, z, s, src = self.get_data()
         # Check if points are set correctly.
-        self.assertEqual(np.alltrue(src.points[:, 0].ravel() == x), True)
-        self.assertEqual(np.alltrue(src.points[:, 1].ravel() == y), True)
-        self.assertEqual(np.alltrue(src.points[:, 2].ravel() == z), True)
+        self.assertEqual(np.all(src.points[:, 0].ravel() == x), True)
+        self.assertEqual(np.all(src.points[:, 1].ravel() == y), True)
+        self.assertEqual(np.all(src.points[:, 2].ravel() == z), True)
         # Check the vectors and scalars.
-        self.assertEqual(np.alltrue(src.vectors[:, -1] == s), True)
-        self.assertEqual(np.alltrue(src.vectors[:, :-1] == 1), True)
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.vectors[:, -1] == s), True)
+        self.assertEqual(np.all(src.vectors[:, :-1] == 1), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
         x, y, z, s, src = self.get_data()
         # Check if the dataset is setup right.
         pts = src.dataset.points.to_array()
-        self.assertEqual(np.alltrue(pts[:, 0].ravel() == x), True)
-        self.assertEqual(np.alltrue(pts[:, 1].ravel() == y), True)
-        self.assertEqual(np.alltrue(pts[:, 2].ravel() == z), True)
+        self.assertEqual(np.all(pts[:, 0].ravel() == x), True)
+        self.assertEqual(np.all(pts[:, 1].ravel() == y), True)
+        self.assertEqual(np.all(pts[:, 2].ravel() == z), True)
         vec = src.dataset.point_data.vectors.to_array()
         sc = src.dataset.point_data.scalars.to_array()
-        self.assertEqual(np.alltrue(vec[:, -1] == s), True)
-        self.assertEqual(np.alltrue(vec[:, :-1] == 1), True)
-        self.assertEqual(np.alltrue(sc == s), True)
+        self.assertEqual(np.all(vec[:, -1] == s), True)
+        self.assertEqual(np.all(vec[:, :-1] == 1), True)
+        self.assertEqual(np.all(sc == s), True)
 
     def test_reset(self):
         "Test the reset method."
@@ -323,12 +323,12 @@ class TestMArraySource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, z, v, s, src = self.get_data()
         # Check if points are set correctly.
-        self.assertEqual(np.alltrue(src.x == x), True)
-        self.assertEqual(np.alltrue(src.y == y), True)
-        self.assertEqual(np.alltrue(src.z == z), True)
+        self.assertEqual(np.all(src.x == x), True)
+        self.assertEqual(np.all(src.y == y), True)
+        self.assertEqual(np.all(src.z == z), True)
         # Check the vectors and scalars.
-        self.assertEqual(np.alltrue(src.vectors == v), True)
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.vectors == v), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
@@ -348,9 +348,9 @@ class TestMArraySource(unittest.TestCase):
         vec = src.dataset.point_data.vectors.to_array()
         sc = src.dataset.point_data.scalars.to_array()
         v1 = v.transpose((2, 0, 1, 3))
-        self.assertEqual(np.alltrue(vec.ravel() == v1.ravel()), True)
+        self.assertEqual(np.all(vec.ravel() == v1.ravel()), True)
         s1 = s.transpose()
-        self.assertEqual(np.alltrue(sc.ravel() == s1.ravel()), True)
+        self.assertEqual(np.all(sc.ravel() == s1.ravel()), True)
 
     def test_reset(self):
         "Test the reset method."
@@ -447,22 +447,22 @@ class TestMLineSource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, z, s, src = self.get_data()
         # Check if points are set correctly.
-        self.assertEqual(np.alltrue(src.points[:, 0].ravel() == x), True)
-        self.assertEqual(np.alltrue(src.points[:, 1].ravel() == y), True)
-        self.assertEqual(np.alltrue(src.points[:, 2].ravel() == z), True)
+        self.assertEqual(np.all(src.points[:, 0].ravel() == x), True)
+        self.assertEqual(np.all(src.points[:, 1].ravel() == y), True)
+        self.assertEqual(np.all(src.points[:, 2].ravel() == z), True)
         # Check the scalars.
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
         x, y, z, s, src = self.get_data()
         # Check if the dataset is setup right.
         pts = src.dataset.points.to_array()
-        self.assertEqual(np.alltrue(pts[:, 0].ravel() == x), True)
-        self.assertEqual(np.alltrue(pts[:, 1].ravel() == y), True)
-        self.assertEqual(np.alltrue(pts[:, 2].ravel() == z), True)
+        self.assertEqual(np.all(pts[:, 0].ravel() == x), True)
+        self.assertEqual(np.all(pts[:, 1].ravel() == y), True)
+        self.assertEqual(np.all(pts[:, 2].ravel() == z), True)
         sc = src.dataset.point_data.scalars.to_array()
-        self.assertEqual(np.alltrue(sc == s), True)
+        self.assertEqual(np.all(sc == s), True)
 
     def test_reset(self):
         "Test the reset method."
@@ -613,10 +613,10 @@ class TestMArray2DSource(unittest.TestCase):
         x, y, s, src = self.get_data()
 
         # Check if points are set correctly.
-        self.assertEqual(np.alltrue(src.x == x), True)
-        self.assertEqual(np.alltrue(src.y == y), True)
+        self.assertEqual(np.all(src.x == x), True)
+        self.assertEqual(np.all(src.y == y), True)
         # Check the scalars.
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
@@ -635,7 +635,7 @@ class TestMArray2DSource(unittest.TestCase):
 
         sc = src.dataset.point_data.scalars.to_array()
         s1 = s.transpose()
-        self.assertEqual(np.alltrue(sc.ravel() == s1.ravel()), True)
+        self.assertEqual(np.all(sc.ravel() == s1.ravel()), True)
 
     def test_reset(self):
         x, y, s, src = self.get_data()
@@ -704,17 +704,17 @@ class TestMGridSource(unittest.TestCase):
 
         # Check if points are set correctly.
         self.assertEqual(
-            np.alltrue(src.points[:, 0].ravel() == x.ravel()), True
+            np.all(src.points[:, 0].ravel() == x.ravel()), True
         )
         self.assertEqual(
-            np.alltrue(src.points[:, 1].ravel() == y.ravel()), True
+            np.all(src.points[:, 1].ravel() == y.ravel()), True
         )
         self.assertEqual(
-            np.alltrue(src.points[:, 2].ravel() == z.ravel()), True
+            np.all(src.points[:, 2].ravel() == z.ravel()), True
         )
         # Check the  scalars.
 
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
@@ -722,11 +722,11 @@ class TestMGridSource(unittest.TestCase):
         # Check if the dataset is setup right.
 
         pts = src.dataset.points.to_array()
-        self.assertEqual(np.alltrue(pts[:, 0].ravel() == x.ravel()), True)
-        self.assertEqual(np.alltrue(pts[:, 1].ravel() == y.ravel()), True)
-        self.assertEqual(np.alltrue(pts[:, 2].ravel() == z.ravel()), True)
+        self.assertEqual(np.all(pts[:, 0].ravel() == x.ravel()), True)
+        self.assertEqual(np.all(pts[:, 1].ravel() == y.ravel()), True)
+        self.assertEqual(np.all(pts[:, 2].ravel() == z.ravel()), True)
         sc = src.dataset.point_data.scalars.to_array()
-        self.assertEqual(np.alltrue(sc == s.ravel()), True)
+        self.assertEqual(np.all(sc == s.ravel()), True)
 
     def test_reset(self):
         "Test the reset method."
@@ -819,17 +819,17 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         # Check if points are set correctly.
 
         if x is not None and y is not None:
-            self.assertEqual(np.alltrue(src.x == x), True)
-            self.assertEqual(np.alltrue(src.y == y), True)
+            self.assertEqual(np.all(src.x == x), True)
+            self.assertEqual(np.all(src.y == y), True)
 
         else:
             nx, ny = s.shape
             x1, y1 = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
-            self.assertEqual(np.alltrue(src.x == x1), True)
-            self.assertEqual(np.alltrue(src.y == y1), True)
+            self.assertEqual(np.all(src.x == x1), True)
+            self.assertEqual(np.all(src.y == y1), True)
 
         # Check the scalars.
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
@@ -853,7 +853,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
 
         sc = src.dataset.point_data.scalars.to_array()
         s1 = s.transpose()
-        self.assertEqual(np.alltrue(sc.ravel() == s1.ravel()), True)
+        self.assertEqual(np.all(sc.ravel() == s1.ravel()), True)
 
     def test_reset(self):
         "Test the reset method."
@@ -912,11 +912,11 @@ class TestMTriangularMeshSource(unittest.TestCase):
         x, y, z, triangles, s, src = self.get_data()
 
         # Check if points are set correctly.
-        self.assertEqual(np.alltrue(src.x == x), True)
-        self.assertEqual(np.alltrue(src.y == y), True)
-        self.assertEqual(np.alltrue(src.z == z), True)
+        self.assertEqual(np.all(src.x == x), True)
+        self.assertEqual(np.all(src.y == y), True)
+        self.assertEqual(np.all(src.z == z), True)
         # Check the scalars.
-        self.assertEqual(np.alltrue(src.scalars == s), True)
+        self.assertEqual(np.all(src.scalars == s), True)
 
     def test_reset(self):
         "Test the reset method."

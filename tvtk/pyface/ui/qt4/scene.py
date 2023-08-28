@@ -37,7 +37,12 @@ from tvtk.pyface import light_manager
 from tvtk.pyface.utils import popup_save
 from tvtk.pyface.tvtk_scene import TVTKScene
 
-from .QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+from .QVTKRenderWindowInteractor import (
+    QVTKRenderWindowInteractor,
+    CursorShape,
+    Key,
+    KeyboardModifier,
+)
 
 
 ######################################################################
@@ -91,38 +96,38 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         scene = self._scene
         camera = scene.camera
 
-        if key in [QtCore.Qt.Key_Minus]:
+        if key in [Key.Key_Minus]:
             camera.zoom(0.8)
             scene.render()
             scene._record_methods('camera.zoom(0.8)\nrender()')
             return
 
-        if key in [QtCore.Qt.Key_Equal, QtCore.Qt.Key_Plus]:
+        if key in [Key.Key_Equal, Key.Key_Plus]:
             camera.zoom(1.25)
             scene.render()
             scene._record_methods('camera.zoom(1.25)\nrender()')
             return
 
-        if key in [QtCore.Qt.Key_E, QtCore.Qt.Key_Q, QtCore.Qt.Key_Escape]:
+        if key in [Key.Key_E, Key.Key_Q, Key.Key_Escape]:
             scene._disable_fullscreen()
             scene.picker.close_picker()
             return
 
-        if key in [QtCore.Qt.Key_W]:
+        if key in [Key.Key_W]:
             return
 
-        if key in [QtCore.Qt.Key_R]:
+        if key in [Key.Key_R]:
             scene._record_methods('reset_zoom()')
             return
 
-        if key in [QtCore.Qt.Key_P] and modifiers == QtCore.Qt.NoModifier:
+        if key in [Key.Key_P] and modifiers == KeyboardModifier.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
             scene.picker.pick(x*self._pixel_ratio, y*self._pixel_ratio)
             return
 
-        if key in [QtCore.Qt.Key_F] and modifiers == QtCore.Qt.NoModifier:
+        if key in [Key.Key_F] and modifiers == KeyboardModifier.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
@@ -135,19 +140,19 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
                                       'render()'%list(coord))
             return
 
-        if key in [QtCore.Qt.Key_L] and modifiers == QtCore.Qt.NoModifier:
+        if key in [Key.Key_L] and modifiers == KeyboardModifier.NoModifier:
             scene.light_manager.configure()
             return
 
-        if key in [QtCore.Qt.Key_S] and modifiers == QtCore.Qt.NoModifier:
+        if key in [Key.Key_S] and modifiers == KeyboardModifier.NoModifier:
             fname = popup_save(self.parent())
             if len(fname) != 0:
                 self._scene.save(fname)
             return
 
-        shift = ((modifiers & QtCore.Qt.ShiftModifier) == QtCore.Qt.ShiftModifier)
+        shift = ((modifiers & KeyboardModifier.ShiftModifier) == KeyboardModifier.ShiftModifier)
 
-        if key == QtCore.Qt.Key_Left:
+        if key == Key.Key_Left:
             if shift:
                 camera.yaw(-5)
                 scene._record_methods('camera.yaw(-5)')
@@ -159,7 +164,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             scene._record_methods('render()')
             return
 
-        if key == QtCore.Qt.Key_Right:
+        if key == Key.Key_Right:
             if shift:
                 camera.yaw(5)
                 scene._record_methods('camera.yaw(5)')
@@ -171,7 +176,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             scene._record_methods('render()')
             return
 
-        if key == QtCore.Qt.Key_Up:
+        if key == Key.Key_Up:
             if shift:
                 camera.pitch(-5)
                 scene._record_methods('camera.pitch(-5)')
@@ -184,7 +189,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             scene._record_methods('camera.orthogonalize_view_up()\nrender()')
             return
 
-        if key == QtCore.Qt.Key_Down:
+        if key == Key.Key_Down:
             if shift:
                 camera.pitch(5)
                 scene._record_methods('camera.pitch(5)')
@@ -331,7 +336,7 @@ class Scene(TVTKScene, Widget):
         # The light manager needs creating.
         self.light_manager = None
 
-        self._cursor = QtCore.Qt.ArrowCursor
+        self._cursor = CursorShape.ArrowCursor
 
     def __get_pure_state__(self):
         """Allows us to pickle the scene."""
@@ -364,7 +369,7 @@ class Scene(TVTKScene, Widget):
     def hide_cursor(self):
         """Hide the cursor."""
         self._cursor = self._vtk_control.cursor().shape()
-        self._vtk_control.setCursor(QtCore.Qt.BlankCursor)
+        self._vtk_control.setCursor(CursorShape.BlankCursor)
 
     def show_cursor(self):
         """Show the cursor."""
