@@ -422,7 +422,7 @@ packages = setuptools.find_packages(exclude=config['packages'] +
 config['packages'] += packages
 
 
-if MODE != 'info' and not HAS_NUMPY:
+if MODE != 'info' and not HAS_NUMPY and sys.version_info < (3, 12):
     msg = '''
     Numpy is required to build Mayavi correctly, please install it first.
     '''
