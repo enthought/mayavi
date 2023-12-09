@@ -12,11 +12,16 @@ try:
     import numpy
     from numpy.distutils.command import build, install_data, build_src
     from numpy.distutils.core import setup
+    my_build_src_super = build_src.build_src
+    build_src_run = build_src.build_src.run
+    del build_src
     HAS_NUMPY = True
 except ImportError:
     HAS_NUMPY = False
     from distutils.command import build, install_data
     from distutils.core import setup
+    my_build_src_super = object
+    build_src_run = lambda *args, **kwargs: None
 import io
 import os
 import time
@@ -124,8 +129,8 @@ class GenDocs(Command):
         mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi', 'auto')
 
         source_path = 'mayavi'
-        sources = '(\.py)|(\.rst)$'
-        excluded_dirs = '^\.'
+        sources = r'(\.py)|(\.rst)$'
+        excluded_dirs = r'^\.'
         target_path = mlab_ref_dir
         target_time = self.latest_modified(target_path,
                                            ignore_dirs=excluded_dirs)[0]
@@ -288,7 +293,7 @@ class MyBuild(build.build):
         build.build.run(self)
 
 
-class MyBuildSrc(build_src.build_src):
+class MyBuildSrc(my_build_src_super):
     """Build hook to generate the TVTK ZIP files.
 
     We do it here also because for editable installs, setup.py build is not
@@ -297,7 +302,7 @@ class MyBuildSrc(build_src.build_src):
 
     def run(self):
         build_tvtk_classes_zip()
-        build_src.build_src.run(self)
+        build_src_run(self)
 
 
 class MyDevelop(develop.develop):
@@ -417,7 +422,7 @@ packages = setuptools.find_packages(exclude=config['packages'] +
 config['packages'] += packages
 
 
-if MODE != 'info' and not HAS_NUMPY:
+if MODE != 'info' and not HAS_NUMPY and sys.version_info < (3, 12):
     msg = '''
     Numpy is required to build Mayavi correctly, please install it first.
     '''
