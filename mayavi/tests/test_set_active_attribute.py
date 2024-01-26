@@ -64,8 +64,8 @@ class TestSetActiveAttribute(unittest.TestCase):
         c = src.children[1]
         sc = get_output(c.outputs[0]).point_data.scalars
         self.assertEqual(sc.name,'temperature')
-        # It is an iso-contour!
-        self.assertEqual(sc.range[0],sc.range[1])
+        # It is an iso-contour! Allow rounding differences
+        self.assertAlmostEqual(sc.range[0], sc.range[1], places=5)
         aa = c.children[0].children[0]
         self.assertEqual(aa.point_scalars_name,'pressure')
         sc = get_output(aa.outputs[0]).point_data.scalars
