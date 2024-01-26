@@ -10,6 +10,7 @@ import re
 import vtk
 
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
 
 ######################################################################
