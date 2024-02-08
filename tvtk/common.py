@@ -49,18 +49,21 @@ def get_tvtk_name(vtk_name):
       'XMLDataReader'
 
     """
-    if vtk_name[:3] == 'vtk':
-        name = vtk_name[3:]
-        dig2name = {'1': 'One', '2': 'Two', '3': 'Three', '4': 'Four',
-                    '5': 'Five', '6': 'Six', '7': 'Seven', '8': 'Eight',
-                    '9': 'Nine', '0': 'Zero'}
+    name = vtk_name
+    if name.startswith('vtk'):
+        name = name[3:]
+    return _sanitize_name(name)
 
-        if name[0] in string.digits:
-            return dig2name[name[0]] + name[1:]
-        else:
-            return name
-    else:
-        return vtk_name
+
+def _sanitize_name(name):
+    """Turn a VTK name (like a class or method def) into a valid Python var name."""
+    dig2name = {'1': 'One', '2': 'Two', '3': 'Three', '4': 'Four',
+                '5': 'Five', '6': 'Six', '7': 'Seven', '8': 'Eight',
+                '9': 'Nine', '0': 'Zero'}
+
+    if name[0].isdigit():
+        name = dig2name[name[0]] + name[1:]
+    return name
 
 
 def is_version_9():

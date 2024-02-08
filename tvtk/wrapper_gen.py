@@ -16,7 +16,7 @@ from itertools import chain
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from .common import get_tvtk_name, camel2enthought, vtk_major_version
+from .common import get_tvtk_name, camel2enthought, vtk_major_version, _sanitize_name
 
 from . import vtk_parser
 from . import indenter
@@ -948,6 +948,7 @@ class WrapperGenerator:
             # are usually special methods.
             return name
 
+        name = _sanitize_name(name)
         res = camel2enthought(name)
         if keyword.iskeyword(res):
             return res + '_'
@@ -1415,6 +1416,8 @@ class WrapperGenerator:
         setter is treated as if it accepts a list of parameters.  If
         not the setter is treated as if it accepts a single parameter.
         """
+        assert t_name  # nonempty
+        assert not t_name[0].isdigit(), t_name  # would be a SyntaxError
         indent = self.indent
         getter = '_get_%s'%t_name
         vtk_get_name = vtk_get_meth.__name__
