@@ -14,8 +14,7 @@ jobs:
         python-version: ['3.8']
         qt-api: ['pyqt5']
         include:
-          # Should run 3.11 once the traits bug goes away
-          - python-version: '3.10'
+          - python-version: '3.12'
             qt-api: 'pyqt6'
             os: ubuntu-latest
           - python-version: '3.10'
@@ -55,7 +54,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade ${{ matrix.qt-api }} numpy "vtk<9.3" pillow pytest traits pyface traitsui
+        python -m pip install --upgrade ${{ matrix.qt-api }} numpy vtk pillow pytest traits traitsui
     - name: Install mayavi and tvtk
       run: python -um pip install -ve .[app]
     - name: Test Mayavi package
