@@ -6,14 +6,14 @@
 import os
 import sys
 
+from setuptools import Distribution
+
 
 def can_compile_extensions():
     try:
         import numpy  # noqa
     except Exception:
         return False  # our extension needs numpy/arrayobject.h
-    from distutils.dist import Distribution
-    from distutils.errors import DistutilsError
     sargs = {'script_name': None, 'script_args': ["--build-ext"]}
     d = Distribution(sargs)
     cfg = d.get_command_obj('config')
@@ -29,57 +29,11 @@ def can_compile_extensions():
             include_dirs=build_ext.include_dirs,
             lang='c'
         )
-    except DistutilsError:
+    except Exception as exc:
+        print(f"Compilation failed, assuming no C compiler: {exc}")
         return False
     else:
         return result
-
-
-def configuration(parent_package=None, top_path=None):
-    from os.path import join
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration('tvtk', parent_package, top_path)
-    config.set_options(ignore_setup_xxx_py=True,
-                       assume_default_configuration=True,
-                       delegate_options_to_subpackages=True,
-                       quiet=True)
-
-    config.add_subpackage('custom')
-    config.add_subpackage('pipeline')
-    config.add_subpackage('pyface')
-    config.add_subpackage('pyface.*')
-    config.add_subpackage('pyface.*.*')
-    config.add_subpackage('view')
-
-    config.add_data_dir('pipeline/images')
-    config.add_data_dir('pyface/images')
-    config.add_data_dir('tools/images')
-
-    config.add_subpackage('plugins')
-    config.add_subpackage('plugins.*')
-    config.add_subpackage('plugins.*.*')
-
-    config.add_subpackage('tools')
-    config.add_subpackage('util')
-
-    config.add_subpackage('tests')
-
-    # Add any extensions.  These are optional.
-    if can_compile_extensions():
-        import numpy as np
-        config.add_extension(
-            'array_ext',
-            sources=[join('src', 'array_ext.c')],
-            depends=[join('src', 'array_ext.pyx')],
-            include_dirs=[np.get_include()],
-        )
-
-    tvtk_classes_zip_depends = config.paths(
-        'code_gen.py', 'wrapper_gen.py', 'special_gen.py',
-        'tvtk_base.py', 'indenter.py', 'vtk_parser.py'
-    )
-
-    return config
 
 
 def gen_tvtk_classes_zip():
