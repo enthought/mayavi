@@ -8,6 +8,10 @@ import sys
 
 
 def can_compile_extensions():
+    try:
+        import numpy  # noqa
+    except Exception:
+        return False  # our extension needs numpy/arrayobject.h
     from distutils.dist import Distribution
     from distutils.errors import DistutilsError
     sargs = {'script_name': None, 'script_args': ["--build-ext"]}
@@ -62,10 +66,12 @@ def configuration(parent_package=None, top_path=None):
 
     # Add any extensions.  These are optional.
     if can_compile_extensions():
+        import numpy as np
         config.add_extension(
             'array_ext',
             sources=[join('src', 'array_ext.c')],
             depends=[join('src', 'array_ext.pyx')],
+            include_dirs=[np.get_include()],
         )
 
     tvtk_classes_zip_depends = config.paths(
