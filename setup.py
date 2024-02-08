@@ -7,7 +7,6 @@ from setuptools import Command, Extension, setup, find_packages
 from setuptools.command.build_py import build_py
 from setuptools.command.develop import develop
 
-import io
 import os
 import time
 import subprocess
@@ -16,11 +15,11 @@ import re
 import sys
 from os.path import (abspath, basename, dirname, exists, getmtime, isdir,
                      join, split)
+from pathlib import Path
 
-sys.path.append(join(os.path.dirname(__file__), 'tvtk'))
-from _setup import can_compile_extensions, gen_tvtk_classes_zip
-sys.path.pop(-1)
+from tvtk._setup import can_compile_extensions, gen_tvtk_classes_zip  # noqa
 
+MY_DIR = os.path.dirname(__file__)
 MODE = 'normal'
 if len(sys.argv) >= 2 and \
    ('--help' in sys.argv[1:] or
@@ -196,8 +195,7 @@ def list_doc_projects():
     """ List the different source directories under DEFAULT_INPUT_DIR
         for which we have docs.
     """
-    source_dir = join(abspath(dirname(__file__)),
-                      DEFAULT_INPUT_DIR)
+    source_dir = join(abspath(MY_PATH), DEFAULT_INPUT_DIR)
     source_list = os.listdir(source_dir)
     # Check to make sure we're using non-hidden directories.
     source_dirs = [listing for listing in source_list
@@ -239,7 +237,6 @@ def _tvtk_built_recently(zipfile, delay):
 
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
-    MY_DIR = os.path.dirname(__file__)
     zipfile = os.path.join(MY_DIR, 'tvtk', 'tvtk_classes.zip')
     if _tvtk_built_recently(zipfile, delay=120):
         print("Already built tvtk_classes.zip")
@@ -261,13 +258,7 @@ class MyDevelop(develop):
     """A hook to build the TVTK ZIP file on develop."""
 
     def run(self):
-        # Make sure that the 'build_src' command will
-        # always be inplace when we do a 'develop'.
-        self.reinitialize_command('build_ext', inplace=1)
-
-        # tvtk_classes.zip always need to be created on 'develop'.
         build_tvtk_classes_zip()
-
         super().run()
 
 
@@ -393,7 +384,7 @@ if __name__ == '__main__':
         ext_modules=ext_modules,
         install_requires=info['__requires__'],
         license="BSD",
-        long_description=io.open('README.rst', encoding='utf-8').read(),
+        long_description=Path('README.rst').read_text(encoding='utf-8'),
         platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
         zip_safe=False,
     )
