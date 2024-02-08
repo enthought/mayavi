@@ -680,6 +680,11 @@ class WrapperGenerator:
                    and (klass.__name__ == 'vtkRenderWindow') \
                    and (m == 'StereoType'):
                 extra_val = 0
+            elif (klass.__name__ in ("CubeAxesActor", "PolarAxesActor") and \
+                  m == "enable_distance_lod"):
+                extra_val = True
+            elif klass.__name__ == "AxisActor" and m == "axis_on_origin":
+                extra_val = False
 
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
