@@ -262,28 +262,6 @@ class MyDevelop(develop):
         super().run()
 
 
-# Configure our extensions to Python
-package_data = dict()
-package_data["mayavi"] = [
-    'mayavi/core/lut',
-    'mayavi/tests/data',
-    'mayavi/tests/csv_files',
-    'mayavi/tools/static',
-    'mayavi/preferences',
-]
-# Image files.
-for pkgdir in ('mayavi', 'tvtk'):
-    for root, dirs, files in os.walk(pkgdir):
-        if split(root)[-1] == 'images':
-            package_data["mayavi"].append(root)
-package_data["tvtk"] = [
-    "tvtk/plugins/scene",
-    "tvtk/tvtk_classes.zip",
-    "tvtk/pipeline/images",
-    "tvtk/pyface/images",
-    "tvtk/tools/images",
-]
-
 ###########################################################################
 # Similar to package_data, but installed before build
 build_package_data = {'mayavi.images': ['docs/source/mayavi/_static/m2_about.jpg']}
@@ -380,7 +358,7 @@ if __name__ == '__main__':
         },
         extras_require=info['__extras_require__'],
         packages=find_packages(exclude=["docs", "examples"]),
-        package_data=package_data,
+        include_package_data=True,
         ext_modules=ext_modules,
         install_requires=info['__requires__'],
         license="BSD",
