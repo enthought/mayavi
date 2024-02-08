@@ -6,6 +6,7 @@
 from setuptools import Command, Extension, setup, find_packages
 from setuptools.command.build_py import build_py
 from setuptools.command.develop import develop
+from setuptools.command.install import install
 
 import os
 import time
@@ -195,7 +196,7 @@ def list_doc_projects():
     """ List the different source directories under DEFAULT_INPUT_DIR
         for which we have docs.
     """
-    source_dir = join(abspath(MY_PATH), DEFAULT_INPUT_DIR)
+    source_dir = join(abspath(MY_DIR), DEFAULT_INPUT_DIR)
     source_list = os.listdir(source_dir)
     # Check to make sure we're using non-hidden directories.
     source_dirs = [listing for listing in source_list
@@ -359,6 +360,7 @@ if __name__ == '__main__':
         extras_require=info['__extras_require__'],
         packages=find_packages(exclude=["docs", "examples"]),
         include_package_data=True,
+        package_data={"tvtk": ["tvtk_classes.zip"]},
         ext_modules=ext_modules,
         install_requires=info['__requires__'],
         license="BSD",
