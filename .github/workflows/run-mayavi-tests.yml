@@ -14,19 +14,22 @@ jobs:
         python-version: ['3.8']
         qt-api: ['pyqt5']
         include:
-          # TODO: Add 3.12 once VTK 9.3 is properly supported
-          - python-version: '3.11'
+          - python-version: '3.12'
             qt-api: 'pyqt6'
             os: ubuntu-latest
+            vtk: 'vtk>=9.3'
           - python-version: '3.10'
             qt-api: 'pyside6'
             os: ubuntu-latest
+            vtk: 'vtk<9.3'
           - python-version: '3.10'
             qt-api: 'pyside6'
             os: windows-latest
+            vtk: 'vtk<9.3'
           - python-version: '3.10'
             qt-api: 'pyside6'
             os: macos-latest
+            vtk: 'vtk<9.3'
       fail-fast: false
     defaults:
       run:
@@ -53,9 +56,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
+      shell: bash
       run: |
+        set -exo pipefail
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade ${{ matrix.qt-api }} numpy "vtk<9.3" pillow pytest traits traitsui
+        python -m pip install --upgrade "${{ matrix.qt-api }}" numpy "${{ matrix.vtk }}" pillow pytest traits traitsui
     - name: Install mayavi and tvtk
       run: python -um pip install -ve .[app]
     - name: Test Mayavi package
