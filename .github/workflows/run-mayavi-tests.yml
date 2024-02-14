@@ -13,6 +13,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ['3.8']
         qt-api: ['pyqt5']
+        vtk: ['vtk<9.3']
         include:
           - python-version: '3.12'
             qt-api: 'pyqt6'
