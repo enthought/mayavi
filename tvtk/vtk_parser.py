@@ -724,6 +724,7 @@ class VTKMethodParser:
                         elif klass_name in ("vtkCubeAxesActor", "vtkPolarAxesActor"):
                             if key in (
                                 "EnableDistanceLOD", "EnableViewAngleLOD", "Use2DMode",
+                                "UseAxisOrigin",
                             ):
                                 default = int(bool(default))
 
