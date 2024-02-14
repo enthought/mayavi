@@ -294,6 +294,20 @@ if not HAS_NUMPY and MODE != 'info':
 # The actual setup call
 if __name__ == '__main__':
     ext_modules = list()
+    packages = find_packages(exclude=["docs", "examples"])
+    packages += [  # otherwise we get warnings. Maybe these should be excluded?
+        "mayavi.core.images",
+        "mayavi.core.ui.images",
+        "mayavi.images",
+        "mayavi.preferences.images",
+        "mayavi.tests.csv_files",
+        "mayavi.tests.data",
+        "mayavi.tools.static.x3d",
+        "tvtk.pipeline.images",
+        "tvtk.pyface.images",
+        "tvtk.src",
+        "tvtk.tools.images",
+    ]
     if can_compile_extensions():
         import numpy as np
         ext_modules.append(
@@ -358,7 +372,7 @@ if __name__ == '__main__':
             ]
         },
         extras_require=info['__extras_require__'],
-        packages=find_packages(exclude=["docs", "examples"]),
+        packages=packages,
         include_package_data=True,
         package_data={"tvtk": ["tvtk_classes.zip"]},
         ext_modules=ext_modules,

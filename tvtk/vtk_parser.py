@@ -714,6 +714,15 @@ class VTKMethodParser:
                         except TypeError:
                             default = None
 
+                    # If we don't turn these into integers, they won't instantiate
+                    if is_version_9():
+                        if klass_name == "vtkAxisActor":
+                            if key == "AxisOnOrigin":
+                                default = int(bool(default))
+                        elif klass_name in ("vtkCubeAxesActor", "vtkPolarAxesActor"):
+                            if key == "EnableDistanceLOD":
+                                default = int(bool(default))
+
                     if value:
                         low = getattr(obj, 'Get%sMinValue' % key)()
                         high = getattr(obj, 'Get%sMaxValue' % key)()

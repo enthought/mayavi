@@ -45,3 +45,11 @@ if vtk_version == '9.2.0':
         del vtkPlotBar
     except NameError:
         pass
+
+if vtk_version.startswith('9.3'):
+    # Cannot instantiate (TypeError) on Linux at least
+    SKIP = ['vtkDGBoundsResponder', "vtkDGOpenGLRenderer", "vtkDGSidesResponder"]
+    try:
+        del vtkDGBoundsResponder, vtkDGOpenGLRenderer, vtkDGSidesResponder
+    except NameError:
+        pass

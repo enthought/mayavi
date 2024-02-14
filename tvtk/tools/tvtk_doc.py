@@ -64,7 +64,7 @@ def get_tvtk_class_names():
     sink = []
     bad_names = []
     ver = vtk.vtkVersion()
-    if (ver.GetVTKMajorVersion(), ver.GetVTKMinorVersion()) == (9, 2):
+    if (ver.GetVTKMajorVersion(), ver.GetVTKMinorVersion()) >= (9, 2):
         bad_names.append('vtkOpenGLAvatar')
 
     for name in dir(vtk):

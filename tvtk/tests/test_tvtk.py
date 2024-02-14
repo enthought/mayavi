@@ -18,6 +18,7 @@ import types
 import inspect
 import re
 import numpy
+from textwrap import indent
 
 from tvtk import tvtk_base
 from tvtk.common import get_tvtk_name, configure_input_data
@@ -821,9 +822,10 @@ class TestTVTKModule(unittest.TestCase):
             tvtk_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_name, None)
             try:
-                tvtk_klass()
-            except (TraitError, KeyError):
-                errors.append(traceback.format_exc())
+                obj = tvtk_klass()
+            # TypeError: super(type, obj): obj must be an instance or subtype of type
+            except (TraitError, KeyError, TypeError):
+                errors.append(f"\n{name}:\n{indent(traceback.format_exc(), '  ')}")
         if len(errors) > 0:
             message = "Not all classes could be instantiated:\n{0}\n"
             raise AssertionError(message.format(''.join(errors)))
@@ -875,6 +877,14 @@ class TestTVTKModule(unittest.TestCase):
                 if max_value is not None and min_value is not None:
                     # If max and min values are defined, setting the trait
                     # to outside this range should fail
+
+                    # A not totally supported trait
+                    # tvtk.tvtk_classes.open_gl_cell_grid_render_request.shapes_to_draw
+                    # uses strings
+                    if isinstance(min_value, str):
+                        name = "tvtk.tvtk_classes.open_gl_cell_grid_render_request"
+                        assert name in repr(obj), (obj, trait_name)
+                        continue
                     with self.assertRaises(TraitError):
                         setattr(obj, trait_name, (min_value-1, max_value))
                     with self.assertRaises(TraitError):

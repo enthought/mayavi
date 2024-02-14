@@ -6,6 +6,7 @@ VTK classes.
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
+import faulthandler
 import re
 import sys
 import vtk
@@ -22,12 +23,7 @@ from . import vtk_parser
 from . import indenter
 from . import special_gen
 
-try:
-    import faulthandler
-except ImportError:
-    pass
-else:
-    faulthandler.enable()
+faulthandler.enable()
 
 
 def get_trait_def(value, **kwargs):
@@ -680,13 +676,6 @@ class WrapperGenerator:
                    and (klass.__name__ == 'vtkRenderWindow') \
                    and (m == 'StereoType'):
                 extra_val = 0
-            elif (klass.__name__ in ("vtkCubeAxesActor", "vtkPolarAxesActor") and \
-                  m == "enable_distance_lod"):
-                extra_val = True
-                vtk_val = 0
-            elif klass.__name__ == "vtkAxisActor" and m == "axis_on_origin":
-                extra_val = False
-                vtk_val = 0
 
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
