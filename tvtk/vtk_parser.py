@@ -717,10 +717,14 @@ class VTKMethodParser:
                     # If we don't turn these into integers, they won't instantiate
                     if is_version_9():
                         if klass_name == "vtkAxisActor":
-                            if key in ("AxisOnOrigin", "Use2DMode"):
+                            if key in (
+                                "AxisOnOrigin", "Use2DMode", "UseTextActor3D",
+                            ):
                                 default = int(bool(default))
                         elif klass_name in ("vtkCubeAxesActor", "vtkPolarAxesActor"):
-                            if key in ("EnableDistanceLOD", "EnableViewAngleLOD"):
+                            if key in (
+                                "EnableDistanceLOD", "EnableViewAngleLOD", "Use2DMode",
+                            ):
                                 default = int(bool(default))
 
                     if value:
