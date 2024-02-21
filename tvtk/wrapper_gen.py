@@ -1650,6 +1650,11 @@ class WrapperGenerator:
         'vtkLineIntegralConvolution2D.MaxNoiseValue$': (
             True, True, '_write_line_integral_conv_2d_max_noise_value'
         ),
+        # In VTK 9.3, vtkCylinderSource's GetLatLongTesselation gives random values
+        # https://gitlab.kitware.com/vtk/vtk/-/issues/19252
+        'vtkCylinderSource.LatLongTessellation$': (
+            True, True, '_write_cylinder_source_lat_long_tessellation'
+        ),
     }
 
     @classmethod
@@ -1917,3 +1922,18 @@ class WrapperGenerator:
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_cylinder_source_lat_long_tessellation(
+        self, klass, out, vtk_attr_name
+    ):
+        if vtk_attr_name != 'LatLongTessellation':
+            raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
+        if vtk_major_version >= 9:
+            message = ("vtkCylinderSource: "
+                       "LatLongTesselation not updatable "
+                       "(VTK 9.3 bug - value not properly initialized)")
+            print(message)
+        t_def = 'tvtk_base.false_bool_trait'
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=True)
