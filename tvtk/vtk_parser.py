@@ -727,9 +727,6 @@ class VTKMethodParser:
                                 "UseAxisOrigin", "UseOrientedBounds", "UseTextActor3D",
                             ):
                                 default = int(bool(default))
-                        elif klass_name == "vtkCylinderSource":
-                            if key == "LatLongTesselation":
-                                default = int(bool(default))
 
                     if value:
                         low = getattr(obj, 'Get%sMinValue' % key)()
