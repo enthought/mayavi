@@ -3,41 +3,24 @@
 # Copyright (c) 2008-2022 by Enthought, Inc.
 # All rights reserved.
 
-# NOTE: Setuptools must be imported BEFORE numpy.distutils or else
-# numpy.distutils does the Wrong(TM) thing.
-import setuptools
-from setuptools import Command
+from setuptools import Command, Extension, setup, find_packages
+from setuptools.command.build_py import build_py
+from setuptools.command.develop import develop
+from setuptools.command.install import install
 
-try:
-    import numpy
-    from numpy.distutils.command import build, install_data, build_src
-    from numpy.distutils.core import setup
-    my_build_src_super = build_src.build_src
-    build_src_run = build_src.build_src.run
-    del build_src
-    HAS_NUMPY = True
-except ImportError:
-    HAS_NUMPY = False
-    from distutils.command import build, install_data
-    from distutils.core import setup
-    my_build_src_super = object
-    build_src_run = lambda *args, **kwargs: None
-import io
 import os
 import time
 import subprocess
 import shutil
 import re
 import sys
-import traceback
 from os.path import (abspath, basename, dirname, exists, getmtime, isdir,
                      join, split)
+from pathlib import Path
 
-from distutils.command import clean
-from distutils import log
-from setuptools.command import develop
+from tvtk._setup import can_compile_extensions, gen_tvtk_classes_zip  # noqa
 
-
+MY_DIR = os.path.dirname(__file__)
 MODE = 'normal'
 if len(sys.argv) >= 2 and \
    ('--help' in sys.argv[1:] or
@@ -65,7 +48,7 @@ class GenDocs(Command):
         ]
 
     def latest_modified(self, the_path, filetypes='', ignore_dirs=''):
-        """Traverses a path looking for the most recently modified file
+        """Traverse a path looking for the most recently modified file.
 
         Parameters
         ----------
@@ -84,12 +67,7 @@ class GenDocs(Command):
             Modification time of latest_path.
         latest_path : string
             Most recently modified file.
-
-        Description
-        -----------
-
         """
-
         file_re = re.compile(filetypes)
         dir_re = re.compile(ignore_dirs)
 
@@ -120,8 +98,7 @@ class GenDocs(Command):
             return getmtime(the_path), the_path
 
     def mlab_reference(self):
-        """ If mayavi is installed, run the mlab_reference generator.
-        """
+        """If mayavi is installed, run the mlab_reference generator."""
         # XXX: This is really a hack: the script is not made to be used
         # for different projects, but it ended up being. This part is
         # mayavi-specific.
@@ -145,12 +122,11 @@ class GenDocs(Command):
                 from mayavi.tools import auto_doc
                 print("Generating the mlab reference documentation")
                 os.system('python mlab_reference.py')
-            except:
+            except Exception:
                 pass
 
     def example_files(self):
-        """ Generate the documentation files for the examples.
-        """
+        """Generate the documentation files for the examples."""
         mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi', 'auto')
 
         source_path = join('examples', 'mayavi')
@@ -220,8 +196,7 @@ def list_doc_projects():
     """ List the different source directories under DEFAULT_INPUT_DIR
         for which we have docs.
     """
-    source_dir = join(abspath(dirname(__file__)),
-                      DEFAULT_INPUT_DIR)
+    source_dir = join(abspath(MY_DIR), DEFAULT_INPUT_DIR)
     source_list = os.listdir(source_dir)
     # Check to make sure we're using non-hidden directories.
     source_dirs = [listing for listing in source_list
@@ -263,139 +238,29 @@ def _tvtk_built_recently(zipfile, delay):
 
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
-    MY_DIR = os.path.dirname(__file__)
     zipfile = os.path.join(MY_DIR, 'tvtk', 'tvtk_classes.zip')
     if _tvtk_built_recently(zipfile, delay=120):
         print("Already built tvtk_classes.zip")
         return
     else:
         print("Building tvtk_classes.zip")
-    sys.path.insert(0, MY_DIR)
-    import tvtk
-    tvtk_dir = 'tvtk'
-    sys.path.insert(0, tvtk_dir)
-    from setup import gen_tvtk_classes_zip
     gen_tvtk_classes_zip()
-    sys.path.remove(tvtk_dir)
-    sys.path.remove(MY_DIR)
 
 
-class MyBuild(build.build):
-    """ A build hook to generate the documentation.
-
-        We sub-class numpy.distutils' build command because we're relying on
-        numpy.distutils' setup method to build python extensions.
-
-    """
+class MyBuildPy(build_py):
+    """A build hook to generate the documentation."""
 
     def run(self):
         build_tvtk_classes_zip()
-        build.build.run(self)
+        super().run()
 
 
-class MyBuildSrc(my_build_src_super):
-    """Build hook to generate the TVTK ZIP files.
-
-    We do it here also because for editable installs, setup.py build is not
-    called.
-    """
+class MyDevelop(develop):
+    """A hook to build the TVTK ZIP file on develop."""
 
     def run(self):
         build_tvtk_classes_zip()
-        build_src_run(self)
-
-
-class MyDevelop(develop.develop):
-    """ A hook to build the TVTK ZIP file on develop.
-
-        Subclassing setuptools' command because numpy.distutils doesn't
-        have an implementation.
-
-    """
-
-    def run(self):
-        # Make sure that the 'build_src' command will
-        # always be inplace when we do a 'develop'.
-        self.reinitialize_command('build_src', inplace=1)
-
-        # tvtk_classes.zip always need to be created on 'develop'.
-        build_tvtk_classes_zip()
-
-        develop.develop.run(self)
-
-
-class MyInstallData(install_data.install_data):
-    """ An install hook to copy the generated documentation.
-
-        We subclass numpy.distutils' command because we're relying on
-        numpy.distutils' setup method to build python extensions.
-
-    """
-
-    def run(self):
-        install_data_command = self.get_finalized_command('install_data')
-        for project in list_doc_projects():
-            install_data_command.data_files.extend(
-                                    list_docs_data_files(project))
-
-        # make sure tvtk_classes.zip always get created before putting it
-        # in the install data.
-        build_tvtk_classes_zip()
-        tvtk_dir = 'tvtk'
-        install_data_command.data_files.append(
-            (tvtk_dir, [join(tvtk_dir, 'tvtk_classes.zip')]))
-
-        install_data.install_data.run(self)
-
-
-class MyClean(clean.clean):
-    """Reimplements to remove the extension module array_ext to guarantee a
-    fresh rebuild every time. The module hanging around could introduce
-    problems when doing develop for a different vtk version."""
-    def run(self):
-        MY_DIR = os.path.dirname(__file__)
-
-        ext_file = os.path.join(
-            MY_DIR,
-            "tvtk",
-            "array_ext" + (".pyd" if sys.platform == "win32" else ".so")
-        )
-
-        if os.path.exists(ext_file):
-            print("Removing in-place array extensions {}".format(ext_file))
-            os.unlink(ext_file)
-
-        clean.clean.run(self)
-
-
-# Configure our extensions to Python
-def configuration(parent_package=None, top_path=None):
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration(None, parent_package, top_path)
-    config.set_options(
-        ignore_setup_xxx_py=True,
-        assume_default_configuration=True,
-        delegate_options_to_subpackages=True,
-        quiet=True,
-    )
-
-    config.add_subpackage('tvtk')
-    config.add_data_dir('mayavi/core/lut')
-    config.add_data_dir('mayavi/tests/data')
-    config.add_data_dir('mayavi/tests/csv_files')
-    config.add_data_dir('mayavi/tools/static')
-
-    # Image files.
-    for pkgdir in ('mayavi', 'tvtk'):
-        for root, dirs, files in os.walk(pkgdir):
-            if split(root)[-1] == 'images':
-                config.add_data_dir(root)
-
-    # *.ini files.
-    config.add_data_dir('tvtk/plugins/scene')
-    config.add_data_dir('mayavi/preferences')
-
-    return config
+        super().run()
 
 
 ###########################################################################
@@ -408,21 +273,14 @@ for package, files in build_package_data.items():
     target_path = package.replace('.', os.sep)
     for filename in files:
         shutil.copy(filename, target_path)
-###########################################################################
 
-# Build the full set of packages by appending any found by setuptools'
-# find_packages to those discovered by numpy.distutils.
-if HAS_NUMPY:
-    config = configuration().todict()
+try:
+    import numpy as np
+except Exception:
+    HAS_NUMPY = False
 else:
-    # This is just a dummy so the egg_info command works.
-    config = {'packages': []}
-packages = setuptools.find_packages(exclude=config['packages'] +
-                                    ['docs', 'examples'])
-config['packages'] += packages
-
-
-if MODE != 'info' and not HAS_NUMPY and sys.version_info < (3, 12):
+    HAS_NUMPY = True
+if not HAS_NUMPY and MODE != 'info':
     msg = '''
     Numpy is required to build Mayavi correctly, please install it first.
     '''
@@ -431,9 +289,36 @@ if MODE != 'info' and not HAS_NUMPY and sys.version_info < (3, 12):
     print('*'*80)
     raise RuntimeError(msg)
 
+###########################################################################
 
 # The actual setup call
 if __name__ == '__main__':
+    ext_modules = list()
+    packages = find_packages(exclude=["docs", "examples"])
+    packages += [  # otherwise we get warnings. Maybe these should be excluded?
+        "mayavi.core.images",
+        "mayavi.core.ui.images",
+        "mayavi.images",
+        "mayavi.preferences.images",
+        "mayavi.tests.csv_files",
+        "mayavi.tests.data",
+        "mayavi.tools.static.x3d",
+        "tvtk.pipeline.images",
+        "tvtk.pyface.images",
+        "tvtk.src",
+        "tvtk.tools.images",
+    ]
+    if can_compile_extensions():
+        import numpy as np
+        ext_modules.append(
+            Extension(
+                "tvtk.array_ext",
+                sources=[join("tvtk", "src", "array_ext.c")],
+                depends=[join("tvtk", "src", "array_ext.pyx")],
+                include_dirs=[np.get_include()],
+            )
+        )
+
     setup(
         name='mayavi',
         version=info['__version__'],
@@ -460,14 +345,8 @@ if __name__ == '__main__':
             Topic :: Software Development :: Libraries
             """.splitlines() if len(c.split()) > 0],
         cmdclass={
-            # Work around a numpy distutils bug by forcing the use of the
-            # setuptools' sdist command.
-            'sdist': setuptools.command.sdist.sdist,
-            'build': MyBuild,
-            'build_src': MyBuildSrc,
-            'clean': MyClean,
+            'build_py': MyBuildPy,
             'develop': MyDevelop,
-            'install_data': MyInstallData,
             'gen_docs': GenDocs,
             'build_docs': BuildDocs,
             },
@@ -493,11 +372,13 @@ if __name__ == '__main__':
             ]
         },
         extras_require=info['__extras_require__'],
+        packages=packages,
         include_package_data=True,
+        package_data={"tvtk": ["tvtk_classes.zip"]},
+        ext_modules=ext_modules,
         install_requires=info['__requires__'],
         license="BSD",
-        long_description=io.open('README.rst', encoding='utf-8').read(),
+        long_description=Path('README.rst').read_text(encoding='utf-8'),
         platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
         zip_safe=False,
-        **config
     )

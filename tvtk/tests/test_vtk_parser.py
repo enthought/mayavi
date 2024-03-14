@@ -127,7 +127,7 @@ class TestVTKParser(unittest.TestCase):
             res['NormalScale'] = (1., None)
             res['OcclusionStrength'] = (1., float_max)
             res['Roughness'] = (0.5, float_max)
-        if vtk_major_version >= 9 and vtk_minor_version > 0:
+        if (vtk_major_version, vtk_minor_version) >= (9, 1):
             res['Anisotropy'] = (0.0, (0.0, 1.0))
             res['AnisotropyRotation'] = (0.0, (0.0, 1.0))
             res['BaseIOR'] = (1.5, (1.0, 9.999999680285692e+37))
@@ -140,6 +140,8 @@ class TestVTKParser(unittest.TestCase):
             res['SelectionColor'] = ((1.0, 0.0, 0.0, 1.0), None)
             res['SelectionLineWidth'] = (2.0, None)
             res['SelectionPointSize'] = (2.0, None)
+        if (vtk_major_version, vtk_minor_version) >= (9, 3):
+            res['EdgeOpacity'] = (1.0, None)
 
         result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):

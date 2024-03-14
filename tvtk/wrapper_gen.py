@@ -6,6 +6,7 @@ VTK classes.
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
+import faulthandler
 import re
 import sys
 import vtk
@@ -16,18 +17,13 @@ from itertools import chain
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from .common import get_tvtk_name, camel2enthought, vtk_major_version
+from .common import get_tvtk_name, camel2enthought, vtk_major_version, _sanitize_name
 
 from . import vtk_parser
 from . import indenter
 from . import special_gen
 
-try:
-    import faulthandler
-except ImportError:
-    pass
-else:
-    faulthandler.enable()
+faulthandler.enable()
 
 
 def get_trait_def(value, **kwargs):
@@ -948,6 +944,7 @@ class WrapperGenerator:
             # are usually special methods.
             return name
 
+        name = _sanitize_name(name)
         res = camel2enthought(name)
         if keyword.iskeyword(res):
             return res + '_'
@@ -1415,6 +1412,8 @@ class WrapperGenerator:
         setter is treated as if it accepts a list of parameters.  If
         not the setter is treated as if it accepts a single parameter.
         """
+        assert t_name  # nonempty
+        assert not t_name[0].isdigit(), t_name  # would be a SyntaxError
         indent = self.indent
         getter = '_get_%s'%t_name
         vtk_get_name = vtk_get_meth.__name__
@@ -1650,6 +1649,11 @@ class WrapperGenerator:
         # to some random value this happens mostly on MacOS.
         'vtkLineIntegralConvolution2D.MaxNoiseValue$': (
             True, True, '_write_line_integral_conv_2d_max_noise_value'
+        ),
+        # In VTK 9.3, vtkCylinderSource's GetLatLongTesselation gives random values
+        # https://gitlab.kitware.com/vtk/vtk/-/issues/19252
+        'vtkCylinderSource.LatLongTessellation$': (
+            True, True, '_write_cylinder_source_lat_long_tessellation'
         ),
     }
 
@@ -1918,3 +1922,18 @@ class WrapperGenerator:
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_cylinder_source_lat_long_tessellation(
+        self, klass, out, vtk_attr_name
+    ):
+        if vtk_attr_name != 'LatLongTessellation':
+            raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
+        if vtk_major_version >= 9:
+            message = ("vtkCylinderSource: "
+                       "LatLongTesselation not updatable "
+                       "(VTK 9.3 bug - value not properly initialized)")
+            print(message)
+        t_def = 'tvtk_base.false_bool_trait'
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=True)
