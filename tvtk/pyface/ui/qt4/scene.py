@@ -124,14 +124,16 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            scene.picker.pick(x*self._pixel_ratio, y*self._pixel_ratio)
+            pxr = self._getPixelRatio()
+            scene.picker.pick(x*pxr, y*pxr)
             return
 
         if key in [Key.Key_F] and modifiers == KeyboardModifier.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            data = scene.picker.pick_world(x*self._pixel_ratio, y*self._pixel_ratio)
+            pxr = self._getPixelRatio()
+            data = scene.picker.pick_world(x*pxr, y*pxr)
             coord = data.coordinate
             if coord is not None:
                 camera.focal_point = coord
