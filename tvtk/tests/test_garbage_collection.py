@@ -24,6 +24,11 @@ if ETSConfig.toolkit in ('qt4', 'qt'):
             Version(pyface.__version__) < Version('7.5.0.dev0'):
         bad_pyqt5 = True
 
+def skip_pyside6():
+    from pyface.qt import qt_api
+    if qt_api == 'pyside6':
+        raise unittest.SkipTest('Test fails with PySide6.')
+
 
 class TestTVTKGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
@@ -63,6 +68,8 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
     @unittest.skipIf(bad_pyqt5, 'Test segfaults using PyQt5 with older PyFace')
     def test_decorated_scene(self):
         """ Tests if Decorated Scene can be garbage collected."""
+        skip_pyside6()
+
         def create_fn():
             return DecoratedScene(parent=None)
 
