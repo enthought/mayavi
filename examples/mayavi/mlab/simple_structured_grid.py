@@ -43,10 +43,10 @@ vectors[..., 2] = sin(z * pi)
 # We reorder the points, scalars and vectors so this is as per VTK's
 # requirement of x first, y next and z last.
 pts = pts.transpose(2, 1, 0, 3).copy()
-pts.shape = int(pts.size / 3), 3
+pts.shape = pts.size // 3, 3
 scalars = scalars.T.copy()
 vectors = vectors.transpose(2, 1, 0, 3).copy()
-vectors.shape = int(vectors.size / 3), 3
+vectors.shape = vectors.size // 3, 3
 
 # Create the dataset.
 sg = tvtk.StructuredGrid(dimensions=x.shape, points=pts)
