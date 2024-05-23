@@ -21,10 +21,15 @@ from mayavi.tools.mlab_scene_model import MlabSceneModel
 class TestMayaviGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
+
     @unittest.skipIf(ETSConfig.toolkit == 'null',
                      'Test should not run when the ETS toolkit is null')
     def test_mlab_scene_model_with_gui(self):
         """ Tests if MlabSceneModel with GUI can be garbage collected."""
+        from pyface.qt import qt_api
+        if qt_api == 'pyside6':
+            raise unittest.SkipTest('Test fails with PySide6.')
+
         class MlabApp(HasTraits):
 
             # The scene model.

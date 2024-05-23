@@ -10,7 +10,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-13]
         python-version: ['3.8']
         qt-api: ['pyqt5']
         vtk: ['vtk<9.3']
@@ -22,6 +22,10 @@ jobs:
           - python-version: '3.12'
             qt-api: 'pyqt6'
             os: macos-14  # arm64
+            vtk: 'vtk>=9.3'
+          - python-version: '3.12'
+            qt-api: 'pyqt6'
+            os: windows-latest
             vtk: 'vtk>=9.3'
           - python-version: '3.11'
             qt-api: 'pyqt6'
@@ -37,7 +41,7 @@ jobs:
             vtk: 'vtk<9.3'
           - python-version: '3.10'
             qt-api: 'pyside6'
-            os: macos-latest
+            os: macos-13
             vtk: 'vtk<9.3'
       fail-fast: false
     defaults:

@@ -169,15 +169,21 @@ else:
 
 if PyQtImpl == 'PyQt6':
     CursorShape = Qt.CursorShape
-    MouseButton = Qt.MouseButton
-    WindowType = Qt.WindowType
     WidgetAttribute = Qt.WidgetAttribute
-    KeyboardModifier = Qt.KeyboardModifier
     FocusPolicy = Qt.FocusPolicy
     ConnectionType = Qt.ConnectionType
     Key = Qt.Key
     SizePolicy = QSizePolicy.Policy
     EventType = QEvent.Type
+    try:
+        MouseButton = Qt.MouseButton
+        WindowType = Qt.WindowType
+        KeyboardModifier = Qt.KeyboardModifier
+    except AttributeError:
+        # Fallback solution for PyQt6 versions < 6.1.0
+        MouseButton = Qt.MouseButtons
+        WindowType = Qt.WindowFlags
+        KeyboardModifier = Qt.KeyboardModifiers
 else:
     CursorShape = MouseButton = WindowType = WidgetAttribute = \
         KeyboardModifier = FocusPolicy = ConnectionType = Key = Qt
@@ -188,6 +194,13 @@ if PyQtImpl in ('PyQt4', 'PySide'):
     MiddleButton = MouseButton.MidButton
 else:
     MiddleButton = MouseButton.MiddleButton
+
+
+def _get_event_pos(ev):
+    try:  # Qt6+
+        return ev.position().x(), ev.position().y()
+    except AttributeError:  # Qt5
+        return ev.x(), ev.y()
 
 
 class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
@@ -318,8 +331,6 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         wid = self._get_win_id()
         self._RenderWindow.SetWindowInfo(wid)
 
-        self._should_set_parent_info = (sys.platform == 'win32')
-
         if stereo:  # stereo mode
             self._RenderWindow.StereoCapableWindowOn()
             self._RenderWindow.SetStereoTypeToCrystalEyes()
@@ -330,11 +341,6 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
             self._Iren = vtk.vtkGenericRenderWindowInteractor()
 
         self._Iren.SetRenderWindow(self._RenderWindow)
-
-        if hasattr(self, 'devicePixelRatio'):
-            self._pixel_ratio = self.devicePixelRatio()
-        else:
-            self._pixel_ratio = 1.0
 
         # do all the necessary qt setup
         self.setAttribute(WidgetAttribute.WA_OpaquePaintEvent)
@@ -363,12 +369,11 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         messenger.connect(self._RenderWindow, 'CursorChangedEvent',
                           self.CursorChangedEvent)
 
-        # Create a hidden child widget and connect its destroyed signal to its
-        # parent ``Finalize`` slot. The hidden children will be destroyed
-        # before its parent thus allowing cleanup of VTK elements.
-        self._hidden = QWidget(self)
-        self._hidden.hide()
-        self._hidden.destroyed.connect(self.Finalize)
+        # If we've a parent, it does not close the child when closed.
+        # Connect the parent's destroyed signal to this widget's close
+        # slot for proper cleanup of VTK objects.
+        if self.parent():
+            self.parent().destroyed.connect(self.close, ConnectionType.DirectConnection)
 
     def __getattr__(self, attr):
         """Makes the object behave like a vtkGenericRenderWindowInteractor"""
@@ -384,17 +389,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
     def _get_win_id(self):
         WId = self.winId()
 
-        # Python2
-        if type(WId).__name__ == 'PyCObject':
-            from ctypes import pythonapi, c_void_p, py_object
-
-            pythonapi.PyCObject_AsVoidPtr.restype  = c_void_p
-            pythonapi.PyCObject_AsVoidPtr.argtypes = [py_object]
-
-            WId = pythonapi.PyCObject_AsVoidPtr(WId)
-
-        # Python3
-        elif type(WId).__name__ == 'PyCapsule':
+        if type(WId).__name__ == 'PyCapsule':
             from ctypes import pythonapi, c_void_p, py_object, c_char_p
 
             pythonapi.PyCapsule_GetName.restype = c_char_p
@@ -451,26 +446,16 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         return None
 
     def paintEvent(self, ev):
+        # This is intentionally different from the upstream version. 
+        # When we call self._Iren.Render() this ends up initialing 
+        # the window too soon when the LightManager is created. 
         self._RenderWindow.Render()
 
     def resizeEvent(self, ev):
-        if self._should_set_parent_info:
-            # Set the window info and parent info on every resize.
-            # vtkWin32OpenGLRenderWindow will render using incorrect offsets if
-            # the parent info is not given to it because it assumes that it
-            # needs to make room for the title bar.
-            winid = self._get_win_id()
-            self._RenderWindow.SetWindowInfo(winid)
-            parent = self.parent()
-            if parent is not None:
-                self._RenderWindow.SetParentInfo(winid)
-            else:
-                self._RenderWindow.SetParentInfo('')
-
-        pxr = self._pixel_ratio
-        w = int(self.width()*pxr)
-        h = int(self.height()*pxr)
-
+        scale = self._getPixelRatio()
+        w = int(round(scale*self.width()))
+        h = int(round(scale*self.height()))
+        self._RenderWindow.SetDPI(int(round(72*scale)))
         vtk.vtkRenderWindow.SetSize(self._RenderWindow, w, h)
         self._Iren.SetSize(w, h)
         self._Iren.ConfigureEvent()
@@ -492,16 +477,39 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         return ctrl, shift
 
+    @staticmethod
+    def _getPixelRatio():
+        if PyQtImpl in ["PyQt5", "PySide2", "PySide6", "PyQt6"]:
+            # Source: https://stackoverflow.com/a/40053864/3388962
+            pos = QCursor.pos()
+            for screen in QApplication.screens():
+                rect = screen.geometry()
+                if rect.contains(pos):
+                    return screen.devicePixelRatio()
+            # Should never happen, but try to find a good fallback.
+            return QApplication.instance().devicePixelRatio()
+        else:
+            # Qt4 seems not to provide any cross-platform means to get the
+            # pixel ratio.
+            return 1.
+
+    def _setEventInformation(self, x, y, ctrl, shift,
+                             key, repeat=0, keysum=None):
+        scale = self._getPixelRatio()
+        self._Iren.SetEventInformation(int(round(x*scale)),
+                                       int(round((self.height()-y-1)*scale)),
+                                       ctrl, shift, key, repeat, keysum)
+
     def enterEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, chr(0), 0, None)
+        self._setEventInformation(self.__saveX, self.__saveY,
+                                  ctrl, shift, chr(0), 0, None)
         self._Iren.EnterEvent()
 
     def leaveEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, chr(0), 0, None)
+        self._setEventInformation(self.__saveX, self.__saveY,
+                                  ctrl, shift, chr(0), 0, None)
         self._Iren.LeaveEvent()
 
     def mousePressEvent(self, ev):
@@ -509,10 +517,9 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         repeat = 0
         if ev.type() == EventType.MouseButtonDblClick:
             repeat = 1
-
-        pxr = self._pixel_ratio
-        self._Iren.SetEventInformationFlipY(int(ev.x()*pxr), int(ev.y()*pxr),
-                                            ctrl, shift, chr(0), repeat, None)
+        x, y = _get_event_pos(ev)
+        self._setEventInformation(x, y,
+                                  ctrl, shift, chr(0), repeat, None)
 
         self._ActiveButton = ev.button()
 
@@ -525,9 +532,9 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
     def mouseReleaseEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
-        pxr = self._pixel_ratio
-        self._Iren.SetEventInformationFlipY(int(ev.x()*pxr), int(ev.y()*pxr),
-                                            ctrl, shift, chr(0), 0, None)
+        x, y = _get_event_pos(ev)
+        self._setEventInformation(x, y,
+                                  ctrl, shift, chr(0), 0, None)
 
         if self._ActiveButton == MouseButton.LeftButton:
             self._Iren.LeftButtonReleaseEvent()
@@ -539,13 +546,13 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
     def mouseMoveEvent(self, ev):
         self.__saveModifiers = ev.modifiers()
         self.__saveButtons = ev.buttons()
-        pxr = self._pixel_ratio
-        self.__saveX = int(ev.x()*pxr)
-        self.__saveY = int(ev.y()*pxr)
+        x, y = _get_event_pos(ev)
+        self.__saveX = x
+        self.__saveY = y
 
         ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(int(ev.x()*pxr), int(ev.y()*pxr),
-                                            ctrl, shift, chr(0), 0, None)
+        self._setEventInformation(x, y,
+                                  ctrl, shift, chr(0), 0, None)
         self._Iren.MouseMoveEvent()
 
     def keyPressEvent(self, ev):
@@ -575,8 +582,8 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         if ev.isAutoRepeat():
             key = key[0]
 
-        self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, key, 0, key_sym)
+        self._setEventInformation(self.__saveX, self.__saveY,
+                                  ctrl, shift, key, 0, key_sym)
         self._Iren.KeyPressEvent()
         self._Iren.CharEvent()
 
@@ -592,8 +599,8 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         else:
             key = chr(0)
 
-        self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, key, 0, None)
+        self._setEventInformation(self.__saveX, self.__saveY,
+                                  ctrl, shift, key, 0, key_sym)
         self._Iren.KeyReleaseEvent()
 
     def wheelEvent(self, ev):
@@ -787,4 +794,5 @@ def _qt_key_to_key_sym(key):
 
 
 if __name__ == "__main__":
+    print(PyQtImpl)
     QVTKRenderWidgetConeExample()
