@@ -23,6 +23,10 @@ jobs:
             qt-api: 'pyqt6'
             os: macos-14  # arm64
             vtk: 'vtk>=9.3'
+          - python-version: '3.12'
+            qt-api: 'pyqt6'
+            os: windows-latest
+            vtk: 'vtk>=9.3'
           - python-version: '3.11'
             qt-api: 'pyqt6'
             os: ubuntu-latest
