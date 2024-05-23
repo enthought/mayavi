@@ -1,3 +1,40 @@
+Mayavi 4.8.2
+============
+
+This is a bugfix release to work correctly with traitsui-8, Python-3.12,
+VTK-9.3 and above, and PyQt6. 18 PRs were merged.
+
+Many thanks to the following folks who contributed to this release in
+alphabetical order, Eric Larson, homosapien-lcy, Horiem (yellowshippo),
+JaRoSchm, and Prabhu Ramachandran.
+
+Major Fixes
+------------
+
+23 May 2023 `#1300 <https://github.com/enthought/mayavi/pull/1300>`_ (prabhuramachandran)
+   - Port changes from upstream QVTKRenderWindowInteractor.
+
+28 Aug 2023 `#1273 <https://github.com/enthought/mayavi/pull/1273>`_ (larsoner)
+   - ENH: Add support for PyQt6
+
+28 Aug 2023 `#1272 <https://github.com/enthought/mayavi/pull/1272>`_ (larsoner)
+   - BUG: Fix bug with latest VTK
+
+26 May 2023 `#1255 <https://github.com/enthought/mayavi/pull/1255>`_ (larsoner)
+   - Improve compatibility with traitsui 8
+
+10 May 2023 `#1234 <https://github.com/enthought/mayavi/pull/1234>`_ (prabhuramachandran)
+   - Fix issue with `mlab.process_ui_events`
+
+07 May 2023 `#1199 <https://github.com/enthought/mayavi/pull/1199>`_ (larsoner)
+   - ENH: Add support for Python 3.11
+
+18 Oct 2022 `#1186 <https://github.com/enthought/mayavi/pull/1186>`_ (prabhuramachandran)
+   - Fixes `#1185 <https://github.com/enthought/mayavi/issues/1185>`_.
+     Just exclude the zip file so the sdist does not ship it. This way the file on pypi is much smaller.
+
+
+
 Mayavi 4.8.1
 ============
 
