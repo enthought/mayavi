@@ -4,16 +4,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Poll file example &#8212; mayavi 4.8.1 documentation</title>
+    <title>Poll file example &#8212; mayavi 4.8.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     
@@ -67,7 +64,7 @@
         <li class="right" >
           <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Poll file example</a></li> 
       </ul>
@@ -114,12 +111,12 @@ this script to point to other data which you can edit.</p>
 <span class="c1">######################################################################</span>
 <span class="c1"># `Pollster` class.</span>
 <span class="k">class</span> <span class="nc">Pollster</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a file name and a mayavi2 data reader object, this class</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a file name and a mayavi2 data reader object, this class</span>
 <span class="sd">    polls the file for any changes and automatically updates the</span>
 <span class="sd">    mayavi pipeline.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">        -----------</span>
@@ -140,7 +137,7 @@ this script to point to other data which you can edit.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_pipeline</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">update_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Override this to do something else if needed.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Override this to do something else if needed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;file changed&quot;</span><span class="p">)</span>
         <span class="c1"># Force the reader to re-read the file.</span>
@@ -153,7 +150,7 @@ this script to point to other data which you can edit.</p>
 
 
 <span class="k">def</span> <span class="nf">setup_data</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a VTK file name `fname`, this creates a mayavi2 reader</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a VTK file name `fname`, this creates a mayavi2 reader</span>
 <span class="sd">    for it and adds it to the pipeline.  It returns the reader</span>
 <span class="sd">    created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -165,7 +162,7 @@ this script to point to other data which you can edit.</p>
     <span class="k">return</span> <span class="n">d</span>
 
 <span class="k">def</span> <span class="nf">view_data</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
@@ -258,15 +255,15 @@ this script to point to other data which you can edit.</p>
         <li class="right" >
           <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Poll file example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Oct 18, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Last updated on May 23, 2024.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
     </div>
   </body>
 </html>

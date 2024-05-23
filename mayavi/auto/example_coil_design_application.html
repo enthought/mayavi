@@ -4,16 +4,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Coil design application example &#8212; mayavi 4.8.1 documentation</title>
+    <title>Coil design application example &#8212; mayavi 4.8.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     
@@ -67,7 +64,7 @@
         <li class="right" >
           <a href="example_volume_slicer.html" title="Volume slicer example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Coil design application example</a></li> 
       </ul>
@@ -136,7 +133,7 @@ The material required to understand this example is covered in section
 <span class="c1">##############################################################################</span>
 <span class="c1"># A current loop class</span>
 <span class="k">class</span> <span class="nc">Loop</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; A current loop class.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; A current loop class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#-------------------------------------------------------------------------</span>
@@ -164,7 +161,7 @@ The material required to understand this example is covered in section
     <span class="c1"># Loop interface</span>
     <span class="c1">#-------------------------------------------------------------------------</span>
     <span class="k">def</span> <span class="nf">base_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Returns 3 orthognal base vectors, the first one colinear to</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Returns 3 orthognal base vectors, the first one colinear to</span>
 <span class="sd">            the axis of the loop.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># normalize n</span>
@@ -190,7 +187,7 @@ The material required to understand this example is covered in section
 
 
     <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Display the coil in the 3D view.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">()</span>
@@ -207,7 +204,7 @@ The material required to understand this example is covered in section
 
 
     <span class="k">def</span> <span class="nf">_get_Bnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the magnetic field for the current loop calculated</span>
 <span class="sd">        from eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -427,15 +424,15 @@ The material required to understand this example is covered in section
         <li class="right" >
           <a href="example_volume_slicer.html" title="Volume slicer example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Coil design application example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Oct 18, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Last updated on May 23, 2024.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
     </div>
   </body>
 </html>

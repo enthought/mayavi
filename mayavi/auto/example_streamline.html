@@ -4,16 +4,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Streamline example &#8212; mayavi 4.8.1 documentation</title>
+    <title>Streamline example &#8212; mayavi 4.8.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     
@@ -67,7 +64,7 @@
         <li class="right" >
           <a href="example_scatter_plot.html" title="Scatter plot example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Streamline example</a></li> 
       </ul>
@@ -99,7 +96,7 @@ streamlines and an iso surface.</p>
 <span class="kn">from</span> <span class="nn">mayavi.modules.iso_surface</span> <span class="kn">import</span> <span class="n">IsoSurface</span>
 
 <span class="k">def</span> <span class="nf">setup_data</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a VTK XML file name `fname`, this creates a mayavi2</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a VTK XML file name `fname`, this creates a mayavi2</span>
 <span class="sd">    reader for it and adds it to the pipeline.  It returns the reader</span>
 <span class="sd">    created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -109,7 +106,7 @@ streamlines and an iso surface.</p>
     <span class="k">return</span> <span class="n">r</span>
 
 <span class="k">def</span> <span class="nf">show_vrml</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a VRML file name it imports it into the scene.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a VRML file name it imports it into the scene.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">VRMLImporter</span><span class="p">()</span>
     <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
@@ -117,7 +114,7 @@ streamlines and an iso surface.</p>
     <span class="k">return</span> <span class="n">r</span>
 
 <span class="k">def</span> <span class="nf">streamline</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create an outline for the data.</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
@@ -209,15 +206,15 @@ streamlines and an iso surface.</p>
         <li class="right" >
           <a href="example_scatter_plot.html" title="Scatter plot example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Streamline example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Oct 18, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Last updated on May 23, 2024.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
     </div>
   </body>
 </html>

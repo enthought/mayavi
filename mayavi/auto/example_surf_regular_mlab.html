@@ -4,16 +4,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Surf regular mlab example &#8212; mayavi 4.8.1 documentation</title>
+    <title>Surf regular mlab example &#8212; mayavi 4.8.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     
@@ -67,7 +64,7 @@
         <li class="right" >
           <a href="example_offscreen.html" title="Offscreen example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Surf regular mlab example</a></li> 
       </ul>
@@ -99,11 +96,11 @@ mayavi2.</p>
 
 
 <span class="k">def</span> <span class="nf">make_data</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Make some test numpy data and create a TVTK data object from it</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make some test numpy data and create a TVTK data object from it</span>
 <span class="sd">    that we will visualize.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Some test function.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Some test function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
 
@@ -113,14 +110,14 @@ mayavi2.</p>
     <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">data</span>
 
 <span class="k">def</span> <span class="nf">add_data</span><span class="p">(</span><span class="n">tvtk_data</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Add a TVTK data object `tvtk_data` to the mayavi pipleine.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a TVTK data object `tvtk_data` to the mayavi pipleine.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">()</span>
     <span class="n">d</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">tvtk_data</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">surf_regular</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Now visualize the data as done in mlab.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Now visualize the data as done in mlab.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">WarpScalar</span><span class="p">()</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
@@ -198,15 +195,15 @@ mayavi2.</p>
         <li class="right" >
           <a href="example_offscreen.html" title="Offscreen example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Surf regular mlab example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Oct 18, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Last updated on May 23, 2024.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
     </div>
   </body>
 </html>

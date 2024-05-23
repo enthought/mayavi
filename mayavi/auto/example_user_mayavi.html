@@ -4,16 +4,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>User mayavi example &#8212; mayavi 4.8.1 documentation</title>
+    <title>User mayavi example &#8212; mayavi 4.8.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     
@@ -67,7 +64,7 @@
         <li class="right" >
           <a href="example_nongui.html" title="Nongui example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">User mayavi example</a></li> 
       </ul>
@@ -165,7 +162,7 @@ carefully (so as not to override any common module names).</p>
 <span class="c1"># module or be defined in a factory function as done below.</span>
 
 <span class="k">def</span> <span class="nf">user_outline</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;A Factory function that creates a new module to add to the</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A Factory function that creates a new module to add to the</span>
 <span class="sd">    pipeline.  Note that the method safely does any mayavi imports</span>
 <span class="sd">    inside avoiding any circular imports.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -194,7 +191,7 @@ carefully (so as not to override any common module names).</p>
 <span class="c1"># `Worker` class</span>
 <span class="c1">######################################################################</span>
 <span class="k">class</span> <span class="nc">Worker</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This class basically allows you to create a data set, view it</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class basically allows you to create a data set, view it</span>
 <span class="sd">    and modify the dataset.  This is a rather crude example but</span>
 <span class="sd">    demonstrates how things can be done.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -286,7 +283,7 @@ carefully (so as not to override any common module names).</p>
     <span class="c1">######################################################################</span>
     <span class="c1"># Private methods.</span>
     <span class="k">def</span> <span class="nf">_service_offers_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Trait initializer. &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Trait initializer. &quot;&quot;&quot;</span>
         <span class="n">worker_service_offer</span> <span class="o">=</span> <span class="n">ServiceOffer</span><span class="p">(</span>
             <span class="n">protocol</span> <span class="o">=</span> <span class="s1">&#39;user_mayavi.Worker&#39;</span><span class="p">,</span>
             <span class="n">factory</span>  <span class="o">=</span> <span class="s1">&#39;user_mayavi.Worker&#39;</span>
@@ -294,11 +291,11 @@ carefully (so as not to override any common module names).</p>
         <span class="k">return</span> <span class="p">[</span><span class="n">worker_service_offer</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_views_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Trait initializer. &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Trait initializer. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_worker_view_factory</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_worker_view_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Factory method for the current selection of the engine. &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Factory method for the current selection of the engine. &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">pyface.workbench.traits_ui_view</span> <span class="kn">import</span> \
                 <span class="n">TraitsUIView</span>
@@ -388,15 +385,15 @@ carefully (so as not to override any common module names).</p>
         <li class="right" >
           <a href="example_nongui.html" title="Nongui example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">User mayavi example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on Oct 18, 2022.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+      Last updated on May 23, 2024.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
     </div>
   </body>
 </html>
