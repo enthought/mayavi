@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-13]
-        python-version: ['3.8']
+        python-version: ['3.9']
         qt-api: ['pyqt5']
         vtk: ['vtk<9.3']
         include:
