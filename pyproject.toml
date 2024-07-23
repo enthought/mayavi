@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "oldest-supported-numpy",
+    "numpy>=2.0.0rc2,<3",
     "setuptools",
     "vtk",
     "wheel"
