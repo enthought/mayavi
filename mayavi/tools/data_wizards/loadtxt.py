@@ -23,7 +23,7 @@ def _getconv(dtype):
         return lambda x: int(float(x))
     elif issubclass(typ, np.floating):
         return float
-    elif issubclass(typ, np.complex_):
+    elif issubclass(typ, np.complex128):
         return complex
     else:
         return str
