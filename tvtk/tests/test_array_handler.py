@@ -201,8 +201,7 @@ class TestArrayHandler(unittest.TestCase):
         cells = array_handler.array2vtkCellArray(a)
         arr = array_handler.vtk2array(cells.GetData())
         expect = numpy.array([3, 0, 1, 2]*3, int)
-        self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
-                         True)
+        self.assertTrue(numpy.all(numpy.equal(arr, expect)))
         self.assertEqual(cells.GetNumberOfCells(), N)
 
         # Test if a list of Numeric arrays of different cell lengths works.
@@ -210,8 +209,7 @@ class TestArrayHandler(unittest.TestCase):
         cells = array_handler.array2vtkCellArray(l_a)
         arr = array_handler.vtk2array(cells.GetData())
         expect = numpy.array([1, 0]*3 + [3, 0, 1, 2]*3 + [2, 0,1]*2, int)
-        self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
-                         True)
+        self.assertTrue(numpy.all(numpy.equal(arr, expect)))
         self.assertEqual(cells.GetNumberOfCells(), N*2 + 2)
 
         # This should not take a long while.  This merely tests if a
