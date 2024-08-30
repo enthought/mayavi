@@ -160,13 +160,16 @@ class TestArrayHandler(unittest.TestCase):
         self.assertEqual(vtk_arr.GetValue(2), 0)
         self.assertEqual(vtk_arr.GetValue(3), 1)
 
-        # Make sure the code at least runs for all the non-complex
-        # numerical dtypes in numpy.
-        float_types = [x for x in numpy.sctypes['float']
-                       if x().dtype.name not in ('float16', 'float128')]
-        for dtype in (numpy.sctypes['int'] + numpy.sctypes['uint'] +
-                      float_types):
-            array_handler.array2vtk(numpy.zeros((1,), dtype=dtype))
+        # Make sure the code at least runs for all
+        # numerical dtypes in numpy
+        # except for half, longdouble and complexfloating
+        int_types = ['byte', 'short', 'intc', 'int_', 'long', 'longlong']
+        uint_types = ['ubyte', 'ushort', 'uintc', 'uint', 'ulong',
+                      'ulonglong']
+        float_types = ['single', 'double']
+        for dtype in int_types + uint_types + float_types:
+            array_handler.array2vtk(numpy.zeros((1,),
+                                    dtype=numpy.dtype(dtype)))
 
     def test_arr2cell_array(self):
         """Test Numeric array to vtkCellArray conversion."""
