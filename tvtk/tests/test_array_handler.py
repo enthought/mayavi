@@ -163,7 +163,7 @@ class TestArrayHandler(unittest.TestCase):
         # Make sure the code at least runs for all
         # numerical dtypes in numpy
         # except for half, longdouble and complexfloating
-        int_types = ['byte', 'short', 'intc', 'int_', 'long', 'longlong']
+        int_types = ['byte', 'short', 'int', 'intc', 'int_', 'long', 'longlong']
         uint_types = ['ubyte', 'ushort', 'uintc', 'uint', 'ulong',
                       'ulonglong']
         float_types = ['single', 'double']

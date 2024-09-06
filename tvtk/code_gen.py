@@ -8,6 +8,9 @@ This can be evoked for example by running from the ``mayavi`` root:
 
 On failures you can then for example do ``import pdb; pdb.pm()`` to do
 post-mortem debugging.
+
+Exceptions to behaviors based on VTK versions and bugs etc. live in ``wrapper_gen.py``
+and ``tvtk_parser.py``.
 """
 # Author: Prabhu Ramachandran
 # Copyright (c) 2004-2020, Enthought, Inc.

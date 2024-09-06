@@ -14,7 +14,7 @@ import os
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_9
+from .common import is_version_9, vtk_minor_version
 
 
 class VTKMethodParser:
@@ -727,6 +727,19 @@ class VTKMethodParser:
                                 "UseAxisOrigin", "UseOrientedBounds", "UseTextActor3D",
                             ):
                                 default = int(bool(default))
+                        elif (
+                            (
+                                klass_name == "vtkAbstractPolygonalHandleRepresentation3D"
+                                or klass_name.endswith((
+                                    "HandleRepresentation",
+                                    "HandleRepresentation2D",
+                                    "HandleRepresentation3D",
+                                ))
+                            )
+                            and key == "DisplayPosition"
+                            and vtk_minor_version < 3
+                        ):
+                            default = (0., 0., 0.)
 
                     if value:
                         low = getattr(obj, 'Get%sMinValue' % key)()
