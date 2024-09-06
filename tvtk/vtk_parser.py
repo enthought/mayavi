@@ -727,19 +727,6 @@ class VTKMethodParser:
                                 "UseAxisOrigin", "UseOrientedBounds", "UseTextActor3D",
                             ):
                                 default = int(bool(default))
-                        elif (
-                            (
-                                klass_name == "vtkAbstractPolygonalHandleRepresentation3D"
-                                or klass_name.endswith((
-                                    "HandleRepresentation",
-                                    "HandleRepresentation2D",
-                                    "HandleRepresentation3D",
-                                ))
-                            )
-                            and key == "DisplayPosition"
-                            and vtk_minor_version < 3
-                        ):
-                            default = (0., 0., 0.)
 
                     if value:
                         low = getattr(obj, 'Get%sMinValue' % key)()
