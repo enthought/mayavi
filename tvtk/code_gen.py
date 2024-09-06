@@ -1,10 +1,10 @@
 """This module generates tvtk (Traited VTK) classes from the VTK-Python API.
 
-This can be evoked for example by:
+This can be evoked for example by running from the ``mayavi`` root:
 
 ..code-block:: console
 
-    $ python -ic "from tvtk.code_gen import main; main()" -szv
+    $ python -m tvtk.code_gen -szvno $PWD/tvtk
 
 On failures you can then for example do ``import pdb; pdb.pm()`` to do
 post-mortem debugging.
