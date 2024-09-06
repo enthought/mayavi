@@ -14,7 +14,7 @@ import os
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_9, vtk_minor_version
+from .common import is_version_9
 
 
 class VTKMethodParser:

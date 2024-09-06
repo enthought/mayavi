@@ -73,10 +73,10 @@ jobs:
       run: |
         set -exo pipefail
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade "${{ matrix.qt-api }}" numpy "${{ matrix.vtk }}" pillow pytest traits traitsui configobj
+        python -m pip install --upgrade "${{ matrix.qt-api }}" numpy "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui configobj
     - name: Install mayavi and tvtk
       run: python -um pip install --no-build-isolation -ve .[app]
     - name: Test Mayavi package
-      run: pytest -v mayavi
+      run: pytest -v --timeout=10 mayavi
     - name: Test tvtk package
-      run: pytest -sv tvtk
+      run: pytest -sv --timeout=10 tvtk
