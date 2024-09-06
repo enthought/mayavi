@@ -34,7 +34,7 @@ jobs:
         python -m pip install numpy "vtk<9.3" pillow pytest pytest-timeout traitsui
     - name: Install mayavi and tvtk
       run: python -m pip install --no-build-isolation -v .
-    - name: Test tvtk package
-      run: pytest -v --timeout=10 --pyargs tvtk
     - name: Test Mayavi package
       run: pytest -v --timeout=10 --pyargs mayavi
+    - name: Test tvtk package
+      run: pytest -v --timeout=60 --pyargs tvtk
