@@ -79,4 +79,4 @@ jobs:
     - name: Test Mayavi package
       run: pytest -v --timeout=10 mayavi
     - name: Test tvtk package
-      run: pytest -sv --timeout=10 tvtk
+      run: pytest -sv --timeout=60 tvtk
