@@ -9,6 +9,7 @@ __version__ = '4.8.3.dev0'
 
 __requires__ = [
     'apptools',
+    'configobj',
     'envisage',
     'numpy',
     'pyface>=6.1.1',
