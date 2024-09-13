@@ -185,6 +185,7 @@ def get_vtk_array_type(numeric_array_type):
         numpy.dtype(numpy.int8): vtkConstants.VTK_CHAR,
         numpy.dtype(numpy.int16): vtkConstants.VTK_SHORT,
         numpy.dtype(numpy.int32): vtkConstants.VTK_INT,
+        numpy.dtype(numpy.int64): vtkConstants.VTK_LONG,
         numpy.dtype(numpy.uint32): vtkConstants.VTK_UNSIGNED_INT,
         numpy.dtype(numpy.uint64): vtkConstants.VTK_UNSIGNED_LONG,
         numpy.dtype(numpy.float32): vtkConstants.VTK_FLOAT,
