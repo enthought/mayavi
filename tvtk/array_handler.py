@@ -46,7 +46,10 @@ if VTK_LONG_TYPE_SIZE == 4:
 elif VTK_LONG_TYPE_SIZE == 8:
     LONG_TYPE_CODE = numpy.int64
     ULONG_TYPE_CODE = numpy.uint64
-    LONG_LONG_TYPE_CODE = None
+    if VTK_ID_TYPE_SIZE == 4:
+        LONG_LONG_TYPE_CODE = numpy.int64
+    else:
+        LONG_LONG_TYPE_CODE = None
 
 BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 
