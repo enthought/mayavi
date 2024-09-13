@@ -43,7 +43,7 @@ jobs:
             qt-api: 'pyside6'
             os: macos-13
             vtk: 'vtk<9.3'
-          # A couple of old NumPys
+          # Some old NumPys
           - python-version: '3.12'
             qt-api: 'pyside6'
             os: ubuntu-latest
