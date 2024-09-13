@@ -53,6 +53,11 @@ jobs:
             qt-api: 'pyside6'
             os: windows-latest
             vtk: 'vtk>=9.3'
+            numpy: 'numpy==2.0.2'
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: windows-latest
+            vtk: 'vtk>=9.3'
             numpy: 'numpy==1.26.4'
       fail-fast: false
     defaults:
@@ -84,7 +89,7 @@ jobs:
       run: |
         set -exo pipefail
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade "${{ matrix.qt-api }}" "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui
+        python -m pip install --upgrade "${{ matrix.qt-api }}" "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
     - name: Install mayavi and tvtk
       run: python -um pip install --no-build-isolation -ve .[app]
     - name: Test Mayavi package
