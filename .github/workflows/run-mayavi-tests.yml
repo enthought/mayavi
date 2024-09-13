@@ -23,10 +23,6 @@ jobs:
             qt-api: 'pyqt6'
             os: macos-14  # arm64
             vtk: 'vtk>=9.3'
-          - python-version: '3.12'
-            qt-api: 'pyqt6'
-            os: windows-latest
-            vtk: 'vtk>=9.3'
           - python-version: '3.11'
             qt-api: 'pyqt6'
             os: ubuntu-latest
@@ -43,6 +39,17 @@ jobs:
             qt-api: 'pyside6'
             os: macos-13
             vtk: 'vtk<9.3'
+          # A couple of old NumPys
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: ubuntu-latest
+            vtk: 'vtk>=9.3'
+            numpy: 'numpy==1.26.4'
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: windows-latest
+            vtk: 'vtk>=9.3'
+            numpy: 'numpy==1.26.4'
       fail-fast: false
     defaults:
       run:
@@ -73,7 +80,7 @@ jobs:
       run: |
         set -exo pipefail
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade "${{ matrix.qt-api }}" numpy "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui
+        python -m pip install --upgrade "${{ matrix.qt-api }}" ${{ matrix.numpy || 'numpy' }} "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui
     - name: Install mayavi and tvtk
       run: python -um pip install --no-build-isolation -ve .[app]
     - name: Test Mayavi package
