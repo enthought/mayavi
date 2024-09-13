@@ -17,6 +17,7 @@ __requires__ = [
     'traits>=6.0.0',
     'traitsui>=7.0.0',
     'packaging',
+    'importlib_resources; python_version<"3.11"',
     'vtk'
 ]
 

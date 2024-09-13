@@ -679,6 +679,10 @@ class WrapperGenerator:
 
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
+                # Weirdness on NumPy 2.1 and vtk >= 9.3 that this does not show up as
+                # an option and creates problems
+                if klass.__name__ == "vtkPoints" and m == "DataType" and sys.platform == "win32":
+                    d["int32"] = vtk.VTK_ID_TYPE
                 if extra_val is None:
                     t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s')""" % locals()
                 elif hasattr(extra_val, '__iter__'):

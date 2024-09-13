@@ -42,14 +42,9 @@ VTK_LONG_TYPE_SIZE = vtk.vtkLongArray().GetDataTypeSize()
 if VTK_LONG_TYPE_SIZE == 4:
     LONG_TYPE_CODE = numpy.int32
     ULONG_TYPE_CODE = numpy.uint32
-    LONG_LONG_TYPE_CODE = numpy.int64
 elif VTK_LONG_TYPE_SIZE == 8:
     LONG_TYPE_CODE = numpy.int64
     ULONG_TYPE_CODE = numpy.uint64
-    if VTK_ID_TYPE_SIZE == 4:
-        LONG_LONG_TYPE_CODE = numpy.int64
-    else:
-        LONG_LONG_TYPE_CODE = None
 
 BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 
@@ -202,11 +197,9 @@ def get_vtk_array_type(numeric_array_type):
         numpy.dtype(ULONG_TYPE_CODE): vtkConstants.VTK_UNSIGNED_LONG,
         numpy.dtype(LONG_TYPE_CODE): vtkConstants.VTK_LONG,
     }
-    if LONG_LONG_TYPE_CODE is not None:
-        _extra[numpy.dtype(LONG_LONG_TYPE_CODE)] = vtkConstants.VTK_LONG_LONG
-    for t in _extra:
+    for t, val in _extra.items():
         if t not in _arr_vtk:
-            _arr_vtk[t] = _extra[t]
+            _arr_vtk[t] = val
 
     try:
         return _arr_vtk[numeric_array_type]
