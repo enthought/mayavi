@@ -41,7 +41,7 @@ vector field is still too dense, therefore we go to the `Masking` tab to
 enable masking, mask with an `on ratio` of 6 (one arrow out of 6 is
 masked) and turn off the random mode.
 
-.. image:: example_vector_cut_plane.jpg
+.. image:: example_vector_cut_plane.png
     :scale: 50
 
 

@@ -87,7 +87,7 @@ source.  Note that the positioning of the different surfaces were effected by mo
 scene via the 'a' key.  For more details on this see the section on
 :ref:`interaction-with-the-scene`.
 
-.. image:: images/param.jpg
+.. image:: images/param.png
    :alt: Sample visualization using parametric surfaces.
 
 
