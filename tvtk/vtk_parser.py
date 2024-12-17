@@ -8,13 +8,12 @@ type information, and organizes them.
 
 import collections.abc
 import re
-import types
 import os
 
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_9
+from .common import vtk_major_version, vtk_minor_version
 
 
 class VTKMethodParser:
@@ -632,7 +631,7 @@ class VTKMethodParser:
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
-            elif (not is_version_9()) and (
+            elif vtk_major_version < 9 and (
                 (klass_name == 'vtkGenericAttributeCollection' and
                  method[3:] == 'AttributesToInterpolate') or
                 (klass_name == 'vtkOverlappingAMR' and
@@ -668,20 +667,18 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
-            if self._verbose:
-                print(f'Instantiating {klass}')
             obj = self._get_instance(klass)
             # print('got instance', obj.__class__)
             if obj:
                 for key, value in gsm.items():
-                    if not is_version_9() and (
+                    if vtk_major_version < 9 and (
                         # Evil hack, these classes segfault!
                         (klass_name in ['vtkPolyData', 'vtkContext2D']) or
                         # On VTK 8.1.0 this segfaults when uninitialized.
                         (klass_name == 'vtkContextMouseEvent' and
                          key == 'Interactor')):
                         default = None
-                    elif not is_version_9() and (
+                    elif vtk_major_version < 9 and (
                             klass_name == 'vtkHyperOctree' and
                             key == 'Dimension'):
                         # This class breaks standard VTK conventions.
@@ -695,16 +692,25 @@ class VTKMethodParser:
                     # vtkGenericAttributeCollection.GetAttributesToInterpolate
                     # might only be a problem if VTK is built in debug mode,
                     # but let's keep it just to be safe.
-                    elif is_version_9() and (
+                    elif vtk_major_version == 9 and (
+                            # Still broken on 9.4
                             (klass_name == 'vtkHigherOrderTetra' and
-                             key == 'ParametricCoords') or
+                             key == 'ParametricCoords' and vtk_minor_version < 5) or
                             (klass_name == 'vtkGenericAttributeCollection' and
-                             key == 'AttributesToInterpolate') or
+                             key == 'AttributesToInterpolate' and vtk_minor_version < 4) or
                             (klass_name == 'vtkPlotBar' and
-                             key == 'LookupTable') or
+                             key == 'LookupTable' and vtk_minor_version < 4) or
                             (klass_name == 'vtkLagrangianParticleTracker' and
-                             key == 'IntegrationModel') or
+                             key == 'IntegrationModel' and vtk_minor_version < 4) or
                             False):  # just to simplify indentation/updates
+                        default = None
+
+                    # vtkGenericCell().GetCellFaces() segfaults on 9.4
+                    elif (
+                        (vtk_major_version, vtk_minor_version) == (9, 4)
+                        and klass_name == "vtkGenericCell"
+                        and key == "CellFaces"
+                    ):
                         default = None
                     else:
                         try:
@@ -715,7 +721,7 @@ class VTKMethodParser:
                             default = None
 
                     # If we don't turn these into integers, they won't instantiate
-                    if is_version_9():
+                    if vtk_major_version == 9:
                         if klass_name == "vtkAxisActor":
                             if key in (
                                 "AxisOnOrigin", "Use2DMode", "UseTextActor3D",
@@ -765,7 +771,7 @@ class VTKMethodParser:
                 meths.remove(method)
         return meths
 
-    def _get_instance(self, klass):
+    def _get_instance(self, klass, *, do_print=True):
         """Given a VTK class, `klass`, returns an instance of the
         class.
 
@@ -774,6 +780,8 @@ class VTKMethodParser:
         the 'state' methods and the ranges for the Get/Set methods.
 
         """
+        if self._verbose and do_print:
+            print(f'Instantiating {klass}')
         obj = None
         try:
             obj = klass()
@@ -783,7 +791,8 @@ class VTKMethodParser:
                 n = t.get_node(klass.__name__)
                 if n is not None:
                     for c in n.children:
-                        obj = self._get_instance(t.get_class(c.name))
+                        obj = self._get_instance(t.get_class(c.name), do_print=False)
                         if obj:
+                            print(f"  Using super {t.get_class(c.name)} instead of {klass}")
                             break
         return obj
