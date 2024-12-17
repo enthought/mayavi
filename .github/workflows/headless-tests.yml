@@ -31,10 +31,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install numpy "vtk<9.3" pillow pytest traitsui
+        python -m pip install numpy "vtk<9.3" pillow pytest pytest-timeout traitsui
     - name: Install mayavi and tvtk
-      run: python -m pip install -v .
-    - name: Test tvtk package
-      run: pytest -v --pyargs tvtk
+      run: python -m pip install --no-build-isolation -v .
     - name: Test Mayavi package
-      run: pytest -v --pyargs mayavi
+      run: pytest -v --timeout=10 --pyargs mayavi
+    - name: Test tvtk package
+      run: pytest -v --timeout=60 --pyargs tvtk

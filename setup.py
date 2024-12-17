@@ -130,8 +130,8 @@ class GenDocs(Command):
         mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi', 'auto')
 
         source_path = join('examples', 'mayavi')
-        sources = '(\.py)|(\.rst)$'
-        excluded_dirs = '^\.'
+        sources = r'(\.py)|(\.rst)$'
+        excluded_dirs = r'^\.'
         target_path = mlab_ref_dir
         target_time = self.latest_modified(target_path,
                                            ignore_dirs=excluded_dirs)[0]

@@ -197,9 +197,9 @@ def get_vtk_array_type(numeric_array_type):
         numpy.dtype(ULONG_TYPE_CODE): vtkConstants.VTK_UNSIGNED_LONG,
         numpy.dtype(LONG_TYPE_CODE): vtkConstants.VTK_LONG,
     }
-    for t in _extra:
+    for t, val in _extra.items():
         if t not in _arr_vtk:
-            _arr_vtk[t] = _extra[t]
+            _arr_vtk[t] = val
 
     try:
         return _arr_vtk[numeric_array_type]

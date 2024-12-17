@@ -9,6 +9,7 @@ __version__ = '4.8.3.dev0'
 
 __requires__ = [
     'apptools',
+    'configobj',
     'envisage',
     'numpy',
     'pyface>=6.1.1',
@@ -16,6 +17,7 @@ __requires__ = [
     'traits>=6.0.0',
     'traitsui>=7.0.0',
     'packaging',
+    'importlib_resources; python_version<"3.11"',
     'vtk'
 ]
 

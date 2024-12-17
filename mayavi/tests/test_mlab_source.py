@@ -171,7 +171,7 @@ class TestMGlyphSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
-    def test_strange_shape(self):
+    def test_basic_strange_shape(self):
         " Test the MGlyphSource with strange shapes for the arguments "
         x, y, z, v, s, src = self.get_data()
         x = y = z = v = s = 0

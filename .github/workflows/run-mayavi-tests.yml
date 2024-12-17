@@ -43,6 +43,22 @@ jobs:
             qt-api: 'pyside6'
             os: macos-13
             vtk: 'vtk<9.3'
+          # Some old NumPys
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: ubuntu-latest
+            vtk: 'vtk>=9.3'
+            numpy: 'numpy==1.26.4'
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: windows-latest
+            vtk: 'vtk>=9.3'
+            numpy: 'numpy==2.0.2'
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: windows-latest
+            vtk: 'vtk>=9.3'
+            numpy: 'numpy==1.26.4'
       fail-fast: false
     defaults:
       run:
@@ -69,14 +85,13 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      shell: bash
       run: |
         set -exo pipefail
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade "${{ matrix.qt-api }}" numpy "${{ matrix.vtk }}" pillow pytest traits traitsui
+        python -m pip install --upgrade "${{ matrix.qt-api }}" "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
     - name: Install mayavi and tvtk
-      run: python -um pip install -ve .[app]
+      run: python -um pip install --no-build-isolation -ve .[app]
     - name: Test Mayavi package
-      run: pytest -v mayavi
+      run: pytest -v --timeout=10 mayavi
     - name: Test tvtk package
-      run: pytest -sv tvtk
+      run: pytest -sv --timeout=60 tvtk

@@ -679,6 +679,10 @@ class WrapperGenerator:
 
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
+                # Weirdness on NumPy 2.1 and vtk >= 9.3 that this does not show up as
+                # an option and creates problems
+                if klass.__name__ == "vtkPoints" and m == "DataType" and sys.platform == "win32":
+                    d["int32"] = vtk.VTK_ID_TYPE
                 if extra_val is None:
                     t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s')""" % locals()
                 elif hasattr(extra_val, '__iter__'):
@@ -1591,22 +1595,22 @@ class WrapperGenerator:
     #         the code for this trait,
     #         i.e. getattr(self, name_of_method)(...)
     special_traits = {
-        '[a-zA-Z0-9]+\.Output$': (
+        r'[a-zA-Z0-9]+\.Output$': (
             False, False, '_write_any_output'),
-        '[a-zA-Z0-9]+\.Source$': (
+        r'[a-zA-Z0-9]+\.Source$': (
             False, False, '_write_any_source'),
-        '[a-zA-Z0-9]+\.ScalarType$': (
+        r'[a-zA-Z0-9]+\.ScalarType$': (
             False, False, '_write_any_scalar_type'),
 
         # In VTK > 4.5, Set/GetInput have multiple signatures
-        '[a-zA-Z0-9]+\.Input$': (
+        r'[a-zA-Z0-9]+\.Input$': (
             False, False, '_write_any_input'),
 
-        '[a-zA-Z0-9]+\.InputConnection$': (
+        r'[a-zA-Z0-9]+\.InputConnection$': (
             False, False, '_write_any_input_connection'),
-        '[a-zA-Z0-9\.]+FileName$': (
+        r'[a-zA-Z0-9\.]+FileName$': (
             True, False, '_write_any_something_file_name'),
-        '[a-zA-Z0-9\.]+FilePrefix$': (
+        r'[a-zA-Z0-9\.]+FilePrefix$': (
             True, False, '_write_any_something_file_prefix'),
         'vtkImageReader2.HeaderSize$': (
             True, False, '_write_image_reader2_header_size'),

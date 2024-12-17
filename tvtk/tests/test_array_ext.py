@@ -5,12 +5,16 @@
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
+import pytest
 import unittest
 
 import numpy
 
 from tvtk.array_handler import ID_TYPE_CODE, set_id_type_array_py
-from tvtk.array_ext import set_id_type_array
+try:
+    from tvtk.array_ext import set_id_type_array
+except ModuleNotFoundError:  # not compiled
+    pytest.skip("array_ext not found", allow_module_level=True)
 
 
 class TestArrayExt(unittest.TestCase):
