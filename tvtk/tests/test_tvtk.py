@@ -828,7 +828,7 @@ class TestTVTKModule(unittest.TestCase):
             tvtk_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_name, None)
             if on_gha:
-                print(f"{tvtk_name} ({name})")
+                print(tvtk_name)
             try:
                 tvtk_klass()
             # TypeError: super(type, obj): obj must be an instance or subtype of type
@@ -865,6 +865,8 @@ class TestTVTKModule(unittest.TestCase):
             except AttributeError:
                 return None, None
 
+        if on_gha:
+            print("\n::group::TVTK trait ranges")
         for name in self.names:
             vtk_klass = getattr(vtk, name)
             tvtk_klass_name = get_tvtk_name(name)
@@ -875,11 +877,15 @@ class TestTVTKModule(unittest.TestCase):
                                        'OpenGLRenderWindow',
                                        'RenderWindow']:
                     continue
+
+            if on_gha:
+                print(tvtk_klass_name)
+
             try:
                 obj = getattr(tvtk, tvtk_klass_name)()
             except Exception:
                 # testing for instantiation is above
-                pass
+                continue
 
             for trait_name in obj.editable_traits():
                 if trait_name in ['_in_set', '_vtk_obj']:
