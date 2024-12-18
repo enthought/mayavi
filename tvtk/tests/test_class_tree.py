@@ -7,7 +7,6 @@ tests if the tree generation works for the builtins module.
 
 """
 import builtins
-import sys
 import unittest
 from contextlib import contextmanager
 
@@ -18,8 +17,6 @@ import vtk
 # This computation can be expensive, so we cache it.
 _cache = class_tree.ClassTree(vtk)
 _cache.create()
-
-vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 
 def get_level(klass):
     """Gets the inheritance level of a given class."""
@@ -54,15 +51,7 @@ class TestClassTree(unittest.TestCase):
         if (hasattr(vtk, 'vtkTuple')):
             names = [x.name for x in t.tree[0]]
             names.sort()
-            if vtk_major_version == 7:
-                expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                          'vtkQuaternion', 'vtkRect',
-                          'vtkSparseArray', 'vtkTuple',
-                          'vtkTypedArray','vtkVector',
-                          'vtkVector2', 'vtkVector3']
-            else:
-                self.assertGreaterEqual(vtk_major_version, 8)
-                expect = ['object']
+            expect = ['object']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkVector')):
             self.assertEqual(len(t.tree[0]), 11)

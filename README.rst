@@ -86,12 +86,11 @@ By itself Mayavi is not a difficult package to install but its dependencies
 are unfortunately rather heavy. However, many of these dependencies are now
 available as wheels on PyPI.  The two critical dependencies are,
 
-  1. VTK_
-  2. A GUI toolkit, either PyQt4_, PySide_, PySide2_, PyQt5_ or wxPython_.
+  1. VTK_ >= 9.0
+  2. A GUI toolkit, either PySide6_, PyQt6_, PySide2_, PyQt5_, or wxPython_.
 
 The latest VTK wheels are available on all the major platforms (Windows,
-MacOS, and Linux), but only for 64 bit machines. Python 3.x is fully supported
-on all these operating systems and Python 2.7.x on MacOS and Linux. If you are
+MacOS, and Linux). If you are
 out of luck, and your platform is not supported then you will need to install
 VTK yourself using your particular distribution as discussed in the `General
 Build and Installation instructions
@@ -133,7 +132,7 @@ If you are unable to do this, read the documentation above and find a way to
 install VTK and a suitable UI toolkit and then repeat the above.
 
 If you are interested in the jupyter notebook support as well, do the
-following (after ensuring that you have jupyter installed of course. 
+following (after ensuring that you have jupyter installed of course.
 **Note, the Jupyter notebook function is only supported starting mayavi
 version 4.5.0**)::
 
@@ -200,8 +199,8 @@ Test suite
 
 The basic test suites for tvtk and mayavi can be run using nose::
 
-  nosetests -v tvtk/tests
-  nosetests -v mayavi
+  pytest -v tvtk/tests
+  pytest -v mayavi
 
 The integration tests::
 

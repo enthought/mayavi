@@ -2,6 +2,6 @@
 requires = [
     "numpy>=2.0.0rc2,<3",
     "setuptools",
-    "vtk",
+    "vtk>=9",
     "wheel"
 ]

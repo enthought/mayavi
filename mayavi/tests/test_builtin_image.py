@@ -11,7 +11,6 @@ import unittest
 from numpy import array
 
 # Enthought library imports.
-from tvtk.common import vtk_major_version
 from mayavi.core.null_engine import NullEngine
 from mayavi.sources.builtin_image import BuiltinImage
 from mayavi.modules.surface import Surface
@@ -40,8 +39,6 @@ class TestBuiltinImageSource(unittest.TestCase):
         image_data.data_source.radius = array([80.,  80.,  80.])
         image_data.data_source.center = array([150.,  150.,    0.])
         image_data.data_source.whole_extent = array([10, 245, 10, 245, 0, 0])
-        if vtk_major_version < 8:
-            image_data.data_source.set_update_extent_to_whole_extent()
 
         self.e = e
         self.scene = e.current_scene
