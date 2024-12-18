@@ -8,6 +8,7 @@ make sure that the generated code works well.
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
+import os
 import unittest
 import pickle
 import weakref
@@ -41,6 +42,9 @@ To generate tvtk_classes.zip you must do the following::
 
 # Only used for testing.
 from tvtk.tvtk_classes import tvtk_helper
+
+
+on_gha = os.getenv("GITHUB_ACTION", None) is not None
 
 
 def mysum(arr):
@@ -818,14 +822,20 @@ class TestTVTKModule(unittest.TestCase):
     def test_all_instantiable(self):
         """Test if all the TVTK classes can be instantiated"""
         errors = []
+        if on_gha:
+            print("\n::group::Instantiating TVTK classes")
         for name in self.names:
             tvtk_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_name, None)
+            if on_gha:
+                print(f"{tvtk_name} ({name})")
             try:
-                obj = tvtk_klass()
+                tvtk_klass()
             # TypeError: super(type, obj): obj must be an instance or subtype of type
             except (TraitError, KeyError, TypeError):
                 errors.append(f"\n{name}:\n{indent(traceback.format_exc(), '  ')}")
+        if on_gha:
+            print("\n::endgroup::")
         if len(errors) > 0:
             message = "Not all classes could be instantiated:\n{0}\n"
             raise AssertionError(message.format(''.join(errors)))
