@@ -54,7 +54,7 @@ def get_trait_def(value, **kwargs):
     Example
     -------
     >>> get_trait_def([100., 200.], enter_set=True, auto_set=False)
-    ('traits.Array', '', 'auto_set=False, enter_set=True, shape=(2,), dtype=float, value=[100.0, 200.0], cols=2')
+    ('traits.Array', '', 'auto_set=False, enter_set=True, shape=(None,), dtype=float, value=[100.0, 200.0], cols=2')
     >>> get_trait_def(100, enter_set=True, auto_set=False)
     ('traits.Int', '100', 'auto_set=False, enter_set=True')
     >>> get_trait_def(u'something', enter_set=True, auto_set=False)
@@ -80,7 +80,7 @@ def get_trait_def(value, **kwargs):
         return 'traits.String', '{!r}'.format(value), kwargs_code
 
     elif type_ in (tuple, list):
-        shape = (len(value),)
+        shape = (None,)
         dtypes = set(type(element) for element in value)
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
         if dtype == 'int' and sys.platform.startswith('win'):

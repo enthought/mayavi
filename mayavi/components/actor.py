@@ -115,14 +115,7 @@ class Actor(Component):
         sends a `data_changed` event.
         """
         # Invoke render to update any changes.
-        from mayavi.modules.outline import Outline
-        from mayavi.components.glyph import Glyph
-        #FIXME: A bad hack, but without these checks results in seg fault
-        input = self.inputs[0]
-        if isinstance(input, Outline) or isinstance(input, Glyph):
-            self.mapper.update(0)
-        else:
-            self.mapper.update()
+        self.mapper.update()
         self.render()
 
     ######################################################################
