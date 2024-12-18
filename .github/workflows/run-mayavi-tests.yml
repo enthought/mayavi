@@ -63,10 +63,11 @@ jobs:
             qt-api: 'pyqt5'
             os: ubuntu-latest
             vtk: 'vtk==9.2.2'
-          - python-version: '3.9'
-            qt-api: 'pyqt5'
-            os: ubuntu-latest
-            vtk: 'vtk==9.1.0'
+          # TVTK tests intermittently segfault on 9.1
+          # - python-version: '3.9'
+          #   qt-api: 'pyqt5'
+          #   os: ubuntu-latest
+          #   vtk: 'vtk==9.1.0'
           - python-version: '3.9'
             qt-api: 'pyqt5'
             os: ubuntu-latest
