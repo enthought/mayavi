@@ -66,7 +66,7 @@ jobs:
           - python-version: '3.9'
             qt-api: 'pyqt5'
             os: ubuntu-latest
-            vtk: 'vtk~=9.1'
+            vtk: 'vtk==9.1.0'
           - python-version: '3.9'
             qt-api: 'pyqt5'
             os: ubuntu-latest
@@ -87,8 +87,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
     - name: Install Linux packages for Qt5/Qt6 support and start Xvfb
-      uses: pyvista/setup-headless-display-action@main
+      uses: pyvista/setup-headless-display-action@v3
       with:
         qt: true
       if: startsWith(matrix.os, 'ubuntu')
