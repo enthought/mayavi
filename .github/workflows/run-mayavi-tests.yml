@@ -59,10 +59,10 @@ jobs:
             vtk: 'vtk==9.3'
             numpy: 'numpy==1.26.4'
           # Older Python and VTKs
-          - python-version: '3.10'
+          - python-version: '3.9'
             qt-api: 'pyqt5'
             os: ubuntu-latest
-            vtk: 'vtk==9.2.2'
+            vtk: 'vtk==9.2.0'
           # In practice this one segfaults :(
           # - python-version: '3.9'
           #   qt-api: 'pyqt5'
