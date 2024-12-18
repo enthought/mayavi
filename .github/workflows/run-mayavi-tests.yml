@@ -59,10 +59,10 @@ jobs:
             vtk: 'vtk==9.3'
             numpy: 'numpy==1.26.4'
           # Older Python and VTKs
-          - python-version: '3.9'
+          - python-version: '3.10'
             qt-api: 'pyqt5'
             os: ubuntu-latest
-            vtk: 'vtk==9.2.0'
+            vtk: 'vtk==9.2.2'
           # In practice this one segfaults :(
           # - python-version: '3.9'
           #   qt-api: 'pyqt5'
@@ -71,7 +71,7 @@ jobs:
           - python-version: '3.9'
             qt-api: 'pyqt5'
             os: ubuntu-latest
-            vtk: 'vtk==9.0.2'
+            vtk: 'vtk==9.0.2'  # oldest available on 3.9 which is the oldest Python we support
       fail-fast: false
     defaults:
       run:
