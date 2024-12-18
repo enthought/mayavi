@@ -447,7 +447,7 @@ class TVTKLeafNode(TreeNodeObject):
     __ = Python
 
     def __hash__(self):
-        return hash(tvtk.to_vtk(self.object))
+        return id(tvtk.to_vtk(self.object))
 
     def _get_name(self):
         return self.object.__class__.__name__
@@ -496,7 +496,7 @@ class TVTKBranchNode(TreeNodeObject):
             pass
 
     def __hash__(self):
-        return hash(tvtk.to_vtk(self.object))
+        return id(tvtk.to_vtk(self.object))
 
     def _get_children_from_cache(self):
         return [x for x in self.children_cache.values() if x is not None]

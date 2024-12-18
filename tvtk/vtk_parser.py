@@ -653,6 +653,9 @@ class VTKMethodParser:
             # These hang on Windows (and maybe Fedora 34)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
                 continue
+            # This crashes on VTK version 9.4.0
+            elif (klass_name == 'vtkGenericCell' and method[3:] == 'CellFaces'):
+                continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]

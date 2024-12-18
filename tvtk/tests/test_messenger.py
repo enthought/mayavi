@@ -133,12 +133,12 @@ class TestMessenger(unittest.TestCase):
         # Test if things behave sanely if a message was sent and one
         # of the callbacks has been gc'd.
         m = messenger.Messenger()
-        l1 = len(m._signals[hash(c1)]['foo'])
+        l1 = len(m._signals[id(c1)]['foo'])
         #
         del c
         messenger.send(c1, 'foo')
         #
-        l2 = len(m._signals[hash(c1)]['foo'])
+        l2 = len(m._signals[id(c1)]['foo'])
         # Since 'c' is gc'd this callback should have been cleared
         # out.
         self.assertEqual(l2, l1 - 1)

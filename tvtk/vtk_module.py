@@ -53,3 +53,11 @@ if vtk_version.startswith('9.3'):
         del vtkDGBoundsResponder, vtkDGOpenGLRenderer, vtkDGSidesResponder
     except NameError:
         pass
+
+if vtk_version == '9.4.0':
+    # Instantiating these using TVTK causes a crash on VTK 9.4.0 so skipping.
+    SKIP = ['vtkIOSSReader', 'vtkIOSSCellGridReader']
+    try:
+        del vtkIOSSReader, vtkIOSSCellGridReader
+    except NameError:
+        pass
