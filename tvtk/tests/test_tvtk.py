@@ -910,6 +910,8 @@ class TestTVTKModule(unittest.TestCase):
                         setattr(obj, trait_name, (min_value-1, max_value))
                     with self.assertRaises(TraitError):
                         setattr(obj, trait_name, (min_value, max_value+1))
+        if on_gha:
+            print("::endgroup::")
 
     def test_no_trait_has_ptr_address_as_value(self):
         '''Test if none of the TVTK classes' traits has a value of "*_p_void"
@@ -954,7 +956,7 @@ class TestTVTKModule(unittest.TestCase):
                 obj = getattr(tvtk, tvtk_klass_name)()
             except Exception:
                 # testing for instantiation is above
-                pass
+                continue
 
             for trait_name in obj._full_traitnames_list_:
                 try:

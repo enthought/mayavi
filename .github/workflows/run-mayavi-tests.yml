@@ -84,6 +84,7 @@ jobs:
       QT_API: ${{ matrix.qt-api }}
       TVTK_VERBOSE: 'true'
       VTK_PARSER_VERBOSE: 'true'
+      PYTHONUNBUFFERED: '1'
 
     steps:
     - uses: actions/checkout@v4
