@@ -54,7 +54,7 @@ def get_trait_def(value, **kwargs):
     Example
     -------
     >>> get_trait_def([100., 200.], enter_set=True, auto_set=False)
-    ('traits.Array', '', 'auto_set=False, enter_set=True, shape=(2,), dtype=float, value=[100.0, 200.0], cols=2')
+    ('traits.Array', '', 'auto_set=False, enter_set=True, shape=(None,), dtype=float, value=[100.0, 200.0], cols=2')
     >>> get_trait_def(100, enter_set=True, auto_set=False)
     ('traits.Int', '100', 'auto_set=False, enter_set=True')
     >>> get_trait_def(u'something', enter_set=True, auto_set=False)
@@ -80,7 +80,7 @@ def get_trait_def(value, **kwargs):
         return 'traits.String', '{!r}'.format(value), kwargs_code
 
     elif type_ in (tuple, list):
-        shape = (len(value),)
+        shape = (None,)
         dtypes = set(type(element) for element in value)
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
         if dtype == 'int' and sys.platform.startswith('win'):
@@ -1654,6 +1654,11 @@ class WrapperGenerator:
         'vtkLineIntegralConvolution2D.MaxNoiseValue$': (
             True, True, '_write_line_integral_conv_2d_max_noise_value'
         ),
+        # In VTK 9.4, CellGridSidesQuery's Get/OutputDimensionControl is initialized
+        # to some random value this happens mostly on MacOS.
+        'vtkCellGridSidesQuery.OutputDimensionControl$': (
+            True, True, '_write_cell_grid_sides_query_od_control'
+        ),
         # In VTK 9.3, vtkCylinderSource's GetLatLongTesselation gives random values
         # https://gitlab.kitware.com/vtk/vtk/-/issues/19252
         'vtkCylinderSource.LatLongTessellation$': (
@@ -1926,6 +1931,19 @@ class WrapperGenerator:
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_cell_grid_sides_query_od_control(self, klass, out, vtk_attr_name):
+        if vtk_attr_name != 'OutputDimensionControl':
+            raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
+        if vtk_major_version >= 9:
+            message = ("vtkCellGridSidesQuery: "
+                       "OutputDimensionControl not updatable "
+                       "(VTK 9.4 bug - value not properly initialized)")
+            print(message)
+        t_def = 'tvtk_base.true_bool_trait'
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=True)
 
     def _write_cylinder_source_lat_long_tessellation(
         self, klass, out, vtk_attr_name
