@@ -62,7 +62,7 @@ jobs:
           - python-version: '3.10'
             qt-api: 'pyqt5'
             os: ubuntu-latest
-            vtk: 'vtk==9.2'
+            vtk: 'vtk==9.2.2'
           # In practice this one segfaults :(
           # - python-version: '3.9'
           #   qt-api: 'pyqt5'
