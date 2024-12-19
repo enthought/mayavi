@@ -8,13 +8,12 @@ type information, and organizes them.
 
 import collections.abc
 import re
-import types
 import os
 
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
 from . import vtk_module as vtk
-from .common import is_version_9
+from .common import vtk_major_version, vtk_minor_version
 
 
 class VTKMethodParser:
@@ -632,18 +631,6 @@ class VTKMethodParser:
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
-            elif (not is_version_9()) and (
-                (klass_name == 'vtkGenericAttributeCollection' and
-                 method[3:] == 'AttributesToInterpolate') or
-                (klass_name == 'vtkOverlappingAMR' and
-                 method[3:] == 'Origin') or
-                (klass_name == 'vtkOrientationMarkerWidget' and
-                 method[3:] in ['OutlineColor', 'Viewport']) or
-                (klass_name == 'vtkImageDataGeometryFilter' and
-                 method[3:] == 'Extent') or
-                (klass_name == 'vtkVolumeMapper' and
-                 method[3:] == 'CroppingRegionPlanes')):
-                continue
             elif (klass_name == 'vtkContextMouseEvent' and
                   method[3:] == 'Interactor'):
                 continue
@@ -653,9 +640,6 @@ class VTKMethodParser:
                 continue
             # These hang on Windows (and maybe Fedora 34)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
-                continue
-            # This crashes on VTK version 9.4.0
-            elif (klass_name == 'vtkGenericCell' and method[3:] == 'CellFaces'):
                 continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
@@ -671,54 +655,46 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
-            if self._verbose:
-                print(f'Instantiating {klass}')
             obj = self._get_instance(klass)
-            # print('got instance', obj.__class__)
             if obj:
                 for key, value in gsm.items():
-                    if not is_version_9() and (
-                        # Evil hack, these classes segfault!
-                        (klass_name in ['vtkPolyData', 'vtkContext2D']) or
-                        # On VTK 8.1.0 this segfaults when uninitialized.
-                        (klass_name == 'vtkContextMouseEvent' and
-                         key == 'Interactor')):
+                    # Broken in <= 9.3
+                    if (
+                        (vtk_major_version, vtk_minor_version) <= (9, 3)
+                        and f"{klass_name}.Get{key}" in (
+                            "vtkGenericAttributeCollection.GetAttributesToInterpolate",
+                            "vtkPlotBar.GetLookupTable",
+                            "vtkLagrangianParticleTracker.GetIntegrationModel",
+                        )
+                    ):
                         default = None
-                    elif not is_version_9() and (
-                            klass_name == 'vtkHyperOctree' and
-                            key == 'Dimension'):
-                        # This class breaks standard VTK conventions.
-                        gsm[key] = (3, (1, 3))
-                        continue
-                    # On VTK 9.0.0 vtkHigherOrderTetra.GetParametricCorods
-                    # segfauts when uninitialized, see:
-                    #
-                    # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/6729#note_732848  # noqa: E501
-                    #
-                    # vtkGenericAttributeCollection.GetAttributesToInterpolate
-                    # might only be a problem if VTK is built in debug mode,
-                    # but let's keep it just to be safe.
-                    elif is_version_9() and (
-                            (klass_name == 'vtkHigherOrderTetra' and
-                             key == 'ParametricCoords') or
-                            (klass_name == 'vtkGenericAttributeCollection' and
-                             key == 'AttributesToInterpolate') or
-                            (klass_name == 'vtkPlotBar' and
-                             key == 'LookupTable') or
-                            (klass_name == 'vtkLagrangianParticleTracker' and
-                             key == 'IntegrationModel') or
-                            False):  # just to simplify indentation/updates
+                    # Broken in <= 9.4
+                    # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/6729#note_732848
+                    elif (
+                        (vtk_major_version, vtk_minor_version) <= (9, 4)
+                        and f"{klass_name}.Get{key}" in (
+                            "vtkHigherOrderTetra.GetParametricCoords",
+                        )
+                    ):
+                        default = None
+                    # Broken in 9.4
+                    elif (
+                        (vtk_major_version, vtk_minor_version) == (9, 4)
+                        and f"{klass_name}.Get{key}" in (
+                            "vtkGenericCell.GetCellFaces",
+                        )
+                    ):
                         default = None
                     else:
                         try:
                             if self._verbose:
-                                print(f'  Calling {klass_name}.Get{key}()')
-                            default = getattr(obj, 'Get%s' % key)()
+                                print(f"  Calling {klass_name}.Get{key}()")
+                            default = getattr(obj, f"Get{key}")()
                         except TypeError:
                             default = None
 
                     # If we don't turn these into integers, they won't instantiate
-                    if is_version_9():
+                    if vtk_major_version == 9:
                         if klass_name == "vtkAxisActor":
                             if key in (
                                 "AxisOnOrigin", "Use2DMode", "UseTextActor3D",
@@ -768,7 +744,7 @@ class VTKMethodParser:
                 meths.remove(method)
         return meths
 
-    def _get_instance(self, klass):
+    def _get_instance(self, klass, *, do_print=True):
         """Given a VTK class, `klass`, returns an instance of the
         class.
 
@@ -777,6 +753,8 @@ class VTKMethodParser:
         the 'state' methods and the ranges for the Get/Set methods.
 
         """
+        if self._verbose and do_print:
+            print(f'Instantiating {klass}')
         obj = None
         try:
             obj = klass()
@@ -786,7 +764,8 @@ class VTKMethodParser:
                 n = t.get_node(klass.__name__)
                 if n is not None:
                     for c in n.children:
-                        obj = self._get_instance(t.get_class(c.name))
+                        obj = self._get_instance(t.get_class(c.name), do_print=False)
                         if obj:
+                            print(f"  Using super {t.get_class(c.name)} instead of {klass}")
                             break
         return obj

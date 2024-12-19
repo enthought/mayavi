@@ -17,7 +17,8 @@ from itertools import chain
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from .common import get_tvtk_name, camel2enthought, vtk_major_version, _sanitize_name
+from .common import get_tvtk_name, camel2enthought, _sanitize_name
+from .common import vtk_major_version, vtk_minor_version
 
 from . import vtk_parser
 from . import indenter
@@ -1836,12 +1837,12 @@ class WrapperGenerator:
 
         default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
 
-        if vtk_major_version >= 8:
-            message = ("vtkSmartVolumeMapper: "
-                       "VectorComponent not updatable "
-                       "(VTK 8.x bug - value not properly initialized)")
-            print(message)
-            default = rng[0]
+        # TODO: Still an issue in 9.x?
+        message = ("vtkSmartVolumeMapper: "
+                    "VectorComponent not updatable "
+                    "(VTK 8.x bug - value not properly initialized)")
+        print(message)
+        default = rng[0]
         t_def = ('traits.Trait({default}, traits.Range{rng}, '
                  'enter_set=True, auto_set=False)').format(default=default,
                                                            rng=rng)
@@ -1857,12 +1858,6 @@ class WrapperGenerator:
 
         default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
 
-        if vtk_major_version == 7:
-            message = ("vtkSpanSpace: "
-                       "Resolution not updatable "
-                       "(VTK 7.x bug - value not properly initialized)")
-            print(message)
-            default = rng[0]
         t_def = ('traits.Trait({default}, traits.Range{rng}, '
                  'enter_set=True, auto_set=False)').format(default=default,
                                                            rng=rng)
@@ -1876,11 +1871,11 @@ class WrapperGenerator:
             raise RuntimeError("Not sure why you ask for me! "
                                "I only deal with VertexCells. Panicking.")
 
-        if vtk_major_version >= 8:
-            message = ("vtkHyperTreeGridCellCenters: "
-                       "VertexCells not updatable "
-                       "(VTK 8.x bug - value not properly initialized)")
-            print(message)
+        # TODO: Still an issue in 9.x?
+        message = ("vtkHyperTreeGridCellCenters: "
+                    "VertexCells not updatable "
+                    "(VTK 8.x bug - value not properly initialized)")
+        print(message)
 
         t_def = 'tvtk_base.true_bool_trait'
 
@@ -1897,12 +1892,13 @@ class WrapperGenerator:
 
         default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
 
-        if vtk_major_version >= 8:
-            message = ("vtkEuclideanClusterExtraction: "
-                       "Radius not updatable "
-                       "(VTK 9.1 bug - value not properly initialized)")
-            print(message)
-            default = rng[0]
+        # TODO: Still an issue in 9.x?
+        message = ("vtkEuclideanClusterExtraction: "
+                    "Radius not updatable "
+                    "(VTK 9.1 bug - value not properly initialized)")
+        print(message)
+        default = rng[0]
+
         t_def = ('traits.Trait({default}, traits.Range{rng}, '
                  'enter_set=True, auto_set=False)').format(default=default,
                                                            rng=rng)
@@ -1950,7 +1946,7 @@ class WrapperGenerator:
     ):
         if vtk_attr_name != 'LatLongTessellation':
             raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
-        if vtk_major_version >= 9:
+        if (vtk_major_version, vtk_minor_version) <= (9, 3):
             message = ("vtkCylinderSource: "
                        "LatLongTesselation not updatable "
                        "(VTK 9.3 bug - value not properly initialized)")

@@ -4,10 +4,12 @@ This can be evoked for example by running from the ``mayavi`` root:
 
 ..code-block:: console
 
-    $ python -m tvtk.code_gen -szvno $PWD/tvtk
+    $ VTK_PARSER_VERBOSE=1 python -m tvtk.code_gen -szvno $PWD/tvtk
 
 On failures you can then for example do ``import pdb; pdb.pm()`` to do
-post-mortem debugging.
+post-mortem debugging. If there are segfaults, the VTK_PARSER_VERBOSE=1 should help
+point to the culprit, which often needs to be worked around in
+``vtk_parser.py::VTKMethodParser._find_get_set_methods``.
 
 Exceptions to behaviors based on VTK versions and bugs etc. live in ``wrapper_gen.py``
 and ``tvtk_parser.py``.
