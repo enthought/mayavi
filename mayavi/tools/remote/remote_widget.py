@@ -1,4 +1,4 @@
-import imghdr
+import puremagic
 
 
 class RemoteWidget(object):
@@ -50,7 +50,7 @@ class RemoteWidget(object):
 
     def _update_image(self):
         data = self.scene_proxy.get_raw_image()
-        format = imghdr.what('', h=data)
+        format = puremagic.what('', h=data)
         self.show_image(data, format=format.upper())
 
     # ##### VTK Event handling ##########
