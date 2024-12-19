@@ -27,7 +27,7 @@ This example is discussed in details in the section
 :ref:`embedding_mayavi_traits`.
 
 
-.. image:: ../images/example_mlab_interactive_dialog.jpg
+.. image:: ../images/example_mlab_interactive_dialog.png
     :align: center
 
 

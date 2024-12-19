@@ -96,7 +96,7 @@ if you'd like to.
 You should have a visualization that looks something like the one
 shown below.
 
-.. image:: images/heart.jpg
+.. image:: images/heart.png
    :alt: Sample visualization of the ``heart.vtk`` dataset.
 
 The nice thing about mayavi is that although in this case all of the

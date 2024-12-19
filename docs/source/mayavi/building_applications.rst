@@ -194,7 +194,7 @@ In a dialog, this would be::
 
 This code creates the following dialog:
 
-.. image:: images/example_mlab_interactive_dialog.jpg
+.. image:: images/example_mlab_interactive_dialog.png
     :align: center
 
 A complete, runnable, code based on the above comments is given in the
