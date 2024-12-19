@@ -5,7 +5,6 @@
 # License: BSD Style.
 
 from contextlib import contextmanager
-import string
 import re
 import vtk
 
@@ -65,10 +64,6 @@ def _sanitize_name(name):
     if name[0].isdigit():
         name = dig2name[name[0]] + name[1:]
     return name
-
-
-def is_version_9():
-    return vtk_major_version > 8
 
 
 def configure_connection(obj, inp):

@@ -14,8 +14,6 @@ importing.
 
 from traitsui.api import (View, Group, Item, InstanceEditor,
                           DropEditor, Tabbed)
-from tvtk.api import tvtk
-from tvtk.common import vtk_major_version
 
 # The properties view group.
 _prop_base_group = Group(Item(name='representation'),
@@ -48,16 +46,10 @@ _mapper_group = Group(
 )
 
 # The Texture's view group
-if vtk_major_version > 7:
-    _texture_group = Group(Item(name='interpolate'),
-                           Item(name='color_mode'),
-                           Item(name='repeat'),
-                           show_border=True)
-else:
-    _texture_group = Group(Item(name='interpolate'),
-                           Item(name='map_color_scalars_through_lookup_table'),
-                           Item(name='repeat'),
-                           show_border=True)
+_texture_group = Group(Item(name='interpolate'),
+                         Item(name='color_mode'),
+                         Item(name='repeat'),
+                         show_border=True)
 
 # The Actor's view group.
 _actor_base_group = Group(Item(name='visibility'))

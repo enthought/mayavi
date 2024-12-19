@@ -19,7 +19,6 @@ from pyface.timer.api import do_later
 
 #  imports
 from tvtk.api import tvtk
-from tvtk.common import vtk_major_version
 from mayavi.core.scene import Scene
 from mayavi.core.registry import registry
 from .camera import view
@@ -313,19 +312,13 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         out = tvtk.UnsignedCharArray()
         shape = (y, x, 3)
         pixel_getter = figure.scene.render_window.get_pixel_data
-        if vtk_major_version > 7:
-            pg_args = (0, 0, x - 1, y - 1, 1, out, 0)
-        else:
-            pg_args = (0, 0, x - 1, y - 1, 1, out)
+        pg_args = (0, 0, x - 1, y - 1, 1, out, 0)
 
     elif mode == 'rgba':
         out = tvtk.FloatArray()
         shape = (y, x, 4)
         pixel_getter = figure.scene.render_window.get_rgba_pixel_data
-        if vtk_major_version > 7:
-            pg_args = (0, 0, x - 1, y - 1, 1, out, 0)
-        else:
-            pg_args = (0, 0, x - 1, y - 1, 1, out)
+        pg_args = (0, 0, x - 1, y - 1, 1, out, 0)
 
     else:
         raise ValueError('mode type not understood')

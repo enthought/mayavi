@@ -21,7 +21,7 @@ package).
 
 # Standard library imports
 from os.path import join
-import pkg_resources
+import importlib.resources
 
 # Enthought library imports.
 from traits.etsconfig.api import ETSConfig
@@ -106,12 +106,11 @@ class PreferenceManager(HasTraits):
             for pkg in ('mayavi.preferences',
                         'tvtk.plugins.scene'):
                 pref = 'preferences.ini'
-                pref_file = pkg_resources.resource_stream(pkg, pref)
-
+                pref_file = importlib.resources.files(pkg).joinpath(pref)
                 preferences = self.preferences
                 default = preferences.node('default/')
-                default.load(pref_file)
-                pref_file.close()
+                with open(pref_file, 'rb') as fid:
+                    default.load(fid)
         finally:
             # Set back the application home.
             ETSConfig.application_home = app_home
@@ -126,4 +125,3 @@ class PreferenceManager(HasTraits):
 # A Global preference manager that all other modules can use.
 
 preference_manager = PreferenceManager()
-

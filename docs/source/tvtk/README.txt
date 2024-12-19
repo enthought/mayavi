@@ -260,19 +260,17 @@ tvtk wrapper object is created.  The following illustrates this::
   >>> cs = tvtk.ConeSource()
   >>> o = cs.output
   >>> m = tvtk.PolyDataMapper()
-  >>> m.input = o
-  >>> print(hash(o))
-  1109012188
-  >>> print(hash(m.input))
-  1109012188
+  >>> m.input_connection = cs.output_port
+  >>> print(id(o))
+  126526931186080
+  >>> print(id(m.input))
+  126526931186080
   >>> del o
-  >>> print(hash(m.input))
-  1119694156
+  >>> print(id(m.input))
+  126526931186080
 
 Thus, after `o` is garbage collected `m.input` no longer refers to the
-original tvtk object and a new one is created.  This is very similar
-to VTK's behaviour.  Changing this behaviour is tricky and there are no
-plans currently to change this.
+original tvtk object the old one is cached and returned.  
 
 
 tvtk and traits

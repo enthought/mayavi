@@ -10,39 +10,68 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-13]
-        python-version: ['3.9']
-        qt-api: ['pyqt5']
-        vtk: ['vtk<9.3']
+        # Always test against the latest VTK, NumPy, and Qt bindings
+        os: [ubuntu-latest, windows-latest, macos-13, macos-15]
+        python-version: ['3.12']
+        qt-api: ['pyside6']  # prefer the modern bindings
+        vtk: ['vtk>=9.4']  # always prefer the latest
+        # Then add some backward compat checks
         include:
-          - python-version: '3.12'
+          # PyQt6 and vtk 9.3
+          - python-version: '3.10'
             qt-api: 'pyqt6'
             os: ubuntu-latest
-            vtk: 'vtk>=9.3'
-          - python-version: '3.12'
+            vtk: 'vtk==9.3'
+          - python-version: '3.10'
             qt-api: 'pyqt6'
             os: macos-14  # arm64
-            vtk: 'vtk>=9.3'
-          - python-version: '3.12'
+            vtk: 'vtk==9.3'
+          - python-version: '3.10'
             qt-api: 'pyqt6'
             os: windows-latest
-            vtk: 'vtk>=9.3'
+            vtk: 'vtk==9.3'
           - python-version: '3.11'
             qt-api: 'pyqt6'
             os: ubuntu-latest
-            vtk: 'vtk>=9.3'
-          - python-version: '3.10'
-            qt-api: 'pyside6'
+            vtk: 'vtk==9.3'
+          # PyQt5 and vtk 9.2 (and one oldest Python)
+          - python-version: '3.9'
+            qt-api: 'pyqt5'
             os: ubuntu-latest
-            vtk: 'vtk<9.3'
+            vtk: 'vtk==9.2.5'
           - python-version: '3.10'
-            qt-api: 'pyside6'
+            qt-api: 'pyqt5'
             os: windows-latest
-            vtk: 'vtk<9.3'
+            vtk: 'vtk==9.2.5'
           - python-version: '3.10'
             qt-api: 'pyside6'
             os: macos-13
-            vtk: 'vtk<9.3'
+            vtk: 'vtk==9.2.5'
+          # Some old NumPys
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: ubuntu-latest
+            vtk: 'vtk==9.3'
+            numpy: 'numpy==1.26.4'
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: windows-latest
+            vtk: 'vtk==9.3'
+            numpy: 'numpy==1.26.4'
+          # Older Python and VTKs
+          - python-version: '3.10'
+            qt-api: 'pyqt5'
+            os: ubuntu-latest
+            vtk: 'vtk==9.2.2'
+          # TVTK tests intermittently segfault on 9.1
+          # - python-version: '3.9'
+          #   qt-api: 'pyqt5'
+          #   os: ubuntu-latest
+          #   vtk: 'vtk==9.1.0'
+          - python-version: '3.9'
+            qt-api: 'pyqt5'
+            os: ubuntu-latest
+            vtk: 'vtk==9.0.2'  # oldest available on 3.9 which is the oldest Python we support
       fail-fast: false
     defaults:
       run:
@@ -56,11 +85,14 @@ jobs:
       QT_API: ${{ matrix.qt-api }}
       TVTK_VERBOSE: 'true'
       VTK_PARSER_VERBOSE: 'true'
+      PYTHONUNBUFFERED: '1'
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
     - name: Install Linux packages for Qt5/Qt6 support and start Xvfb
-      uses: pyvista/setup-headless-display-action@main
+      uses: pyvista/setup-headless-display-action@v3
       with:
         qt: true
       if: startsWith(matrix.os, 'ubuntu')
@@ -69,14 +101,13 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      shell: bash
       run: |
         set -exo pipefail
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade "${{ matrix.qt-api }}" numpy "${{ matrix.vtk }}" pillow pytest traits traitsui
+        python -m pip install --upgrade "${{ matrix.qt-api }}" "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
     - name: Install mayavi and tvtk
-      run: python -um pip install -ve .[app]
+      run: python -um pip install --no-build-isolation -ve .[app]
     - name: Test Mayavi package
-      run: pytest -v mayavi
+      run: pytest -v --timeout=10 mayavi
     - name: Test tvtk package
-      run: pytest -sv tvtk
+      run: pytest -sv --timeout=60 tvtk

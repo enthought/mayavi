@@ -12,7 +12,7 @@ import unittest
 import tempfile
 from unittest import SkipTest
 
-from numpy import array, ndarray
+from numpy import array, ndarray, isnan
 
 from mayavi.tools.data_wizards.csv_sniff import \
      Sniff, loadtxt, loadtxt_unknown, array2dict
@@ -33,8 +33,8 @@ class Util(unittest.TestCase):
 
     def assertClose(self, a, b):
         if isinstance(a, (int, float)):
-            if repr(a) == 'nan':
-                self.assertTrue(repr(b) == 'nan')
+            if isnan(a):
+                self.assertTrue(isnan(b), '%r != %r' % (a ,b))
             else:
                 self.assertTrue(abs(a - b) < 1e-6 * max(1, abs(a)),
                              '%r != %r  %r' % (a, b, abs(a - b)))

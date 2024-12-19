@@ -1,13 +1,18 @@
 """This module generates tvtk (Traited VTK) classes from the VTK-Python API.
 
-This can be evoked for example by:
+This can be evoked for example by running from the ``mayavi`` root:
 
 ..code-block:: console
 
-    $ python -ic "from tvtk.code_gen import main; main()" -szv
+    $ VTK_PARSER_VERBOSE=1 python -m tvtk.code_gen -szvno $PWD/tvtk
 
 On failures you can then for example do ``import pdb; pdb.pm()`` to do
-post-mortem debugging.
+post-mortem debugging. If there are segfaults, the VTK_PARSER_VERBOSE=1 should help
+point to the culprit, which often needs to be worked around in
+``vtk_parser.py::VTKMethodParser._find_get_set_methods``.
+
+Exceptions to behaviors based on VTK versions and bugs etc. live in ``wrapper_gen.py``
+and ``tvtk_parser.py``.
 """
 # Author: Prabhu Ramachandran
 # Copyright (c) 2004-2020, Enthought, Inc.
@@ -107,7 +112,7 @@ class TVTKGenerator:
             # Write the wrapper files.
             tree = wrap_gen.get_tree().tree
 
-            classes = []
+            classes = ['vtkObjectBase']
             # This is another class we should not wrap and exists
             # in version 8.1.0.
             ignore = ['vtkOpenGLGL2PSHelperImpl'] + [
@@ -121,11 +126,12 @@ class TVTKGenerator:
                 if (name not in include and not name.startswith('vtk')) or \
                         name.startswith('vtkQt'):
                     continue
-                if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):  # noqa
+                if not hasattr(vtk, name) or \
+                    not hasattr(getattr(vtk, name), 'AddObserver'):  # noqa
                     # We need to wrap VTK classes that are derived
                     # from vtkObjectBase, the others are
                     # straightforward VTK classes that can be used as
-                    # such.  All of these have an 'IsA' method so we
+                    # such.  All of these have an 'AddObserver' method so we
                     # check for that.  Only the vtkObjectBase
                     # subclasses support observers etc. and hence only
                     # those make sense to wrap into TVTK.

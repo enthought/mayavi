@@ -16,6 +16,7 @@ error messages but they are usually harmless.
 import unittest
 from tvtk import vtk_parser
 from tvtk import vtk_module as vtk
+from tvtk.common import vtk_major_version, vtk_minor_version
 
 import time # Only used when timing.
 import sys  # Only used when debugging.
@@ -23,8 +24,7 @@ import sys  # Only used when debugging.
 
 # This is a little expensive to create so we cache it.
 _cache = vtk_parser.VTKMethodParser()
-vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
+
 
 class TestVTKParser(unittest.TestCase):
     def setUp(self):
@@ -44,13 +44,9 @@ class TestVTKParser(unittest.TestCase):
         p = self.p
         # Simple case of a vtkObject.
         p.parse(vtk.vtkObject())
-        if vtk_major_version < 9:
-            self.assertEqual(p.get_toggle_methods(),
-                             {'Debug': 0, 'GlobalWarningDisplay': 1})
-        else:
-            self.assertIn(p.get_toggle_methods(),
-                          [{'Debug': False, 'GlobalWarningDisplay': 1},
-                           {'Debug': False, 'GlobalWarningDisplay': 0}])
+        self.assertIn(p.get_toggle_methods(),
+                        [{'Debug': False, 'GlobalWarningDisplay': 1},
+                        {'Debug': False, 'GlobalWarningDisplay': 0}])
         self.assertEqual(p.get_state_methods(), {})
         self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
 
@@ -87,8 +83,7 @@ class TestVTKParser(unittest.TestCase):
                                  ['Gouraud', 1], ['Phong', 2]],
                'Representation': [['Surface', 2], ['Points', 0],
                                   ['Surface', 2], ['Wireframe', 1]]}
-        if vtk_major_version >= 9:
-            res['Interpolation'].insert(-1, ['PBR', 3])
+        res['Interpolation'].insert(-1, ['PBR', 3])
 
         self.assertEqual(p.get_state_methods(), res)
         self.assertEqual(p.state_meths, p.get_state_methods())
@@ -118,15 +113,13 @@ class TestVTKParser(unittest.TestCase):
                'SpecularPower': (1.0, (0.0, 100.0))}
         if ('ReferenceCount' not in p.get_get_set_methods()):
             del res['ReferenceCount']
-        if vtk_major_version > 7:
-            res['MaterialName'] = (None, None)
-            res['VertexColor'] = ((0.5, 1.0, 0.5), None)
-        if vtk_major_version >= 9:
-            res['EmissiveFactor'] = ((1.0, 1.0, 1.0), None)
-            res['Metallic'] = (0., float_max)
-            res['NormalScale'] = (1., None)
-            res['OcclusionStrength'] = (1., float_max)
-            res['Roughness'] = (0.5, float_max)
+        res['MaterialName'] = (None, None)
+        res['VertexColor'] = ((0.5, 1.0, 0.5), None)
+        res['EmissiveFactor'] = ((1.0, 1.0, 1.0), None)
+        res['Metallic'] = (0., float_max)
+        res['NormalScale'] = (1., None)
+        res['OcclusionStrength'] = (1., float_max)
+        res['Roughness'] = (0.5, float_max)
         if (vtk_major_version, vtk_minor_version) >= (9, 1):
             res['Anisotropy'] = (0.0, (0.0, 1.0))
             res['AnisotropyRotation'] = (0.0, (0.0, 1.0))
@@ -180,12 +173,8 @@ class TestVTKParser(unittest.TestCase):
             res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
                    'ReleaseGraphicsResources', 'RemoveAllTextures',
                    'RemoveTexture', 'Render']
-            if (vtk_major_version >= 7 or vtk_minor_version >= 2) and \
-                    vtk_major_version < 9:
-                res.append('VTKTextureUnit')
-            if vtk_major_version == 9:
-                res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
-                            'SetNormalTexture', 'SetORMTexture'])
+            res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
+                        'SetNormalTexture', 'SetORMTexture'])
             if vtk_major_version == 9 and vtk_minor_version > 0:
                 res.extend([
                     'ComputeIORFromReflectance', 'ComputeReflectanceFromIOR',

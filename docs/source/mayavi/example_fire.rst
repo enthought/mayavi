@@ -115,7 +115,7 @@ As can be seen from the example, it is quite easy to script mayavi to
 visualize data.  An image of a resulting visualization generated from
 this script is shown below.
 
-.. image:: images/streamline.jpg
+.. image:: images/streamline.png
    :alt: Sample visualization of the ``fire_ug.vtu`` dataset.
 
 

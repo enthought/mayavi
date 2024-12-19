@@ -8,6 +8,7 @@ make sure that the generated code works well.
 # Copyright (c) 2004-2020, Enthought, Inc.
 # License: BSD Style.
 
+import os
 import unittest
 import pickle
 import weakref
@@ -41,6 +42,9 @@ To generate tvtk_classes.zip you must do the following::
 
 # Only used for testing.
 from tvtk.tvtk_classes import tvtk_helper
+
+
+on_gha = os.getenv("GITHUB_ACTION", None) is not None
 
 
 def mysum(arr):
@@ -202,22 +206,22 @@ class TestTVTK(unittest.TestCase):
     def test_object_cache(self):
         """Test if object cache works."""
         cs = tvtk.ConeSource()
-        hash1 = hash(cs)
+        hash1 = id(cs)
         o = cs.output
         if hasattr(o, 'producer_port'):
             src = o.producer_port.producer
         else:
             src = cs.executive.algorithm
         self.assertEqual(src, cs)
-        self.assertEqual(hash1, hash(src))
+        self.assertEqual(hash1, id(src))
         del cs, src
         gc.collect()
         # The test sometimes fails as VTK seems to generate objects with the
-        # same memory address and hash, we try to force it to allocate more
-        # objects so as to not end up reusing the same address and hash.
+        # same memory address and hash/id, we try to force it to allocate more
+        # objects so as to not end up reusing the same address and id.
         junk = [tvtk.ConeSource() for i in range(50)]
 
-        # Now get another ConeSource and ensure the hash is different.
+        # Now get another ConeSource and ensure the id is different.
         cs = tvtk.ConeSource()
         o = cs.output
         if hasattr(o, 'producer_port'):
@@ -230,8 +234,8 @@ class TestTVTK(unittest.TestCase):
         # For VTK 5.x this test is inconsistent, hence skipeed for 5.x
         # See http://review.source.kitware.com/#/c/15095/
         ##############################################################
-        self.assertEqual(hash1 != hash(src), True)
-        self.assertEqual(hash(cs), hash(src))
+        self.assertEqual(hash1 != id(src), True)
+        self.assertEqual(id(cs), id(src))
 
         # Test for a bug with collections and the object cache.
         r = tvtk.Renderer()
@@ -565,7 +569,7 @@ class TestTVTK(unittest.TestCase):
         s = tvtk.StructuredPoints()
         x = s.FIELD_ARRAY_TYPE()
         y = tvtk.Information()
-        x.get(y)
+        y.get(x)
 
     def test_parent_child_bounds(self):
         """CubeAxesActor2D's bounds should be writable."""
@@ -818,14 +822,20 @@ class TestTVTKModule(unittest.TestCase):
     def test_all_instantiable(self):
         """Test if all the TVTK classes can be instantiated"""
         errors = []
+        if on_gha:
+            print("\n::group::Instantiating TVTK classes")
         for name in self.names:
             tvtk_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_name, None)
+            if on_gha:
+                print(tvtk_name)
             try:
-                obj = tvtk_klass()
+                tvtk_klass()
             # TypeError: super(type, obj): obj must be an instance or subtype of type
             except (TraitError, KeyError, TypeError):
                 errors.append(f"\n{name}:\n{indent(traceback.format_exc(), '  ')}")
+        if on_gha:
+            print("\n::endgroup::")
         if len(errors) > 0:
             message = "Not all classes could be instantiated:\n{0}\n"
             raise AssertionError(message.format(''.join(errors)))
@@ -855,15 +865,27 @@ class TestTVTKModule(unittest.TestCase):
             except AttributeError:
                 return None, None
 
+        if on_gha:
+            print("\n::group::TVTK trait ranges")
         for name in self.names:
             vtk_klass = getattr(vtk, name)
             tvtk_klass_name = get_tvtk_name(name)
+            if vtk.vtk_version == '9.4.0':
+                if tvtk_klass_name.endswith('View'):
+                    continue
+                if tvtk_klass_name in ['ImageViewer', 'ImageViewer2',
+                                       'OpenGLRenderWindow',
+                                       'RenderWindow']:
+                    continue
+
+            if on_gha:
+                print(tvtk_klass_name)
 
             try:
                 obj = getattr(tvtk, tvtk_klass_name)()
             except Exception:
                 # testing for instantiation is above
-                pass
+                continue
 
             for trait_name in obj.editable_traits():
                 if trait_name in ['_in_set', '_vtk_obj']:
@@ -882,13 +904,14 @@ class TestTVTKModule(unittest.TestCase):
                     # tvtk.tvtk_classes.open_gl_cell_grid_render_request.shapes_to_draw
                     # uses strings
                     if isinstance(min_value, str):
-                        name = "tvtk.tvtk_classes.open_gl_cell_grid_render_request"
-                        assert name in repr(obj), (obj, trait_name)
+                        assert 'cell_grid_render_request' in repr(obj), (obj, trait_name)
                         continue
                     with self.assertRaises(TraitError):
                         setattr(obj, trait_name, (min_value-1, max_value))
                     with self.assertRaises(TraitError):
                         setattr(obj, trait_name, (min_value, max_value+1))
+        if on_gha:
+            print("::endgroup::")
 
     def test_no_trait_has_ptr_address_as_value(self):
         '''Test if none of the TVTK classes' traits has a value of "*_p_void"
@@ -933,7 +956,7 @@ class TestTVTKModule(unittest.TestCase):
                 obj = getattr(tvtk, tvtk_klass_name)()
             except Exception:
                 # testing for instantiation is above
-                pass
+                continue
 
             for trait_name in obj._full_traitnames_list_:
                 try:

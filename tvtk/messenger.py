@@ -145,7 +145,7 @@ class Messenger:
 
         """
         typ = type(callback)
-        key = hash(obj)
+        key = id(obj)
         if not key in self._signals:
             self._signals[key] = {}
         signals = self._signals[key]
@@ -200,7 +200,7 @@ class Messenger:
         if obj_is_hash:
             key = obj
         else:
-            key = hash(obj)
+            key = id(obj)
         if not key in signals:
             return
         if callback is None:
@@ -282,11 +282,11 @@ class Messenger:
         object.
 
         """
-        ret = self._signals.get(hash(obj))
+        ret = self._signals.get(id(obj))
         if ret is None:
             raise MessengerError(
-                "No such object: %s, has registered itself "\
-                "with the messenger."%obj
+                "No such object: %s, has registered itself "
+                "with the messenger." % obj
             )
         else:
             return ret

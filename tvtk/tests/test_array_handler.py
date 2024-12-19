@@ -29,6 +29,7 @@ def mysum(arr):
 class TestArrayHandler(unittest.TestCase):
     def _check_arrays(self, arr, vtk_arr):
         self.assertEqual(vtk_arr.GetNumberOfTuples(), len(arr))
+        msg = f"\n{vtk_arr}"
         if len(arr.shape) == 2:
             dim1 = arr.shape[1]
             self.assertEqual(vtk_arr.GetNumberOfComponents(), dim1)
@@ -45,8 +46,7 @@ class TestArrayHandler(unittest.TestCase):
                     self.assertEqual(chr(int(vtk_arr.GetTuple1(i))), arr[i])
             else:
                 for i in range(len(arr)):
-                    self.assertEqual(vtk_arr.GetTuple1(i), arr[i])
-
+                    self.assertEqual(vtk_arr.GetTuple1(i), arr[i], msg=msg)
 
     def test_array2vtk(self):
         """Test Numeric array to VTK array conversion and vice-versa."""
@@ -63,6 +63,7 @@ class TestArrayHandler(unittest.TestCase):
         t_z.append(numpy.array([-2147483648, 0, 2147483647], numpy.int32))
         t_z.append(numpy.array([
             -9223372036854775808, 0, 9223372036854775807], numpy.int64))
+        assert t_z[-1][0] == -9223372036854775808
         t_z.append(numpy.array([0, 255], numpy.uint8))
         t_z.append(numpy.array([0, 65535], numpy.uint16))
         t_z.append(numpy.array([0, 4294967295], numpy.uint32))
@@ -160,13 +161,16 @@ class TestArrayHandler(unittest.TestCase):
         self.assertEqual(vtk_arr.GetValue(2), 0)
         self.assertEqual(vtk_arr.GetValue(3), 1)
 
-        # Make sure the code at least runs for all the non-complex
-        # numerical dtypes in numpy.
-        float_types = [x for x in numpy.sctypes['float']
-                       if x().dtype.name not in ('float16', 'float128')]
-        for dtype in (numpy.sctypes['int'] + numpy.sctypes['uint'] +
-                      float_types):
-            array_handler.array2vtk(numpy.zeros((1,), dtype=dtype))
+        # Make sure the code at least runs for all
+        # numerical dtypes in numpy
+        # except for half, longdouble and complexfloating
+        int_types = ['byte', 'short', 'int', 'intc', 'int_', 'long', 'longlong']
+        uint_types = ['ubyte', 'ushort', 'uintc', 'uint', 'ulong',
+                      'ulonglong']
+        float_types = ['single', 'double']
+        for dtype in int_types + uint_types + float_types:
+            array_handler.array2vtk(numpy.zeros((1,),
+                                    dtype=numpy.dtype(dtype)))
 
     def test_arr2cell_array(self):
         """Test Numeric array to vtkCellArray conversion."""
@@ -201,8 +205,7 @@ class TestArrayHandler(unittest.TestCase):
         cells = array_handler.array2vtkCellArray(a)
         arr = array_handler.vtk2array(cells.GetData())
         expect = numpy.array([3, 0, 1, 2]*3, int)
-        self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
-                         True)
+        self.assertTrue(numpy.all(numpy.equal(arr, expect)))
         self.assertEqual(cells.GetNumberOfCells(), N)
 
         # Test if a list of Numeric arrays of different cell lengths works.
@@ -210,8 +213,7 @@ class TestArrayHandler(unittest.TestCase):
         cells = array_handler.array2vtkCellArray(l_a)
         arr = array_handler.vtk2array(cells.GetData())
         expect = numpy.array([1, 0]*3 + [3, 0, 1, 2]*3 + [2, 0,1]*2, int)
-        self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
-                         True)
+        self.assertTrue(numpy.all(numpy.equal(arr, expect)))
         self.assertEqual(cells.GetNumberOfCells(), N*2 + 2)
 
         # This should not take a long while.  This merely tests if a
