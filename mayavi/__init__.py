@@ -18,7 +18,8 @@ __requires__ = [
     'traitsui>=7.0.0',
     'packaging',
     'importlib_resources; python_version<"3.11"',
-    'vtk'
+    'vtk',
+    'puremagic'
 ]
 
 __extras_require__ = {
