@@ -3,7 +3,7 @@
 # License: BSD Style.
 
 import unittest
-from pkg_resources import resource_filename
+from importlib.resources import files, as_file
 
 from traits.api import Str, Int, Bool
 from apptools.preferences.api import set_default_preferences
@@ -25,9 +25,8 @@ class ClassNameTest(unittest.TestCase):
         """Called before each test is run"""
         self.preferences = set_default_preferences(Preferences())
         # The filename of the example preferences file.
-        pref_file = resource_filename('mayavi.tests',
-                                      'test_preference.ini')
-        self.preferences.load(pref_file)
+        with as_file(files('mayavi.tests')/'test_preference.ini') as pref_file:
+            self.preferences.load(str(pref_file))
         self.pref = _TestPreference()
         self.mirror = PreferencesMirror()
         self.mirror.preferences = self.pref
