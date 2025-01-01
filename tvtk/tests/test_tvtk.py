@@ -870,7 +870,7 @@ class TestTVTKModule(unittest.TestCase):
         for name in self.names:
             vtk_klass = getattr(vtk, name)
             tvtk_klass_name = get_tvtk_name(name)
-            if vtk.vtk_version == '9.4.0':
+            if vtk.vtk_version in ['9.4.0', '9.4.1']:
                 if tvtk_klass_name.endswith('View'):
                     continue
                 if tvtk_klass_name in ['ImageViewer', 'ImageViewer2',
