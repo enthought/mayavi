@@ -111,9 +111,9 @@ workflow:
 
 1. Fork the Repo on github.
 2. If you are adding functionality or fixing a bug, please add a test!
-3. Push to your fork and submit a **pull request to the master branch**.
+3. Push to your fork and submit a **pull request to the main branch**.
 
-The **master** branch is a 100% stable (should be).  The pull request is merged
+The **main** branch is a 100% stable (should be).  The pull request is merged
 only after it is certain that things are working out, which means that
 `Travis`_ and `Appveyor`_ tests pass.
 
@@ -156,7 +156,7 @@ Translating the documentation
 The recommended way for new contributors to translate mayavi reference is to
 join the translation team on Transifex.
 
-There is a `mayavi translation page`_ for mayavi (master) documentation.
+There is a `mayavi translation page`_ for mayavi (main) documentation.
 
 1. Login to transifex_ service.
 2. Go to `mayavi translation page`_.
