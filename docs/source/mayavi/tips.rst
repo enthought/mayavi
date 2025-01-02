@@ -33,7 +33,7 @@ This feature was first introduced in Mayavi-4.8.0.
 .. _itkwidgets: https://github.com/InsightSoftwareConsortium/itkwidgets
 
 A simple example notebook demonstrating the notebook interface is
-available here: https://github.com/enthought/mayavi/blob/master/examples/mayavi/mayavi_jupyter.ipynb
+available here: https://github.com/enthought/mayavi/blob/main/examples/mayavi/mayavi_jupyter.ipynb
 
 There are two other backends, the simplest one is the ``'png'``
 backend which produces images that can be embedded in the notebook.

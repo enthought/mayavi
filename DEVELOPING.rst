@@ -24,7 +24,7 @@ from the root of the project here is what you do::
    # Commit and push new docs
    git commit -a -m "Updated docs"
    git push
-   # Return to master branch
-   git checkout master
+   # Return to main branch
+   git checkout main
 
 
