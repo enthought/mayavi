@@ -92,7 +92,7 @@ jobs:
       with:
         persist-credentials: false
     - name: Install Linux packages for Qt5/Qt6 support and start Xvfb
-      uses: pyvista/setup-headless-display-action@v3
+      uses: pyvista/setup-headless-display-action@v4
       with:
         qt: true
       if: startsWith(matrix.os, 'ubuntu')
