@@ -641,6 +641,12 @@ class VTKMethodParser:
             # These hang on Windows (and maybe Fedora 34)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
                 continue
+            # This crashes during generation
+            elif (
+                (vtk_major_version, vtk_minor_version) == (9, 4)
+                and klass_name == "vtkXOpenGLRenderWindow"
+            ):
+                continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]
