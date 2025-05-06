@@ -7,6 +7,7 @@ type information, and organizes them.
 # License: BSD Style.
 
 import collections.abc
+import gc
 import re
 import os
 
@@ -641,12 +642,6 @@ class VTKMethodParser:
             # These hang on Windows (and maybe Fedora 34)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
                 continue
-            # This crashes during generation
-            elif (
-                (vtk_major_version, vtk_minor_version) == (9, 4)
-                and klass_name == "vtkXOpenGLRenderWindow"
-            ):
-                continue
             # we can actually process it
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]
@@ -691,6 +686,14 @@ class VTKMethodParser:
                         )
                     ):
                         default = None
+                    # Broken in 9.4.2
+                    #elif (
+                    #    (vtk_major_version, vtk_minor_version) == (9, 4)
+                    #    and f"{klass_name}.Get{key}" in (
+                    #        "vtkXOpenGLRenderWindow.GetWindowName",
+                    #    )
+                    #):
+                    #    default = "Visualization Toolkit - OpenGL"
                     else:
                         try:
                             if self._verbose:
@@ -714,18 +717,21 @@ class VTKMethodParser:
                                 default = int(bool(default))
 
                     if value:
+                        print(f"  Calling {klass_name}.Get{key}MinValue()")
                         low = getattr(obj, 'Get%sMinValue' % key)()
+                        print(f"  Calling {klass_name}.Get{key}MaxValue()")
                         high = getattr(obj, 'Get%sMaxValue' % key)()
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
-                del obj
                 # Segfaults can be exposed by uncommenting these lines,
                 # leave them commented while running because they
                 # slow things down quite a bit
-                # print('GC', klass_name)
-                # import gc
-                # gc.collect()
+                if self._verbose:
+                    print(f"  GC {klass_name}")
+                del obj
+                if self._verbose:
+                    gc.collect()
             else:
                 # We still might have methods that have a default range.
                 for key, value in gsm.items():
