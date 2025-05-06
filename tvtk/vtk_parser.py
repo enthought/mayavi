@@ -720,9 +720,6 @@ class VTKMethodParser:
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
-                # Segfaults can be exposed by uncommenting these lines,
-                # leave them commented while running because they
-                # slow things down quite a bit
                 if self._gc and self._verbose:
                     print(f"  GC {klass_name}")
                 del obj
