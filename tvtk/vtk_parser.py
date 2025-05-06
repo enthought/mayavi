@@ -711,9 +711,11 @@ class VTKMethodParser:
                                 default = int(bool(default))
 
                     if value:
-                        print(f"  Calling {klass_name}.Get{key}MinValue()")
+                        if self._verbose:
+                            print(f"  Calling {klass_name}.Get{key}MinValue()")
                         low = getattr(obj, 'Get%sMinValue' % key)()
-                        print(f"  Calling {klass_name}.Get{key}MaxValue()")
+                        if self._verbose:
+                            print(f"  Calling {klass_name}.Get{key}MaxValue()")
                         high = getattr(obj, 'Get%sMaxValue' % key)()
                         gsm[key] = (default, (low, high))
                     else:
@@ -721,7 +723,7 @@ class VTKMethodParser:
                 # Segfaults can be exposed by uncommenting these lines,
                 # leave them commented while running because they
                 # slow things down quite a bit
-                if self._gc:
+                if self._gc and self._verbose:
                     print(f"  GC {klass_name}")
                 del obj
                 if self._gc:
