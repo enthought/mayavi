@@ -62,7 +62,7 @@ if vtk_version in ["9.4.0", "9.4.1", "9.4.2"]:
     except NameError:
         pass
     if vtk_version == "9.4.2":
-        # vtkIOSSReader has been fixed in VTK 9.4.3
+        # vtkXOpenGLRenderWindow segfaults when being deconstructed on 9.4.2
         SKIP += ["vtkXOpenGLRenderWindow"]
         try:
             del vtkXOpenGLRenderWindow
