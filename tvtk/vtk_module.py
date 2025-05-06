@@ -61,3 +61,10 @@ if vtk_version in ["9.4.0", "9.4.1", "9.4.2"]:
         del vtkIOSSReader, vtkIOSSCellGridReader
     except NameError:
         pass
+    if vtk_version == "9.4.2":
+        # vtkIOSSReader has been fixed in VTK 9.4.3
+        SKIP += ["vtkXOpenGLRenderWindow"]
+        try:
+            del vtkXOpenGLRenderWindow
+        except NameError:
+            pass
