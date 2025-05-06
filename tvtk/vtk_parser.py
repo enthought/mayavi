@@ -116,6 +116,8 @@ class VTKMethodParser:
         self._state_patn = re.compile('To[A-Z0-9]')
         self._verbose = \
             os.getenv('VTK_PARSER_VERBOSE', '').lower() in ('1', 'true')
+        self._gc = \
+            os.getenv('VTK_PARSER_GC', '').lower() in ('1', 'true')
         self._initialize()
 
     #################################################################
@@ -686,14 +688,6 @@ class VTKMethodParser:
                         )
                     ):
                         default = None
-                    # Broken in 9.4.2
-                    #elif (
-                    #    (vtk_major_version, vtk_minor_version) == (9, 4)
-                    #    and f"{klass_name}.Get{key}" in (
-                    #        "vtkXOpenGLRenderWindow.GetWindowName",
-                    #    )
-                    #):
-                    #    default = "Visualization Toolkit - OpenGL"
                     else:
                         try:
                             if self._verbose:
@@ -727,10 +721,10 @@ class VTKMethodParser:
                 # Segfaults can be exposed by uncommenting these lines,
                 # leave them commented while running because they
                 # slow things down quite a bit
-                if self._verbose:
+                if self._gc:
                     print(f"  GC {klass_name}")
                 del obj
-                if self._verbose:
+                if self._gc:
                     gc.collect()
             else:
                 # We still might have methods that have a default range.
