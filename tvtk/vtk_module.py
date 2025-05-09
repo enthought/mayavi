@@ -54,10 +54,17 @@ if vtk_version.startswith('9.3'):
     except NameError:
         pass
 
-if vtk_version in ['9.4.0', '9.4.1']:
+if vtk_version in ["9.4.0", "9.4.1", "9.4.2"]:
     # Instantiating these using TVTK causes a crash on VTK 9.4.x so skipping.
     SKIP = ['vtkIOSSReader', 'vtkIOSSCellGridReader']
     try:
         del vtkIOSSReader, vtkIOSSCellGridReader
     except NameError:
         pass
+    if vtk_version == "9.4.2":
+        # vtkXOpenGLRenderWindow segfaults when being deconstructed on 9.4.2
+        SKIP += ["vtkXOpenGLRenderWindow"]
+        try:
+            del vtkXOpenGLRenderWindow
+        except NameError:
+            pass

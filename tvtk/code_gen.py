@@ -4,7 +4,7 @@ This can be evoked for example by running from the ``mayavi`` root:
 
 ..code-block:: console
 
-    $ VTK_PARSER_VERBOSE=1 python -m tvtk.code_gen -szvno $PWD/tvtk
+    $ VTK_PARSER_VERBOSE=1 VTK_PARSER_GC=1 python -m tvtk.code_gen -szvno $PWD/tvtk
 
 On failures you can then for example do ``import pdb; pdb.pm()`` to do
 post-mortem debugging. If there are segfaults, the VTK_PARSER_VERBOSE=1 should help
