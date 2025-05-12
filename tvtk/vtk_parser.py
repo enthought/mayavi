@@ -7,6 +7,7 @@ type information, and organizes them.
 # License: BSD Style.
 
 import collections.abc
+import gc
 import re
 import os
 
@@ -115,6 +116,8 @@ class VTKMethodParser:
         self._state_patn = re.compile('To[A-Z0-9]')
         self._verbose = \
             os.getenv('VTK_PARSER_VERBOSE', '').lower() in ('1', 'true')
+        self._gc = \
+            os.getenv('VTK_PARSER_GC', '').lower() in ('1', 'true')
         self._initialize()
 
     #################################################################
@@ -708,18 +711,20 @@ class VTKMethodParser:
                                 default = int(bool(default))
 
                     if value:
+                        if self._verbose:
+                            print(f"  Calling {klass_name}.Get{key}MinValue()")
                         low = getattr(obj, 'Get%sMinValue' % key)()
+                        if self._verbose:
+                            print(f"  Calling {klass_name}.Get{key}MaxValue()")
                         high = getattr(obj, 'Get%sMaxValue' % key)()
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
+                if self._gc and self._verbose:
+                    print(f"  GC {klass_name}")
                 del obj
-                # Segfaults can be exposed by uncommenting these lines,
-                # leave them commented while running because they
-                # slow things down quite a bit
-                # print('GC', klass_name)
-                # import gc
-                # gc.collect()
+                if self._gc:
+                    gc.collect()
             else:
                 # We still might have methods that have a default range.
                 for key, value in gsm.items():
