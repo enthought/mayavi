@@ -139,7 +139,7 @@ axes
 get_engine
 ~~~~~~~~~~
 
-.. function:: get_engine(self)
+.. function:: get_engine()
 
     Returns an engine in agreement with the options.
     
@@ -247,7 +247,7 @@ process_ui_events
 set_engine
 ~~~~~~~~~~
 
-.. function:: set_engine(self, engine)
+.. function:: set_engine(engine)
 
     Sets the mlab engine.
     
@@ -328,7 +328,7 @@ show_engine
 show_pipeline
 ~~~~~~~~~~~~~
 
-.. function:: show_pipeline(self, engine=None, rich_view=True)
+.. function:: show_pipeline(engine=None, rich_view=True)
 
     Show a dialog with the mayavi pipeline. This dialog allows to
     edit graphically the properties of the different objects on

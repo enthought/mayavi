@@ -18,7 +18,7 @@ OUT_DIR = os.sep.join(
 from mayavi.tools import auto_doc
 from mayavi import mlab
 
-from inspect import getmembers, getsource, getargspec, formatargspec
+from inspect import getmembers, getsource, signature
 from docutils import io as docIO
 from docutils import core as docCore
 
@@ -109,7 +109,7 @@ def document_function(func, func_name=None, example_code=None,
         else:
             func_doc = "\n::\n" + func_doc
 
-    func_signature = formatargspec(*getargspec(func))
+    func_signature = str(signature(func))
 
     documentation = """
 %(func_name)s
