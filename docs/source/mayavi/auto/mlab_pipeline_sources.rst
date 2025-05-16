@@ -62,7 +62,7 @@ array2d_source
 builtin_image
 ~~~~~~~~~~~~~
 
-.. function:: builtin_image(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7f584fc41e90>)
+.. function:: builtin_image(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7c860576c8b0>)
 
     Create a vtk image data source
     
@@ -73,7 +73,7 @@ builtin_image
 builtin_surface
 ~~~~~~~~~~~~~~~
 
-.. function:: builtin_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7f584fc418a0>)
+.. function:: builtin_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7c860576c400>)
 
     Create a vtk poly data source
     
@@ -84,7 +84,7 @@ builtin_surface
 chaco_file
 ~~~~~~~~~~
 
-.. function:: chaco_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7f584fc42a70>)
+.. function:: chaco_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7c860576d120>)
 
     Open a Chaco file
     
@@ -178,7 +178,7 @@ open
 parametric_surface
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: parametric_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7f584fc40d10>)
+.. function:: parametric_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7c8605763b00>)
 
     Create a parametric surface source
     
@@ -189,7 +189,7 @@ parametric_surface
 point_load
 ~~~~~~~~~~
 
-.. function:: point_load(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7f584fc41300>)
+.. function:: point_load(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7c8605763f60>)
 
     Simulates a point load on a cube of data (for tensors)
     
@@ -429,7 +429,7 @@ vertical_vectors_source
 volume_file
 ~~~~~~~~~~~
 
-.. function:: volume_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7f584fc42480>)
+.. function:: volume_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x7c860576cd60>)
 
     Open a Volume file
     
