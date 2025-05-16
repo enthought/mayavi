@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Volume slicer advanced example &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <title>Volume slicer advanced example &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="example_coil_design_application.html" title="Coil design application example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Volume slicer advanced example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
           <div class="body" role="main">
             
   <section id="volume-slicer-advanced-example">
-<span id="example-volume-slicer-advanced"></span><h1>Volume slicer advanced example<a class="headerlink" href="#volume-slicer-advanced-example" title="Permalink to this heading">¶</a></h1>
+<span id="example-volume-slicer-advanced"></span><h1>Volume slicer advanced example<a class="headerlink" href="#volume-slicer-advanced-example" title="Link to this heading">¶</a></h1>
 <p>An efficient implementation of the triple-plane view showing 3 cut planes
 on volumetric data, and side views showing each cut, with a cursor to
 move the other cuts.</p>
@@ -102,23 +101,23 @@ creates a VTK <cite>InteractionEvent</cite>. When this happens, VTK calls an
 callback (observer, it VTK terms), that we use to move the position of
 the cut. The Traits callbacks do the rest for the updating.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/ba9dfd2c0ac7e6dfe7d5ecb6a3a76d4f/volume_slicer_advanced.py"><code class="xref download docutils literal notranslate"><span class="pre">volume_slicer_advanced.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> \
+<span class="kn">from</span><span class="w"> </span><span class="nn">traits.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> \
     <span class="n">Bool</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">on_trait_change</span>
-<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HGroup</span><span class="p">,</span> <span class="n">Group</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">traitsui.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HGroup</span><span class="p">,</span> <span class="n">Group</span>
 
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-<span class="kn">from</span> <span class="nn">tvtk.pyface.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.pyface.scene</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scene</span>
 
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">PipelineBase</span><span class="p">,</span> <span class="n">Source</span>
-<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">SceneEditor</span><span class="p">,</span> <span class="n">MlabSceneModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.core.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">PipelineBase</span><span class="p">,</span> <span class="n">Source</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.core.ui.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">SceneEditor</span><span class="p">,</span> <span class="n">MlabSceneModel</span>
 
 
 <span class="c1">################################################################################</span>
 <span class="c1"># The object implementing the dialog</span>
-<span class="k">class</span> <span class="nc">VolumeSlicer</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">VolumeSlicer</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
     <span class="c1"># The data to plot</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">Array</span>
 
@@ -149,7 +148,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="c1"># Object interface</span>
     <span class="c1">#---------------------------------------------------------------------------</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">VolumeSlicer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">traits</span><span class="p">)</span>
         <span class="c1"># Force the creation of the image_plane_widgets:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_x</span>
@@ -160,28 +159,28 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="c1"># Default values</span>
     <span class="c1">#---------------------------------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">_position_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_position_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_data_src_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_data_src_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                             <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
                             <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">,)</span>
 
-    <span class="k">def</span> <span class="nf">make_ipw_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_ipw_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_src</span><span class="p">,</span>
                         <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
                         <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_axes&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span>
                         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cut </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ipw</span>
 
-    <span class="k">def</span> <span class="nf">_ipw_3d_x_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ipw_3d_x_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_ipw_3d_y_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ipw_3d_y_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_ipw_3d_z_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ipw_3d_z_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
 
 
@@ -189,7 +188,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     <span class="c1"># Scene activation callbacks</span>
     <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene3d.activated&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">display_scene3d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_scene3d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outline</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_src</span><span class="p">,</span>
                         <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
                         <span class="p">)</span>
@@ -205,7 +204,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_position</span><span class="p">()</span>
 
 
-    <span class="k">def</span> <span class="nf">make_side_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_side_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;scene_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">parallel_projection</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">ipw_3d</span>   <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ipw_3d_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
@@ -245,7 +244,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
         <span class="c1"># Add a callback on the image plane widget interaction to</span>
         <span class="c1"># move the others</span>
         <span class="n">this_axis_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]</span>
-        <span class="k">def</span> <span class="nf">move_view</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">move_view</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
             <span class="c1"># Disable rendering on all scene</span>
             <span class="n">position</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">GetCurrentCursorPosition</span><span class="p">()</span><span class="o">*</span><span class="n">spacing</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">position</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">this_axis_number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">this_axis_number</span><span class="p">])</span>
@@ -278,15 +277,15 @@ the cut. The Traits callbacks do the rest for the updating.</p>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">parallel_scale</span> <span class="o">=</span> <span class="mf">0.52</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_x.activated&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">display_scene_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_scene_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_y.activated&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">display_scene_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_scene_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_z.activated&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">display_scene_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">display_scene_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
 
 
@@ -294,7 +293,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     <span class="c1"># Traits callback</span>
     <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Update the position of the cursors on each side view, as well</span>
 <span class="sd">            as the image_plane_widgets in the 3D view.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -324,7 +323,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;disable_render&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_render_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_render_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_y</span><span class="p">,</span>
                                                   <span class="bp">self</span><span class="o">.</span><span class="n">scene_z</span><span class="p">):</span>
             <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable_render</span>
@@ -375,10 +374,10 @@ the cut. The Traits callbacks do the rest for the updating.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h4>Previous topic</h4>
@@ -397,7 +396,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -405,13 +404,13 @@ the cut. The Traits callbacks do the rest for the updating.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -426,15 +425,15 @@ the cut. The Traits callbacks do the rest for the updating.</p>
         <li class="right" >
           <a href="example_coil_design_application.html" title="Coil design application example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Volume slicer advanced example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Objects populating the Mayavi pipeline &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <title>Objects populating the Mayavi pipeline &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Objects populating the Mayavi pipeline</a></li> 
       </ul>
@@ -76,7 +75,7 @@
           <div class="body" role="main">
             
   <section id="objects-populating-the-mayavi-pipeline">
-<h1>Objects populating the Mayavi pipeline<a class="headerlink" href="#objects-populating-the-mayavi-pipeline" title="Permalink to this heading">¶</a></h1>
+<h1>Objects populating the Mayavi pipeline<a class="headerlink" href="#objects-populating-the-mayavi-pipeline" title="Link to this heading">¶</a></h1>
 <p>Here we give a brief description of the key objects in the Mayavi pipeline.</p>
 <img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" />
 <div class="admonition note">
@@ -87,7 +86,7 @@ certain objects, when used in IPython, this can cause a segfault, due
 to threading problems in IPython.</p>
 </div>
 <section id="scene">
-<h2>Scene<a class="headerlink" href="#scene" title="Permalink to this heading">¶</a></h2>
+<h2>Scene<a class="headerlink" href="#scene" title="Link to this heading">¶</a></h2>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Key attributes</p></th>
@@ -111,7 +110,7 @@ object which is where all the rendering occurs.</p></td>
 </div>
 </section>
 <section id="source">
-<h2>Source<a class="headerlink" href="#source" title="Permalink to this heading">¶</a></h2>
+<h2>Source<a class="headerlink" href="#source" title="Link to this heading">¶</a></h2>
 <p>All the data sources, file readers, Parametric surface etc. are
 subclasses of the <code class="docutils literal notranslate"><span class="pre">Source</span></code> class.</p>
 <table class="docutils align-default">
@@ -139,7 +138,7 @@ module.</p>
 </div>
 </section>
 <section id="filter">
-<h2>Filter<a class="headerlink" href="#filter" title="Permalink to this heading">¶</a></h2>
+<h2>Filter<a class="headerlink" href="#filter" title="Link to this heading">¶</a></h2>
 <p>All the <code class="docutils literal notranslate"><span class="pre">Filters</span></code> described in the <a class="reference internal" href="filters.html#filters"><span class="std std-ref">Filters</span></a> section are
 subclasses of this class.</p>
 <table class="docutils align-default">
@@ -194,7 +193,7 @@ upstream object fires a <code class="docutils literal notranslate"><span class="
 </div>
 </section>
 <section id="modulemanager-colors-and-legends-node">
-<h2>ModuleManager: Colors and legends node<a class="headerlink" href="#modulemanager-colors-and-legends-node" title="Permalink to this heading">¶</a></h2>
+<h2>ModuleManager: Colors and legends node<a class="headerlink" href="#modulemanager-colors-and-legends-node" title="Link to this heading">¶</a></h2>
 <p>This object is the one called <em>Colors and legends</em> in the tree view on
 the UI.  The main purpose of this object is to control how data is turned
 in colors in the <code class="docutils literal notranslate"><span class="pre">Modules</span></code> it manages.  All modules typically will use
@@ -250,7 +249,7 @@ module.</p>
 </div>
 </section>
 <section id="module">
-<h2>Module<a class="headerlink" href="#module" title="Permalink to this heading">¶</a></h2>
+<h2>Module<a class="headerlink" href="#module" title="Link to this heading">¶</a></h2>
 <p>These objects are the ones that typically produce a visualization on the
 scene.  All the modules defined in the <a class="reference internal" href="modules.html#modules"><span class="std std-ref">Modules</span></a> section are
 subclasses of this.</p>
@@ -319,7 +318,7 @@ upstream object fires a <code class="docutils literal notranslate"><span class="
 </div>
 </section>
 <section id="engine">
-<h2>Engine<a class="headerlink" href="#engine" title="Permalink to this heading">¶</a></h2>
+<h2>Engine<a class="headerlink" href="#engine" title="Link to this heading">¶</a></h2>
 <p>The Mayavi engine is the central object dealing with life-cycle of
 visualization objects and scene, as well as connecting and updating the
 pipeline. It is at the root of the pipeline and is not displayed in the
@@ -405,7 +404,7 @@ handling use of Mayavi’s data structures.</p></td>
 </div>
 </section>
 <section id="base-class-pipelinebase">
-<h2>Base class: PipelineBase<a class="headerlink" href="#base-class-pipelinebase" title="Permalink to this heading">¶</a></h2>
+<h2>Base class: PipelineBase<a class="headerlink" href="#base-class-pipelinebase" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">PipelineBase</span></code> is the base class for all
 objects in the mayavi pipeline except the <code class="docutils literal notranslate"><span class="pre">Scene</span></code> and <code class="docutils literal notranslate"><span class="pre">Engine</span></code>
 (which really isn’t <em>in</em> the pipeline but contains the pipeline).
@@ -469,7 +468,7 @@ from the mayavi pipeline.</p></td>
 </div>
 </section>
 <section id="class-hierarchy">
-<h2>Class hierarchy<a class="headerlink" href="#class-hierarchy" title="Permalink to this heading">¶</a></h2>
+<h2>Class hierarchy<a class="headerlink" href="#class-hierarchy" title="Link to this heading">¶</a></h2>
 <p>The following figures show the class hierarchy of the various objects
 involved.</p>
 <img alt="Basic object hierarchy" class="align-center" src="_images/design2a.jpg" />
@@ -486,10 +485,10 @@ involved.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
@@ -525,7 +524,7 @@ involved.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -533,13 +532,13 @@ involved.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -554,15 +553,15 @@ involved.</p>
         <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Objects populating the Mayavi pipeline</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

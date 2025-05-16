@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Data representation in Mayavi &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <title>Data representation in Mayavi &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Data representation in Mayavi</a></li> 
       </ul>
@@ -76,7 +75,7 @@
           <div class="body" role="main">
             
   <section id="data-representation-in-mayavi">
-<span id="data-structures-used-by-mayavi"></span><h1>Data representation in Mayavi<a class="headerlink" href="#data-representation-in-mayavi" title="Permalink to this heading">¶</a></h1>
+<span id="data-structures-used-by-mayavi"></span><h1>Data representation in Mayavi<a class="headerlink" href="#data-representation-in-mayavi" title="Link to this heading">¶</a></h1>
 <p>Describing data in three dimensions in the general case is a complex
 problem. Mayavi helps you focus on your visualization work and not worry
 too much about the underlying data structures, for instance using mlab
@@ -114,7 +113,7 @@ many pipeline objects could be constructed to fit in the pipeline
 below a scene and providing datasets to the pipeline.</p>
 </aside>
 <section id="introduction-to-tvtk-datasets">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink">Introduction to TVTK datasets</a><a class="headerlink" href="#introduction-to-tvtk-datasets" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Introduction to TVTK datasets</a><a class="headerlink" href="#introduction-to-tvtk-datasets" title="Link to this heading">¶</a></h2>
 <p>Mayavi uses the VTK library for all its visualization needs, via TVTK
 (Traited VTK). The data is exposed internally, by the sources, or at the
 output of the filters, as VTK datasets, described below. Understanding
@@ -166,7 +165,7 @@ the operation is:</p>
 <p>An complete list of the VTK datasets used by Mayavi is given <a class="reference external" href="dissection_vtk_datasets">below</a>, after a tour of the Mayavi pipeline.</p>
 </section>
 <section id="the-flow-of-data">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">The flow of data</a><a class="headerlink" href="#the-flow-of-data" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">The flow of data</a><a class="headerlink" href="#the-flow-of-data" title="Link to this heading">¶</a></h2>
 <p>As described <a class="reference internal" href="overview.html#pipeline-model"><span class="std std-ref">earlier</span></a>, Mayavi builds visualization by
 assembling pipelines, where the data is loaded in Mayavi by a <cite>data
 source</cite>, and it can be transformed by <cite>filters</cite> and visualized by
@@ -180,8 +179,8 @@ and modules is stored in VTK datasets. Each source or filter has an
 <cite>outputs</cite> attribute, which is a list of VTK <cite>datasets</cite> describing the
 data output by the object.</p>
 <dl>
-<dt>For example:</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<dt>For example:</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iso</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
@@ -208,9 +207,9 @@ example:</p>
 </div>
 </section>
 <section id="retrieving-the-data-from-mayavi-pipelines">
-<span id="retrieving-data"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Retrieving the data from Mayavi pipelines</a><a class="headerlink" href="#retrieving-the-data-from-mayavi-pipelines" title="Permalink to this heading">¶</a></h2>
+<span id="retrieving-data"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">Retrieving the data from Mayavi pipelines</a><a class="headerlink" href="#retrieving-the-data-from-mayavi-pipelines" title="Link to this heading">¶</a></h2>
 <section id="probing-data-at-given-positions">
-<h3>Probing data at given positions<a class="headerlink" href="#probing-data-at-given-positions" title="Permalink to this heading">¶</a></h3>
+<h3>Probing data at given positions<a class="headerlink" href="#probing-data-at-given-positions" title="Link to this heading">¶</a></h3>
 <p>If you simply want to retrieve the data values described by a Mayavi
 object a given position in space, you can use the
 <a class="reference internal" href="auto/mlab_pipeline_data.html#mayavi.tools.pipeline.probe_data" title="mayavi.tools.pipeline.probe_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">pipeline.probe_data()</span></code></a> function (<strong>warning</strong> the <cite>probe_data</cite>
@@ -257,12 +256,12 @@ non zero in the convex hull of the points:</p>
 </div>
 </section>
 <section id="inspecting-the-internals-of-the-data-structures">
-<h3>Inspecting the internals of the data structures<a class="headerlink" href="#inspecting-the-internals-of-the-data-structures" title="Permalink to this heading">¶</a></h3>
+<h3>Inspecting the internals of the data structures<a class="headerlink" href="#inspecting-the-internals-of-the-data-structures" title="Link to this heading">¶</a></h3>
 <p>You may be interested in the data carried by the TVTK datasets themselves,
 rather than the values they represent, for instance to replicate them.
 For this, you can retrieve the TVTK datasets, and inspect them.</p>
 <section id="extracting-data-points-and-values">
-<h4>Extracting data points and values<a class="headerlink" href="#extracting-data-points-and-values" title="Permalink to this heading">¶</a></h4>
+<h4>Extracting data points and values<a class="headerlink" href="#extracting-data-points-and-values" title="Link to this heading">¶</a></h4>
 <blockquote>
 <div><p>The positions of all the points of a TVTK dataset can be accessed via its
 <cite>points</cite> attribute. Retrieving the dataset from the <cite>field</cite> object of
@@ -295,7 +294,7 @@ in the cells, and it is scalar data:</p>
 </div></blockquote>
 </section>
 <section id="extracting-lines">
-<h4>Extracting lines<a class="headerlink" href="#extracting-lines" title="Permalink to this heading">¶</a></h4>
+<h4>Extracting lines<a class="headerlink" href="#extracting-lines" title="Link to this heading">¶</a></h4>
 <blockquote>
 <div><p>If we want to extract the edges of the Delaunay tessellation, we can
 apply the ExtractEdges filter to the <cite>field</cite> from the previous example
@@ -325,7 +324,7 @@ a graph is given in <a class="reference internal" href="auto/example_delaunay_gr
 </section>
 </section>
 <section id="headless-use-of-mayavi-for-the-algorithms-without-visualization">
-<h3>Headless use of Mayavi for the algorithms, without visualization<a class="headerlink" href="#headless-use-of-mayavi-for-the-algorithms-without-visualization" title="Permalink to this heading">¶</a></h3>
+<h3>Headless use of Mayavi for the algorithms, without visualization<a class="headerlink" href="#headless-use-of-mayavi-for-the-algorithms-without-visualization" title="Link to this heading">¶</a></h3>
 <p>As you can see from the above example, it can be interesting to use
 Mayavi just for the numerical algorithm operating on 3D data, as the
 Delaunay tessellation and interpolation demoed.</p>
@@ -339,7 +338,7 @@ probe the data:</p>
 </section>
 </section>
 <section id="dissection-of-the-different-tvtk-datasets">
-<span id="dissection-vtk-datasets"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Dissection of the different TVTK datasets</a><a class="headerlink" href="#dissection-of-the-different-tvtk-datasets" title="Permalink to this heading">¶</a></h2>
+<span id="dissection-vtk-datasets"></span><h2><a class="toc-backref" href="#id4" role="doc-backlink">Dissection of the different TVTK datasets</a><a class="headerlink" href="#dissection-of-the-different-tvtk-datasets" title="Link to this heading">¶</a></h2>
 <p>The 5 TVTK structures used are the following (ordered by the cost of
 visualizing them).:</p>
 <table class="docutils align-default">
@@ -379,7 +378,7 @@ visualizing them).:</p>
 </tbody>
 </table>
 <section id="imagedata">
-<span id="image-data"></span><h3>ImageData<a class="headerlink" href="#imagedata" title="Permalink to this heading">¶</a></h3>
+<span id="image-data"></span><h3>ImageData<a class="headerlink" href="#imagedata" title="Link to this heading">¶</a></h3>
 <p>This dataset is made of data points positioned on an orthogonal grid,
 with constant spacing along each axis. The position of the data points
 are inferred from their position on the data array (implicit
@@ -391,8 +390,8 @@ array, as well as the <cite>mlab.pipeline.scalar_field</cite> and
 <cite>z</cite> arrays are not explicitly specified.</p>
 <img alt="_images/image_data.jpg" src="_images/image_data.jpg" />
 <p>Creating a <cite>tvtk.ImageData</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">random</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageData</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
@@ -402,15 +401,15 @@ array, as well as the <cite>mlab.pipeline.scalar_field</cite> and
 </div>
 </section>
 <section id="rectilineargrid">
-<h3>RectilinearGrid<a class="headerlink" href="#rectilineargrid" title="Permalink to this heading">¶</a></h3>
+<h3>RectilinearGrid<a class="headerlink" href="#rectilineargrid" title="Link to this heading">¶</a></h3>
 <p>This dataset is made of data points positioned on an orthogonal grid,
 with arbitrary spacing along the various axis. The position of the data
 points are inferred from their position on the data array, an
 origin and the list of spacings of each axis.</p>
 <img alt="_images/rectilinear_grid.jpg" src="_images/rectilinear_grid.jpg" />
 <p>Creating a <cite>tvtk.RectilinearGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span><span class="p">,</span> <span class="n">array</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">random</span><span class="p">,</span> <span class="n">array</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">RectilinearGrid</span><span class="p">()</span>
 <span class="n">r</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
@@ -423,17 +422,17 @@ origin and the list of spacings of each axis.</p>
 </div>
 </section>
 <section id="structuredgrid">
-<h3>StructuredGrid<a class="headerlink" href="#structuredgrid" title="Permalink to this heading">¶</a></h3>
+<h3>StructuredGrid<a class="headerlink" href="#structuredgrid" title="Link to this heading">¶</a></h3>
 <p>This dataset is made of data points positioned on arbitrary grid: each
 point is connected to its nearest neighbors on the data array. The
 position of the data points are fully described by 1 coordinate
 arrays, specifying x, y and z for each point.</p>
 <img alt="_images/structured_grid.jpg" src="_images/structured_grid.jpg" />
 <p>Creating a <cite>tvtk.StructuredGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">random</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 
-<span class="k">def</span> <span class="nf">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Generate points for structured grid for a cylindrical annular</span>
 <span class="sd">        volume.  This method is useful for generating a unstructured</span>
 <span class="sd">        cylindrical mesh for VTK.</span>
@@ -478,7 +477,7 @@ arrays, specifying x, y and z for each point.</p>
 </div>
 </section>
 <section id="polydata">
-<span id="poly-data"></span><h3>PolyData<a class="headerlink" href="#polydata" title="Permalink to this heading">¶</a></h3>
+<span id="poly-data"></span><h3>PolyData<a class="headerlink" href="#polydata" title="Link to this heading">¶</a></h3>
 <p>This dataset is made of arbitrarily positioned data points that can
 be connected to form lines, or grouped in polygons to from surfaces
 (the polygons are broken up in triangles). Unlike the other datasets,
@@ -487,8 +486,8 @@ created by the <cite>mlab.pipeline.scalar_scatter</cite> and
 <cite>mlab.pipeline.vector_scatter</cite> functions.</p>
 <img alt="_images/poly_data.jpg" src="_images/poly_data.jpg" />
 <p>Creating a <cite>tvtk.PolyData</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 
 <span class="c1"># The numpy array data.</span>
 <span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span>
@@ -507,7 +506,7 @@ created by the <cite>mlab.pipeline.scalar_scatter</cite> and
 </div>
 </section>
 <section id="unstructuredgrid">
-<h3>UnstructuredGrid<a class="headerlink" href="#unstructuredgrid" title="Permalink to this heading">¶</a></h3>
+<h3>UnstructuredGrid<a class="headerlink" href="#unstructuredgrid" title="Link to this heading">¶</a></h3>
 <p>This dataset is the most general dataset of all. It is made of data
 points positioned arbitrarily. The connectivity between data points
 can be arbitrary (any number of neighbors). It is described by
@@ -515,8 +514,8 @@ specifying connectivity, defining volumetric cells made of adjacent
 data points.</p>
 <img alt="_images/unstructured_grid.jpg" src="_images/unstructured_grid.jpg" />
 <p>Creating a <cite>tvtk.UnstructuredGrid</cite> object from numpy arrays:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 
 <span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># tetra</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
@@ -559,14 +558,14 @@ has been modified:</p>
 </aside>
 </section>
 <section id="external-references">
-<h3>External references<a class="headerlink" href="#external-references" title="Permalink to this heading">¶</a></h3>
+<h3>External references<a class="headerlink" href="#external-references" title="Link to this heading">¶</a></h3>
 <p>This section of the user guide will be improved later.  For now, the
 following two presentations best describe how one can create data
 objects or data files for Mayavi and TVTK.</p>
 <blockquote>
 <div><ul>
 <li><p>Presentation on TVTK and Mayavi2 for course at IIT Bombay</p>
-<p><a class="reference external" href="https://github.com/enthought/mayavi/raw/master/docs/pdf/tvtk_mayavi2.pdf">https://github.com/enthought/mayavi/raw/master/docs/pdf/tvtk_mayavi2.pdf</a></p>
+<p><a class="reference external" href="https://github.com/enthought/mayavi/raw/main/docs/pdf/tvtk_mayavi2.pdf">https://github.com/enthought/mayavi/raw/main/docs/pdf/tvtk_mayavi2.pdf</a></p>
 <p>This presentation provides information on graphics in general, 3D
 data representation, creating VTK data files, creating datasets
 from numpy in Python, and also about mayavi.</p>
@@ -581,7 +580,7 @@ arrays.</p>
 </div></blockquote>
 </section>
 <section id="datasets-creation-examples">
-<h3>Datasets creation examples<a class="headerlink" href="#datasets-creation-examples" title="Permalink to this heading">¶</a></h3>
+<h3>Datasets creation examples<a class="headerlink" href="#datasets-creation-examples" title="Link to this heading">¶</a></h3>
 <p>There are several examples in the mayavi sources that highlight the
 creation of the most important datasets from numpy arrays. Specifically
 they are:</p>
@@ -617,13 +616,13 @@ visualization of an unstructured grid.</p></li>
 </section>
 </section>
 <section id="inserting-tvtk-datasets-in-the-mayavi-pipeline">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Inserting TVTK datasets in the Mayavi pipeline</a><a class="headerlink" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Inserting TVTK datasets in the Mayavi pipeline</a><a class="headerlink" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" title="Link to this heading">¶</a></h2>
 <p>TVTK datasets can be created using directly TVTK, as illustrated in the
 examples above. A VTK data source can be inserted in the Mayavi pipeline
 using the VTKDataSource. For instance we can create an <cite>ImageData</cite>
 dataset:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageData</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
@@ -638,16 +637,16 @@ modules to your data. Indeed these functions creating filters and
 modules accept VTK datasets and automatically insert them on the
 pipeline. A surface module could have been used to visualize the
 <cite>ImageData</cite> dataset created above as such:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">enthgouth.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">enthgouth.mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p>In addition, inserting this dataset on the Mayavi pipeline with direct
 control on the <cite>Engine</cite> is done as suchwith <cite>VTKDataSource</cite>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.sources.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">VTKDataSource</span>
 <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="kn">import</span> <span class="n">Engine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Engine</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">()</span>
 <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
@@ -673,10 +672,10 @@ data sources with mlab</span></a>.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
@@ -727,7 +726,7 @@ data sources with mlab</span></a>.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -735,13 +734,13 @@ data sources with mlab</span></a>.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -756,15 +755,15 @@ data sources with mlab</span></a>.</p>
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Data representation in Mayavi</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

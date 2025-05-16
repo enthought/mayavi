@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tips and Tricks &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <title>Tips and Tricks &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Tips and Tricks</a></li> 
       </ul>
     </div>  
@@ -75,11 +74,11 @@
           <div class="body" role="main">
             
   <section id="tips-and-tricks">
-<h1>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this heading">¶</a></h1>
+<h1>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Link to this heading">¶</a></h1>
 <p>Below are a few tips and tricks that you may find useful when you use
 Mayavi2.</p>
 <section id="using-mayavi-in-jupyter-notebooks">
-<span id="jupyter-notebook"></span><h2>Using Mayavi in Jupyter notebooks<a class="headerlink" href="#using-mayavi-in-jupyter-notebooks" title="Permalink to this heading">¶</a></h2>
+<span id="jupyter-notebook"></span><h2>Using Mayavi in Jupyter notebooks<a class="headerlink" href="#using-mayavi-in-jupyter-notebooks" title="Link to this heading">¶</a></h2>
 <p>There are three different ways in which one can embed Mayavi
 visualizations in a Jupyter notebook.  The best way is to use the
 <code class="docutils literal notranslate"><span class="pre">'ipy'</span></code> backend (which is the default).  This backend was first
@@ -97,7 +96,7 @@ not rely on VTK’s offscreen support.  This requires that the
 convenient backend if your primary usage is for a web-based notebook.
 This feature was first introduced in Mayavi-4.8.0.</p>
 <p>A simple example notebook demonstrating the notebook interface is
-available here: <a class="reference external" href="https://github.com/enthought/mayavi/blob/master/examples/mayavi/mayavi_jupyter.ipynb">https://github.com/enthought/mayavi/blob/master/examples/mayavi/mayavi_jupyter.ipynb</a></p>
+available here: <a class="reference external" href="https://github.com/enthought/mayavi/blob/main/examples/mayavi/mayavi_jupyter.ipynb">https://github.com/enthought/mayavi/blob/main/examples/mayavi/mayavi_jupyter.ipynb</a></p>
 <p>There are two other backends, the simplest one is the <code class="docutils literal notranslate"><span class="pre">'png'</span></code>
 backend which produces images that can be embedded in the notebook.
 These are static and not interactive and this too uses server-side
@@ -119,7 +118,7 @@ run the above.  For more instructions and options see the
 <a class="reference external" href="http://jupyter-notebook.readthedocs.io/en/latest/examples/Notebook/Distributing%20Jupyter%20Extensions%20as%20Python%20Packages.html#Installation-of-Jupyter-Extensions">Installation of Jupyter Extensions</a>.  Doing this allows one to view
 X3D files without a network connection.</p>
 <p>To view Mayavi visualizations on the notebook one should first do:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">init_notebook</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -160,9 +159,9 @@ PNG backend relies on offscreen rendering working correctly on your
 platform.</p>
 </section>
 <section id="off-screen-rendering">
-<span id="offscreen-rendering"></span><h2>Off screen rendering<a class="headerlink" href="#off-screen-rendering" title="Permalink to this heading">¶</a></h2>
+<span id="offscreen-rendering"></span><h2>Off screen rendering<a class="headerlink" href="#off-screen-rendering" title="Link to this heading">¶</a></h2>
 <section id="avoiding-the-rendering-window">
-<h3>Avoiding the rendering window<a class="headerlink" href="#avoiding-the-rendering-window" title="Permalink to this heading">¶</a></h3>
+<h3>Avoiding the rendering window<a class="headerlink" href="#avoiding-the-rendering-window" title="Link to this heading">¶</a></h3>
 <p>Often you write Mayavi scripts to render a whole batch of images to make
 an animation or so and find that each time you save an image, Mayavi
 “raises” the window to make it the active window thus disrupting your
@@ -198,7 +197,7 @@ and set the “Off screen rendering” option on.  Or from a script:</p>
 Please see below on the situation on different platforms.</p>
 </section>
 <section id="platform-summary">
-<h3>Platform Summary<a class="headerlink" href="#platform-summary" title="Permalink to this heading">¶</a></h3>
+<h3>Platform Summary<a class="headerlink" href="#platform-summary" title="Link to this heading">¶</a></h3>
 <ul>
 <li><p><strong>Windows</strong>: If you are using win32 then off screen rendering should work
 well out of the box.  All you will need to do is what is given above.</p></li>
@@ -209,7 +208,7 @@ generate the pictures without worrying about occluding the window.
 However, you will need VTK-5.2 to get this working properly.  There
 are also situations when this does not always work – try it and if
 you get blank windows, you have a problem.  For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">offscreen</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;example.png&#39;</span><span class="p">)</span>
@@ -223,7 +222,7 @@ consider either using a virtual framebuffer or building VTK with Mesa
 </ul>
 </section>
 <section id="rendering-using-the-virtual-framebuffer">
-<h3>Rendering using the virtual framebuffer<a class="headerlink" href="#rendering-using-the-virtual-framebuffer" title="Permalink to this heading">¶</a></h3>
+<h3>Rendering using the virtual framebuffer<a class="headerlink" href="#rendering-using-the-virtual-framebuffer" title="Link to this heading">¶</a></h3>
 <p>VTK uses openGL for all its rendering. Under any conventional Unix
 (including Linux), you need an Xserver running to open a GL context
 (especially if you want hardware acceleration). This might be a problem
@@ -255,8 +254,8 @@ server and produce your saved images.</p></li>
 </div></blockquote>
 <p>This probably will have to be fine tuned to suit your taste.</p>
 <p>If you want to do this in python. You can use <a class="reference external" href="https://pypi.org/project/PyVirtualDisplay/">pyvirtualdisplay</a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyvirtualdisplay</span> <span class="kn">import</span> <span class="n">Display</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyvirtualdisplay</span><span class="w"> </span><span class="kn">import</span> <span class="n">Display</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="n">display</span> <span class="o">=</span> <span class="n">Display</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>
 <span class="n">display</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
@@ -285,7 +284,7 @@ still do off screen rendering.</p>
 </div>
 </section>
 <section id="using-vtk-with-mesa-for-pure-software-rendering">
-<h3>Using VTK with Mesa for pure software rendering<a class="headerlink" href="#using-vtk-with-mesa-for-pure-software-rendering" title="Permalink to this heading">¶</a></h3>
+<h3>Using VTK with Mesa for pure software rendering<a class="headerlink" href="#using-vtk-with-mesa-for-pure-software-rendering" title="Link to this heading">¶</a></h3>
 <p>Sometimes you might want to run Mayavi/VTK completely headless on a
 machine with no X server at all and are interested in pure offscreen
 rendering (for example for usage on the <a class="reference external" href="http://www.sagemath.org">Sage</a> notebook interface).  In
@@ -369,7 +368,7 @@ to popup a full UI, it might be better to <em>not set</em>
 </section>
 </section>
 <section id="extending-mayavi-with-customizations">
-<h2>Extending Mayavi with customizations<a class="headerlink" href="#extending-mayavi-with-customizations" title="Permalink to this heading">¶</a></h2>
+<h2>Extending Mayavi with customizations<a class="headerlink" href="#extending-mayavi-with-customizations" title="Link to this heading">¶</a></h2>
 <p>A developer may wish to customize Mayavi by adding new sources, filters
 or modules.  These can be done by writing the respective filters and
 exposing them via a <code class="docutils literal notranslate"><span class="pre">user_mayavi.py</span></code> or a <code class="docutils literal notranslate"><span class="pre">site_mayavi.py</span></code> as
@@ -415,7 +414,7 @@ installed, users can choose to enable them.  Internally, the list of
 selected packages is stored as the <code class="docutils literal notranslate"><span class="pre">mayavi.contrib_packages</span></code>
 preference option.  The following code shows how this may be accessed
 from a Python script:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.preferences.api</span> <span class="kn">import</span> <span class="n">preference_manager</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.preferences.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">preference_manager</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">preference_manager</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">contrib_packages</span><span class="p">)</span>
 <span class="go">[]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">preference_manager</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span> <span class="c1"># Pop up a UI.</span>
@@ -430,7 +429,7 @@ sources/modules/filters and only registers the metadata.  This will
 avoid issues with circular imports.</p>
 </section>
 <section id="customizing-mayavi2">
-<h2>Customizing Mayavi2<a class="headerlink" href="#customizing-mayavi2" title="Permalink to this heading">¶</a></h2>
+<h2>Customizing Mayavi2<a class="headerlink" href="#customizing-mayavi2" title="Link to this heading">¶</a></h2>
 <p>There are three ways a user can customize Mayavi:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -480,7 +479,7 @@ example <code class="docutils literal notranslate"><span class="pre">user_mayavi
 </div>
 </section>
 <section id="scripting-mayavi-without-using-envisage">
-<h2>Scripting Mayavi without using Envisage<a class="headerlink" href="#scripting-mayavi-without-using-envisage" title="Permalink to this heading">¶</a></h2>
+<h2>Scripting Mayavi without using Envisage<a class="headerlink" href="#scripting-mayavi-without-using-envisage" title="Link to this heading">¶</a></h2>
 <p>The <a class="reference internal" href="auto/example_standalone.html#example-standalone"><span class="std std-ref">Standalone example</span></a> demonstrates how one can use the core
 Mayavi API without using Envisage.  This is useful when you want to
 minimize dependencies.  <a class="reference internal" href="auto/example_offscreen.html#example-offscreen"><span class="std std-ref">Offscreen example</span></a> demonstrates how to use
@@ -488,7 +487,7 @@ Mayavi without the envisage UI or even a traits UI (i.e. with a pure TVTK
 window) and do off screen rendering.</p>
 </section>
 <section id="computing-in-a-thread">
-<h2>Computing in a thread<a class="headerlink" href="#computing-in-a-thread" title="Permalink to this heading">¶</a></h2>
+<h2>Computing in a thread<a class="headerlink" href="#computing-in-a-thread" title="Link to this heading">¶</a></h2>
 <p><a class="reference internal" href="auto/example_compute_in_thread.html#example-compute-in-thread"><span class="std std-ref">Compute in thread example</span></a> demonstrates how to visualize a 2D
 numpy array and visualize it as image data using a few modules.  It also
 shows how one can do a computation in another thread and update the
@@ -497,7 +496,7 @@ interact with  the user interface when the computation is performed in
 another thread.</p>
 </section>
 <section id="polling-a-file-and-auto-updating-mayavi">
-<h2>Polling a file and auto-updating Mayavi<a class="headerlink" href="#polling-a-file-and-auto-updating-mayavi" title="Permalink to this heading">¶</a></h2>
+<h2>Polling a file and auto-updating Mayavi<a class="headerlink" href="#polling-a-file-and-auto-updating-mayavi" title="Link to this heading">¶</a></h2>
 <p>Sometimes you have a separate computational process that generates data
 suitable for visualization.  You’d like Mayavi to visualize the data but
 automatically update the data when the data file is updated by the
@@ -507,13 +506,13 @@ demonstrates this.  To see it in action will require that you edit the
 scalar data in the <code class="docutils literal notranslate"><span class="pre">examples/data/heart.vtk</span></code> data file.</p>
 </section>
 <section id="serving-mayavi-on-the-network">
-<h2>Serving Mayavi on the network<a class="headerlink" href="#serving-mayavi-on-the-network" title="Permalink to this heading">¶</a></h2>
+<h2>Serving Mayavi on the network<a class="headerlink" href="#serving-mayavi-on-the-network" title="Link to this heading">¶</a></h2>
 <p>Say you have a little visualization script and you’d like to run some
 kind of server where you can script the running Mayavi UI from a TCP/UDP
 connection.  It turns out there is a simple way to do this  if you have
 <a class="reference external" href="http://www.twistedmatrix.com">Twisted</a> installed.  Here is a trivial example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">mayavi.tools</span> <span class="kn">import</span> <span class="n">server</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">test_plot3d</span><span class="p">()</span>
 <span class="n">server</span><span class="o">.</span><span class="n">serve_tcp</span><span class="p">()</span>
 </pre></div>
@@ -547,14 +546,14 @@ since the remote user can do pretty much anything they want once
 connected to the server.</p>
 </div>
 <section id="tcp-server-the-serve-tcp-function">
-<h3>TCP server: the <cite>serve_tcp</cite> function<a class="headerlink" href="#tcp-server-the-serve-tcp-function" title="Permalink to this heading">¶</a></h3>
+<h3>TCP server: the <cite>serve_tcp</cite> function<a class="headerlink" href="#tcp-server-the-serve-tcp-function" title="Link to this heading">¶</a></h3>
 </section>
 <section id="udp-server-the-serve-udp-function">
-<h3>UDP server: the <cite>serve_udp</cite> function<a class="headerlink" href="#udp-server-the-serve-udp-function" title="Permalink to this heading">¶</a></h3>
+<h3>UDP server: the <cite>serve_udp</cite> function<a class="headerlink" href="#udp-server-the-serve-udp-function" title="Link to this heading">¶</a></h3>
 </section>
 </section>
 <section id="animating-a-timeseries">
-<span id="id1"></span><h2>Animating a timeseries<a class="headerlink" href="#animating-a-timeseries" title="Permalink to this heading">¶</a></h2>
+<span id="id1"></span><h2>Animating a timeseries<a class="headerlink" href="#animating-a-timeseries" title="Link to this heading">¶</a></h2>
 <p>If a file that mayavi can load has the form <code class="docutils literal notranslate"><span class="pre">some_name[0-9]*.ext</span></code>,
 then it is treated as part of a timeseries.  For example let us say
 you have the following files:</p>
@@ -567,7 +566,7 @@ reader object which can be used to choose an appropriate timestep.
 There are also buttons to automatically change the timestep. To do
 this, select the play checkbox.  This can also be done
 programmatically as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_01.vti&#39;</span><span class="p">)</span>
 <span class="n">src</span><span class="o">.</span><span class="n">play</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
@@ -580,16 +579,16 @@ current reader. The “Rescan files” button will rescan the files on the
 disc to find newer ones that are part of the timeseries.</p>
 </section>
 <section id="animating-a-visualization">
-<span id="id2"></span><h2>Animating a visualization<a class="headerlink" href="#animating-a-visualization" title="Permalink to this heading">¶</a></h2>
+<span id="id2"></span><h2>Animating a visualization<a class="headerlink" href="#animating-a-visualization" title="Link to this heading">¶</a></h2>
 <p>Often users like to animate visualization without affecting the
 interactive capabilities of the view.  For example you may want to
 rotate the camera continuously, take a snapshot while continuing to
 interact with the Mayavi UI.  To do this one can use the very convenient
 <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.animate" title="mayavi.mlab.animate"><code class="xref py py-func docutils literal notranslate"><span class="pre">animate()</span></code></a> decorator provided with Mayavi.  Here is a simple
 example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="nd">@mlab</span><span class="o">.</span><span class="n">animate</span>
-<span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">anim</span><span class="p">():</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
     <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">azimuth</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -605,9 +604,9 @@ affecting the UI’s interactivity.  It also pops up a little UI that lets
 you start and stop the animation and change the time interval between
 calls to your function.  For more specialized use you can pass arguments
 to the decorator:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="nd">@mlab</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">ui</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">anim</span><span class="p">():</span>
     <span class="c1"># ...</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">anim</span><span class="p">()</span> <span class="c1"># Starts the animation without a UI.</span>
@@ -615,18 +614,18 @@ to the decorator:</p>
 </div>
 <p>If you don’t want to import all of <code class="docutils literal notranslate"><span class="pre">mlab</span></code>, the animate
 decorator is available from:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi.tools.animator</span> <span class="kn">import</span> <span class="n">animate</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.tools.animator</span><span class="w"> </span><span class="kn">import</span> <span class="n">animate</span>
 </pre></div>
 </div>
 <p>Note that to start the event loop, <em>i.e.</em> to get the animation running,
 you will need to call <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.show" title="mayavi.mlab.show"><code class="xref py py-func docutils literal notranslate"><span class="pre">show()</span></code></a> if you do not already have a GUI
 environment running.</p>
 <p>Here is another example illustrating the use of the decorator:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 
 <span class="nd">@mlab</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">delay</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">updateAnimation</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">updateAnimation</span><span class="p">():</span>
     <span class="n">t</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">ball</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
@@ -649,7 +648,7 @@ alongside with the <cite>visual</cite> handy for object-movement animation, see
 <a class="reference internal" href="mlab_animating.html#mlab-animating-data"><span class="std std-ref">Animating the data</span></a></p>
 </div>
 <section id="creating-a-movie-from-an-animation">
-<h3>Creating a movie from an animation<a class="headerlink" href="#creating-a-movie-from-an-animation" title="Permalink to this heading">¶</a></h3>
+<h3>Creating a movie from an animation<a class="headerlink" href="#creating-a-movie-from-an-animation" title="Link to this heading">¶</a></h3>
 <p>It is easy to create a movie from either an animation or by playing a
 timeseries.  To do this on the UI, select the Mayavi Scene and
 navigate to the Movie tab and select the record checkbox.  After this,
@@ -658,7 +657,7 @@ if one animates a timestep via the “play” checkbox referred to in
 in the directory specified in the movie UI.  This will also happen if
 one runs an animation as discussed in <a class="reference internal" href="#animating-a-visualization"><span class="std std-ref">Animating a visualization</span></a>.</p>
 <p>This can also be scripted with mlab for example as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">movie_maker</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">test_mesh_sphere_anim</span><span class="p">()</span>
@@ -668,14 +667,14 @@ one runs an animation as discussed in <a class="reference internal" href="#anima
 The <code class="docutils literal notranslate"><span class="pre">movie_maker</span></code> instance is available on each created scene.</p>
 </section>
 <section id="animating-a-series-of-images">
-<h3>Animating a series of images<a class="headerlink" href="#animating-a-series-of-images" title="Permalink to this heading">¶</a></h3>
+<h3>Animating a series of images<a class="headerlink" href="#animating-a-series-of-images" title="Link to this heading">¶</a></h3>
 <p>Let’s say you have a stack of PNG or JPEG files that are numbered
 serially that you want to animate on a Mayavi scene.  Here is a simple
 script (called <code class="docutils literal notranslate"><span class="pre">img_movie.py</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># img_movie.py</span>
-<span class="kn">from</span> <span class="nn">pyface.timer.api</span> <span class="kn">import</span> <span class="n">Timer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyface.timer.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timer</span>
 
-<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">animate</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">file_list</span><span class="p">)):</span>
             <span class="n">src</span><span class="o">.</span><span class="n">timestep</span> <span class="o">=</span> <span class="n">i</span>
@@ -699,7 +698,7 @@ the first data source by default.  This may be changed easily.</p>
 </div>
 </section>
 <section id="making-movies-from-a-stack-of-images">
-<h3>Making movies from a stack of images<a class="headerlink" href="#making-movies-from-a-stack-of-images" title="Permalink to this heading">¶</a></h3>
+<h3>Making movies from a stack of images<a class="headerlink" href="#making-movies-from-a-stack-of-images" title="Link to this heading">¶</a></h3>
 <p>This isn’t really related to Mayavi but is a useful trick nonetheless.
 Let’s say you generate a stack of images using Mayavi say of the form
 <code class="docutils literal notranslate"><span class="pre">anim%03d.png</span></code> (i.e. <code class="docutils literal notranslate"><span class="pre">anim000.png</span></code>, <code class="docutils literal notranslate"><span class="pre">anim001.png</span></code> and so on), you
@@ -716,7 +715,7 @@ this:</p>
 </section>
 </section>
 <section id="scripting-from-the-command-line">
-<h2>Scripting from the command line<a class="headerlink" href="#scripting-from-the-command-line" title="Permalink to this heading">¶</a></h2>
+<h2>Scripting from the command line<a class="headerlink" href="#scripting-from-the-command-line" title="Link to this heading">¶</a></h2>
 <p>The Mayavi application allows for very powerful
 <a class="reference internal" href="application.html#command-line-arguments"><span class="std std-ref">Command line arguments</span></a> that lets you build a complex
 visualization from your shell.  What follow is a bunch of simple
@@ -742,7 +741,7 @@ display:</p>
 <p>Note the use of <code class="docutils literal notranslate"><span class="pre">last_obj</span></code> in the above.</p>
 </section>
 <section id="texture-mapping-actors">
-<h2>Texture mapping actors<a class="headerlink" href="#texture-mapping-actors" title="Permalink to this heading">¶</a></h2>
+<h2>Texture mapping actors<a class="headerlink" href="#texture-mapping-actors" title="Link to this heading">¶</a></h2>
 <p>Here is a simple example showing how to texture map an iso-surface with
 the data that ships with the Mayavi sources (the data files are in the
 examples directory):</p>
@@ -762,7 +761,7 @@ of the above.  The image reader is the first child of the current scene
 and we set it as the <code class="docutils literal notranslate"><span class="pre">texture_source_object</span></code> of the isosurface actor.</p>
 </section>
 <section id="shifting-data-and-plotting">
-<h2>Shifting data and plotting<a class="headerlink" href="#shifting-data-and-plotting" title="Permalink to this heading">¶</a></h2>
+<h2>Shifting data and plotting<a class="headerlink" href="#shifting-data-and-plotting" title="Link to this heading">¶</a></h2>
 <p>Sometimes you need to shift/transform your input data in space and
 visualize that in addition to the original data.  This is useful when
 you’d like to do different things to the same data and see them on the
@@ -788,7 +787,7 @@ filter.  Here is a simple example with the standard Mayavi image data:</p>
 </div>
 </section>
 <section id="using-the-userdefined-filter">
-<span id="using-userdefined-filter"></span><h2>Using the <code class="docutils literal notranslate"><span class="pre">UserDefined</span></code> filter<a class="headerlink" href="#using-the-userdefined-filter" title="Permalink to this heading">¶</a></h2>
+<span id="using-userdefined-filter"></span><h2>Using the <code class="docutils literal notranslate"><span class="pre">UserDefined</span></code> filter<a class="headerlink" href="#using-the-userdefined-filter" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">UserDefined</span></code> filter in Mayavi lets you wrap around existing VTK
 filters easily.  Here are a few examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mayavi2 -d ParametricSurface -s &quot;function=&#39;dini&#39;&quot; \
@@ -825,7 +824,7 @@ example of building a complex VTK pipeline with a heavy use of the
 UserDefined filter.</p>
 </section>
 <section id="sharing-the-same-data-between-scenes">
-<span id="sharing-data-between-scenes"></span><h2>Sharing the same data between scenes<a class="headerlink" href="#sharing-the-same-data-between-scenes" title="Permalink to this heading">¶</a></h2>
+<span id="sharing-data-between-scenes"></span><h2>Sharing the same data between scenes<a class="headerlink" href="#sharing-the-same-data-between-scenes" title="Link to this heading">¶</a></h2>
 <p>If you want to display different views of the same data on different, you
 will have to create different Mayavi data sources, as a data source can
 belong on to one scene. However, this does not mean that you need to copy
@@ -834,7 +833,7 @@ second Mayavi data source pointing to the same underlying VTK dataset,
 and attach it to another scene (see <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span class="std std-ref">Data representation in Mayavi</span></a>
 for the difference between a Mayavi source and a VTK dataset).</p>
 <section id="using-mlab">
-<h3>Using mlab<a class="headerlink" href="#using-mlab" title="Permalink to this heading">¶</a></h3>
+<h3>Using mlab<a class="headerlink" href="#using-mlab" title="Link to this heading">¶</a></h3>
 <p>Every visualization object returned by <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span class="std std-ref">mlab</span></a> has a <cite>mlab_source</cite> attribute, which
 exposes the VTK dataset as <cite>dataset</cite>. In addition, the <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span class="std std-ref">mlab
 pipeline</span></a> functions for
@@ -842,7 +841,7 @@ adding modules know how to use raw VTK datasets. Thus exposing the
 dataset in a new figure can simply by done by feeding the
 <cite>mlab_source.dataset</cite> attribute of a visualization object created by mlab
 to an <cite>mlab.pipeline</cite> function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">ctr</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">ctr</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
@@ -864,13 +863,13 @@ rather than a script:</p>
 data through different views via <cite>mlab.pipeline</cite>.</p>
 </section>
 <section id="using-the-core-mayavi-api">
-<h3>Using the core Mayavi API<a class="headerlink" href="#using-the-core-mayavi-api" title="Permalink to this heading">¶</a></h3>
+<h3>Using the core Mayavi API<a class="headerlink" href="#using-the-core-mayavi-api" title="Link to this heading">¶</a></h3>
 <p>You can also do this fully explicitly by creating the objects yourself
 through the Mayavi core api, and adding them to the pipeline, rather than
 using factories:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">ArraySource</span><span class="p">,</span> <span class="n">VTKDataSource</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.sources.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArraySource</span><span class="p">,</span> <span class="n">VTKDataSource</span>
 <span class="n">src1</span> <span class="o">=</span> <span class="n">ArraySource</span><span class="p">(</span><span class="n">scalar_data</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
 <span class="n">engine</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src1</span><span class="p">)</span>
 <span class="n">engine</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
@@ -884,18 +883,18 @@ using factories:</p>
 </section>
 </section>
 <section id="changing-the-interaction-with-a-scene">
-<h2>Changing the interaction with a scene<a class="headerlink" href="#changing-the-interaction-with-a-scene" title="Permalink to this heading">¶</a></h2>
+<h2>Changing the interaction with a scene<a class="headerlink" href="#changing-the-interaction-with-a-scene" title="Link to this heading">¶</a></h2>
 <p>The default 3D interaction with the scene (left click on the background
 rotates the scene, right click scales, middle click pans) is not suited
 for every visualization. For instance, in can be interesting to restrict
 the movement to 2D, e.g. when viewing an object in the ‘x’ direction.
 This is done by changing the <cite>interactor_style</cite> of a scene. Here is an
 example to use Mayavi as a 2D image viewer:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">test_imshow</span><span class="p">()</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">interactor_style</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">InteractorStyleImage</span><span class="p">()</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -903,10 +902,10 @@ example to use Mayavi as a 2D image viewer:</p>
 <p>Another useful interactor is the ‘terrain’ interactor, handy to have
 natural movement in scenes where you want the ‘up’ vector to be always
 pointing in the ‘z’ direction:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">test_surf</span><span class="p">()</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">interactor_style</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">InteractorStyleTerrain</span><span class="p">()</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -917,7 +916,7 @@ application) and to search for “Interactor”. Another option is to tab
 complete on Ipython, on <cite>tvtk.InteractorStyle</cite>.</p>
 </section>
 <section id="accelerating-a-mayavi-script">
-<span id="acceleration-mayavi-scripts"></span><h2>Accelerating a Mayavi script<a class="headerlink" href="#accelerating-a-mayavi-script" title="Permalink to this heading">¶</a></h2>
+<span id="acceleration-mayavi-scripts"></span><h2>Accelerating a Mayavi script<a class="headerlink" href="#accelerating-a-mayavi-script" title="Link to this heading">¶</a></h2>
 <p>You’ve just created a nice Mayavi/mlab script and now want to generate
 an animation or a series of images.  You realize that it is way too slow
 rendering the images and takes ages to finish.  There are two simple
@@ -952,10 +951,10 @@ images.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
@@ -1019,7 +1018,7 @@ images.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -1027,13 +1026,13 @@ images.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1048,14 +1047,14 @@ images.</p>
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Tips and Tricks</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

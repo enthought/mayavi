@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Protein example &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <title>Protein example &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="example_mri.html" title="Mri example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Protein example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
           <div class="body" role="main">
             
   <section id="protein-example">
-<span id="example-protein"></span><h1>Protein example<a class="headerlink" href="#protein-example" title="Permalink to this heading">¶</a></h1>
+<span id="example-protein"></span><h1>Protein example<a class="headerlink" href="#protein-example" title="Link to this heading">¶</a></h1>
 <p>Visualize a protein graph structure downloaded from the protein database in
 standard pdb format.</p>
 <p>We parse the pdb file, but extract only a very small amount of
@@ -117,13 +116,13 @@ volume rendering.</p>
 <span class="n">protein_code</span> <span class="o">=</span> <span class="s1">&#39;2q09&#39;</span>
 
 <span class="c1"># Retrieve the file from the protein database #################################</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">):</span>
     <span class="c1"># Download the data</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlopen</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlopen</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading protein data, please wait&#39;</span><span class="p">)</span>
     <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
       <span class="s1">&#39;ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span>
@@ -131,7 +130,7 @@ volume rendering.</p>
     <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
 <span class="c1"># Parse the pdb file ##########################################################</span>
-<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span>
 <span class="n">infile</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="s1">&#39;pdb</span><span class="si">%s</span><span class="s1">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
 
 <span class="c1"># A graph represented by a dictionary associating nodes with keys</span>
@@ -182,14 +181,14 @@ volume rendering.</p>
 <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
     <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">labels</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="n">stop</span><span class="p">]))</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scalars</span><span class="p">)</span>
 
 <span class="c1"># Visualize the data ##########################################################</span>
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 
@@ -219,10 +218,10 @@ volume rendering.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h4>Previous topic</h4>
@@ -241,7 +240,7 @@ volume rendering.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -249,13 +248,13 @@ volume rendering.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -270,15 +269,15 @@ volume rendering.</p>
         <li class="right" >
           <a href="example_mri.html" title="Mri example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Protein example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

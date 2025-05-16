@@ -1,25 +1,24 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>An Introduction to Traited VTK (tvtk) &#8212; tvtk 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <title>An Introduction to Traited VTK (tvtk) &#8212; tvtk 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Development guide for TVTK" href="devel.html" />
     <link rel="prev" title="Welcome to tvtk’s documentation!" href="index.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -31,7 +30,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to tvtk’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.8.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">An Introduction to Traited VTK (tvtk)</a></li> 
       </ul>
     </div>  
@@ -42,7 +41,7 @@
           <div class="body" role="main">
             
   <section id="an-introduction-to-traited-vtk-tvtk">
-<h1><a class="toc-backref" href="#id1" role="doc-backlink">An Introduction to Traited VTK (tvtk)</a><a class="headerlink" href="#an-introduction-to-traited-vtk-tvtk" title="Permalink to this heading">¶</a></h1>
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">An Introduction to Traited VTK (tvtk)</a><a class="headerlink" href="#an-introduction-to-traited-vtk-tvtk" title="Link to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Prabhu Ramachandran</p>
@@ -95,7 +94,7 @@
 </ul>
 </nav>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
 <p>The tvtk module (also called TVTK) provides a <a class="reference external" href="http://docs.enthought.com/traits">traits</a> enabled version
 of <a class="reference external" href="http://www.vtk.org">VTK</a>.  TVTK objects wrap around VTK objects but additionally
 support <a class="reference external" href="http://docs.enthought.com/traits">traits</a>, and provide a convenient Pythonic API.  TVTK is
@@ -117,7 +116,7 @@ module.</p></li>
 </div></blockquote>
 </section>
 <section id="requirements">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Requirements</a><a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
 <p>The following is a list of requirements for you to be able to run
 tvtk.</p>
 <blockquote>
@@ -134,7 +133,7 @@ imports.</p></li>
 </div></blockquote>
 </section>
 <section id="installation">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
 <p>TVTK is meant to be installed as part of the <cite>mayavi</cite> package.
 Please visit the installation guide on the Mayavi documentation:</p>
 <blockquote>
@@ -170,9 +169,9 @@ the <cite>tests</cite> directory that can also be run.</p>
 directory contains a few simple examples demonstrating tvtk in action.</p>
 </section>
 <section id="basic-usage">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Basic Usage</a><a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Basic Usage</a><a class="headerlink" href="#basic-usage" title="Link to this heading">¶</a></h2>
 <p>An example of how tvtk can be used follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">36</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
@@ -186,7 +185,7 @@ directory contains a few simple examples demonstrating tvtk in action.</p>
 </pre></div>
 </div>
 <p>Or equivalently:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">cs</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">representation</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
@@ -196,7 +195,7 @@ directory contains a few simple examples demonstrating tvtk in action.</p>
 <p>Note that the properties of the object can be set during the
 instantiation.</p>
 <p>To import tvtk please use:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 </pre></div>
 </div>
 <p>While this is perhaps a little inconvenient, note that tvtk provides
@@ -240,7 +239,7 @@ for a tvtk method should be tvtk objects, these are transparently
 converted to VTK objects.</p>
 </section>
 <section id="advanced-usage">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">Advanced Usage</a><a class="headerlink" href="#advanced-usage" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Advanced Usage</a><a class="headerlink" href="#advanced-usage" title="Link to this heading">¶</a></h2>
 <p>There are several important new features that tvtk provides in
 addition to the above.  A tvtk object basically wraps around a
 VTK-Python object and provides a trait enabled API for the VTK object.
@@ -249,7 +248,7 @@ notion of what we mean by the “basic state” or “state” of a tvtk
 object.  This is defined and subsequently the new features are
 discussed in some detail.</p>
 <section id="definition-of-the-basic-state-of-a-tvtk-object">
-<span id="state"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Definition of the “basic state” of a tvtk object</a><a class="headerlink" href="#definition-of-the-basic-state-of-a-tvtk-object" title="Permalink to this heading">¶</a></h3>
+<span id="state"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Definition of the “basic state” of a tvtk object</a><a class="headerlink" href="#definition-of-the-basic-state-of-a-tvtk-object" title="Link to this heading">¶</a></h3>
 <p>In tvtk the set of all properties of the VTK object that are
 represented as traits and have for their value a simple Python type
 (int/float/string) or a special value (like a tuple specifying color)
@@ -286,7 +285,7 @@ following code, the default object created by the VTK implementation of
 </div>
 </section>
 <section id="the-wrapped-vtk-object">
-<h3><a class="toc-backref" href="#id8" role="doc-backlink">The wrapped VTK object</a><a class="headerlink" href="#the-wrapped-vtk-object" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">The wrapped VTK object</a><a class="headerlink" href="#the-wrapped-vtk-object" title="Link to this heading">¶</a></h3>
 <p>The user should not ordinarily know this (or rely on this!) but it
 sometimes helps to know how to access the underlying VTK object that
 the tvtk object has wrapped.  The recommended way to do this is by
@@ -322,23 +321,21 @@ tvtk wrapper object is created.  The following illustrates this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">output</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="n">o</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
-<span class="go">1109012188</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">))</span>
-<span class="go">1109012188</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">input_connection</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="n">output_port</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">o</span><span class="p">))</span>
+<span class="go">126526931186080</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">))</span>
+<span class="go">126526931186080</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">o</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">))</span>
-<span class="go">1119694156</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">input</span><span class="p">))</span>
+<span class="go">126526931186080</span>
 </pre></div>
 </div>
 <p>Thus, after <cite>o</cite> is garbage collected <cite>m.input</cite> no longer refers to the
-original tvtk object and a new one is created.  This is very similar
-to VTK’s behaviour.  Changing this behaviour is tricky and there are no
-plans currently to change this.</p>
+original tvtk object the old one is cached and returned.</p>
 </section>
 <section id="tvtk-and-traits">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">tvtk and traits</a><a class="headerlink" href="#tvtk-and-traits" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">tvtk and traits</a><a class="headerlink" href="#tvtk-and-traits" title="Link to this heading">¶</a></h3>
 <p>All tvtk objects are derived from <cite>traits.HasStrictTraits</cite>.  As
 discussed above, all the basic state related methods are represented
 as traits in tvtk.  This is why we are able to do:</p>
@@ -396,7 +393,7 @@ the class.  This is illustrated in the following example:</p>
 </div>
 </section>
 <section id="sub-classing-tvtk-classes">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">Sub-classing tvtk classes</a><a class="headerlink" href="#sub-classing-tvtk-classes" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Sub-classing tvtk classes</a><a class="headerlink" href="#sub-classing-tvtk-classes" title="Link to this heading">¶</a></h3>
 <p>You may subclass tvtk classes but please keep in mind the following:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -408,11 +405,11 @@ you call the super class’s __del__ method.</p></li>
 </div></blockquote>
 </section>
 <section id="pickling-tvtk-objects">
-<h3><a class="toc-backref" href="#id11" role="doc-backlink">Pickling tvtk objects</a><a class="headerlink" href="#pickling-tvtk-objects" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Pickling tvtk objects</a><a class="headerlink" href="#pickling-tvtk-objects" title="Link to this heading">¶</a></h3>
 <p>tvtk objects support a simple form of pickling.  The <a class="reference internal" href="#state">state</a> of the
 tvtk object maybe pickled.  The references to other VTK objects held
 by the object are <em>NOT</em> picklable.  For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cPickle</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cPickle</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -444,7 +441,7 @@ the object.  For example:</p>
 updated.  No new object is created.</p>
 </section>
 <section id="docstrings">
-<h3><a class="toc-backref" href="#id12" role="doc-backlink">Docstrings</a><a class="headerlink" href="#docstrings" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Docstrings</a><a class="headerlink" href="#docstrings" title="Link to this heading">¶</a></h3>
 <p>All tvtk methods and traits are documented using the VTK docstrings.
 The class names and method names are changed suitably as mentioned in
 the <a class="reference internal" href="#basic-usage">Basic Usage</a> section.  These docstrings are generated
@@ -453,7 +450,7 @@ of a tvtk object also provide method signature information in the
 docstring.</p>
 </section>
 <section id="user-defined-code">
-<h3><a class="toc-backref" href="#id13" role="doc-backlink">User defined code</a><a class="headerlink" href="#user-defined-code" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">User defined code</a><a class="headerlink" href="#user-defined-code" title="Link to this heading">¶</a></h3>
 <p>All the tvtk wrapper classes are generated automatically.  Sometimes
 one would like to customize a particular class and use that instead of
 the default.  The easiest way to do this would be to copy out the
@@ -463,7 +460,7 @@ then add this file into the <cite>tvtk/custom</cite> directory.  Any file here
 will override the default inside the ZIP file.</p>
 </section>
 <section id="collections">
-<h3><a class="toc-backref" href="#id14" role="doc-backlink">Collections</a><a class="headerlink" href="#collections" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Collections</a><a class="headerlink" href="#collections" title="Link to this heading">¶</a></h3>
 <p>Any object derived from <cite>Collection</cite> (i.e. <cite>vtkCollection</cite>) will
 behave like a proper Python sequence.  Here is an example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ActorCollection</span><span class="p">()</span>
@@ -485,7 +482,7 @@ behave like a proper Python sequence.  Here is an example:</p>
 <p>Currently, only subclasses of <cite>Collection</cite> behave this way.</p>
 </section>
 <section id="array-handling">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">Array handling</a><a class="headerlink" href="#array-handling" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Array handling</a><a class="headerlink" href="#array-handling" title="Link to this heading">¶</a></h3>
 <p>All the <cite>DataArray</cite> subclasses behave like Pythonic arrays and support
 the iteration protocol in addition to <cite>__getitem__</cite>, <cite>__setitem__</cite>,
 <cite>__repr__</cite>, <cite>append</cite>, <cite>extend</cite> etc.  Further, it is possible to set
@@ -502,8 +499,8 @@ that accepts a <cite>DataArray</cite>, <cite>Points</cite>, <cite>IdList</cite> 
 instance, will transparently accept a numpy array or a Python list.
 Here is a simple example demonstrating these:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">########################################</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span>
 <span class="gp">... </span>                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">]],</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
@@ -517,7 +514,7 @@ Here is a simple example demonstrating these:</p>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">########################################</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Array&#39;s are Pythonic.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">operator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 <span class="go">80.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="p">)</span>
@@ -604,7 +601,7 @@ this:</p>
 </pre></div>
 </div>
 <section id="important-considerations">
-<h4><a class="toc-backref" href="#id16" role="doc-backlink">Important considerations</a><a class="headerlink" href="#important-considerations" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id16" role="doc-backlink">Important considerations</a><a class="headerlink" href="#important-considerations" title="Link to this heading">¶</a></h4>
 <p>To clarify the ensuing discussion we make a distinction between two
 different forms of array handling.</p>
 <blockquote>
@@ -717,7 +714,7 @@ memory occupied by <cite>a</cite> will be freed.  Thus the problem is not seriou
 but probably worth keeping in mind.</p>
 </section>
 <section id="summary-of-issues">
-<h4><a class="toc-backref" href="#id17" role="doc-backlink">Summary of issues</a><a class="headerlink" href="#summary-of-issues" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id17" role="doc-backlink">Summary of issues</a><a class="headerlink" href="#summary-of-issues" title="Link to this heading">¶</a></h4>
 <p>To summarize the considerations of the previous sub-section, the
 following are to be noted.</p>
 <blockquote>
@@ -749,14 +746,14 @@ efficient in terms of speed and memory considerations.</p>
 </section>
 </section>
 <section id="other-utility-modules">
-<h2><a class="toc-backref" href="#id18" role="doc-backlink">Other utility modules</a><a class="headerlink" href="#other-utility-modules" title="Permalink to this heading">¶</a></h2>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">Other utility modules</a><a class="headerlink" href="#other-utility-modules" title="Link to this heading">¶</a></h2>
 <p>The <cite>tvtk</cite> package ships with several other utility modules.  These
 are briefly described in the following sections.</p>
 <section id="miscellaneous">
-<h3><a class="toc-backref" href="#id19" role="doc-backlink">Miscellaneous</a><a class="headerlink" href="#miscellaneous" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Miscellaneous</a><a class="headerlink" href="#miscellaneous" title="Link to this heading">¶</a></h3>
 <p>If you need to write out VTK data files given a TVTK dataset.  The
 <code class="docutils literal notranslate"><span class="pre">tvtk.api.write_data</span></code> function should be useful.  For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span><span class="p">,</span> <span class="n">write_data</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span><span class="p">,</span> <span class="n">write_data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># ...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">write_data</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="s1">&#39;file_name&#39;</span><span class="p">)</span>
@@ -770,7 +767,7 @@ a <code class="docutils literal notranslate"><span class="pre">.vtk</span></code
 <p>It will write out an old-style ASCII file.  See the docstring for more details.</p>
 <p>VTK-Python defines several handy colors and these are made available in TVTK.
 For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">colors</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">colors</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">colors</span><span class="o">.</span><span class="n">alice_blue</span>
 <span class="go">(0.9412, 0.9725, 1.0)</span>
 </pre></div>
@@ -778,7 +775,7 @@ For example:</p>
 <p>This allows you to refer to color by name easily.</p>
 </section>
 <section id="pipeline-browser">
-<h3><a class="toc-backref" href="#id20" role="doc-backlink"><cite>pipeline.browser</cite></a><a class="headerlink" href="#pipeline-browser" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink"><cite>pipeline.browser</cite></a><a class="headerlink" href="#pipeline-browser" title="Link to this heading">¶</a></h3>
 <p>The <cite>PipelineBrowser</cite> class presents the view of the VTK pipeline as a
 tree.  Double-clicking any node will let you edit the properties of
 the object with a trait sheet editor.  The <cite>TreeEditor</cite> from the
@@ -792,7 +789,7 @@ user may subclass <cite>TreeGenerator</cite> and use that instead.  Please read
 the code and docstrings for more details on the implementation.</p>
 </section>
 <section id="tools-ivtk">
-<h3><a class="toc-backref" href="#id21" role="doc-backlink"><cite>tools.ivtk</cite></a><a class="headerlink" href="#tools-ivtk" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink"><cite>tools.ivtk</cite></a><a class="headerlink" href="#tools-ivtk" title="Link to this heading">¶</a></h3>
 <p>A utility module that makes VTK/TVTK easier to use from the Python
 interpreter.  The module uses the <cite>tvtk.scene</cite> module to
 provide a wxPython widget.  ivtk basically provides this scene along
@@ -801,8 +798,8 @@ pipeline browser view.</p>
 <p>For a stand-alone application one may simply run the module.  To use
 this under <a class="reference external" href="http://ipython.scipy.org">IPython</a> (with -wthread) use the <cite>viewer()</cite> helper
 function.  For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="kn">import</span> <span class="n">ivtk</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ivtk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create your actor ...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Now create the viewer.</span>
@@ -817,7 +814,7 @@ learn more.  An example using ivtk is also available in
 <cite>examples/ivtk_example.py</cite>.</p>
 </section>
 <section id="tools-mlab">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink"><cite>tools.mlab</cite></a><a class="headerlink" href="#tools-mlab" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink"><cite>tools.mlab</cite></a><a class="headerlink" href="#tools-mlab" title="Link to this heading">¶</a></h3>
 <p>A module that provides Matlab-like 3d visualization functionality.
 The general idea is shamelessly stolen from the <a class="reference external" href="http://octaviz.sourceforge.net/index.php?page=manpagesq">high-level API</a>
 provided by <a class="reference external" href="http://octaviz.sourceforge.net/">Octaviz</a>. Some of the test cases and demos are also
@@ -876,7 +873,7 @@ actor.  This is just like MayaVi1’s <cite>mayavi.tools.imv.viewi</cite>.</p>
 <p>To see nice examples of all of these look at the <cite>test_*</cite> functions at
 the end of the mlab.py file.  Here is a quick example that uses some
 of these test functions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_surf</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="c1"># Create a spherical harmonic.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c1"># Remove it.</span>
@@ -890,7 +887,7 @@ of these test functions:</p>
 <p>Here is the <cite>test_surf</cite> function just to show you how easy it is to
 use <cite>mlab</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the spherical harmonic.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">mgrid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">mgrid</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dphi</span><span class="p">,</span> <span class="n">dtheta</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">phi</span><span class="p">,</span><span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span><span class="o">+</span><span class="n">dphi</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dphi</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">+</span><span class="n">dtheta</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dtheta</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">m3</span><span class="p">,</span> <span class="n">m4</span><span class="p">,</span> <span class="n">m5</span><span class="p">,</span> <span class="n">m6</span><span class="p">,</span> <span class="n">m7</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span>
@@ -899,7 +896,7 @@ use <cite>mlab</cite>:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Now show the surface.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tvtk.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -909,7 +906,7 @@ use <cite>mlab</cite>:</p>
 <a class="reference external" href="http://octaviz.sourceforge.net/">Octaviz</a> site.</p>
 </section>
 <section id="plugins">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink"><cite>plugins</cite></a><a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink"><cite>plugins</cite></a><a class="headerlink" href="#plugins" title="Link to this heading">¶</a></h3>
 <p>TVTK ships with two Envisage plugins.  One for a TVTK scene and
 another for the pipeline browser.</p>
 <p>The <cite>scene</cite> plugin allows one to create a new TVTK scene on the work
@@ -934,7 +931,7 @@ Envisage and make an application.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
@@ -990,7 +987,7 @@ Envisage and make an application.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -998,13 +995,13 @@ Envisage and make an application.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1016,14 +1013,14 @@ Envisage and make an application.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to tvtk’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">tvtk 4.8.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">An Introduction to Traited VTK (tvtk)</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2016, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2016, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

@@ -1,3 +1,31 @@
+Mayavi 4.8.3
+============
+
+This is a bugfix release to work correctly with VTK-9.4 and above, NumPy2, and
+Cython3. 11 PRs were merged.
+
+Many thanks to the following folks who contributed to this release in
+alphabetical order, Ben Greiner, Eric Larson, Michael R. Crusoe, and Prabhu
+Ramachandran.
+
+
+Major Fixes
+-----------
+
+09 May 2025 `#1345 <https://github.com/enthought/mayavi/pull/1345>`_ (larsoner)
+   - FIX: Fixes for VTK 9.4.2
+
+18 Dec 2024 `#1328 <https://github.com/enthought/mayavi/pull/1328>`_ (prabhuramachandran)
+   - MAINT: Fixes for VTK-9.4
+
+17 Dec 2024 `#1315 <https://github.com/enthought/mayavi/pull/1315>`_ (bnavigator)
+   - NumPy 2 compatibility for tests and tools
+
+23 Jul 2024 `#1303 <https://github.com/enthought/mayavi/pull/1303>`_ (larsoner)
+   - MAINT: Compile with Cython 3.0.10
+
+
+
 Mayavi 4.8.2
 ============
 

@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Numeric source example &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <title>Numeric source example &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="example_streamline.html" title="Streamline example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Numeric source example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
           <div class="body" role="main">
             
   <section id="numeric-source-example">
-<span id="example-numeric-source"></span><h1>Numeric source example<a class="headerlink" href="#numeric-source-example" title="Permalink to this heading">¶</a></h1>
+<span id="example-numeric-source"></span><h1>Numeric source example<a class="headerlink" href="#numeric-source-example" title="Link to this heading">¶</a></h1>
 <p>This script demonstrates how to create a numpy array data and
 visualize it as image data using a few modules.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/3b222f78673a916234c2e51abf1805b8/numeric_source.py"><code class="xref download docutils literal notranslate"><span class="pre">numeric_source.py</span></code></a></p>
@@ -85,16 +84,16 @@ visualize it as image data using a few modules.</p>
 <span class="c1"># License: BSD Style.</span>
 
 <span class="c1"># Standard library imports</span>
-<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
 
 <span class="c1"># Enthought library imports</span>
-<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
-<span class="kn">from</span> <span class="nn">mayavi.sources.array_source</span> <span class="kn">import</span> <span class="n">ArraySource</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-<span class="kn">from</span> <span class="nn">mayavi.modules.image_plane_widget</span> <span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.scripts</span><span class="w"> </span><span class="kn">import</span> <span class="n">mayavi2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.sources.array_source</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArraySource</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.modules.outline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Outline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.modules.image_plane_widget</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
 
 
-<span class="k">def</span> <span class="nf">make_data</span><span class="p">(</span><span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_data</span><span class="p">(</span><span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates some simple array data of the given dimensions to test</span>
 <span class="sd">    with.&quot;&quot;&quot;</span>
     <span class="n">np</span> <span class="o">=</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -120,7 +119,7 @@ visualize it as image data using a few modules.</p>
 
 
 <span class="nd">@mayavi2</span><span class="o">.</span><span class="n">standalone</span>
-<span class="k">def</span> <span class="nf">view_numpy</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">view_numpy</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Example showing how to view a 3D numpy array in mayavi2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
@@ -154,10 +153,10 @@ visualize it as image data using a few modules.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h4>Previous topic</h4>
@@ -176,7 +175,7 @@ visualize it as image data using a few modules.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -184,13 +183,13 @@ visualize it as image data using a few modules.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -205,15 +204,15 @@ visualize it as image data using a few modules.</p>
         <li class="right" >
           <a href="example_streamline.html" title="Streamline example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Numeric source example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

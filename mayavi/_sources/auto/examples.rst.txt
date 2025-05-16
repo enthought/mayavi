@@ -363,7 +363,7 @@ applications.
     <br/>
 
             
-.. |0106| image:: ../images/example_mlab_interactive_dialog.jpg
+.. |0106| image:: ../images/example_mlab_interactive_dialog.png
     :width: 150
 
             

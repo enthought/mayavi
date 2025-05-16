@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Multiple mlab scene models example &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <title>Multiple mlab scene models example &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="example_multiple_engines.html" title="Multiple engines example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Multiple mlab scene models example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
           <div class="body" role="main">
             
   <section id="multiple-mlab-scene-models-example">
-<span id="example-multiple-mlab-scene-models"></span><h1>Multiple mlab scene models example<a class="headerlink" href="#multiple-mlab-scene-models-example" title="Permalink to this heading">¶</a></h1>
+<span id="example-multiple-mlab-scene-models"></span><h1>Multiple mlab scene models example<a class="headerlink" href="#multiple-mlab-scene-models-example" title="Link to this heading">¶</a></h1>
 <blockquote>
 <div><p>Example showing a dialog with multiple embedded scenes.</p>
 </div></blockquote>
@@ -92,17 +91,17 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
 <a class="reference internal" href="example_lorenz_ui.html#example-lorenz-ui"><span class="std std-ref">Lorenz ui example</span></a>, as well as the section of the user manual
 <a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><span class="std std-ref">Embedding a Mayavi scene in a Traits dialog</span></a>.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" download="" href="../_downloads/c8332cfaa2cbaede2579049132972957/multiple_mlab_scene_models.py"><code class="xref download docutils literal notranslate"><span class="pre">multiple_mlab_scene_models.py</span></code></a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> \
+<span class="kn">from</span><span class="w"> </span><span class="nn">traits.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> \
     <span class="n">on_trait_change</span>
-<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">Group</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">traitsui.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">Group</span>
 
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MlabSceneModel</span><span class="p">,</span> <span class="n">SceneEditor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.core.ui.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">MlabSceneModel</span><span class="p">,</span> <span class="n">SceneEditor</span>
 
 
-<span class="k">class</span> <span class="nc">MyDialog</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyDialog</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
     <span class="n">scene1</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
     <span class="n">scene2</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
@@ -111,14 +110,14 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
     <span class="n">button2</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Redraw&#39;</span><span class="p">)</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;button1&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">redraw_scene1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">redraw_scene1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_scene</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene1</span><span class="p">)</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;button2&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">redraw_scene2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">redraw_scene2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redraw_scene</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene2</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">redraw_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">redraw_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
         <span class="c1"># Notice how each mlab call points explicitly to the figure it</span>
         <span class="c1"># applies to.</span>
         <span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">(</span><span class="n">figure</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">)</span>
@@ -157,10 +156,10 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h4>Previous topic</h4>
@@ -179,7 +178,7 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -187,13 +186,13 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -208,15 +207,15 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
         <li class="right" >
           <a href="example_multiple_engines.html" title="Multiple engines example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Multiple mlab scene models example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

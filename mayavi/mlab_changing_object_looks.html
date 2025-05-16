@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Changing the looks of the visual objects created &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <title>Changing the looks of the visual objects created &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -47,7 +46,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -56,7 +55,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Changing the looks of the visual objects created</a></li> 
       </ul>
     </div>  
@@ -67,9 +66,9 @@
           <div class="body" role="main">
             
   <section id="changing-the-looks-of-the-visual-objects-created">
-<h1>Changing the looks of the visual objects created<a class="headerlink" href="#changing-the-looks-of-the-visual-objects-created" title="Permalink to this heading">¶</a></h1>
+<h1>Changing the looks of the visual objects created<a class="headerlink" href="#changing-the-looks-of-the-visual-objects-created" title="Link to this heading">¶</a></h1>
 <section id="adding-color-or-size-variations">
-<h2>Adding color or size variations<a class="headerlink" href="#adding-color-or-size-variations" title="Permalink to this heading">¶</a></h2>
+<h2>Adding color or size variations<a class="headerlink" href="#adding-color-or-size-variations" title="Link to this heading">¶</a></h2>
 <dl class="field-list">
 <dt class="field-odd">Color<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The color of the objects created by a plotting function can be specified
@@ -119,7 +118,7 @@ Given six points positioned on a line with interpoint spacing 1:</p>
 </div>
 <p>We represent the dataset as spheres, using <code class="xref py py-func docutils literal notranslate"><span class="pre">points3d()</span></code>, and the
 scalar is mapped to diameter of the spheres:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -177,7 +176,7 @@ glyphs, and use scalars to represent the color:</p>
 </dl>
 </section>
 <section id="changing-the-scale-and-position-of-objects">
-<h2>Changing the scale and position of objects<a class="headerlink" href="#changing-the-scale-and-position-of-objects" title="Permalink to this heading">¶</a></h2>
+<h2>Changing the scale and position of objects<a class="headerlink" href="#changing-the-scale-and-position-of-objects" title="Link to this heading">¶</a></h2>
 <p>Each mlab function takes an <cite>extent</cite> keyword argument, that allows to set
 its (x, y, z) extents. This give both control on the scaling in the
 different directions and the displacement of the center. Beware that when
@@ -189,7 +188,7 @@ display 2D arrays by converting the values in height, also take a
 <cite>warp_scale</cite> parameter, to control the vertical scaling.</p>
 </section>
 <section id="changing-object-properties-interactively">
-<span id="mlab-changing-objects-interactively"></span><h2>Changing object properties interactively<a class="headerlink" href="#changing-object-properties-interactively" title="Permalink to this heading">¶</a></h2>
+<span id="mlab-changing-objects-interactively"></span><h2>Changing object properties interactively<a class="headerlink" href="#changing-object-properties-interactively" title="Link to this heading">¶</a></h2>
 <p>Mayavi, and thus mlab, allows you to interactively modify your
 visualization.</p>
 <p>The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
@@ -219,7 +218,7 @@ when you enter this command, please see <a class="reference internal" href="mlab
 full envisage application so you can click on the menus and use other
 modules etc.  To do this you may do the following before you create an
 mlab figure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;envisage&#39;</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="c1"># ...</span>
@@ -236,10 +235,10 @@ window.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
@@ -260,7 +259,7 @@ window.</p>
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -268,13 +267,13 @@ window.</p>
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -283,14 +282,14 @@ window.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.8.3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Changing the looks of the visual objects created</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>

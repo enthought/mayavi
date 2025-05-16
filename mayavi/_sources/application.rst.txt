@@ -94,7 +94,7 @@ In addition, you can save different layouts into different
 Shown below is a specifically configured Mayavi user interface view.
 In this view the size of the various parts are changed. 
 
-.. image:: images/mayavi_ui_second.jpg
+.. image:: images/mayavi_ui_second.png
     :alt: Figure of Mayavi's UI after being configured by a user.
     :align: center
 

@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lorenz ui example &#8212; mayavi 4.8.2 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <title>Lorenz ui example &#8212; mayavi 4.8.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css?v=2bf1fcf8" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=3cb42dc4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +48,7 @@
 </style>
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -64,7 +63,7 @@
         <li class="right" >
           <a href="example_poll_file.html" title="Poll file example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Lorenz ui example</a></li> 
       </ul>
@@ -76,7 +75,7 @@
           <div class="body" role="main">
             
   <section id="lorenz-ui-example">
-<span id="example-lorenz-ui"></span><h1>Lorenz ui example<a class="headerlink" href="#lorenz-ui-example" title="Permalink to this heading">¶</a></h1>
+<span id="example-lorenz-ui"></span><h1>Lorenz ui example<a class="headerlink" href="#lorenz-ui-example" title="Link to this heading">¶</a></h1>
 <p>This example displays the trajectories for the Lorenz system of
 equations using mlab along with the z-nullcline.  It provides a simple
 UI where a user can change the parameters and the system of equations on
@@ -89,21 +88,21 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
 <span class="c1"># Copyright (c) 2008-2020, Enthought, Inc.</span>
 <span class="c1"># License: BSD Style.</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
 
-<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
+<span class="kn">from</span><span class="w"> </span><span class="nn">traits.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
         <span class="n">on_trait_change</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Str</span>
-<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">Group</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">traitsui.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">Group</span>
 
-<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi</span><span class="w"> </span><span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mayavi.core.ui.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
     <span class="n">SceneEditor</span>
 
 <span class="c1">################################################################################</span>
 <span class="c1"># `Lorenz` class.</span>
 <span class="c1">################################################################################</span>
-<span class="k">class</span> <span class="nc">Lorenz</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Lorenz</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
     <span class="c1"># The parameters for the Lorenz system, defaults to the standard ones.</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;the parameter s&#39;</span><span class="p">,</span> <span class="n">enter_set</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -156,27 +155,27 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
     <span class="c1"># happens when the configure/edit_traits method is called).  This</span>
     <span class="c1"># eliminates the need to manually call the `update_flow` method etc.</span>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;s, r, b, scene.activated&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_flow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_flow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span>
         <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_uvw</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_u</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_u</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">))</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_v</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_v</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">))</span>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">update_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">get_uvw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_uvw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_vel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_vel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comp</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This function basically evaluates the user specified system</span>
 <span class="sd">        of equations using scipy.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -196,11 +195,11 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
     <span class="c1">######################################################################</span>
     <span class="c1"># Private interface.</span>
     <span class="c1">######################################################################</span>
-    <span class="k">def</span> <span class="nf">_points_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_points_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">60</span><span class="p">:</span><span class="mi">70</span><span class="n">j</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
 
-    <span class="k">def</span> <span class="nf">_flow_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_flow_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span>
         <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_uvw</span><span class="p">()</span>
         <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
@@ -226,10 +225,10 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo of mayavi"/>
             </a></p>
   <div>
     <h4>Previous topic</h4>
@@ -248,7 +247,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
@@ -256,13 +255,13 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -277,15 +276,15 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
         <li class="right" >
           <a href="example_poll_file.html" title="Poll file example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.8.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Lorenz ui example</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2008-2018, Enthought Inc..
-      Last updated on May 23, 2024.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2008-2018, Enthought Inc..
+      Last updated on May 16, 2025.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     </div>
   </body>
 </html>
