@@ -107,8 +107,10 @@ should work largely out of the box.
 
 
 .. _PyQt5: https://pypi.org/project/PyQt5/
+.. _PyQt6: https://pypi.org/project/PyQt6/
 .. _PySide: https://pypi.org/project/PySide
 .. _PySide2: https://wiki.qt.io/Qt_for_Python
+.. _PySide6: https://pypi.org/project/PySide6/
 .. _PyQt4: https://pypi.org/project/PyQt4/
 .. _wxPython: https://pypi.org/project/wxPython/
 .. _VTK: https://www.vtk.org
