@@ -8,7 +8,6 @@ import sys
 
 from setuptools import Distribution
 
-
 def can_compile_extensions():
     try:
         import numpy  # noqa
@@ -40,6 +39,7 @@ def gen_tvtk_classes_zip():
     MY_DIR = os.path.dirname(__file__)
     sys.path.append(MY_DIR)
     from tvtk.code_gen import TVTKGenerator
+
     target = os.path.join(MY_DIR, 'tvtk_classes.zip')
     output_dir = os.path.dirname(target)
     try:

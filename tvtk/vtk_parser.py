@@ -771,6 +771,7 @@ class VTKMethodParser:
                     for c in n.children:
                         obj = self._get_instance(t.get_class(c.name), do_print=False)
                         if obj:
-                            print(f"  Using super {t.get_class(c.name)} instead of {klass}")
+                            if self._verbose:
+                                print(f"  Using super {t.get_class(c.name)} instead of {klass}")
                             break
         return obj

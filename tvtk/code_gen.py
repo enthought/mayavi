@@ -111,32 +111,7 @@ class TVTKGenerator:
 
             # Write the wrapper files.
             tree = wrap_gen.get_tree().tree
-
-            classes = ['vtkObjectBase']
-            # This is another class we should not wrap and exists
-            # in version 8.1.0.
-            ignore = ['vtkOpenGLGL2PSHelperImpl'] + [
-                'vtkSOADataArrayTemplate_I%sE' % l
-                for l in 'acdfhijlmstxy']
-            include = ['VTKPythonAlgorithmBase']
-            for node in wrap_gen.get_tree():
-                name = node.name
-                if name in ignore:
-                    continue
-                if (name not in include and not name.startswith('vtk')) or \
-                        name.startswith('vtkQt'):
-                    continue
-                if not hasattr(vtk, name) or \
-                    not hasattr(getattr(vtk, name), 'AddObserver'):  # noqa
-                    # We need to wrap VTK classes that are derived
-                    # from vtkObjectBase, the others are
-                    # straightforward VTK classes that can be used as
-                    # such.  All of these have an 'AddObserver' method so we
-                    # check for that.  Only the vtkObjectBase
-                    # subclasses support observers etc. and hence only
-                    # those make sense to wrap into TVTK.
-                    continue
-                classes.append(name)
+            classes = self.get_classes()
 
             for ti, nodes in enumerate(tree, 1):
                 for ni, node in enumerate(nodes, 1):
@@ -153,6 +128,35 @@ class TVTKGenerator:
                                      traceback.format_exc()))
                             raise
                         helper_gen.add_class(tvtk_name, helper_file)
+
+    def get_classes(self):
+        wrap_gen = self.wrap_gen
+        classes = ['vtkObjectBase']
+        # This is another class we should not wrap and exists
+        # in version 8.1.0.
+        ignore = ['vtkOpenGLGL2PSHelperImpl'] + [
+            'vtkSOADataArrayTemplate_I%sE' % l
+            for l in 'acdfhijlmstxy']
+        include = ['VTKPythonAlgorithmBase']
+        for node in wrap_gen.get_tree():
+            name = node.name
+            if name in ignore:
+                continue
+            if (name not in include and not name.startswith('vtk')) or \
+                    name.startswith('vtkQt'):
+                continue
+            if not hasattr(vtk, name) or \
+                    not hasattr(getattr(vtk, name), 'AddObserver'):  # noqa
+                # We need to wrap VTK classes that are derived
+                # from vtkObjectBase, the others are
+                # straightforward VTK classes that can be used as
+                # such.  All of these have an 'AddObserver' method so we
+                # check for that.  Only the vtkObjectBase
+                # subclasses support observers etc. and hence only
+                # those make sense to wrap into TVTK.
+                continue
+            classes.append(name)
+        return classes
 
     def write_wrapper_classes(self, names):
         """Given VTK class names in the list `names`, write out the
