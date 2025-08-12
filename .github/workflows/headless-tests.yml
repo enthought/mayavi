@@ -7,7 +7,7 @@ on:
   pull_request:
   schedule:
     # Run test at 0400 UTC on Saturday.
-    - cron: '0 4 * * 6'
+  - cron: '0 4 * * 6'
 
 jobs:
   tests:
@@ -24,6 +24,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - uses: clonedSemicolon/setup-strace@v13
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -38,3 +39,8 @@ jobs:
       run: pytest -v --timeout=10 --pyargs mayavi
     - name: Test tvtk package
       run: pytest -v --timeout=60 --pyargs tvtk
+    - name: Upload strace artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: strace-logs-${{ github.job }}-${{ matrix.flavor || 'lint' }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ strategy.job-index || 0 }}
+        path: /home/runner/strace_logs/
