@@ -149,17 +149,27 @@ def patch_default(vtk_get_meth, vtk_set_meth, default):
 
     # Collect the signatures of the get method
     # We only use the arguments
-    all_sigs = vtk_parser.VTKMethodParser.get_method_signature(vtk_get_meth)
+    # TODO: Unclear why this would be used... but for example if the Get method
+    # takes a string as an argument, we don't want that to be what we expect the
+    # *output* to be (which can be for example vtkDataArray*). But presumably
+    # this was here for a reason so let's just add exceptions for things that are
+    # known to be problematic on VTK 9.5.2...
+    all_sigs = []
+    #if vtk_get_meth.__name__ not in ("GetGlobalIds", "GetHigherOrderDegrees", "GetNormals", "GetPedigreeIds", "GetProcessIds", "GetRationalWeights", "GetScalars", "GetTCoords", "GetTensors", "GetVectors", "GetTangents"):
+    #    all_sigs.extend(
+    #        vtk_parser.VTKMethodParser.get_method_signature(vtk_get_meth)
+    #    )
 
     # Collect the signatures of the set method
     all_sigs.extend(
-        vtk_parser.VTKMethodParser.get_method_signature(vtk_set_meth))
+        vtk_parser.VTKMethodParser.get_method_signature(vtk_set_meth)
+    )
 
     for sig in all_sigs:
         if sig[1] is None:
             continue
 
-        if len(sig[1]) == 1:
+        if len(sig[1]) == 1 and not isinstance(sig[1][0], str):
             # This unpacks tuple of something e.g. (('int', 'int', 'int'))
             arg_formats.append(tuple(chain.from_iterable(sig[1])))
 
@@ -168,9 +178,10 @@ def patch_default(vtk_get_meth, vtk_set_meth, default):
     default_mappings = {
         'int' : 0,
         'float': 0.0,
-        'string': ''
+        'string': '',
         }
 
+    # vtkDataArray shows up but isn't used... causes problems
     for arg_format in arg_formats:
         try:
             all_same_type = len(set(arg_format)) == 1

@@ -644,7 +644,10 @@ class VTKMethodParser:
             # These hang on Windows (and maybe Fedora 34)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
                 continue
-            # we can actually process it
+            # On VTK 9.5.2 we get
+            # Cannot set the undefined 'copy_global_ids' attribute of a 'PointData' object
+            elif (klass_name == "vtkDataSetAttributes" and method[3:] in ("CopyGlobalIds", "CopyNormals", "CopyPedigreeIds", "CopyScalars", "CopyTCoords", "CopyTensors", "CopyVectors")):
+                continue
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
