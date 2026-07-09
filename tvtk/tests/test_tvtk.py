@@ -752,7 +752,10 @@ class TestTVTK(unittest.TestCase):
         # When
         v = tvtk.to_vtk(x)
         # Then
-        self.assertEqual(v.GetClassName(), 'vtkContourFilter')
+        # The concrete class may be a vtkContourFilter subclass (e.g.
+        # vtkmContour) when VTK-m acceleration overrides are registered, so
+        # check via isinstance rather than an exact class-name match.
+        self.assertIsInstance(v, vtk.vtkContourFilter)
         self.assertTrue(v is x._vtk_obj)
 
     def test_to_tvtk_returns_tvtk_object(self):
@@ -761,7 +764,9 @@ class TestTVTK(unittest.TestCase):
         # When
         x = tvtk.to_tvtk(v)
         # Then
-        self.assertEqual(x.class_name, 'vtkContourFilter')
+        # As above, x.class_name may be a vtkContourFilter subclass when
+        # VTK-m overrides are active, so check the wrapped object's type.
+        self.assertIsInstance(x._vtk_obj, vtk.vtkContourFilter)
         self.assertTrue(isinstance(x, tvtk_base.TVTKBase))
         self.assertTrue(isinstance(x, tvtk.ContourFilter))
         self.assertTrue(v is x._vtk_obj)

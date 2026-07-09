@@ -178,7 +178,7 @@ class TestVTKParser(unittest.TestCase):
 
         res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
-            res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
+            res = ['BackfaceRender', 'DeepCopy',
                    'ReleaseGraphicsResources', 'RemoveAllTextures',
                    'RemoveTexture', 'Render']
             res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
@@ -189,10 +189,19 @@ class TestVTKParser(unittest.TestCase):
                     'ComputeReflectanceOfBaseLayer', 'SetAnisotropyTexture',
                     'SetCoatNormalTexture'
                 ])
+            # AddShaderVariable was removed in VTK >= 9.5; LineJoinType and
+            # Point2DShapeType were added.  Guard on hasattr so the expected
+            # set tracks whatever VTK is installed.
+            if hasattr(obj, 'AddShaderVariable'):
+                res.append('AddShaderVariable')
+            if hasattr(obj, 'LineJoinType'):
+                res.append('LineJoinType')
+            if hasattr(obj, 'Point2DShapeType'):
+                res.append('Point2DShapeType')
 
         if hasattr(obj, 'PostRender'):
             res.append('PostRender')
-            res.sort()
+        res.sort()
         self.assertEqual(p.get_other_methods(), res)
         self.assertEqual(p.other_meths, p.get_other_methods())
 
