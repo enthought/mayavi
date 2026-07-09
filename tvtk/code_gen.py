@@ -116,7 +116,8 @@ class TVTKGenerator:
             # This is another class we should not wrap and exists
             # in version 8.1.0.
             ignore = ['vtkOpenGLGL2PSHelperImpl'] + [
-                'vtkSOADataArrayTemplate_I%sE' % l
+                'vtk%sSOADataArrayTemplate_I%sE' % (prefix, l)
+                for prefix in ('', 'Scaled')
                 for l in 'acdfhijlmstxy']
             include = ['VTKPythonAlgorithmBase']
             for node in wrap_gen.get_tree():

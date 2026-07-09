@@ -848,6 +848,21 @@ class WrapperGenerator:
                         self._write_property(out, name, vtk_get_meth,
                                              vtk_set_meth)
                     else: # Get has args or Set needs many args.
+                        # A Get with a no-argument overload can still back a
+                        # readable property even when there is no single-arg
+                        # Set (e.g. Set requires a component index, as with
+                        # vtkVolumeProperty.SetRGBTransferFunction on
+                        # VTK >= 9.6).  In that case expose a read-only
+                        # property (mayavi sets these via other methods such
+                        # as set_color) in addition to the raw get/set
+                        # methods.
+                        get_no_arg = any(s[1] is None for s in get_sig)
+                        set_one_arg = any(
+                            s[1] is not None and len(s[1]) == 1
+                            for s in set_sig)
+                        if get_no_arg and not set_one_arg:
+                            self._write_property(out, name, vtk_get_meth,
+                                                 None)
                         self._write_tvtk_method(klass, out, vtk_get_meth, get_sig)
                         self._write_tvtk_method(klass, out, vtk_set_meth, set_sig)
 
