@@ -764,6 +764,11 @@ class WrapperGenerator:
             if not meths[vtk_attr_name] and get_sig[0][1]:
                 self._write_tvtk_method(klass, out, vtk_get_meth, get_sig)
                 self._write_tvtk_method(klass, out, vtk_set_meth)
+                # These are plain methods, not a trait, so the name must
+                # not remain in updateable_traits (otherwise it leaks into
+                # _full_traitnames_list_ as a trait that cannot be obtained,
+                # e.g. vtkDataSetAttributes.Get/SetAttribute on VTK >= 9.x).
+                del updateable_traits[name]
                 continue
 
             # -------------------------------
