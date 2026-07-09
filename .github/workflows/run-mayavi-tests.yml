@@ -40,7 +40,7 @@ jobs:
       fail-fast: false
     defaults:
       run:
-        shell: bash -e {0}
+        shell: bash
     timeout-minutes: 30  # these usually take < 8 minutes
 
     runs-on: ${{ matrix.os }}
@@ -53,26 +53,20 @@ jobs:
       PYTHONUNBUFFERED: '1'
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7.0.0
       with:
         persist-credentials: false
-    - name: Install Linux packages for Qt5/Qt6 support and start Xvfb
-      uses: pyvista/setup-headless-display-action@v4
+    - uses: pyvista/setup-headless-display-action@v4
       with:
         qt: true
       if: startsWith(matrix.os, 'ubuntu')
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+    - uses: actions/setup-python@v6.3.0
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        set -exo pipefail
         python -m pip install --upgrade pip setuptools wheel
         python -m pip install --upgrade "${{ matrix.qt-api }}" "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
-    - name: Install mayavi and tvtk
-      run: python -um pip install --no-build-isolation -ve .[app]
-    - name: Test Mayavi package
-      run: pytest -v --timeout=10 mayavi
-    - name: Test tvtk package
-      run: pytest -sv --timeout=60 tvtk
+    - run: python -m pip install --no-build-isolation -ve .[app]
+    - run: pytest -v --timeout=10 mayavi
+    - run: pytest -sv --timeout=60 tvtk
