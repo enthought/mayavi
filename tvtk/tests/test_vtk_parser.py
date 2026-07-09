@@ -135,6 +135,14 @@ class TestVTKParser(unittest.TestCase):
             res['SelectionPointSize'] = (2.0, None)
         if (vtk_major_version, vtk_minor_version) >= (9, 3):
             res['EdgeOpacity'] = (1.0, None)
+        # New in VTK >= 9.5 (guarded by hasattr so the expectation tracks
+        # whatever VTK is installed).
+        if hasattr(obj, 'GetEdgeWidth'):
+            res['EdgeWidth'] = (1.0, (0.0, float_max))
+        if hasattr(obj, 'GetLineJoin'):
+            res['LineJoin'] = (2, None)
+        if hasattr(obj, 'GetPoint2DShape'):
+            res['Point2DShape'] = (1, None)
 
         result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):
