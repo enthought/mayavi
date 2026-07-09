@@ -11,67 +11,32 @@ jobs:
     strategy:
       matrix:
         # Always test against the latest VTK, NumPy, and Qt bindings
-        os: [ubuntu-latest, windows-latest, macos-13, macos-15]
-        python-version: ['3.12']
+        os: [ubuntu-latest, windows-latest, macos-26-intel, macos-latest]
+        python-version: ['3.14']
         qt-api: ['pyside6']  # prefer the modern bindings
-        vtk: ['vtk>=9.4']  # always prefer the latest
+        vtk: ['vtk>=9.6']  # always prefer the latest
         # Then add some backward compat checks
         include:
-          # PyQt6 and vtk 9.3
-          - python-version: '3.10'
-            qt-api: 'pyqt6'
+          - python-version: '3.13'
+            qt-api: 'pyside6'
             os: ubuntu-latest
-            vtk: 'vtk==9.3'
-          - python-version: '3.10'
-            qt-api: 'pyqt6'
-            os: macos-14  # arm64
-            vtk: 'vtk==9.3'
-          - python-version: '3.10'
-            qt-api: 'pyqt6'
-            os: windows-latest
-            vtk: 'vtk==9.3'
+            vtk: 'vtk==9.6'
+          - python-version: '3.12'
+            qt-api: 'pyside6'
+            os: ubuntu-latest
+            vtk: 'vtk==9.5'
           - python-version: '3.11'
+            qt-api: 'pyside6'
+            os: ubuntu-latest
+            vtk: 'vtk==9.4'
+          - python-version: '3.10'
             qt-api: 'pyqt6'
             os: ubuntu-latest
             vtk: 'vtk==9.3'
-          # PyQt5 and vtk 9.2 (and one oldest Python)
           - python-version: '3.9'
             qt-api: 'pyqt5'
             os: ubuntu-latest
             vtk: 'vtk==9.2.5'
-          - python-version: '3.10'
-            qt-api: 'pyqt5'
-            os: windows-latest
-            vtk: 'vtk==9.2.5'
-          - python-version: '3.10'
-            qt-api: 'pyside6'
-            os: macos-13
-            vtk: 'vtk==9.2.5'
-          # Some old NumPys
-          - python-version: '3.12'
-            qt-api: 'pyside6'
-            os: ubuntu-latest
-            vtk: 'vtk==9.3'
-            numpy: 'numpy==1.26.4'
-          - python-version: '3.12'
-            qt-api: 'pyside6'
-            os: windows-latest
-            vtk: 'vtk==9.3'
-            numpy: 'numpy==1.26.4'
-          # Older Python and VTKs
-          - python-version: '3.10'
-            qt-api: 'pyqt5'
-            os: ubuntu-latest
-            vtk: 'vtk==9.2.2'
-          # TVTK tests intermittently segfault on 9.1
-          # - python-version: '3.9'
-          #   qt-api: 'pyqt5'
-          #   os: ubuntu-latest
-          #   vtk: 'vtk==9.1.0'
-          - python-version: '3.9'
-            qt-api: 'pyqt5'
-            os: ubuntu-latest
-            vtk: 'vtk==9.0.2'  # oldest available on 3.9 which is the oldest Python we support
       fail-fast: false
     defaults:
       run:

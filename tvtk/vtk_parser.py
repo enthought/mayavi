@@ -246,6 +246,21 @@ class VTKMethodParser:
             ignore.extend(['GetScaledText', 'SetScaledText',
                            'ScaledTextOn', 'ScaledTextOff'])
 
+        # In VTK >= 9.x, a few vtkIOSSReader getters abort with an
+        # uncatchable C++ std::runtime_error ("Could not find property
+        # '<NAME>'") when called on the inheriting vtkIOSSCellGridReader,
+        # which does not initialize the underlying Ioss database properties
+        # that these getters read.  Because a C++ exception cannot be caught
+        # in Python, this crashes the interpreter as soon as update_traits
+        # reads them on instantiation.  Drop just these getters so they are
+        # never wrapped as auto-updating traits; the corresponding Set/On/Off
+        # methods still work and are kept.
+        for _ioss_getter in ('GetGroupAlphabeticVectorFieldComponents',
+                             'GetGroupNumericVectorFieldComponents',
+                             'GetFieldSuffixSeparator'):
+            if _ioss_getter in methods:
+                ignore.append(_ioss_getter)
+
         # Now we can safely remove the methods.
         for m in methods[:]:
             if m in ignore and m not in skip:
