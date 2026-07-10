@@ -776,7 +776,7 @@ class WrapperGenerator:
             # and if we can read the get method signature, we write
             # the get and set methods and done
             # --------------------------------------------------------
-            if not meths[vtk_attr_name] and get_sig[0][1]:
+            if not meths[vtk_attr_name] and get_sig and get_sig[0][1]:
                 self._write_tvtk_method(klass, out, vtk_get_meth, get_sig)
                 self._write_tvtk_method(klass, out, vtk_set_meth)
                 # These are plain methods, not a trait, so the name must

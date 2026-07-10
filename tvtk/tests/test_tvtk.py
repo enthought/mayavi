@@ -22,7 +22,8 @@ import numpy
 from textwrap import indent
 
 from tvtk import tvtk_base
-from tvtk.common import get_tvtk_name, configure_input_data
+from tvtk.common import (get_tvtk_name, configure_input_data,
+                         vtk_major_version, vtk_minor_version)
 from tvtk import vtk_module as vtk
 from numpy.testing import assert_array_equal
 
@@ -652,6 +653,11 @@ class TestTVTK(unittest.TestCase):
             tvtk_filter.point1_world_position = range(2)
 
     @skipUnlessTVTKHasattr('XOpenGLRenderWindow')
+    @unittest.skipIf(
+        (vtk_major_version, vtk_minor_version) >= (9, 5),
+        'Realizing then destroying a render window segfaults with VTK >= 9.5 '
+        '(e.g. vtkXOpenGLRenderWindow under xvfb; a known VTK bug)',
+    )
     def test_xopengl_render_window(self):
         """ Test that setting the position to a render window works
         Issue #357
@@ -808,12 +814,31 @@ class TestTVTKModule(unittest.TestCase):
     def setUpClass(cls):
         vtk.vtkObject.GlobalWarningDisplayOff()
         cls.names = []
+        # Instantiating a TVTK render window / VR interactor realizes an
+        # underlying window/device (update_traits reads GetSize/GetPosition/
+        # GetPhysicalScale/...), and destroying it then segfaults with
+        # VTK >= 9.5 (e.g. vtkXOpenGLRenderWindow under xvfb,
+        # vtkVRRenderWindowInteractor on Windows; a known VTK bug).  Skip
+        # these classes there.
+        windowed_bases = ()
+        if (vtk_major_version, vtk_minor_version) >= (9, 5):
+            windowed_bases = tuple(
+                c for c in (getattr(vtk, 'vtkRenderWindow', None),
+                            getattr(vtk, 'vtkVRRenderWindowInteractor', None))
+                if c is not None)
         # Filter the ones that are abstract or not implemented
         for name in dir(vtk):
             if (not name.startswith('vtk') or name.startswith('vtkQt') or
                     len(name) <= 3):
                 continue
             vtk_klass = getattr(vtk, name)
+            if windowed_bases:
+                try:
+                    windowed = issubclass(vtk_klass, windowed_bases)
+                except TypeError:
+                    windowed = False
+                if windowed:
+                    continue
             tvtk_klass_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_klass_name, None)
             if hasattr(vtk_klass, '__bases__') and tvtk_klass is not None:

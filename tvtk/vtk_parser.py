@@ -676,18 +676,26 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
-            # Reading a render window's geometry getters (GetSize,
-            # GetPosition, ...) realizes the underlying window, and
-            # destroying a realized window then segfaults on headless
-            # systems with VTK >= 9.5 (e.g. vtkXOpenGLRenderWindow on
-            # headless Linux; a known VTK bug).  Skip default-fetching for
-            # render windows there -- the affected get/set traits simply get
-            # no default.  State traits (e.g. StereoType) are handled
-            # separately in _find_state_methods and are left untouched.
+            # Instantiating a render window or VR interactor and reading its
+            # getters (GetSize/GetPosition/GetPhysicalScale/...) realizes an
+            # underlying window/device, and destroying it then segfaults with
+            # VTK >= 9.5 (e.g. vtkXOpenGLRenderWindow on Linux even under
+            # xvfb, or vtkVRRenderWindowInteractor on Windows; a known VTK
+            # bug).  Skip default-fetching for these -- the affected get/set
+            # traits simply get no default.  We only skip the VR interactor
+            # base (absent on non-VR builds), not the plain
+            # vtkRenderWindowInteractor / ...3D, whose traits (e.g. KeySym,
+            # PhysicalViewDirection) need real defaults.  State traits (e.g.
+            # StereoType) are handled separately in _find_state_methods.
             skip_instance = False
             if (vtk_major_version, vtk_minor_version) >= (9, 5):
+                windowed = tuple(
+                    c for c in (getattr(vtk, 'vtkRenderWindow', None),
+                                getattr(vtk, 'vtkVRRenderWindowInteractor',
+                                        None))
+                    if c is not None)
                 try:
-                    skip_instance = issubclass(klass, vtk.vtkRenderWindow)
+                    skip_instance = issubclass(klass, windowed)
                 except TypeError:
                     skip_instance = False
             obj = None if skip_instance else self._get_instance(klass)

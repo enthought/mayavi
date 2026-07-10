@@ -18,7 +18,7 @@ from mayavi.modules.streamline import Streamline
 from tvtk.common import vtk_major_version, vtk_minor_version
 
 
-# On VTK >= 9.6 executing this streamline pipeline segfaults inside VTK's
+# On VTK >= 9.5 executing this streamline pipeline segfaults inside VTK's
 # array dispatch (vtkDataArray::DeepCopy -> GetTuplesFromListWorker on the
 # vtkImplicitArray<vtkStructuredPointBackend<double>> that now backs
 # vtkImageData points).  It is a VTK-internal crash (a raw VTK equivalent of
@@ -26,8 +26,8 @@ from tvtk.common import vtk_major_version, vtk_minor_version
 # the interpreter in setUp, so the whole test case is skipped there.
 # TODO: remove once the underlying VTK issue is fixed/reported upstream.
 @unittest.skipIf(
-    (vtk_major_version, vtk_minor_version) >= (9, 6),
-    "Segfaults inside VTK >= 9.6 implicit-array DeepCopy (VTK bug)",
+    (vtk_major_version, vtk_minor_version) >= (9, 5),
+    "Segfaults inside VTK >= 9.5 implicit-array DeepCopy (VTK bug)",
 )
 class TestStreamline(unittest.TestCase):
 
