@@ -757,6 +757,21 @@ class WrapperGenerator:
                 continue
 
             # --------------------------------------------------------
+            # A getter that only fills an output array (e.g.
+            # vtkStructuredGrid.GetDimensions(int[3]) on VTK >= 9.x, which
+            # lost its no-argument overload) can still back a settable trait
+            # provided there is a matching component-wise setter.  Write it
+            # as a property that reads via the output-array form.
+            # --------------------------------------------------------
+            array_size = self._array_output_getter_size(get_sig)
+            if (array_size and vtk_set_meth is not None
+                    and any(a is not None and len(a) == array_size
+                            for _, a in set_sig)):
+                self._write_array_output_property(out, name, vtk_get_meth,
+                                                  vtk_set_meth, array_size)
+                continue
+
+            # --------------------------------------------------------
             # If it is an abstract class with no concrete subclass
             # and if we can read the get method signature, we write
             # the get and set methods and done
@@ -1045,6 +1060,30 @@ class WrapperGenerator:
         information for a method.
         """
         return [s[1] for s in sig]
+
+    def _array_output_getter_size(self, get_sig):
+        """If `get_sig` describes a getter that only fills a single output
+        array (e.g. ``GetDimensions(int[3]) -> None``) and has *no*
+        no-argument overload, return the size of that array.  Otherwise
+        return None.
+
+        VTK's Python type hints use a ``list`` for an output (populated)
+        array argument and a ``tuple`` for an input argument, so we only
+        match a single list argument.  On VTK >= 9.x some getters such as
+        ``vtkStructuredGrid.GetDimensions`` lost their no-argument overload
+        (unlike ``vtkImageData.GetDimensions``), which would otherwise
+        demote the corresponding trait to a plain method.
+        """
+        size = None
+        for ret, arg in get_sig:
+            if arg is None:
+                # A no-argument overload exists; the normal path handles it.
+                return None
+            if (ret == [None] and len(arg) == 1 and isinstance(arg[0], list)):
+                size = len(arg[0])
+            else:
+                return None
+        return size
 
     #################################################################
     # The following methods do the writing.
@@ -1540,6 +1579,45 @@ class WrapperGenerator:
         doc = vtk_get_meth.__doc__
         self.dm.write_trait_doc(doc, out, indent)
         # Close the function definition.
+        out.write(indent.format(')'))
+        out.write('\n')
+
+    def _write_array_output_property(self, out, t_name, vtk_get_meth,
+                                     vtk_set_meth, size):
+        """Write a traited property whose VTK getter fills an output array
+        (e.g. ``vtkStructuredGrid.GetDimensions(int[3])``) rather than
+        returning a value.  The value is read into a freshly allocated list
+        and returned as a tuple; the setter (if any) passes the unpacked
+        components to the VTK set method.
+        """
+        indent = self.indent
+        getter = '_get_%s' % t_name
+        vtk_get_name = vtk_get_meth.__name__
+        zeros = ', '.join(['0'] * size)
+        trait_def = """
+        def %(getter)s(self):
+            ret = [%(zeros)s]
+            self._vtk_obj.%(vtk_get_name)s(ret)
+            return tuple(ret)
+        """ % locals()
+        out.write(indent.format(trait_def))
+        if vtk_set_meth is not None:
+            setter = '_set_%s' % t_name
+            vtk_set_name = vtk_set_meth.__name__
+            trait_def = """
+            def %(setter)s(self, arg):
+                old_val = self.%(getter)s()
+                self._wrap_call(self._vtk_obj.%(vtk_set_name)s, *arg)
+                self.trait_property_changed('%(t_name)s', old_val, arg)
+            """ % locals()
+            out.write(indent.format(trait_def))
+            t_def = "traits.Property(%(getter)s, %(setter)s, desc=\\" % locals()
+        else:
+            t_def = "traits.Property(%(getter)s, desc=\\" % locals()
+        trait_def = """%(t_name)s = %(t_def)s""" % locals()
+        out.write(indent.format(trait_def))
+        doc = vtk_get_meth.__doc__
+        self.dm.write_trait_doc(doc, out, indent)
         out.write(indent.format(')'))
         out.write('\n')
 
