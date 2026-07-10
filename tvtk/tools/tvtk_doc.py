@@ -64,15 +64,30 @@ def get_tvtk_class_names():
     sink = []
     bad_names = []
     ver = vtk.vtkVersion()
-    if (ver.GetVTKMajorVersion(), ver.GetVTKMinorVersion()) >= (9, 2):
+    vtk_ver = (ver.GetVTKMajorVersion(), ver.GetVTKMinorVersion())
+    if vtk_ver >= (9, 2):
         bad_names.append('vtkOpenGLAvatar')
+    # Instantiating (or destroying) a render window / interactor crashes with
+    # VTK >= 9.5 -- e.g. the X11 vtkXOpenGLRenderWindow, even under xvfb (a
+    # known VTK bug).  They are not pipeline objects (no input/output ports),
+    # so simply skip them here.
+    skip_windowed = vtk_ver >= (9, 5)
 
     for name in dir(vtk):
         if name.startswith('vtk') and not name.startswith('vtkQt') and \
                 name not in bad_names:
             klass = getattr(vtk, name)
+            if skip_windowed:
+                try:
+                    windowed = issubclass(
+                        klass,
+                        (vtk.vtkRenderWindow, vtk.vtkRenderWindowInteractor))
+                except TypeError:
+                    windowed = False
+                if windowed:
+                    continue
             if verbose:
-                print(f'Trying {name}', file=sys.__stdout__)
+                print(f'Trying {name}', file=sys.__stdout__, flush=True)
             try:
                 c = klass()
                 # Some classes hijack sys.stdout/sys.stderr.
