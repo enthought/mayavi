@@ -56,6 +56,14 @@ class TestGarbageCollection(unittest.TestCase):
         with restore_gc_state():
             gc.disable()
             object_weakref = do()
+            # Break any reference cycles (e.g. TVTKScene <-> LightManager)
+            # that plain reference counting cannot reclaim.  Python 3.14
+            # changed refcount-collection timing, so rather than relying on
+            # the object being freed the moment ``do`` returns, we run an
+            # explicit collection: the object must still be reclaimable, i.e.
+            # not genuinely leaked (a real leak survives ``gc.collect`` and
+            # the weakref callback below never fires).
+            gc.collect()
 
         # The object should have been collected.
         self.assertTrue(object_collected[0])
