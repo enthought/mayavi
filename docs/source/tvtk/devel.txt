@@ -170,23 +170,15 @@ tvtk wrapper object.  If the call signature involves VTK array
 objects, then any Numeric arrays or Python lists are converted to the
 correct VTK data array and passed to the wrapped VTK object.
 
-For the efficient conversion to `CellArray` objects, an extension
-module is required.  The sources for this extension module are in
-`src/array_ext.*`.  The Cython_ file can be used to generate the
-`src/array_ext.c` file like so::
-
-  $ cd src
-  $ cython array_ext.pyx
-
-The sources ship with the generated source file so that folks without
-Cython can build it.
+The conversion to `CellArray` objects is handled by
+`set_id_type_array` in `array_handler.py`, a small vectorized NumPy
+routine.  (This was historically a Cython extension, `tvtk.array_ext`,
+but the pure-Python implementation is fast enough for a
+once-per-dataset operation and needs no compiler.)
 
 `special_gen.py` defines all the additional methods for the
 `DataArray` and other classes that allow these objects to support
 iteration, `__repr__`, `__getitem__` etc.
-
-
-.. _Cython: http://cython.org/
 
 
 The magical `tvtk` instance

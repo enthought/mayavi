@@ -24,13 +24,6 @@ except ImportError:
 
 import numpy
 
-# Enthought library imports.
-try:
-    from tvtk.array_ext import set_id_type_array
-    HAS_ARRAY_EXT = True
-except ImportError:
-    HAS_ARRAY_EXT = False
-
 # Useful constants for VTK arrays.
 VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
 if VTK_ID_TYPE_SIZE == 4:
@@ -84,8 +77,12 @@ def set_id_type_array_py(id_array, out_array):
     out_array.shape = out_shp
 
 
-if not HAS_ARRAY_EXT:
-    set_id_type_array = set_id_type_array_py
+# Historically this came from a small Cython extension (``tvtk.array_ext``) for
+# speed, with ``set_id_type_array_py`` as a fallback.  The vectorized NumPy
+# implementation above is within ~2-3x of the C loop for typical meshes on a
+# once-per-dataset operation, so the extension was dropped in favor of pure
+# Python (no compiler needed, works on free-threaded builds, universal wheel).
+set_id_type_array = set_id_type_array_py
 
 
 ######################################################################

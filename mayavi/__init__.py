@@ -7,27 +7,6 @@
 
 __version__ = '4.8.4.dev0'
 
-__requires__ = [
-    'apptools',
-    'configobj',
-    'envisage',
-    'numpy',
-    'pyface>=6.1.1',
-    'pygments',  # This is only needed for the Qt backend but we add it anyway.
-    'traits>=6.0.0',
-    'traitsui>=7.0.0',
-    'packaging',
-    'importlib_resources; python_version<"3.11"',
-    'vtk',
-    'puremagic'
-]
-
-__extras_require__ = {
-    'app': [
-        'envisage',
-    ],
-}
-
 
 def _jupyter_nbextension_paths():
     return [dict(
