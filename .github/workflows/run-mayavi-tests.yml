@@ -25,11 +25,12 @@ jobs:
             qt-api: 'pyside6'
             os: ubuntu-latest
             vtk: 'vtk==9.5'
+            numpy: 'numpy==2.3' # in1d (used by vtk) removed in 2.4+
           - python-version: '3.11'
             qt-api: 'pyside6'
             os: ubuntu-latest
             vtk: 'vtk==9.4'
-            numpy: 'numpy==2.3'  # in1d (used by vtk) removed in 2.4+
+            numpy: 'numpy==2.3'
           - python-version: '3.10'
             qt-api: 'pyqt6'
             os: ubuntu-latest
