@@ -676,7 +676,21 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
-            obj = self._get_instance(klass)
+            # Reading a render window's geometry getters (GetSize,
+            # GetPosition, ...) realizes the underlying window, and
+            # destroying a realized window then segfaults on headless
+            # systems with VTK >= 9.5 (e.g. vtkXOpenGLRenderWindow on
+            # headless Linux; a known VTK bug).  Skip default-fetching for
+            # render windows there -- the affected get/set traits simply get
+            # no default.  State traits (e.g. StereoType) are handled
+            # separately in _find_state_methods and are left untouched.
+            skip_instance = False
+            if (vtk_major_version, vtk_minor_version) >= (9, 5):
+                try:
+                    skip_instance = issubclass(klass, vtk.vtkRenderWindow)
+                except TypeError:
+                    skip_instance = False
+            obj = None if skip_instance else self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
                     # Broken in <= 9.3
