@@ -5,7 +5,12 @@
     Part of the Mayavi project of the Enthought Tool Suite.
 """
 
-__version__ = '4.8.4.dev0'
+try:
+    from importlib.metadata import version
+
+    __version__ = version("mayavi")
+except Exception:
+    __version__ = "0.0.0"
 
 
 def _jupyter_nbextension_paths():

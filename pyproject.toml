@@ -1,6 +1,7 @@
 [build-system]
 requires = [
     "setuptools>=77",
+    "setuptools_scm>=8",
     "vtk>=9",
     "numpy",
 ]
@@ -84,12 +85,13 @@ include-package-data = true
 # MANIFEST.in.  It cannot be collected as package data (it does not exist when
 # the manifest is computed), so the build hook stages it into build_lib itself.
 
-[tool.setuptools.dynamic]
-version = {attr = "mayavi.__version__"}
-
 [tool.setuptools.packages.find]
 include = ["mayavi*", "tvtk*"]
 namespaces = true
+
+# Version is derived from git tags (e.g. "4.8.3"); at runtime mayavi/__init__.py
+# reads it from the installed package metadata (see below).
+[tool.setuptools_scm]
 
 [tool.pytest.ini_options]
 addopts = "--durations=20 -ra --tb=short"
