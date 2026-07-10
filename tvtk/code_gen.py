@@ -28,6 +28,14 @@ import logging
 import traceback
 from optparse import OptionParser
 import sys
+import faulthandler
+
+# Generating the wrappers instantiates every VTK class and calls its Get
+# methods, which not-infrequently segfaults for a particular class on a
+# particular platform/VTK version.  Enable faulthandler unconditionally so
+# that such a crash prints a Python traceback naming the offending class
+# (see e.g. wrapper_gen.py / vtk_parser.py for the existing workarounds).
+faulthandler.enable()
 
 # Local imports -- these should be relative imports since these are
 # imported before the package is installed.
