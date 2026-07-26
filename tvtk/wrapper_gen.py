@@ -1748,6 +1748,13 @@ class WrapperGenerator:
             True, True, '_write_smart_volume_mapper_vector_component'
         ),
 
+        # On VTK < 9.6, vtkGraphMapper.GetIconSize returns an unwrapped
+        # int* (a pointer repr string in Python), so updating from the
+        # runtime object must be allowed to fail.
+        'vtkGraphMapper.IconSize$': (
+            True, True, '_write_graph_mapper_icon_size'
+        ),
+
         # In VTK 8.x, HyperTreeGridCellCenter's Get/Set VertexCells is supposed
         # to be a boolean but the initialized value can be an arbitrary
         # integer.
@@ -1970,6 +1977,17 @@ class WrapperGenerator:
         t_def = ('traits.Trait({default}, traits.Range{rng}, '
                  'enter_set=True, auto_set=False)').format(default=default,
                                                            rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_graph_mapper_icon_size(self, klass, out, vtk_attr_name):
+        if vtk_attr_name != 'IconSize':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with IconSize. Panicking.")
+
+        t_def = ('traits.Array(enter_set=True, auto_set=False, '
+                 'shape=(None,), dtype="int", value=(1, 1), cols=2)')
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)

@@ -5,6 +5,8 @@ concurrency:
 
 on:
   pull_request:
+  release:
+    types: [published]
 
 # Build a pure-Python wheel per OS against the latest VTK (the generated TVTK
 # classes differ per platform: X11 vs Cocoa vs Win32), then test each against
@@ -43,6 +45,11 @@ jobs:
       with:
         name: wheel-${{ matrix.os }}
         path: dist/*.whl
+    - uses: actions/upload-artifact@v7
+      if: matrix.os == 'ubuntu-latest'
+      with:
+        name: sdist
+        path: dist/*.tar.gz
 
   test:
     # Each OS tests its own wheel.  Rows mirror tests.yml so failures are
@@ -117,5 +124,41 @@ jobs:
     - name: Import smoke test
       run: |
         python -c "import vtk; from tvtk.api import tvtk; print('Runtime VTK:', vtk.vtkVersion().GetVTKVersion()); print(tvtk.ConeSource())"
+    - name: Pick a test directory on the install drive
+      # apptools persistence cannot relativize paths across Windows drives,
+      # so run tests from the drive holding site-packages (C:), not the
+      # workspace (D:)
+      run: |
+        if [[ "$RUNNER_OS" == "Windows" ]]; then
+          mkdir -p /c/mayavi-tests
+          echo "PYTEST_DIR=C:\\mayavi-tests" | tee -a $GITHUB_ENV
+        else
+          echo "PYTEST_DIR=$PWD" | tee -a $GITHUB_ENV
+        fi
     - run: pytest -v --timeout=10 --pyargs mayavi
+      working-directory: ${{ env.PYTEST_DIR }}
     - run: pytest -sv --timeout=60 --pyargs tvtk
+      working-directory: ${{ env.PYTEST_DIR }}
+
+  publish:
+    name: Publish to PyPI
+    needs: [build, test]
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    # Trusted publishing (OIDC); the "pypi" environment must be configured
+    # on PyPI and in the repo settings
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+    - uses: actions/download-artifact@v8
+      with:
+        pattern: wheel-*
+        merge-multiple: true
+        path: dist
+    - uses: actions/download-artifact@v8
+      with:
+        name: sdist
+        path: dist
+    - run: ls -alh dist/
+    - uses: pypa/gh-action-pypi-publish@release/v1

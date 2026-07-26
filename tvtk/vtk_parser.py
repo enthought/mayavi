@@ -174,7 +174,12 @@ class VTKMethodParser:
 
     def get_methods(self, klass):
         """Returns all the relevant methods of the given VTK class."""
-        methods = dir(klass)[:]
+        # VTK API methods are CamelCase; drop the snake_case aliases and
+        # pipeline dunders (__call__, __rshift__, ...) that VTK >= 9.4 adds
+        # to dir().  Otherwise they generate duplicate/garbage wrappers that
+        # delegate to attributes older runtime VTKs do not have (e.g.
+        # update() calling self._vtk_obj.update, which VTK < 9.4 lacks).
+        methods = [m for m in dir(klass) if m[:1].isupper()]
         if hasattr(klass, '__members__'):
             # Only VTK versions < 4.5 have these.
             for m in klass.__members__:
