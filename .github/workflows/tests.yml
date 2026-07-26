@@ -36,6 +36,11 @@ jobs:
             qt-api: 'pyqt6'
             os: ubuntu-latest
             vtk: 'vtk==9.3'
+          # Oldest supported Python, VTK, and Qt bindings
+          - python-version: '3.10'
+            qt-api: 'pyqt5'
+            os: ubuntu-latest
+            vtk: 'vtk==9.2.5'
           # No display server / Qt toolkit at all
           - python-version: '3.14'
             os: ubuntu-latest
