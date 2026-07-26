@@ -15,6 +15,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-26-intel, macos-latest]
         python-version: ['3.14']
         qt-api: ['pyside6']  # prefer the modern bindings
+        headless: [false]
         # Then add some backward compat checks
         include:
           - python-version: '3.13'
