@@ -63,6 +63,9 @@ jobs:
     - uses: actions/checkout@v7.0.0
       with:
         persist-credentials: false
+        # setuptools_scm derives the version from git tags, which a shallow
+        # clone does not have (the version would come out as "0.0.0")
+        fetch-depth: 0
     - uses: pyvista/setup-headless-display-action@v4
       with:
         qt: true
@@ -73,7 +76,9 @@ jobs:
     - name: Install dependencies
       id: install
       run: |
-        python -m pip install --upgrade pip setuptools wheel
+        # setuptools_scm is a build requirement, and we install below with
+        # --no-build-isolation, so it must be present in the environment
+        python -m pip install --upgrade pip setuptools setuptools_scm wheel
         python -m pip install --upgrade ${{ matrix.qt-api || ''}} "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk || 'vtk' }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
         if [[ "${{ matrix.headless }}" != "true" ]]; then
           echo "extra=[app]" | tee -a $GITHUB_OUTPUT
