@@ -8,7 +8,7 @@ on:
 
 jobs:
   tests:
-    name: Tests ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt_api }} ${{ matrix.vtk }} ${{ (matrix.headless && 'headless') || ''}}
+    name: Tests ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt-api }} ${{ matrix.vtk }} ${{ (matrix.headless && 'headless') || ''}}
     strategy:
       matrix:
         # Always test against the latest VTK, NumPy, and Qt bindings
