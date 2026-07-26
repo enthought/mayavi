@@ -1755,6 +1755,14 @@ class WrapperGenerator:
             True, True, '_write_graph_mapper_icon_size'
         ),
 
+        # Parametric coords are intrinsic geometry, not configuration, and
+        # reading them from a default-constructed vtkHigherOrder* cell
+        # segfaults on VTK <= 9.4, so expose a read-only property and never
+        # sync the value in update_traits.
+        r'[a-zA-Z0-9]+\.ParametricCoords$': (
+            False, False, '_write_any_parametric_coords'
+        ),
+
         # In VTK 8.x, HyperTreeGridCellCenter's Get/Set VertexCells is supposed
         # to be a boolean but the initialized value can be an arbitrary
         # integer.
@@ -1980,6 +1988,16 @@ class WrapperGenerator:
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_any_parametric_coords(self, klass, out, vtk_attr_name):
+        if vtk_attr_name != 'ParametricCoords':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with ParametricCoords. "
+                               "Panicking.")
+
+        name = self._reform_name(vtk_attr_name)
+        vtk_get_meth = getattr(klass, 'Get' + vtk_attr_name)
+        self._write_property(out, name, vtk_get_meth, None)
 
     def _write_graph_mapper_icon_size(self, klass, out, vtk_attr_name):
         if vtk_attr_name != 'IconSize':

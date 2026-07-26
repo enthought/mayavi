@@ -162,7 +162,12 @@ class TestTVTK(unittest.TestCase):
         for t, g in p._updateable_traits_:
             if g == "GetEdgeOpacity":
                 continue  # broken for some reason?
-            val = getattr(p._vtk_obj, g)()
+            vtk_get = getattr(p._vtk_obj, g, None)
+            if vtk_get is None:
+                # getter from a newer VTK than the runtime one (TVTK
+                # classes may be generated against a newer VTK)
+                continue
+            val = vtk_get()
             if t in ['representation', 'interpolation']:
                 self.assertEqual(val, getattr(p, t + '_'))
             else:
