@@ -1,4 +1,5 @@
 #cython: language_level=3
+# cython: freethreading_compatible=True
 
 """
 A Cython extension module for numpy.  Currently this extension module

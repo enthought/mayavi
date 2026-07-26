@@ -413,7 +413,12 @@ class TVTKBase(traits.HasStrictTraits):
         """
         # Initialize the Python attribute.
         self._in_set = 0
-        if obj:
+        # Use an explicit ``is not None`` check rather than truthiness: some
+        # VTK >= 9.x objects define ``__len__`` (e.g. vtkFieldData /
+        # vtkDataSetAttributes return their number of arrays), so an empty
+        # but perfectly valid wrapped object would otherwise be treated as
+        # "no object" and replaced with a freshly created one.
+        if obj is not None:
             self._vtk_obj = obj
         else:
             self._vtk_obj = klass()
