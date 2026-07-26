@@ -9,7 +9,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mayavi"
-dynamic = ["version"]
+# dependencies computed in setup.py: wheels cap VTK at the build-time
+# version's next minor, the sdist stays uncapped (PEP 643)
+dynamic = ["version", "dependencies"]
 description = "3D scientific data visualization library and application"
 readme = "README.rst"
 requires-python = ">=3.10"
@@ -39,21 +41,6 @@ classifiers = [
     "Topic :: Software Development",
     "Topic :: Software Development :: Libraries",
 ]
-dependencies = [
-    "apptools",
-    "configobj",
-    "envisage",
-    "numpy",
-    "pyface>=6.1.1",
-    "pygments",  # only needed for the Qt backend but we add it anyway
-    "traits>=6.0.0",
-    "traitsui>=7.0.0",
-    "packaging",
-    "importlib_resources; python_version<'3.11'",
-    "vtk",
-    "puremagic",
-]
-
 [project.optional-dependencies]
 app = ["envisage"]
 

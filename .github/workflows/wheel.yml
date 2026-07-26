@@ -1,0 +1,121 @@
+name: Wheel
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+
+# Build a pure-Python wheel per OS against the latest VTK (the generated TVTK
+# classes differ per platform: X11 vs Cocoa vs Win32), then test each against
+# older VTK runtimes -- a prerequisite for distributing wheels on PyPI.
+jobs:
+  build:
+    name: Build wheel (latest VTK, ${{ matrix.os }})
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v7.0.0
+      with:
+        persist-credentials: false
+        # full history so setuptools_scm can derive the version from tags
+        fetch-depth: 0
+    - uses: actions/setup-python@v6.3.0
+      with:
+        python-version: '3.14'
+    - name: Build sdist and wheel
+      # build isolation installs the latest VTK ("vtk>=9" in
+      # build-system.requires), so the TVTK classes are generated against it
+      run: |
+        python -m pip install --upgrade pip build
+        python -m build
+        ls -alh dist/
+    - name: Check the wheel tag and record the build-time VTK
+      run: python scripts/check_wheel.py dist/*.whl
+    - uses: actions/upload-artifact@v7
+      with:
+        name: wheel-${{ matrix.os }}
+        path: dist/*.whl
+
+  test:
+    # Each OS tests its own wheel.  Rows mirror tests.yml so failures are
+    # attributable to the VTK mismatch, not the environment.  No checkout:
+    # pytest --pyargs runs the installed wheel, which must ship everything
+    # the tests need.
+    name: Test wheel ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt-api }} ${{ matrix.vtk || 'vtk (latest)' }}
+    needs: build
+    strategy:
+      matrix:
+        include:
+          # Controls at the build-time VTK
+          - os: ubuntu-latest
+            python-version: '3.14'
+            qt-api: 'pyside6'
+          - os: macos-latest
+            python-version: '3.14'
+            qt-api: 'pyside6'
+          - os: windows-latest
+            python-version: '3.14'
+            qt-api: 'pyside6'
+          # Older VTK than the wheel was built with
+          - os: ubuntu-latest
+            python-version: '3.12'
+            qt-api: 'pyside6'
+            vtk: 'vtk==9.5'
+            numpy: 'numpy==2.3' # in1d (used by vtk) removed in 2.4+
+          - os: ubuntu-latest
+            python-version: '3.11'
+            qt-api: 'pyside6'
+            vtk: 'vtk==9.4'
+            numpy: 'numpy==2.3'
+          - os: ubuntu-latest
+            python-version: '3.10'
+            qt-api: 'pyqt6'
+            vtk: 'vtk==9.3'
+          - os: ubuntu-latest
+            python-version: '3.10'
+            qt-api: 'pyqt5'
+            vtk: 'vtk==9.2.5'
+      fail-fast: false
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 30
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      ETS_TOOLKIT: qt4
+      QT_API: ${{ matrix.qt-api }}
+      TVTK_VERBOSE: 'true'
+      VTK_PARSER_VERBOSE: 'true'
+      PYTHONUNBUFFERED: '1'
+
+    steps:
+    - uses: pyvista/setup-headless-display-action@v4
+      with:
+        qt: true
+    - uses: actions/setup-python@v6.3.0
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: actions/download-artifact@v8
+      with:
+        name: wheel-${{ matrix.os }}
+        path: dist
+    - name: Install dependencies and the wheel
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade ${{ matrix.qt-api }} "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk || 'vtk' }}" pillow pytest pytest-timeout --only-binary="numpy,vtk"
+        python -m pip install dist/*.whl
+    - name: Import smoke test
+      run: |
+        python -c "import vtk; from tvtk.api import tvtk; print('Runtime VTK:', vtk.vtkVersion().GetVTKVersion()); print(tvtk.ConeSource())"
+    - run: pytest -v --timeout=10 --pyargs mayavi
+    - run: pytest -sv --timeout=60 --pyargs tvtk
