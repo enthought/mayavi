@@ -1,4 +1,4 @@
-name: Tests
+name: CI
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number }}-${{ github.event_name }}
   cancel-in-progress: true
