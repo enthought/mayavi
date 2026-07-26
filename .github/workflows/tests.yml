@@ -1,10 +1,10 @@
 name: Tests
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number }}-${{ github.event.type }}
+  group: ${{ github.workflow }}-${{ github.event.number }}-${{ github.event_name }}
   cancel-in-progress: true
 
 on:
-  pull_request
+  pull_request:
 
 jobs:
   tests:
@@ -39,6 +39,11 @@ jobs:
             qt-api: 'pyqt5'
             os: ubuntu-latest
             vtk: 'vtk==9.2.5'
+          # No display server / Qt toolkit at all
+          - python-version: '3.14'
+            os: ubuntu-latest
+            headless: true
+            vtk: 'vtk>=9.6'
       fail-fast: false
     defaults:
       run:
@@ -48,7 +53,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      ETS_TOOLKIT: qt4
+      ETS_TOOLKIT: ${{ matrix.headless && 'null' || 'qt4' }}
       QT_API: ${{ matrix.qt-api }}
       TVTK_VERBOSE: 'true'
       VTK_PARSER_VERBOSE: 'true'
@@ -61,14 +66,18 @@ jobs:
     - uses: pyvista/setup-headless-display-action@v4
       with:
         qt: true
-      if: startsWith(matrix.os, 'ubuntu')
+      if: matrix.headless != true
     - uses: actions/setup-python@v6.3.0
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
+      id: install
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install --upgrade "${{ matrix.qt-api }}" "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
-    - run: python -m pip install --no-build-isolation -ve .[app]
+        python -m pip install --upgrade ${{ matrix.qt-api || ''}} "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk || 'vtk' }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
+        if [[ "${{ matrix.headless }}" != "true" ]]; then
+          echo "extra=[app]" | tee -a $GITHUB_OUTPUT
+        fi
+    - run: python -m pip install --no-build-isolation -ve .${{ steps.install.outputs.extra }}
     - run: pytest -v --timeout=10 mayavi
     - run: pytest -sv --timeout=60 tvtk
