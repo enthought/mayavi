@@ -11,10 +11,10 @@ jobs:
     strategy:
       matrix:
         # Always test against the latest VTK, NumPy, and Qt bindings
+        name: Tests ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt_api }} ${{ matrix.vtk }} ${{ ('headless' && matrix.headless) || ''}}
         os: [ubuntu-latest, windows-latest, macos-26-intel, macos-latest]
         python-version: ['3.14']
         qt-api: ['pyside6']  # prefer the modern bindings
-        vtk: ['vtk>=9.6']  # always prefer the latest
         # Then add some backward compat checks
         include:
           - python-version: '3.13'
@@ -43,7 +43,6 @@ jobs:
           - python-version: '3.14'
             os: ubuntu-latest
             headless: true
-            vtk: 'vtk>=9.6'
       fail-fast: false
     defaults:
       run:
