@@ -86,8 +86,6 @@ def get_trait_def(value, **kwargs):
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
         if dtype == 'int' and sys.platform.startswith('win'):
             dtype = 'int64'
-        elif dtype == 'long':
-            dtype = 'int64'
         dtype = '"{}"'.format(dtype) if dtype is not None else 'None'
 
         cols = len(value)
@@ -147,18 +145,10 @@ def patch_default(vtk_get_meth, vtk_set_meth, default):
     # Some method even has a signature of (["int", "int"], "vtkInformation")
     arg_formats = []
 
-    # Collect the signatures of the get method
-    # We only use the arguments
-    # TODO: Unclear why this would be used... but for example if the Get method
-    # takes a string as an argument, we don't want that to be what we expect the
-    # *output* to be (which can be for example vtkDataArray*). But presumably
-    # this was here for a reason so let's just add exceptions for things that are
-    # known to be problematic on VTK 9.5.2...
+    # Only the Set method's signatures are used: the Get signature's return
+    # type is unreliable for guessing a default (e.g. vtkDataArray* returns,
+    # or getters that take a string argument).
     all_sigs = []
-    #if vtk_get_meth.__name__ not in ("GetGlobalIds", "GetHigherOrderDegrees", "GetNormals", "GetPedigreeIds", "GetProcessIds", "GetRationalWeights", "GetScalars", "GetTCoords", "GetTensors", "GetVectors", "GetTangents"):
-    #    all_sigs.extend(
-    #        vtk_parser.VTKMethodParser.get_method_signature(vtk_get_meth)
-    #    )
 
     # Collect the signatures of the set method
     all_sigs.extend(
@@ -286,12 +276,6 @@ class WrapperGenerator:
             from traitsui.editors.api import InstanceEditor as Editor
             return Editor(view_name="handler.view")
 
-        try:
-            long
-        except NameError:
-            # Silly workaround for Python3.
-            long = int
-
         inf = float('inf')
 
         """
@@ -414,10 +398,6 @@ class WrapperGenerator:
         # want the node's version to be changed).
         d = copy.deepcopy(data)
 
-        # Add support for property trait delegation.
-        #Commented out because of problems.
-        #self._generate_delegates(node, d, out)
-
         toggle, state, get_set = d['toggle'], d['state'], d['get_set']
 
         # Remove unwanted stuff.
@@ -518,27 +498,6 @@ class WrapperGenerator:
 
         self.indent.decr()
 
-    def _generate_delegates(self, node, n_data, out):
-        """This method generates delegates for specific classes.  It
-        modifies the n_data dictionary."""
-        prop_name = {'vtkActor': 'vtkProperty',
-                     'vtkActor2D': 'vtkProperty2D',
-                     'vtkVolume': 'vtkVolumeProperty'}
-        if node.name in prop_name:
-            prop_node = self.get_tree().get_node(prop_name[node.name])
-            prop_data = prop_node.data
-            # Update the data of the node so the view includes the
-            # property traits.
-            code = ''
-            for key in n_data:
-                props = prop_data[key]
-                n_data[key].update(props)
-                # Write the delegates.
-                for p in props:
-                    code += '%s = tvtk_base.vtk_property_delegate\n'%p
-            code += '\n'
-            out.write(self.indent.format(code))
-
     def _gen_toggle_methods(self, klass, out):
         meths = self.parser.get_toggle_methods()
         updateable_traits = {}
@@ -600,10 +559,7 @@ class WrapperGenerator:
 
             # Setting the default value of the traits of these classes
             # Else they are not instantiable
-            if klass.__name__ == 'vtkCellQuality' \
-                    and m == 'QualityMeasure':
-                vtk_val = 1
-            elif klass.__name__ == 'vtkRenderView' \
+            if klass.__name__ == 'vtkRenderView' \
                     and m == 'InteractionMode':
                 vtk_val = 1
             elif klass.__name__ == 'vtkMatrixMathFilter' \
@@ -617,48 +573,10 @@ class WrapperGenerator:
                 vtk_val = 10
 
             if (not hasattr(klass, 'Set' + m)):
-                # Sometimes (very rarely) the VTK method is
-                # inconsistent.  For example in VTK-4.4
-                # vtkExtentTranslator::SetSplitMode does not exist.
-                # In this case wrap it specially.
-                vtk_val = 1
-            if vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
-                                      'UpdateExtent']:
-                vtk_val = 2
-
-            # Sometimes, some methods have default values that are
-            # outside the specified choices.  This is to special case
-            # these.
-            extra_val = None
-            if vtk_val == 0 and klass.__name__ == 'vtkGenericEnSightReader' \
-               and m == 'ByteOrder':
-                extra_val = 2
-            if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
-               and m == 'ScalarType':
-                extra_val = list(range(0, 22))
-            if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
-               and m == 'PlaneOrientation':
-                extra_val = 3
-            if (vtk_val == 0) and (klass.__name__ == 'vtkThreshold') \
-               and (m == 'AttributeMode'):
-                extra_val = -1
-            if (sys.platform == 'darwin') and (vtk_val == 0) \
-               and (klass.__name__ == 'vtkRenderWindow') \
-               and (m == 'StereoType'):
-                extra_val = 0
-
-            if not vtk_val:
-                default = self._reform_name(meths[m][0][0])
-                if extra_val is None:
-                    t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s')""" % locals()
-                elif hasattr(extra_val, '__iter__'):
-                    extra_val = str(extra_val)[1:-1]
-
-            if (not hasattr(klass, 'Set' + m)):
-                # Sometimes (very rarely) the VTK method is
-                # inconsistent.  For example in VTK-4.4
-                # vtkExtentTranslator::SetSplitMode does not exist.
-                # In this case wrap it specially.
+                # Sometimes (very rarely) the VTK method is inconsistent:
+                # the state methods (SetXToY, XOn/XOff) exist but there is
+                # no plain SetX (e.g. vtkExtentTranslator::SetSplitMode,
+                # still true on VTK 9.x).  In this case wrap it specially.
                 vtk_val = 1
             if vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
                                        'UpdateExtent']:
@@ -1712,7 +1630,7 @@ class WrapperGenerator:
         r'[a-zA-Z0-9]+\.ScalarType$': (
             False, False, '_write_any_scalar_type'),
 
-        # In VTK > 4.5, Set/GetInput have multiple signatures
+        # Set/GetInput have multiple signatures
         r'[a-zA-Z0-9]+\.Input$': (
             False, False, '_write_any_input'),
 
@@ -1730,29 +1648,19 @@ class WrapperGenerator:
         'vtkHardwareSelector.PropColorValue$': (
             True, True, '_write_hardware_selector_prop_color_value'),
 
-        # In VTK 5.8, tolerance is initialised as 0 while the range
-        # is 1-100
-        'vtkAxesTransformRepresentation.Tolerance$': (
-            True, True, '_write_axes_transform_representation_tolerance'),
-
-        # In VTK 7.x, vtkSpanSpace.GetResolution is supposed to be between
-        # 1 and 2147483647L but can be much larger when un-initialized.
-        'vtkSpanSpace.Resolution$': (
-            True, True, '_write_span_space_resolution'
-        ),
-
-        # In VTK 8.x, vtkSmartVolumeMapper.Get/Set VectorComponent is
-        # supposed to be between 0 and 3 but is initialized to some random
-        # value.
-        'vtkSmartVolumeMapper.VectorComponent$': (
-            True, True, '_write_smart_volume_mapper_vector_component'
-        ),
-
         # On VTK < 9.6, vtkGraphMapper.GetIconSize returns an unwrapped
         # int* (a pointer repr string in Python), so updating from the
         # runtime object must be allowed to fail.
         'vtkGraphMapper.IconSize$': (
             True, True, '_write_graph_mapper_icon_size'
+        ),
+
+        # GetTranslation3D returns uninitialized memory on a
+        # default-constructed object (seen at least through VTK 9.6), which
+        # would otherwise bake a random default into the generated code and
+        # make builds non-reproducible.
+        'vtkRenderWindowInteractor3D.Translation3D$': (
+            True, True, '_write_rwi3d_translation3d'
         ),
 
         # Parametric coords are intrinsic geometry, not configuration, and
@@ -1763,31 +1671,11 @@ class WrapperGenerator:
             False, False, '_write_any_parametric_coords'
         ),
 
-        # In VTK 8.x, HyperTreeGridCellCenter's Get/Set VertexCells is supposed
-        # to be a boolean but the initialized value can be an arbitrary
-        # integer.
-        'vtkHyperTreeGridCellCenters.VertexCells$': (
-            True, True, '_write_hyper_tree_grid_cell_centers_vertex_cells'
-        ),
-        # In VTK 9.x, EuclideanClusterExtraction's Get/Radius is initialized
-        # to some random value.
-        'vtkEuclideanClusterExtraction.Radius$': (
-            True, True, '_write_euclidean_cluster_extraction_radius'
-        ),
-        # In VTK 9.2, LineIntegralConvolution2D's Get/MaxNoiseValue is initialized
-        # to some random value this happens mostly on MacOS.
-        'vtkLineIntegralConvolution2D.MaxNoiseValue$': (
-            True, True, '_write_line_integral_conv_2d_max_noise_value'
-        ),
-        # In VTK 9.4, CellGridSidesQuery's Get/OutputDimensionControl is initialized
-        # to some random value this happens mostly on MacOS.
+        # In VTK 9.4 (still present in 9.6), CellGridSidesQuery's
+        # Get/OutputDimensionControl is initialized to some random value,
+        # mostly on MacOS.
         'vtkCellGridSidesQuery.OutputDimensionControl$': (
             True, True, '_write_cell_grid_sides_query_od_control'
-        ),
-        # In VTK 9.3, vtkCylinderSource's GetLatLongTesselation gives random values
-        # https://gitlab.kitware.com/vtk/vtk/-/issues/19252
-        'vtkCylinderSource.LatLongTessellation$': (
-            True, True, '_write_cylinder_source_lat_long_tessellation'
         ),
     }
 
@@ -1937,58 +1825,6 @@ class WrapperGenerator:
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False,
                                force_update='False')
 
-    def _write_axes_transform_representation_tolerance(self, klass, out,
-                                                       vtk_attr_name):
-
-        if vtk_attr_name != 'Tolerance':
-            raise RuntimeError("Not sure why you ask for me! "
-                               "I only deal with Tolerance. Panicking.")
-
-        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
-
-        t_def = ('traits.Trait({default}, traits.Range{rng}, '
-                 'enter_set=True, auto_set=False)').format(default=default,
-                                                           rng=rng)
-        name = self._reform_name(vtk_attr_name)
-        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
-        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
-    def _write_smart_volume_mapper_vector_component(self, klass, out,
-                                                    vtk_attr_name):
-        if vtk_attr_name != 'VectorComponent':
-            raise RuntimeError("Not sure why you ask for me! "
-                               "I only deal with VectorComponent. Panicking.")
-
-        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
-
-        # TODO: Still an issue in 9.x?
-        message = ("vtkSmartVolumeMapper: "
-                    "VectorComponent not updatable "
-                    "(VTK 8.x bug - value not properly initialized)")
-        print(message)
-        default = rng[0]
-        t_def = ('traits.Trait({default}, traits.Range{rng}, '
-                 'enter_set=True, auto_set=False)').format(default=default,
-                                                           rng=rng)
-        name = self._reform_name(vtk_attr_name)
-        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
-        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
-    def _write_span_space_resolution(self, klass, out,
-                                     vtk_attr_name):
-        if vtk_attr_name != 'Resolution':
-            raise RuntimeError("Not sure why you ask for me! "
-                               "I only deal with Resolution. Panicking.")
-
-        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
-
-        t_def = ('traits.Trait({default}, traits.Range{rng}, '
-                 'enter_set=True, auto_set=False)').format(default=default,
-                                                           rng=rng)
-        name = self._reform_name(vtk_attr_name)
-        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
-        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
     def _write_any_parametric_coords(self, klass, out, vtk_attr_name):
         if vtk_attr_name != 'ParametricCoords':
             raise RuntimeError("Not sure why you ask for me! "
@@ -2010,65 +1846,12 @@ class WrapperGenerator:
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
 
-    def _write_hyper_tree_grid_cell_centers_vertex_cells(self, klass, out,
-                                                         vtk_attr_name):
-        if vtk_attr_name != 'VertexCells':
-            raise RuntimeError("Not sure why you ask for me! "
-                               "I only deal with VertexCells. Panicking.")
-
-        # TODO: Still an issue in 9.x?
-        message = ("vtkHyperTreeGridCellCenters: "
-                    "VertexCells not updatable "
-                    "(VTK 8.x bug - value not properly initialized)")
-        print(message)
-
-        t_def = 'tvtk_base.true_bool_trait'
-
-        name = self._reform_name(vtk_attr_name)
-        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
-        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
-    def _write_euclidean_cluster_extraction_radius(
-            self, klass, out, vtk_attr_name
-    ):
-        if vtk_attr_name != 'Radius':
-            raise RuntimeError("Not sure why you ask for me! "
-                               "I only deal with Radius. Panicking.")
-
-        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
-
-        # TODO: Still an issue in 9.x?
-        message = ("vtkEuclideanClusterExtraction: "
-                    "Radius not updatable "
-                    "(VTK 9.1 bug - value not properly initialized)")
-        print(message)
-        default = rng[0]
-
-        t_def = ('traits.Trait({default}, traits.Range{rng}, '
-                 'enter_set=True, auto_set=False)').format(default=default,
-                                                           rng=rng)
-        name = self._reform_name(vtk_attr_name)
-        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
-        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
-    def _write_line_integral_conv_2d_max_noise_value(
-        self, klass, out, vtk_attr_name
-    ):
-        if vtk_attr_name != 'MaxNoiseValue':
-            raise RuntimeError("Not sure why you ask for me! "
-                               "I only deal with MaxNoiseValue. Panicking.")
-
-        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
-
-        if vtk_major_version >= 9:
-            message = ("vtkLineIntegralConvolution2D: "
-                       "MaxNoiseValue not updatable "
-                       "(VTK 9.2 bug - value not properly initialized)")
-            print(message)
-            default = rng[0]
-        t_def = ('traits.Trait({default}, traits.Range{rng}, '
-                 'enter_set=True, auto_set=False)').format(default=default,
-                                                           rng=rng)
+    def _write_rwi3d_translation3d(self, klass, out, vtk_attr_name):
+        if vtk_attr_name != 'Translation3D':
+            raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
+        t_def = ('traits.Array(enter_set=True, auto_set=False, '
+                 'shape=(None,), dtype="float", value=(0.0, 0.0, 0.0), '
+                 'cols=3)')
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
@@ -2076,27 +1859,7 @@ class WrapperGenerator:
     def _write_cell_grid_sides_query_od_control(self, klass, out, vtk_attr_name):
         if vtk_attr_name != 'OutputDimensionControl':
             raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
-        if vtk_major_version >= 9:
-            message = ("vtkCellGridSidesQuery: "
-                       "OutputDimensionControl not updatable "
-                       "(VTK 9.4 bug - value not properly initialized)")
-            print(message)
         t_def = 'tvtk_base.true_bool_trait'
-        name = self._reform_name(vtk_attr_name)
-        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
-        self._write_trait(out, name, t_def, vtk_set_meth, mapped=True)
-
-    def _write_cylinder_source_lat_long_tessellation(
-        self, klass, out, vtk_attr_name
-    ):
-        if vtk_attr_name != 'LatLongTessellation':
-            raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
-        if (vtk_major_version, vtk_minor_version) <= (9, 3):
-            message = ("vtkCylinderSource: "
-                       "LatLongTesselation not updatable "
-                       "(VTK 9.3 bug - value not properly initialized)")
-            print(message)
-        t_def = 'tvtk_base.false_bool_trait'
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=True)

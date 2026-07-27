@@ -12,7 +12,7 @@ point to the culprit, which often needs to be worked around in
 ``vtk_parser.py::VTKMethodParser._find_get_set_methods``.
 
 Exceptions to behaviors based on VTK versions and bugs etc. live in ``wrapper_gen.py``
-and ``tvtk_parser.py``.
+and ``vtk_parser.py``.
 """
 # Author: Prabhu Ramachandran
 # Copyright (c) 2004-2020, Enthought, Inc.
