@@ -14,6 +14,12 @@ layer that can express it.
 - Every workaround MUST have a comment naming the VTK version(s) it applies
   to, ideally with an upstream issue/MR link.  When the floor passes that
   version, the workaround should be culled.
+- **Culling requires the right evidence for the bug class.**  Deterministic
+  bugs (method removed, API changed) can be verified by probing any one
+  platform.  *Uninitialized-value* bugs are platform-dependent — garbage
+  memory on Linux can read as a perfectly sane value on macOS — so they may
+  only be culled with probes from every platform (in practice: let CI's
+  Linux jobs vote) or a fix confirmed in the VTK changelog.
 - Wheels are generated against the *latest* VTK and must run against all
   supported older ones (see `.github/workflows/wheel.yml`), so a workaround
   for an old VTK often must be **unconditional at generation time** (the

@@ -1643,6 +1643,30 @@ class WrapperGenerator:
         'vtkImageReader2.HeaderSize$': (
             True, False, '_write_image_reader2_header_size'),
 
+        # NOTE: several entries below work around *uninitialized* values in
+        # VTK.  Those are platform-dependent (garbage memory on Linux can
+        # read as a sane value on macOS), so they must only be culled with
+        # evidence from every platform (or an upstream fix in the VTK
+        # changelog), not a single-platform probe.
+
+        # In VTK 5.8, tolerance is initialised as 0 while the range
+        # is 1-100
+        'vtkAxesTransformRepresentation.Tolerance$': (
+            True, True, '_write_axes_transform_representation_tolerance'),
+
+        # In VTK 7.x, vtkSpanSpace.GetResolution is supposed to be between
+        # 1 and 2147483647L but can be much larger when un-initialized.
+        'vtkSpanSpace.Resolution$': (
+            True, True, '_write_span_space_resolution'
+        ),
+
+        # In VTK 8.x (still on Linux in 9.6), Get/Set VectorComponent is
+        # supposed to be between 0 and 3 but is read from uninitialized
+        # memory.
+        'vtkSmartVolumeMapper.VectorComponent$': (
+            True, True, '_write_smart_volume_mapper_vector_component'
+        ),
+
         # PropColorValue is not initialised, GetPropColorValue
         # gives random values as a tuple of float[3] that are
         'vtkHardwareSelector.PropColorValue$': (
@@ -1671,11 +1695,32 @@ class WrapperGenerator:
             False, False, '_write_any_parametric_coords'
         ),
 
+        # In VTK 8.x, HyperTreeGridCellCenter's Get/Set VertexCells is supposed
+        # to be a boolean but the initialized value can be an arbitrary
+        # integer.
+        'vtkHyperTreeGridCellCenters.VertexCells$': (
+            True, True, '_write_hyper_tree_grid_cell_centers_vertex_cells'
+        ),
+        # In VTK 9.x, EuclideanClusterExtraction's Get/Radius is initialized
+        # to some random value.
+        'vtkEuclideanClusterExtraction.Radius$': (
+            True, True, '_write_euclidean_cluster_extraction_radius'
+        ),
+        # In VTK 9.2, LineIntegralConvolution2D's Get/MaxNoiseValue is initialized
+        # to some random value this happens mostly on MacOS.
+        'vtkLineIntegralConvolution2D.MaxNoiseValue$': (
+            True, True, '_write_line_integral_conv_2d_max_noise_value'
+        ),
         # In VTK 9.4 (still present in 9.6), CellGridSidesQuery's
         # Get/OutputDimensionControl is initialized to some random value,
         # mostly on MacOS.
         'vtkCellGridSidesQuery.OutputDimensionControl$': (
             True, True, '_write_cell_grid_sides_query_od_control'
+        ),
+        # In VTK 9.3, vtkCylinderSource's GetLatLongTesselation gives random values
+        # https://gitlab.kitware.com/vtk/vtk/-/issues/19252
+        'vtkCylinderSource.LatLongTessellation$': (
+            True, True, '_write_cylinder_source_lat_long_tessellation'
         ),
     }
 
@@ -1824,6 +1869,110 @@ class WrapperGenerator:
 
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False,
                                force_update='False')
+
+    def _write_axes_transform_representation_tolerance(self, klass, out,
+                                                       vtk_attr_name):
+
+        if vtk_attr_name != 'Tolerance':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with Tolerance. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_smart_volume_mapper_vector_component(self, klass, out,
+                                                    vtk_attr_name):
+        if vtk_attr_name != 'VectorComponent':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with VectorComponent. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        default = rng[0]
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_span_space_resolution(self, klass, out,
+                                     vtk_attr_name):
+        if vtk_attr_name != 'Resolution':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with Resolution. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_hyper_tree_grid_cell_centers_vertex_cells(self, klass, out,
+                                                         vtk_attr_name):
+        if vtk_attr_name != 'VertexCells':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with VertexCells. Panicking.")
+
+        t_def = 'tvtk_base.true_bool_trait'
+
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_euclidean_cluster_extraction_radius(
+            self, klass, out, vtk_attr_name
+    ):
+        if vtk_attr_name != 'Radius':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with Radius. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        default = rng[0]
+
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_line_integral_conv_2d_max_noise_value(
+        self, klass, out, vtk_attr_name
+    ):
+        if vtk_attr_name != 'MaxNoiseValue':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with MaxNoiseValue. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        default = rng[0]
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_cylinder_source_lat_long_tessellation(
+        self, klass, out, vtk_attr_name
+    ):
+        if vtk_attr_name != 'LatLongTessellation':
+            raise RuntimeError(f"Wrong attribute name: {vtk_attr_name}")
+        t_def = 'tvtk_base.false_bool_trait'
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=True)
 
     def _write_any_parametric_coords(self, klass, out, vtk_attr_name):
         if vtk_attr_name != 'ParametricCoords':
