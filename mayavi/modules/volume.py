@@ -58,7 +58,9 @@ def find_volume_mappers():
                 try:
                     klass = getattr(tvtk, name)
                     inst = klass()
-                except TypeError:
+                # AttributeError: wrapped class is not in the runtime VTK
+                # (TVTK classes may be generated against a newer VTK)
+                except (TypeError, AttributeError):
                     pass
                 else:
                     res.append(name)

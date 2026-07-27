@@ -28,9 +28,6 @@ if not ( exists(tvtk_class_dir) and isdir(tvtk_class_dir)
         "Unable to find either a directory: %s or a file: %s "
         "with the TVTK classes." % (tvtk_class_dir, _zip) )
 
-# Check if the VTK version is the same as that used to build TVTK.
-from tvtk.tvtk_classes.vtk_version import vtk_build_version
-
 # Make sure VTK is installed.
 try:
     import vtk
@@ -40,14 +37,9 @@ except ImportError as m:
          % (m, '_'*80)
     raise ImportError(msg)
 
-vtk_version = vtk.vtkVersion().GetVTKVersion()[:3]
-if vtk_version != vtk_build_version:
-    msg = '*'*80 + "\n" + \
-          'WARNING: Imported VTK version (%s) does not match the one used\n'\
-          '         to build the TVTK classes (%s). This may cause problems.\n'\
-          '         Please rebuild TVTK.\n'%(vtk_version, vtk_build_version) +\
-          '*'*80 + '\n'
-    print(msg)
+# Note: no check that the imported VTK matches the version the TVTK classes
+# were generated against (tvtk_classes/vtk_version.py) -- wheels are generated
+# against the latest VTK and are expected to run against older ones.
 
 # Now setup TVTK itself.
 from tvtk.tvtk_classes import tvtk_helper

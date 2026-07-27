@@ -3,7 +3,8 @@
 # Copyright (c) 2008-2022 by Enthought, Inc.
 # All rights reserved.
 
-from setuptools import Command, setup
+from setuptools import Command, Distribution, setup
+from setuptools.command.bdist_wheel import bdist_wheel
 from setuptools.command.build_py import build_py
 from setuptools.command.develop import develop
 
@@ -243,6 +244,27 @@ class MyDevelop(develop):
         super().run()
 
 
+class MyDistribution(Distribution):
+    """Claim ext modules so the whole build/install/wheel path uses the
+    platlib layout: the code is pure Python, but the generated TVTK classes
+    are platform-specific (X11 vs Cocoa vs Win32)."""
+
+    def has_ext_modules(self):
+        return True
+
+
+class MyBdistWheel(bdist_wheel):
+    """Tag wheels py3-none-<platform> (pure Python, platform-specific)."""
+
+    def get_tag(self):
+        _, _, plat = super().get_tag()
+        # PyPI rejects plain linux_* tags; with no native code any glibc
+        # floor is valid, so use manylinux_2_17 (understood by pip >= 20.3)
+        if plat.startswith('linux_'):
+            plat = plat.replace('linux_', 'manylinux_2_17_', 1)
+        return 'py3', 'none', plat
+
+
 ###########################################################################
 # Similar to package_data, but installed before build
 build_package_data = {
@@ -258,15 +280,51 @@ for package, files in build_package_data.items():
 
 ###########################################################################
 
-# The actual setup call.  All static metadata now lives in pyproject.toml;
-# setup.py only carries the imperative build hooks (TVTK class generation and
-# the doc-building commands).
+# Dependencies are dynamic (PEP 643): tvtk_classes.zip bakes in the
+# build-time VTK API.  Older runtimes degrade gracefully but newer ones may
+# remove API the generated code references, so wheels cap VTK at the next
+# minor.  The sdist generates against the installer's VTK, so no cap.
+DEPENDENCIES = [
+    'apptools',
+    'configobj',
+    'envisage',
+    'numpy',
+    'pyface>=6.1.1',
+    'pygments',  # only needed for the Qt backend but we add it anyway
+    'traits>=6.0.0',
+    'traitsui>=7.0.0',
+    'packaging',
+    "importlib_resources; python_version<'3.11'",
+    'puremagic',
+]
+
+
+def vtk_requirement():
+    """The VTK requirement, with an upper bound when building a wheel."""
+    if 'sdist' in sys.argv[1:]:
+        return 'vtk'
+    try:
+        import vtk
+    except ImportError:
+        # no VTK at metadata time: leave uncapped rather than error (class
+        # generation will fail later anyway unless reusing a fresh ZIP)
+        return 'vtk'
+    version = vtk.vtkVersion()
+    return 'vtk<%d.%d' % (version.GetVTKMajorVersion(),
+                          version.GetVTKMinorVersion() + 1)
+
+
+# Static metadata lives in pyproject.toml; setup.py carries only the dynamic
+# dependencies and the imperative build hooks.
 if __name__ == '__main__':
     setup(
+        distclass=MyDistribution,
         cmdclass={
+            'bdist_wheel': MyBdistWheel,
             'build_py': MyBuildPy,
             'develop': MyDevelop,
             'gen_docs': GenDocs,
             'build_docs': BuildDocs,
         },
+        install_requires=DEPENDENCIES + [vtk_requirement()],
     )

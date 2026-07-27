@@ -162,7 +162,12 @@ class TestTVTK(unittest.TestCase):
         for t, g in p._updateable_traits_:
             if g == "GetEdgeOpacity":
                 continue  # broken for some reason?
-            val = getattr(p._vtk_obj, g)()
+            vtk_get = getattr(p._vtk_obj, g, None)
+            if vtk_get is None:
+                # getter from a newer VTK than the runtime one (TVTK
+                # classes may be generated against a newer VTK)
+                continue
+            val = vtk_get()
             if t in ['representation', 'interpolation']:
                 self.assertEqual(val, getattr(p, t + '_'))
             else:
@@ -963,7 +968,7 @@ class TestTVTKModule(unittest.TestCase):
             for trait_name in obj._full_traitnames_list_:
                 try:
                     trait = getattr(obj, trait_name)
-                except (TypeError, TraitError):
+                except (TypeError, TraitError, AttributeError):
                     pass  # this is tested in another test
                 else:
                     if isinstance(trait, str) and trait.endswith('_p_void'):
@@ -992,6 +997,11 @@ class TestTVTKModule(unittest.TestCase):
                 try:
                     trait = getattr(obj, trait_name)
                 except Exception as exception:
+                    if (isinstance(exception, AttributeError)
+                            and tvtk_base.vtk_version_mismatch()):
+                        # property backed by a VTK getter that does not
+                        # exist in the (older) runtime VTK
+                        continue
                     errors_getting_trait.append(
                         (tvtk_klass_name, trait_name, str(exception)))
 

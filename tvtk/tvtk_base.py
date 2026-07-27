@@ -54,6 +54,28 @@ def FileEditor(*args, **kw):
 
 
 ######################################################################
+# VTK version mismatch detection.
+######################################################################
+
+_vtk_version_mismatch = None
+
+
+def vtk_version_mismatch():
+    """True when the runtime VTK differs from the VTK the TVTK classes
+    were generated against (e.g. a wheel built against a newer VTK)."""
+    global _vtk_version_mismatch
+    if _vtk_version_mismatch is None:
+        try:
+            from tvtk.tvtk_classes.vtk_version import vtk_build_version
+        except ImportError:
+            _vtk_version_mismatch = False
+        else:
+            _vtk_version_mismatch = (
+                vtk.vtkVersion().GetVTKVersion()[:3] != vtk_build_version)
+    return _vtk_version_mismatch
+
+
+######################################################################
 # The TVTK object cache.
 ######################################################################
 
@@ -590,6 +612,12 @@ class TVTKBase(traits.HasStrictTraits):
                     setattr(self, name, val)
                 except traits.TraitError:
                     if name in self._allow_update_failure_:
+                        pass
+                    elif vtk_version_mismatch():
+                        # The trait definitions were generated against a
+                        # different VTK, so values read from the runtime
+                        # object may no longer validate (type/range drift
+                        # across VTK versions); keep the generated default.
                         pass
                     else:
                         raise
