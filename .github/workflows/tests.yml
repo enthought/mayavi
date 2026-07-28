@@ -5,6 +5,10 @@ concurrency:
 
 on:
   pull_request:
+  workflow_dispatch:
+  schedule:
+    # Weekly, mostly to catch breakage in VTK dev wheels
+    - cron: "38 4 * * 1"
 
 jobs:
   tests:
@@ -45,6 +49,11 @@ jobs:
           - python-version: '3.14'
             os: ubuntu-latest
             headless: true
+          # Pre-release (dev) VTK wheels from https://wheels.vtk.org
+          - python-version: '3.14'
+            qt-api: 'pyside6'
+            os: ubuntu-latest
+            vtk: 'dev'
       fail-fast: false
     defaults:
       run:
@@ -80,10 +89,48 @@ jobs:
         # setuptools_scm is a build requirement, and we install below with
         # --no-build-isolation, so it must be present in the environment
         python -m pip install --upgrade pip setuptools setuptools_scm wheel
-        python -m pip install --upgrade ${{ matrix.qt-api || ''}} "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk || 'vtk' }}" pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
+        if [[ "${{ matrix.vtk }}" == "dev" ]]; then
+          # Dev wheels get their own pip call so that --pre only applies to VTK
+          python -m pip install --upgrade --pre --only-binary ":all:" --extra-index-url "https://wheels.vtk.org" vtk
+          vtk_spec=""
+        else
+          vtk_spec="${{ matrix.vtk || 'vtk' }}"
+        fi
+        python -m pip install --upgrade ${{ matrix.qt-api || ''}} "${{ matrix.numpy || 'numpy' }}" $vtk_spec pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
+        python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
         if [[ "${{ matrix.headless }}" != "true" ]]; then
           echo "extra=[app]" | tee -a $GITHUB_OUTPUT
         fi
     - run: python -m pip install --no-build-isolation -ve .${{ steps.install.outputs.extra }}
     - run: pytest -v --timeout=10 mayavi
     - run: pytest -sv --timeout=60 tvtk
+
+  # Scheduled runs have no associated PR where a failure would be noticed, so
+  # open an issue (if there isn't one already) when they break
+  issue-on-failure:
+    name: Open issue on scheduled failure
+    needs: tests
+    if: failure() && github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TITLE: Scheduled CI run is failing
+    steps:
+    - name: Open issue if one is not already open
+      run: |
+        existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title --jq "first(.[] | select(.title == \"$TITLE\") | .number)")
+        if [[ -n "$existing" ]]; then
+          echo "Issue #$existing is already open, not creating another one"
+          exit 0
+        fi
+        gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body \
+          "The weekly scheduled CI run failed. Since these runs test against the
+        latest dependencies (including VTK dev wheels), this probably means a
+        dependency update broke something.
+
+        Failed run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+        This issue was opened automatically and will not be closed
+        automatically -- close it once CI is green again."
