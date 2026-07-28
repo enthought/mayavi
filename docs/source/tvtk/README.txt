@@ -29,7 +29,7 @@ module).  Here is a list of current features.
  * tvtk is free software with a BSD style license.
 
 
-.. _traits: http://docs.enthought.com/traits
+.. _traits: https://docs.enthought.com/traits
 .. _VTK: http://www.vtk.org
 
 
@@ -55,7 +55,7 @@ Installation
 TVTK is meant to be installed as part of the `mayavi` package.
 Please visit the installation guide on the Mayavi documentation:
 
-   http://docs.enthought.com/mayavi/mayavi/installation.html
+   https://mayavi.readthedocs.io/en/latest/installation.html
 
 This document only covers building and using TVTK from inside a
 checkout of the the mayavi_ repository.  The tvtk module lives

@@ -2,8 +2,8 @@
 Mayavi: 3D visualization of scientific data in Python
 ======================================================
 
-Mayavi docs: http://docs.enthought.com/mayavi/mayavi/
-TVTK docs: http://docs.enthought.com/mayavi/tvtk
+Mayavi docs: https://mayavi.readthedocs.io/en/latest/
+TVTK docs: https://tvtk.readthedocs.io/en/latest/
 
 .. image:: https://img.shields.io/pypi/v/mayavi.svg
    :target: https://pypi.org/project/mayavi/
@@ -77,7 +77,7 @@ able to launch the ``mayavi2`` application and also run any of the examples
 in the examples directory.
 
 
-.. _online user manual: http://docs.enthought.com/mayavi/mayavi/
+.. _online user manual: https://mayavi.readthedocs.io/en/latest/
 
 Installation
 =============
@@ -94,7 +94,7 @@ MacOS, and Linux). If you are
 out of luck, and your platform is not supported then you will need to install
 VTK yourself using your particular distribution as discussed in the `General
 Build and Installation instructions
-<http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions>`_
+<https://mayavi.readthedocs.io/en/latest/installation.html#installing-ready-made-distributions>`_
 
 On Python 3.x you will need to install PySide6_ or PyQt6 and wheels are available for
 this.

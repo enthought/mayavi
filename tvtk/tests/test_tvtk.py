@@ -661,7 +661,8 @@ class TestTVTK(unittest.TestCase):
     @unittest.skipIf(
         (vtk_major_version, vtk_minor_version) >= (9, 5),
         'Realizing then destroying a render window segfaults with VTK >= 9.5 '
-        '(e.g. vtkXOpenGLRenderWindow under xvfb; a known VTK bug)',
+        '(e.g. vtkXOpenGLRenderWindow under xvfb; a known VTK bug, '
+        'tracked in DEBT.md)',
     )
     def test_xopengl_render_window(self):
         """ Test that setting the position to a render window works
@@ -824,7 +825,7 @@ class TestTVTKModule(unittest.TestCase):
         # GetPhysicalScale/...), and destroying it then segfaults with
         # VTK >= 9.5 (e.g. vtkXOpenGLRenderWindow under xvfb,
         # vtkVRRenderWindowInteractor on Windows; a known VTK bug).  Skip
-        # these classes there.
+        # these classes there (tracked in DEBT.md).
         windowed_bases = ()
         if (vtk_major_version, vtk_minor_version) >= (9, 5):
             windowed_bases = tuple(

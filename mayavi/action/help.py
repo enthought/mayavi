@@ -49,7 +49,7 @@ def open_help_index(*args):
         auto_close_message("Opening help in web browser...")
         browser_open(join(HTML_DIR, 'index.html'))
     else:
-        browser_open('https://docs.enthought.com/mayavi/mayavi/')
+        browser_open('https://mayavi.readthedocs.io/en/latest/')
 
 
 def open_tvtk_docs(*args):

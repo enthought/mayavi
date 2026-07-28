@@ -147,21 +147,15 @@ def patch_default(vtk_get_meth, vtk_set_meth, default):
     # Some method even has a signature of (["int", "int"], "vtkInformation")
     arg_formats = []
 
-    # Collect the signatures of the get method
-    # We only use the arguments
-    # TODO: Unclear why this would be used... but for example if the Get method
-    # takes a string as an argument, we don't want that to be what we expect the
-    # *output* to be (which can be for example vtkDataArray*). But presumably
-    # this was here for a reason so let's just add exceptions for things that are
-    # known to be problematic on VTK 9.5.2...
-    all_sigs = []
-    #if vtk_get_meth.__name__ not in ("GetGlobalIds", "GetHigherOrderDegrees", "GetNormals", "GetPedigreeIds", "GetProcessIds", "GetRationalWeights", "GetScalars", "GetTCoords", "GetTensors", "GetVectors", "GetTangents"):
-    #    all_sigs.extend(
-    #        vtk_parser.VTKMethodParser.get_method_signature(vtk_get_meth)
-    #    )
-
-    # Collect the signatures of the set method
-    all_sigs.extend(
+    # Collect the signatures of the set method.  Historically the get
+    # method's signatures were collected as well, but the *arguments* of a
+    # Get overload say nothing about the value the attribute holds, and on
+    # VTK >= 9.5 this actively broke things: many Get methods (GetScalars,
+    # GetNormals, GetVectors, ...) have overloads taking a name string,
+    # e.g. GetScalars(const char*), which made ('string',) look like a
+    # valid default format.  The set method's arguments describe exactly
+    # what the attribute must hold, so they are sufficient (see DEBT.md).
+    all_sigs = list(
         vtk_parser.VTKMethodParser.get_method_signature(vtk_set_meth)
     )
 
