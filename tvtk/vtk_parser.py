@@ -16,6 +16,18 @@ from . import class_tree
 from . import vtk_module as vtk
 from .common import vtk_major_version, vtk_minor_version
 
+# Getters that must not be called on a freshly instantiated object because
+# doing so violates a precondition documented (and assert()-ed) by VTK.  With
+# the usual release builds the assert is compiled out by NDEBUG and the call
+# merely returns a useless value, but distros build VTK with assertions
+# enabled (e.g. Fedora), where the call aborts the whole process and takes the
+# class generation down with it.  See gh-1354.
+BROKEN_GETTERS = (
+    # assert("pre: not_empty" && !IsEmpty()) in
+    # vtkGenericAttributeCollection::GetAttributesToInterpolate()
+    "vtkGenericAttributeCollection.GetAttributesToInterpolate",
+)
+
 
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK
@@ -706,11 +718,13 @@ class VTKMethodParser:
             obj = None if skip_instance else self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
+                    # Broken in all versions (see BROKEN_GETTERS above)
+                    if f"{klass_name}.Get{key}" in BROKEN_GETTERS:
+                        default = None
                     # Broken in <= 9.3
-                    if (
+                    elif (
                         (vtk_major_version, vtk_minor_version) <= (9, 3)
                         and f"{klass_name}.Get{key}" in (
-                            "vtkGenericAttributeCollection.GetAttributesToInterpolate",
                             "vtkPlotBar.GetLookupTable",
                             "vtkLagrangianParticleTracker.GetIntegrationModel",
                         )

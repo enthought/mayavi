@@ -132,6 +132,11 @@ class TVTKGenerator:
                 name = node.name
                 if name in ignore:
                     continue
+                # A class whose parent is not wrapped cannot be wrapped
+                # either.  VTK 9.7 added vtk[Scaled]SOAType<Type>Array
+                # classes deriving from the templates ignored above.
+                if any(parent.name in ignore for parent in node.parents):
+                    continue
                 if (name not in include and not name.startswith('vtk')) or \
                         name.startswith('vtkQt'):
                     continue
