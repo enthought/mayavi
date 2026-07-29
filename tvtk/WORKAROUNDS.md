@@ -40,6 +40,8 @@ from crashing or producing garbage:
   "broken getter -> no default" entries near the end (grep `Broken in`).
 - Windowed classes (`vtkRenderWindow`, VR interactors) are never
   default-probed on VTK >= 9.5 (realizing + destroying a window segfaults).
+  The same bug makes `tvtk/tools/tvtk_doc.py` drop those classes from its
+  browsable class list (`skip_windowed`).
 
 Debugging a generation crash: set `VTK_PARSER_VERBOSE=1` (prints each
 `Get*` call before making it; the last line printed is the culprit) and
@@ -94,13 +96,25 @@ classes (`Matrix4x4`/`Property` pickling, `Collection` iteration,
 import priority over the generated class of the same name (currently
 empty — the escape hatch of last resort for whole-class replacement).
 
-## Layer 6: `tests/test_tvtk.py` — test-level skips
+## Layer 6: test-level skips (`tvtk/tests/`, `mayavi/tests/`)
 
 Only for VTK bugs that cannot be worked around without losing
-functionality (e.g. instantiating windowed classes on >= 9.5 segfaults at
-destruction) or for expected degradation when running version-mismatched
+functionality or for expected degradation when running version-mismatched
 (getters/properties backed by API the older runtime lacks).  Keep skips
-keyed on `vtk_version` / `vtk_version_mismatch()` and commented.
+keyed on `vtk_version` / `vtk_version_mismatch()` and commented.  Current
+cases:
+
+- `tvtk/tests/test_tvtk.py`: `test_xopengl_render_window`, plus the
+  `windowed_bases` exclusion in the all-classes instantiation test —
+  instantiating a windowed class on VTK >= 9.5 segfaults at destruction
+  (see Layer 1).
+- `mayavi/tests/test_streamline.py`: the whole `TestStreamline` case, which
+  on VTK >= 9.5 segfaults inside VTK's array dispatch
+  (`vtkDataArray::DeepCopy` -> `GetTuplesFromListWorker` on the
+  `vtkImplicitArray<vtkStructuredPointBackend<double>>` now backing
+  `vtkImageData` points).  A raw-VTK equivalent of the pipeline does not
+  reproduce it and the crash kills the interpreter in `setUp`, so there is
+  nothing finer-grained to skip.
 
 ## Auditing
 
@@ -109,5 +123,6 @@ whether each workaround still reproduces on the new floor:
 
 ```
 grep -nE "9\.[0-9]|VTK [0-9]" tvtk/vtk_parser.py tvtk/wrapper_gen.py \
-    tvtk/vtk_module.py tvtk/tvtk_base.py tvtk/tests/test_tvtk.py
+    tvtk/vtk_module.py tvtk/tvtk_base.py tvtk/tools/tvtk_doc.py \
+    tvtk/tests/test_tvtk.py mayavi/tests/test_streamline.py
 ```

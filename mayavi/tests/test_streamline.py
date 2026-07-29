@@ -25,7 +25,7 @@ from tvtk.common import vtk_major_version, vtk_minor_version
 # this pipeline does not reproduce it) rather than a mayavi bug, and it kills
 # the interpreter in setUp, so the whole test case is skipped there.
 # TODO: remove once the underlying VTK issue is fixed/reported upstream
-# (tracked in DEBT.md).
+# (see tvtk/WORKAROUNDS.md).
 @unittest.skipIf(
     (vtk_major_version, vtk_minor_version) >= (9, 5),
     "Segfaults inside VTK >= 9.5 implicit-array DeepCopy (VTK bug)",
