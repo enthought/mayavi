@@ -53,7 +53,7 @@ jobs:
           - python-version: '3.14'
             qt-api: 'pyside6'
             os: ubuntu-latest
-            vtk: 'dev'
+            vtk: 'vtk-dev'
       fail-fast: false
     defaults:
       run:
@@ -89,7 +89,7 @@ jobs:
         # setuptools_scm is a build requirement, and we install below with
         # --no-build-isolation, so it must be present in the environment
         python -m pip install --upgrade pip setuptools setuptools_scm wheel
-        if [[ "${{ matrix.vtk }}" == "dev" ]]; then
+        if [[ "${{ matrix.vtk }}" == "vtk-dev" ]]; then
           # Dev wheels get their own pip call so that --pre only applies to VTK
           python -m pip install --upgrade --pre --only-binary ":all:" --extra-index-url "https://wheels.vtk.org" vtk
           vtk_spec=""

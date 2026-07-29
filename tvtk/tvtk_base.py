@@ -663,7 +663,11 @@ class TVTKBase(traits.HasStrictTraits):
                 raise
         finally:
             self._in_set -= 1
-        if force_update or self._wrapped_mtime(vtk_obj) > mtime:
+        # >= not >: a call that bumps the mtime exactly once would otherwise
+        # be missed whenever this object was also the process-wide most
+        # recently modified VTK object (the global mtime counter and the
+        # object's stamp align), leaving traits stale
+        if force_update or self._wrapped_mtime(vtk_obj) >= mtime:
             self.update_traits()
 
     def _wrap_call(self, vtk_method, *args):
@@ -692,7 +696,8 @@ class TVTKBase(traits.HasStrictTraits):
             ret = vtk_method(*args)
         finally:
             self._in_set -= 1
-        if self._wrapped_mtime(vtk_obj) > mtime:
+        # >= not >: see the comment in _do_change above
+        if self._wrapped_mtime(vtk_obj) >= mtime:
             self.update_traits()
         return ret
 

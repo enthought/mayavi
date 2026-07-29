@@ -26,6 +26,13 @@ def mysum(arr):
     return val
 
 
+def export_cells(cells):
+    """Export a vtkCellArray to a vtkIdTypeArray in the legacy format."""
+    id_arr = vtk.vtkIdTypeArray()
+    cells.ExportLegacyFormat(id_arr)
+    return id_arr
+
+
 class TestArrayHandler(unittest.TestCase):
     def _check_arrays(self, arr, vtk_arr):
         self.assertEqual(vtk_arr.GetNumberOfTuples(), len(arr))
@@ -178,7 +185,7 @@ class TestArrayHandler(unittest.TestCase):
         a = [[0], [1, 2], [3, 4, 5], [6, 7, 8, 9]]
         cells = array_handler.array2vtkCellArray(a)
         z = numpy.array([1, 0, 2, 1, 2, 3, 3, 4, 5, 4, 6, 7, 8, 9])
-        arr = array_handler.vtk2array(cells.GetData())
+        arr = array_handler.vtk2array(export_cells(cells))
         self.assertEqual(numpy.sum(arr - z), 0)
         self.assertEqual(len(arr.shape), 1)
         self.assertEqual(len(arr), 14)
@@ -188,7 +195,7 @@ class TestArrayHandler(unittest.TestCase):
         ident = id(cells)
         cells = array_handler.array2vtkCellArray(a, cells)
         self.assertEqual(id(cells), ident)
-        arr = array_handler.vtk2array(cells.GetData())
+        arr = array_handler.vtk2array(export_cells(cells))
         self.assertEqual(numpy.sum(arr - z), 0)
         self.assertEqual(cells.GetNumberOfCells(), 4)
 
@@ -203,7 +210,7 @@ class TestArrayHandler(unittest.TestCase):
         a[:,1] = 1
         a[:,2] = 2
         cells = array_handler.array2vtkCellArray(a)
-        arr = array_handler.vtk2array(cells.GetData())
+        arr = array_handler.vtk2array(export_cells(cells))
         expect = numpy.array([3, 0, 1, 2]*3, int)
         self.assertTrue(numpy.all(numpy.equal(arr, expect)))
         self.assertEqual(cells.GetNumberOfCells(), N)
@@ -211,7 +218,7 @@ class TestArrayHandler(unittest.TestCase):
         # Test if a list of Numeric arrays of different cell lengths works.
         l_a = [a[:,:1], a, a[:2,:2]]
         cells = array_handler.array2vtkCellArray(l_a)
-        arr = array_handler.vtk2array(cells.GetData())
+        arr = array_handler.vtk2array(export_cells(cells))
         expect = numpy.array([1, 0]*3 + [3, 0, 1, 2]*3 + [2, 0,1]*2, int)
         self.assertTrue(numpy.all(numpy.equal(arr, expect)))
         self.assertEqual(cells.GetNumberOfCells(), N*2 + 2)
