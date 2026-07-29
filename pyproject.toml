@@ -45,8 +45,10 @@ classifiers = [
 app = ["envisage"]
 
 [project.urls]
-Homepage = "http://docs.enthought.com/mayavi/mayavi/"
-Download = "https://www.github.com/enthought/mayavi"
+Homepage = "https://github.com/enthought/mayavi"
+Documentation = "https://mayavi.readthedocs.io/en/latest/"
+Source = "https://github.com/enthought/mayavi"
+Issues = "https://github.com/enthought/mayavi/issues"
 
 [project.gui-scripts]
 mayavi2 = "mayavi.scripts.mayavi2:main"

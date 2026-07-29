@@ -23,7 +23,7 @@ on all these operating systems and Python 2.7.x on MacOS and Linux. If you are
 out of luck, and your platform is not supported then you will need to install
 VTK yourself using your particular distribution as discussed in the `General
 Build and Installation instructions
-<http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions>`_
+<https://mayavi.readthedocs.io/en/latest/installation.html#installing-ready-made-distributions>`_
 
 On Python 3.x you will need to install PyQt5_ and wheels are available for
 this. On 2.7.x you have more options, and can use PySide_, PyQt4_, and
@@ -140,10 +140,10 @@ Installing ready-made distributions
 
 
 .. _jupyter: https://jupyter.org
-.. _Mayavi: http://docs.enthought.com/mayavi/mayavi
-.. _TVTK: http://docs.enthought.com/mayavi/tvtk
-.. _envisage: http://docs.enthought.com/envisage
-.. _Traits: http://docs.enthought.com/traits
+.. _Mayavi: https://mayavi.readthedocs.io/en/latest/
+.. _TVTK: https://tvtk.readthedocs.io/en/latest/
+.. _envisage: https://docs.enthought.com/envisage
+.. _Traits: https://docs.enthought.com/traits
 .. _Debian: http://www.debian.org
 .. _Ubuntu: http://www.ubuntu.com
 .. _numpy: http://numpy.scipy.org

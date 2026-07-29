@@ -32,7 +32,7 @@ tools.
 
 .. _Python: http://www.python.org
 .. _VTK: http://www.vtk.org
-.. _Envisage: http://docs.enthought.com/envisage
+.. _Envisage: https://docs.enthought.com/envisage
 .. _matplotlib: http://matplotlib.sf.net
 
 What is Mayavi2?
@@ -109,7 +109,7 @@ Envisage_. Here are some of its features:
 
 .. _ETS: http://code.enthought.com/projects/tool-suite.php
 .. _Traits: https://docs.enthought.com/traits
-.. _TVTK: https://docs.enthought.com/mayavi/tvtk
+.. _TVTK: https://tvtk.readthedocs.io/en/latest/
 .. _MVC: http://en.wikipedia.org/wiki/Model-view-controller
 .. _numpy: http://numpy.scipy.org
 

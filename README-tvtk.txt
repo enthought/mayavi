@@ -16,8 +16,8 @@ information is available in the LICENSE.txt file in this same directory.
 
 .. _VTK: http://www.vtk.org
 .. _Traits: https://docs.enthought.com/traits
-.. _TVTK: https://docs.enthought.com/mayavi/tvtk
-.. _Mayavi: https://docs.enthought.com/mayavi/mayavi
+.. _TVTK: https://tvtk.readthedocs.io/en/latest/
+.. _Mayavi: https://mayavi.readthedocs.io/en/latest/
 
 
 Getting the package
@@ -31,7 +31,7 @@ The source for TVTK should be acquired with the source for Mayavi here:
 Documentation
 --------------
 
-Documentation is hosted here: http://docs.enthought.com/mayavi/tvtk
+Documentation is hosted here: https://tvtk.readthedocs.io/en/latest/
 
 
 Examples

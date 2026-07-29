@@ -18,7 +18,6 @@ from itertools import chain
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
 from .common import get_tvtk_name, camel2enthought, _sanitize_name
-from .common import vtk_major_version, vtk_minor_version
 
 from . import vtk_parser
 from . import indenter
@@ -84,6 +83,7 @@ def get_trait_def(value, **kwargs):
         shape = (None,)
         dtypes = set(type(element) for element in value)
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
+        # Windows maps Python int to int32 by default (see tvtk/WORKAROUNDS.md)
         if dtype == 'int' and sys.platform.startswith('win'):
             dtype = 'int64'
         dtype = '"{}"'.format(dtype) if dtype is not None else 'None'
@@ -147,7 +147,7 @@ def patch_default(vtk_get_meth, vtk_set_meth, default):
 
     # Only the Set method's signatures are used: the Get signature's return
     # type is unreliable for guessing a default (e.g. vtkDataArray* returns,
-    # or getters that take a string argument).
+    # or getters that take a string argument).  See tvtk/WORKAROUNDS.md.
     all_sigs = []
 
     # Collect the signatures of the set method
@@ -336,6 +336,7 @@ class WrapperGenerator:
             # 'vtkCamera.Roll' has conflicting signatures --
             # Get/SetRoll() plus an additional Roll() method.  So we
             # wrap all of them as methods and not as traits.
+            # (see tvtk/WORKAROUNDS.md)
             p = self.parser
             p.get_set_meths.pop('Roll')
             p.other_meths.extend(['GetRoll', 'SetRoll'])
@@ -558,7 +559,7 @@ class WrapperGenerator:
                     vtk_val = 1
 
             # Setting the default value of the traits of these classes
-            # Else they are not instantiable
+            # Else they are not instantiable (see tvtk/WORKAROUNDS.md)
             if klass.__name__ == 'vtkRenderView' \
                     and m == 'InteractionMode':
                 vtk_val = 1
@@ -577,6 +578,7 @@ class WrapperGenerator:
                 # the state methods (SetXToY, XOn/XOff) exist but there is
                 # no plain SetX (e.g. vtkExtentTranslator::SetSplitMode,
                 # still true on VTK 9.x).  In this case wrap it specially.
+                # (see tvtk/WORKAROUNDS.md)
                 vtk_val = 1
             if vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
                                        'UpdateExtent']:
@@ -584,7 +586,7 @@ class WrapperGenerator:
 
             # Sometimes, some methods have default values that are
             # outside the specified choices.  This is to special case
-            # these.
+            # these.  See tvtk/WORKAROUNDS.md.
             extra_val = None
             if vtk_val == 0 and klass.__name__ == 'vtkGenericEnSightReader' \
                and m == 'ByteOrder':
@@ -602,6 +604,8 @@ class WrapperGenerator:
             elif (vtk_val == 0) and (klass.__name__ == 'vtkThreshold') \
                    and (m == 'AttributeMode'):
                 extra_val = -1
+            # Platform-keyed, so only cullable with macOS evidence
+            # (see tvtk/WORKAROUNDS.md)
             elif (sys.platform == 'darwin') and (vtk_val == 0) \
                    and (klass.__name__ == 'vtkRenderWindow') \
                    and (m == 'StereoType'):
@@ -610,7 +614,7 @@ class WrapperGenerator:
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
                 # Weirdness on NumPy 2.1 and vtk >= 9.3 that this does not show up as
-                # an option and creates problems
+                # an option and creates problems (see tvtk/WORKAROUNDS.md)
                 if klass.__name__ == "vtkPoints" and m == "DataType" and sys.platform == "win32":
                     d["int32"] = vtk.VTK_ID_TYPE
                 if extra_val is None:
@@ -680,6 +684,7 @@ class WrapperGenerator:
             # lost its no-argument overload) can still back a settable trait
             # provided there is a matching component-wise setter.  Write it
             # as a property that reads via the output-array form.
+            # See tvtk/WORKAROUNDS.md.
             # --------------------------------------------------------
             array_size = self._array_output_getter_size(get_sig)
             if (array_size and vtk_set_meth is not None
@@ -701,6 +706,7 @@ class WrapperGenerator:
                 # not remain in updateable_traits (otherwise it leaks into
                 # _full_traitnames_list_ as a trait that cannot be obtained,
                 # e.g. vtkDataSetAttributes.Get/SetAttribute on VTK >= 9.x).
+                # See tvtk/WORKAROUNDS.md.
                 del updateable_traits[name]
                 continue
 
@@ -793,7 +799,7 @@ class WrapperGenerator:
                         # VTK >= 9.6).  In that case expose a read-only
                         # property (mayavi sets these via other methods such
                         # as set_color) in addition to the raw get/set
-                        # methods.
+                        # methods.  See tvtk/WORKAROUNDS.md.
                         get_no_arg = any(s[1] is None for s in get_sig)
                         set_one_arg = any(
                             s[1] is not None and len(s[1]) == 1
@@ -1228,7 +1234,7 @@ class WrapperGenerator:
             sig = self.parser.get_method_signature(vtk_meth)
 
         # VTK 6.2: There exists no method signature for false built in
-        # functions/methods
+        # functions/methods (see tvtk/WORKAROUNDS.md)
         if sig is None:
             return
 
@@ -1603,6 +1609,9 @@ class WrapperGenerator:
     # ------------------------------------------------------
     # Traits that need special handling
     # ------------------------------------------------------
+    # This is the Layer 2 workaround registry -- see tvtk/WORKAROUNDS.md
+    # before adding an entry, and re-probe every entry when MIN_VTK moves.
+    #
     # To add a trait for special handling,
     # add an item to the `special_traits` below,
     # then add a method that handles the trait.
@@ -1647,7 +1656,7 @@ class WrapperGenerator:
         # VTK.  Those are platform-dependent (garbage memory on Linux can
         # read as a sane value on macOS), so they must only be culled with
         # evidence from every platform (or an upstream fix in the VTK
-        # changelog), not a single-platform probe.
+        # changelog), not a single-platform probe.  See tvtk/WORKAROUNDS.md.
 
         # In VTK 5.8, tolerance is initialised as 0 while the range
         # is 1-100

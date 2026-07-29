@@ -14,7 +14,6 @@ from traits.api import Instance, Range, Float, Bool, \
                                  Property, Enum
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
-from tvtk.common import vtk_major_version, vtk_minor_version
 
 # Local imports
 from mayavi.core.filter import Filter
@@ -166,19 +165,13 @@ class Threshold(Filter):
     ######################################################################
     def _lower_threshold_changed(self, new_value):
         fil = self.threshold_filter
-        if (vtk_major_version, vtk_minor_version) >= (9, 1):
-            fil.lower_threshold = new_value
-        else:
-            fil.threshold_between(new_value, self.upper_threshold)
+        fil.lower_threshold = new_value
         fil.update()
         self.data_changed = True
 
     def _upper_threshold_changed(self, new_value):
         fil = self.threshold_filter
-        if (vtk_major_version, vtk_minor_version) >= (9, 1):
-            fil.upper_threshold = new_value
-        else:
-            fil.threshold_between(self.lower_threshold, new_value)
+        fil.upper_threshold = new_value
         fil.update()
         self.data_changed = True
 
@@ -277,12 +270,8 @@ class Threshold(Filter):
             return
         fil = new
         self.configure_connection(fil, self.inputs[0].outputs[0])
-        if (vtk_major_version, vtk_minor_version) >= (9, 1):
-            fil.lower_threshold = self.lower_threshold
-            fil.upper_threshold = self.upper_threshold
-        else:
-            fil.threshold_between(self.lower_threshold,
-                                  self.upper_threshold)
+        fil.lower_threshold = self.lower_threshold
+        fil.upper_threshold = self.upper_threshold
         fil.update()
         self._set_outputs([fil])
 

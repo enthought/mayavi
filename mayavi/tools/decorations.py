@@ -35,7 +35,7 @@ def _orient_colorbar(lut_mgr, orientation):
     colorbar = lut_mgr.scalar_bar
     if orientation == "vertical":
         if rep is None:
-            # VTK < 5.2
+            # VTK < 5.2 (see tvtk/WORKAROUNDS.md)
             colorbar.orientation = "vertical"
         else:
             rep.orientation = 1

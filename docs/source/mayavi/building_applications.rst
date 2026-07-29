@@ -29,7 +29,7 @@ callbacks when they are modified. In particular this means that when a
 visualization object is modified, the scene can update automatically.
 
 We strongly suggest that you refer to the `Traits`
-`documentation <http://docs.enthought.com/traits>`_
+`documentation <https://docs.enthought.com/traits>`_
 for more details.  There are also a list of introductory
 `materials <https://support.enthought.com/hc/en-us/articles/204469620-Introductory-materials-for-Traits-and-Traits-UI>`
 for learning Traits and Traits UI.

@@ -16,7 +16,6 @@ error messages but they are usually harmless.
 import unittest
 from tvtk import vtk_parser
 from tvtk import vtk_module as vtk
-from tvtk.common import vtk_major_version, vtk_minor_version
 
 import time # Only used when timing.
 import sys  # Only used when debugging.
@@ -120,23 +119,21 @@ class TestVTKParser(unittest.TestCase):
         res['NormalScale'] = (1., None)
         res['OcclusionStrength'] = (1., float_max)
         res['Roughness'] = (0.5, float_max)
-        if (vtk_major_version, vtk_minor_version) >= (9, 1):
-            res['Anisotropy'] = (0.0, (0.0, 1.0))
-            res['AnisotropyRotation'] = (0.0, (0.0, 1.0))
-            res['BaseIOR'] = (1.5, (1.0, 9.999999680285692e+37))
-            res['CoatColor'] = ((1.0, 1.0, 1.0), None)
-            res['CoatIOR'] = (2.0, (1.0, 9.999999680285692e+37))
-            res['CoatNormalScale'] = (1.0, (0.0, 1.0))
-            res['CoatRoughness'] = (0.0, (0.0, 1.0))
-            res['CoatStrength'] = (0.0, (0.0, 1.0))
-            res['EdgeTint'] = ((1.0, 1.0, 1.0), None)
-            res['SelectionColor'] = ((1.0, 0.0, 0.0, 1.0), None)
-            res['SelectionLineWidth'] = (2.0, None)
-            res['SelectionPointSize'] = (2.0, None)
-        if (vtk_major_version, vtk_minor_version) >= (9, 3):
-            res['EdgeOpacity'] = (1.0, None)
+        res['Anisotropy'] = (0.0, (0.0, 1.0))
+        res['AnisotropyRotation'] = (0.0, (0.0, 1.0))
+        res['BaseIOR'] = (1.5, (1.0, 9.999999680285692e+37))
+        res['CoatColor'] = ((1.0, 1.0, 1.0), None)
+        res['CoatIOR'] = (2.0, (1.0, 9.999999680285692e+37))
+        res['CoatNormalScale'] = (1.0, (0.0, 1.0))
+        res['CoatRoughness'] = (0.0, (0.0, 1.0))
+        res['CoatStrength'] = (0.0, (0.0, 1.0))
+        res['EdgeTint'] = ((1.0, 1.0, 1.0), None)
+        res['SelectionColor'] = ((1.0, 0.0, 0.0, 1.0), None)
+        res['SelectionLineWidth'] = (2.0, None)
+        res['SelectionPointSize'] = (2.0, None)
+        res['EdgeOpacity'] = (1.0, None)
         # New in VTK >= 9.5 (guarded by hasattr so the expectation tracks
-        # whatever VTK is installed).
+        # whatever VTK is installed).  See tvtk/WORKAROUNDS.md.
         if hasattr(obj, 'GetEdgeWidth'):
             res['EdgeWidth'] = (1.0, (0.0, float_max))
         if hasattr(obj, 'GetLineJoin'):
@@ -183,15 +180,14 @@ class TestVTKParser(unittest.TestCase):
                    'RemoveTexture', 'Render']
             res.extend(['SetBaseColorTexture', 'SetEmissiveTexture',
                         'SetNormalTexture', 'SetORMTexture'])
-            if vtk_major_version == 9 and vtk_minor_version > 0:
-                res.extend([
-                    'ComputeIORFromReflectance', 'ComputeReflectanceFromIOR',
-                    'ComputeReflectanceOfBaseLayer', 'SetAnisotropyTexture',
-                    'SetCoatNormalTexture'
-                ])
+            res.extend([
+                'ComputeIORFromReflectance', 'ComputeReflectanceFromIOR',
+                'ComputeReflectanceOfBaseLayer', 'SetAnisotropyTexture',
+                'SetCoatNormalTexture'
+            ])
             # AddShaderVariable was removed in VTK >= 9.5; LineJoinType and
             # Point2DShapeType were added.  Guard on hasattr so the expected
-            # set tracks whatever VTK is installed.
+            # set tracks whatever VTK is installed.  See tvtk/WORKAROUNDS.md.
             if hasattr(obj, 'AddShaderVariable'):
                 res.append('AddShaderVariable')
             if hasattr(obj, 'LineJoinType'):
@@ -260,12 +256,8 @@ class TestVTKParser(unittest.TestCase):
                          p.get_method_signature(o.GetOutput))
 
         # Test if function arguments work.
-        if vtk_major_version == 9 and vtk_minor_version > 0:
-            self.assertEqual([(['int'], ('int', 'function', 'float'))],
-                             p.get_method_signature(o.AddObserver))
-        else:
-            self.assertEqual([(['int'], ('int', 'function'))],
-                             p.get_method_signature(o.AddObserver))
+        self.assertEqual([(['int'], ('int', 'function', 'float'))],
+                         p.get_method_signature(o.AddObserver))
         # This one's for completeness.
         if ((len(p.get_method_signature(o.RemoveObserver))) == 2):
             self.assertEqual([([None], ['vtkCommand']), ([None], ['int'])],

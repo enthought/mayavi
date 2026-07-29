@@ -2,7 +2,7 @@
 """A simple example of how to use mayavi.mlab inside a traits UI dialog.
 
 This example uses traitsUI (
-`traitsUI <http://docs.enthought.com/traitsui/>`_ ) to create a
+`traitsUI <https://docs.enthought.com/traitsui/>`_ ) to create a
 the simplest possible dialog: a single Mayavi scene in a window.
 """
 
