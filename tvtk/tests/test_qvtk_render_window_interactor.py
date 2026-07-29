@@ -4,7 +4,9 @@ try:
     from tvtk.pyface.ui.qt4.QVTKRenderWindowInteractor import (
         _repaint_after_render,
     )
-except ImportError:
+except (ImportError, RuntimeError):
+    # No binding installed (ImportError) or QT_API set but empty/invalid, as on
+    # the headless CI row (RuntimeError) -- both mean "no Qt here".
     _repaint_after_render = None
 
 
