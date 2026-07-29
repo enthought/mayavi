@@ -133,7 +133,7 @@ class DecoratedScene(Scene):
     def _get_tool_bar_manager(self):
         """ Returns the tool_bar_manager for this scene.
         """
-        tbm = ToolBarManager( *self.actions )
+        tbm = ToolBarManager( *self.actions, show_tool_names=False)
         return tbm
 
 
