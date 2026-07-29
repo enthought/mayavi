@@ -18,7 +18,6 @@ from itertools import chain
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
 from .common import get_tvtk_name, camel2enthought, _sanitize_name
-from .common import vtk_major_version, vtk_minor_version
 
 from . import vtk_parser
 from . import indenter

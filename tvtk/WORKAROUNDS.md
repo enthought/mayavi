@@ -124,17 +124,17 @@ cases:
 
 `tvtk/tests/test_vtk_parser.py` is not a skip but belongs to the same audit:
 its expected method/trait lists are version-keyed, so they must grow a new
-branch whenever VTK adds API, and shed the branches below `MIN_VTK` (its
-`>= (9, 1)` and `minor > 0` branches are already unconditional at the
-current floor).
+branch whenever VTK adds API, and shed the branches below `MIN_VTK`.  It
+currently prefers `hasattr(obj, 'Get...')` over a version compare, which
+needs no culling as the floor moves.
 
 ## Outside the layers: `mayavi/`
 
 Mayavi is a consumer of the wrapped API, so its version conditionals are
-plain runtime API drift rather than wrapping workarounds — currently
-`mayavi/filters/threshold.py`, which falls back to `threshold_between()`
-below VTK 9.1.  They obey the same cull rule: once `MIN_VTK` is past the
-version the old branch is unreachable and should go, as it is here.
+plain runtime API drift rather than wrapping workarounds — none are live
+right now (`mayavi/filters/threshold.py`'s pre-9.1 `threshold_between()`
+fallback went with the 9.4 floor).  They obey the same cull rule: once
+`MIN_VTK` is past the version the old branch is unreachable and should go.
 
 ## Auditing
 
