@@ -62,7 +62,10 @@ _vtk_version_mismatch = None
 
 def vtk_version_mismatch():
     """True when the runtime VTK differs from the VTK the TVTK classes
-    were generated against (e.g. a wheel built against a newer VTK)."""
+    were generated against (e.g. a wheel built against a newer VTK).
+
+    This gates the Layer 4 runtime tolerances -- see tvtk/WORKAROUNDS.md.
+    """
     global _vtk_version_mismatch
     if _vtk_version_mismatch is None:
         try:
@@ -440,6 +443,7 @@ class TVTKBase(traits.HasStrictTraits):
         # vtkDataSetAttributes return their number of arrays), so an empty
         # but perfectly valid wrapped object would otherwise be treated as
         # "no object" and replaced with a freshly created one.
+        # See tvtk/WORKAROUNDS.md.
         if obj is not None:
             self._vtk_obj = obj
         else:
@@ -601,7 +605,9 @@ class TVTKBase(traits.HasStrictTraits):
             try:
                 val = getattr(vtk_obj, getter)()
             except (AttributeError, TypeError):
-                # Some vtk GetMethod accepts more than 1 arguments
+                # Some vtk GetMethod accepts more than 1 arguments, or is
+                # missing entirely on an older runtime VTK than the classes
+                # were generated against (see tvtk/WORKAROUNDS.md).
                 # FIXME: If we really want to try harder, we could
                 # pass an empty array to the Get method, some Get
                 # method will populate the array as the return
@@ -618,6 +624,7 @@ class TVTKBase(traits.HasStrictTraits):
                         # different VTK, so values read from the runtime
                         # object may no longer validate (type/range drift
                         # across VTK versions); keep the generated default.
+                        # See tvtk/WORKAROUNDS.md.
                         pass
                     else:
                         raise

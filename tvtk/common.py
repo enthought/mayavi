@@ -8,6 +8,8 @@ from contextlib import contextmanager
 import re
 import vtk
 
+# The runtime VTK version every version-keyed workaround is gated on --
+# see tvtk/WORKAROUNDS.md for the full map and the cull policy.
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 

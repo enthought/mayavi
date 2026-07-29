@@ -62,15 +62,14 @@ def get_tvtk_class_names():
     src = []
     filter = []
     sink = []
-    bad_names = []
+    # Instantiating vtkOpenGLAvatar crashes (see tvtk/WORKAROUNDS.md)
+    bad_names = ['vtkOpenGLAvatar']
     ver = vtk.vtkVersion()
     vtk_ver = (ver.GetVTKMajorVersion(), ver.GetVTKMinorVersion())
-    if vtk_ver >= (9, 2):
-        bad_names.append('vtkOpenGLAvatar')
     # Instantiating (or destroying) a render window / interactor crashes with
     # VTK >= 9.5 -- e.g. the X11 vtkXOpenGLRenderWindow, even under xvfb (a
     # known VTK bug).  They are not pipeline objects (no input/output ports),
-    # so simply skip them here.
+    # so simply skip them here.  See tvtk/WORKAROUNDS.md.
     skip_windowed = vtk_ver >= (9, 5)
 
     for name in dir(vtk):

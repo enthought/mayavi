@@ -60,10 +60,7 @@ class TestWrapperGenerator(unittest.TestCase):
 
     def test_unicode_return_value(self):
         wg = self.wg
-        try:
-            meth = vtk.vtkDelimitedTextReader.GetUTF8RecordDelimiters
-        except AttributeError:  # VTK < 9.2.2
-            meth = vtk.vtkDelimitedTextReader.GetUnicodeRecordDelimiters
+        meth = vtk.vtkDelimitedTextReader.GetUTF8RecordDelimiters
         expect = 'unicode' if '-> unicode' in meth.__doc__ else 'string'
         sig = wg.parser.get_method_signature(meth)
         self.assertEqual(sig[0][0][0], expect)

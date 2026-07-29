@@ -79,17 +79,13 @@ jobs:
             numpy: 'numpy==2.3' # in1d (used by vtk) removed in 2.4+
           - os: ubuntu-latest
             python-version: '3.11'
-            qt-api: 'pyside6'
+            qt-api: 'pyqt6'
             vtk: 'vtk==9.4'
             numpy: 'numpy==2.3'
           - os: ubuntu-latest
             python-version: '3.10'
-            qt-api: 'pyqt6'
-            vtk: 'vtk==9.3'
-          - os: ubuntu-latest
-            python-version: '3.10'
             qt-api: 'pyqt5'
-            vtk: 'vtk==9.2.5'
+            vtk: 'vtk==9.4'
       fail-fast: false
     defaults:
       run:

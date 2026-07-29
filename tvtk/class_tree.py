@@ -255,6 +255,7 @@ class ClassTree:
             if ('.' in name):
                 # With VTK 6.x and above there are strange names
                 # in the vtk module which we ignore.
+                # (see tvtk/WORKAROUNDS.md)
                 continue
             klass = self.get_class(name)
             if klass is not NotImplemented \

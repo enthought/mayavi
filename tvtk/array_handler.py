@@ -423,6 +423,7 @@ def vtk2array(vtk_array):
         img_data.GetPointData().SetScalars(iarr)
     elif typ == vtkConstants.VTK_ID_TYPE:
         # Needed since VTK_ID_TYPE does not work with VTK 4.5.
+        # (see tvtk/WORKAROUNDS.md)
         iarr = vtk.vtkLongArray()
         iarr.SetNumberOfTuples(vtk_array.GetNumberOfTuples())
         nc = vtk_array.GetNumberOfComponents()
