@@ -133,7 +133,7 @@ class TestVTKParser(unittest.TestCase):
         res['SelectionPointSize'] = (2.0, None)
         res['EdgeOpacity'] = (1.0, None)
         # New in VTK >= 9.5 (guarded by hasattr so the expectation tracks
-        # whatever VTK is installed).
+        # whatever VTK is installed).  See tvtk/WORKAROUNDS.md.
         if hasattr(obj, 'GetEdgeWidth'):
             res['EdgeWidth'] = (1.0, (0.0, float_max))
         if hasattr(obj, 'GetLineJoin'):
@@ -187,7 +187,7 @@ class TestVTKParser(unittest.TestCase):
             ])
             # AddShaderVariable was removed in VTK >= 9.5; LineJoinType and
             # Point2DShapeType were added.  Guard on hasattr so the expected
-            # set tracks whatever VTK is installed.
+            # set tracks whatever VTK is installed.  See tvtk/WORKAROUNDS.md.
             if hasattr(obj, 'AddShaderVariable'):
                 res.append('AddShaderVariable')
             if hasattr(obj, 'LineJoinType'):

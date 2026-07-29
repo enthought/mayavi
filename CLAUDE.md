@@ -68,6 +68,9 @@ If the change touched a VTK workaround in any form — a `vtk_*_version` or
 `vtk_module.py` deletion — bring `tvtk/WORKAROUNDS.md` in line **in the same
 commit**:
 
+- Give the workaround the literal marker `see tvtk/WORKAROUNDS.md` in a
+  comment, so `git grep WORKAROUNDS.md` stays a complete inventory of what
+  a `MIN_VTK` bump can delete.
 - Check that the layer descriptions still match the code (which function
   holds which skip, which classes are named as current cases).  A stale
   entry sends the next reader to the wrong file, which is worse than no

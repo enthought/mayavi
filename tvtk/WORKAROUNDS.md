@@ -12,8 +12,12 @@ layer that can express it.
 - The supported VTK floor is `MIN_VTK` in `setup.py` (SPEC 0-style: minor
   versions are supported for ~2 years after release).
 - Every workaround MUST have a comment naming the VTK version(s) it applies
-  to, ideally with an upstream issue/MR link.  When the floor passes that
-  version, the workaround should be culled.
+  to, ideally with an upstream issue/MR link, and MUST carry the literal
+  marker `see tvtk/WORKAROUNDS.md` so that `git grep WORKAROUNDS.md` lists
+  the whole inventory.  When the floor passes the version, the workaround
+  should be culled.  (One marker covers a contiguous registry such as
+  `special_traits`, not one per entry.)  Platform-keyed workarounds
+  (`sys.platform`) get the marker too; version greps cannot see them.
 - **Culling requires the right evidence for the bug class.**  Deterministic
   bugs (method removed, API changed) can be verified by probing any one
   platform.  *Uninitialized-value* bugs are platform-dependent — garbage
@@ -143,6 +147,8 @@ the new floor.  Grep by pattern rather than by a file list, so a workaround
 added somewhere new still turns up:
 
 ```sh
+# Every marked workaround, wherever it lives
+git grep -n "see tvtk/WORKAROUNDS.md"
 # Version-keyed code, including now-dead branches below the new floor
 grep -rnE "vtk_(major|minor)_version|vtk_version_mismatch" \
     --include='*.py' tvtk mayavi | grep -v tvtk_classes

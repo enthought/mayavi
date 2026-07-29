@@ -201,7 +201,7 @@ class DecoratedScene(Scene):
             else:
                 p.color = (0, 0, 0)
             try:
-                m.outline_color = p.color  #VTK 9+
+                m.outline_color = p.color  # VTK 9+ (see tvtk/WORKAROUNDS.md)
             except TraitError:
                 m.set_outline_color(*p.color)
             self.render()

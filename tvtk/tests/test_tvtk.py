@@ -161,11 +161,12 @@ class TestTVTK(unittest.TestCase):
         p.specular_color = (1, 1, 0)
         for t, g in p._updateable_traits_:
             if g == "GetEdgeOpacity":
-                continue  # broken for some reason?
+                continue  # broken for some reason? (see tvtk/WORKAROUNDS.md)
             vtk_get = getattr(p._vtk_obj, g, None)
             if vtk_get is None:
                 # getter from a newer VTK than the runtime one (TVTK
                 # classes may be generated against a newer VTK)
+                # (see tvtk/WORKAROUNDS.md)
                 continue
             val = vtk_get()
             if t in ['representation', 'interpolation']:
@@ -239,6 +240,7 @@ class TestTVTK(unittest.TestCase):
         # This assertion is related to a bug fixed in VTK 6 onwards
         # For VTK 5.x this test is inconsistent, hence skipeed for 5.x
         # See http://review.source.kitware.com/#/c/15095/
+        # (see tvtk/WORKAROUNDS.md)
         ##############################################################
         self.assertEqual(hash1 != id(src), True)
         self.assertEqual(id(cs), id(src))
@@ -619,6 +621,7 @@ class TestTVTK(unittest.TestCase):
         # can take either no argument or an array
         # With that change in the API, kernel3x3
         # is a Trait (similarly for kernel3x3x3, ...)
+        # (see tvtk/WORKAROUNDS.md)
         tvtk_filter.kernel3x3 = expected
 
         # Get it back
@@ -642,6 +645,7 @@ class TestTVTK(unittest.TestCase):
         # can take either no argument or an array
         # With that change in the API, point1_world_position
         # is a Trait (similarly for point2_world_position ...)
+        # (see tvtk/WORKAROUNDS.md)
 
         # Set the position
         expected = (1, 2, 3)
@@ -1002,6 +1006,7 @@ class TestTVTKModule(unittest.TestCase):
                             and tvtk_base.vtk_version_mismatch()):
                         # property backed by a VTK getter that does not
                         # exist in the (older) runtime VTK
+                        # (see tvtk/WORKAROUNDS.md)
                         continue
                     errors_getting_trait.append(
                         (tvtk_klass_name, trait_name, str(exception)))

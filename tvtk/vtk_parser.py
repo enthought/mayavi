@@ -179,6 +179,7 @@ class VTKMethodParser:
         # to dir().  Otherwise they generate duplicate/garbage wrappers that
         # delegate to attributes older runtime VTKs do not have (e.g.
         # update() calling self._vtk_obj.update, which VTK < 9.4 lacks).
+        # See tvtk/WORKAROUNDS.md.
         methods = [m for m in dir(klass) if m[:1].isupper()]
         # Ignore the parent methods.
         ignore = self._get_parent_methods(klass)
@@ -217,6 +218,7 @@ class VTKMethodParser:
                         # New in VTK 6.3.x with Python 3 support.  In this
                         # case  dir(klass) produces all methods so we check if
                         # the definition is the same as the parent.
+                        # (see tvtk/WORKAROUNDS.md)
                         base_cls = klass.__bases__[0]
                         if getattr(klass, m) is getattr(base_cls, m, None) \
                             and getattr(klass, m1) is getattr(base_cls, m1, None):
@@ -250,7 +252,7 @@ class VTKMethodParser:
         # in Python, this crashes the interpreter as soon as update_traits
         # reads them on instantiation.  Drop just these getters so they are
         # never wrapped as auto-updating traits; the corresponding Set/On/Off
-        # methods still work and are kept.
+        # methods still work and are kept.  See tvtk/WORKAROUNDS.md.
         for _ioss_getter in ('GetGroupAlphabeticVectorFieldComponents',
                              'GetGroupNumericVectorFieldComponents',
                              'GetFieldSuffixSeparator'):
@@ -522,6 +524,7 @@ class VTKMethodParser:
         meths = methods[:]
         tm = self.toggle_meths
         klass_name = klass.__name__
+        # These wrap badly as On/Off toggles (see tvtk/WORKAROUNDS.md)
         problem_methods = ['CopyVectors', 'CopyTensors',
                            'CopyTCoords', 'CopyScalars',
                            'CopyNormals', 'CopyGlobalIds',
@@ -530,6 +533,7 @@ class VTKMethodParser:
             if klass_name == 'vtkDataSetAttributes' and \
                method[:-2] in problem_methods:
                 continue
+            # (see tvtk/WORKAROUNDS.md)
             elif method[:-2] == 'AlphaBitPlanes':
                 continue
             if method[-2:] == 'On':
@@ -644,19 +648,24 @@ class VTKMethodParser:
                   method[3:] == 'AllocatedRenderTime'):
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
+                # (see tvtk/WORKAROUNDS.md)
                 continue
+            # (see tvtk/WORKAROUNDS.md)
             elif (klass_name == 'vtkContextMouseEvent' and
                   method[3:] == 'Interactor'):
                 continue
             # VTK 9 uses function handles that we don't parse properly yet
+            # (see tvtk/WORKAROUNDS.md)
             elif (klass_name == 'vtkPiecewisePointHandleItem' and
                   method[3:] == 'PiecewiseFunction'):
                 continue
             # These hang on Windows (and maybe Fedora 34)
+            # (see tvtk/WORKAROUNDS.md)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
                 continue
             # On VTK 9.5.2 we get
             # Cannot set the undefined 'copy_global_ids' attribute of a 'PointData' object
+            # (see tvtk/WORKAROUNDS.md)
             elif (klass_name == "vtkDataSetAttributes" and method[3:] in ("CopyGlobalIds", "CopyNormals", "CopyPedigreeIds", "CopyScalars", "CopyTCoords", "CopyTensors", "CopyVectors")):
                 continue
             elif ('Get' + method[3:]) in methods:
@@ -683,6 +692,7 @@ class VTKMethodParser:
             # vtkRenderWindowInteractor / ...3D, whose traits (e.g. KeySym,
             # PhysicalViewDirection) need real defaults.  State traits (e.g.
             # StereoType) are handled separately in _find_state_methods.
+            # See tvtk/WORKAROUNDS.md.
             skip_instance = False
             if (vtk_major_version, vtk_minor_version) >= (9, 5):
                 windowed = tuple(
@@ -697,7 +707,7 @@ class VTKMethodParser:
             obj = None if skip_instance else self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
-                    # Broken in <= 9.4
+                    # Broken in <= 9.4 (see tvtk/WORKAROUNDS.md)
                     # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/6729#note_732848
                     if (
                         (vtk_major_version, vtk_minor_version) <= (9, 4)
@@ -706,7 +716,7 @@ class VTKMethodParser:
                         )
                     ):
                         default = None
-                    # Broken in 9.4
+                    # Broken in 9.4 (see tvtk/WORKAROUNDS.md)
                     elif (
                         (vtk_major_version, vtk_minor_version) == (9, 4)
                         and f"{klass_name}.Get{key}" in (
@@ -722,7 +732,8 @@ class VTKMethodParser:
                         except TypeError:
                             default = None
 
-                    # If we don't turn these into integers, they won't instantiate
+                    # If we don't turn these into integers, they won't
+                    # instantiate on VTK 9 (see tvtk/WORKAROUNDS.md)
                     if vtk_major_version == 9:
                         if klass_name == "vtkAxisActor":
                             if key in (

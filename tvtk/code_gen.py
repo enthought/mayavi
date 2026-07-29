@@ -34,7 +34,7 @@ import faulthandler
 # methods, which not-infrequently segfaults for a particular class on a
 # particular platform/VTK version.  Enable faulthandler unconditionally so
 # that such a crash prints a Python traceback naming the offending class
-# (see e.g. wrapper_gen.py / vtk_parser.py for the existing workarounds).
+# (see tvtk/WORKAROUNDS.md for where the existing workarounds live).
 faulthandler.enable()
 
 # Local imports -- these should be relative imports since these are

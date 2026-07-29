@@ -234,9 +234,10 @@ class VTKDocMassager:
 
           The documentation string.
         """
-        if doc.startswith('V.'):  # VTK < 9.1.0, e.g., V.GetAddre...
+        # VTK < 9.1.0 prefixed signatures with 'V.'; > 9.1.0 has just
+        # GetAddre... (see tvtk/WORKAROUNDS.md)
+        if doc.startswith('V.'):
             doc = doc.replace('V.', '')
-        # VTK > 9.1.0 has just GetAddre...
         orig_name = doc[:doc.find('(')]
         name = camel2enthought(orig_name)
         my_sig = self._rename_class(doc[:doc.find('\n\n')])

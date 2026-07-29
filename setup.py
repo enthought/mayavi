@@ -299,7 +299,8 @@ DEPENDENCIES = [
 ]
 
 
-# Oldest supported VTK, per SPEC 0-style two-year support window
+# Oldest supported VTK, per SPEC 0-style two-year support window.  When
+# raising this, cull the workarounds it makes dead -- see tvtk/WORKAROUNDS.md.
 MIN_VTK = '9.4'
 
 
