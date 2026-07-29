@@ -87,7 +87,7 @@ are unfortunately rather heavy. However, many of these dependencies are now
 available as wheels on PyPI.  The two critical dependencies are,
 
   1. VTK_ >= 9.0
-  2. A GUI toolkit, either PySide6_, PyQt6_, PySide2_, PyQt5_, or wxPython_.
+  2. A GUI toolkit, either PySide6_, PyQt6_, or wxPython_.
 
 The latest VTK wheels are available on all the major platforms (Windows,
 MacOS, and Linux). If you are
@@ -96,9 +96,8 @@ VTK yourself using your particular distribution as discussed in the `General
 Build and Installation instructions
 <http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions>`_
 
-On Python 3.x you will need to install PyQt5_ and wheels are available for
-this. On 2.7.x you have more options, and can use PySide_, PyQt4_, and
-wxPython_. These can be installed from pip or from your package manager.
+On Python 3.x you will need to install PySide6_ or PyQt6 and wheels are available for
+this.
 
 Currently, Mayavi itself should work with the new wxPython 4.x. However,
 traitsui_, pyface_, and other ETS packages do not yet support it so the UI
@@ -106,12 +105,8 @@ will not work correctly. Older versions should work. PyQt/PySide/PySide2
 should work largely out of the box.
 
 
-.. _PyQt5: https://pypi.org/project/PyQt5/
 .. _PyQt6: https://pypi.org/project/PyQt6/
-.. _PySide: https://pypi.org/project/PySide
-.. _PySide2: https://wiki.qt.io/Qt_for_Python
 .. _PySide6: https://pypi.org/project/PySide6/
-.. _PyQt4: https://pypi.org/project/PyQt4/
 .. _wxPython: https://pypi.org/project/wxPython/
 .. _VTK: https://www.vtk.org
 .. _traitsui: https://github.com/enthought/traitsui
@@ -125,8 +120,7 @@ and are on a 64 bit machine, installation via pip_ is the easiest and is as
 follows::
 
   $ pip install mayavi
-
-  $ pip install PyQt5
+  $ pip install PySide6
 
 Thats it!
 
@@ -156,9 +150,8 @@ simply do the following::
 
   $ git clone https://github.com/enthought/mayavi.git
   $ cd mayavi
-  $ pip install -r requirements.txt
-  $ pip install PyQt5  # replace this with any supported toolkit
-  $ python setup.py install  # or develop
+  $ pip install PySide6  # replace this with any supported toolkit
+  $ pip install -v .  # or -e for editable install
 
 Add the jupyter nbextensions using the instructions in the section above and
 you should be good to go.

@@ -174,7 +174,12 @@ class VTKMethodParser:
 
     def get_methods(self, klass):
         """Returns all the relevant methods of the given VTK class."""
-        methods = dir(klass)[:]
+        # VTK API methods are CamelCase; drop the snake_case aliases and
+        # pipeline dunders (__call__, __rshift__, ...) that VTK >= 9.4 adds
+        # to dir().  Otherwise they generate duplicate/garbage wrappers that
+        # delegate to attributes older runtime VTKs do not have (e.g.
+        # update() calling self._vtk_obj.update, which VTK < 9.4 lacks).
+        methods = [m for m in dir(klass) if m[:1].isupper()]
         if hasattr(klass, '__members__'):
             # Only VTK versions < 4.5 have these.
             for m in klass.__members__:
@@ -245,6 +250,21 @@ class VTKMethodParser:
         if 'GetScaledText' in methods and 'GetTextScaleMode' in methods:
             ignore.extend(['GetScaledText', 'SetScaledText',
                            'ScaledTextOn', 'ScaledTextOff'])
+
+        # In VTK >= 9.x, a few vtkIOSSReader getters abort with an
+        # uncatchable C++ std::runtime_error ("Could not find property
+        # '<NAME>'") when called on the inheriting vtkIOSSCellGridReader,
+        # which does not initialize the underlying Ioss database properties
+        # that these getters read.  Because a C++ exception cannot be caught
+        # in Python, this crashes the interpreter as soon as update_traits
+        # reads them on instantiation.  Drop just these getters so they are
+        # never wrapped as auto-updating traits; the corresponding Set/On/Off
+        # methods still work and are kept.
+        for _ioss_getter in ('GetGroupAlphabeticVectorFieldComponents',
+                             'GetGroupNumericVectorFieldComponents',
+                             'GetFieldSuffixSeparator'):
+            if _ioss_getter in methods:
+                ignore.append(_ioss_getter)
 
         # Now we can safely remove the methods.
         for m in methods[:]:
@@ -644,7 +664,10 @@ class VTKMethodParser:
             # These hang on Windows (and maybe Fedora 34)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
                 continue
-            # we can actually process it
+            # On VTK 9.5.2 we get
+            # Cannot set the undefined 'copy_global_ids' attribute of a 'PointData' object
+            elif (klass_name == "vtkDataSetAttributes" and method[3:] in ("CopyGlobalIds", "CopyNormals", "CopyPedigreeIds", "CopyScalars", "CopyTCoords", "CopyTensors", "CopyVectors")):
+                continue
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
@@ -658,7 +681,29 @@ class VTKMethodParser:
 
         # Find the default and range of the values.
         if gsm:
-            obj = self._get_instance(klass)
+            # Instantiating a render window or VR interactor and reading its
+            # getters (GetSize/GetPosition/GetPhysicalScale/...) realizes an
+            # underlying window/device, and destroying it then segfaults with
+            # VTK >= 9.5 (e.g. vtkXOpenGLRenderWindow on Linux even under
+            # xvfb, or vtkVRRenderWindowInteractor on Windows; a known VTK
+            # bug).  Skip default-fetching for these -- the affected get/set
+            # traits simply get no default.  We only skip the VR interactor
+            # base (absent on non-VR builds), not the plain
+            # vtkRenderWindowInteractor / ...3D, whose traits (e.g. KeySym,
+            # PhysicalViewDirection) need real defaults.  State traits (e.g.
+            # StereoType) are handled separately in _find_state_methods.
+            skip_instance = False
+            if (vtk_major_version, vtk_minor_version) >= (9, 5):
+                windowed = tuple(
+                    c for c in (getattr(vtk, 'vtkRenderWindow', None),
+                                getattr(vtk, 'vtkVRRenderWindowInteractor',
+                                        None))
+                    if c is not None)
+                try:
+                    skip_instance = issubclass(klass, windowed)
+                except TypeError:
+                    skip_instance = False
+            obj = None if skip_instance else self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
                     # Broken in <= 9.3

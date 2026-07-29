@@ -22,7 +22,8 @@ import numpy
 from textwrap import indent
 
 from tvtk import tvtk_base
-from tvtk.common import get_tvtk_name, configure_input_data
+from tvtk.common import (get_tvtk_name, configure_input_data,
+                         vtk_major_version, vtk_minor_version)
 from tvtk import vtk_module as vtk
 from numpy.testing import assert_array_equal
 
@@ -161,7 +162,12 @@ class TestTVTK(unittest.TestCase):
         for t, g in p._updateable_traits_:
             if g == "GetEdgeOpacity":
                 continue  # broken for some reason?
-            val = getattr(p._vtk_obj, g)()
+            vtk_get = getattr(p._vtk_obj, g, None)
+            if vtk_get is None:
+                # getter from a newer VTK than the runtime one (TVTK
+                # classes may be generated against a newer VTK)
+                continue
+            val = vtk_get()
             if t in ['representation', 'interpolation']:
                 self.assertEqual(val, getattr(p, t + '_'))
             else:
@@ -652,6 +658,11 @@ class TestTVTK(unittest.TestCase):
             tvtk_filter.point1_world_position = range(2)
 
     @skipUnlessTVTKHasattr('XOpenGLRenderWindow')
+    @unittest.skipIf(
+        (vtk_major_version, vtk_minor_version) >= (9, 5),
+        'Realizing then destroying a render window segfaults with VTK >= 9.5 '
+        '(e.g. vtkXOpenGLRenderWindow under xvfb; a known VTK bug)',
+    )
     def test_xopengl_render_window(self):
         """ Test that setting the position to a render window works
         Issue #357
@@ -752,7 +763,10 @@ class TestTVTK(unittest.TestCase):
         # When
         v = tvtk.to_vtk(x)
         # Then
-        self.assertEqual(v.GetClassName(), 'vtkContourFilter')
+        # The concrete class may be a vtkContourFilter subclass (e.g.
+        # vtkmContour) when VTK-m acceleration overrides are registered, so
+        # check via isinstance rather than an exact class-name match.
+        self.assertIsInstance(v, vtk.vtkContourFilter)
         self.assertTrue(v is x._vtk_obj)
 
     def test_to_tvtk_returns_tvtk_object(self):
@@ -761,7 +775,9 @@ class TestTVTK(unittest.TestCase):
         # When
         x = tvtk.to_tvtk(v)
         # Then
-        self.assertEqual(x.class_name, 'vtkContourFilter')
+        # As above, x.class_name may be a vtkContourFilter subclass when
+        # VTK-m overrides are active, so check the wrapped object's type.
+        self.assertIsInstance(x._vtk_obj, vtk.vtkContourFilter)
         self.assertTrue(isinstance(x, tvtk_base.TVTKBase))
         self.assertTrue(isinstance(x, tvtk.ContourFilter))
         self.assertTrue(v is x._vtk_obj)
@@ -803,12 +819,31 @@ class TestTVTKModule(unittest.TestCase):
     def setUpClass(cls):
         vtk.vtkObject.GlobalWarningDisplayOff()
         cls.names = []
+        # Instantiating a TVTK render window / VR interactor realizes an
+        # underlying window/device (update_traits reads GetSize/GetPosition/
+        # GetPhysicalScale/...), and destroying it then segfaults with
+        # VTK >= 9.5 (e.g. vtkXOpenGLRenderWindow under xvfb,
+        # vtkVRRenderWindowInteractor on Windows; a known VTK bug).  Skip
+        # these classes there.
+        windowed_bases = ()
+        if (vtk_major_version, vtk_minor_version) >= (9, 5):
+            windowed_bases = tuple(
+                c for c in (getattr(vtk, 'vtkRenderWindow', None),
+                            getattr(vtk, 'vtkVRRenderWindowInteractor', None))
+                if c is not None)
         # Filter the ones that are abstract or not implemented
         for name in dir(vtk):
             if (not name.startswith('vtk') or name.startswith('vtkQt') or
                     len(name) <= 3):
                 continue
             vtk_klass = getattr(vtk, name)
+            if windowed_bases:
+                try:
+                    windowed = issubclass(vtk_klass, windowed_bases)
+                except TypeError:
+                    windowed = False
+                if windowed:
+                    continue
             tvtk_klass_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_klass_name, None)
             if hasattr(vtk_klass, '__bases__') and tvtk_klass is not None:
@@ -933,7 +968,7 @@ class TestTVTKModule(unittest.TestCase):
             for trait_name in obj._full_traitnames_list_:
                 try:
                     trait = getattr(obj, trait_name)
-                except (TypeError, TraitError):
+                except (TypeError, TraitError, AttributeError):
                     pass  # this is tested in another test
                 else:
                     if isinstance(trait, str) and trait.endswith('_p_void'):
@@ -962,6 +997,11 @@ class TestTVTKModule(unittest.TestCase):
                 try:
                     trait = getattr(obj, trait_name)
                 except Exception as exception:
+                    if (isinstance(exception, AttributeError)
+                            and tvtk_base.vtk_version_mismatch()):
+                        # property backed by a VTK getter that does not
+                        # exist in the (older) runtime VTK
+                        continue
                     errors_getting_trait.append(
                         (tvtk_klass_name, trait_name, str(exception)))
 

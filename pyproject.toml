@@ -1,7 +1,92 @@
 [build-system]
 requires = [
-    "numpy>=2.0.0rc2,<3",
-    "setuptools",
+    "setuptools>=77",
+    "setuptools_scm>=8",
     "vtk>=9",
-    "wheel"
+    "numpy",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mayavi"
+# dependencies computed in setup.py: wheels cap VTK at the build-time
+# version's next minor, the sdist stays uncapped (PEP 643)
+dynamic = ["version", "dependencies"]
+description = "3D scientific data visualization library and application"
+readme = "README.rst"
+requires-python = ">=3.10"
+license = "BSD-3-Clause"
+license-files = [
+    "LICENSE.txt",
+    "LICENSE_COLORBREWER.txt",
+    "LICENSE_YORICK.txt",
+]
+authors = [
+    {name = "Prabhu Ramachandran, et al.", email = "prabhu@aero.iitb.ac.in"},
+]
+maintainers = [
+    {name = "ETS Developers", email = "mayavi-users@lists.sf.net"},
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: OS Independent",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Python",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+]
+[project.optional-dependencies]
+app = ["envisage"]
+
+[project.urls]
+Homepage = "http://docs.enthought.com/mayavi/mayavi/"
+Download = "https://www.github.com/enthought/mayavi"
+
+[project.gui-scripts]
+mayavi2 = "mayavi.scripts.mayavi2:main"
+tvtk_doc = "tvtk.tools.tvtk_doc:main"
+
+[project.entry-points."envisage.plugins"]
+"tvtk.scene" = "tvtk.plugins.scene.scene_plugin:ScenePlugin"
+"tvtk.scene_ui" = "tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin"
+"tvtk.browser" = "tvtk.plugins.browser.browser_plugin:BrowserPlugin"
+mayavi = "mayavi.plugins.mayavi_plugin:MayaviPlugin"
+mayavi_ui = "mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin"
+
+[project.entry-points."tvtk.toolkits"]
+qt4 = "tvtk.pyface.ui.qt4.init:toolkit_object"
+qt = "tvtk.pyface.ui.qt4.init:toolkit_object"
+wx = "tvtk.pyface.ui.wx.init:toolkit_object"
+null = "tvtk.pyface.ui.null.init:toolkit_object"
+
+[tool.setuptools]
+include-package-data = true
+# NOTE: tvtk/tvtk_classes.zip is generated at build time from the installed VTK
+# (see the MyBuildPy hook in setup.py) and is excluded from the sdist by
+# MANIFEST.in.  It cannot be collected as package data (it does not exist when
+# the manifest is computed), so the build hook stages it into build_lib itself.
+
+[tool.setuptools.packages.find]
+include = ["mayavi*", "tvtk*"]
+namespaces = true
+
+# Version is derived from git tags (e.g. "4.8.3"); at runtime mayavi/__init__.py
+# reads it from the installed package metadata (see below).
+[tool.setuptools_scm]
+
+[tool.pytest.ini_options]
+addopts = "--durations=20 -ra --tb=short"
+filterwarnings = [
+    # Currently unsatisfiable
+    'ignore:Workbench will be moved from pyface:PendingDeprecationWarning',
+    # Should be fixed in traits
+    "ignore: module 'sre_.+' is deprecated:DeprecationWarning",
+    # We call deprecated methods and classes in our tests, and there are many variants for how the parentheticals are formatted
+    'ignore:Call to deprecated .*. \((This|Use|Please|Deprecated|Deprecating|Removed|Part|no|renamed) .*\) -- Deprecated since version.*:DeprecationWarning',
 ]
