@@ -1,4 +1,4 @@
-# Where VTK workarounds live
+# Where VTK (and Qt) workarounds live
 
 TVTK wraps VTK by introspecting the installed VTK at build time and
 generating traits-based wrapper classes into `tvtk_classes.zip`.  VTK has
@@ -165,6 +165,25 @@ its expected method/trait lists are version-keyed, so they must grow a new
 branch whenever VTK adds API, and shed the branches below `MIN_VTK`.  It
 currently prefers `hasattr(obj, 'Get...')` over a version compare, which
 needs no culling as the floor moves.
+
+## Outside the layers: Qt
+
+The layers above are all about wrapping VTK, but `tvtk/pyface/ui/qt4/` vendors
+a copy of VTK's `QVTKRenderWindowInteractor` and so inherits *Qt* bugs too.
+Those obey the same marker and cull rules; they are keyed on `qVersion()` and
+`sys.platform` instead of a VTK version.  Current case:
+
+- `_repaint_after_render()` in
+  `tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py`: on macOS with Qt >= 6.10,
+  VTK rendering into the widget from inside `paintEvent` re-dirties the widget,
+  so every paint schedules another one and the event loop never goes idle —
+  `mlab.test_plot3d()` opens a window that immediately freezes at 100% CPU.
+  There, a paint may render only once and later renders must come from
+  `Render()`/`resizeEvent()`, which reset the `__doPaintEvent` flag.  Vanilla
+  VTK's own interactor has the same bug; the fix mirrors
+  <https://github.com/pyvista/pyvistaqt/pull/810>.  Cull when Qt fixes the
+  macOS backend and the floor passes it — the check is unit-tested in
+  `tvtk/tests/test_qvtk_render_window_interactor.py`, which goes with it.
 
 ## Outside the layers: `mayavi/`
 
