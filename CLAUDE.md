@@ -61,6 +61,23 @@ pytest -sv --timeout=60 tvtk
 - Generation segfaults: `VTK_PARSER_VERBOSE=1` prints each getter before
   calling it; see `tvtk/WORKAROUNDS.md`.
 
+## Before considering a change done
+
+If the change touched a VTK workaround in any form — a `vtk_*_version` or
+`sys.platform` conditional, a test skip, a `special_traits` entry, a
+`vtk_module.py` deletion — bring `tvtk/WORKAROUNDS.md` in line **in the same
+commit**:
+
+- Check that the layer descriptions still match the code (which function
+  holds which skip, which classes are named as current cases).  A stale
+  entry sends the next reader to the wrong file, which is worse than no
+  entry.
+- Run the greps in its Auditing section and account for every hit: still
+  needed at `MIN_VTK`, or deleted.  A version gate whose lower branch is
+  unreachable at the floor is dead code, not a workaround.
+- Removing the last workaround for a VTK version means removing its entry
+  too, not leaving it as history.
+
 ## CI (`.github/workflows/`)
 
 - `tests.yml` — same-version matrix: build + test with the *same* VTK

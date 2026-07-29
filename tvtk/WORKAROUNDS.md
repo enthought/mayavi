@@ -34,10 +34,14 @@ discover defaults and ranges.  Guards here prevent the *generator itself*
 from crashing or producing garbage:
 
 - `get_methods()`: only CamelCase names are wrapped (drops VTK >= 9.4
-  snake_case aliases and pipeline dunders); skip lists for methods that
-  crash/hang when probed (e.g. vtkIOSSReader getters, vtkDataEncoder).
-- `_find_get_set_methods()`: per-class/method skips, and version-keyed
-  "broken getter -> no default" entries near the end (grep `Broken in`).
+  snake_case aliases and pipeline dunders), plus per-method drops for
+  getters that abort uncatchably when probed (the `vtkIOSSReader` Ioss
+  property getters).
+- `_find_get_set_methods()`: per-class/method skips for getters that hang or
+  wrap badly (`vtkDataEncoder`/`vtkWebApplication`,
+  `vtkPiecewisePointHandleItem`, the `vtkDataSetAttributes.Copy*` pair on
+  VTK 9.5.2), and version-keyed "broken getter -> no default" entries near
+  the end (grep `Broken in`).
 - Windowed classes (`vtkRenderWindow`, VR interactors) are never
   default-probed on VTK >= 9.5 (realizing + destroying a window segfaults).
   The same bug makes `tvtk/tools/tvtk_doc.py` drop those classes from its
@@ -63,7 +67,9 @@ writer_method)`:
 
 `wrapper_gen.py` also carries older inline `if klass.__name__ == ...`
 conditionals in `_gen_state_methods()` (bad defaults, out-of-choice enum
-values).  Prefer `special_traits` for new cases.
+values), some of them keyed on `sys.platform` rather than a VTK version
+(`vtkPoints.DataType` on Windows, `vtkRenderWindow.StereoType` on macOS).
+Prefer `special_traits` for new cases.
 
 ## Layer 3: `vtk_module.py` — runtime class removal
 
@@ -116,13 +122,37 @@ cases:
   reproduce it and the crash kills the interpreter in `setUp`, so there is
   nothing finer-grained to skip.
 
+`tvtk/tests/test_vtk_parser.py` is not a skip but belongs to the same audit:
+its expected method/trait lists are version-keyed, so they must grow a new
+branch whenever VTK adds API, and shed the branches below `MIN_VTK` (its
+`>= (9, 1)` and `minor > 0` branches are already unconditional at the
+current floor).
+
+## Outside the layers: `mayavi/`
+
+Mayavi is a consumer of the wrapped API, so its version conditionals are
+plain runtime API drift rather than wrapping workarounds — currently
+`mayavi/filters/threshold.py`, which falls back to `threshold_between()`
+below VTK 9.1.  They obey the same cull rule: once `MIN_VTK` is past the
+version the old branch is unreachable and should go, as it is here.
+
 ## Auditing
 
-When bumping `MIN_VTK`, grep these files for version citations and probe
-whether each workaround still reproduces on the new floor:
+When bumping `MIN_VTK`, probe whether each workaround still reproduces on
+the new floor.  Grep by pattern rather than by a file list, so a workaround
+added somewhere new still turns up:
 
+```sh
+# Version-keyed code, including now-dead branches below the new floor
+grep -rnE "vtk_(major|minor)_version|vtk_version_mismatch" \
+    --include='*.py' tvtk mayavi | grep -v tvtk_classes
+# Version citations in comments and skip reasons
+grep -rnE "VTK [0-9]|9\.[0-9]" --include='*.py' tvtk mayavi \
+    | grep -v tvtk_classes
+# Platform-keyed workarounds -- invisible to the greps above, and only
+# cullable with evidence from the platform in question (see Policy)
+grep -rn "sys.platform" --include='*.py' tvtk mayavi | grep -v tvtk_classes
 ```
-grep -nE "9\.[0-9]|VTK [0-9]" tvtk/vtk_parser.py tvtk/wrapper_gen.py \
-    tvtk/vtk_module.py tvtk/tvtk_base.py tvtk/tools/tvtk_doc.py \
-    tvtk/tests/test_tvtk.py mayavi/tests/test_streamline.py
-```
+
+A version gate whose *lower* branch is unreachable at the new floor is dead
+code, not a workaround: delete the branch instead of leaving it to rot.
