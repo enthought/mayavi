@@ -946,6 +946,13 @@ class TestTVTKModule(unittest.TestCase):
                     if isinstance(min_value, str):
                         assert 'cell_grid_render_request' in repr(obj), (obj, trait_name)
                         continue
+                    # As of VTK 9.7, SphereWidget2 (and others) have an
+                    # object-valued SetRepresentation plus an unrelated
+                    # GetRepresentationMinValue/MaxValue, so the trait is
+                    # not a Range and out-of-range values cannot apply
+                    # (see tvtk/WORKAROUNDS.md)
+                    if obj.trait(trait_name).type == 'property':
+                        continue
                     with self.assertRaises(TraitError):
                         setattr(obj, trait_name, (min_value-1, max_value))
                     with self.assertRaises(TraitError):

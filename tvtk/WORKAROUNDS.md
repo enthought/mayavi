@@ -14,16 +14,31 @@ layer that can express it.
 - Every workaround MUST have a comment naming the VTK version(s) it applies
   to, ideally with an upstream issue/MR link, and MUST carry the literal
   marker `see tvtk/WORKAROUNDS.md` so that `git grep WORKAROUNDS.md` lists
-  the whole inventory.  When the floor passes the version, the workaround
-  should be culled.  (One marker covers a contiguous registry such as
+  the whole inventory.  (One marker covers a contiguous registry such as
   `special_traits`, not one per entry.)  Platform-keyed workarounds
   (`sys.platform`) get the marker too; version greps cannot see them.
+- **The marker does not mean "delete me at the next bump."**  Two opposite
+  kinds of debt carry it, and they age in opposite directions:
+  - *Backward* workarounds exist for an **old** VTK — a bug present up to
+    some version, a getter that segfaults on 9.4.  Raising `MIN_VTK` past
+    that version deletes them.  These are the bulk of what follows.
+  - *Forward* adaptations exist because a **new** VTK removed or changed
+    API — `vtkCellArray.SetCells`/`GetData` gone in 9.7, replaced with
+    `Import/ExportLegacyFormat`.  Raising the floor never deletes these; it
+    is the *old*-API branch beside them (if any) that becomes dead.  Deleting
+    a forward adaptation breaks the newest VTK, which is what the scheduled
+    `vtk-dev` job in `tests.yml` exists to catch.
 - **Culling requires the right evidence for the bug class.**  Deterministic
   bugs (method removed, API changed) can be verified by probing any one
   platform.  *Uninitialized-value* bugs are platform-dependent — garbage
   memory on Linux can read as a perfectly sane value on macOS — so they may
   only be culled with probes from every platform (in practice: let CI's
   Linux jobs vote) or a fix confirmed in the VTK changelog.
+  *Assertion-precondition* bugs (`BROKEN_GETTERS` in `vtk_parser.py`) are
+  build-dependent, not version- or platform-dependent: release builds compile
+  the `assert` out and merely return junk, while assertion-enabled distro
+  builds (Fedora) abort the process.  No probe of a release build can retire
+  one — only an upstream precondition fix can.
 - Wheels are generated against the *latest* VTK and must run against all
   supported older ones (see `.github/workflows/wheel.yml`), so a workaround
   for an old VTK often must be **unconditional at generation time** (the
@@ -46,6 +61,12 @@ from crashing or producing garbage:
   `vtkPiecewisePointHandleItem`, the `vtkDataSetAttributes.Copy*` pair on
   VTK 9.5.2), and version-keyed "broken getter -> no default" entries near
   the end (grep `Broken in`).
+- `BROKEN_GETTERS` (module level): getters whose VTK-documented precondition
+  a fresh object violates, so probing them aborts an assertion-enabled build.
+  Version-independent — see the Policy note above before retiring one.
+- `code_gen.py` also skips any class with an ignored *ancestor*, since the
+  parent wrapper it would inherit from is never generated (e.g. VTK 9.7's
+  `vtkSOATypeFloat32Array` over `vtkSOADataArrayTemplate_IfE`).
 - Windowed classes (`vtkRenderWindow`, VR interactors) are never
   default-probed on VTK >= 9.5 (realizing + destroying a window segfaults).
   The same bug makes `tvtk/tools/tvtk_doc.py` drop those classes from its
@@ -106,6 +127,16 @@ classes (`Matrix4x4`/`Property` pickling, `Collection` iteration,
 import priority over the generated class of the same name (currently
 empty — the escape hatch of last resort for whole-class replacement).
 
+Two *forward* adaptations live here (see Policy — do not cull them):
+
+- `CellArray.to_array` goes through `ExportLegacyFormat` because VTK 9.7
+  removed `GetData()`.  `array_handler.array2vtkCellArray` is the mirror
+  image, using `ImportLegacyFormat` for the removed `SetCells`.
+- `get_nearest_base_class` walks the full MRO instead of `__bases__[0]`:
+  VTK 9.7 can hand back arrays wrapped in a Python mixin
+  (`VTKAOSArray_vtkFloatArray`) whose first base is the mixin, not the VTK
+  class, which would otherwise resolve to the wrong wrapper (or none).
+
 ## Layer 6: test-level skips (`tvtk/tests/`, `mayavi/tests/`)
 
 Only for VTK bugs that cannot be worked around without losing
@@ -117,7 +148,10 @@ cases:
 - `tvtk/tests/test_tvtk.py`: `test_xopengl_render_window`, plus the
   `windowed_bases` exclusion in the all-classes instantiation test —
   instantiating a windowed class on VTK >= 9.5 segfaults at destruction
-  (see Layer 1).
+  (see Layer 1).  The range-checking test also skips traits that came out
+  as plain properties, which VTK 9.7 introduced by giving `SphereWidget2` an
+  object-valued `SetRepresentation` alongside an unrelated
+  `GetRepresentationMinValue`/`MaxValue`.
 - `mayavi/tests/test_streamline.py`: the whole `TestStreamline` case, which
   on VTK >= 9.5 segfaults inside VTK's array dispatch
   (`vtkDataArray::DeepCopy` -> `GetTuplesFromListWorker` on the

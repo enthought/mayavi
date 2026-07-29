@@ -470,7 +470,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
     An alternative and more efficient way to build the connectivity
     list is to create a vtkIdTypeArray having data of the form
     (npts,p0,p1,...p(npts-1), repeated for each cell) and then call
-    <vtkCellArray_instance>.SetCells(n_cell, id_list).
+    <vtkCellArray_instance>.ImportLegacyFormat(id_list).
 
     Parameters
     ----------
@@ -534,10 +534,12 @@ def array2vtkCellArray(num_array, vtk_array=None):
             tmp_arr = arr.astype(ID_TYPE_CODE)
         return tmp_arr
 
-    def _set_cells(cells, n_cells, id_typ_arr):
+    def _set_cells(cells, id_typ_arr):
         vtk_arr = vtk.vtkIdTypeArray()
         array2vtk(id_typ_arr, vtk_arr)
-        cells.SetCells(n_cells, vtk_arr)
+        # SetCells(n_cells, vtk_arr) was removed in VTK 9.7; the legacy-format
+        # API is the forward fix, present since 9.0 (see tvtk/WORKAROUNDS.md)
+        cells.ImportLegacyFormat(vtk_arr)
     ########################################
 
     msg = "Invalid argument.  Valid types are a Python list of lists,"\
@@ -569,7 +571,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
                 set_id_type_array(tmp_arr, id_typ_arr[count:count+sz])
                 count += sz
             # Now set them cells.
-            _set_cells(cells, n_cells, id_typ_arr)
+            _set_cells(cells, id_typ_arr)
             return cells
         else:
             raise TypeError(msg)
@@ -579,7 +581,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
         shp = tmp_arr.shape
         id_typ_arr = numpy.empty((shp[0]*(shp[1] + 1),), ID_TYPE_CODE)
         set_id_type_array(tmp_arr, id_typ_arr)
-        _set_cells(cells, shp[0], id_typ_arr)
+        _set_cells(cells, id_typ_arr)
         return cells
     else:
         raise TypeError(msg)

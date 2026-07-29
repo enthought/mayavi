@@ -130,7 +130,13 @@ class TVTKGenerator:
             include = ['VTKPythonAlgorithmBase']
             for node in wrap_gen.get_tree():
                 name = node.name
-                if name in ignore:
+                # An ignored ancestor means the parent wrapper data this
+                # class would inherit from is never generated, so it cannot
+                # be wrapped either (e.g. vtkSOATypeFloat32Array, which
+                # subclasses vtkSOADataArrayTemplate_IfE as of VTK 9.7).
+                # See tvtk/WORKAROUNDS.md.
+                if name in ignore or \
+                        any(a.name in ignore for a in node.get_ancestors()):
                     continue
                 if (name not in include and not name.startswith('vtk')) or \
                         name.startswith('vtkQt'):

@@ -77,7 +77,9 @@ commit**:
   entry.
 - Run the greps in its Auditing section and account for every hit: still
   needed at `MIN_VTK`, or deleted.  A version gate whose lower branch is
-  unreachable at the floor is dead code, not a workaround.
+  unreachable at the floor is dead code, not a workaround — but check which
+  direction it faces first, since an adaptation to a *newer* VTK's removed
+  API never expires (see the Policy section).
 - Removing the last workaround for a VTK version means removing its entry
   too, not leaving it as history.
 
@@ -85,7 +87,10 @@ commit**:
 
 - `tests.yml` — same-version matrix: build + test with the *same* VTK
   (latest on all OSes; older VTK/Python/Qt rows on Linux; one headless row
-  with `ETS_TOOLKIT=null`).
+  with `ETS_TOOLKIT=null`), plus a `vtk-dev` row against prerelease wheels
+  from https://wheels.vtk.org.  Also runs weekly on a schedule, which is how
+  VTK-dev breakage gets noticed; a scheduled failure opens an issue (the
+  `issue-on-failure` job) since there is no PR to show it on.
 - `wheel.yml` — mismatch matrix: build per-OS wheels against latest VTK,
   test them against all supported older VTKs (rows deliberately mirror
   `tests.yml` so failures are attributable to the mismatch), `twine check

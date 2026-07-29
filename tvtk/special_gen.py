@@ -454,7 +454,11 @@ class SpecialGenerator:
 
         def to_array(self):
             '''Return the object as a Numeric array.'''
-            return array_handler.vtk2array(self._vtk_obj.GetData())
+            # GetData() was removed in VTK 9.7; the legacy-format API is the
+            # forward fix, present since 9.0 (see tvtk/WORKAROUNDS.md)
+            id_arr = vtk.vtkIdTypeArray()
+            self._vtk_obj.ExportLegacyFormat(id_arr)
+            return array_handler.vtk2array(id_arr)
         """
         out.write(self.indent.format(code))
 
@@ -514,15 +518,17 @@ class HelperGenerator:
             return mod
 
         def get_nearest_base_class(obj):
-            base = None
-            cls = obj.__class__.__bases__[0]
-            while base is None:
+            # Walk the MRO rather than assuming single inheritance: as of
+            # VTK 9.7, data arrays can be returned wrapped in Python mixin
+            # classes (e.g. VTKAOSArray_vtkFloatArray) whose first base is
+            # the mixin, not the VTK class (see tvtk/WORKAROUNDS.md)
+            for cls in type(obj).__mro__[1:]:
                 try:
-                    tvtk_name = get_tvtk_name(cls.__name__)
-                    base = get_class(tvtk_name)
-                except ImportError:
-                    cls = cls.__bases__[0]
-            return base
+                    return get_class(get_tvtk_name(cls.__name__))
+                except (ImportError, AttributeError):
+                    continue
+            raise TypeError('cannot find TVTK base class for ' +
+                            repr(type(obj)))
 
         def get_class(name):
             if name in _cache:
