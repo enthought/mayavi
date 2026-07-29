@@ -21,7 +21,8 @@ from .common import vtk_major_version, vtk_minor_version
 # the usual release builds the assert is compiled out by NDEBUG and the call
 # merely returns a useless value, but distros build VTK with assertions
 # enabled (e.g. Fedora), where the call aborts the whole process and takes the
-# class generation down with it.  See gh-1354.
+# class generation down with it.  See gh-1354 and tvtk/WORKAROUNDS.md -- these
+# are not cullable by a MIN_VTK bump, only by an upstream precondition fix.
 BROKEN_GETTERS = (
     # assert("pre: not_empty" && !IsEmpty()) in
     # vtkGenericAttributeCollection::GetAttributesToInterpolate()

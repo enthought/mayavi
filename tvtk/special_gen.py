@@ -454,7 +454,8 @@ class SpecialGenerator:
 
         def to_array(self):
             '''Return the object as a Numeric array.'''
-            # GetData() was removed in VTK 9.7
+            # GetData() was removed in VTK 9.7; the legacy-format API is the
+            # forward fix, present since 9.0 (see tvtk/WORKAROUNDS.md)
             id_arr = vtk.vtkIdTypeArray()
             self._vtk_obj.ExportLegacyFormat(id_arr)
             return array_handler.vtk2array(id_arr)
@@ -520,7 +521,7 @@ class HelperGenerator:
             # Walk the MRO rather than assuming single inheritance: as of
             # VTK 9.7, data arrays can be returned wrapped in Python mixin
             # classes (e.g. VTKAOSArray_vtkFloatArray) whose first base is
-            # the mixin, not the VTK class
+            # the mixin, not the VTK class (see tvtk/WORKAROUNDS.md)
             for cls in type(obj).__mro__[1:]:
                 try:
                     return get_class(get_tvtk_name(cls.__name__))

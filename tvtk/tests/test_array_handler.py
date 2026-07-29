@@ -27,7 +27,10 @@ def mysum(arr):
 
 
 def export_cells(cells):
-    """Export a vtkCellArray to a vtkIdTypeArray in the legacy format."""
+    """Export a vtkCellArray to a vtkIdTypeArray in the legacy format.
+
+    GetData() was removed in VTK 9.7 -- see tvtk/WORKAROUNDS.md.
+    """
     id_arr = vtk.vtkIdTypeArray()
     cells.ExportLegacyFormat(id_arr)
     return id_arr

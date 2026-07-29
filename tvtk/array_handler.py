@@ -537,7 +537,8 @@ def array2vtkCellArray(num_array, vtk_array=None):
     def _set_cells(cells, id_typ_arr):
         vtk_arr = vtk.vtkIdTypeArray()
         array2vtk(id_typ_arr, vtk_arr)
-        # SetCells(n_cells, vtk_arr) was removed in VTK 9.7
+        # SetCells(n_cells, vtk_arr) was removed in VTK 9.7; the legacy-format
+        # API is the forward fix, present since 9.0 (see tvtk/WORKAROUNDS.md)
         cells.ImportLegacyFormat(vtk_arr)
     ########################################
 

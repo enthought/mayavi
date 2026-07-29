@@ -950,6 +950,7 @@ class TestTVTKModule(unittest.TestCase):
                     # object-valued SetRepresentation plus an unrelated
                     # GetRepresentationMinValue/MaxValue, so the trait is
                     # not a Range and out-of-range values cannot apply
+                    # (see tvtk/WORKAROUNDS.md)
                     if obj.trait(trait_name).type == 'property':
                         continue
                     with self.assertRaises(TraitError):
