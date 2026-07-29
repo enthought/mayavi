@@ -42,7 +42,7 @@ Changes by Fabian Wenzel, Jan. 2016
 
 import sys
 
-from pyface.qt import qt_api, is_qt4
+from pyface.qt import QtCore, qt_api, is_qt4
 if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
 elif qt_api == 'pyqt5':
@@ -203,6 +203,28 @@ def _get_event_pos(ev):
         return ev.x(), ev.y()
 
 
+def _repaint_after_render(platform, qt_version):
+    """Whether a paint event may leave the widget open to painting again.
+
+    Qt >= 6.10 on macOS re-dirties the widget whenever VTK renders into it from
+    within paintEvent, so painting unconditionally spins the event loop at 100%
+    CPU and the window never becomes responsive.  There, only the first paint
+    of a given state may render; later renders have to be driven explicitly by
+    Render() or resizeEvent() (see tvtk/WORKAROUNDS.md and
+    https://github.com/pyvista/pyvistaqt/pull/810).
+    """
+    if platform != 'darwin':
+        return True
+    try:
+        version = tuple(int(x) for x in qt_version.split('.')[:2])
+    except Exception:  # unparseable version, assume the sane behaviour
+        return True
+    return version < (6, 10)
+
+
+_REPAINT_AFTER_RENDER = _repaint_after_render(sys.platform, QtCore.qVersion())
+
+
 class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
     """ A QVTKRenderWindowInteractor for Python and Qt.  Uses a
@@ -297,6 +319,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         self.__saveModifiers = KeyboardModifier.NoModifier
         self.__saveButtons = MouseButton.NoButton
         self.__wheelDelta = 0
+        self.__doPaintEvent = True
 
         # do special handling of some keywords:
         # stereo, rw
@@ -446,9 +469,12 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         return None
 
     def paintEvent(self, ev):
-        # This is intentionally different from the upstream version. 
-        # When we call self._Iren.Render() this ends up initialing 
-        # the window too soon when the LightManager is created. 
+        if not self.__doPaintEvent:
+            return
+        self.__doPaintEvent = _REPAINT_AFTER_RENDER
+        # This is intentionally different from the upstream version.
+        # When we call self._Iren.Render() this ends up initialing
+        # the window too soon when the LightManager is created.
         self._RenderWindow.Render()
 
     def resizeEvent(self, ev):
@@ -459,6 +485,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         vtk.vtkRenderWindow.SetSize(self._RenderWindow, w, h)
         self._Iren.SetSize(w, h)
         self._Iren.ConfigureEvent()
+        self.__doPaintEvent = True
         self.update()
 
     def _GetCtrlShift(self, ev):
@@ -648,6 +675,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         return self._RenderWindow
 
     def Render(self):
+        self.__doPaintEvent = True
         self.update()
 
 
