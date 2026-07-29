@@ -180,10 +180,6 @@ class VTKMethodParser:
         # delegate to attributes older runtime VTKs do not have (e.g.
         # update() calling self._vtk_obj.update, which VTK < 9.4 lacks).
         methods = [m for m in dir(klass) if m[:1].isupper()]
-        if hasattr(klass, '__members__'):
-            # Only VTK versions < 4.5 have these.
-            for m in klass.__members__:
-                methods.remove(m)
         # Ignore the parent methods.
         ignore = self._get_parent_methods(klass)
 
@@ -246,11 +242,6 @@ class VTKMethodParser:
             ignore.extend(['GetProp', 'SetProp'])
         if 'GetViewProps' in methods and 'GetProps' in methods:
             ignore.extend(['GetProps', 'SetProps'])
-        # Remove any deprecated traits.
-        if 'GetScaledText' in methods and 'GetTextScaleMode' in methods:
-            ignore.extend(['GetScaledText', 'SetScaledText',
-                           'ScaledTextOn', 'ScaledTextOff'])
-
         # In VTK >= 9.x, a few vtkIOSSReader getters abort with an
         # uncatchable C++ std::runtime_error ("Could not find property
         # '<NAME>'") when called on the inheriting vtkIOSSCellGridReader,
@@ -706,19 +697,9 @@ class VTKMethodParser:
             obj = None if skip_instance else self._get_instance(klass)
             if obj:
                 for key, value in gsm.items():
-                    # Broken in <= 9.3
-                    if (
-                        (vtk_major_version, vtk_minor_version) <= (9, 3)
-                        and f"{klass_name}.Get{key}" in (
-                            "vtkGenericAttributeCollection.GetAttributesToInterpolate",
-                            "vtkPlotBar.GetLookupTable",
-                            "vtkLagrangianParticleTracker.GetIntegrationModel",
-                        )
-                    ):
-                        default = None
                     # Broken in <= 9.4
                     # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/6729#note_732848
-                    elif (
+                    if (
                         (vtk_major_version, vtk_minor_version) <= (9, 4)
                         and f"{klass_name}.Get{key}" in (
                             "vtkHigherOrderTetra.GetParametricCoords",

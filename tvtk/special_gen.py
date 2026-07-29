@@ -221,7 +221,7 @@ class SpecialGenerator:
                     yield tuple([obj.GetComponent(i, x) for x in range(nc)])
 
         def _check_key(self, key, n):
-            if type(key) not in [int, long]:
+            if not isinstance(key, int):
                 raise TypeError("Only integers are valid keys.")
             if key < 0:
                 key =  n + key
@@ -324,7 +324,7 @@ class SpecialGenerator:
             ##############################################
             # Allow int and long keys. Fixes GH Issue 173.
             ##############################################
-            if not isinstance(key, (int, long)):
+            if not isinstance(key, int):
                 raise TypeError("Only int and long are valid keys.")
             if key < 0:
                 key =  n + key
