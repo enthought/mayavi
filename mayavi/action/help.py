@@ -8,7 +8,7 @@
 
 # Standard library imports.
 from os import path
-import os
+import subprocess
 import sys
 from os.path import join, dirname
 
@@ -34,7 +34,7 @@ if not path.exists(HTML_DIR):
 
 def browser_open(url):
     if sys.platform == 'darwin':
-            os.system('open %s &' % url)
+        subprocess.Popen(['open', url])
     else:
         import webbrowser
         webbrowser.open(url, autoraise=1)
