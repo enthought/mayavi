@@ -5,7 +5,6 @@
 Datasets example
 --------------------------------------------
 
-
 A Mayavi example to show the different data sets. See
 :ref:`data-structures-used-by-mayavi` for a discussion.
 
@@ -32,8 +31,6 @@ The following images are created:
 
       .. image:: ../unstructured_grid.jpg
             :scale: 50
-
-
 
 **Python source code:** :download:`datasets.py`
 

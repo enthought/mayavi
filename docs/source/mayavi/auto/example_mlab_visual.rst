@@ -5,7 +5,6 @@
 Mlab visual example
 --------------------------------------------
 
-
 A very simple example to show how you can use TVTK's visual module
 with mlab and create simple animations.
 
@@ -22,8 +21,6 @@ detailed on section :ref:`animating_a_visualization`.
 If you want to modify the data plotted by the mlab (as in the
 `mlab.test_plot3d()` call) to create an animation, please see section
 :ref:`mlab-animating-data`.
-
-
 
 .. image:: ../images/example_mlab_visual.jpg
     :align: center

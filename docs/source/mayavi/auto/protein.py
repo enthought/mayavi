@@ -9,10 +9,10 @@ Most of the complexity of this example comes from the code turning the
 PDB information into a list of 3D positions, with associated scalar
 and connection information.
 
-We assign a scalar value for the atoms to differenciate the different
+We assign a scalar value for the atoms to differentiate the different
 types of atoms, but it does not correspond to the atomic mass. The size
 and the color of the atom on the visualization is therefore not
-chemicaly-significant.
+chemically-significant.
 
 The atoms are plotted using mlab.points3d, and connections between atoms
 are added to the dataset, and visualized using a surface module.
@@ -54,7 +54,7 @@ if not os.path.exists('pdb%s.ent.gz' % protein_code):
         from urllib.request import urlopen
     print('Downloading protein data, please wait')
     opener = urlopen(
-      'ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
+       'https://files.rcsb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
       % protein_code)
     open('pdb%s.ent.gz' % protein_code, 'wb').write(opener.read())
 
@@ -72,7 +72,7 @@ atoms = set()
 last_atom_label = None
 last_chain_label = None
 for line in infile:
-    line = line.split()
+    line = line.decode('utf-8').split()
     if line[0] in ('ATOM', 'HETATM'):
         nodes[line[1]] = (line[2], line[6], line[7], line[8])
         atoms.add(line[2])
@@ -124,6 +124,8 @@ mlab.clf()
 pts = mlab.points3d(x, y, z, 1.5 * scalars.max() - scalars,
                                     scale_factor=0.015, resolution=10)
 pts.mlab_source.dataset.lines = np.array(connections)
+# Update the pipeline since the connectivity has changed.
+pts.mlab_source.update()
 
 # Use a tube fiter to plot tubes on the link, varying the radius with the
 # scalar value

@@ -4,7 +4,7 @@ and visualizing it using mlab.
 
 In this example, we create a structured-grid data set: we describe
 data, both scalar and vector, lying on a structured-grid, ie a grid where
-each vertex has 6 neighboors. For this we directly create a
+each vertex has 6 neighbors. For this we directly create a
 StructuredGrid tvtk object, rather than using the mlab.pipeline source
 functions, as it gives us more control.
 
@@ -43,10 +43,10 @@ vectors[..., 2] = sin(z * pi)
 # We reorder the points, scalars and vectors so this is as per VTK's
 # requirement of x first, y next and z last.
 pts = pts.transpose(2, 1, 0, 3).copy()
-pts.shape = pts.size / 3, 3
+pts.shape = pts.size // 3, 3
 scalars = scalars.T.copy()
 vectors = vectors.transpose(2, 1, 0, 3).copy()
-vectors.shape = vectors.size / 3, 3
+vectors.shape = vectors.size // 3, 3
 
 # Create the dataset.
 sg = tvtk.StructuredGrid(dimensions=x.shape, points=pts)

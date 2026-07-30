@@ -5,7 +5,6 @@
 Scatter plot example
 --------------------------------------------
 
-
 An example of plotting scatter points with Mayavi's core API.
 
 This script creates a bunch of random points with random scalar data
@@ -29,7 +28,6 @@ Run this script like so::
 Alternatively it can be run as::
 
   $ python scatter_plot.py
-
 
 **Python source code:** :download:`scatter_plot.py`
 

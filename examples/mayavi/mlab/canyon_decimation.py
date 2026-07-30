@@ -46,7 +46,7 @@ if not os.path.exists('N36W113.hgt.zip'):
 import zipfile
 import numpy as np
 
-data = np.fromstring(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'),
+data = np.frombuffer(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'),
                     '>i2')
 data.shape = (3601, 3601)
 data = data[200:400, 1200:1400]

@@ -1,3 +1,11 @@
+.. This file is frozen at 4.8.3; 4.9.0 onwards is written up on GitHub instead.
+   It is rendered as the body of the changes.html docs page.
+
+Release notes for Mayavi 4.9.0 and later are published on the `GitHub releases
+page <https://github.com/enthought/mayavi/releases>`_.  The changelog below
+covers 4.8.3 and earlier.
+
+
 Mayavi 4.8.3
 ============
 
@@ -1567,6 +1575,7 @@ Enhancements
 
 
 20 Apr, 2009 (GV):
+
 ENH [23545]:
      - Add an example gallery to the documentation
 

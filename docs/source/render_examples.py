@@ -4,11 +4,14 @@ Render the examples to images and adds them to the documentation.
 
 # Standard library imports
 import glob
+import inspect
 import os
 import shutil
 import token, tokenize
 import textwrap
 import itertools
+
+import numpy as np
 
 # Enthought imports
 from mayavi import mlab
@@ -17,6 +20,24 @@ from mayavi import mlab
 global_counter = itertools.count()
 
 EXAMPLE_DIR = '../../examples/mayavi'
+
+# Examples whose figure differs from run to run, so that re-rendering would flip
+# the published image back and forth for no gain.  tvtk_in_mayavi draws
+# overlapping translucent actors, and VTK composites those slightly differently
+# about one run in five; see the note in CLAUDE.md for what was tried.
+FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi'})
+
+
+def should_render(short_file_name, image_file):
+    """ Whether to (re-)render an example, honouring MAYAVI_RENDER_FLAKY.
+    """
+    if short_file_name not in FLAKY_EXAMPLES:
+        return True
+    if not os.path.exists(image_file):
+        return True  # nothing committed to fall back on
+    return os.environ.get('MAYAVI_RENDER_FLAKY', '').lower() \
+        not in ('', '0', 'false', 'no')
+
 
 def is_mlab_example(filename):
     tokens = tokenize.generate_tokens(open(filename).readline)
@@ -35,6 +56,7 @@ def run_mlab_file(filename, image_file):
         pass
     mlab.show = my_show
     mlab.clf()
+    np.random.seed(0)  # so an example plotting random data renders the same way
     e = mlab.get_engine()
     e.close_scene(mlab.gcf())
     exec(
@@ -66,7 +88,9 @@ def extract_docstring(filename):
         if tok_type in ('NEWLINE', 'COMMENT', 'NL', 'INDENT', 'DEDENT'):
             continue
         elif tok_type == 'STRING':
-            docstring = eval(tok_content)
+            # cleandoc, not the raw string: a `""" Foo` opener would otherwise
+            # indent the first line only, which rst reads as a block quote
+            docstring = inspect.cleandoc(eval(tok_content))
             # If the docstring is formatted with several paragraphs, extract
             # the first one:
             paragraphs = '\n'.join(line.rstrip()
@@ -312,40 +336,40 @@ section of the user guide for more information (
 | |quiver3d.jpg|   |  |flow.jpg|             | |volume_slice.jpg|   |
 +------------------+-------------------------+----------------------+
 
-.. |plot3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_plot3d.jpg
+.. |plot3d.jpg| image:: ../generated_images/mayavi_mlab_plot3d.jpg
      :width: 150
 
-.. |points3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_points3d.jpg
+.. |points3d.jpg| image:: ../generated_images/mayavi_mlab_points3d.jpg
      :width: 150
 
-.. |imshow.jpg| image:: ../generated_images/enthought_mayavi_mlab_imshow.jpg
+.. |imshow.jpg| image:: ../generated_images/mayavi_mlab_imshow.jpg
      :width: 150
 
-.. |contour_surf.jpg| image:: ../generated_images/enthought_mayavi_mlab_contour_surf.jpg
+.. |contour_surf.jpg| image:: ../generated_images/mayavi_mlab_contour_surf.jpg
      :width: 150
 
-.. |triangular_mesh.jpg| image:: ../generated_images/enthought_mayavi_mlab_triangular_mesh.jpg
+.. |triangular_mesh.jpg| image:: ../generated_images/mayavi_mlab_triangular_mesh.jpg
      :width: 150
 
-.. |surf.jpg| image:: ../generated_images/enthought_mayavi_mlab_surf.jpg
+.. |surf.jpg| image:: ../generated_images/mayavi_mlab_surf.jpg
      :width: 150
 
-.. |mesh.jpg| image:: ../generated_images/enthought_mayavi_mlab_mesh.jpg
+.. |mesh.jpg| image:: ../generated_images/mayavi_mlab_mesh.jpg
      :width: 150
 
-.. |barchart.jpg| image:: ../generated_images/enthought_mayavi_mlab_barchart.jpg
+.. |barchart.jpg| image:: ../generated_images/mayavi_mlab_barchart.jpg
      :width: 150
 
-.. |contour3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_contour3d.jpg
+.. |contour3d.jpg| image:: ../generated_images/mayavi_mlab_contour3d.jpg
      :width: 150
 
-.. |quiver3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_quiver3d.jpg
+.. |quiver3d.jpg| image:: ../generated_images/mayavi_mlab_quiver3d.jpg
      :width: 150
 
-.. |flow.jpg| image:: ../generated_images/enthought_mayavi_mlab_flow.jpg
+.. |flow.jpg| image:: ../generated_images/mayavi_mlab_flow.jpg
      :width: 150
 
-.. |volume_slice.jpg| image:: ../generated_images/enthought_mayavi_mlab_volume_slice.jpg
+.. |volume_slice.jpg| image:: ../generated_images/mayavi_mlab_volume_slice.jpg
      :width: 150
 
 
@@ -386,9 +410,16 @@ Advanced mlab examples
         filename, short_file_name, short_desc, title, docstring, end_row = \
                                                             file_details
         if self.render_images:
-            print("Generating images for %s" % filename)
             image_file = os.path.join(self.images_dir, 'example_%s.jpg' \
                                     % short_file_name)
+            if not should_render(short_file_name, image_file):
+                print("Keeping the committed image for %s; it does not render "
+                      "reproducibly (set MAYAVI_RENDER_FLAKY=1 to redo it)"
+                      % filename)
+                ImagesExampleLister.render_example_page(self, stream, index,
+                                                        file_details)
+                return
+            print("Generating images for %s" % filename)
             run_mlab_file(filename, image_file=image_file)
         ImagesExampleLister.render_example_page(self, stream,
                                                 index, file_details)
@@ -500,5 +531,3 @@ Examples showing how you can query and interact with the data.
 
 if __name__ == '__main__':
     render_examples()
-    import shutil
-    shutil.copyfile('../CHANGES.txt', './mayavi/auto/changes.rst')

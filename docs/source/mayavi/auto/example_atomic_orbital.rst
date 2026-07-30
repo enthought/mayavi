@@ -5,7 +5,6 @@
 Atomic orbital example
 --------------------------------------------------------------------
 
-
 An example showing the norm and phase of an atomic orbital: isosurfaces of
 the norm, with colors  displaying the phase.
 
@@ -25,7 +24,6 @@ Creating a data source with two scalar datasets is actually slightly
 tricky, as it requires some understanding of the layout of the datasets
 in TVTK. The reader is referred to :ref:`data-structures-used-by-mayavi`
 for more details.
-
 
 .. image:: ../generated_images/example_atomic_orbital.jpg
     :align: center

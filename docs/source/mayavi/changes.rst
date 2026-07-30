@@ -1,11 +1,9 @@
+.. The body is docs/CHANGES.txt, copied to auto/changes.rst by conf.py.  It is
+   included rather than toctree'd so that this page (the long-standing
+   changes.html URL) holds the release notes itself.
 
-.. This file is there only to add a level in the table of content
-
-
+=========
 Changelog
-===========
+=========
 
-.. toctree::
-
-    auto/changes.rst
-
+.. include:: auto/changes.rst

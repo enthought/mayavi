@@ -26,7 +26,7 @@ changed.
 Simpler examples of magnetic field visualization can be found on
 :ref:`example_magnetic_field_lines` and :ref:`example_magnetic_field`.
 The material required to understand this example is covered in section
-:ref:`builing_applications`.
+:ref:`building_applications`.
 
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>

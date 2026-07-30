@@ -5,7 +5,6 @@
 Delaunay graph example
 --------------------------------------------
 
-
 An example illustrating graph manipulation and display with Mayavi
 and NetworkX.
 
@@ -45,8 +44,6 @@ To visualize the graph (function `graph_plot`), we build a list of
 vectors giving the edges, and use `mlab.quiver3d` to display them. To
 display an unoriented graph, it is best to use the `2ddash` mode of
 `quiver3d`.
-
-
 
 **Python source code:** :download:`delaunay_graph.py`
 

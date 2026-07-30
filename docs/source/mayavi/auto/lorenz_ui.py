@@ -6,12 +6,13 @@ the fly.  This primarily demonstrates how one can build powerful tools
 with a UI using Traits and Mayavi.
 
 For explanations and more examples of interactive application building
-with Mayavi, please refer to section :ref:`builing_applications`.
+with Mayavi, please refer to section :ref:`building_applications`.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008-2020, Enthought, Inc.
 # License: BSD Style.
 
+import ast
 import numpy as np
 import scipy
 
@@ -139,4 +140,3 @@ if __name__ == '__main__':
     # Instantiate the class and configure its traits.
     lor = Lorenz()
     lor.configure_traits()
-

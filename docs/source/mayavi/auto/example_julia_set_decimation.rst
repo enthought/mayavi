@@ -5,7 +5,6 @@
 Julia set decimation example
 --------------------------------------------------------------------
 
-
 The Julia set, but with a decimated mesh: unnecessary triangles due to the
 initial grid and not matching the geometry of the Julia set
 are removed.
@@ -29,7 +28,6 @@ decimation.
 In the specific case of decimating a surface warped from 2D data, it is
 more efficient to use the greedy-terrain-decimator, see the
 :ref:`example_canyon_decimation`.
-
 
 .. image:: ../generated_images/example_julia_set_decimation.jpg
     :align: center

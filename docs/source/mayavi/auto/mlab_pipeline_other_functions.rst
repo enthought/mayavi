@@ -70,9 +70,7 @@ contour_grid_plane
 
 .. function:: contour_grid_plane(*args, **kwargs)
 
-    
-    ::
-     Applies the ContourGridPlane mayavi module to the given data
+    Applies the ContourGridPlane mayavi module to the given data
     source (Mayavi source, or VTK dataset).
     
     **Keyword arguments:**
@@ -176,9 +174,7 @@ custom_grid_plane
 
 .. function:: custom_grid_plane(*args, **kwargs)
 
-    
-    ::
-     Applies the CustomGridPlane mayavi module to the given VTK data
+    Applies the CustomGridPlane mayavi module to the given VTK data
     source (Mayavi source, or VTK dataset).
     
     **Keyword arguments:**
@@ -738,9 +734,7 @@ image_plane_widget
 
 .. function:: image_plane_widget(*args, **kwargs)
 
-    
-    ::
-     Applies the ImagePlaneWidget mayavi module to the given data
+    Applies the ImagePlaneWidget mayavi module to the given data
     source (Mayavi source, or VTK dataset).
     
     **Keyword arguments:**
@@ -1011,9 +1005,7 @@ scalar_cut_plane
 
 .. function:: scalar_cut_plane(*args, **kwargs)
 
-    
-    ::
-     Applies the ScalarCutPlane mayavi module to the given data
+    Applies the ScalarCutPlane mayavi module to the given data
     source (Mayavi source, or VTK dataset).
     
     **Keyword arguments:**
@@ -1084,9 +1076,7 @@ set_active_attribute
 
 .. function:: set_active_attribute(*args, **kwargs)
 
-    
-    ::
-     Applies the SetActiveAttribute Filter mayavi filter to the given
+    Applies the SetActiveAttribute Filter mayavi filter to the given
     VTK object.
     
     **Keyword arguments:**
@@ -1540,9 +1530,7 @@ vector_cut_plane
 
 .. function:: vector_cut_plane(*args, **kwargs)
 
-    
-    ::
-     Applies the VectorCutPlane mayavi module to the given data
+    Applies the VectorCutPlane mayavi module to the given data
     source (Mayavi source, or VTK dataset).
     
     **Keyword arguments:**
@@ -1688,9 +1676,7 @@ volume
 
 .. function:: volume(*args, **kwargs)
 
-    
-    ::
-     Applies the Volume mayavi module to the given VTK data
+    Applies the Volume mayavi module to the given VTK data
     source (Mayavi source, or VTK dataset).
     
     **Note**

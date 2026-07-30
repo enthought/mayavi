@@ -16,57 +16,59 @@ section of the user guide for more information (
 
 .. currentmodule:: mayavi.mlab
 
-+------------------+-------------------------+---------------------+
-| :func:`plot3d`   | :func:`points3d`        | :func:`imshow`      |
-|                  |                         |                     |
-| |plot3d.jpg|     | |points3d.jpg|          | |imshow.jpg|        |
-+------------------+-------------------------+---------------------+
-| :func:`surf`     | :func:`contour_surf`    | :func:`mesh`        |
-|                  |                         |                     |
-| |surf.jpg|       | |contour_surf.jpg|      | |mesh.jpg|          |
-+------------------+-------------------------+---------------------+
-| :func:`barchart` | :func:`triangular_mesh` | :func:`contour3d`   |
-|                  |                         |                     |
-| |barchart.jpg|   | |triangular_mesh.jpg|   | |contour3d.jpg|     |
-+------------------+-------------------------+---------------------+
-| :func:`quiver3d` | :func:`flow`            |                     |
-|                  |                         |                     |
-| |quiver3d.jpg|   |  |flow.jpg|             |                     |
-+------------------+-------------------------+---------------------+
++------------------+-------------------------+----------------------+
+| :func:`plot3d`   | :func:`points3d`        | :func:`imshow`       |
+|                  |                         |                      |
+| |plot3d.jpg|     | |points3d.jpg|          | |imshow.jpg|         |
++------------------+-------------------------+----------------------+
+| :func:`surf`     | :func:`contour_surf`    | :func:`mesh`         |
+|                  |                         |                      |
+| |surf.jpg|       | |contour_surf.jpg|      | |mesh.jpg|           |
++------------------+-------------------------+----------------------+
+| :func:`barchart` | :func:`triangular_mesh` | :func:`contour3d`    |
+|                  |                         |                      |
+| |barchart.jpg|   | |triangular_mesh.jpg|   | |contour3d.jpg|      |
++------------------+-------------------------+----------------------+
+| :func:`quiver3d` | :func:`flow`            | :func:`volume_slice` |
+|                  |                         |                      |
+| |quiver3d.jpg|   |  |flow.jpg|             | |volume_slice.jpg|   |
++------------------+-------------------------+----------------------+
 
-.. |plot3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_plot3d.jpg
+.. |plot3d.jpg| image:: ../generated_images/mayavi_mlab_plot3d.jpg
      :width: 150
 
-.. |points3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_points3d.jpg
+.. |points3d.jpg| image:: ../generated_images/mayavi_mlab_points3d.jpg
      :width: 150
 
-.. |imshow.jpg| image:: ../generated_images/enthought_mayavi_mlab_imshow.jpg
+.. |imshow.jpg| image:: ../generated_images/mayavi_mlab_imshow.jpg
      :width: 150
 
-.. |contour_surf.jpg| image:: ../generated_images/enthought_mayavi_mlab_contour_surf.jpg
+.. |contour_surf.jpg| image:: ../generated_images/mayavi_mlab_contour_surf.jpg
      :width: 150
 
-.. |triangular_mesh.jpg| image:: ../generated_images/enthought_mayavi_mlab_triangular_mesh.jpg
+.. |triangular_mesh.jpg| image:: ../generated_images/mayavi_mlab_triangular_mesh.jpg
      :width: 150
 
-.. |surf.jpg| image:: ../generated_images/enthought_mayavi_mlab_surf.jpg
+.. |surf.jpg| image:: ../generated_images/mayavi_mlab_surf.jpg
      :width: 150
 
-.. |mesh.jpg| image:: ../generated_images/enthought_mayavi_mlab_mesh.jpg
+.. |mesh.jpg| image:: ../generated_images/mayavi_mlab_mesh.jpg
      :width: 150
 
-.. |barchart.jpg| image:: ../generated_images/enthought_mayavi_mlab_barchart.jpg
+.. |barchart.jpg| image:: ../generated_images/mayavi_mlab_barchart.jpg
      :width: 150
 
-.. |contour3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_contour3d.jpg
+.. |contour3d.jpg| image:: ../generated_images/mayavi_mlab_contour3d.jpg
      :width: 150
 
-.. |quiver3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_quiver3d.jpg
+.. |quiver3d.jpg| image:: ../generated_images/mayavi_mlab_quiver3d.jpg
      :width: 150
 
-.. |flow.jpg| image:: ../generated_images/enthought_mayavi_mlab_flow.jpg
+.. |flow.jpg| image:: ../generated_images/mayavi_mlab_flow.jpg
      :width: 150
 
+.. |volume_slice.jpg| image:: ../generated_images/mayavi_mlab_volume_slice.jpg
+     :width: 150
 
 
 Advanced mlab examples
@@ -77,9 +79,9 @@ Advanced mlab examples
 
    example_julia_set.rst
    example_boy.rst
-   example_bunny.rst
-   example_dragon.rst
    example_lucy.rst
+   example_dragon.rst
+   example_bunny.rst
    example_custom_colormap.rst
    example_surface_from_irregular_data.rst
    example_spherical_harmonics.rst
@@ -89,9 +91,9 @@ Advanced mlab examples
    example_simple_structured_grid.rst
    example_atomic_orbital.rst
    example_tvtk_in_mayavi.rst
-   example_chemistry.rst
    example_wigner.rst
    example_canyon_decimation.rst
+   example_chemistry.rst
    example_plotting_many_lines.rst
    example_magnetic_field_lines.rst
    example_mri.rst
@@ -107,19 +109,16 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0002| raw:: html
-
-    <br/>
-
-            
-.. |0003| raw:: html
-
-    <br/>
+.. |0002| image:: ../generated_images/example_lucy.jpg
+    :width: 150
 
             
-.. |0004| raw:: html
+.. |0003| image:: ../generated_images/example_dragon.jpg
+    :width: 150
 
-    <br/>
+            
+.. |0004| image:: ../generated_images/example_bunny.jpg
+    :width: 150
 
             
 .. |0005| image:: ../generated_images/example_custom_colormap.jpg
@@ -158,15 +157,15 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0014| image:: ../generated_images/example_chemistry.jpg
+.. |0014| image:: ../generated_images/example_wigner.jpg
     :width: 150
 
             
-.. |0015| image:: ../generated_images/example_wigner.jpg
+.. |0015| image:: ../generated_images/example_canyon_decimation.jpg
     :width: 150
 
             
-.. |0016| image:: ../generated_images/example_canyon_decimation.jpg
+.. |0016| image:: ../generated_images/example_chemistry.jpg
     :width: 150
 
             
@@ -200,22 +199,22 @@ Advanced mlab examples
          A script to generate the Mayavi logo: a
          Boy surface.
 
-|0002|  :ref:`example_bunny`
+|0002|  :ref:`example_lucy`
          Viewing Stanford 3D Scanning Repository
-         bunny model
+         lucy model
 
 |0003|  :ref:`example_dragon`
          Viewing Stanford 3D Scanning Repository
          dragon model
 
-|0004|  :ref:`example_lucy`
+|0004|  :ref:`example_bunny`
          Viewing Stanford 3D Scanning Repository
-         lucy model
+         bunny model
 
 |0005|  :ref:`example_custom_colormap`
-         An example showing how a custom
-         colormap (or look up table) can be used
-         for a given object.
+         An example showing how a custom colormap
+         (or look up table) can be used for a
+         given object.
 
 |0006|  :ref:`example_surface_from_irregular_data`
          An example which shows how to plot a
@@ -248,8 +247,8 @@ Advanced mlab examples
          and visualizing it using mlab.
 
 |0012|  :ref:`example_atomic_orbital`
-         An example showing the norm and phase
-         of an atomic orbital: isosurfaces of the
+         An example showing the norm and phase of
+         an atomic orbital: isosurfaces of the
          norm, with colors  displaying the phase.
 
 |0013|  :ref:`example_tvtk_in_mayavi`
@@ -257,21 +256,21 @@ Advanced mlab examples
          build TVTK objects, which are then added
          to a Mayavi scene.
 
-|0014|  :ref:`example_chemistry`
+|0014|  :ref:`example_wigner`
+         An example in which 3 functions of x and
+         y  are displayed with a surf plot, while
+         the z scaling is kept constant, to allow
+         comparison between them.
+
+|0015|  :ref:`example_canyon_decimation`
+         Use the greedy-terrain-decimator to
+         display a decimated terrain view.
+
+|0016|  :ref:`example_chemistry`
          In this example, we display the H2O
          molecule, and use volume rendering to
          display the electron localization
          function.
-
-|0015|  :ref:`example_wigner`
-         An example in which 3 functions of x
-         and y  are displayed with a surf plot,
-         while the z scaling is kept constant, to
-         allow comparison between them.
-
-|0016|  :ref:`example_canyon_decimation`
-         Use the greedy-terrain-decimator to
-         display a decimated terrain view.
 
 |0017|  :ref:`example_plotting_many_lines`
          This examples shows how many lines can
@@ -363,8 +362,9 @@ applications.
     <br/>
 
             
-.. |0106| image:: ../images/example_mlab_interactive_dialog.png
-    :width: 150
+.. |0106| raw:: html
+
+    <br/>
 
             
 .. |0107| raw:: html
@@ -460,8 +460,8 @@ applications.
          visualized  via an interactive dialog.
 
 |0107|  :ref:`example_wx_mayavi_embed_in_notebook`
-         This example show how to embedded
-         Mayavi in a wx notebook.
+         This example show how to embedded Mayavi
+         in a wx notebook.
 
 |0108|  :ref:`example_subclassing_mayavi_application`
          This script demonstrates how one can
@@ -471,9 +471,9 @@ applications.
          modules.
 
 |0109|  :ref:`example_mayavi_traits_ui`
-         An example of how to create a UI
-         similar to the complete Mayavi
-         application inside a Traits UI view.
+         An example of how to create a UI similar
+         to the complete Mayavi application
+         inside a Traits UI view.
 
 |0110|  :ref:`example_compute_in_thread`
          This script demonstrates how one can do
@@ -489,9 +489,8 @@ applications.
          application.
 
 |0112|  :ref:`example_adjust_cropping_extents`
-         A custom dialog to adjust the
-         parameters of a GeometryFilter to crop
-         data points.
+         A custom dialog to adjust the parameters
+         of a GeometryFilter to crop data points.
 
 |0113|  :ref:`example_poll_file`
          A simple script that polls a data file
@@ -509,9 +508,9 @@ applications.
          tools with a UI using Traits and Mayavi.
 
 |0115|  :ref:`example_volume_slicer`
-         Example of an elaborate dialog showing
-         a multiple views on the same data, with
-         3 cuts synchronized.
+         Example of an elaborate dialog showing a
+         multiple views on the same data, with 3
+         cuts synchronized.
 
 |0116|  :ref:`example_coil_design_application`
          An full-blown application demoing a
@@ -539,6 +538,7 @@ more fine control than mlab.
 .. toctree::
    :hidden:
 
+   example_multi_block.rst
    example_polydata.rst
    example_offscreen.rst
    example_surf_regular_mlab.rst
@@ -546,9 +546,9 @@ more fine control than mlab.
    example_structured_points2d.rst
    example_contour_contour.rst
    example_scatter_plot.rst
-   example_streamline.rst
-   example_numeric_source.rst
    example_structured_points3d.rst
+   example_numeric_source.rst
+   example_streamline.rst
    example_image_cursor_filter.rst
    example_contour.rst
    example_probe_filter.rst
@@ -562,6 +562,9 @@ more fine control than mlab.
 
 .. A comment to split paragraphs
 
+
+* :ref:`example_multi_block`
+    
 
 * :ref:`example_polydata`
     An example of how to generate a polydata dataset using numpy arrays.
@@ -590,18 +593,18 @@ more fine control than mlab.
 * :ref:`example_scatter_plot`
     An example of plotting scatter points with Mayavi's core API.
 
-* :ref:`example_streamline`
-    This script demonstrates how one can script Mayavi's core API to display
-    streamlines and an iso surface.
+* :ref:`example_structured_points3d`
+    An example of how to generate a 3D structured points dataset
+    using numpy arrays.  Also shown is a way to visualize this data with
+    the mayavi2 application.
 
 * :ref:`example_numeric_source`
     This script demonstrates how to create a numpy array data and
     visualize it as image data using a few modules.
 
-* :ref:`example_structured_points3d`
-    An example of how to generate a 3D structured points dataset
-    using numpy arrays.  Also shown is a way to visualize this data with
-    the mayavi2 application.
+* :ref:`example_streamline`
+    This script demonstrates how one can script Mayavi's core API to display
+    streamlines and an iso surface.
 
 * :ref:`example_image_cursor_filter`
     Excample using the UserDefined filter to paint a cross-shaped cursor on data,
@@ -658,6 +661,7 @@ Examples showing how you can query and interact with the data.
 
    example_pick_on_surface.rst
    example_select_red_balls.rst
+   example_normal_flipping_stl.rst
 
 .. A comment to split paragraphs
 
@@ -669,6 +673,9 @@ Examples showing how you can query and interact with the data.
 * :ref:`example_select_red_balls`
     This example shows how to use a callback to select a red ball amongst white
     balls.
+
+* :ref:`example_normal_flipping_stl`
+    This example shows how to read a stl file and flip it's normals.
 
 Misc examples
 --------------------------------------------------

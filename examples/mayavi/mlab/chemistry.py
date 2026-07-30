@@ -25,7 +25,10 @@ if not os.path.exists('h2o-elf.cube'):
     except ImportError:
         from urllib.request import urlopen
     print('Downloading data, please wait')
+    # code.enthought.com now redirects this to an HTML page, so read the last
+    # snapshot that still served the data
     opener = urlopen(
+        'https://web.archive.org/web/20170323103111id_/'
         'http://code.enthought.com/projects/mayavi/data/h2o-elf.cube'
         )
     open('h2o-elf.cube', 'wb').write(opener.read())
@@ -68,8 +71,9 @@ mlab.plot3d(atoms_x, atoms_y, atoms_z, [1, 2, 1],
 # Display the electron localization function ##################################
 
 # Load the data, we need to remove the first 8 lines and the '\n'
-str = ' '.join(file('h2o-elf.cube').readlines()[9:])
-data = np.fromstring(str, sep=' ')
+with open('h2o-elf.cube') as fid:
+    text = ' '.join(fid.readlines()[9:])
+data = np.array(text.split(), dtype=float)
 data.shape = (40, 40, 40)
 
 source = mlab.pipeline.scalar_field(data)

@@ -26,7 +26,7 @@ changed.
 Simpler examples of magnetic field visualization can be found on
 :ref:`example_magnetic_field_lines` and :ref:`example_magnetic_field`.
 The material required to understand this example is covered in section
-:ref:`builing_applications`.
+:ref:`building_applications`.
 
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
@@ -265,8 +265,8 @@ class Application(HasTraits):
         else:
             # Modify in place the data source. The visualization will
             # update automaticaly
-            self.vector_field.mlab_source.trait_set(
-                u=self.Bx, v=self.By, w=self.Bz, scalars=self.Bnorm)
+            self.vector_field.mlab_source.trait_set(u=self.Bx, v=self.By, w=self.Bz,
+                                              scalars=self.Bnorm)
         self.scene.scene.disable_render = False
 
 

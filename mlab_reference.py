@@ -7,6 +7,7 @@ Script to generate the function reference for mlab.
 # License: BSD Style.
 
 import os
+import re
 import sys
 
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source')
@@ -18,7 +19,7 @@ OUT_DIR = os.sep.join(
 from mayavi.tools import auto_doc
 from mayavi import mlab
 
-from inspect import getmembers, getsource, signature
+from inspect import cleandoc, getmembers, getsource, signature
 from docutils import io as docIO
 from docutils import core as docCore
 
@@ -107,9 +108,15 @@ def document_function(func, func_name=None, example_code=None,
         if is_valid_rst(func_doc):
             func_doc = dedent(func_doc)
         else:
-            func_doc = "\n::\n" + func_doc
+            # the literal block needs a blank line and its content indented
+            # relative to the ``::``, else the docstring's own indentation
+            # decides where the block ends
+            func_doc = "\n::\n\n" + indent(cleandoc(func_doc))
 
-    func_signature = str(signature(func))
+    # elide the id from defaults that repr as <... object at 0x...>, which would
+    # otherwise churn the generated file on every run; ellipsised rather than
+    # dropped so the reader knows a real address shows up there
+    func_signature = re.sub(r' at 0x[0-9a-f]+', ' at 0x...', str(signature(func)))
 
     documentation = """
 %(func_name)s
@@ -406,7 +413,7 @@ using::
 
 These functions can be used for finer control of the Mayavi
 pipeline than the main mlab interface. For usage examples, see
-:ref:`ontrolling-the-pipeline-with-mlab-scripts`.
+:ref:`controlling-the-pipeline-with-mlab-scripts`.
 
 """,
             sub_modules = [sources.__name__, tools.__name__,

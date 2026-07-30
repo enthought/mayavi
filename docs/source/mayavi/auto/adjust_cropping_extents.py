@@ -19,6 +19,7 @@ on creating GUIs with Traits:
     https://docs.enthought.com/traits
 
     https://support.enthought.com/hc/en-us/articles/204469620-Introductory-materials-for-Traits-and-Traits-UI
+
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2010, Enthought, Inc.

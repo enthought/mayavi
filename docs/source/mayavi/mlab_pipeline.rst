@@ -76,12 +76,12 @@ or engineering.
 
     * :func:`scalar_scatter` (creates a :ref:`poly_data`)
     
-      .. image:: generated_images/enthought_mayavi_mlab_points3d.jpg 
+      .. image:: generated_images/mayavi_mlab_points3d.jpg 
 	:scale: 38
 
     * :func:`vector_scatter` (creates an :ref:`poly_data`)
 
-      .. image:: generated_images/enthought_mayavi_mlab_quiver3d.jpg 
+      .. image:: generated_images/mayavi_mlab_quiver3d.jpg 
 	:scale: 40
     
 :implicitly-connected sources:
@@ -90,17 +90,17 @@ or engineering.
 
     * :func:`scalar_field` (creates an :ref:`image_data`)
     
-      .. image:: generated_images/enthought_mayavi_mlab_contour3d.jpg 
+      .. image:: generated_images/mayavi_mlab_contour3d.jpg 
 	:scale: 38
  
     * :func:`vector_field` (creates an :ref:`image_data`)
 
-      .. image:: generated_images/enthought_mayavi_mlab_flow.jpg 
+      .. image:: generated_images/mayavi_mlab_flow.jpg 
 	:scale: 50
     
     * :func:`array2d_source` (creates an :ref:`image_data`)
 
-      .. image:: generated_images/enthought_mayavi_mlab_imshow.jpg 
+      .. image:: generated_images/mayavi_mlab_imshow.jpg 
 	:scale: 45
 
 :Explicitly-connected sources:
@@ -109,7 +109,7 @@ or engineering.
 
     * :func:`line_source` (creates an :ref:`poly_data`)
 
-      .. image:: generated_images/enthought_mayavi_mlab_plot3d.jpg 
+      .. image:: generated_images/mayavi_mlab_plot3d.jpg 
 	:scale: 50
     
     * :func:`triangular_mesh_source` (creates an :ref:`poly_data`)

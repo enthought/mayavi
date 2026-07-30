@@ -5,7 +5,6 @@
 Mlab 3D to 2D example
 --------------------------------------------
 
-
 A script to calculate the projection of 3D world coordinates to
 2D display coordinates (pixel coordinates) for a given scene.
 
@@ -111,8 +110,6 @@ we are on our there to create one (no worries though, its not hard, as
 you will see).
 
 Now that the prelimenaries are out of the way, lets get started.
-
-
 
 **Python source code:** :download:`mlab_3D_to_2D.py`
 

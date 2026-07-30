@@ -1,0 +1,133 @@
+name: Docs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      render_flaky:
+        description: 'Also re-render the images that do not render reproducibly'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 15  # ~7 min, the tvtk class generation being most of it
+
+    env:
+      # ETS_TOOLKIT is deliberately unset: the Makefiles default it to null for
+      # the sphinx build (see the note in docs/MakefileMayavi), and setting it
+      # here would win over their ?= and break that
+      QT_API: pyside6
+      PYTHONUNBUFFERED: '1'
+      # a missing wheel should fail fast rather than start building VTK from
+      # source; as an env var this reaches the isolated build environment too
+      PIP_ONLY_BINARY: numpy,vtk
+
+    steps:
+    - uses: actions/checkout@v7.0.0
+      with:
+        persist-credentials: false
+        # setuptools_scm derives the version from git tags, which a shallow
+        # clone does not have (the version would come out as "0.0.0")
+        fetch-depth: 0
+    - uses: pyvista/setup-headless-display-action@v4
+      with:
+        qt: true
+    - uses: actions/setup-python@v6.3.0
+      with:
+        python-version: '3.14'
+    - run: python -m pip install --upgrade pip  # --group needs pip >= 25.1
+    - run: python -m pip install --group docs -ve ".[app]"
+    - name: Cache the example datasets
+      # the examples urlretrieve these into the cwd they run in, with no
+      # timeout; lucy.tar.gz alone is 322 MB.  Bump the key if a URL changes.
+      uses: actions/cache@v4.3.0
+      with:
+        path: |
+          docs/source/*.tar.gz
+          docs/source/*.zip
+          docs/source/*.ent.gz
+          docs/source/*.cube
+        key: example-data-v1
+    - name: Render the gallery images and regenerate the mlab reference
+      timeout-minutes: 5  # ~1 min, most of it downloading uncached datasets
+      env:
+        # rendering needs a real toolkit; the sphinx build must not have one, or
+        # PySide6's import hook trips over autodoc's mocked wx (17 warnings, and
+        # -W makes those fatal)
+        ETS_TOOLKIT: qt4
+        # empty for push/pull_request, so those runs keep the committed image
+        MAYAVI_RENDER_FLAKY: ${{ inputs.render_flaky }}
+      run: python scripts/render_docs.py
+    - name: Report regenerated files
+      run: git --no-pager diff --stat
+    - run: make -C docs site
+    - uses: actions/upload-pages-artifact@v5.0.0
+      with:
+        path: docs/build/site
+    - name: Upload the site again, browsable
+      # the github-pages artifact above is an artifact.tar inside the zip, so it
+      # takes two unpacks before you can point a web server at it.  GitHub has
+      # no CircleCI-style linked HTML preview: deploy-pages does have a
+      # "preview" input, but it is alpha and not available to the public.
+      uses: actions/upload-artifact@v7.0.1
+      with:
+        name: docs-site
+        path: docs/build/site
+        retention-days: 14
+
+  deploy:
+    name: Deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+    - id: deploy
+      uses: actions/deploy-pages@v5.0.0
+
+  # a push to main has no pull request where a failure would be noticed, and a
+  # broken docs build means docs.enthought.com stops being updated
+  issue-on-failure:
+    name: Open issue on failure
+    needs: [build, deploy]
+    if: failure() && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+    - uses: actions/checkout@v7.0.0
+      with:
+        persist-credentials: false
+        sparse-checkout: .github/actions
+    - uses: ./.github/actions/open-issue
+      with:
+        token: ${{ github.token }}
+        title: Docs build on main is failing
+        body: |
+          The docs build for a push to `main` failed, so
+          https://docs.enthought.com/mayavi/ is no longer being updated.
+
+          The build treats Sphinx warnings as errors and re-renders the example
+          gallery, so this is usually either a new warning or an example that
+          stopped rendering.

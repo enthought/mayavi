@@ -5,7 +5,6 @@
 Magnetic field lines example
 --------------------------------------------------------------------
 
-
 This example uses the streamline module to display field lines of a
 magnetic dipole (a current loop).
 
@@ -21,7 +20,6 @@ possible.
 For a more thorough example of magnetic field calculation and
 visualization with Mayavi and scipy, see
 :ref:`example_magnetic_field`.
-
 
 .. image:: ../generated_images/example_magnetic_field_lines.jpg
     :align: center

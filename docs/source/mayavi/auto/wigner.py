@@ -21,20 +21,20 @@ and ranges in order to make them fit with the data.
 # License: BSD Style.
 
 
-import numpy
+import numpy as np
 from mayavi import mlab
 
 
 def cat(x, y, alpha, eta=1, purity=1):
     """ Multiphoton shrodinger cat. eta is the fidelity, alpha the number
         of photons"""
-    cos = numpy.cos
-    exp = numpy.exp
+    cos = np.cos
+    exp = np.exp
     return (1 + eta * (exp(-x ** 2 - (y - alpha) ** 2) + exp(-x ** 2 -
     (y + alpha) ** 2) + 2 * purity * exp(-x ** 2 - y ** 2) * cos(2 * \
     alpha * x)) / (2 * (1 + exp(- alpha ** 2)))) / 2
 
-x, y = numpy.mgrid[-4:4.15:0.1, -4:4.15:0.1]
+x, y = np.mgrid[-4:4.15:0.1, -4:4.15:0.1]
 
 mlab.figure(1, size=(500, 250), fgcolor=(1, 1, 1),
                                     bgcolor=(0.5, 0.5, 0.5))

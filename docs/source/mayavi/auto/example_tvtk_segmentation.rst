@@ -5,7 +5,6 @@
 Tvtk segmentation example
 --------------------------------------------
 
-
 Using VTK to assemble a pipeline for segmenting MRI images. This example
 shows how to insert well-controled custom VTK filters in Mayavi.
 
@@ -15,8 +14,6 @@ gray-matter/white-matter boundary.
 
 The segmentation algorithm used here is very naive and should, of course,
 not be used as an example of segmentation.
-
-
 
 **Python source code:** :download:`tvtk_segmentation.py`
 

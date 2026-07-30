@@ -30,7 +30,7 @@ from tvtk.common import configure_input_data
 
 v = mlab.figure()
 
-# Create a first sphere
+# Create a sphere
 # The source generates data points
 sphere = tvtk.SphereSource(center=(0, 0, 0), radius=0.5)
 # The mapper converts them into position in, 3D with optionally color (if
@@ -42,17 +42,18 @@ sphere.update()
 # The Property will give the parameters of the material.
 p = tvtk.Property(opacity=0.2, color=(1, 0, 0))
 # The actor is the actually object in the scene.
-sphere_actor = tvtk.Actor(mapper=sphere_mapper, property=p)
+sphere_actor = tvtk.Actor(position=(0, 0, 0), mapper=sphere_mapper, property=p)
 v.scene.add_actor(sphere_actor)
 
-# Create a second sphere
-sphere2 = tvtk.SphereSource(center=(7, 0, 1), radius=0.2)
-sphere_mapper2 = tvtk.PolyDataMapper()
-configure_input_data(sphere_mapper2, sphere2.output)
-sphere2.update()
-p = tvtk.Property(opacity=0.3, color=(1, 0, 0))
-sphere_actor2 = tvtk.Actor(mapper=sphere_mapper2, property=p)
-v.scene.add_actor(sphere_actor2)
+# Create a cylinder
+cylinder = tvtk.CylinderSource(center=(0, 0, 0), radius=0.2, resolution=16)
+cylinder_mapper = tvtk.PolyDataMapper()
+configure_input_data(cylinder_mapper, cylinder.output)
+cylinder.update()
+p = tvtk.Property(opacity=0.3, color=(0, 0, 1))
+cylinder_actor = tvtk.Actor(position=(7, 0, 1), mapper=cylinder_mapper,
+                            property=p, orientation=(90, 0, 90))
+v.scene.add_actor(cylinder_actor)
 
 # Create a line between the two spheres
 line = tvtk.LineSource(point1=(0, 0, 0), point2=(7, 0, 1))

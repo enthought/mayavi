@@ -5,7 +5,6 @@
 Tvtk in mayavi example
 --------------------------------------------------------------------
 
-
 An example of pure TVTK programming to build TVTK objects, which are then
 added to a Mayavi scene.
 
@@ -21,7 +20,6 @@ filter in the Mayavi pipeline. See, for instance, the :ref:`example_mri`
 for example of the UserDefined filter. For a full-blown example of a
 complex VTK pipeline built with Mayavi, see
 :ref:`example_tvtk_segmentation`.
-
 
 .. image:: ../generated_images/example_tvtk_in_mayavi.jpg
     :align: center

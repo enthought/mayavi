@@ -762,7 +762,9 @@ surf = document_pipeline(Surf())
 def test_simple_surf():
     """Test Surf with a simple collection of points."""
     x, y = np.mgrid[0:3:1, 0:3:1]
-    return surf(x, y, np.asarray(x, 'd'))
+    # z = x + y, not x: the plane z = x contains the default view direction, so
+    # the surface would be edge-on and invisible
+    return surf(x, y, np.asarray(x + y, 'd'))
 
 @animate
 def test_simple_surf_anim(obj=None):

@@ -102,16 +102,17 @@ class Scene(Base):
 
             **Keyword arguments**
 
-            :type: 'point', 'cell', or 'world'
+            :param type: 'point', 'cell', or 'world'.
                 The picker type used for picking.
-            :button: 'Left', 'Middle', or 'Right'
+            :param button: 'Left', 'Middle', or 'Right'.
                 The mouse button triggering the picking event.
-            :remove: boolean
+            :param remove: boolean.
                 If remove is True, the callback is removed from the
                 list of callbacks.
 
             **Returns**
-            picker: a tvtk picker
+
+            :returns: picker, a tvtk picker.
                 The picker that will be used to do the picking.
 
             **Notes**

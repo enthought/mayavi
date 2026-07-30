@@ -17,8 +17,6 @@ Alternatively, it can be run as::
 
   $ python structured_points3d.py
 
-
-
 **Python source code:** :download:`structured_points3d.py`
 
 .. literalinclude:: structured_points3d.py

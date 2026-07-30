@@ -1,5 +1,5 @@
 
-.. _builing_applications:
+.. _building_applications:
 
 Building applications using Mayavi
 ===================================

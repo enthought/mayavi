@@ -20,7 +20,7 @@ the radius of the previous sphere.
 
 from mayavi import mlab
 import numpy as np
-from scipy.special import sph_harm
+from scipy.special import sph_harm_y
 
 # Create a sphere
 r = 0.3
@@ -38,7 +38,9 @@ mlab.clf()
 # Represent spherical harmonics on the surface of the sphere
 for n in range(1, 6):
     for m in range(n):
-        s = sph_harm(m, n, theta, phi).real
+        # sph_harm_y takes the polar angle first; the removed sph_harm(m, n,
+        # theta, phi) took the azimuthal one
+        s = sph_harm_y(n, m, phi, theta).real
 
         mlab.mesh(x - m, y - n, z, scalars=s, colormap='jet')
 
