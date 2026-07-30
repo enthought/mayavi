@@ -120,6 +120,36 @@ class TestMessenger(unittest.TestCase):
         self.assertEqual(b.a.did_catch_all, 0)
         self.assertEqual(ret, None)
 
+    def test_disconnect_with_object_id(self):
+        """Tests disconnecting an object when only its id is available."""
+        global ret
+        ret = None
+        b = B()
+        messenger.disconnect(id(b), obj_is_hash=True)
+        b.send(1, test=1)
+        self.assertEqual(b.a.event, None)
+        self.assertEqual(ret, None)
+
+    def test_send_to_falsey_bound_method(self):
+        """Tests callbacks on live objects that are falsey."""
+        class C:
+            def __init__(self):
+                self.calls = 0
+
+            def __bool__(self):
+                return False
+
+            def callback(self, obj, event):
+                self.calls += 1
+
+        source = object()
+        receiver = C()
+        messenger.connect(source, 'event', receiver.callback)
+        messenger.send(source, 'event')
+        messenger.send(source, 'event')
+        self.assertEqual(receiver.calls, 2)
+        messenger.disconnect(source)
+
     def test_send_on_dead_ref(self):
         """Test if sending to a gc'd callback works gracefully."""
         class C:
