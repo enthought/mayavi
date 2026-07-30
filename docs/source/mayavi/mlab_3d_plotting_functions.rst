@@ -45,10 +45,10 @@ module.
 
 ================= =========================================================
 
-.. |plot3d| image:: generated_images/enthought_mayavi_mlab_plot3d.jpg
+.. |plot3d| image:: generated_images/mayavi_mlab_plot3d.jpg
      :scale: 50
 
-.. |points3d| image:: generated_images/enthought_mayavi_mlab_points3d.jpg
+.. |points3d| image:: generated_images/mayavi_mlab_points3d.jpg
      :scale: 50
 
 2D data
@@ -124,22 +124,22 @@ module.
     shown in the (:ref:`example_surface_from_irregular_data`).
 
 
-.. |imshow| image:: generated_images/enthought_mayavi_mlab_imshow.jpg
+.. |imshow| image:: generated_images/mayavi_mlab_imshow.jpg
      :scale: 50
 
-.. |contour_surf| image:: generated_images/enthought_mayavi_mlab_contour_surf.jpg
+.. |contour_surf| image:: generated_images/mayavi_mlab_contour_surf.jpg
      :scale: 50
 
-.. |triangular_mesh| image:: generated_images/enthought_mayavi_mlab_triangular_mesh.jpg
+.. |triangular_mesh| image:: generated_images/mayavi_mlab_triangular_mesh.jpg
      :scale: 50
 
-.. |surf| image:: generated_images/enthought_mayavi_mlab_surf.jpg
+.. |surf| image:: generated_images/mayavi_mlab_surf.jpg
      :scale: 50
 
-.. |mesh| image:: generated_images/enthought_mayavi_mlab_mesh.jpg
+.. |mesh| image:: generated_images/mayavi_mlab_mesh.jpg
      :scale: 50
 
-.. |barchart| image:: generated_images/enthought_mayavi_mlab_barchart.jpg
+.. |barchart| image:: generated_images/mayavi_mlab_barchart.jpg
      :scale: 50
 
 3D data
@@ -179,16 +179,16 @@ module.
     :func:`quiver3d` works with any set of points. The required structure
     is detailed in the functions' documentation.
 
-.. |contour3d| image:: generated_images/enthought_mayavi_mlab_contour3d.jpg
+.. |contour3d| image:: generated_images/mayavi_mlab_contour3d.jpg
      :scale: 50
 
-.. |quiver3d| image:: generated_images/enthought_mayavi_mlab_quiver3d.jpg
+.. |quiver3d| image:: generated_images/mayavi_mlab_quiver3d.jpg
      :scale: 50
 
-.. |flow| image:: generated_images/enthought_mayavi_mlab_flow.jpg
+.. |flow| image:: generated_images/mayavi_mlab_flow.jpg
      :scale: 50
 
-.. |slice| image:: generated_images/enthought_mayavi_mlab_volume_slice.jpg
+.. |slice| image:: generated_images/mayavi_mlab_volume_slice.jpg
      :scale: 50
 
 

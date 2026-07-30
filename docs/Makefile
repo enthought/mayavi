@@ -2,21 +2,28 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+# the sub-makefiles carry the same default; command-line overrides reach them
+# through MAKEFLAGS
+SPHINXOPTS    = -nWT --keep-going
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
+SITEDIR       = $(BUILDDIR)/site
+# the only per-build timestamp on the site; html_last_updated_fmt is off so the
+# other ~115 pages stay byte-identical between builds
+BUILD_DATE   := $(shell date -u '+%b %d, %Y')
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
-.PHONY: help clean html dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
+.PHONY: help clean html site dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  html      to make standalone HTML files"
+	@echo "  site      to assemble the html into the docs.enthought.com/mayavi tree"
 	@echo "  dirhtml   to make HTML files named index.html in directories"
 	@echo "  pickle    to make pickle files"
 	@echo "  json      to make JSON files"
@@ -36,6 +43,20 @@ html:
 	make -f MakefileTVTK html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/."
+
+site: html
+	-rm -rf $(SITEDIR)
+	mkdir -p $(SITEDIR)
+	sed 's/@BUILD_DATE@/$(BUILD_DATE)/' site/index.html > $(SITEDIR)/index.html
+	cp source/mayavi/_static/m2_about.jpg $(SITEDIR)/m2_about.jpg
+	touch $(SITEDIR)/.nojekyll
+	cp -r $(BUILDDIR)/mayavi/html $(SITEDIR)/mayavi
+	cp -r $(BUILDDIR)/tvtk/html $(SITEDIR)/tvtk
+	# pre-4.0 docs hotlinked the banner at this path; it has been served ever since
+	mkdir -p $(SITEDIR)/enthought/mayavi/images
+	cp source/mayavi/_static/m2_about.jpg $(SITEDIR)/enthought/mayavi/images/
+	@echo
+	@echo "Site assembled in $(SITEDIR)."
 
 dirhtml:
 	make -f MakefileMayavi dirhtml

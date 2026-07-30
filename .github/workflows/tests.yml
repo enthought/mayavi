@@ -110,23 +110,17 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
-    env:
-      GH_TOKEN: ${{ github.token }}
-      TITLE: Scheduled CI run is failing
     steps:
-    - name: Open issue if one is not already open
-      run: |
-        existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title --jq "first(.[] | select(.title == \"$TITLE\") | .number)")
-        if [[ -n "$existing" ]]; then
-          echo "Issue #$existing is already open, not creating another one"
-          exit 0
-        fi
-        gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body \
-          "The weekly scheduled CI run failed. Since these runs test against the
-        latest dependencies (including VTK dev wheels), this probably means a
-        dependency update broke something.
-
-        Failed run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-
-        This issue was opened automatically and will not be closed
-        automatically -- close it once CI is green again."
+    # a local action has to be checked out before it can be used
+    - uses: actions/checkout@v7.0.0
+      with:
+        persist-credentials: false
+        sparse-checkout: .github/actions
+    - uses: ./.github/actions/open-issue
+      with:
+        token: ${{ github.token }}
+        title: Scheduled CI run is failing
+        body: |
+          The weekly scheduled CI run failed. Since these runs test against the
+          latest dependencies (including VTK dev wheels), this probably means a
+          dependency update broke something.

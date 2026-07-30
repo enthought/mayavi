@@ -42,11 +42,30 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
 ]
 [project.optional-dependencies]
-app = ["envisage"]
+app = [
+    "envisage",
+    # envisage.api imports pkg_resources, which setuptools 82 removed, and
+    # envisage requires a bare "setuptools" so nothing holds it back.  The import
+    # is gone from envisage main (enthought/envisage#548) but not from 7.0.4, so
+    # drop this once a release carries the fix.
+    "setuptools<82",
+]
+
+# For building the docs (see the Docs workflow).  Not an extra: none of this is
+# a feature of the installed package.  numpy and vtk are missing on purpose --
+# they are build requirements and so have to be installed ahead of the package.
+[dependency-groups]
+docs = [
+    "docutils",   # mlab_reference.py validates docstrings with it directly
+    "pillow",     # render_images.py trims the rendered figures
+    "pyside6",    # rendering the gallery needs a real toolkit
+    "scipy",      # used by the spherical_harmonics example
+    "sphinx",
+]
 
 [project.urls]
 Homepage = "https://github.com/enthought/mayavi"
-Documentation = "https://mayavi.readthedocs.io/en/latest/"
+Documentation = "https://docs.enthought.com/mayavi/"
 Source = "https://github.com/enthought/mayavi"
 Issues = "https://github.com/enthought/mayavi/issues"
 

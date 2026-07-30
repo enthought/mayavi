@@ -5,6 +5,7 @@
 *.enamlc
 *~
 .DS_Store
+.claude/
 _configtest.*
 .hypothesis
 
@@ -18,3 +19,9 @@ docs/html.zip
 tvtk/tvtk_classes.zip
 tvtk/tvtk_classes/
 mayavi/images/m2_about.jpg
+
+# example datasets, downloaded into whichever directory the examples run in
+docs/source/*.cube
+docs/source/*.ent.gz
+docs/source/*.tar.gz
+docs/source/*.zip

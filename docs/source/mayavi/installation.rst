@@ -142,8 +142,6 @@ Installing ready-made distributions
 .. _jupyter: https://jupyter.org
 .. _Mayavi: https://mayavi.readthedocs.io/en/latest/
 .. _TVTK: https://tvtk.readthedocs.io/en/latest/
-.. _envisage: https://docs.enthought.com/envisage
-.. _Traits: https://docs.enthought.com/traits
 .. _Debian: http://www.debian.org
 .. _Ubuntu: http://www.ubuntu.com
 .. _numpy: http://numpy.scipy.org
@@ -157,7 +155,7 @@ Installing ready-made distributions
 .. _install-with-edm:
 
 Installing with `Enthought Deployment Manager(EDM)`
-...................................................
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 EDM is Enthought's freely available python environment manager. It
 allows new python users to create light-weight and custom python
@@ -193,10 +191,10 @@ You can now install mayavi as follows::
 
 Note that 'pyqt' needs to be installed explicitly for python 3.6 as well as for python 2.7.
 
-.. _installing-with-conda
+.. _installing-with-conda:
 
 Installing with `Conda`
-.......................
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Conda is an open source package management environment management
 system for installing multiple versions of software packages and their

@@ -1,0 +1,45 @@
+name: Open an issue once
+description: >
+  Opens an issue unless one with the same title is already open, for workflows
+  whose failures have no pull request to surface them.  The run URL and a note
+  that the issue was filed automatically are appended to the body.
+
+inputs:
+  title:
+    description: The issue title, which doubles as the deduplication key.
+    required: true
+  body:
+    description: Why the issue is being opened.
+    required: true
+  token:
+    description: A token with issues:write on this repository.
+    required: true
+
+runs:
+  using: composite
+  steps:
+  - name: Open issue if one is not already open
+    shell: bash
+    env:
+      GH_TOKEN: ${{ inputs.token }}
+      TITLE: ${{ inputs.title }}
+      BODY: ${{ inputs.body }}
+    run: |
+      # $ENV.TITLE, rather than interpolating the title into the jq program,
+      # which would break on a title containing a quote
+      existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+        --limit 100 --json number,title \
+        --jq 'first(.[] | select(.title == $ENV.TITLE) | .number)')
+      if [[ -n "$existing" ]]; then
+        echo "Issue #$existing is already open, not creating another one"
+        exit 0
+      fi
+      # via a file, so no shell quoting or YAML indentation reaches the body
+      {
+        printf '%s\n\n' "$BODY"
+        printf 'Failed run: %s/%s/actions/runs/%s\n\n' \
+          "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
+        printf '%s\n' 'This issue was opened automatically and will not be closed automatically -- close it once CI is green again.'
+      } > "$RUNNER_TEMP/issue-body.md"
+      gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
+        --body-file "$RUNNER_TEMP/issue-body.md"

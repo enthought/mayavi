@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mayavi and TVTK documentation</title>
+  <!-- the docs' own stylesheets, so this page cannot drift from them.  Both are
+       copied into the site by "make -C docs site"; mayavi.css is also loaded by
+       every docs page through html_css_files. -->
+  <link rel="stylesheet" href="mayavi/_static/classic.css" type="text/css" />
+  <link rel="stylesheet" href="mayavi/_static/mayavi.css" type="text/css" />
+  <style type="text/css">
+    /* classic.css is written for a page that has a sidebar and a nav bar; this
+       one has neither, so reclaim the gutter and centre what is left */
+    html { background: #4d598d; }
+    .document { margin: 2em auto; max-width: 48em; }
+    .bodywrapper { margin: 0 !important; }
+    .body { padding: 1.5em 2em 2em !important; }
+    img.banner { display: block; margin: 0 auto 1.5em; max-width: 420px; width: 100%; }
+    /* div.body p is justified by basic.css and outranks a bare p.sitefooter */
+    div.body p.sitefooter { font-size: 85%; margin-top: 2em; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          <img class="banner" src="m2_about.jpg" alt="Mayavi banner" />
+          <h1>Mayavi and TVTK documentation</h1>
+          <ul>
+            <li><p><a href="./mayavi/">Mayavi</a> &mdash; 3D scientific data
+              visualization and plotting in Python: the application, the
+              <code>mlab</code> scripting API and the example gallery.</p></li>
+            <li><p><a href="./tvtk/">TVTK</a> &mdash; the traits-aware wrapper
+              around VTK that Mayavi is built on.</p></li>
+          </ul>
+          <p class="sitefooter">
+            <a href="https://github.com/enthought/mayavi">Source and issue tracker</a>
+            &middot;
+            <a href="https://github.com/enthought/mayavi/releases">Release notes</a>
+            <br />
+            <!-- filled in by the site target in docs/Makefile -->
+            Built @BUILD_DATE@.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -61,6 +61,90 @@ pytest -sv --timeout=60 tvtk
 - Generation segfaults: `VTK_PARSER_VERBOSE=1` prints each getter before
   calling it; see `tvtk/WORKAROUNDS.md`.
 
+## Documentation
+
+Two Sphinx trees under `docs/source/` (`mayavi/` and `tvtk/`) are assembled
+into the published site by `make -C docs site` → `docs/build/site`, which is
+what `docs.yml` uploads to Pages.  The site root (`docs/site/index.html`) is
+a hand-written two-link landing page; it links the docs' own `classic.css` and
+`_static/mayavi.css` so it cannot drift from them, and overrides only the bits
+of the theme that assume a sidebar.  The Mayavi palette lives in
+`_static/mayavi.css` (loaded by the docs through `html_css_files`) rather than
+inline in `_templates/layout.html`, so both consumers share one copy.
+
+The build is warning-clean and **kept** that way: both Makefiles default
+`SPHINXOPTS` to `-nWT --keep-going`, so any new warning fails the build.  If a
+warning is genuinely unfixable, add it to `nitpick_ignore` in
+`docs/source/mayavi/conf.py` with a reason rather than dropping the flags.
+
+- The Makefiles export `ETS_TOOLKIT=null`: `tips.rst` autodocs
+  `mayavi.tools.server`, whose `wx`/`twisted` imports are handled by
+  `autodoc_mock_imports`, and PySide6's feature import hook hits an
+  `inspect.unwrap` loop on those mock objects (17 warnings, fatal under `-W`).
+  It is `?=`, so an `ETS_TOOLKIT` in the environment **wins** — which is why
+  `docs.yml` leaves it unset at job level and sets `qt4` only on the rendering
+  step, which does need a toolkit.
+- Parts of `docs/source/mayavi/auto/` are generated: `mlab_reference.py`
+  (repo root) emits the mlab API reference, `docs/source/render_examples.py`
+  emits the example gallery.  Both are re-run in CI and both are also
+  committed, so a plain `make -C docs html` works offline — which means a
+  generator change must be committed **together with** its regenerated
+  output, or `-W` fails on the stale copies.
+- Regenerate with `python scripts/render_docs.py`, which drives all of them in
+  the right order.  Do not run them by hand from `docs/source`: that directory
+  holds `mayavi/` and `tvtk/` subdirectories, and a namespace package beats an
+  editable install's finder wherever it sits on `sys.path`, so the imports
+  resolve to the doc sources (`ModuleNotFoundError: tvtk.tvtk_classes`).  The
+  script binds the real packages before putting `docs/source` on the path.
+- Files `include`d into another document (the `mlab_*.rst` partials,
+  `examples.rst`, `auto/changes.rst`) are listed in `exclude_patterns`;
+  otherwise Sphinx also reads each as its own document, duplicating every
+  label it defines and losing the host's `currentmodule`.
+- The gallery **images** are regenerated on every run too, by
+  `docs/source/render_images.py` (which also invokes `render_examples.py`, so
+  `mlab_reference.py` has to run *after* it to pick the images up).  The
+  ~350 MB of example datasets the examples `urlretrieve` are cached by
+  `docs.yml` under the key `example-data-v1` — bump it if a URL changes.
+- `render_examples.py` writes the gallery's image directives *before* it
+  renders the images, and only for figures already on disk.  A brand-new
+  example therefore needs two passes before it appears with a thumbnail, which
+  is why the images are committed rather than left to CI.
+- Generated image names come from `module.__name__` (`mayavi_mlab_*.jpg`).
+  They were `enthought_mayavi_mlab_*` until 2026-07, from the pre-2010
+  `enthought.mayavi` package name — which meant `mlab_reference.py` looked
+  for names that did not exist and the mlab reference shipped with no
+  illustrations at all for years.
+- A rebuild is byte-for-byte reproducible, so regenerating shows a diff only
+  where something really changed: the doc version is truncated to `4.8.4.dev`
+  (the commit and date would retitle every page), `html_last_updated_fmt` is
+  off with the build date carried by the site landing page alone, and the
+  renderers seed `np.random` because several `mlab.test_*` functions plot random
+  data.  `FLAKY_EXAMPLES` in `render_examples.py` names the one example that
+  still is not reproducible — `tvtk_in_mayavi`, which draws overlapping
+  translucent actors that VTK composites differently in ~1% of pixels on
+  roughly one run in five.  Its committed image is reused rather than
+  re-rendered, so the published figure stops flipping back and forth; set
+  `MAYAVI_RENDER_FLAKY=1` (or tick `render_flaky` on a `workflow_dispatch`) to
+  redo it deliberately.  Enabling depth peeling (it does engage —
+  `last_rendering_used_depth_peeling` is 1) and forcing a `scene.render()`
+  before the capture were both measured over ten runs and neither helps, so
+  leave it alone rather than re-testing.  Beware that five runs is not enough to
+  call this stable; that sample size gave a false positive twice.
+- `mlab.savefig` honours the display's device pixel ratio, and neither
+  `magnification=1` nor an explicit `size` overrides it, so a HiDPI display
+  would give images 2x the size of CI's.  `use_ci_image_size()` in
+  `render_images.py` cancels that with `QT_SCALE_FACTOR`; because Qt reads it
+  when the `QApplication` is built, it runs *above* that file's mayavi
+  imports and probes the ratio in a subprocess.  Of the Qt HiDPI knobs only
+  `QT_SCALE_FACTOR` has any effect on Qt 6.11/macOS —
+  `QT_ENABLE_HIGHDPI_SCALING`, `QT_AUTO_SCREEN_SCALE_FACTOR` and
+  `QT_DEVICE_PIXEL_RATIO` are ignored, and `QT_QPA_PLATFORM=offscreen`
+  segfaults VTK.
+- `docs/CHANGES.txt` is frozen at 4.8.3; 4.9.0 onwards is written up on
+  GitHub Releases.  `conf.py` copies it to `auto/changes.rst`, which
+  `changes.rst` `include`s (and `exclude_patterns` therefore hides) so that
+  the long-standing `mayavi/changes.html` URL holds the notes itself.
+
 ## Before considering a change done
 
 If the change touched a VTK workaround in any form — a `vtk_*_version` or
@@ -91,6 +175,11 @@ commit**:
   from https://wheels.vtk.org.  Also runs weekly on a schedule, which is how
   VTK-dev breakage gets noticed; a scheduled failure opens an issue (the
   `issue-on-failure` job) since there is no PR to show it on.
+- `.github/actions/open-issue` — composite action behind both
+  `issue-on-failure` jobs: files an issue unless one with the same title is
+  already open, appending the run URL.  Callers need an `actions/checkout`
+  (sparse is enough) because a local action has to be on disk to be used, and
+  `permissions: issues: write`.
 - `wheel.yml` — mismatch matrix: build per-OS wheels against latest VTK,
   test them against all supported older VTKs (rows deliberately mirror
   `tests.yml` so failures are attributable to the mismatch), `twine check
@@ -98,6 +187,17 @@ commit**:
   (environment `pypi`, `needs: [build, test, check]`).
 - Windows test jobs run pytest from `C:\` (site-packages drive): apptools
   persistence cannot relativize paths across drives.
+- `docs.yml` — builds the docs on every PR and deploys them to
+  <https://docs.enthought.com/mayavi/> on every push to `main` (GitHub
+  Pages, `actions/deploy-pages`, environment `github-pages`).  A failed push
+  to `main` opens an issue, as there is no PR to notice it on.  Doc build
+  requirements live in the `docs` dependency group (PEP 735, `pip --group`), so
+  the whole install is one `pip install --group docs -ve ".[app]"`.  Unlike
+  `tests.yml` this build is *not* `--no-build-isolation`: nothing here pins an
+  older VTK, so letting the isolated build fetch the latest is fine.  To review
+  a PR's rendered docs, download the `docs-site` artifact and serve it
+  (`python -m http.server`); GitHub has no linked HTML preview, and
+  `deploy-pages`' `preview` input is alpha-gated.  See **Documentation** below.
 
 ## Gotchas
 

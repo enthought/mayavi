@@ -3,7 +3,7 @@ Main view and UI objects
 =========================
 
 This is an API reference of the views for the main objects.
-The section :ref:`builing_applications` gives some context on
+The section :ref:`building_applications` gives some context on
 how to use them.
 
 .. currentmodule:: mayavi.core.ui.api

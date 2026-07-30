@@ -11,7 +11,10 @@
 # All configuration values have a default value; values that are commented out
 # serve to show the default value.
 
-import sys, os
+import os
+import re
+import sys
+
 try:
     # When translating the docs to another language, this variable is set 
     # elsewhere, so if it is not set, set it to a suitable default.
@@ -49,7 +52,8 @@ copyright = '2008-2016, Enthought Inc.'
 d = {}
 fname = os.path.join(basedir, '..', '..', '..', 'mayavi', '__init__.py')
 exec(compile(open(fname).read(), fname, 'exec'), d)
-version = release = d['__version__']
+# truncated like the mayavi docs do; see the note in ../mayavi/conf.py
+version = release = re.sub(r'\.dev\d+', '.dev', d['__version__'].split('+')[0])
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -109,11 +113,13 @@ html_theme = 'classic'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = []
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
-html_last_updated_fmt = '%b %d, %Y'
+# off: with a build on every push this would restamp all ~115 pages daily.
+# The site landing page carries the build date instead (see docs/Makefile).
+html_last_updated_fmt = None
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.

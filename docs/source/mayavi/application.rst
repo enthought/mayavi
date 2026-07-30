@@ -210,7 +210,7 @@ are:
  
 :'3': 
     Turn on/off stereo rendering.  This may not work if the
-   'stereo' preference item is not set to True.
+    'stereo' preference item is not set to True.
 
 :'a': 
     Use actor mode for mouse interaction instead of camera mode.
