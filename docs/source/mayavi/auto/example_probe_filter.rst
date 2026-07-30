@@ -5,7 +5,6 @@
 Probe filter example
 --------------------------------------------
 
-
 Using the probe filter to visualize a scalar field along an arbitrary
 surface.
 
@@ -47,7 +46,6 @@ are collapsed in the Mayavi filters and modules.
 
 Note that, as we know the expression of the function, it would be simpler
 and more efficient to directly sample it on the sphere.
-
 
 **Python source code:** :download:`probe_filter.py`
 

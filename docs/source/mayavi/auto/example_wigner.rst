@@ -5,7 +5,6 @@
 Wigner example
 --------------------------------------------------------------------
 
-
 An example in which 3 functions of x and y  are displayed with a surf plot,
 while the z scaling is kept constant, to allow comparison between them.
 
@@ -22,7 +21,6 @@ the wigner function in the middle of our extents, we put this to zero.
 
 We add a set of axes and outlines to the plot. We have to play we extents
 and ranges in order to make them fit with the data.
-
 
 .. image:: ../generated_images/example_wigner.jpg
     :align: center

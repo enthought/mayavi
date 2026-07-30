@@ -13,7 +13,7 @@ using::
 
 These functions can be used for finer control of the Mayavi
 pipeline than the main mlab interface. For usage examples, see
-:ref:`ontrolling-the-pipeline-with-mlab-scripts`.
+:ref:`controlling-the-pipeline-with-mlab-scripts`.
 
 
 

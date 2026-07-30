@@ -21,7 +21,8 @@ animate
 
     
     ::
-    A convenient decorator to animate a generator performing an animation.
+    
+        A convenient decorator to animate a generator performing an animation.
     
         The `delay` parameter specifies the delay (in milliseconds) between calls
         to the decorated function. If `ui` is True, then a simple UI for the
@@ -80,8 +81,6 @@ animate
     
         If you want to modify the data plotted by an `mlab` function call,
         please refer to the section on: :ref:`mlab-animating-data`.
-    
-    
 
     
 

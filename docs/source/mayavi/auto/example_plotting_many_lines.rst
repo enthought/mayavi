@@ -5,7 +5,6 @@
 Plotting many lines example
 --------------------------------------------------------------------
 
-
 This examples shows how many lines can be grouped together in a single
 object, for convenience and efficiency.
 
@@ -22,8 +21,6 @@ set of unconnected point (the underlying data structure is a
 connections, we need to keep track of which point is connected to which.
 As we only have lines, this is fairly easy: in a line, each point is
 connected to the following one.
-
-
 
 .. image:: ../generated_images/example_plotting_many_lines.jpg
     :align: center

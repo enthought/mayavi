@@ -18,7 +18,6 @@ It can be run as::
 
     $ python offscreen.py
 
-
 **Python source code:** :download:`offscreen.py`
 
 .. literalinclude:: offscreen.py

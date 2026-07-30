@@ -5,7 +5,6 @@
 Select red balls example
 --------------------------------------------
 
-
 This example shows how to use a callback to select a red ball amongst white
 balls.
 
@@ -24,7 +23,6 @@ number of points per ball, and divide the point id by this number.
 
 We use an outline to display which ball was selected by positioning it on
 the corresponding ball.
-
 
 **Python source code:** :download:`select_red_balls.py`
 

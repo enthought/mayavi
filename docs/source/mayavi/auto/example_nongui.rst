@@ -5,7 +5,6 @@
 Nongui example
 --------------------------------------------
 
-
 This script demonstrates how one can use the Mayavi application framework
 without displaying Mayavi's UI.
 
@@ -19,8 +18,6 @@ This should be run as::
 Or::
 
   $ mayavi2 script.py
-
-
 
 **Python source code:** :download:`nongui.py`
 

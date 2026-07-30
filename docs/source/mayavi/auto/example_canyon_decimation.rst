@@ -5,7 +5,6 @@
 Canyon decimation example
 --------------------------------------------------------------------
 
-
 Use the greedy-terrain-decimator to display a decimated terrain view.
 
 This example illustrates decimating a terrain. We use the
@@ -28,7 +27,6 @@ This example uses the Grand Canyon topological radar data, from NASA.
 The greedy-terrain-decimator is only useful to decimate a surface
 warped from 2D data. To decimated more general meshes, you can use the
 less-efficient decimate-pro filter (see :ref:`example_julia_set_decimation`).
-
 
 .. image:: ../generated_images/example_canyon_decimation.jpg
     :align: center

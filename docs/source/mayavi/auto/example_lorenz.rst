@@ -5,7 +5,6 @@
 Lorenz example
 --------------------------------------------------------------------
 
-
 An example displaying the trajectories for the Lorenz system of
 equations along with the z-nullcline.
 
@@ -16,7 +15,6 @@ trajectories using mlab's flow function:
 The z-nullcline is plotted by extracting the z component of the vector
 field data source with the ExtractVectorComponent filter, and applying
 an IsoSurface module on this scalar component.
-
 
 .. image:: ../generated_images/example_lorenz.jpg
     :align: center

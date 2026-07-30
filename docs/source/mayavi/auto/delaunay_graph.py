@@ -49,6 +49,7 @@ from mayavi import mlab
 import numpy as np
 import networkx as nx
 
+
 def compute_delaunay_edges(x, y, z, visualize=False):
     """ Given 3-D points, returns the edges of their
         Delaunay triangulation.
@@ -83,8 +84,8 @@ def compute_delaunay_edges(x, y, z, visualize=False):
         vtk_source = mlab.points3d(x, y, z, opacity=0.3, mode='2dvertex')
         vtk_source.actor.property.point_size = 3
     else:
-        vtk_source =  mlab.pipeline.scalar_scatter(x, y, z, figure=False)
-    delaunay =  mlab.pipeline.delaunay3d(vtk_source)
+        vtk_source = mlab.pipeline.scalar_scatter(x, y, z, figure=False)
+    delaunay = mlab.pipeline.delaunay3d(vtk_source)
     delaunay.filter.offset = 999    # seems more reliable than the default
     edges = mlab.pipeline.extract_edges(delaunay)
     if visualize:
@@ -93,8 +94,9 @@ def compute_delaunay_edges(x, y, z, visualize=False):
     # We extract the output array. the 'points' attribute itself
     # is a TVTK array, that we convert to a numpy array using
     # its 'to_array' method.
-    new_x, new_y, new_z = edges.outputs[0].points.to_array().T
-    lines = edges.outputs[0].lines.to_array()
+    dataset = edges.get_output_dataset()
+    new_x, new_y, new_z = dataset.points.to_array().T
+    lines = dataset.lines.to_array()
     return new_x, new_y, new_z, np.array([lines[1::3], lines[2::3]]).T
 
 

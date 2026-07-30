@@ -24,17 +24,17 @@ probe_data
     
     **Parameters**
     
-    :viz_obj: A Mayavi visualization object, or a VTK dataset
-              The object describing the data you are interested in.
-    :x: float or ndarray.
+    :param viz_obj: A Mayavi visualization object, or a VTK dataset.
+        The object describing the data you are interested in.
+    :param x: float or ndarray.
         The x position where you want to retrieve the data.
-    :y: float or ndarray.
+    :param y: float or ndarray.
         The y position where you want to retrieve the data.
-    :z: float or ndarray
+    :param z: float or ndarray.
         The z position where you want to retrieve the data.
-    :type: 'scalars', 'vectors' or 'tensors', optional
+    :param type: 'scalars', 'vectors' or 'tensors', optional.
         The type of the data to retrieve.
-    :location: 'points' or 'cells', optional
+    :param location: 'points' or 'cells', optional.
         The location of the data to retrieve.
     
     **Returns**

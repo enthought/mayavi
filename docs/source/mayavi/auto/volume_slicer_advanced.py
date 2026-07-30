@@ -245,7 +245,9 @@ class VolumeSlicer(HasTraits):
             # For the following to work, you need Mayavi 3.4.0, if you
             # have a less recent version, use 'x=[position2d[0]]'
             self.cursors[axis_name].mlab_source.trait_set(
-                x=position2d[0], y=position2d[1], z=0)
+                                                x=position2d[0],
+                                                y=position2d[1],
+                                                z=0)
 
         # Finally re-enable rendering
         self.disable_render = False

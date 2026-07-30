@@ -5,7 +5,6 @@
 Spherical harmonics example
 --------------------------------------------------------------------
 
-
 Plot spherical harmonics on the surface of the sphere, as well as a 3D
 polar plot.
 
@@ -19,7 +18,6 @@ be defined as functions of a 2D grid.
 For each spherical harmonic, we plot its value on the surface of a
 sphere, and then in polar. The polar plot is simply obtained by varying
 the radius of the previous sphere.
-
 
 .. image:: ../generated_images/example_spherical_harmonics.jpg
     :align: center

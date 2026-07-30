@@ -5,7 +5,6 @@
 Chemistry example
 --------------------------------------------------------------------
 
-
 In this example, we display the H2O molecule, and use volume rendering to
 display the electron localization function.
 
@@ -18,7 +17,6 @@ Good use of the `vmin` and `vmax` argument to
 `vmin` threshold should placed high-enough for features to stand out.
 
 The original is an electron localization function from Axel Kohlmeyer.
-
 
 .. image:: ../generated_images/example_chemistry.jpg
     :align: center

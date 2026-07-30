@@ -5,7 +5,6 @@
 Mri example
 --------------------------------------------------------------------
 
-
 Viewing MRI data with cut plane and iso surface.
 
 This example downloads an MRI scan, turns it into a 3D numpy array and
@@ -21,7 +20,6 @@ interest to leave a cut for the cut planes.
 
 For an example of feature extraction from MRI data using Mayavi and vtk,
 see :ref:`example_tvtk_segmentation`.
-
 
 .. image:: ../generated_images/example_mri.jpg
     :align: center

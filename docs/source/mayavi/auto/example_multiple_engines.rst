@@ -5,7 +5,6 @@
 Multiple engines example
 --------------------------------------------
 
-
 An example to show how you can have multiple engines in one application.
 
 Mutliple engines can be useful for more separation, eg to script each
@@ -16,7 +15,6 @@ scene.
 
 To define default arguments, it makes use of the Traits initialization
 style, rather than overriding the __init__.
-
 
 **Python source code:** :download:`multiple_engines.py`
 

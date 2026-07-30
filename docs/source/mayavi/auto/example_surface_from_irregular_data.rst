@@ -5,7 +5,6 @@
 Surface from irregular data example
 --------------------------------------------------------------------
 
-
 An example which shows how to plot a surface from data acquired
 irregularly.
 
@@ -25,7 +24,6 @@ In this example, randomly-positioned points in the (x, y) plane are
 embedded in a surface in the z axis. We first visualize the points using
 mlab.points3d. We then use the delaunay2d filter to extract the mesh by
 nearest-neighboor matching, and visualize it using the surface module.
-
 
 .. image:: ../generated_images/example_surface_from_irregular_data.jpg
     :align: center

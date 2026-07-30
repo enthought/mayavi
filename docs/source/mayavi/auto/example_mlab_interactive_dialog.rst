@@ -5,11 +5,10 @@
 Mlab interactive dialog example
 --------------------------------------------
 
-
 An example of how to modify the data visualized  via an interactive dialog.
 
 A dialog is created via `TraitsUI
-<http://code.enthought.com/projects/traits/>`_ from an object (MyModel).
+<https://docs.enthought.com/traitsui/>`_ from an object (MyModel).
 Some attributes of the objects are represented on the dialog: first a
 Mayavi scene, that will host our visualization, and two parameters that
 control the data plotted.
@@ -25,12 +24,6 @@ object (see :ref:`mlab-animating-data`).
 
 This example is discussed in details in the section
 :ref:`embedding_mayavi_traits`.
-
-
-.. image:: ../images/example_mlab_interactive_dialog.png
-    :align: center
-
-
 
 **Python source code:** :download:`mlab_interactive_dialog.py`
 

@@ -5,7 +5,6 @@
 Volume slicer advanced example
 --------------------------------------------
 
-
 An efficient implementation of the triple-plane view showing 3 cut planes
 on volumetric data, and side views showing each cut, with a cursor to
 move the other cuts.
@@ -35,7 +34,6 @@ In the side view, when the mouse button is pressed on the planes, it
 creates a VTK `InteractionEvent`. When this happens, VTK calls an
 callback (observer, it VTK terms), that we use to move the position of
 the cut. The Traits callbacks do the rest for the updating.
-
 
 **Python source code:** :download:`volume_slicer_advanced.py`
 

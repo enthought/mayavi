@@ -5,7 +5,6 @@
 Magnetic field example
 --------------------------------------------
 
-
 An example mixing numerical caculation and 3D visualization of the
 magnetic field created by an arbitrary number of current loops.
 
@@ -23,7 +22,6 @@ G. Varoquaux, http://tel.archives-ouvertes.fr/tel-00265714/, page 148).
 
 For another visualization of magnetic field, see the
 :ref:`example_magnetic_field_lines`.
-
 
 **Python source code:** :download:`magnetic_field.py`
 

@@ -5,7 +5,6 @@
 Volume slicer example
 --------------------------------------------
 
-
 Example of an elaborate dialog showing a multiple views on the same data, with
 3 cuts synchronized.
 
@@ -34,7 +33,6 @@ In this example, the interaction with the scene and the various elements
 on it is strongly simplified by turning off interaction, and choosing
 specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.
-
 
 **Python source code:** :download:`volume_slicer.py`
 

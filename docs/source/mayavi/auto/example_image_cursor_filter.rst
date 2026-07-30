@@ -5,7 +5,6 @@
 Image cursor filter example
 --------------------------------------------
 
-
 Excample using the UserDefined filter to paint a cross-shaped cursor on data,
 in order to point out a special position.
 
@@ -30,7 +29,6 @@ more details about VTK datasets). In the dialog used to interactively
 add the UserDefined filet, we can therefore select `ImageCursor3D`.
 The documentation of the filter is displayed when selecting its name
 within the `Class name` field of the dialog.
-
 
 **Python source code:** :download:`image_cursor_filter.py`
 

@@ -22,8 +22,6 @@ What you should get:
     - Open .zzz files from the engine or mlab (via open)
     - do mayavi2 -d foo.zzz.
 
-
-
 **Python source code:** :download:`zzz_reader.py`
 
 .. literalinclude:: zzz_reader.py

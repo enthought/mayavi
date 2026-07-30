@@ -5,7 +5,6 @@
 User mayavi example
 --------------------------------------------
 
-
 Sample Mayavi customization file.
 
 This code is not to be executed as `mayavi2 -x user_mayavi.py` or
@@ -36,8 +35,6 @@ carefully (so as not to override any common module names).
 
 The file may also be placed anywhere on sys.path and called
 `site_mayavi.py` for global system level customizations.
-
-
 
 **Python source code:** :download:`user_mayavi.py`
 

@@ -5,7 +5,6 @@
 Custom colormap example
 --------------------------------------------------------------------
 
-
 An example showing how a custom colormap (or look up table) can be used
 for a given object.
 
@@ -15,7 +14,7 @@ predefined colormaps, Mayavi (and VTK) deal with color internally using
 color defined by its RGBA components.
 
 In this example, we show how the LUT of an object can be retrieved and
-modified. Specifically, we start by giving a surf object the 'cool'
+modified. Specificaly, we start by giving a surf object the 'cool'
 colormap, but we modify add to add a transparency effect.
 
 Notice in the resulting image how the surface becomes more transparent
@@ -24,7 +23,6 @@ for its lower points.
 Note that if you want to use a different number of colors, you can
 change the 'number_of_colors' attribute of the lut object and assign a
 new array of the right shape to its 'table' attribute.
-
 
 .. image:: ../generated_images/example_custom_colormap.jpg
     :align: center

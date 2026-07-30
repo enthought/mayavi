@@ -17,9 +17,6 @@ Alternatively, it can be run as::
 
   $ python structured_grid.py
 
-
-
-
 **Python source code:** :download:`structured_grid.py`
 
 .. literalinclude:: structured_grid.py

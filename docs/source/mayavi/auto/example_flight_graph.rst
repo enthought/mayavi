@@ -5,7 +5,6 @@
 Flight graph example
 --------------------------------------------------------------------
 
-
 An example showing a graph display between cities positioned on the
 Earth surface.
 
@@ -27,7 +26,6 @@ Earth, but as straight lines going through the Earth. As a result
 must use transparency to show the connection.
 
 Data source: http://www.777fleetpage.com/777fleetpage3.htm
-
 
 .. image:: ../generated_images/example_flight_graph.jpg
     :align: center
