@@ -6,24 +6,26 @@ Superquad with gui example
 --------------------------------------------
 
 This example uses MayaVi to show the evolution of a superquadric
-(http://en.wikipedia.org/wiki/Superquadrics), which are ellipsoidal surfaces parametrised
-by two parameters,lpha and eta. The equations that are used to determine the superquadric are 
-(in spherical-polar coordinates):
+(http://en.wikipedia.org/wiki/Superquadrics), which are ellipsoidal surfaces
+parametrised by two parameters, *alpha* and *beta*.
 
-  \(x = A(\sin^{lpha}(\phi)*\cos^{eta}(       heta))\)
-  \(y = B(\sin^{lpha}(\phi)*\sin^{eta}(       heta))\)
-  \(z = C(\cos^{lpha}(\phi))\)
+The equations that determine the superquadric are, in spherical-polar
+coordinates::
 
-Note that when we set A=B=C=r, and lpha =  eta = 1, we get the 
-equation for a sphere in spherical polar coordinate.
+    x = A * sin(phi)**alpha * cos(theta)**beta
+    y = B * sin(phi)**alpha * sin(theta)**beta
+    z = C * cos(phi)**alpha
 
-Use the controls at the bottom of the plot to adjust lpha and eta,
-and watch as the figure transforms accordingly!
+Note that when we set ``A = B = C = r`` and ``alpha = beta = 1``, we get the
+equation for a sphere in spherical polar coordinates.
+
+Use the controls at the bottom of the plot to adjust *alpha* and *beta*, and
+watch as the figure transforms accordingly!
 
 **Python source code:** :download:`superquad_with_gui.py`
 
 .. literalinclude:: superquad_with_gui.py
-    :lines: 18-
+    :lines: 19-
 
 
     
