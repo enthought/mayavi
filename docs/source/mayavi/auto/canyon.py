@@ -9,7 +9,7 @@ This example is interesting as it shows how numpy can be used to load
 and crop data completly foreign to Mayavi.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Retrieve the grand Canyon topological data ##################################

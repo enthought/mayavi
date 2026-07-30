@@ -1,7 +1,7 @@
 """ Tests for the garbage collection of objects in tvtk package.
 """
 # Authors: Deepak Surti, Ioannis Tziakos
-# Copyright (c) 2015-2021, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import sys

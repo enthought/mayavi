@@ -8,7 +8,7 @@
     after March 2006).
 """
 # Author: Eric Jones, Prabhu Ramachandran
-# Copyright (c) 2004-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from tvtk.api import tvtk

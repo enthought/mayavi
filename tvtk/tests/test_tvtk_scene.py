@@ -2,7 +2,7 @@
 
 """
 # Authors: Deepak Surti, Ioannis Tziakos
-# Copyright (c) 2015, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import sys

@@ -45,7 +45,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'tvtk'
-copyright = '2008-2016, Enthought Inc.'
+copyright = 'Enthought, Inc.'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.

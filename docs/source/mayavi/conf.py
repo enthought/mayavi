@@ -57,7 +57,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'mayavi'
-copyright = u'2008-2018, Enthought Inc.'
+copyright = 'Enthought, Inc.'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.

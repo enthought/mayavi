@@ -2,9 +2,9 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2010, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import numpy as np

@@ -5,7 +5,7 @@ are displayed on the warped surface as colors.
 
 """
 # Authors: Fr�d�ric Petit and Prabhu Ramachandran
-# Copyright (c) 2006, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

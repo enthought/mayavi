@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2020,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from importlib import reload

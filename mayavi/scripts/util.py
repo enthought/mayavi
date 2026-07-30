@@ -3,7 +3,7 @@ significant envisage/mayavi code but is useful for scripts that use
 mayavi.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import sys

@@ -28,7 +28,7 @@ The following images are created:
 
 """
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD style.
 
 from numpy import array, random, linspace, pi, ravel, cos, sin, empty

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2022 by Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # All rights reserved.
 
 from setuptools import Command, Distribution, setup

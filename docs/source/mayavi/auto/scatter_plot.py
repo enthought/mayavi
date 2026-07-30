@@ -25,7 +25,7 @@ Alternatively it can be run as::
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2007 Prabhu Ramachandran.
+# Copyright (c) Prabhu Ramachandran
 # License: BSD Style.
 
 import numpy as np

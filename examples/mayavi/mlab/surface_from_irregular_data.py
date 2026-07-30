@@ -20,7 +20,7 @@ mlab.points3d. We then use the delaunay2d filter to extract the mesh by
 nearest-neighboor matching, and visualize it using the surface module.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import numpy as np

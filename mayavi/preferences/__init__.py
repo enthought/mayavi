@@ -1,3 +1,3 @@
 # Author: Prabhu Ramachandran
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
