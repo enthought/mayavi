@@ -25,13 +25,6 @@ from traits.api import HasPrivateTraits, HasTraits, Any, Int, \
 from tvtk.pyface import light_manager
 
 
-# Private, for the docs build: see docs/source/render_examples.py.  Default
-# behaviour is unchanged -- a screenshot raises the scene window and reads the
-# front buffer.  Setting this False reads the back buffer instead, which does
-# not need the window raised and so does not steal focus.
-_raise_to_screenshot = True
-
-
 def set_magnification(w2if, magnification):
     if hasattr(w2if, 'magnification'):
         w2if.magnification = magnification
@@ -803,11 +796,17 @@ class TVTKScene(HasPrivateTraits):
         return self._interactor
 
     def _get_window_to_image(self):
-        front = not self.off_screen_rendering and _raise_to_screenshot
-        w2if = tvtk.WindowToImageFilter(read_front_buffer=front)
+        # Read the back buffer, not the front one.  The front buffer is
+        # whatever the window server is showing, so anything overlapping the
+        # window ends up in the saved image -- which is why this used to raise
+        # the window first, stealing focus every time a figure was saved.  VTK's
+        # own regression tests and ParaView (both BSD-3-Clause) read the back
+        # buffer for the same reason:
+        # https://github.com/Kitware/VTK/blob/master/Testing/Rendering/vtkTesting.cxx
+        # https://gitlab.kitware.com/paraview/paraview/-/blob/master/Remoting/Views/vtkSMViewProxy.cxx
+        # _exporter_write holds the buffer swap off while the read happens.
+        w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
         set_magnification(w2if, self.magnification)
-        if _raise_to_screenshot:
-            self._lift()
         w2if.input = self._renwin
         return w2if
 
@@ -827,9 +826,14 @@ class TVTKScene(HasPrivateTraits):
         else:
             aa_frames = rw.multi_samples
             rw.multi_samples = self.anti_aliasing_frames
+        # What is left in the back buffer after a swap is undefined by the
+        # OpenGL spec, so do not let one happen while the image is read.
+        swap_buffers = rw.swap_buffers
+        rw.swap_buffers = False
         rw.render()
         ex.update()
         ex.write()
+        rw.swap_buffers = swap_buffers
         # Set the frames back to original setting.
         if hasattr(rw, 'aa_frames'):
             rw.aa_frames = aa_frames

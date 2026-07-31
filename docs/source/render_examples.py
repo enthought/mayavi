@@ -47,20 +47,6 @@ SKIP_EXAMPLES = {
 EXAMPLE_TIMEOUT = 60
 
 
-def dont_take_over_the_desktop():
-    """ Must run before anything builds a QApplication -- so before mayavi is
-        imported -- or Qt will already have made this a foreground application.
-
-        AA_PluginApplication tells Qt not to take NSApp over, which is what
-        pulls the process in front of whatever the user is working in.
-    """
-    from pyface.qt import QtCore
-
-    attribute = (getattr(QtCore.Qt, 'AA_PluginApplication', None)
-                 or QtCore.Qt.ApplicationAttribute.AA_PluginApplication)
-    QtCore.QCoreApplication.setAttribute(attribute, True)
-
-
 def keep_windows_in_background():
     """ Stops the windows we open from stealing focus and swallowing keystrokes.
 
@@ -75,12 +61,6 @@ def keep_windows_in_background():
     def enum(holder, name):
         # PyQt6 scopes these, PySide6 offers them both ways
         return getattr(QtCore.Qt, name, None) or getattr(holder, name)
-
-    # tvtk raises the scene window before every screenshot, because reading the
-    # front buffer means reading what is on screen; this reads the back buffer
-    # instead.  Private on purpose: end users keep the raising behaviour.
-    from tvtk.pyface import tvtk_scene
-    tvtk_scene._raise_to_screenshot = False
 
     # traitsui's dialogs and pyface's windows raise themselves too
     QtGui.QWidget.raise_ = lambda self: None
@@ -97,29 +77,8 @@ def keep_windows_in_background():
             self.setAttribute(no_activate, True)
             self.setWindowFlag(at_the_back, True)
         real_set_visible(self, visible)
-        if visible and self.isWindow():
-            # macOS pulls the process to the front again for each new window,
-            # dialogs especially, so push it back every time one appears
-            send_app_to_the_back()
 
     QtGui.QWidget.setVisible = set_visible
-
-
-def send_app_to_the_back():
-    """ Stops the process being the frontmost application on macOS.
-
-        An Accessory app owns windows but never becomes the active one, which
-        is what keeps the render from taking keystrokes.  Qt resets this
-        whenever it opens a window, so it has to be re-applied rather than set
-        once at startup.
-    """
-    if sys.platform != 'darwin':
-        return
-    try:
-        from AppKit import NSApplication
-    except ImportError:
-        return   # pyobjc is not installed; the Qt flags still do what they can
-    NSApplication.sharedApplication().setActivationPolicy_(1)  # Accessory
 
 
 def should_render(short_file_name, image_file):
@@ -264,9 +223,6 @@ def capture_in_subprocess(filename, image_file):
     here = os.path.dirname(os.path.abspath(__file__))
     code = ('import mayavi, tvtk.api, sys\n'          # bind before the doc
             'sys.path.insert(0, %r)\n'                # sources can shadow them
-            'from pyface.qt import QtCore\n'
-            'QtCore.QCoreApplication.setAttribute('
-            'QtCore.Qt.ApplicationAttribute.AA_PluginApplication, True)\n'
             'from render_examples import capture_one\n'
             'capture_one(%r, %r)\n' % (here, filename, image_file))
     subprocess.run([sys.executable, '-P', '-c', code],
