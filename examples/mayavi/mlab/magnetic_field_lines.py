@@ -16,7 +16,7 @@ visualization with Mayavi and scipy, see
 :ref:`example_magnetic_field`.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import numpy as np

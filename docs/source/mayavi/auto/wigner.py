@@ -17,7 +17,7 @@ We add a set of axes and outlines to the plot. We have to play we extents
 and ranges in order to make them fit with the data.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

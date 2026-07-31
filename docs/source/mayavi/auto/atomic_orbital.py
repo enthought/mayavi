@@ -20,7 +20,7 @@ in TVTK. The reader is referred to :ref:`data-structures-used-by-mayavi`
 for more details.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Create the data ############################################################

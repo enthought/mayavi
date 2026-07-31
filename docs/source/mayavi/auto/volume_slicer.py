@@ -29,7 +29,7 @@ specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import numpy as np

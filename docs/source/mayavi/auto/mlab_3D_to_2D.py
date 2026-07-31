@@ -108,7 +108,7 @@ Now that the prelimenaries are out of the way, lets get started.
 """
 
 # Author: S. Chris Colbert <sccolbert@gmail.com>
-# Copyright (c) 2009, S. Chris Colbert
+# Copyright (c) S. Chris Colbert
 # License: BSD Style
 
 # this import is here because we need to ensure that matplotlib uses the

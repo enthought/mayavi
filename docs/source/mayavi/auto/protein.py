@@ -38,7 +38,7 @@ http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # The pdb code for the protein.

@@ -3,7 +3,7 @@ Code to help with managing a TVTK data set in Pythonic ways.
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import (HasTraits, Instance, Array, Str,

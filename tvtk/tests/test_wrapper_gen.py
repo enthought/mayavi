@@ -5,7 +5,7 @@ wrapper_gen directly.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004, Prabhu Ramachandran,  Enthought, Inc.
+# Copyright (c) Prabhu Ramachandran, Enthought, Inc.
 # License: BSD Style.
 
 import unittest

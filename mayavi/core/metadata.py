@@ -3,7 +3,7 @@ The definition of different kinds of metadata that is put into the
 mayavi registry
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

@@ -17,7 +17,7 @@ and watch as the figure transforms accordingly!
 """
 
 # Author: Pratik Mallya <pmallya@enthought.com>
-# Copyright (c) 2008-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import numpy as np

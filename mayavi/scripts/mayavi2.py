@@ -9,7 +9,7 @@ Mayavi2: https://mayavi.readthedocs.io/en/latest/overview.html
 
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
-# Copyright (c) 2005-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

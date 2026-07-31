@@ -27,7 +27,7 @@ within the `Class name` field of the dialog.
 
 # Authors: Emmanuelle Gouillart <emmanuelle.gouillart@normalesup.org>
 # and Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

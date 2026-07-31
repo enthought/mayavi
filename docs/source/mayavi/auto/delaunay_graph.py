@@ -42,7 +42,7 @@ display an unoriented graph, it is best to use the `2ddash` mode of
 """
 # Author: Gary Ruben
 #         Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD style.
 
 from mayavi import mlab

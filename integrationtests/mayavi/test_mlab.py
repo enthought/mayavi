@@ -1,7 +1,7 @@
 """Tests for the mlab interface to Mayavi
 """
 # Author: Gael Varoquaux
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

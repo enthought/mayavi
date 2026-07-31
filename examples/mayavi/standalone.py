@@ -4,7 +4,7 @@ using Envisage or the Mayavi Envisage application.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2007-2026, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from os.path import join, abspath

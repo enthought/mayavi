@@ -11,7 +11,7 @@ To define default arguments, it makes use of the Traits initialization
 style, rather than overriding the __init__.
 """
 # Author:  Gael Varoquaux <gael _dot_ varoquaux _at_ normalesup _dot_ org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import HasTraits, Instance, on_trait_change

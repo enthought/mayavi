@@ -1,6 +1,6 @@
 
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2009,  Prabhu Ramachandran
+# Copyright (c) Prabhu Ramachandran
 # License: BSD Style.
 
 # Local imports.

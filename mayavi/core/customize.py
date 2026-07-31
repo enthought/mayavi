@@ -18,7 +18,7 @@ custom plugins.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008-2020, Prabhu Ramachandran, Enthought, Inc.
+# Copyright (c) Prabhu Ramachandran, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

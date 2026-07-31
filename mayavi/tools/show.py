@@ -1,5 +1,5 @@
 # Author: Prabhu Ramachandran <prabhu[at]aero[dot]iitb[dot]ac[dot]in>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from traits.etsconfig.api import ETSConfig

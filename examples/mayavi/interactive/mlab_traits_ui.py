@@ -8,7 +8,7 @@ the simplest possible dialog: a single Mayavi scene in a window.
 
 # Authors: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
 #          Gael Varoquaux
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard imports.

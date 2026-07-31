@@ -10,7 +10,7 @@ both for testing and to ilustrate its use.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from .modules import VectorsFactory, StreamlineFactory, GlyphFactory, \

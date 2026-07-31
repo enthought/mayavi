@@ -2,7 +2,7 @@
 
 # Author: Prabhu Ramachandran
 # License: BSD style
-# Copyright (c) 2004-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 
 import unittest
 try:
