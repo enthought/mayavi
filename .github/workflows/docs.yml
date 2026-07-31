@@ -53,15 +53,18 @@ jobs:
     - run: python -m pip install --group docs -ve ".[app]"
     - name: Cache the example datasets
       # the examples urlretrieve these into the cwd they run in, with no
-      # timeout; lucy.tar.gz alone is 322 MB.  Bump the key if a URL changes.
+      # timeout; lucy alone is a 322 MB download.  The unpacked directories are
+      # what the examples read, and they skip the download once those exist, so
+      # caching the tarballs as well would store the same data twice.  Bump the
+      # key if a URL changes.
       uses: actions/cache@v4.3.0
       with:
         path: |
-          docs/source/*.tar.gz
+          docs/source/*_data
           docs/source/*.zip
           docs/source/*.ent.gz
           docs/source/*.cube
-        key: example-data-v1
+        key: example-data-v2
     - name: Render the gallery images and regenerate the mlab reference
       # ~3 min locally, plus the dataset downloads on a cold cache; each
       # example also has its own 60s cap, so this only catches the whole lot

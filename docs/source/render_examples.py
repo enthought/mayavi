@@ -48,8 +48,8 @@ SKIP_EXAMPLES = {
 # never finish fails the build instead of hanging it.
 EXAMPLE_TIMEOUT = 60
 
-# ...except lucy, which unpacks a 307 MB tarball on every run (and deletes it
-# again afterwards, so a cached copy does not spare it) before it can render.
+# ...except lucy, which on a cold cache downloads 307 MB and unpacks 523 MB from
+# it before it can render.  Once the data is there it is as quick as the rest.
 EXAMPLE_TIMEOUTS = {'lucy': 300}
 
 

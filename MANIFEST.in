@@ -26,6 +26,9 @@ prune docs/pdf
 # Rendering the gallery downloads its datasets into docs/source; they are
 # gitignored, but recursive-include above would still sweep them into an sdist
 # built on a machine that has rendered the docs (lucy.tar.gz alone is 322 MB).
+prune docs/source/bunny_data
+prune docs/source/dragon_data
+prune docs/source/lucy_data
 prune docs/source/mri_data
 exclude docs/source/*.cube
 exclude docs/source/*.ent.gz
