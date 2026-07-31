@@ -468,25 +468,6 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
     def paintEngine(self):
         return None
 
-    def event(self, ev):
-        # Reparenting a widget destroys its native window and makes a new one,
-        # so the id handed to SetWindowInfo in __init__ goes stale.  VTK then
-        # has no window to draw in and makes one of its own, which on X11 means
-        # glXCreateContext on a window Qt knows nothing about: the paint event
-        # that follows a reparent segfaults.
-        # winId() emits this from inside __init__, before _RenderWindow and
-        # _Iren are set, so read the dict directly -- __getattr__ defers to
-        # _Iren and would recurse until the stack ran out.
-        render_window = self.__dict__.get('_RenderWindow')
-        if (ev.type() == EventType.WinIdChange and render_window is not None
-                and not self.__dict__.get('_setting_window_info')):
-            self.__dict__['_setting_window_info'] = True
-            try:
-                render_window.SetWindowInfo(self._get_win_id())
-            finally:
-                self.__dict__['_setting_window_info'] = False
-        return super().event(ev)
-
     def paintEvent(self, ev):
         if not self.__doPaintEvent:
             return
