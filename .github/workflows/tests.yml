@@ -20,6 +20,13 @@ jobs:
         python-version: ['3.14']
         qt-api: ['pyside6']  # prefer the modern bindings
         headless: [false]
+        # Empty means "latest", which the install step spells as `vtk`.  This
+        # has to be a matrix key rather than left to the includes: an include
+        # that overwrites no *original* matrix value is merged into the
+        # combinations it matches instead of adding one, so with vtk known only
+        # to the includes, `vtk: vtk-dev` was absorbed into the base ubuntu row
+        # and there was no ubuntu job on the latest release at all.
+        vtk: ['']
         # Then add some backward compat checks
         include:
           - python-version: '3.13'
@@ -96,24 +103,25 @@ jobs:
           vtk_spec="${{ matrix.vtk || 'vtk' }}"
           numpy_spec="${{ matrix.numpy || 'numpy' }}"
         fi
-        python -m pip install --upgrade ${{ matrix.qt-api || ''}} $numpy_spec $vtk_spec pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
+        # only what this row pins or what has to precede the build; everything
+        # else comes from the package and the `test` group below
+        python -m pip install --upgrade ${{ matrix.qt-api || ''}} $numpy_spec $vtk_spec --only-binary="numpy,vtk"
         python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
         python -c "import numpy; print(f'NumPy {numpy.__version__}')"
         if [[ "${{ matrix.headless }}" != "true" ]]; then
           echo "extra=[app]" | tee -a $GITHUB_OUTPUT
         fi
-    - run: python -m pip install --no-build-isolation -ve .${{ steps.install.outputs.extra }}
+    - run: python -m pip install --no-build-isolation --group test -ve .${{ steps.install.outputs.extra }}
     - run: pytest -v --timeout=10 mayavi
     - run: pytest -sv --timeout=60 tvtk
 
   # A job of its own rather than a step on a `tests` row.  Each of these stands
   # the Mayavi2 application up in a subprocess, so they want a display and the
   # [app] extra, and at ~2 min they are slower than the suites above -- but the
-  # deciding reason is that a step conditioned on the matrix silently stops
-  # running when the matrix moves.  There is no `vtk`-less ubuntu row to hang
-  # it on either: the vtk-dev entry overrides no original matrix value, so
-  # GitHub merges it into the base ubuntu combination rather than adding one.
-  # As a job, it either appears in the checks or its absence is visible.
+  # deciding reason is that a step conditioned on the matrix stops running in
+  # silence when the matrix moves under it, which is exactly what happened when
+  # this was first written as one.  A job that stops running is a check that is
+  # visibly no longer there.
   #
   # One configuration is enough: these exercise the Mayavi2 application, not
   # the VTK version, which the matrix above already covers.
@@ -139,13 +147,14 @@ jobs:
     - uses: actions/setup-python@v6.3.0
       with:
         python-version: '3.14'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip setuptools setuptools_scm wheel
-        python -m pip install --upgrade pyside6 numpy vtk pillow pytest \
-          pytest-timeout traits traitsui --only-binary="numpy,vtk"
-        python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
-    - run: python -m pip install --no-build-isolation -ve ".[app]"
+    # Unlike the matrix above this pins nothing, so there is no reason to keep
+    # the build out of isolation: letting it fetch its own VTK gets the same
+    # release the runtime does, as in docs.yml.  That leaves numpy, vtk and the
+    # build requirements to be resolved for us; pyside6 is the only thing the
+    # package does not ask for itself.
+    - run: python -m pip install --upgrade pip  # --group needs pip >= 25.1
+    - run: python -m pip install --group test pyside6 -ve ".[app]"
+    - run: python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
     # the wrapper sets its own per-script subprocess timeout; pytest's is the
     # backstop behind it
     - run: pytest -v --timeout=360 integrationtests
