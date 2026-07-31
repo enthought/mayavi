@@ -46,6 +46,10 @@ SKIP_EXAMPLES = {
 # never finish fails the build instead of hanging it.
 EXAMPLE_TIMEOUT = 60
 
+# ...except lucy, which unpacks a 307 MB tarball on every run (and deletes it
+# again afterwards, so a cached copy does not spare it) before it can render.
+EXAMPLE_TIMEOUTS = {'lucy': 300}
+
 
 def keep_windows_in_background():
     """ Stops the windows we open from stealing focus and swallowing keystrokes.
@@ -139,6 +143,12 @@ def _scene_widgets(widget, found=None):
     return found
 
 
+class NoSceneInDialog(RuntimeError):
+    """ Raised for an example whose dialog holds only controls, the scene
+        being in an mlab figure of its own.
+    """
+
+
 def capture_dialog(filename, image_file):
     """ Shoots a TraitsUI example: the dialog, with its scenes painted in.
 
@@ -155,7 +165,10 @@ def capture_dialog(filename, image_file):
     old_show = mlab.show
 
     def edit_traits(self, *args, **kwargs):
-        kwargs['kind'] = 'live'   # non-modal, so the example returns to us
+        # non-modal, so the example returns to us -- but an example that asks
+        # to be embedded ('subpanel') means it, and prising the panel out into
+        # a window of its own would shoot the panel instead of the window
+        kwargs.setdefault('kind', 'live')
         ui = real_edit(self, *args, **kwargs)
         created.append(ui)
         return ui
@@ -166,17 +179,25 @@ def capture_dialog(filename, image_file):
         for _ in range(5):
             app.processEvents()
 
+    # a few examples run the Qt loop themselves rather than through mlab.show
+    real_execs = {name: getattr(QtGui.QApplication, name)
+                  for name in ('exec', 'exec_')
+                  if hasattr(QtGui.QApplication, name)}
+    for name in real_execs:
+        setattr(QtGui.QApplication, name, lambda *a, **k: 0)
+
     mlab.show = lambda func=None: None
     HasTraits.edit_traits = edit_traits
     HasTraits.configure_traits = lambda self, *a, **k: edit_traits(self)
     np.random.seed(0)
     try:
         exec(compile(open(filename).read(), filename, 'exec'),
-             {'__name__': '__main__'})
+             {'__name__': '__main__', '__file__': os.path.abspath(filename)})
         if not created:
             raise RuntimeError('%s opened no dialog' % filename)
         ui = created[-1]
-        dialog = ui.control
+        # for an embedded panel this is the window the example built around it
+        dialog = ui.control.window()
         dialog.show()
         # the scene is only built once the window is really on screen, and
         # several examples plot from a scene.activated handler
@@ -192,7 +213,7 @@ def capture_dialog(filename, image_file):
 
         scenes = _scene_widgets(dialog)
         if not scenes:
-            raise RuntimeError('%s has no scene to capture' % filename)
+            raise NoSceneInDialog(filename)
         shot = dialog.grab()
         painter = QtGui.QPainter(shot)
         try:
@@ -226,16 +247,23 @@ def capture_dialog(filename, image_file):
         HasTraits.edit_traits = real_edit
         HasTraits.configure_traits = real_configure
         mlab.show = old_show
+        for name, real in real_execs.items():
+            setattr(QtGui.QApplication, name, real)
 
 
 def capture_one(filename, image_file):
     """ Renders one example, the way that suits it.  Runs in the child.
     """
     keep_windows_in_background()
+    # an example that also draws with matplotlib would block in pyplot.show();
+    # the environment only affects this child, not what users get
+    os.environ.setdefault('MPLBACKEND', 'Agg')
     if is_dialog_example(filename):
-        capture_dialog(filename, image_file)
-    else:
-        run_mlab_file(filename, image_file=image_file)
+        try:
+            return capture_dialog(filename, image_file)
+        except NoSceneInDialog:
+            pass    # its dialog only holds controls; shoot the figure instead
+    run_mlab_file(filename, image_file=image_file)
 
 
 def capture_in_subprocess(filename, image_file):
@@ -251,8 +279,9 @@ def capture_in_subprocess(filename, image_file):
             'sys.path.insert(0, %r)\n'                # sources can shadow them
             'from render_examples import capture_one\n'
             'capture_one(%r, %r)\n' % (here, filename, image_file))
-    subprocess.run([sys.executable, '-P', '-c', code],
-                   check=True, timeout=EXAMPLE_TIMEOUT,
+    short_name = os.path.splitext(os.path.basename(filename))[0]
+    subprocess.run([sys.executable, '-P', '-c', code], check=True,
+                   timeout=EXAMPLE_TIMEOUTS.get(short_name, EXAMPLE_TIMEOUT),
                    capture_output=True, text=True)
 
 
@@ -304,7 +333,7 @@ def run_mlab_file(filename, image_file):
     e.close_scene(mlab.gcf())
     exec(
         compile(open(filename).read(), filename, 'exec'),
-        {'__name__': '__main__'}
+        {'__name__': '__main__', '__file__': os.path.abspath(filename)}
     )
     # Give the widget the size the example asked for before capturing it.  The
     # render window only picks the size up from a resize event, so until the
