@@ -355,9 +355,8 @@ applications.
     :width: 150
 
             
-.. |0105| raw:: html
-
-    <br/>
+.. |0105| image:: ../generated_images/example_superquad_with_gui.jpg
+    :width: 150
 
             
 .. |0106| image:: ../generated_images/example_mlab_interactive_dialog.jpg
@@ -388,9 +387,8 @@ applications.
     <br/>
 
             
-.. |0112| raw:: html
-
-    <br/>
+.. |0112| image:: ../generated_images/example_adjust_cropping_extents.jpg
+    :width: 150
 
             
 .. |0113| raw:: html
@@ -553,9 +551,8 @@ more fine control than mlab.
 .. A comment to split paragraphs
 
 
-.. |0200| raw:: html
-
-    <br/>
+.. |0200| image:: ../generated_images/example_multi_block.jpg
+    :width: 150
 
             
 .. |0201| raw:: html
@@ -603,9 +600,8 @@ more fine control than mlab.
     <br/>
 
             
-.. |0210| raw:: html
-
-    <br/>
+.. |0210| image:: ../generated_images/example_streamline.jpg
+    :width: 150
 
             
 .. |0211| image:: ../generated_images/example_image_cursor_filter.jpg
@@ -640,9 +636,8 @@ more fine control than mlab.
     <br/>
 
             
-.. |0218| raw:: html
-
-    <br/>
+.. |0218| image:: ../generated_images/example_delaunay_graph.jpg
+    :width: 150
 
             
 .. |0219| raw:: html
@@ -796,9 +791,8 @@ Examples showing how you can query and interact with the data.
     :width: 150
 
             
-.. |0302| raw:: html
-
-    <br/>
+.. |0302| image:: ../generated_images/example_normal_flipping_stl.jpg
+    :width: 150
 
             
 ======= =============================================

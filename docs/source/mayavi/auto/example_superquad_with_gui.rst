@@ -22,6 +22,11 @@ equation for a sphere in spherical polar coordinates.
 Use the controls at the bottom of the plot to adjust *alpha* and *beta*, and
 watch as the figure transforms accordingly!
 
+.. image:: ../generated_images/example_superquad_with_gui.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`superquad_with_gui.py`
 
 .. literalinclude:: superquad_with_gui.py
