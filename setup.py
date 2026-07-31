@@ -302,21 +302,16 @@ DEPENDENCIES = [
 # Oldest supported VTK, per SPEC 0-style two-year support window.  When
 # raising this, cull the workarounds it makes dead -- see tvtk/WORKAROUNDS.md.
 MIN_VTK = '9.4'
+# First VTK the generated wrappers are *not* known to work with.  Raise it
+# once the vtk-dev CI row has been green against that version's prereleases.
+MAX_VTK = '9.8'
 
 
 def vtk_requirement():
     """The VTK requirement, with an upper bound when building a wheel."""
     if 'sdist' in sys.argv[1:]:
         return 'vtk>=%s' % MIN_VTK
-    try:
-        import vtk
-    except ImportError:
-        # no VTK at metadata time: leave uncapped rather than error (class
-        # generation will fail later anyway unless reusing a fresh ZIP)
-        return 'vtk>=%s' % MIN_VTK
-    version = vtk.vtkVersion()
-    return 'vtk>=%s,<%d.%d' % (MIN_VTK, version.GetVTKMajorVersion(),
-                               version.GetVTKMinorVersion() + 1)
+    return 'vtk>=%s,<%s' % (MIN_VTK, MAX_VTK)
 
 
 # Static metadata lives in pyproject.toml; setup.py carries only the dynamic
