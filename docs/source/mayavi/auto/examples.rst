@@ -380,9 +380,8 @@ applications.
     <br/>
 
             
-.. |0111| raw:: html
-
-    <br/>
+.. |0111| image:: ../generated_images/example_qt_embedding.jpg
+    :width: 150
 
             
 .. |0112| image:: ../generated_images/example_adjust_cropping_extents.jpg
