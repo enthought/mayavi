@@ -702,7 +702,7 @@ Example gallery
                     if is_mlab_example(filename)]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
 
     mlab_example_lister = MlabExampleLister(render_images=render_images,
                                         out_dir=out_dir,
@@ -720,7 +720,7 @@ Example gallery
                         'interactive', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -741,7 +741,7 @@ applications.
                         'advanced_visualization', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -761,7 +761,7 @@ more fine control than mlab.
                         'data_interaction', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -780,7 +780,7 @@ Examples showing how you can query and interact with the data.
                         '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
+    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
     example_lister = ExampleLister(title="Misc examples",
                                    out_dir=out_dir)
     example_lister.render_all(example_gallery_file, example_files)

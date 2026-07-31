@@ -79,13 +79,13 @@ Advanced mlab examples
 
    example_julia_set.rst
    example_boy.rst
-   example_lucy.rst
-   example_dragon.rst
    example_bunny.rst
+   example_dragon.rst
+   example_lucy.rst
    example_custom_colormap.rst
    example_surface_from_irregular_data.rst
-   example_spherical_harmonics.rst
    example_lorenz.rst
+   example_spherical_harmonics.rst
    example_canyon.rst
    example_julia_set_decimation.rst
    example_simple_structured_grid.rst
@@ -109,7 +109,7 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0002| image:: ../generated_images/example_lucy.jpg
+.. |0002| image:: ../generated_images/example_bunny.jpg
     :width: 150
 
             
@@ -117,7 +117,7 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0004| image:: ../generated_images/example_bunny.jpg
+.. |0004| image:: ../generated_images/example_lucy.jpg
     :width: 150
 
             
@@ -129,11 +129,11 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0007| image:: ../generated_images/example_spherical_harmonics.jpg
+.. |0007| image:: ../generated_images/example_lorenz.jpg
     :width: 150
 
             
-.. |0008| image:: ../generated_images/example_lorenz.jpg
+.. |0008| image:: ../generated_images/example_spherical_harmonics.jpg
     :width: 150
 
             
@@ -199,17 +199,17 @@ Advanced mlab examples
          A script to generate the Mayavi logo: a
          Boy surface.
 
-|0002|  :ref:`example_lucy`
+|0002|  :ref:`example_bunny`
          Viewing Stanford 3D Scanning Repository
-         lucy model
+         bunny model
 
 |0003|  :ref:`example_dragon`
          Viewing Stanford 3D Scanning Repository
          dragon model
 
-|0004|  :ref:`example_bunny`
+|0004|  :ref:`example_lucy`
          Viewing Stanford 3D Scanning Repository
-         bunny model
+         lucy model
 
 |0005|  :ref:`example_custom_colormap`
          An example showing how a custom colormap
@@ -220,15 +220,15 @@ Advanced mlab examples
          An example which shows how to plot a
          surface from data acquired irregularly.
 
-|0007|  :ref:`example_spherical_harmonics`
-         Plot spherical harmonics on the surface
-         of the sphere, as well as a 3D polar
-         plot.
-
-|0008|  :ref:`example_lorenz`
+|0007|  :ref:`example_lorenz`
          An example displaying the trajectories
          for the Lorenz system of equations along
          with the z-nullcline.
+
+|0008|  :ref:`example_spherical_harmonics`
+         Plot spherical harmonics on the surface
+         of the sphere, as well as a 3D polar
+         plot.
 
 |0009|  :ref:`example_canyon`
          Retrieve radar data from the NASA and
