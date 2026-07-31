@@ -20,6 +20,7 @@ docs are shown.
 import inspect
 import os
 import sys
+import warnings
 
 # Enthought library imports.
 from traits.api import HasTraits, Property, List, Str, \
@@ -88,7 +89,11 @@ def get_tvtk_class_names():
             if verbose:
                 print(f'Trying {name}', file=sys.__stdout__, flush=True)
             try:
-                c = klass()
+                with warnings.catch_warnings():
+                    # sweeping up every class inevitably hits VTK's deprecated
+                    # ones, where the warning comes back out as a SystemError
+                    warnings.simplefilter('ignore', DeprecationWarning)
+                    c = klass()
                 # Some classes hijack sys.stdout/sys.stderr.
                 # Restore it when that happens.
                 if sys.stdout != old_stdout or sys.stderr != old_stderr:

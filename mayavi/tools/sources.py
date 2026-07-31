@@ -11,7 +11,7 @@ import numpy as np
 
 from traits.api import Bool, HasTraits, Instance, on_trait_change
 from tvtk.api import tvtk
-from tvtk.common import camel2enthought
+from tvtk.common import camel2enthought, reshape_view
 
 from mayavi.sources.array_source import ArraySource
 from mayavi.core.registry import registry
@@ -172,7 +172,7 @@ class MGlyphSource(MlabSource):
 
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (-1, 3)
+            points = reshape_view(points, (-1, 3))
             self.trait_set(points=points, trait_change_notify=False)
 
         u, v, w = self.u, self.v, self.w
@@ -183,7 +183,7 @@ class MGlyphSource(MlabSource):
             if len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
                                 w.ravel()].ravel()
-                vectors.shape = (-1, 3)
+                vectors = reshape_view(vectors, (-1, 3))
                 self.trait_set(vectors=vectors, trait_change_notify=False)
 
         if 'vectors' in traits:
@@ -196,7 +196,7 @@ class MGlyphSource(MlabSource):
             if u is not None and len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
                                 w.ravel()].ravel()
-                vectors.shape = (-1, 3)
+                vectors = reshape_view(vectors, (-1, 3))
                 self.trait_set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0:
@@ -368,7 +368,8 @@ class MArraySource(MlabSource):
                 #                axis=3)
                 vectors = np.c_[u.ravel(), v.ravel(),
                                    w.ravel()].ravel()
-                vectors.shape = (u.shape[0], u.shape[1], w.shape[2], 3)
+                vectors = reshape_view(
+                    vectors, (u.shape[0], u.shape[1], w.shape[2], 3))
                 self.trait_set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0 and scalars is not None:
@@ -480,7 +481,7 @@ class MLineSource(MlabSource):
 
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (len(x), 3)
+            points = reshape_view(points, (len(x), 3))
             self.trait_set(points=points, trait_change_notify=False)
 
         # Create the dataset.
@@ -703,7 +704,7 @@ class MGridSource(MlabSource):
 
         nx, ny = x.shape
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-        points.shape = (nx * ny, 3)
+        points = reshape_view(points, (nx * ny, 3))
         self.trait_set(points=points, trait_change_notify=False)
 
         i, j = np.mgrid[0:nx - 1, 0:ny - 1]
@@ -806,7 +807,7 @@ class MTriangularMeshSource(MlabSource):
 
         x, y, z = self.x, self.y, self.z
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-        points.shape = (-1, 3)
+        points = reshape_view(points, (-1, 3))
         self.trait_set(points=points, trait_change_notify=False)
 
         triangles = self.triangles

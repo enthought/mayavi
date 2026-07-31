@@ -10,6 +10,7 @@ import collections.abc
 import gc
 import re
 import os
+import warnings
 
 # Local imports (these are relative imports for a good reason).
 from . import class_tree
@@ -169,7 +170,11 @@ class VTKMethodParser:
             if klass.__name__ != 'vtkObject':
                 vtk.vtkObject.GlobalWarningDisplayOff()
 
-        self._organize_methods(klass, methods)
+        with warnings.catch_warnings():
+            if no_warn:
+                # probing every getter necessarily calls the deprecated ones
+                warnings.simplefilter('ignore', DeprecationWarning)
+            self._organize_methods(klass, methods)
 
         if no_warn:
             # Reset warning status.
