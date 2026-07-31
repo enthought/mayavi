@@ -123,9 +123,8 @@ def is_wx_example(filename):
         added later is picked up on its own.  It cannot go through
         _code_without_comments, which joins tokens with nothing between them.
     """
-    with open(filename) as fid:
-        return re.search(r'^\s*(?:import|from)\s+wx\b', fid.read(),
-                         re.MULTILINE) is not None
+    return re.search(r'^\s*(?:import|from)\s+wx\b', Path(filename).read_text(),
+                     re.MULTILINE) is not None
 
 
 def is_dialog_example(filename):
@@ -322,7 +321,7 @@ def capture_wx_dialog(filename, image_file):
     mlab.show = lambda func=None: None
     np.random.seed(0)
     try:
-        exec(compile(open(filename).read(), filename, 'exec'),
+        exec(compile(Path(filename).read_text(), filename, 'exec'),
              {'__name__': '__main__', '__file__': os.path.abspath(filename)})
         if not frames:
             raise RuntimeError('%s opened no frame' % filename)
