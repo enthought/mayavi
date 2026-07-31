@@ -311,6 +311,14 @@ def capture_example(filename, short_file_name, image_file):
         # one broken example should not cost the gallery every later figure
         print("Could not render %s: %s: %s"
               % (filename, type(exc).__name__, exc))
+        # the child's traceback is the only thing that says why, and it is not
+        # part of str(CalledProcessError) -- without it a CI-only failure is
+        # undiagnosable from the log
+        for stream in (getattr(exc, 'stderr', None), getattr(exc, 'stdout', None)):
+            if stream:
+                text = stream if isinstance(stream, str) else stream.decode(
+                    errors='replace')
+                print(textwrap.indent(text.strip()[-2000:], '    '), flush=True)
 
 
 def is_mlab_example(filename):
