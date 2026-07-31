@@ -39,6 +39,14 @@ SKIP_EXAMPLES = {
         'needs wxPython, which the docs do not install',
     'compute_in_thread': 'drives a worker thread, so the figure never settles',
     'poll_file': 'waits for a file to be edited',
+    # It is the only example that reparents a scene widget.  On X11 that
+    # destroys the native window VTK was given, so the paint event that follows
+    # reaches vtkXOpenGLRenderWindow::CreateAWindow and glXCreateContext dies
+    # with SIGSEGV under Xvfb.  Refreshing the id on WinIdChange only moved the
+    # crash into that handler.  The real fix is likely QVTKRWIBase =
+    # "QOpenGLWidget", where Qt owns the context and VTK never calls GLX, but
+    # that changes how every scene in the build is rendered.
+    'qt_embedding': 'segfaults in VTK GLX context creation under Xvfb',
     'standalone': 'starts the Envisage application and its event loop',
     'user_mayavi': 'is loaded by the mayavi2 application, not run on its own',
     'zzz_reader': 'registers a reader; there is nothing to show',
