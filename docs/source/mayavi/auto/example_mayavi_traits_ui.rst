@@ -16,6 +16,11 @@ to create a dialog mimicking the mayavi2 application: a scene on the
 right, and on the left a pipeline tree view, and below it a panel to
 edit the currently-selected object.
 
+.. image:: ../generated_images/example_mayavi_traits_ui.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`mayavi_traits_ui.py`
 
 .. literalinclude:: mayavi_traits_ui.py

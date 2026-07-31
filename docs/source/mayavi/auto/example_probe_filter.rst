@@ -47,6 +47,11 @@ are collapsed in the Mayavi filters and modules.
 Note that, as we know the expression of the function, it would be simpler
 and more efficient to directly sample it on the sphere.
 
+.. image:: ../generated_images/example_probe_filter.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`probe_filter.py`
 
 .. literalinclude:: probe_filter.py

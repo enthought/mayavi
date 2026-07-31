@@ -7,6 +7,9 @@ import glob
 import inspect
 import os
 import shutil
+import subprocess
+import sys
+import tempfile
 import token, tokenize
 import textwrap
 import itertools
@@ -27,6 +30,97 @@ EXAMPLE_DIR = '../../examples/mayavi'
 # about one run in five; see the note in CLAUDE.md for what was tried.
 FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi'})
 
+# Examples that cannot be rendered unattended, and why.
+SKIP_EXAMPLES = {
+    'wx_embedding': 'needs wxPython, which the docs do not install',
+    'wx_mayavi_embed_in_notebook':
+        'needs wxPython, which the docs do not install',
+    'compute_in_thread': 'drives a worker thread, so the figure never settles',
+    'poll_file': 'waits for a file to be edited',
+    'standalone': 'starts the Envisage application and its event loop',
+    'user_mayavi': 'is loaded by the mayavi2 application, not run on its own',
+    'zzz_reader': 'registers a reader; there is nothing to show',
+}
+
+# No example takes anything like this long; it is here so that one which will
+# never finish fails the build instead of hanging it.
+EXAMPLE_TIMEOUT = 60
+
+
+def dont_take_over_the_desktop():
+    """ Must run before anything builds a QApplication -- so before mayavi is
+        imported -- or Qt will already have made this a foreground application.
+
+        AA_PluginApplication tells Qt not to take NSApp over, which is what
+        pulls the process in front of whatever the user is working in.
+    """
+    from pyface.qt import QtCore
+
+    attribute = (getattr(QtCore.Qt, 'AA_PluginApplication', None)
+                 or QtCore.Qt.ApplicationAttribute.AA_PluginApplication)
+    QtCore.QCoreApplication.setAttribute(attribute, True)
+
+
+def keep_windows_in_background():
+    """ Stops the windows we open from stealing focus and swallowing keystrokes.
+
+        Rendering has to paint on screen, but nothing says it has to happen in
+        front of whatever the user is doing: WA_ShowWithoutActivating keeps the
+        window from taking focus, and WindowStaysOnBottomHint keeps it behind
+        the other windows.  Both have to be set before the window is shown,
+        hence patching setVisible rather than fixing up windows afterwards.
+    """
+    from pyface.qt import QtCore, QtGui
+
+    def enum(holder, name):
+        # PyQt6 scopes these, PySide6 offers them both ways
+        return getattr(QtCore.Qt, name, None) or getattr(holder, name)
+
+    # tvtk raises the scene window before every screenshot, because reading the
+    # front buffer means reading what is on screen; this reads the back buffer
+    # instead.  Private on purpose: end users keep the raising behaviour.
+    from tvtk.pyface import tvtk_scene
+    tvtk_scene._raise_to_screenshot = False
+
+    # traitsui's dialogs and pyface's windows raise themselves too
+    QtGui.QWidget.raise_ = lambda self: None
+    QtGui.QWidget.activateWindow = lambda self: None
+
+    no_activate = enum(QtCore.Qt.WidgetAttribute, 'WA_ShowWithoutActivating')
+    at_the_back = enum(QtCore.Qt.WindowType, 'WindowStaysOnBottomHint')
+    real_set_visible = QtGui.QWidget.setVisible
+
+    def set_visible(self, visible):
+        # testAttribute keeps this to once per window: setWindowFlag on a
+        # window that is already up hides and re-shows it, which would recurse
+        if visible and self.isWindow() and not self.testAttribute(no_activate):
+            self.setAttribute(no_activate, True)
+            self.setWindowFlag(at_the_back, True)
+        real_set_visible(self, visible)
+        if visible and self.isWindow():
+            # macOS pulls the process to the front again for each new window,
+            # dialogs especially, so push it back every time one appears
+            send_app_to_the_back()
+
+    QtGui.QWidget.setVisible = set_visible
+
+
+def send_app_to_the_back():
+    """ Stops the process being the frontmost application on macOS.
+
+        An Accessory app owns windows but never becomes the active one, which
+        is what keeps the render from taking keystrokes.  Qt resets this
+        whenever it opens a window, so it has to be re-applied rather than set
+        once at startup.
+    """
+    if sys.platform != 'darwin':
+        return
+    try:
+        from AppKit import NSApplication
+    except ImportError:
+        return   # pyobjc is not installed; the Qt flags still do what they can
+    NSApplication.sharedApplication().setActivationPolicy_(1)  # Accessory
+
 
 def should_render(short_file_name, image_file):
     """ Whether to (re-)render an example, honouring MAYAVI_RENDER_FLAKY.
@@ -37,6 +131,173 @@ def should_render(short_file_name, image_file):
         return True  # nothing committed to fall back on
     return os.environ.get('MAYAVI_RENDER_FLAKY', '').lower() \
         not in ('', '0', 'false', 'no')
+
+
+def is_dialog_example(filename):
+    """ Whether the example puts its scene in a TraitsUI dialog.
+    """
+    code_only = _code_without_comments(filename)
+    return 'configure_traits(' in code_only or 'edit_traits(' in code_only
+
+
+def _code_without_comments(filename):
+    tokens = tokenize.generate_tokens(open(filename).readline)
+    return ''.join([tok_content
+                    for tok_type, tok_content, _, _, _ in tokens
+                    if not token.tok_name[tok_type] in ('COMMENT', 'STRING')])
+
+
+def _scene_widgets(widget, found=None):
+    """ Every VTK render widget below ``widget``.
+
+        Matched on the attribute rather than the class name, which differs
+        between the QVTKRenderWindowInteractor subclasses.
+    """
+    from pyface.qt import QtGui
+
+    found = [] if found is None else found
+    if hasattr(widget, '_RenderWindow'):
+        found.append(widget)
+    for child in widget.children():
+        if isinstance(child, QtGui.QWidget):
+            _scene_widgets(child, found)
+    return found
+
+
+def capture_dialog(filename, image_file):
+    """ Shoots a TraitsUI example: the dialog, with its scenes painted in.
+
+        QWidget.grab() draws the Qt widgets but not the native surface the VTK
+        scene renders onto -- on macOS that leaves a black rectangle -- so each
+        scene is rendered separately and pasted over its own place in the shot.
+    """
+    from pyface.qt import QtCore, QtGui, QtTest
+    from traits.api import Button, HasTraits
+    from tvtk.api import tvtk
+
+    created = []
+    real_edit, real_configure = HasTraits.edit_traits, HasTraits.configure_traits
+    old_show = mlab.show
+
+    def edit_traits(self, *args, **kwargs):
+        kwargs['kind'] = 'live'   # non-modal, so the example returns to us
+        ui = real_edit(self, *args, **kwargs)
+        created.append(ui)
+        return ui
+
+    def settle():
+        app = QtGui.QApplication.instance()
+        for _ in range(25):
+            app.processEvents()
+
+    mlab.show = lambda func=None: None
+    HasTraits.edit_traits = edit_traits
+    HasTraits.configure_traits = lambda self, *a, **k: edit_traits(self)
+    np.random.seed(0)
+    try:
+        exec(compile(open(filename).read(), filename, 'exec'),
+             {'__name__': '__main__'})
+        if not created:
+            raise RuntimeError('%s opened no dialog' % filename)
+        ui = created[-1]
+        dialog = ui.control
+        dialog.show()
+        # the scene is only built once the window is really on screen, and
+        # several examples plot from a scene.activated handler
+        QtTest.QTest.qWaitForWindowExposed(dialog.windowHandle() or dialog, 5000)
+        settle()
+
+        obj = ui.context.get('object')
+        if obj is not None:      # a few examples only plot when clicked
+            for name in obj.trait_names():
+                if isinstance(obj.trait(name).trait_type, Button):
+                    setattr(obj, name, True)
+            settle()
+
+        scenes = _scene_widgets(dialog)
+        if not scenes:
+            raise RuntimeError('%s has no scene to capture' % filename)
+        shot = dialog.grab()
+        painter = QtGui.QPainter(shot)
+        try:
+            for widget in scenes:
+                with tempfile.NamedTemporaryFile(suffix='.png') as rendered:
+                    to_image = tvtk.WindowToImageFilter(
+                        input=widget._RenderWindow, read_front_buffer=False)
+                    writer = tvtk.PNGWriter(file_name=rendered.name)
+                    writer.set_input_data(to_image.output)
+                    to_image.update()
+                    writer.write()
+                    painter.drawImage(
+                        QtCore.QRect(widget.mapTo(dialog, QtCore.QPoint(0, 0)),
+                                     widget.size()),
+                        QtGui.QImage(rendered.name))
+        finally:
+            painter.end()
+        shot.save(image_file)
+    finally:
+        for ui in created:
+            ui.dispose()
+        HasTraits.edit_traits = real_edit
+        HasTraits.configure_traits = real_configure
+        mlab.show = old_show
+
+
+def capture_one(filename, image_file):
+    """ Renders one example, the way that suits it.  Runs in the child.
+    """
+    keep_windows_in_background()
+    if is_dialog_example(filename):
+        capture_dialog(filename, image_file)
+    else:
+        run_mlab_file(filename, image_file=image_file)
+
+
+def capture_in_subprocess(filename, image_file):
+    """ Renders one example in a child process, so that it can be killed.
+
+        An example that reaches a Qt event loop never hands control back to the
+        interpreter, so a signal-based timeout in this process would never be
+        delivered -- only killing the process actually works.  Isolation also
+        keeps one example's leftover scene state out of the next one's figure.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+    code = ('import mayavi, tvtk.api, sys\n'          # bind before the doc
+            'sys.path.insert(0, %r)\n'                # sources can shadow them
+            'from pyface.qt import QtCore\n'
+            'QtCore.QCoreApplication.setAttribute('
+            'QtCore.Qt.ApplicationAttribute.AA_PluginApplication, True)\n'
+            'from render_examples import capture_one\n'
+            'capture_one(%r, %r)\n' % (here, filename, image_file))
+    subprocess.run([sys.executable, '-P', '-c', code],
+                   check=True, timeout=EXAMPLE_TIMEOUT,
+                   capture_output=True, text=True)
+
+
+def capture_example(filename, short_file_name, image_file):
+    """ Renders one example's figure, picking the way that suits it.
+
+        Anything that cannot be rendered is left with whatever image is
+        committed, so the gallery keeps its thumbnail either way.
+    """
+    if short_file_name in SKIP_EXAMPLES:
+        print("Skipping %s: %s" % (filename, SKIP_EXAMPLES[short_file_name]))
+        return
+    if not should_render(short_file_name, image_file):
+        print("Keeping the committed image for %s; it does not render "
+              "reproducibly (set MAYAVI_RENDER_FLAKY=1 to redo it)" % filename)
+        return
+    if not (is_dialog_example(filename) or is_mlab_example(filename)):
+        print("Skipping %s: it neither shows a figure nor opens a dialog"
+              % filename)
+        return
+    print("Generating images for %s" % filename, flush=True)
+    try:
+        capture_in_subprocess(filename, image_file)
+    except Exception as exc:
+        # one broken example should not cost the gallery every later figure
+        print("Could not render %s: %s: %s"
+              % (filename, type(exc).__name__, exc))
 
 
 def is_mlab_example(filename):
@@ -293,7 +554,12 @@ class ImagesExampleLister(ExampleLister):
     def gallery_entry(self, index, file_details):
         filename, short_file_name, short_desc, title, docstring, end_row = \
                                                                 file_details
-        short_desc = textwrap.wrap(short_desc, width=40)
+        # never break a word or a hyphenated one: a description mentioning
+        # :ref:`data-structures-used-by-mayavi` would otherwise be split across
+        # lines mid-label, leaving a reference that resolves to nothing
+        short_desc = textwrap.wrap(short_desc, width=40,
+                                   break_long_words=False,
+                                   break_on_hyphens=False)
         unique_hash = self._unique_hash
         self._stream.write(
                 ("\n|%(unique_hash)02i%(index)02i|" % locals()).ljust(9) +
@@ -305,7 +571,32 @@ class ImagesExampleLister(ExampleLister):
 ################################################################################
 # class `MlabExampleLister`
 ################################################################################
-class MlabExampleLister(ImagesExampleLister):
+class RenderedExampleLister(ImagesExampleLister):
+    """ ExampleLister that renders each example's figure rather than only
+        looking for one already on disk.
+    """
+
+    render_images = False
+
+    images_dir = 'mayavi/generated_images'
+
+    def render_example_page(self, stream, index, file_details):
+        """ Hijack this method to, optionally, render images.
+        """
+        filename, short_file_name, short_desc, title, docstring, end_row = \
+                                                            file_details
+        if self.render_images:
+            image_file = os.path.join(self.images_dir, 'example_%s.jpg' \
+                                    % short_file_name)
+            capture_example(filename, short_file_name, image_file)
+        ImagesExampleLister.render_example_page(self, stream,
+                                                index, file_details)
+
+
+################################################################################
+# class `MlabExampleLister`
+################################################################################
+class MlabExampleLister(RenderedExampleLister):
 
     header_tpl = """
 Mlab functions gallery
@@ -400,29 +691,6 @@ Advanced mlab examples
 
     """
 
-    render_images = False
-
-    images_dir = 'mayavi/generated_images'
-
-    def render_example_page(self, stream, index, file_details):
-        """ Hijack this method to, optionally, render images.
-        """
-        filename, short_file_name, short_desc, title, docstring, end_row = \
-                                                            file_details
-        if self.render_images:
-            image_file = os.path.join(self.images_dir, 'example_%s.jpg' \
-                                    % short_file_name)
-            if not should_render(short_file_name, image_file):
-                print("Keeping the committed image for %s; it does not render "
-                      "reproducibly (set MAYAVI_RENDER_FLAKY=1 to redo it)"
-                      % filename)
-                ImagesExampleLister.render_example_page(self, stream, index,
-                                                        file_details)
-                return
-            print("Generating images for %s" % filename)
-            run_mlab_file(filename, image_file=image_file)
-        ImagesExampleLister.render_example_page(self, stream,
-                                                index, file_details)
 
 
 
@@ -469,7 +737,9 @@ Example gallery
     # Sort by file length (gives a measure of the complexity of the
     # example)
     example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
-    example_lister = ImagesExampleLister(
+    example_lister = RenderedExampleLister(
+            render_images=render_images,
+            images_dir='mayavi/generated_images',
             title="Interactive examples",
             out_dir=out_dir,
             intro="""
@@ -488,7 +758,9 @@ applications.
     # Sort by file length (gives a measure of the complexity of the
     # example)
     example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
-    example_lister = ExampleLister(
+    example_lister = RenderedExampleLister(
+            render_images=render_images,
+            images_dir='mayavi/generated_images',
             title="Advanced visualization examples",
             out_dir=out_dir,
             intro="""
@@ -506,7 +778,9 @@ more fine control than mlab.
     # Sort by file length (gives a measure of the complexity of the
     # example)
     example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
-    example_lister = ExampleLister(
+    example_lister = RenderedExampleLister(
+            render_images=render_images,
+            images_dir='mayavi/generated_images',
             title="Data interaction examples",
             out_dir=out_dir,
             intro="""

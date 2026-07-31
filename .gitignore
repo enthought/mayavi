@@ -25,3 +25,4 @@ docs/source/*.cube
 docs/source/*.ent.gz
 docs/source/*.tar.gz
 docs/source/*.zip
+docs/source/mri_data/

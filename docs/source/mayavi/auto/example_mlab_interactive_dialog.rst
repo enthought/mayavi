@@ -25,6 +25,11 @@ object (see :ref:`mlab-animating-data`).
 This example is discussed in details in the section
 :ref:`embedding_mayavi_traits`.
 
+.. image:: ../generated_images/example_mlab_interactive_dialog.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`mlab_interactive_dialog.py`
 
 .. literalinclude:: mlab_interactive_dialog.py

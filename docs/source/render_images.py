@@ -44,6 +44,12 @@ def use_ci_image_size():
 # when mlab_reference.py execs this file just to read IMAGE_DIR
 if __name__ == '__main__':
     use_ci_image_size()
+    # likewise: once Qt owns NSApp the process is a foreground application and
+    # every figure steals focus, so this cannot wait until rendering starts
+    from pyface.qt import QtCore
+    QtCore.QCoreApplication.setAttribute(
+        getattr(QtCore.Qt, 'AA_PluginApplication', None)
+        or QtCore.Qt.ApplicationAttribute.AA_PluginApplication, True)
 
 from mayavi import mlab                                            # noqa: E402
 from mayavi.scripts import mayavi2                                 # noqa: E402
@@ -113,6 +119,8 @@ def illustrate_module(module, directory=IMAGE_DIR):
 # Entry point
 @mlab.show
 def main():
+    from render_examples import keep_windows_in_background
+    keep_windows_in_background()   # do not steal focus while rendering
     mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), size=(400, 400))
     print("Generating the mlab images...")
     illustrate_module(mlab)
@@ -122,6 +130,12 @@ def main():
     from render_examples import render_examples
     render_examples(render_images=True)
     print("Done generating the example pages")
+    # mlab.show keeps an event loop running once main() returns, and with
+    # AA_PluginApplication set Qt no longer owns NSApp, so nothing ever ends it
+    from pyface.qt import QtGui
+    app = QtGui.QApplication.instance()
+    if app is not None:
+        app.quit()
 
 if __name__ == '__main__':
     main()

@@ -25,6 +25,13 @@ from traits.api import HasPrivateTraits, HasTraits, Any, Int, \
 from tvtk.pyface import light_manager
 
 
+# Private, for the docs build: see docs/source/render_examples.py.  Default
+# behaviour is unchanged -- a screenshot raises the scene window and reads the
+# front buffer.  Setting this False reads the back buffer instead, which does
+# not need the window raised and so does not steal focus.
+_raise_to_screenshot = True
+
+
 def set_magnification(w2if, magnification):
     if hasattr(w2if, 'magnification'):
         w2if.magnification = magnification
@@ -796,11 +803,11 @@ class TVTKScene(HasPrivateTraits):
         return self._interactor
 
     def _get_window_to_image(self):
-        w2if = tvtk.WindowToImageFilter(
-            read_front_buffer=not self.off_screen_rendering
-        )
+        front = not self.off_screen_rendering and _raise_to_screenshot
+        w2if = tvtk.WindowToImageFilter(read_front_buffer=front)
         set_magnification(w2if, self.magnification)
-        self._lift()
+        if _raise_to_screenshot:
+            self._lift()
         w2if.input = self._renwin
         return w2if
 
