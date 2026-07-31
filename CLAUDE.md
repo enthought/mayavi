@@ -114,6 +114,16 @@ fatal separately, in the two places that run Python:
   It is `?=`, so an `ETS_TOOLKIT` in the environment **wins** — which is why
   `docs.yml` leaves it unset at job level and sets `qt4` only on the rendering
   step, which does need a toolkit.
+- The two `wx_*` examples are rendered under wx rather than Qt.  The toolkit is
+  a per-process choice, so `capture_in_subprocess` sets `ETS_TOOLKIT=wx` in the
+  child for any example whose source imports `wx` (`is_wx_example`), and
+  `capture_one` sends it to `capture_wx_dialog` — the wx counterpart of
+  `capture_dialog`, `WindowDC`/`MemoryDC` in place of `QWidget.grab`.  Note it
+  cannot use `keep_windows_in_background()`, which is Qt-only, so a local
+  render of those two will take focus.  wxPython has no Linux wheels on PyPI:
+  `docs.yml` takes them from `extras.wxpython.org`, which is published per
+  Ubuntu release and per Python — currently cp313 at the newest, which is why
+  that job pins Python 3.13 and `ubuntu-24.04` rather than `-latest`.
 - Parts of `docs/source/mayavi/auto/` are generated: `mlab_reference.py`
   (repo root) emits the mlab API reference, `docs/source/render_examples.py`
   emits the example gallery.  Both are re-run in CI and both are also
