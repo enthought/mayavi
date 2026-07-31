@@ -329,7 +329,13 @@ def capture_example(filename, short_file_name, image_file):
             if stream:
                 text = stream if isinstance(stream, str) else stream.decode(
                     errors='replace')
-                print(textwrap.indent(text.strip()[-2000:], '    '), flush=True)
+                # faulthandler's dump ends with a list of every loaded
+                # extension module, thousands of characters of it, which a
+                # tail would show instead of the stack that matters
+                lines = [line for line in text.strip().splitlines()
+                         if not line.startswith('Extension modules:')]
+                print(textwrap.indent('\n'.join(lines[-40:]), '    '),
+                      flush=True)
 
 
 def is_mlab_example(filename):
