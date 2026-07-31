@@ -93,6 +93,15 @@ jobs:
         name: docs-site
         path: docs/build/site
         retention-days: 14
+    - name: Check every example that should have a figure produced one
+      # last on purpose: a failure here still leaves the site and its images
+      # uploaded above, which is what you want to look at when it goes red
+      run: |
+        if [ -s render_failures.txt ]; then
+          echo "These examples were meant to render and did not:"
+          cat render_failures.txt
+          exit 1
+        fi
 
   deploy:
     name: Deploy

@@ -14,8 +14,14 @@
 
 # Adding the current directory to the path, so that sphinx finds the
 # extensions.
+import faulthandler
 import os
 import re
+
+# autodoc imports mayavi, so VTK can take the build down with it; without this
+# a crash is a bare signal number.  The variable carries it into any child.
+faulthandler.enable()
+os.environ['PYTHONFAULTHANDLER'] = '1'
 
 try:
     # When translating the docs to another language, this variable is set 

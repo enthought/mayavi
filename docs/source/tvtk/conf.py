@@ -11,9 +11,15 @@
 # All configuration values have a default value; values that are commented out
 # serve to show the default value.
 
+import faulthandler
 import os
 import re
 import sys
+
+# autodoc imports tvtk, so VTK can take the build down with it; without this a
+# crash is a bare signal number.  The variable carries it into any child.
+faulthandler.enable()
+os.environ['PYTHONFAULTHANDLER'] = '1'
 
 try:
     # When translating the docs to another language, this variable is set 

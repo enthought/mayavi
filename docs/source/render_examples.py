@@ -52,6 +52,13 @@ EXAMPLE_TIMEOUT = 60
 # it before it can render.  Once the data is there it is as quick as the rest.
 EXAMPLE_TIMEOUTS = {'lucy': 300}
 
+# Examples that were meant to produce a figure and did not.  A failure only
+# prints and moves on, so that one broken example does not cost the gallery
+# every later figure -- which also means it leaves the committed image in place
+# and looks, in the diff, exactly like an example that rendered unchanged.
+# render_docs.py turns a non-empty list into a failed build at the very end.
+RENDER_FAILURES = []
+
 
 def keep_windows_in_background():
     """ Stops the windows we open from stealing focus and swallowing keystrokes.
@@ -307,8 +314,12 @@ def capture_example(filename, short_file_name, image_file):
     print("Generating images for %s" % filename, flush=True)
     try:
         capture_in_subprocess(filename, image_file)
+        if not os.path.exists(image_file):
+            raise RuntimeError('rendered without leaving an image behind')
     except Exception as exc:
         # one broken example should not cost the gallery every later figure
+        RENDER_FAILURES.append('%s: %s: %s'
+                               % (filename, type(exc).__name__, exc))
         print("Could not render %s: %s: %s"
               % (filename, type(exc).__name__, exc))
         # the child's traceback is the only thing that says why, and it is not
