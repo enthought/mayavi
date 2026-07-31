@@ -20,7 +20,9 @@ permissions:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    # pinned rather than -latest: the wxPython wheels below are published per
+    # Ubuntu release, and a runner bump would silently take the URL with it
+    runs-on: ubuntu-24.04
     defaults:
       run:
         shell: bash
@@ -33,8 +35,9 @@ jobs:
       QT_API: pyside6
       PYTHONUNBUFFERED: '1'
       # a missing wheel should fail fast rather than start building VTK from
-      # source; as an env var this reaches the isolated build environment too
-      PIP_ONLY_BINARY: numpy,vtk
+      # source; as an env var this reaches the isolated build environment too.
+      # wxpython matters most here: its sdist builds wxWidgets itself
+      PIP_ONLY_BINARY: numpy,vtk,wxpython
 
     steps:
     - uses: actions/checkout@v7.0.0
@@ -48,9 +51,42 @@ jobs:
         qt: true
     - uses: actions/setup-python@v6.3.0
       with:
-        python-version: '3.14'
+        # not 3.14: wxPython's Linux wheels stop at cp313, and the two wx
+        # examples are the only thing in the gallery that needs it.  VTK is the
+        # same wheel either way, so the rendered figures do not move
+        python-version: '3.13'
     - run: python -m pip install --upgrade pip  # --group needs pip >= 25.1
     - run: python -m pip install --group docs -ve ".[app]"
+    - name: System libraries the wxPython wheel links against
+      # the wheel bundles wxWidgets but not the GTK stack around it; libnotify
+      # is the one the runner image is missing, and SDL2 is what wx.media
+      # wants, so it is here rather than found one run at a time
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends libnotify4 libsdl2-2.0-0
+    - name: Install wxPython
+      # PyPI carries macOS and Windows wheels only, plus an sdist that builds
+      # wxWidgets from source, so Linux takes them from wxPython's own index.
+      # Kept out of the docs group for that reason: the group has to stay
+      # installable everywhere.
+      run: |
+        python -m pip install --only-binary :all: \
+          -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-24.04 \
+          wxpython
+    - name: Check the wx toolkit loads
+      # the wheel links against GTK, so a missing system library shows up only
+      # on import -- here rather than inside a render subprocess minutes later,
+      # where it reads as "an example failed"
+      run: |
+        ETS_TOOLKIT=wx python -c "
+        from pyface.base_toolkit import find_toolkit
+        for entry_point in ('pyface.toolkits', 'traitsui.toolkits'):
+            toolkit = find_toolkit(entry_point)
+            print(entry_point, '->', toolkit.toolkit)
+            # find_toolkit falls back to whatever it can load, so a working Qt
+            # would let a broken wx through if this only printed the result
+            assert toolkit.toolkit == 'wx', (entry_point, toolkit.toolkit)
+        "
     - name: Cache the example datasets
       # the examples urlretrieve these into the cwd they run in, with no
       # timeout; lucy alone is a 322 MB download.  The unpacked directories are

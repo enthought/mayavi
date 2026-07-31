@@ -119,7 +119,10 @@ class _SceneEditor(Editor):
         self._sizer.Add(scene.control, 1, wx.EXPAND)
         self._sizer.Layout()
 
-        wx.EVT_IDLE(scene.control, None)
+        # wx.EVT_IDLE(window, None) is the wx 2.x spelling of "drop the idle
+        # handler"; Phoenix keeps it working but deprecates it, and the docs
+        # build makes warnings fatal
+        scene.control.Unbind(wx.EVT_IDLE)
 
         # Force a render.
         scene.render()

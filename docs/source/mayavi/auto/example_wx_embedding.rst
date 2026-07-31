@@ -20,6 +20,11 @@ In this example, the wx part is very simple. See
 :ref:`example_wx_mayavi_embed_in_notebook` for an example of more complex
 embedding of Mayavi scenes in Wx applications.
 
+.. image:: ../generated_images/example_wx_embedding.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`wx_embedding.py`
 
 .. literalinclude:: wx_embedding.py

@@ -6,12 +6,14 @@ Render the examples to images and adds them to the documentation.
 import glob
 import inspect
 import os
+import re
 from io import StringIO
 from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import token, tokenize
 import textwrap
 import itertools
@@ -36,9 +38,6 @@ FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi', 'magnetic_field'})
 
 # Examples that cannot be rendered unattended, and why.
 SKIP_EXAMPLES = {
-    'wx_embedding': 'needs wxPython, which the docs do not install',
-    'wx_mayavi_embed_in_notebook':
-        'needs wxPython, which the docs do not install',
     'compute_in_thread': 'drives a worker thread, so the figure never settles',
     'poll_file': 'waits for a file to be edited',
     'standalone': 'starts the Envisage application and its event loop',
@@ -125,6 +124,17 @@ def should_render(short_file_name, image_file):
         return True  # nothing committed to fall back on
     return os.environ.get('MAYAVI_RENDER_FLAKY', '').lower() \
         not in ('', '0', 'false', 'no')
+
+
+def is_wx_example(filename):
+    """ Whether the example is written against wx rather than Qt.
+
+        Read from the source rather than kept in a list, so that a wx example
+        added later is picked up on its own.  It cannot go through
+        _code_without_comments, which joins tokens with nothing between them.
+    """
+    return re.search(r'^\s*(?:import|from)\s+wx\b', Path(filename).read_text(),
+                     re.MULTILINE) is not None
 
 
 def is_dialog_example(filename):
@@ -282,9 +292,136 @@ def capture_dialog(filename, image_file):
             setattr(QtGui.QApplication, name, real)
 
 
+def _wx_scene_controls(window, found=None):
+    """ Every VTK render widget below ``window``, wx side.
+
+        VTK's wx interactor is what tvtk builds its scene on, and GetRenderWindow
+        is the part of it worth matching on.
+    """
+    found = [] if found is None else found
+    if hasattr(window, 'GetRenderWindow'):
+        found.append(window)
+    for child in window.GetChildren():
+        _wx_scene_controls(child, found)
+    return found
+
+
+def _wx_scenes_on_screen(frame, filename, timeout=EXAMPLE_TIMEOUT / 4):
+    """ Waits for the frame's scenes to be on screen, and returns them.
+
+        The Qt path waits with QTest.qWaitForWindowExposed; wx has nothing
+        equivalent, so wait on the thing that is actually wanted -- a scene the
+        window server has put up -- rather than on a fixed number of turns
+        round the event loop.  Update() then paints what is pending now, rather
+        than whenever wx would next have got to it.
+
+        A notebook's hidden tab is left out: it sits at the same place as the
+        visible one, with an unrealised render window that would otherwise be
+        scaled over the top of it.
+    """
+    import wx
+
+    app = wx.GetApp()
+    deadline = time.monotonic() + timeout
+    while True:
+        app.Yield()                 # processes everything currently pending
+        scenes = [scene for scene in _wx_scene_controls(frame)
+                  if scene.IsShownOnScreen()]
+        if scenes and frame.IsShownOnScreen():
+            frame.Layout()
+            # IsShownOnScreen means the widget and its parents are shown, not
+            # that the server has mapped and exposed the window -- there is no
+            # wx qWaitForWindowExposed.  Update() paints the pending regions
+            # synchronously, so the blit that follows has something to copy.
+            frame.Update()
+            return scenes
+        if time.monotonic() >= deadline:
+            raise NoSceneInDialog(filename)
+
+
+def capture_wx_dialog(filename, image_file):
+    """ Shoots a wx example: the frame, with its scenes painted in.
+
+        The Qt counterpart with the toolkit swapped out -- MainLoop for exec_,
+        WindowDC onto a MemoryDC for QWidget.grab, DrawBitmap for
+        QPainter.drawImage -- and for the same reason: the blit copies the wx
+        widgets but not the native surface VTK draws on.
+    """
+    import wx
+    from tvtk.api import tvtk
+
+    frames = []
+    real_frame_init = wx.Frame.__init__
+    real_main_loop = wx.App.MainLoop
+    old_show = mlab.show
+
+    def frame_init(self, *args, **kwargs):
+        real_frame_init(self, *args, **kwargs)
+        frames.append(self)
+
+    wx.Frame.__init__ = frame_init
+    wx.App.MainLoop = lambda self: None   # these examples run the loop
+    mlab.show = lambda func=None: None
+    np.random.seed(0)
+    try:
+        exec(compile(Path(filename).read_text(), filename, 'exec'),
+             {'__name__': '__main__', '__file__': os.path.abspath(filename)})
+        if not frames:
+            raise RuntimeError('%s opened no frame' % filename)
+        frame = frames[-1]
+        frame.Show()
+        scenes = _wx_scenes_on_screen(frame, filename)
+
+        width, height = frame.GetSize()
+        shot = wx.Bitmap(width, height)
+        canvas = wx.MemoryDC(shot)
+        canvas.Blit(0, 0, width, height, wx.WindowDC(frame), 0, 0)
+        try:
+            for control in scenes:
+                render_window = control.GetRenderWindow()
+                position = frame.ScreenToClient(control.GetScreenPosition())
+                size = control.GetSize()
+                with tempfile.NamedTemporaryFile(suffix='.png') as rendered:
+                    to_image = tvtk.WindowToImageFilter(
+                        input=render_window, read_front_buffer=False)
+                    writer = tvtk.PNGWriter(file_name=rendered.name)
+                    writer.set_input_data(to_image.output)
+                    # as in TVTKScene: what a swap leaves in the back buffer is
+                    # undefined, so do not let one happen while it is read
+                    swap_buffers = render_window.GetSwapBuffers()
+                    render_window.SwapBuffersOff()
+                    try:
+                        render_window.Render()
+                        to_image.update()
+                        writer.write()
+                    finally:
+                        render_window.SetSwapBuffers(swap_buffers)
+                    image = wx.Image(rendered.name)
+                    if (image.GetWidth(), image.GetHeight()) != tuple(size):
+                        # the render window is in pixels, the widget in points
+                        image = image.Scale(size[0], size[1],
+                                            wx.IMAGE_QUALITY_HIGH)
+                    canvas.DrawBitmap(wx.Bitmap(image), position[0],
+                                      position[1])
+        finally:
+            canvas.SelectObject(wx.NullBitmap)
+        kind = (wx.BITMAP_TYPE_JPEG
+                if image_file.lower().endswith(('.jpg', '.jpeg'))
+                else wx.BITMAP_TYPE_PNG)
+        shot.SaveFile(image_file, kind)
+    finally:
+        wx.Frame.__init__ = real_frame_init
+        wx.App.MainLoop = real_main_loop
+        mlab.show = old_show
+
+
 def capture_one(filename, image_file):
     """ Renders one example, the way that suits it.  Runs in the child.
     """
+    if is_wx_example(filename):
+        # keep_windows_in_background is Qt-only, and pyface.qt need not even
+        # import in a toolkit=wx child
+        return capture_wx_dialog(filename, image_file)
     keep_windows_in_background()
     # an example that also draws with matplotlib would block in pyplot.show();
     # the environment only affects this child, not what users get
@@ -311,9 +448,14 @@ def capture_in_subprocess(filename, image_file):
             'from render_examples import capture_one\n'
             'capture_one(%r, %r)\n' % (here, filename, image_file))
     short_name = os.path.splitext(os.path.basename(filename))[0]
+    # the toolkit is per process, which is exactly what the isolation buys us:
+    # a wx example gets a wx child and the rest of the gallery stays on Qt
+    env = dict(os.environ)
+    if is_wx_example(filename):
+        env['ETS_TOOLKIT'] = 'wx'
     subprocess.run([sys.executable, '-P', '-c', code], check=True,
                    timeout=EXAMPLE_TIMEOUTS.get(short_name, EXAMPLE_TIMEOUT),
-                   capture_output=True, text=True)
+                   capture_output=True, text=True, env=env)
 
 
 def capture_example(filename, short_file_name, image_file):
@@ -356,8 +498,13 @@ def capture_example(filename, short_file_name, image_file):
                 # tail would show instead of the stack that matters
                 lines = [line for line in text.strip().splitlines()
                          if not line.startswith('Extension modules:')]
-                print(textwrap.indent('\n'.join(lines[-40:]), '    '),
-                      flush=True)
+                # both ends: a chained exception puts the cause that actually
+                # explains the failure at the top, a crash dump puts the stack
+                # at the bottom, and a tail alone loses the first of those
+                if len(lines) > 70:
+                    lines = (lines[:30] + ['    ... %d lines omitted ...'
+                                           % (len(lines) - 70)] + lines[-40:])
+                print(textwrap.indent('\n'.join(lines), '    '), flush=True)
 
 
 def is_mlab_example(filename):

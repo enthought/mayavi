@@ -9,11 +9,6 @@ In this example, we embed one single Mayavi scene in a Wx notebook, with
 2 tabs, each one of them hosting a different view of the scene.
 """
 
-# First thing, we need to make sure that we are importing a
-# recent-enough version of wx
-import wxversion
-wxversion.ensureMinimal('2.8')
-
 from numpy import ogrid, sin
 
 from traits.api import HasTraits, Instance
@@ -47,6 +42,7 @@ class MayaviView(HasTraits):
 #-------------------------------------------------------------------------------
 # Wx Code
 import wx
+import wx.aui
 
 class MainWindow(wx.Frame):
 
