@@ -8,9 +8,8 @@
 
 # Standard library imports.
 from os import path
-import subprocess
-import sys
 from os.path import join, dirname
+import webbrowser
 
 # Enthought library imports.
 from pyface.action.api import Action
@@ -33,11 +32,7 @@ if not path.exists(HTML_DIR):
         HTML_DIR = None
 
 def browser_open(url):
-    if sys.platform == 'darwin':
-        subprocess.Popen(['open', url])
-    else:
-        import webbrowser
-        webbrowser.open(url, autoraise=1)
+    webbrowser.open(url, autoraise=1)
 
 
 def open_help_index(*args):

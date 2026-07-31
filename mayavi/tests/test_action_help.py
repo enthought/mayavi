@@ -5,13 +5,12 @@ from mayavi.action import help as action_help
 
 
 class TestBrowserOpen(unittest.TestCase):
-    def test_macos_passes_url_as_one_argument(self):
+    def test_opens_url(self):
         url = '/tmp/Mayavi Docs; unexpected-command'
-        with patch.object(action_help.sys, 'platform', 'darwin'):
-            with patch.object(action_help.subprocess, 'Popen') as popen:
-                action_help.browser_open(url)
+        with patch.object(action_help.webbrowser, 'open') as open_mock:
+            action_help.browser_open(url)
 
-        popen.assert_called_once_with(['open', url])
+        open_mock.assert_called_once_with(url, autoraise=1)
 
 
 if __name__ == '__main__':
