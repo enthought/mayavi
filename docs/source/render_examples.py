@@ -25,10 +25,12 @@ global_counter = itertools.count()
 EXAMPLE_DIR = '../../examples/mayavi'
 
 # Examples whose figure differs from run to run, so that re-rendering would flip
-# the published image back and forth for no gain.  tvtk_in_mayavi draws
-# overlapping translucent actors, and VTK composites those slightly differently
-# about one run in five; see the note in CLAUDE.md for what was tried.
-FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi'})
+# the published image back and forth for no gain.  Both draw overlapping
+# translucent actors, which VTK composites slightly differently from one run to
+# the next: tvtk_in_mayavi about one run in five, and magnetic_field -- which
+# culls front faces to fake transparency -- in three of the last four CI runs,
+# a third of the image at a time.  See the note in CLAUDE.md for what was tried.
+FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi', 'magnetic_field'})
 
 # Examples that cannot be rendered unattended, and why.
 SKIP_EXAMPLES = {
