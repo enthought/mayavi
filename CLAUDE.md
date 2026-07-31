@@ -57,10 +57,15 @@ pytest -sv --timeout=60 tvtk
   instantiate.  `integrationtests/conftest.py` therefore keeps collection out
   of `mayavi/`; `integrationtests/test_integration.py` beside it is the pytest
   entry point and shells out per script, as `run.py` always has, because engine
-  and scene state leaks between them in one process.  All 26 pass (~2 min), and
-  `tests.yml` runs them on the one Linux row with the latest VTK: they exercise
-  the application, not the VTK version, so the matrix covers that already.
-  They need a display and the `[app]` extra, so not the headless row.
+  and scene state leaks between them in one process.  All 26 pass (~2 min), in
+  `tests.yml`'s own `integration` job — one configuration, since they exercise
+  the application rather than the VTK version the matrix already covers, and
+  they want a display and the `[app]` extra.  A *step* on a `tests` row was
+  tried first and never ran: `!matrix.vtk` matched nothing because the
+  `vtk-dev` include overrides no original matrix value, so GitHub merges it
+  into the base ubuntu combination instead of adding a row, and every ubuntu
+  row therefore has `vtk` set.  CI was green throughout.  A matrix-conditioned
+  step fails silently that way; a job's absence from the checks is visible.
 - Regeneration is skipped if `tvtk/tvtk_classes.zip` is < 120 s old
   (`_tvtk_built_recently` in `setup.py`).
 - Warnings are errors.  The filters live in `mayavi/tests/conftest.py` and
