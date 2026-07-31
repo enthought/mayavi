@@ -280,6 +280,14 @@ def run_mlab_file(filename, image_file):
         compile(open(filename).read(), filename, 'exec'),
         {'__name__': '__main__'}
     )
+    # Let the widget reach the size the example asked for before capturing.
+    # Without this the render window can still be at VTK's 300x300 default,
+    # which is what happens on CI where nothing else has realised a window.
+    from pyface.qt import QtGui
+    app = QtGui.QApplication.instance()
+    if app is not None:
+        for _ in range(10):
+            app.processEvents()
     mlab.savefig(image_file)
     size = mlab.gcf().scene.get_size()
     for scene in e.scenes:

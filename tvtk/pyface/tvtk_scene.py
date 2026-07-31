@@ -820,26 +820,30 @@ class TVTKScene(HasPrivateTraits):
         # Bumps up the anti-aliasing frames when the image is saved so
         # that the saved picture looks nicer.
         rw = self.render_window
-        if hasattr(rw, 'aa_frames'):
-            aa_frames = rw.aa_frames
-            rw.aa_frames = self.anti_aliasing_frames
-        else:
-            aa_frames = rw.multi_samples
-            rw.multi_samples = self.anti_aliasing_frames
-        # What is left in the back buffer after a swap is undefined by the
-        # OpenGL spec, so do not let one happen while the image is read.
+        has_aa_frames = hasattr(rw, 'aa_frames')
+        aa_frames = rw.aa_frames if has_aa_frames else rw.multi_samples
         swap_buffers = rw.swap_buffers
-        rw.swap_buffers = False
-        rw.render()
-        ex.update()
-        ex.write()
-        rw.swap_buffers = swap_buffers
-        # Set the frames back to original setting.
-        if hasattr(rw, 'aa_frames'):
-            rw.aa_frames = aa_frames
-        else:
-            rw.multi_samples = aa_frames
-        rw.render()
+        try:
+            if has_aa_frames:
+                rw.aa_frames = self.anti_aliasing_frames
+            else:
+                rw.multi_samples = self.anti_aliasing_frames
+            # What is left in the back buffer after a swap is undefined by the
+            # OpenGL spec, so do not let one happen while the image is read.
+            rw.swap_buffers = False
+            rw.render()
+            ex.update()
+            ex.write()
+        finally:
+            # Whatever happened, leave the window usable: a scene stuck with
+            # swapping off or the anti-aliasing bumped up would have to be
+            # closed and recreated.
+            rw.swap_buffers = swap_buffers
+            if has_aa_frames:
+                rw.aa_frames = aa_frames
+            else:
+                rw.multi_samples = aa_frames
+            rw.render()
 
     def _update_view(self, x, y, z, vx, vy, vz):
         """Used internally to set the view."""
