@@ -198,12 +198,21 @@ def capture_dialog(filename, image_file):
         try:
             for widget in scenes:
                 with tempfile.NamedTemporaryFile(suffix='.png') as rendered:
+                    rw = widget._RenderWindow
                     to_image = tvtk.WindowToImageFilter(
-                        input=widget._RenderWindow, read_front_buffer=False)
+                        input=rw, read_front_buffer=False)
                     writer = tvtk.PNGWriter(file_name=rendered.name)
                     writer.set_input_data(to_image.output)
-                    to_image.update()
-                    writer.write()
+                    # as in TVTKScene: what a swap leaves in the back buffer is
+                    # undefined, so do not let one happen while it is read
+                    swap_buffers = rw.GetSwapBuffers()
+                    rw.SwapBuffersOff()
+                    try:
+                        rw.Render()
+                        to_image.update()
+                        writer.write()
+                    finally:
+                        rw.SetSwapBuffers(swap_buffers)
                     painter.drawImage(
                         QtCore.QRect(widget.mapTo(dialog, QtCore.QPoint(0, 0)),
                                      widget.size()),
