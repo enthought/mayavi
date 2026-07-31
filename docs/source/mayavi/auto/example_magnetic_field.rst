@@ -23,6 +23,11 @@ G. Varoquaux, http://tel.archives-ouvertes.fr/tel-00265714/, page 148).
 For another visualization of magnetic field, see the
 :ref:`example_magnetic_field_lines`.
 
+.. image:: ../generated_images/example_magnetic_field.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`magnetic_field.py`
 
 .. literalinclude:: magnetic_field.py

@@ -16,28 +16,30 @@ For an example of feature extraction from MRI data using Mayavi and vtk,
 see :ref:`example_tvtk_segmentation`.
 """
 
-### Download the data, if not already on disk #################################
+### Download and unpack the data, if not already on disk ########################
 import os
-if not os.path.exists('MRbrain.tar.gz'):
-    # Download the data
-    try:
-        from urllib import urlopen
-    except ImportError:
-        from urllib.request import urlopen
-    print("Downloading data, Please Wait (7.8MB)")
-    opener = urlopen(
-                'http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
-    open('MRbrain.tar.gz', 'wb').write(opener.read())
+mri_slice_file = os.path.join('mri_data', 'MRbrain.1')
+if not os.path.exists(mri_slice_file):
+    if not os.path.exists('MRbrain.tar.gz'):
+        # Download the data
+        try:
+            from urllib import urlopen
+        except ImportError:
+            from urllib.request import urlopen
+        print("Downloading data, Please Wait (7.8MB)")
+        opener = urlopen(
+                    'http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
+        open('MRbrain.tar.gz', 'wb').write(opener.read())
 
-# Extract the data
-import tarfile
-tar_file = tarfile.open('MRbrain.tar.gz')
-try:
-    os.mkdir('mri_data')
-except:
-    pass
-tar_file.extractall('mri_data')
-tar_file.close()
+    # Extract the data
+    import tarfile
+    tar_file = tarfile.open('MRbrain.tar.gz')
+    try:
+        os.mkdir('mri_data')
+    except:
+        pass
+    tar_file.extractall('mri_data')
+    tar_file.close()
 
 
 ### Read the data in a numpy 3D array #########################################
@@ -104,6 +106,3 @@ mlab.view(-125, 54, 326, (145.5, 138, 66.5))
 mlab.roll(-175)
 
 mlab.show()
-
-import shutil
-shutil.rmtree('mri_data')

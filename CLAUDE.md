@@ -103,8 +103,12 @@ warning is genuinely unfixable, add it to `nitpick_ignore` in
 - The gallery **images** are regenerated on every run too, by
   `docs/source/render_images.py` (which also invokes `render_examples.py`, so
   `mlab_reference.py` has to run *after* it to pick the images up).  The
-  ~350 MB of example datasets the examples `urlretrieve` are cached by
-  `docs.yml` under the key `example-data-v1` — bump it if a URL changes.
+  example datasets the examples `urlretrieve` are cached by `docs.yml` under
+  the key `example-data-v2` — bump it if a URL changes.  What is cached is the
+  *unpacked* `docs/source/*_data` directories (~550 MB, lucy dominating), not
+  the tarballs: the examples skip both download and unpack once those exist.
+  Each new one needs a `prune` in `MANIFEST.in` and a `.gitignore` entry, or
+  `recursive-include docs` sweeps it into the sdist.
 - `render_examples.py` writes the gallery's image directives *before* it
   renders the images, and only for figures already on disk.  A brand-new
   example therefore needs two passes before it appears with a thumbnail, which

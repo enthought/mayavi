@@ -111,12 +111,6 @@ Now that the prelimenaries are out of the way, lets get started.
 # Copyright (c) S. Chris Colbert
 # License: BSD Style
 
-# this import is here because we need to ensure that matplotlib uses the
-# wx backend and having regular code outside the main block is PyTaboo.
-# It needs to be imported first, so that matplotlib can impose the
-# version of Wx it requires.
-import matplotlib
-matplotlib.use('WXAgg')
 import pylab as pl
 
 

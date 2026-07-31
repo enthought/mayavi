@@ -6,6 +6,7 @@ exists on disk, so running them the other way round silently drops the
 illustrations.
 """
 
+import faulthandler
 import os
 import runpy
 import sys
@@ -16,6 +17,12 @@ SOURCE = REPO / 'docs' / 'source'
 
 
 def main():
+    # rendering drives VTK through a Qt event loop, where a crash arrives as a
+    # bare signal number -- qt_embedding dies with SIGSEGV on CI and nothing
+    # says where.  The variable carries this into the per-example children.
+    faulthandler.enable()
+    os.environ['PYTHONFAULTHANDLER'] = '1'
+
     # render_images.py imports its sibling render_examples, so docs/source has
     # to go on sys.path -- but docs/source/mayavi and docs/source/tvtk then
     # shadow the installed packages, as namespace packages win over an editable
@@ -32,6 +39,21 @@ def main():
 
     os.chdir(REPO)
     runpy.run_path(str(REPO / 'mlab_reference.py'), run_name='__main__')
+
+    # An example that fails to render keeps its committed image, so the run
+    # looks clean and the figure quietly goes stale -- which is how lucy ended
+    # up shipping an image CI had never produced.  The report is written rather
+    # than raised so that the site and its images are still built and uploaded:
+    # a red run is exactly when you want to look at them.
+    import render_examples
+    failures = render_examples.RENDER_FAILURES
+    (REPO / 'render_failures.txt').write_text(
+        ''.join(line + '\n' for line in failures))
+    if failures:
+        print('\n%d example(s) were meant to render and did not:'
+              % len(failures), file=sys.stderr)
+        for line in failures:
+            print('  ' + line, file=sys.stderr)
 
 
 if __name__ == '__main__':

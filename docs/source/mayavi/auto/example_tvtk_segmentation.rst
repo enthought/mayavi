@@ -15,6 +15,11 @@ gray-matter/white-matter boundary.
 The segmentation algorithm used here is very naive and should, of course,
 not be used as an example of segmentation.
 
+.. image:: ../generated_images/example_tvtk_segmentation.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`tvtk_segmentation.py`
 
 .. literalinclude:: tvtk_segmentation.py

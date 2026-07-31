@@ -56,10 +56,12 @@ app = [
 # they are build requirements and so have to be installed ahead of the package.
 [dependency-groups]
 docs = [
-    "docutils",   # mlab_reference.py validates docstrings with it directly
-    "pillow",     # render_images.py trims the rendered figures
-    "pyside6",    # rendering the gallery needs a real toolkit
-    "scipy",      # used by the spherical_harmonics example
+    "docutils",     # mlab_reference.py validates docstrings with it directly
+    "matplotlib",   # used by the mlab_3D_to_2D example
+    "networkx",     # used by the delaunay_graph example
+    "pillow",       # render_images.py trims the rendered figures
+    "pyside6",      # rendering the gallery needs a real toolkit
+    "scipy",        # used by the spherical_harmonics example
     "sphinx",
 ]
 

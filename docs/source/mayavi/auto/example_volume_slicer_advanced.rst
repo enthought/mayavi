@@ -35,6 +35,11 @@ creates a VTK `InteractionEvent`. When this happens, VTK calls an
 callback (observer, it VTK terms), that we use to move the position of
 the cut. The Traits callbacks do the rest for the updating.
 
+.. image:: ../generated_images/example_volume_slicer_advanced.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`volume_slicer_advanced.py`
 
 .. literalinclude:: volume_slicer_advanced.py

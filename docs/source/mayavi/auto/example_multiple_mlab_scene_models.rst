@@ -21,6 +21,11 @@ the examples :ref:`example_mlab_interactive_dialog`, and
 :ref:`example_lorenz_ui`, as well as the section of the user manual
 :ref:`embedding_mayavi_traits`.
 
+.. image:: ../generated_images/example_multiple_mlab_scene_models.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`multiple_mlab_scene_models.py`
 
 .. literalinclude:: multiple_mlab_scene_models.py

@@ -113,6 +113,8 @@ def illustrate_module(module, directory=IMAGE_DIR):
 # Entry point
 @mlab.show
 def main():
+    from render_examples import keep_windows_in_background
+    keep_windows_in_background()   # do not steal focus while rendering
     mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), size=(400, 400))
     print("Generating the mlab images...")
     illustrate_module(mlab)
@@ -122,6 +124,12 @@ def main():
     from render_examples import render_examples
     render_examples(render_images=True)
     print("Done generating the example pages")
+    # main() is wrapped in mlab.show, which runs an event loop once it returns;
+    # nothing closes the last window, so say explicitly that we are finished
+    from pyface.qt import QtGui
+    app = QtGui.QApplication.instance()
+    if app is not None:
+        app.quit()
 
 if __name__ == '__main__':
     main()

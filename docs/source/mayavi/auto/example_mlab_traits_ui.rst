@@ -11,6 +11,11 @@ This example uses traitsUI (
 `traitsUI <https://docs.enthought.com/traitsui/>`_ ) to create a
 the simplest possible dialog: a single Mayavi scene in a window.
 
+.. image:: ../generated_images/example_mlab_traits_ui.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`mlab_traits_ui.py`
 
 .. literalinclude:: mlab_traits_ui.py
