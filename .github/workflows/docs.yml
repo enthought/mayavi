@@ -73,20 +73,11 @@ jobs:
         python -m pip install --only-binary :all: \
           -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-24.04 \
           wxpython
-    - name: Check wxPython and its toolkit load
-      # the wheel links against GTK and friends, so a missing system library
-      # shows up only on import -- here rather than inside a render subprocess
-      # five minutes later, where it reads as "an example failed"
-      # LD_DEBUG only on the way out: it logs every library the interpreter
-      # resolves, which is unreadable when nothing is wrong and exactly what is
-      # wanted when the wheel cannot find one
+    - name: Check the wx toolkit loads
+      # the wheel links against GTK, so a missing system library shows up only
+      # on import -- here rather than inside a render subprocess minutes later,
+      # where it reads as "an example failed"
       run: |
-        python -c "import wx; print('wxPython', wx.version())" || {
-          echo "::group::LD_DEBUG=libs python -c 'import wx'"
-          LD_DEBUG=libs python -c "import wx" 2>&1 | tail -80
-          echo "::endgroup::"
-          exit 1
-        }
         ETS_TOOLKIT=wx python -c "
         from pyface.base_toolkit import find_toolkit
         for entry_point in ('pyface.toolkits', 'traitsui.toolkits'):
