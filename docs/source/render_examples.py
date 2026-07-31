@@ -341,13 +341,41 @@ def is_mlab_example(filename):
     return ('mlab.show()' in code_only)
 
 
+def realize_scene_window(scene):
+    """ Puts a scene's window on screen at the size the example asked for.
+
+        The render window only picks the size up from a resize event, so until
+        the window is really on screen it stays at VTK's 300x300 default -- and
+        a figure that was never shown at all reports 0x0, which is what
+        mlab.screenshot cannot reshape.
+    """
+    control = getattr(scene, '_vtk_control', None)
+    if control is None:
+        return
+    from pyface.qt import QtTest
+    window = control.window()
+    window.show()
+    QtTest.QTest.qWaitForWindowExposed(window.windowHandle() or window, 5000)
+    settle_layout(control)
+
+
 def run_mlab_file(filename, image_file):
     ## XXX: Monkey-patch mlab.show, so that we keep control of the
     ## the mainloop
     old_show = mlab.show
+    old_screenshot = mlab.screenshot
+
     def my_show(func=None):
         pass
+
+    def my_screenshot(figure=None, *args, **kwargs):
+        # an example that screenshots itself does so before anything has put
+        # the figure on screen, where VTK still reports it as 0x0
+        realize_scene_window((figure if figure is not None else mlab.gcf()).scene)
+        return old_screenshot(figure, *args, **kwargs)
+
     mlab.show = my_show
+    mlab.screenshot = my_screenshot
     mlab.clf()
     np.random.seed(0)  # so an example plotting random data renders the same way
     e = mlab.get_engine()
@@ -356,22 +384,13 @@ def run_mlab_file(filename, image_file):
         compile(open(filename).read(), filename, 'exec'),
         {'__name__': '__main__', '__file__': os.path.abspath(filename)}
     )
-    # Give the widget the size the example asked for before capturing it.  The
-    # render window only picks the size up from a resize event, so until the
-    # window is really on screen it stays at VTK's 300x300 default -- which is
-    # what CI produced, where nothing else has put a window up first.
-    control = getattr(mlab.gcf().scene, '_vtk_control', None)
-    if control is not None:
-        from pyface.qt import QtTest
-        window = control.window()
-        window.show()
-        QtTest.QTest.qWaitForWindowExposed(window.windowHandle() or window, 5000)
-        settle_layout(control)
+    realize_scene_window(mlab.gcf().scene)
     mlab.savefig(image_file)
     size = mlab.gcf().scene.get_size()
     for scene in e.scenes:
         e.close_scene(scene)
     mlab.show = old_show
+    mlab.screenshot = old_screenshot
 
 
 def extract_docstring(filename):
