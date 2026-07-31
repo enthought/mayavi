@@ -198,6 +198,11 @@ plain runtime API drift rather than wrapping workarounds.  They obey the same
 cull rule: once `MIN_VTK` is past the version the old branch is unreachable
 and should go.  Current case:
 
+- `mayavi/tests/conftest.py` ignores NumPy 2.5's "Setting the shape on a
+  NumPy array has been deprecated" on VTK < 9.7, where VTK's own
+  `numpy_support.vtk_to_numpy` still assigns to `.shape`.  9.7 fixed it, so
+  the filter is version-keyed rather than blanket — mayavi's own assignments
+  all went through `tvtk.common.reshape_view` instead, and must stay errors.
 - `mayavi/core/utils.py` reduces composite arrays with `numpy` rather than
   `numpy_interface.algorithms` when the runtime VTK dispatches numpy functions
   on them (detected by `dsa.COMPOSITE_OVERRIDE`, added in 9.6 along with the

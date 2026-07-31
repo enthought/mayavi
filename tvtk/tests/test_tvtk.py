@@ -22,7 +22,7 @@ import numpy
 from textwrap import indent
 
 from tvtk import tvtk_base
-from tvtk.common import (get_tvtk_name, configure_input_data,
+from tvtk.common import (get_tvtk_name, configure_input_data, reshape_view,
                          vtk_major_version, vtk_minor_version)
 from tvtk import vtk_module as vtk
 from numpy.testing import assert_array_equal
@@ -291,7 +291,7 @@ class TestTVTK(unittest.TestCase):
                 self.assertEqual(m.get_element(i, j), i*4 + j)
         # Test the from/to_array functions.
         a = numpy.array(list(range(16)), dtype=float)
-        a.shape = 4, 4
+        a = reshape_view(a, (4, 4))
         m = tvtk.Matrix4x4()
         m.from_array(a)
         b = m.to_array()

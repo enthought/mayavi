@@ -24,6 +24,8 @@ except ImportError:
 
 import numpy
 
+from tvtk.common import reshape_view
+
 # Useful constants for VTK arrays.
 VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
 if VTK_ID_TYPE_SIZE == 4:
@@ -69,12 +71,10 @@ def set_id_type_array_py(id_array, out_array):
     assert sz == e_sz, \
         "out_array size is incorrect, expected: %s, given: %s" % (e_sz, sz)
 
-    # we are guaranteed contiguous, so these just change the view (no copy)
-    out_shp = out_array.shape
-    out_array.shape = (shp[0], shp[1] + 1)
-    out_array[:, 0] = shp[1]
-    out_array[:, 1:] = id_array
-    out_array.shape = out_shp
+    # we are guaranteed contiguous, so this just changes the view (no copy)
+    view = reshape_view(out_array, (shp[0], shp[1] + 1))
+    view[:, 0] = shp[1]
+    view[:, 1:] = id_array
 
 
 # Historically this came from a small Cython extension (``tvtk.array_ext``) for
@@ -411,8 +411,7 @@ def vtk2array(vtk_array):
         result = numpy.frombuffer(vtk_array, dtype=dtype)
         if shape[1] == 1:
             shape = (shape[0], )
-        result.shape = shape
-        return result
+        return reshape_view(result, shape)
 
     # Setup an imaging pipeline to export the array.
     img_data = vtk.vtkImageData()
