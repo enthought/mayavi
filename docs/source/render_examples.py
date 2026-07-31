@@ -6,6 +6,8 @@ Render the examples to images and adds them to the documentation.
 import glob
 import inspect
 import os
+from io import StringIO
+from pathlib import Path
 import shutil
 import subprocess
 import sys
@@ -133,7 +135,7 @@ def is_dialog_example(filename):
 
 
 def _code_without_comments(filename):
-    tokens = tokenize.generate_tokens(open(filename).readline)
+    tokens = tokenize.generate_tokens(StringIO(Path(filename).read_text()).readline)
     return ''.join([tok_content
                     for tok_type, tok_content, _, _, _ in tokens
                     if not token.tok_name[tok_type] in ('COMMENT', 'STRING')])
@@ -220,7 +222,7 @@ def capture_dialog(filename, image_file):
     HasTraits.configure_traits = lambda self, *a, **k: edit_traits(self)
     np.random.seed(0)
     try:
-        exec(compile(open(filename).read(), filename, 'exec'),
+        exec(compile(Path(filename).read_text(), filename, 'exec'),
              {'__name__': '__main__', '__file__': os.path.abspath(filename)})
         if not created:
             raise RuntimeError('%s opened no dialog' % filename)
@@ -359,7 +361,7 @@ def capture_example(filename, short_file_name, image_file):
 
 
 def is_mlab_example(filename):
-    tokens = tokenize.generate_tokens(open(filename).readline)
+    tokens = tokenize.generate_tokens(StringIO(Path(filename).read_text()).readline)
     code_only = ''.join([tok_content
                             for tok_type, tok_content, _, _, _  in tokens
                             if not token.tok_name[tok_type] in ('COMMENT',
@@ -407,7 +409,7 @@ def run_mlab_file(filename, image_file):
     e = mlab.get_engine()
     e.close_scene(mlab.gcf())
     exec(
-        compile(open(filename).read(), filename, 'exec'),
+        compile(Path(filename).read_text(), filename, 'exec'),
         {'__name__': '__main__', '__file__': os.path.abspath(filename)}
     )
     realize_scene_window(mlab.gcf().scene)
@@ -421,7 +423,7 @@ def run_mlab_file(filename, image_file):
 
 def extract_docstring(filename):
     # Extract a module-level docstring, if any
-    lines = open(filename).readlines()
+    lines = Path(filename).read_text().splitlines(keepends=True)
     start_row = 0
     if lines[0].startswith('#!'):
         lines.pop(0)
@@ -512,9 +514,9 @@ class ExampleLister(object):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, \
                                                     end_row = file_details
-            self.render_example_page(open(os.path.join(self.out_dir,
-                                            'example_%s.rst') %
-                                     short_file_name, 'w'), index, file_details)
+            page = Path(self.out_dir, 'example_%s.rst' % short_file_name)
+            with page.open('w') as stream:
+                self.render_example_page(stream, index, file_details)
             self.gallery_entry(index, file_details)
 
         del self._stream
@@ -606,9 +608,9 @@ class ImagesExampleLister(ExampleLister):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, end_row = \
                                                                 file_details
-            self.render_example_page(open(os.path.join(self.out_dir,
-                                        'example_%s.rst') %
-                                     short_file_name, 'w'), index, file_details)
+            page = Path(self.out_dir, 'example_%s.rst' % short_file_name)
+            with page.open('w') as stream:
+                self.render_example_page(stream, index, file_details)
             self.gallery_entry(index, file_details)
 
         self._stream.write("\n"+7*"=" + " " + 45*"=" + '\n')
@@ -787,7 +789,7 @@ Advanced mlab examples
 def render_examples(render_images=False, out_dir='mayavi/auto'):
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
-    example_gallery_file = open(os.path.join(out_dir, 'examples.rst'), 'w')
+    example_gallery_file = StringIO()
 
     example_gallery_file.write("""
 
@@ -806,7 +808,7 @@ Example gallery
                     if is_mlab_example(filename)]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
+    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
 
     mlab_example_lister = MlabExampleLister(render_images=render_images,
                                         out_dir=out_dir,
@@ -824,7 +826,7 @@ Example gallery
                         'interactive', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
+    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -845,7 +847,7 @@ applications.
                         'advanced_visualization', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
+    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -865,7 +867,7 @@ more fine control than mlab.
                         'data_interaction', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
+    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -884,11 +886,13 @@ Examples showing how you can query and interact with the data.
                         '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: (len(open(name, 'r').readlines()), name))
+    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
     example_lister = ExampleLister(title="Misc examples",
                                    out_dir=out_dir)
     example_lister.render_all(example_gallery_file, example_files)
 
+
+    Path(out_dir, 'examples.rst').write_text(example_gallery_file.getvalue())
 
 
 if __name__ == '__main__':

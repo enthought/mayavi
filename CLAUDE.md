@@ -94,6 +94,19 @@ The build is warning-clean and **kept** that way: both Makefiles default
 warning is genuinely unfixable, add it to `nitpick_ignore` in
 `docs/source/mayavi/conf.py` with a reason rather than dropping the flags.
 
+`-W` covers only Sphinx's *own* diagnostics, so **Python** warnings are made
+fatal separately, in the two places that run Python:
+
+- both `conf.py`s call `warnings.filterwarnings('error')`, for the Sphinx
+  build itself (autodoc importing our modules);
+- `scripts/render_docs.py` sets `WARNING_FILTERS` for example execution, and
+  exports them as `PYTHONWARNINGS` so they reach the per-example child
+  processes too — `capture_in_subprocess` throws a child's output away unless
+  it exits non-zero, so a warning there is only ever seen by being raised.
+  Failures are collected in `render_examples.RENDER_FAILURES` and turned into
+  a non-zero exit *after* every example has had its turn, so one broken
+  example still does not cost the gallery the rest of its figures.
+
 - The Makefiles export `ETS_TOOLKIT=null`: `tips.rst` autodocs
   `mayavi.tools.server`, whose `wx`/`twisted` imports are handled by
   `autodoc_mock_imports`, and PySide6's feature import hook hits an

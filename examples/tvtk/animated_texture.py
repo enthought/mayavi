@@ -85,7 +85,7 @@ def image_from_array(ary):
 
         # create a 2d view of the array
         ary_2d = ary[:]
-        ary_2d.shape = sz[0]*sz[1],sz[2]
+        ary_2d = ary_2d.reshape(sz[0]*sz[1],sz[2])
         img.point_data.scalars = ary_2d
 
     else:

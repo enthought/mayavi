@@ -191,9 +191,9 @@ class Messenger:
 
         - obj_is_hash : `bool`
 
-         Specifies if the object passed is a hash instead of the object itself.
-         This is needed if the object is gc'd but only the hash exists and one
-         wants to disconnect the object.
+         Specifies if the object passed is its `id` instead of the object
+         itself.  This is needed if the object is gc'd but only its id exists
+         and one wants to disconnect the object.
 
         """
         signals = self._signals
@@ -246,7 +246,7 @@ class Messenger:
                     obj, meth = slots[key]
                     if obj: # instance method
                         inst = obj()
-                        if inst:
+                        if inst is not None:
                             getattr(inst, meth)(source, event, *args, **kw_args)
                         else:
                             # Oops, dead reference.
@@ -303,7 +303,7 @@ def connect(obj, event, callback):
 connect.__doc__ = _messenger.connect.__doc__
 
 def disconnect(obj, event=None, callback=None, obj_is_hash=False):
-    _messenger.disconnect(obj, event, callback)
+    _messenger.disconnect(obj, event, callback, obj_is_hash)
 disconnect.__doc__ = _messenger.disconnect.__doc__
 
 def send(obj, event, *args, **kw_args):

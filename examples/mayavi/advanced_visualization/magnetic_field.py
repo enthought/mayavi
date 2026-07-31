@@ -198,9 +198,9 @@ for this_n, this_r0, this_R in zip(n, r0, R):
 Bx = B[:, 0]
 By = B[:, 1]
 Bz = B[:, 2]
-Bx.shape = X.shape
-By.shape = Y.shape
-Bz.shape = Z.shape
+Bx = Bx.reshape(X.shape)
+By = By.reshape(Y.shape)
+Bz = Bz.reshape(Z.shape)
 
 Bnorm = np.sqrt(Bx**2 + By**2 + Bz**2)
 

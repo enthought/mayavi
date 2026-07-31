@@ -77,8 +77,8 @@ Advanced mlab examples
 .. toctree::
    :hidden:
 
-   example_julia_set.rst
    example_boy.rst
+   example_julia_set.rst
    example_bunny.rst
    example_dragon.rst
    example_lucy.rst
@@ -101,11 +101,11 @@ Advanced mlab examples
    example_flight_graph.rst
 
 
-.. |0000| image:: ../generated_images/example_julia_set.jpg
+.. |0000| image:: ../generated_images/example_boy.jpg
     :width: 150
 
             
-.. |0001| image:: ../generated_images/example_boy.jpg
+.. |0001| image:: ../generated_images/example_julia_set.jpg
     :width: 150
 
             
@@ -191,13 +191,13 @@ Advanced mlab examples
             
 ======= =============================================
 ======= =============================================
-|0000|  :ref:`example_julia_set`
-         An example showing the Julia set
-         displayed as a z-warped surface.
-
-|0001|  :ref:`example_boy`
+|0000|  :ref:`example_boy`
          A script to generate the Mayavi logo: a
          Boy surface.
+
+|0001|  :ref:`example_julia_set`
+         An example showing the Julia set
+         displayed as a z-warped surface.
 
 |0002|  :ref:`example_bunny`
          Viewing Stanford 3D Scanning Repository

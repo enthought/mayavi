@@ -37,7 +37,7 @@ def make_data(dims=(128, 128, 128)):
     # dimensions of the data.  The scalars themselves are ravel'd and
     # used internally by VTK so the dimension does not matter for the
     # scalars.
-    s.shape = s.shape[::-1]
+    s = s.reshape(s.shape[::-1])
 
     return s
 

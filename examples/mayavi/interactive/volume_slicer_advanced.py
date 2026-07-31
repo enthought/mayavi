@@ -177,7 +177,7 @@ class VolumeSlicer(HasTraits):
             position = list(obj.GetCurrentCursorPosition()*spacing)[:2]
             position.insert(this_axis_number, self.position[this_axis_number])
             # We need to special case y, as the view has been rotated.
-            if axis_name is 'y':
+            if axis_name == 'y':
                 position = position[::-1]
             self.position = position
 
@@ -239,7 +239,7 @@ class VolumeSlicer(HasTraits):
             # side view
             position2d = list(self.position)
             position2d.pop(axis_number)
-            if axis_name is 'y':
+            if axis_name == 'y':
                 position2d = position2d[::-1]
             # Move the cursor
             # For the following to work, you need Mayavi 3.4.0, if you
