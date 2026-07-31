@@ -5,7 +5,7 @@ can use TVTK's scene and browser plugins to create a simple application.
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

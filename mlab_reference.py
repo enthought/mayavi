@@ -3,7 +3,7 @@ Script to generate the function reference for mlab.
 
 """
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import os
@@ -29,6 +29,17 @@ _src = os.path.abspath(os.path.join('docs', 'source', 'render_images.py'))
 render_images = dict(__name__='', __file__=_src)
 exec(compile(open(_src).read(), _src, 'exec'), render_images)
 IMAGE_DIR = render_images['IMAGE_DIR']
+
+# Demonstrations that belong to a function but are not named after it, so the
+# "test_<function>" lookup below never finds them.  Without this they would be
+# rendered on every build and shown nowhere.
+EXTRA_EXAMPLES = {
+    'mesh': ['fancy_mesh', 'mesh_sphere', 'mesh_mask_custom_colors'],
+    'points3d': ['molecule'],
+    'quiver3d': ['quiver3d_2d_data'],
+    'surf': ['simple_surf'],
+}
+
 
 ##############################################################################
 def dedent(string):
@@ -231,7 +242,33 @@ from mayavi.mlab import *
                                 example_code=example_code,
                                 image_file=image_file)
 
+        for extra in EXTRA_EXAMPLES.get(func_name, []):
+            documentation += self.document_extra_example(extra)
+
         return documentation
+
+    def document_extra_example(self, name):
+        """ Return an extra illustrated example for the function above it.
+        """
+        test = getattr(self.module, 'test_' + name, None)
+        if test is None:
+            return ''
+        image_file = self.image_dir + os.sep + \
+            self.module.__name__.replace('.', '_') + '_' + name + '.jpg'
+        image = ''
+        if os.path.exists(image_file):
+            image = '\n.. image:: %s\n' % relpath(image_file, self.out_dir)
+        title = name.replace('_', ' ')
+        return """
+**%s**
+
+%s%s
+
+::
+
+%s
+""" % (title[0].upper() + title[1:], dedent(test.__doc__ or ''), image,
+       indent(getsource(test)))
 
 
     def write_doc(self):

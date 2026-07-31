@@ -5,6 +5,12 @@ from vtk.numpy_interface import algorithms as algs
 
 from tvtk.api import tvtk
 
+# VTK 9.6 deprecated algs.min/max/mean/sum in favour of the numpy equivalents,
+# which only dispatch on composite arrays (registered by the import above) from
+# that version on -- see tvtk/WORKAROUNDS.md
+if hasattr(dsa, 'COMPOSITE_OVERRIDE'):
+    algs = np
+
 
 def get_new_output(input, update=True):
     if update and hasattr(input, 'update'):

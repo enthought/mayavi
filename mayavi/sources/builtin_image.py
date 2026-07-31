@@ -3,7 +3,7 @@ A module that offers lots of VTK image data sources
 """
 #Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #        Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

@@ -1,5 +1,5 @@
 # Author: Robert Kern <robert.kern@enthought.com>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

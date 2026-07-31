@@ -657,6 +657,106 @@ see :ref:`running-mlab-scripts` for more info)::
     
                 
 
+**Fancy mesh**
+
+Create a fancy looking mesh using mesh (example taken from octaviz).
+
+.. image:: ../generated_images/mayavi_mlab_fancy_mesh.jpg
+
+
+::
+
+    def test_fancy_mesh():
+        """Create a fancy looking mesh using mesh (example taken from octaviz)."""
+        pi = np.pi
+        cos = np.cos
+        du, dv = pi / 20.0, pi / 20.0
+        u, v = np.mgrid[0.01:pi + du * 1.5:du, 0:2 * pi + dv * 1.5:dv]
+        x = (1 - cos(u)) * cos(u + 2 * pi / 3) * cos(v + 2 * pi / 3.0) * 0.5
+        y = (1 - cos(u)) * cos(u + 2 * pi / 3) * cos(v - 2 * pi / 3.0) * 0.5
+        z = -cos(u - 2 * pi / 3.)
+    
+        m = mesh(x, y, z, representation='fancymesh',
+                       tube_radius=0.0075, colormap="RdYlGn")
+        return m
+    
+
+**Mesh sphere**
+
+Create a simple sphere.
+
+.. image:: ../generated_images/mayavi_mlab_mesh_sphere.jpg
+
+
+::
+
+    def test_mesh_sphere(r=1.0, npts=(100, 100), colormap='jet'):
+        """Create a simple sphere."""
+        pi = np.pi
+        cos = np.cos
+        sin = np.sin
+        np_phi = npts[0] * 1j
+        np_theta = npts[1] * 1j
+        phi, theta = np.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
+        x = r * sin(phi) * cos(theta)
+        y = r * sin(phi) * sin(theta)
+        z = r * cos(phi)
+        return mesh(x, y, z, colormap=colormap)
+    
+
+**Mesh mask custom colors**
+
+Create a sphere with masking and using a custom colormap.
+
+Note that masking works only when scalars are set.  The custom colormap
+illustrates how one can completely customize the colors with numpy arrays.
+In this case we use a simple 2 color colormap.
+
+.. image:: ../generated_images/mayavi_mlab_mesh_mask_custom_colors.jpg
+
+
+::
+
+    def test_mesh_mask_custom_colors(r=1.0, npts=(100, 100)):
+        """Create a sphere with masking and using a custom colormap.
+    
+        Note that masking works only when scalars are set.  The custom colormap
+        illustrates how one can completely customize the colors with numpy arrays.
+        In this case we use a simple 2 color colormap.
+        """
+        # Create the data like for test_mesh_sphere.
+        pi = np.pi
+        cos = np.cos
+        sin = np.sin
+        np_phi = npts[0] * 1j
+        np_theta = npts[1] * 1j
+        phi, theta = np.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
+        x = r * sin(phi) * cos(theta)
+        y = r * sin(phi) * sin(theta)
+        z = r * cos(phi)
+    
+        # Setup the mask array.
+        mask = np.zeros_like(x).astype(bool)
+        mask[::5] = True
+        mask[:,::5] = True
+    
+        # Create the mesh with the default colormapping.
+        m = mesh(x, y, z, scalars=z, mask=mask)
+    
+        # Setup the colormap. This is an array of (R, G, B, A) values (each in
+        # range 0-255), there should be at least 2 colors in the array.  If you
+        # want a constant color set the two colors to the same value.
+        colors = np.zeros((2, 4), dtype='uint8')
+        colors[0,2] = 255
+        colors[1,1] = 255
+        # Set the alpha value to fully visible.
+        colors[:,3] = 255
+    
+        # Now setup the lookup table to use these colors.
+        m.module_manager.scalar_lut_manager.lut.table = colors
+        return m
+    
+
 
 
 plot3d
@@ -862,6 +962,42 @@ see :ref:`running-mlab-scripts` for more info)::
     
                 
 
+**Molecule**
+
+Generates and shows a Caffeine molecule.
+
+.. image:: ../generated_images/mayavi_mlab_molecule.jpg
+
+
+::
+
+    def test_molecule():
+        """Generates and shows a Caffeine molecule."""
+        o = [[30, 62, 19], [8, 21, 10]]
+        ox, oy, oz = list(map(np.array, zip(*o)))
+        n = [[31, 21, 11], [18, 42, 14], [55, 46, 17], [56, 25, 13]]
+        nx, ny, nz = list(map(np.array, zip(*n)))
+        c = [[5, 49, 15], [30, 50, 16], [42, 42, 15], [43, 29, 13], [18, 28, 12],
+             [32, 6, 8], [63, 36, 15], [59, 60, 20]]
+        cx, cy, cz = list(map(np.array, zip(*c)))
+        h = [[23, 5, 7], [32, 0, 16], [37, 5, 0], [73, 36, 16], [69, 60, 20],
+             [54, 62, 28], [57, 66, 12], [6, 59, 16], [1, 44, 22], [0, 49, 6]]
+        hx, hy, hz = list(map(np.array, zip(*h)))
+    
+        oxygen = points3d(ox, oy, oz, scale_factor=16, scale_mode='none',
+                                    resolution=20, color=(1, 0, 0), name='Oxygen')
+        nitrogen = points3d(nx, ny, nz, scale_factor=20, scale_mode='none',
+                                    resolution=20, color=(0, 0, 1),
+                                    name='Nitrogen')
+        carbon = points3d(cx, cy, cz, scale_factor=20, scale_mode='none',
+                                    resolution=20, color=(0, 1, 0), name='Carbon')
+        hydrogen = points3d(hx, hy, hz, scale_factor=10, scale_mode='none',
+                                    resolution=20, color=(1, 1, 1),
+                                    name='Hydrogen')
+    
+        return oxygen, nitrogen, carbon, hydrogen
+    
+
 
 
 quiver3d
@@ -977,6 +1113,31 @@ see :ref:`running-mlab-scripts` for more info)::
         return obj
     
                 
+
+**Quiver3d 2d data**
+
+
+
+.. image:: ../generated_images/mayavi_mlab_quiver3d_2d_data.jpg
+
+
+::
+
+    def test_quiver3d_2d_data():
+        dims = [32, 32]
+        xmin, xmax, ymin, ymax = [-5, 5, -5, 5]
+        x, y = np.mgrid[xmin:xmax:dims[0] * 1j,
+                        ymin:ymax:dims[1] * 1j]
+        x = x.astype('f')
+        y = y.astype('f')
+    
+        u = np.cos(x)
+        v = np.sin(y)
+        w = np.zeros_like(x)
+    
+        return quiver3d(x, y, w, u, v, w, colormap="Purples",
+                                    scale_factor=0.5, mode="2dthick_arrow")
+    
 
 
 
@@ -1115,6 +1276,23 @@ see :ref:`running-mlab-scripts` for more info)::
         return s
     
                 
+
+**Simple surf**
+
+Test Surf with a simple collection of points.
+
+.. image:: ../generated_images/mayavi_mlab_simple_surf.jpg
+
+
+::
+
+    def test_simple_surf():
+        """Test Surf with a simple collection of points."""
+        x, y = np.mgrid[0:3:1, 0:3:1]
+        # z = x + y, not x: the plane z = x contains the default view direction, so
+        # the surface would be edge-on and invisible
+        return surf(x, y, np.asarray(x + y, 'd'))
+    
 
 
 

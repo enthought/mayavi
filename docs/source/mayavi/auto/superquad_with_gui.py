@@ -1,33 +1,31 @@
-"""
+r"""
 This example uses MayaVi to show the evolution of a superquadric
-(http://en.wikipedia.org/wiki/Superquadrics), which are ellipsoidal surfaces parametrised
-by two parameters,\alpha and \beta. The equations that are used to determine the superquadric are 
-(in spherical-polar coordinates):
+(http://en.wikipedia.org/wiki/Superquadrics), which are ellipsoidal surfaces
+parametrised by two parameters, *alpha* and *beta*.
 
-  \(x = A(\sin^{\alpha}(\phi)*\cos^{\beta}(\theta))\)
-  \(y = B(\sin^{\alpha}(\phi)*\sin^{\beta}(\theta))\)
-  \(z = C(\cos^{\alpha}(\phi))\)
+The equations that determine the superquadric are, in spherical-polar
+coordinates::
 
-Note that when we set A=B=C=r, and \alpha =  \beta = 1, we get the 
-equation for a sphere in spherical polar coordinate.
+    x = A * sin(phi)**alpha * cos(theta)**beta
+    y = B * sin(phi)**alpha * sin(theta)**beta
+    z = C * cos(phi)**alpha
 
-Use the controls at the bottom of the plot to adjust \alpha and \beta,
-and watch as the figure transforms accordingly!
+Note that when we set ``A = B = C = r`` and ``alpha = beta = 1``, we get the
+equation for a sphere in spherical polar coordinates.
 
+Use the controls at the bottom of the plot to adjust *alpha* and *beta*, and
+watch as the figure transforms accordingly!
 """
 
 # Author: Pratik Mallya <pmallya@enthought.com>
-# Copyright (c) 2008-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import numpy as np
-from enthought.traits.api import HasTraits, Range, Instance, \
+from traits.api import HasTraits, Range, Instance, \
                     on_trait_change
-from enthought.traits.ui.api import View, Item, HGroup
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.mayavi.tools.mlab_scene_model import \
-                    MlabSceneModel
-from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+from traitsui.api import View, Item, HGroup
+from mayavi.core.ui.api import MayaviScene, MlabSceneModel, SceneEditor
 
 
 def fexp(x,p):

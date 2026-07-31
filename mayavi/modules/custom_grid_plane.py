@@ -4,7 +4,7 @@ datasets.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2007,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

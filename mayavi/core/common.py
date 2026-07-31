@@ -3,7 +3,7 @@ messages etc.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -22,6 +22,10 @@ else:
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
+
+# Flipped by the test suite (see conftest.py): the callers of exception() below
+# are bare ``except:`` blocks, so a swallowed failure is invisible to a test.
+reraise_exceptions = False
 
 ######################################################################
 # Utility functions.
@@ -56,6 +60,8 @@ def exception(msg='Exception', parent=None):
     along to the dialog box.  The optional `msg` is printed and sent
     to the logger.  So you could send extra information here.
     """
+    if reraise_exceptions:
+        raise
     try:
         type, value, tb = sys.exc_info()
         info = traceback.extract_tb(tb)

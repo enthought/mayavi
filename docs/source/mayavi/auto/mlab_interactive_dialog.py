@@ -21,7 +21,7 @@ This example is discussed in details in the section
 :ref:`embedding_mayavi_traits`.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

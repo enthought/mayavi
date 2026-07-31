@@ -19,7 +19,7 @@ connected to the following one.
 """
 
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2010, Enthought
+# Copyright (c) Enthought, Inc.
 # License: BSD style
 
 import numpy as np

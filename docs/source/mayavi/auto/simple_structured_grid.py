@@ -12,7 +12,7 @@ To visualize the resulting dataset, we apply several modules, using the
 mlab.pipeline interface (see :ref:`controlling-the-pipeline-with-mlab-scripts`)
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran.
+# Copyright (c) Prabhu Ramachandran
 # License: BSD Style.
 
 from numpy import mgrid, empty, sin, pi

@@ -15,7 +15,7 @@ Alternatively, it can be run as::
 
 # Authors: Eric Jones <eric at enthought dot com>
 #          Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD style.
 
 import numpy as np

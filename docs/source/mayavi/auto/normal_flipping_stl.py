@@ -2,6 +2,7 @@
 This example shows how to read a stl file and flip it's normals.
 """
 
+import os
 import sys
 from tvtk.api import tvtk
 from tvtk.common import configure_input
@@ -84,7 +85,8 @@ def flip_normals(stl_fname):
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        stl_fname = "../data/cube.stl"
+        stl_fname = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 os.pardir, 'data', 'cube.stl')
     else:
         stl_fname = sys.argv[1]
     flip_normals(stl_fname)

@@ -2,7 +2,7 @@
 Tests for the ArraySource class.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran Enthought, Inc.
+# Copyright (c) Prabhu Ramachandran, Enthought, Inc.
 # License: BSD Style.
 
 import unittest

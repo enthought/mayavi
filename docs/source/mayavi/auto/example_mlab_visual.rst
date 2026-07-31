@@ -22,11 +22,6 @@ If you want to modify the data plotted by the mlab (as in the
 `mlab.test_plot3d()` call) to create an animation, please see section
 :ref:`mlab-animating-data`.
 
-.. image:: ../images/example_mlab_visual.jpg
-    :align: center
-
-
-
 **Python source code:** :download:`mlab_visual.py`
 
 .. literalinclude:: mlab_visual.py

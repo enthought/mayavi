@@ -25,6 +25,9 @@ one package.
 
 - Supported VTK floor: `MIN_VTK` in `setup.py` (SPEC 0-style ~2-year
   window).  When bumping it, cull workarounds per `tvtk/WORKAROUNDS.md`.
+- Supported VTK ceiling: `MAX_VTK` in `setup.py`, exclusive.  It runs ahead
+  of the newest release, since the `vtk-dev` CI row tests the next version's
+  prereleases; raise it once that row has been green on them.
 - Wheels are pure Python but **platform-tagged** (`py3-none-manylinux…/
   macosx…/win_amd64`) because the generated classes differ per OS
   (X11/Cocoa/Win32).  `MyBdistWheel` in `setup.py` handles the tags.
@@ -34,8 +37,7 @@ one package.
   runtime tolerances.  The generation VTK is recorded in
   `tvtk_classes/vtk_version.py` inside the zip.
 - Dependencies are PEP 643 dynamic (`setup.py`): the wheel gets
-  `vtk>=MIN_VTK,<{next minor of the build VTK}`; the sdist stays uncapped
-  above the floor.
+  `vtk>=MIN_VTK,<MAX_VTK`; the sdist stays uncapped above the floor.
 
 ## Building and testing locally
 
@@ -49,8 +51,23 @@ pytest -v --timeout=10 mayavi
 pytest -sv --timeout=60 tvtk
 ```
 
+- `integrationtests/` is not a pytest tree — each file is an `optparse` script
+  subclassing `TestCase(Mayavi)`, run by `run.py` shelling out per file, and
+  collecting one launches the Mayavi2 application and waits for the window to
+  be closed.  `integrationtests/conftest.py` sets `collect_ignore_glob` so a
+  bare `pytest` cannot wander into it.  21 of the 26 pass as of 2026-07;
+  porting them to pytest and wiring up a Linux-only CI job is a follow-up.
 - Regeneration is skipped if `tvtk/tvtk_classes.zip` is < 120 s old
   (`_tvtk_built_recently` in `setup.py`).
+- Warnings are errors.  The filters live in `mayavi/tests/conftest.py` and
+  `tvtk/tests/conftest.py` rather than `pyproject.toml`, so that they ship in
+  the wheel and so reach the `pytest --pyargs` runs below and in `wheel.yml`.
+  Each conftest adds its own `error::` but skips any line the other already
+  added: pluggy calls the two `pytest_configure` hooks in reverse load order,
+  and a second `error::` would outrank the ignores the first one just added.
+- `mayavi/tests/conftest.py` also turns `mayavi.core.common.exception()` from
+  swallow-and-show-a-modal-dialog into a re-raise.  Otherwise a headed run
+  blocks on a pyface box that has to be clicked away, and passes regardless.
 - To test against an older VTK: `uv venv -p 3.11 && uv pip install
   "vtk==9.x.*" <wheel>`, then `pytest --pyargs tvtk mayavi` from *outside*
   the repo (so the source tree does not shadow the installed wheel — the
@@ -103,8 +120,12 @@ warning is genuinely unfixable, add it to `nitpick_ignore` in
 - The gallery **images** are regenerated on every run too, by
   `docs/source/render_images.py` (which also invokes `render_examples.py`, so
   `mlab_reference.py` has to run *after* it to pick the images up).  The
-  ~350 MB of example datasets the examples `urlretrieve` are cached by
-  `docs.yml` under the key `example-data-v1` — bump it if a URL changes.
+  example datasets the examples `urlretrieve` are cached by `docs.yml` under
+  the key `example-data-v2` — bump it if a URL changes.  What is cached is the
+  *unpacked* `docs/source/*_data` directories (~550 MB, lucy dominating), not
+  the tarballs: the examples skip both download and unpack once those exist.
+  Each new one needs a `prune` in `MANIFEST.in` and a `.gitignore` entry, or
+  `recursive-include docs` sweeps it into the sdist.
 - `render_examples.py` writes the gallery's image directives *before* it
   renders the images, and only for figures already on disk.  A brand-new
   example therefore needs two passes before it appears with a thumbnail, which
@@ -172,9 +193,12 @@ commit**:
 - `tests.yml` — same-version matrix: build + test with the *same* VTK
   (latest on all OSes; older VTK/Python/Qt rows on Linux; one headless row
   with `ETS_TOOLKIT=null`), plus a `vtk-dev` row against prerelease wheels
-  from https://wheels.vtk.org.  Also runs weekly on a schedule, which is how
-  VTK-dev breakage gets noticed; a scheduled failure opens an issue (the
-  `issue-on-failure` job) since there is no PR to show it on.
+  from https://wheels.vtk.org and NumPy nightlies from
+  https://pypi.anaconda.org/scientific-python-nightly-wheels — that row is
+  what `MAX_VTK` is raised on the strength of.  Also runs weekly on a
+  schedule, which is how VTK-dev breakage gets noticed; a scheduled failure
+  opens an issue (the `issue-on-failure` job) since there is no PR to show it
+  on.
 - `.github/actions/open-issue` — composite action behind both
   `issue-on-failure` jobs: files an issue unless one with the same title is
   already open, appending the run URL.  Callers need an `actions/checkout`

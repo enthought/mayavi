@@ -6,7 +6,7 @@ some of the VTK classes.  `HelperGenerator` helps generate the
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import vtk
@@ -113,7 +113,7 @@ class SpecialGenerator:
             obj = self._vtk_obj
             e = [obj.GetElement(i, j) for i in range(4) for j in range(4)]
             arr = array_handler.numpy.array(e, dtype=float)
-            arr.shape = (4,4)
+            arr = array_handler.reshape_view(arr, (4, 4))
             return arr
 
         """

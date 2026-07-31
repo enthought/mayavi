@@ -1,5 +1,5 @@
 # Author: Deepak Surti <dsurti@enthought.com>
-# Copyright (c) 2015,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

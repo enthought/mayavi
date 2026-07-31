@@ -26,6 +26,11 @@ on creating GUIs with Traits:
 
     https://support.enthought.com/hc/en-us/articles/204469620-Introductory-materials-for-Traits-and-Traits-UI
 
+.. image:: ../generated_images/example_adjust_cropping_extents.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`adjust_cropping_extents.py`
 
 .. literalinclude:: adjust_cropping_extents.py

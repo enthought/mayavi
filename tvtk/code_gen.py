@@ -15,7 +15,7 @@ Exceptions to behaviors based on VTK versions and bugs etc. live in ``wrapper_ge
 and ``vtk_parser.py``.
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import os
