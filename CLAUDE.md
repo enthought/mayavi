@@ -161,6 +161,22 @@ warning is genuinely unfixable, add it to `nitpick_ignore` in
   `QT_ENABLE_HIGHDPI_SCALING`, `QT_AUTO_SCREEN_SCALE_FACTOR` and
   `QT_DEVICE_PIXEL_RATIO` are ignored, and `QT_QPA_PLATFORM=offscreen`
   segfaults VTK.
+- Never call `QWidget.setWindowFlag`/`setWindowFlags` on a window that already
+  holds a scene.  It recreates the window's native window, and on X11
+  destroying a window destroys its children — so the scene widget's X window
+  goes with it, while Qt keeps handing out the dead id (`winId()` returns it,
+  and neither `create()` nor `destroy()`/`create()` replaces it).  The next
+  paint has VTK ask the server about a window that is gone;
+  `XGetWindowAttributes` fails, `vtkXOpenGLRenderWindow::CreateAWindow` carries
+  on with a null `XVisualInfo`, and the `glXCreateContext` failsafe at the end
+  of it dereferences the null.  That is the real cause of the SIGSEGV long
+  blamed on `qt_embedding` reparenting itself: the reparent is irrelevant, it
+  was `keep_windows_in_background()` setting `WindowStaysOnBottomHint`, and it
+  reproduced on a real GPU X session as readily as under Xvfb.  The hint now
+  goes on the `QWindow` after the show, which leaves the native windows alone.
+  Upstream VTK's own `QVTKRenderWindowInteractor` crashes identically, so this
+  is a VTK bug rather than drift in tvtk's fork — worth reporting, but nothing
+  tvtk can fix.
 - `docs/CHANGES.txt` is frozen at 4.8.3; 4.9.0 onwards is written up on
   GitHub Releases.  `conf.py` copies it to `auto/changes.rst`, which
   `changes.rst` `include`s (and `exclude_patterns` therefore hides) so that

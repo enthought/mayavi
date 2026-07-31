@@ -18,8 +18,9 @@ SOURCE = REPO / 'docs' / 'source'
 
 def main():
     # rendering drives VTK through a Qt event loop, where a crash arrives as a
-    # bare signal number -- qt_embedding dies with SIGSEGV on CI and nothing
-    # says where.  The variable carries this into the per-example children.
+    # bare signal number and nothing says where -- which is how qt_embedding's
+    # SIGSEGV stayed opaque for as long as it did.  The variable carries this
+    # into the per-example children.
     faulthandler.enable()
     os.environ['PYTHONFAULTHANDLER'] = '1'
 
