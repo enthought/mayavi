@@ -41,17 +41,6 @@ SKIP_EXAMPLES = {
         'needs wxPython, which the docs do not install',
     'compute_in_thread': 'drives a worker thread, so the figure never settles',
     'poll_file': 'waits for a file to be edited',
-    # It is the only example that reparents a scene widget.  On X11 that
-    # destroys the native window VTK was given, so VTK makes one of its own and
-    # dies in vtkXOpenGLRenderWindow::CreateAWindow -> glXCreateContext under
-    # Xvfb.  Two fixes were tried and neither took: refreshing the id on
-    # WinIdChange moved the crash into that handler, and QVTKRWIBase =
-    # "QOpenGLWidget" only moved it from the paint to the explicit Render --
-    # swapping the Qt base does not swap the render window, which is still a
-    # vtkXOpenGLRenderWindow making its own GLX context.  Handing VTK a
-    # Qt-owned context means vtkGenericOpenGLRenderWindow with
-    # QVTKOpenGLNativeWidget, which is not what this interactor is built on.
-    'qt_embedding': 'segfaults in VTK GLX context creation under Xvfb',
     'standalone': 'starts the Envisage application and its event loop',
     'user_mayavi': 'is loaded by the mayavi2 application, not run on its own',
     'zzz_reader': 'registers a reader; there is nothing to show',
@@ -79,8 +68,23 @@ def keep_windows_in_background():
         Rendering has to paint on screen, but nothing says it has to happen in
         front of whatever the user is doing: WA_ShowWithoutActivating keeps the
         window from taking focus, and WindowStaysOnBottomHint keeps it behind
-        the other windows.  Both have to be set before the window is shown,
-        hence patching setVisible rather than fixing up windows afterwards.
+        the other windows.  The attribute has to be set before the window is
+        shown, hence patching setVisible rather than fixing up windows
+        afterwards.
+
+        The hint, though, goes on the QWindow *after* the show, not on the
+        QWidget before it.  QWidget.setWindowFlag recreates the window's native
+        window, and on X11 destroying a window destroys its children -- which
+        takes out the X window a scene widget was created with.  Qt goes on
+        handing out the dead id (winId() returns it, and neither create() nor
+        another destroy()/create() replaces it), so the next paint has VTK ask
+        the server about a window that is gone; XGetWindowAttributes fails,
+        VTK's CreateAWindow carries on with a null XVisualInfo, and the
+        glXCreateContext failsafe at the end of it dereferences the null.  That
+        is what used to take qt_embedding -- the one example that shows a
+        window it has already built a scene into -- down under Xvfb and on real
+        X11 alike.  Setting the hint on the QWindow leaves the native windows
+        alone and keeps the same behaviour.
     """
     from pyface.qt import QtCore, QtGui
 
@@ -97,12 +101,17 @@ def keep_windows_in_background():
     real_set_visible = QtGui.QWidget.setVisible
 
     def set_visible(self, visible):
-        # testAttribute keeps this to once per window: setWindowFlag on a
-        # window that is already up hides and re-shows it, which would recurse
-        if visible and self.isWindow() and not self.testAttribute(no_activate):
+        # testAttribute keeps this to once per window, so that re-showing one
+        # does not push the hint down a second time
+        first_show = (visible and self.isWindow()
+                      and not self.testAttribute(no_activate))
+        if first_show:
             self.setAttribute(no_activate, True)
-            self.setWindowFlag(at_the_back, True)
         real_set_visible(self, visible)
+        if first_show:
+            handle = self.windowHandle()
+            if handle is not None:
+                handle.setFlag(at_the_back, True)
 
     QtGui.QWidget.setVisible = set_visible
 
