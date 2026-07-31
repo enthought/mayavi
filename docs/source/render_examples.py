@@ -106,6 +106,22 @@ def _code_without_comments(filename):
                     if not token.tok_name[tok_type] in ('COMMENT', 'STRING')])
 
 
+def settle_layout(widget):
+    """ Makes Qt apply the geometry now, instead of when it gets round to
+        delivering the LayoutRequest events it has posted.
+
+        Every layout between the widget and its window has to be activated,
+        not just the window's; mne/viz/backends/_qt.py does the same.
+    """
+    seen = set()
+    while widget is not None and widget not in seen:
+        layout = widget.layout()
+        if layout is not None:
+            layout.activate()
+        seen.add(widget)
+        widget = widget.parentWidget()
+
+
 def _scene_widgets(widget, found=None):
     """ Every VTK render widget below ``widget``.
 
@@ -145,8 +161,9 @@ def capture_dialog(filename, image_file):
         return ui
 
     def settle():
+        settle_layout(created[-1].control if created else None)
         app = QtGui.QApplication.instance()
-        for _ in range(25):
+        for _ in range(5):
             app.processEvents()
 
     mlab.show = lambda func=None: None
@@ -280,14 +297,13 @@ def run_mlab_file(filename, image_file):
         compile(open(filename).read(), filename, 'exec'),
         {'__name__': '__main__'}
     )
-    # Let the widget reach the size the example asked for before capturing.
-    # Without this the render window can still be at VTK's 300x300 default,
-    # which is what happens on CI where nothing else has realised a window.
-    from pyface.qt import QtGui
-    app = QtGui.QApplication.instance()
-    if app is not None:
-        for _ in range(10):
-            app.processEvents()
+    # Give the widget the size the example asked for before capturing it.
+    # Until the layout is applied the render window can still be at VTK's
+    # 300x300 default, which is what happens on CI, where nothing else has
+    # realised a window first.
+    control = getattr(mlab.gcf().scene, '_vtk_control', None)
+    if control is not None:
+        settle_layout(control)
     mlab.savefig(image_file)
     size = mlab.gcf().scene.get_size()
     for scene in e.scenes:
