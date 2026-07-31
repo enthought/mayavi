@@ -14,6 +14,11 @@ application can use different Mayavi views.
 In this example, we embed one single Mayavi scene in a Wx notebook, with
 2 tabs, each one of them hosting a different view of the scene.
 
+.. image:: ../generated_images/example_wx_mayavi_embed_in_notebook.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`wx_mayavi_embed_in_notebook.py`
 
 .. literalinclude:: wx_mayavi_embed_in_notebook.py

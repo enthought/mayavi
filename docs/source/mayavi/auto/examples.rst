@@ -317,8 +317,8 @@ applications.
    example_multiple_engines.rst
    example_multiple_mlab_scene_models.rst
    example_superquad_with_gui.rst
-   example_mlab_interactive_dialog.rst
    example_wx_mayavi_embed_in_notebook.rst
+   example_mlab_interactive_dialog.rst
    example_subclassing_mayavi_application.rst
    example_mayavi_traits_ui.rst
    example_compute_in_thread.rst
@@ -342,9 +342,8 @@ applications.
     :width: 150
 
             
-.. |0102| raw:: html
-
-    <br/>
+.. |0102| image:: ../generated_images/example_wx_embedding.jpg
+    :width: 150
 
             
 .. |0103| image:: ../generated_images/example_multiple_engines.jpg
@@ -359,13 +358,12 @@ applications.
     :width: 150
 
             
-.. |0106| image:: ../generated_images/example_mlab_interactive_dialog.jpg
+.. |0106| image:: ../generated_images/example_wx_mayavi_embed_in_notebook.jpg
     :width: 150
 
             
-.. |0107| raw:: html
-
-    <br/>
+.. |0107| image:: ../generated_images/example_mlab_interactive_dialog.jpg
+    :width: 150
 
             
 .. |0108| raw:: html
@@ -443,13 +441,13 @@ applications.
          parametrised by two parameters, *alpha*
          and *beta*.
 
-|0106|  :ref:`example_mlab_interactive_dialog`
-         An example of how to modify the data
-         visualized  via an interactive dialog.
-
-|0107|  :ref:`example_wx_mayavi_embed_in_notebook`
+|0106|  :ref:`example_wx_mayavi_embed_in_notebook`
          This example show how to embedded Mayavi
          in a wx notebook.
+
+|0107|  :ref:`example_mlab_interactive_dialog`
+         An example of how to modify the data
+         visualized  via an interactive dialog.
 
 |0108|  :ref:`example_subclassing_mayavi_application`
          This script demonstrates how one can
