@@ -297,12 +297,16 @@ def run_mlab_file(filename, image_file):
         compile(open(filename).read(), filename, 'exec'),
         {'__name__': '__main__'}
     )
-    # Give the widget the size the example asked for before capturing it.
-    # Until the layout is applied the render window can still be at VTK's
-    # 300x300 default, which is what happens on CI, where nothing else has
-    # realised a window first.
+    # Give the widget the size the example asked for before capturing it.  The
+    # render window only picks the size up from a resize event, so until the
+    # window is really on screen it stays at VTK's 300x300 default -- which is
+    # what CI produced, where nothing else has put a window up first.
     control = getattr(mlab.gcf().scene, '_vtk_control', None)
     if control is not None:
+        from pyface.qt import QtTest
+        window = control.window()
+        window.show()
+        QtTest.QTest.qWaitForWindowExposed(window.windowHandle() or window, 5000)
         settle_layout(control)
     mlab.savefig(image_file)
     size = mlab.gcf().scene.get_size()
