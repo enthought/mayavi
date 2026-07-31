@@ -13,6 +13,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import token, tokenize
 import textwrap
 import itertools
@@ -305,6 +306,39 @@ def _wx_scene_controls(window, found=None):
     return found
 
 
+def _wx_scenes_on_screen(frame, filename, timeout=EXAMPLE_TIMEOUT / 4):
+    """ Waits for the frame's scenes to be on screen, and returns them.
+
+        The Qt path waits with QTest.qWaitForWindowExposed; wx has nothing
+        equivalent, so wait on the thing that is actually wanted -- a scene the
+        window server has put up -- rather than on a fixed number of turns
+        round the event loop.  Update() then paints what is pending now, rather
+        than whenever wx would next have got to it.
+
+        A notebook's hidden tab is left out: it sits at the same place as the
+        visible one, with an unrealised render window that would otherwise be
+        scaled over the top of it.
+    """
+    import wx
+
+    app = wx.GetApp()
+    deadline = time.monotonic() + timeout
+    while True:
+        app.Yield()                 # processes everything currently pending
+        scenes = [scene for scene in _wx_scene_controls(frame)
+                  if scene.IsShownOnScreen()]
+        if scenes and frame.IsShownOnScreen():
+            frame.Layout()
+            # IsShownOnScreen means the widget and its parents are shown, not
+            # that the server has mapped and exposed the window -- there is no
+            # wx qWaitForWindowExposed.  Update() paints the pending regions
+            # synchronously, so the blit that follows has something to copy.
+            frame.Update()
+            return scenes
+        if time.monotonic() >= deadline:
+            raise NoSceneInDialog(filename)
+
+
 def capture_wx_dialog(filename, image_file):
     """ Shoots a wx example: the frame, with its scenes painted in.
 
@@ -336,16 +370,7 @@ def capture_wx_dialog(filename, image_file):
             raise RuntimeError('%s opened no frame' % filename)
         frame = frames[-1]
         frame.Show()
-        app = wx.GetApp()
-        for _ in range(30):
-            app.Yield()
-
-        scenes = _wx_scene_controls(frame)
-        # a notebook's hidden tab sits at the same place as the visible one,
-        # with an unrealised render window that would be scaled over the top
-        scenes = [s for s in scenes if s.IsShownOnScreen()]
-        if not scenes:
-            raise NoSceneInDialog(filename)
+        scenes = _wx_scenes_on_screen(frame, filename)
 
         width, height = frame.GetSize()
         shot = wx.Bitmap(width, height)
