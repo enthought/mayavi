@@ -46,7 +46,7 @@ if not os.path.exists(mri_slice_file):
 import numpy as np
 data = np.array([np.fromfile(os.path.join('mri_data', 'MRbrain.%i' % i),
                                         dtype='>u2') for i in range(1, 110)])
-data.shape = (109, 256, 256)
+data = data.reshape((109, 256, 256))
 data = data.T
 
 # Display the data ############################################################

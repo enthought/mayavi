@@ -15,6 +15,13 @@ import faulthandler
 import os
 import re
 import sys
+import warnings
+from pathlib import Path
+
+# Python warnings during the build are fatal too: the Makefiles' -W only
+# covers Sphinx's own diagnostics.  Example execution is separate -- see the
+# filters in scripts/render_docs.py.
+warnings.filterwarnings('error')
 
 # autodoc imports tvtk, so VTK can take the build down with it; without this a
 # crash is a bare signal number.  The variable carries it into any child.
@@ -56,8 +63,8 @@ copyright = 'Enthought, Inc.'
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 d = {}
-fname = os.path.join(basedir, '..', '..', '..', 'mayavi', '__init__.py')
-exec(compile(open(fname).read(), fname, 'exec'), d)
+fname = Path(basedir, '..', '..', '..', 'mayavi', '__init__.py')
+exec(compile(fname.read_text(), str(fname), 'exec'), d)
 # truncated like the mayavi docs do; see the note in ../mayavi/conf.py
 version = release = re.sub(r'\.dev\d+', '.dev', d['__version__'].split('+')[0])
 

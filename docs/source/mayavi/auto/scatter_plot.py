@@ -39,7 +39,7 @@ def main():
     pd = tvtk.PolyData()
     pd.points = np.random.random((1000, 3))
     verts = np.arange(0, 1000, 1)
-    verts.shape = (1000, 1)
+    verts = verts.reshape((1000, 1))
     pd.verts = verts
     pd.point_data.scalars = np.random.random(1000)
     pd.point_data.scalars.name = 'scalars'

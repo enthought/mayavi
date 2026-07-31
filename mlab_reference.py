@@ -7,6 +7,8 @@ Script to generate the function reference for mlab.
 # License: BSD Style.
 
 import os
+from io import StringIO
+from pathlib import Path
 import re
 import sys
 
@@ -22,12 +24,15 @@ from mayavi import mlab
 from inspect import cleandoc, getmembers, getsource, signature
 from docutils import io as docIO
 from docutils import core as docCore
+from docutils.parsers import rst as docRst
+from docutils.readers import standalone as docStandalone
+from docutils.writers import pseudoxml as docPseudoxml
 
 # We need to exec render_image, as we can't import it, because it is not
 # in a python package.
 _src = os.path.abspath(os.path.join('docs', 'source', 'render_images.py'))
 render_images = dict(__name__='', __file__=_src)
-exec(compile(open(_src).read(), _src, 'exec'), render_images)
+exec(compile(Path(_src).read_text(), _src, 'exec'), render_images)
 IMAGE_DIR = render_images['IMAGE_DIR']
 
 # Demonstrations that belong to a function but are not named after it, so the
@@ -87,9 +92,13 @@ def relpath(target, base=os.curdir):
 def is_valid_rst(string):
     """ Check if the given string can be compiled to rst.
     """
-    publisher = docCore.Publisher( source_class = docIO.StringInput,
-                        destination_class = docIO.StringOutput )
-    publisher.set_components('standalone', 'restructuredtext', 'pseudoxml')
+    # components go to the constructor; naming them via set_components() is
+    # deprecated as of Docutils 2.0
+    publisher = docCore.Publisher(reader=docStandalone.Reader(),
+                                  parser=docRst.Parser(),
+                                  writer=docPseudoxml.Writer(),
+                                  source_class=docIO.StringInput,
+                                  destination_class=docIO.StringOutput)
     publisher.process_programmatic_settings(None, None, None)
     publisher.set_source(string, None)
 
@@ -280,7 +289,7 @@ from mayavi.mlab import *
                             if not ( name[:5] == 'test_' or name[0] == '_')
                                                      and callable(func)])
 
-        outfile = open(os.sep.join([self.out_dir, self.filename]), 'w')
+        outfile = StringIO()
 
         outfile.write(self.header)
 
@@ -327,6 +336,7 @@ from mayavi.mlab import *
 
         outfile.write(self.footer)
         outfile.write('\n\n')
+        Path(self.out_dir, self.filename).write_text(outfile.getvalue())
 
 
     def write_doc_submodule(self, filename, title=None,
@@ -335,7 +345,7 @@ from mayavi.mlab import *
             submodule. If submodule is none, all the non-processed
             functions are processed.
         """
-        outfile = open(os.sep.join([self.out_dir, filename]), 'w')
+        outfile = StringIO()
 
         if header is not None:
             outfile.write(header)
@@ -371,6 +381,7 @@ from mayavi.mlab import *
             outfile.write("\n\n")
             documented.add(func_name)
 
+        Path(self.out_dir, filename).write_text(outfile.getvalue())
         self.to_document.difference_update(documented)
 
 

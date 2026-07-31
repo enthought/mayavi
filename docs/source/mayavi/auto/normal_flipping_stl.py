@@ -22,7 +22,7 @@ def flip_normals(stl_fname):
     x, y, z = points.T
 
     data = polydata.polys.to_array()
-    data.shape = data.size//4,4
+    data = data.reshape(data.size//4,4)
     ordering = np.delete(data, 0, 1)
 
     # getting normal data of the stl file

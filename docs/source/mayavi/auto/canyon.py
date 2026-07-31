@@ -34,7 +34,7 @@ import numpy as np
 
 data = np.frombuffer(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'),
                     '>i2')
-data.shape = (3601, 3601)
+data = data.reshape((3601, 3601))
 data = data.astype(np.float32)
 
 # Plot an interesting section #################################################
