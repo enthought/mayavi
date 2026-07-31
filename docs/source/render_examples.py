@@ -29,12 +29,18 @@ global_counter = itertools.count()
 EXAMPLE_DIR = '../../examples/mayavi'
 
 # Examples whose figure differs from run to run, so that re-rendering would flip
-# the published image back and forth for no gain.  Both draw overlapping
-# translucent actors, which VTK composites slightly differently from one run to
-# the next: tvtk_in_mayavi about one run in five, and magnetic_field -- which
-# culls front faces to fake transparency -- in three of the last four CI runs,
-# a third of the image at a time.  See the note in CLAUDE.md for what was tried.
-FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi', 'magnetic_field'})
+# the published image back and forth for no gain.  The first two draw
+# overlapping translucent actors, which VTK composites slightly differently from
+# one run to the next: tvtk_in_mayavi about one run in five, and magnetic_field
+# -- which culls front faces to fake transparency -- in three of the last four
+# CI runs, a third of the image at a time.  wx_mayavi_embed_in_notebook is the
+# odd one out: it is a screenshot of a wx window, and the notebook it draws
+# lands differently often enough to have come back changed in two of the four
+# CI runs after it was added, on the committed bytes both times, on main and on
+# a branch that had not touched it.  See the note in CLAUDE.md for what was
+# tried on the first two.
+FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi', 'magnetic_field',
+                            'wx_mayavi_embed_in_notebook'})
 
 # Examples that cannot be rendered unattended, and why.
 SKIP_EXAMPLES = {
