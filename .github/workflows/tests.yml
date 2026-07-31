@@ -12,9 +12,6 @@ on:
 
 jobs:
   tests:
-    # TEMPORARY: drop before merge -- keeps CI cycles for the docs
-    # build while the wx rendering is still being worked out
-    if: github.head_ref != 'wx-examples'
     name: Tests ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt-api }} ${{ matrix.vtk }} ${{ (matrix.headless && 'headless') || ''}}
     strategy:
       matrix:

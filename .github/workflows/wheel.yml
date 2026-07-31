@@ -13,9 +13,6 @@ on:
 # older VTK runtimes -- a prerequisite for distributing wheels on PyPI.
 jobs:
   build:
-    # TEMPORARY: drop before merge -- keeps CI cycles for the docs
-    # build while the wx rendering is still being worked out
-    if: github.head_ref != 'wx-examples'
     name: Build wheel (latest VTK, ${{ matrix.os }})
     strategy:
       matrix:
@@ -55,9 +52,6 @@ jobs:
         path: dist/*.tar.gz
 
   test:
-    # TEMPORARY: drop before merge -- keeps CI cycles for the docs
-    # build while the wx rendering is still being worked out
-    if: github.head_ref != 'wx-examples'
     # Each OS tests its own wheel.  Rows mirror tests.yml so failures are
     # attributable to the VTK mismatch, not the environment.  No checkout:
     # pytest --pyargs runs the installed wheel, which must ship everything
@@ -143,9 +137,6 @@ jobs:
       working-directory: ${{ env.PYTEST_DIR }}
 
   check:
-    # TEMPORARY: drop before merge -- keeps CI cycles for the docs
-    # build while the wx rendering is still being worked out
-    if: github.head_ref != 'wx-examples'
     name: Check dists
     needs: build
     runs-on: ubuntu-latest
