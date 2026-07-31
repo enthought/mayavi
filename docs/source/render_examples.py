@@ -38,9 +38,11 @@ FLAKY_EXAMPLES = frozenset({'tvtk_in_mayavi', 'magnetic_field'})
 
 # Examples that cannot be rendered unattended, and why.
 SKIP_EXAMPLES = {
-    'compute_in_thread': 'drives a worker thread, so the figure never settles',
-    'poll_file': 'waits for a file to be edited',
-    'standalone': 'starts the Envisage application and its event loop',
+    # Its two scenes are windows of their own rather than panels of the dialog
+    # the example opens, and the first of them -- the one anything looking for
+    # a scene finds first -- is the empty one it creates "just for kicks", so
+    # shooting it would put a blank figure in the gallery.
+    'standalone': 'builds its own Engine and puts each scene in its own window',
     'user_mayavi': 'is loaded by the mayavi2 application, not run on its own',
     'zzz_reader': 'registers a reader; there is nothing to show',
 }
@@ -144,6 +146,18 @@ def is_dialog_example(filename):
     return 'configure_traits(' in code_only or 'edit_traits(' in code_only
 
 
+def is_app_example(filename):
+    """ Whether the example runs itself inside the Mayavi2 application.
+
+        ``@mayavi2.standalone`` starts Envisage and its event loop, so such an
+        example has to be shot the way a dialog is -- with the Qt loop stubbed
+        out -- rather than through ``run_mlab_file``, which would block in
+        ``Mayavi.main()`` until the render timed out.  Its figure is the
+        workbench window, not an mlab one.
+    """
+    return 'mayavi2.standalone' in _code_without_comments(filename)
+
+
 def _code_without_comments(filename):
     tokens = tokenize.generate_tokens(StringIO(Path(filename).read_text()).readline)
     return ''.join([tok_content
@@ -182,6 +196,21 @@ def _scene_widgets(widget, found=None):
         if isinstance(child, QtGui.QWidget):
             _scene_widgets(child, found)
     return found
+
+
+def _window_holding_a_scene():
+    """ The visible top-level window that holds a scene, if there is one.
+
+        For an example that runs inside the Mayavi2 application this is the
+        workbench window: it opens no dialog we could have caught, so the only
+        way to find its figure is to look at what ended up on screen.
+    """
+    from pyface.qt import QtGui
+
+    for widget in QtGui.QApplication.topLevelWidgets():
+        if widget.isVisible() and _scene_widgets(widget):
+            return widget
+    return None
 
 
 class NoSceneInDialog(RuntimeError):
@@ -234,18 +263,23 @@ def capture_dialog(filename, image_file):
     try:
         exec(compile(Path(filename).read_text(), filename, 'exec'),
              {'__name__': '__main__', '__file__': os.path.abspath(filename)})
-        if not created:
-            raise RuntimeError('%s opened no dialog' % filename)
-        ui = created[-1]
-        # for an embedded panel this is the window the example built around it
-        dialog = ui.control.window()
+        ui = created[-1] if created else None
+        if ui is not None:
+            # for an embedded panel this is the window the example built round it
+            dialog = ui.control.window()
+        else:
+            # an example driving the Mayavi2 application opens no dialog of its
+            # own: its figure is whichever window Envisage put the scene in
+            dialog = _window_holding_a_scene()
+            if dialog is None:
+                raise RuntimeError('%s opened no dialog' % filename)
         dialog.show()
         # the scene is only built once the window is really on screen, and
         # several examples plot from a scene.activated handler
         QtTest.QTest.qWaitForWindowExposed(dialog.windowHandle() or dialog, 5000)
         settle()
 
-        obj = ui.context.get('object')
+        obj = ui.context.get('object') if ui is not None else None
         if obj is not None:      # a few examples only plot when clicked
             for name in obj.trait_names():
                 if isinstance(obj.trait(name).trait_type, Button):
@@ -426,7 +460,7 @@ def capture_one(filename, image_file):
     # an example that also draws with matplotlib would block in pyplot.show();
     # the environment only affects this child, not what users get
     os.environ.setdefault('MPLBACKEND', 'Agg')
-    if is_dialog_example(filename):
+    if is_dialog_example(filename) or is_app_example(filename):
         try:
             return capture_dialog(filename, image_file)
         except NoSceneInDialog:
@@ -471,7 +505,8 @@ def capture_example(filename, short_file_name, image_file):
         print("Keeping the committed image for %s; it does not render "
               "reproducibly (set MAYAVI_RENDER_FLAKY=1 to redo it)" % filename)
         return
-    if not (is_dialog_example(filename) or is_mlab_example(filename)):
+    if not (is_dialog_example(filename) or is_mlab_example(filename)
+            or is_app_example(filename)):
         print("Skipping %s: it neither shows a figure nor opens a dialog"
               % filename)
         return

@@ -16,6 +16,11 @@ It can be alternatively run as::
 
   $ python polydata.py
 
+.. image:: ../generated_images/example_polydata.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`polydata.py`
 
 .. literalinclude:: polydata.py

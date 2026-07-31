@@ -20,6 +20,11 @@ Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 
+.. image:: ../generated_images/example_unstructured_grid.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`unstructured_grid.py`
 
 .. literalinclude:: unstructured_grid.py

@@ -17,6 +17,11 @@ Alternatively, it can be run as::
 
   $ python structured_grid.py
 
+.. image:: ../generated_images/example_structured_grid.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`structured_grid.py`
 
 .. literalinclude:: structured_grid.py

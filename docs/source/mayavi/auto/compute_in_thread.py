@@ -26,8 +26,6 @@ from pyface.api import GUI
 def make_data(dims=(128, 128, 128)):
     """Creates some simple array data of the given dimensions to test
     with."""
-    np = dims[0]*dims[1]*dims[2]
-
     # Create some scalars to render.
     x, y, z = np.ogrid[-5:5:dims[0]*1j,-5:5:dims[1]*1j,-5:5:dims[2]*1j]
     x = x.astype('f')
