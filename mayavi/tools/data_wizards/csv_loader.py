@@ -1,5 +1,5 @@
 # Author: Ilan Schnell <ischnell@enthought.com>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

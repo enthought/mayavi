@@ -24,7 +24,7 @@ jobs:
     defaults:
       run:
         shell: bash
-    timeout-minutes: 15  # ~7 min, the tvtk class generation being most of it
+    timeout-minutes: 20  # ~11 min, the rendering and tvtk class generation
 
     env:
       # ETS_TOOLKIT is deliberately unset: the Makefiles default it to null for
@@ -53,17 +53,22 @@ jobs:
     - run: python -m pip install --group docs -ve ".[app]"
     - name: Cache the example datasets
       # the examples urlretrieve these into the cwd they run in, with no
-      # timeout; lucy.tar.gz alone is 322 MB.  Bump the key if a URL changes.
+      # timeout; lucy alone is a 322 MB download.  The unpacked directories are
+      # what the examples read, and they skip the download once those exist, so
+      # caching the tarballs as well would store the same data twice.  Bump the
+      # key if a URL changes.
       uses: actions/cache@v4.3.0
       with:
         path: |
-          docs/source/*.tar.gz
+          docs/source/*_data
           docs/source/*.zip
           docs/source/*.ent.gz
           docs/source/*.cube
-        key: example-data-v1
+        key: example-data-v2
     - name: Render the gallery images and regenerate the mlab reference
-      timeout-minutes: 5  # ~1 min, most of it downloading uncached datasets
+      # ~3 min locally, plus the dataset downloads on a cold cache; each
+      # example also has its own 60s cap, so this only catches the whole lot
+      timeout-minutes: 15
       env:
         # rendering needs a real toolkit; the sphinx build must not have one, or
         # PySide6's import hook trips over autodoc's mocked wx (17 warnings, and
@@ -73,7 +78,12 @@ jobs:
         MAYAVI_RENDER_FLAKY: ${{ inputs.render_flaky }}
       run: python scripts/render_docs.py
     - name: Report regenerated files
-      run: git --no-pager diff --stat
+      # --stat alone shows nothing for a figure that is new rather than
+      # changed, which is how the gallery went years with images CI rendered
+      # on every run and nobody ever committed
+      run: |
+        git --no-pager diff --stat
+        git status --short --untracked-files=all
     - run: make -C docs site
     - uses: actions/upload-pages-artifact@v5.0.0
       with:
@@ -88,6 +98,15 @@ jobs:
         name: docs-site
         path: docs/build/site
         retention-days: 14
+    - name: Check every example that should have a figure produced one
+      # last on purpose: a failure here still leaves the site and its images
+      # uploaded above, which is what you want to look at when it goes red
+      run: |
+        if [ -s render_failures.txt ]; then
+          echo "These examples were meant to render and did not:"
+          cat render_failures.txt
+          exit 1
+        fi
 
   deploy:
     name: Deploy

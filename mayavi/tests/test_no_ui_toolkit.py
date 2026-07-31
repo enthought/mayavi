@@ -2,7 +2,7 @@
 Tests to try and ensure that important mayavi imports work with no UI.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import sys

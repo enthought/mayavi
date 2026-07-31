@@ -86,14 +86,19 @@ jobs:
         # --no-build-isolation, so it must be present in the environment
         python -m pip install --upgrade pip setuptools setuptools_scm wheel
         if [[ "${{ matrix.vtk }}" == "vtk-dev" ]]; then
-          # Dev wheels get their own pip call so that --pre only applies to VTK
+          # Dev wheels get their own pip calls so that --pre and the nightly
+          # indexes apply only to the package they belong to
           python -m pip install --upgrade --pre --only-binary ":all:" --extra-index-url "https://wheels.vtk.org" vtk
+          python -m pip install --upgrade --pre --only-binary ":all:" --extra-index-url "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple" numpy
           vtk_spec=""
+          numpy_spec=""
         else
           vtk_spec="${{ matrix.vtk || 'vtk' }}"
+          numpy_spec="${{ matrix.numpy || 'numpy' }}"
         fi
-        python -m pip install --upgrade ${{ matrix.qt-api || ''}} "${{ matrix.numpy || 'numpy' }}" $vtk_spec pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
+        python -m pip install --upgrade ${{ matrix.qt-api || ''}} $numpy_spec $vtk_spec pillow pytest pytest-timeout traits traitsui --only-binary="numpy,vtk"
         python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
+        python -c "import numpy; print(f'NumPy {numpy.__version__}')"
         if [[ "${{ matrix.headless }}" != "true" ]]; then
           echo "extra=[app]" | tee -a $GITHUB_OUTPUT
         fi

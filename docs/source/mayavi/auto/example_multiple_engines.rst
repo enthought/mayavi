@@ -16,6 +16,11 @@ scene.
 To define default arguments, it makes use of the Traits initialization
 style, rather than overriding the __init__.
 
+.. image:: ../generated_images/example_multiple_engines.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`multiple_engines.py`
 
 .. literalinclude:: multiple_engines.py

@@ -1,6 +1,6 @@
 # Author: Prabhu Ramachandran
 # License: BSD style
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 
 """Tests for vtk_parser.py.
 

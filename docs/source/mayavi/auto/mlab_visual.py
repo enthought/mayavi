@@ -19,7 +19,7 @@ If you want to modify the data plotted by the mlab (as in the
 
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from mayavi import mlab

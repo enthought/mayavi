@@ -14,6 +14,11 @@ with a UI using Traits and Mayavi.
 For explanations and more examples of interactive application building
 with Mayavi, please refer to section :ref:`building_applications`.
 
+.. image:: ../generated_images/example_lorenz_ui.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`lorenz_ui.py`
 
 .. literalinclude:: lorenz_ui.py

@@ -32,7 +32,7 @@ The file may also be placed anywhere on sys.path and called
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from mayavi.core.registry import registry

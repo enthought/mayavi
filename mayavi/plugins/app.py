@@ -1,7 +1,7 @@
 """The Mayavi Envisage application.
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
-# Copyright (c) 2008-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

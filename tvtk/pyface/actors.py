@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
@@ -17,7 +17,7 @@ when writing demo/example code.
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from tvtk.api import tvtk

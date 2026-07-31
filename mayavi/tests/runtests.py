@@ -7,7 +7,7 @@ thing.
 """
 
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2009-2020,  Enthought Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import sys

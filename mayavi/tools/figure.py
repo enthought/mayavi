@@ -4,7 +4,7 @@ Functions related to creating the engine or the figures.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -19,6 +19,7 @@ from pyface.timer.api import do_later
 
 #  imports
 from tvtk.api import tvtk
+from tvtk.common import reshape_view
 from mayavi.core.scene import Scene
 from mayavi.core.registry import registry
 from .camera import view
@@ -344,7 +345,6 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         pixel_getter(*pg_args)
 
     # Return the array in a way that pylab.imshow plots it right:
-    out = out.to_array()
-    out.shape = shape
+    out = reshape_view(out.to_array(), shape)
     out = np.flipud(out)
     return out

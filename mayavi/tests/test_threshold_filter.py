@@ -1,5 +1,5 @@
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2010,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.

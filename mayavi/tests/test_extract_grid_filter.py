@@ -1,6 +1,6 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran
-# Copyright (c) 2009,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -16,6 +16,7 @@ from mayavi.modules.grid_plane import GridPlane
 from mayavi.modules.axes import Axes
 from mayavi.filters.extract_grid import ExtractGrid
 from tvtk.api import tvtk
+from tvtk.common import reshape_view
 
 class TestExtractGridFilter(unittest.TestCase):
 
@@ -23,7 +24,7 @@ class TestExtractGridFilter(unittest.TestCase):
         pd = tvtk.PolyData()
         pd.points = 100 + 100*random.random((1000, 3))
         verts = arange(0, 1000, 1)
-        verts.shape = (1000, 1)
+        verts = reshape_view(verts, (1000, 1))
         pd.verts = verts
         pd.point_data.scalars = random.random(1000)
         pd.point_data.scalars.name = 'scalars'

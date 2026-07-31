@@ -1,17 +1,24 @@
 """Common functions and classes.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from contextlib import contextmanager
 import re
+
+import numpy
+from packaging.version import Version
 import vtk
 
 # The runtime VTK version every version-keyed workaround is gated on --
 # see tvtk/WORKAROUNDS.md for the full map and the cull policy.
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
+
+# NumPy 2.5 deprecated assigning to .shape, but the reshape(copy=False) that
+# replaces it only exists from 2.1 -- drop the branch at a numpy>=2.1 floor.
+_NUMPY_HAS_RESHAPE_COPY = Version(numpy.__version__).release >= (2, 1)
 
 
 ######################################################################
@@ -35,6 +42,19 @@ def suppress_vtk_warnings():
         yield
     finally:
         obj.GlobalWarningDisplayOn()
+
+
+def reshape_view(arr, shape):
+    """Reshape `arr` as a view, raising if a copy would be needed.
+
+    The `arr.shape = shape` this replaces is deprecated as of NumPy 2.5.
+    Both spellings refuse to copy, which matters for the arrays here that
+    alias VTK-owned memory.
+    """
+    if _NUMPY_HAS_RESHAPE_COPY:
+        return arr.reshape(shape, copy=False)
+    arr.shape = shape
+    return arr
 
 
 def get_tvtk_name(vtk_name):

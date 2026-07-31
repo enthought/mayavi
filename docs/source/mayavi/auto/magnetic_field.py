@@ -18,7 +18,7 @@ For another visualization of magnetic field, see the
 :ref:`example_magnetic_field_lines`.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

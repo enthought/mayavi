@@ -30,7 +30,7 @@ The material required to understand this example is covered in section
 
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Major scientific library imports

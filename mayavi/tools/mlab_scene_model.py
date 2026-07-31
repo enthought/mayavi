@@ -1,7 +1,7 @@
 """`MlabSceneModel` makes it easy to plug `mayavi.mlab` in traits UI views.
 """
 # Authors: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import Instance, Property

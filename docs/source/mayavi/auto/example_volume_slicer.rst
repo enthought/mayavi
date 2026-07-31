@@ -34,6 +34,11 @@ on it is strongly simplified by turning off interaction, and choosing
 specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.
 
+.. image:: ../generated_images/example_volume_slicer.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`volume_slicer.py`
 
 .. literalinclude:: volume_slicer.py

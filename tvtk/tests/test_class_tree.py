@@ -1,6 +1,6 @@
 # Author: Prabhu Ramachandran
 # License: BSD style
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 
 """Tests class_tree.py.  Uses the vtk module to test the code.  Also
 tests if the tree generation works for the builtins module.

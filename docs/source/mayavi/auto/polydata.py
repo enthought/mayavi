@@ -13,7 +13,7 @@ It can be alternatively run as::
 """
 
 # Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD style.
 
 from numpy import array

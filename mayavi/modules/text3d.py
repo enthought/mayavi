@@ -6,7 +6,7 @@ and in 2D on the screen. As a result the text resizes with the figure,
 and can be masked by objects in the foreground.
 """
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

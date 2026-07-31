@@ -7,7 +7,7 @@ TVTK sees a view of this array without doing any data transfers.
 
 """
 # Authors: Prabhu Ramachandran, Eric Jones
-# Copyright (c) 2006-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from numpy import arange, zeros, uint8, exp, sqrt, pi

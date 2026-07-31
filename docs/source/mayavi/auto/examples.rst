@@ -79,13 +79,13 @@ Advanced mlab examples
 
    example_julia_set.rst
    example_boy.rst
-   example_lucy.rst
-   example_dragon.rst
    example_bunny.rst
+   example_dragon.rst
+   example_lucy.rst
    example_custom_colormap.rst
    example_surface_from_irregular_data.rst
-   example_spherical_harmonics.rst
    example_lorenz.rst
+   example_spherical_harmonics.rst
    example_canyon.rst
    example_julia_set_decimation.rst
    example_simple_structured_grid.rst
@@ -109,7 +109,7 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0002| image:: ../generated_images/example_lucy.jpg
+.. |0002| image:: ../generated_images/example_bunny.jpg
     :width: 150
 
             
@@ -117,7 +117,7 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0004| image:: ../generated_images/example_bunny.jpg
+.. |0004| image:: ../generated_images/example_lucy.jpg
     :width: 150
 
             
@@ -129,11 +129,11 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0007| image:: ../generated_images/example_spherical_harmonics.jpg
+.. |0007| image:: ../generated_images/example_lorenz.jpg
     :width: 150
 
             
-.. |0008| image:: ../generated_images/example_lorenz.jpg
+.. |0008| image:: ../generated_images/example_spherical_harmonics.jpg
     :width: 150
 
             
@@ -199,17 +199,17 @@ Advanced mlab examples
          A script to generate the Mayavi logo: a
          Boy surface.
 
-|0002|  :ref:`example_lucy`
+|0002|  :ref:`example_bunny`
          Viewing Stanford 3D Scanning Repository
-         lucy model
+         bunny model
 
 |0003|  :ref:`example_dragon`
          Viewing Stanford 3D Scanning Repository
          dragon model
 
-|0004|  :ref:`example_bunny`
+|0004|  :ref:`example_lucy`
          Viewing Stanford 3D Scanning Repository
-         bunny model
+         lucy model
 
 |0005|  :ref:`example_custom_colormap`
          An example showing how a custom colormap
@@ -220,15 +220,15 @@ Advanced mlab examples
          An example which shows how to plot a
          surface from data acquired irregularly.
 
-|0007|  :ref:`example_spherical_harmonics`
-         Plot spherical harmonics on the surface
-         of the sphere, as well as a 3D polar
-         plot.
-
-|0008|  :ref:`example_lorenz`
+|0007|  :ref:`example_lorenz`
          An example displaying the trajectories
          for the Lorenz system of equations along
          with the z-nullcline.
+
+|0008|  :ref:`example_spherical_harmonics`
+         Plot spherical harmonics on the surface
+         of the sphere, as well as a 3D polar
+         plot.
 
 |0009|  :ref:`example_canyon`
          Retrieve radar data from the NASA and
@@ -333,13 +333,13 @@ applications.
 .. A comment to split paragraphs
 
 
-.. |0100| image:: ../images/example_mlab_visual.jpg
-    :width: 150
-
-            
-.. |0101| raw:: html
+.. |0100| raw:: html
 
     <br/>
+
+            
+.. |0101| image:: ../generated_images/example_mlab_traits_ui.jpg
+    :width: 150
 
             
 .. |0102| raw:: html
@@ -347,24 +347,20 @@ applications.
     <br/>
 
             
-.. |0103| raw:: html
-
-    <br/>
-
-            
-.. |0104| raw:: html
-
-    <br/>
+.. |0103| image:: ../generated_images/example_multiple_engines.jpg
+    :width: 150
 
             
-.. |0105| raw:: html
-
-    <br/>
+.. |0104| image:: ../generated_images/example_multiple_mlab_scene_models.jpg
+    :width: 150
 
             
-.. |0106| raw:: html
+.. |0105| image:: ../generated_images/example_superquad_with_gui.jpg
+    :width: 150
 
-    <br/>
+            
+.. |0106| image:: ../generated_images/example_mlab_interactive_dialog.jpg
+    :width: 150
 
             
 .. |0107| raw:: html
@@ -377,9 +373,8 @@ applications.
     <br/>
 
             
-.. |0109| raw:: html
-
-    <br/>
+.. |0109| image:: ../generated_images/example_mayavi_traits_ui.jpg
+    :width: 150
 
             
 .. |0110| raw:: html
@@ -392,9 +387,8 @@ applications.
     <br/>
 
             
-.. |0112| raw:: html
-
-    <br/>
+.. |0112| image:: ../generated_images/example_adjust_cropping_extents.jpg
+    :width: 150
 
             
 .. |0113| raw:: html
@@ -402,24 +396,20 @@ applications.
     <br/>
 
             
-.. |0114| raw:: html
-
-    <br/>
-
-            
-.. |0115| raw:: html
-
-    <br/>
+.. |0114| image:: ../generated_images/example_lorenz_ui.jpg
+    :width: 150
 
             
-.. |0116| raw:: html
-
-    <br/>
+.. |0115| image:: ../generated_images/example_volume_slicer.jpg
+    :width: 150
 
             
-.. |0117| raw:: html
+.. |0116| image:: ../generated_images/example_coil_design_application.jpg
+    :width: 150
 
-    <br/>
+            
+.. |0117| image:: ../generated_images/example_volume_slicer_advanced.jpg
+    :width: 150
 
             
 ======= =============================================
@@ -447,13 +437,11 @@ applications.
 
 |0105|  :ref:`example_superquad_with_gui`
          This example uses MayaVi to show the
-         evolution of a superquadric (http://en.w
-         ikipedia.org/wiki/Superquadrics), which
-         are ellipsoidal surfaces parametrised by
-         two parameters,lpha and eta. The
-         equations that are used to determine the
-         superquadric are (in spherical-polar
-         coordinates):
+         evolution of a superquadric
+         (http://en.wikipedia.org/wiki/Superquadrics),
+         which are ellipsoidal surfaces
+         parametrised by two parameters, *alpha*
+         and *beta*.
 
 |0106|  :ref:`example_mlab_interactive_dialog`
          An example of how to modify the data
@@ -563,90 +551,218 @@ more fine control than mlab.
 .. A comment to split paragraphs
 
 
-* :ref:`example_multi_block`
-    
+.. |0200| image:: ../generated_images/example_multi_block.jpg
+    :width: 150
 
-* :ref:`example_polydata`
-    An example of how to generate a polydata dataset using numpy arrays.
+            
+.. |0201| raw:: html
 
-* :ref:`example_offscreen`
-    A simple example of how you can use Mayavi without using Envisage
-    or the Mayavi Envisage application and do off screen rendering.
+    <br/>
 
-* :ref:`example_surf_regular_mlab`
-    Shows how to view data created by `tvtk.tools.mlab` with
-    mayavi2.
+            
+.. |0202| raw:: html
 
-* :ref:`example_glyph`
-    This script demonstrates using the Mayavi core API to add a VectorCutPlane,
-    split the pipeline using a MaskPoints filter and then view the filtered data
-    with the Glyph module.
+    <br/>
 
-* :ref:`example_structured_points2d`
-    An example of how to generate a 2D structured points dataset
-    using numpy arrays.  Also shown is a way to visualize this data with
-    the mayavi2 application.
+            
+.. |0203| raw:: html
 
-* :ref:`example_contour_contour`
-    This example shows how you can produce contours on an IsoSurface.
+    <br/>
 
-* :ref:`example_scatter_plot`
-    An example of plotting scatter points with Mayavi's core API.
+            
+.. |0204| raw:: html
 
-* :ref:`example_structured_points3d`
-    An example of how to generate a 3D structured points dataset
-    using numpy arrays.  Also shown is a way to visualize this data with
-    the mayavi2 application.
+    <br/>
 
-* :ref:`example_numeric_source`
-    This script demonstrates how to create a numpy array data and
-    visualize it as image data using a few modules.
+            
+.. |0205| raw:: html
 
-* :ref:`example_streamline`
-    This script demonstrates how one can script Mayavi's core API to display
-    streamlines and an iso surface.
+    <br/>
 
-* :ref:`example_image_cursor_filter`
-    Excample using the UserDefined filter to paint a cross-shaped cursor on data,
-    in order to point out a special position.
+            
+.. |0206| raw:: html
 
-* :ref:`example_contour`
-    This script demonstrates how one can script Mayavi and use its
-    contour related modules.
+    <br/>
 
-* :ref:`example_probe_filter`
-    Using the probe filter to visualize a scalar field along an arbitrary
-    surface.
+            
+.. |0207| raw:: html
 
-* :ref:`example_unstructured_grid`
-    A MayaVi example of how to generate an unstructured grid dataset
-    using numpy arrays.  Also shown is a way to visualize this data with
-    mayavi2.  The script can be run like so:
+    <br/>
 
-* :ref:`example_structured_grid`
-    An example of how to generate a structured grid dataset using
-    numpy arrays.  Also shown is a way to visualize this data with
-    the mayavi2 application.
+            
+.. |0208| raw:: html
 
-* :ref:`example_tvtk_segmentation`
-    Using VTK to assemble a pipeline for segmenting MRI images. This example
-    shows how to insert well-controled custom VTK filters in Mayavi.
+    <br/>
 
-* :ref:`example_datasets`
-    A Mayavi example to show the different data sets. See
-    :ref:`data-structures-used-by-mayavi` for a discussion.
+            
+.. |0209| raw:: html
 
-* :ref:`example_delaunay_graph`
-    An example illustrating graph manipulation and display with Mayavi
-    and NetworkX.
+    <br/>
 
-* :ref:`example_mlab_3D_to_2D`
-    A script to calculate the projection of 3D world coordinates to
-    2D display coordinates (pixel coordinates) for a given scene.
+            
+.. |0210| image:: ../generated_images/example_streamline.jpg
+    :width: 150
 
-* :ref:`example_magnetic_field`
-    An example mixing numerical caculation and 3D visualization of the
-    magnetic field created by an arbitrary number of current loops.
+            
+.. |0211| image:: ../generated_images/example_image_cursor_filter.jpg
+    :width: 150
+
+            
+.. |0212| raw:: html
+
+    <br/>
+
+            
+.. |0213| image:: ../generated_images/example_probe_filter.jpg
+    :width: 150
+
+            
+.. |0214| raw:: html
+
+    <br/>
+
+            
+.. |0215| raw:: html
+
+    <br/>
+
+            
+.. |0216| image:: ../generated_images/example_tvtk_segmentation.jpg
+    :width: 150
+
+            
+.. |0217| raw:: html
+
+    <br/>
+
+            
+.. |0218| image:: ../generated_images/example_delaunay_graph.jpg
+    :width: 150
+
+            
+.. |0219| image:: ../generated_images/example_mlab_3D_to_2D.jpg
+    :width: 150
+
+            
+.. |0220| image:: ../generated_images/example_magnetic_field.jpg
+    :width: 150
+
+            
+======= =============================================
+======= =============================================
+|0200|  :ref:`example_multi_block`
+
+|0201|  :ref:`example_polydata`
+         An example of how to generate a polydata
+         dataset using numpy arrays.
+
+|0202|  :ref:`example_offscreen`
+         A simple example of how you can use
+         Mayavi without using Envisage or the
+         Mayavi Envisage application and do off
+         screen rendering.
+
+|0203|  :ref:`example_surf_regular_mlab`
+         Shows how to view data created by
+         `tvtk.tools.mlab` with mayavi2.
+
+|0204|  :ref:`example_glyph`
+         This script demonstrates using the
+         Mayavi core API to add a VectorCutPlane,
+         split the pipeline using a MaskPoints
+         filter and then view the filtered data
+         with the Glyph module.
+
+|0205|  :ref:`example_structured_points2d`
+         An example of how to generate a 2D
+         structured points dataset using numpy
+         arrays.  Also shown is a way to
+         visualize this data with the mayavi2
+         application.
+
+|0206|  :ref:`example_contour_contour`
+         This example shows how you can produce
+         contours on an IsoSurface.
+
+|0207|  :ref:`example_scatter_plot`
+         An example of plotting scatter points
+         with Mayavi's core API.
+
+|0208|  :ref:`example_structured_points3d`
+         An example of how to generate a 3D
+         structured points dataset using numpy
+         arrays.  Also shown is a way to
+         visualize this data with the mayavi2
+         application.
+
+|0209|  :ref:`example_numeric_source`
+         This script demonstrates how to create a
+         numpy array data and visualize it as
+         image data using a few modules.
+
+|0210|  :ref:`example_streamline`
+         This script demonstrates how one can
+         script Mayavi's core API to display
+         streamlines and an iso surface.
+
+|0211|  :ref:`example_image_cursor_filter`
+         Excample using the UserDefined filter to
+         paint a cross-shaped cursor on data, in
+         order to point out a special position.
+
+|0212|  :ref:`example_contour`
+         This script demonstrates how one can
+         script Mayavi and use its contour
+         related modules.
+
+|0213|  :ref:`example_probe_filter`
+         Using the probe filter to visualize a
+         scalar field along an arbitrary surface.
+
+|0214|  :ref:`example_unstructured_grid`
+         A MayaVi example of how to generate an
+         unstructured grid dataset using numpy
+         arrays.  Also shown is a way to
+         visualize this data with mayavi2.  The
+         script can be run like so:
+
+|0215|  :ref:`example_structured_grid`
+         An example of how to generate a
+         structured grid dataset using numpy
+         arrays.  Also shown is a way to
+         visualize this data with the mayavi2
+         application.
+
+|0216|  :ref:`example_tvtk_segmentation`
+         Using VTK to assemble a pipeline for
+         segmenting MRI images. This example
+         shows how to insert well-controled
+         custom VTK filters in Mayavi.
+
+|0217|  :ref:`example_datasets`
+         A Mayavi example to show the different
+         data sets. See
+         :ref:`data-structures-used-by-mayavi`
+         for a discussion.
+
+|0218|  :ref:`example_delaunay_graph`
+         An example illustrating graph
+         manipulation and display with Mayavi and
+         NetworkX.
+
+|0219|  :ref:`example_mlab_3D_to_2D`
+         A script to calculate the projection of
+         3D world coordinates to 2D display
+         coordinates (pixel coordinates) for a
+         given scene.
+
+|0220|  :ref:`example_magnetic_field`
+         An example mixing numerical caculation
+         and 3D visualization of the magnetic
+         field created by an arbitrary number of
+         current loops.
+
+======= =============================================
 
 Data interaction examples
 --------------------------------------------------
@@ -666,16 +782,35 @@ Examples showing how you can query and interact with the data.
 .. A comment to split paragraphs
 
 
-* :ref:`example_pick_on_surface`
-    Example showing how to pick data on a surface, going all the way back
-    to the index in the numpy arrays.
+.. |0300| image:: ../generated_images/example_pick_on_surface.jpg
+    :width: 150
 
-* :ref:`example_select_red_balls`
-    This example shows how to use a callback to select a red ball amongst white
-    balls.
+            
+.. |0301| image:: ../generated_images/example_select_red_balls.jpg
+    :width: 150
 
-* :ref:`example_normal_flipping_stl`
-    This example shows how to read a stl file and flip it's normals.
+            
+.. |0302| image:: ../generated_images/example_normal_flipping_stl.jpg
+    :width: 150
+
+            
+======= =============================================
+======= =============================================
+|0300|  :ref:`example_pick_on_surface`
+         Example showing how to pick data on a
+         surface, going all the way back to the
+         index in the numpy arrays.
+
+|0301|  :ref:`example_select_red_balls`
+         This example shows how to use a callback
+         to select a red ball amongst white
+         balls.
+
+|0302|  :ref:`example_normal_flipping_stl`
+         This example shows how to read a stl
+         file and flip it's normals.
+
+======= =============================================
 
 Misc examples
 --------------------------------------------------

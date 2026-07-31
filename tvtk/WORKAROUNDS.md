@@ -71,6 +71,10 @@ from crashing or producing garbage:
   default-probed on VTK >= 9.5 (realizing + destroying a window segfaults).
   The same bug makes `tvtk/tools/tvtk_doc.py` drop those classes from its
   browsable class list (`skip_windowed`).
+- `parse(no_warn=True)` silences `DeprecationWarning` for the duration:
+  probing every getter necessarily calls the deprecated ones, and a VTK
+  deprecation raised as an error surfaces as an uninformative `SystemError`
+  from the C wrapper.  `tvtk_doc.py`'s class sweep does the same.
 
 Debugging a generation crash: set `VTK_PARSER_VERBOSE=1` (prints each
 `Get*` call before making it; the last line printed is the culprit) and
@@ -107,7 +111,9 @@ class for objects of removed classes.
 ## Layer 4: `tvtk_base.py` — runtime tolerances
 
 `update_traits()` (syncing trait values from the wrapped VTK object at
-instantiation) tolerates, in order:
+instantiation) silences `DeprecationWarning` while it reads the getters —
+traits are generated for methods VTK later deprecates — and then tolerates,
+in order:
 
 - `AttributeError`/`TypeError` from the getter (method missing on an older
   runtime VTK, or needs arguments);
@@ -188,10 +194,21 @@ Those obey the same marker and cull rules; they are keyed on `qVersion()` and
 ## Outside the layers: `mayavi/`
 
 Mayavi is a consumer of the wrapped API, so its version conditionals are
-plain runtime API drift rather than wrapping workarounds — none are live
-right now (`mayavi/filters/threshold.py`'s pre-9.1 `threshold_between()`
-fallback went with the 9.4 floor).  They obey the same cull rule: once
-`MIN_VTK` is past the version the old branch is unreachable and should go.
+plain runtime API drift rather than wrapping workarounds.  They obey the same
+cull rule: once `MIN_VTK` is past the version the old branch is unreachable
+and should go.  Current case:
+
+- `mayavi/tests/conftest.py` ignores NumPy 2.5's "Setting the shape on a
+  NumPy array has been deprecated" on VTK < 9.7, where VTK's own
+  `numpy_support.vtk_to_numpy` still assigns to `.shape`.  9.7 fixed it, so
+  the filter is version-keyed rather than blanket — mayavi's own assignments
+  all went through `tvtk.common.reshape_view` instead, and must stay errors.
+- `mayavi/core/utils.py` reduces composite arrays with `numpy` rather than
+  `numpy_interface.algorithms` when the runtime VTK dispatches numpy functions
+  on them (detected by `dsa.COMPOSITE_OVERRIDE`, added in 9.6 along with the
+  deprecation of `algs.min`/`max`/`mean`/`sum`).  At a 9.6 floor the `algs`
+  fallback goes, but the `algorithms` import must stay: importing it is what
+  registers the dispatch.
 
 ## Auditing
 

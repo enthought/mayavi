@@ -24,6 +24,11 @@ number of points per ball, and divide the point id by this number.
 We use an outline to display which ball was selected by positioning it on
 the corresponding ball.
 
+.. image:: ../generated_images/example_select_red_balls.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`select_red_balls.py`
 
 .. literalinclude:: select_red_balls.py

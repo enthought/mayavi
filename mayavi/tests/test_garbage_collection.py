@@ -1,7 +1,7 @@
 """ Tests for the garbage collection of objects in mayavi package.
 """
 # Authors: Deepak Surti, Ioannis Tziakos
-# Copyright (c) 2015, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import unittest

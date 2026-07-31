@@ -2,10 +2,11 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2020,  Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import sys
+import warnings
 import weakref
 import os
 import logging
@@ -597,37 +598,41 @@ class TVTKBase(traits.HasStrictTraits):
         warn = vtk.vtkObject.GetGlobalWarningDisplay()
         vtk.vtkObject.GlobalWarningDisplayOff()
 
-        for name, getter in self._updateable_traits_:
-            if name == 'global_warning_display':
-                setattr(self, name, warn)
-                continue
+        with warnings.catch_warnings():
+            # A getter VTK has since deprecated still has a trait generated
+            # for it, so reading it here must not blow up under -W error.
+            warnings.simplefilter('ignore', DeprecationWarning)
+            for name, getter in self._updateable_traits_:
+                if name == 'global_warning_display':
+                    setattr(self, name, warn)
+                    continue
 
-            try:
-                val = getattr(vtk_obj, getter)()
-            except (AttributeError, TypeError):
-                # Some vtk GetMethod accepts more than 1 arguments, or is
-                # missing entirely on an older runtime VTK than the classes
-                # were generated against (see tvtk/WORKAROUNDS.md).
-                # FIXME: If we really want to try harder, we could
-                # pass an empty array to the Get method, some Get
-                # method will populate the array as the return
-                # value (e.g. vtkImageConvolve.GetKernel3x3 and alike)
-                pass
-            else:
                 try:
-                    setattr(self, name, val)
-                except traits.TraitError:
-                    if name in self._allow_update_failure_:
-                        pass
-                    elif vtk_version_mismatch():
-                        # The trait definitions were generated against a
-                        # different VTK, so values read from the runtime
-                        # object may no longer validate (type/range drift
-                        # across VTK versions); keep the generated default.
-                        # See tvtk/WORKAROUNDS.md.
-                        pass
-                    else:
-                        raise
+                    val = getattr(vtk_obj, getter)()
+                except (AttributeError, TypeError):
+                    # Some vtk GetMethod accepts more than 1 arguments, or is
+                    # missing entirely on an older runtime VTK than the classes
+                    # were generated against (see tvtk/WORKAROUNDS.md).
+                    # FIXME: If we really want to try harder, we could
+                    # pass an empty array to the Get method, some Get
+                    # method will populate the array as the return
+                    # value (e.g. vtkImageConvolve.GetKernel3x3 and alike)
+                    pass
+                else:
+                    try:
+                        setattr(self, name, val)
+                    except traits.TraitError:
+                        if name in self._allow_update_failure_:
+                            pass
+                        elif vtk_version_mismatch():
+                            # The trait definitions were generated against a
+                            # different VTK, so values read from the runtime
+                            # object may no longer validate (type/range drift
+                            # across VTK versions); keep the generated default.
+                            # See tvtk/WORKAROUNDS.md.
+                            pass
+                        else:
+                            raise
 
         # Reset the warning state.
         vtk.vtkObject.SetGlobalWarningDisplay(warn)

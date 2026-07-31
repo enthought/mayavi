@@ -2,7 +2,7 @@
 
 """
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.

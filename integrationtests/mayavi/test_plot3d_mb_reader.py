@@ -3,7 +3,7 @@ also tests the SelectOutput filter.
 """
 
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008,  Prabhu Ramachandran
+# Copyright (c) Prabhu Ramachandran
 # License: BSD Style.
 
 # Standard library imports.

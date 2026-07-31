@@ -1,7 +1,7 @@
 """The base class for many filters.
 """
 # Author: Prabhu Ramachandran <prabhu_r at users dot sf dot net>
-# Copyright (c) 2006, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

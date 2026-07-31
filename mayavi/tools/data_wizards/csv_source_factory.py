@@ -3,7 +3,7 @@ Factory used by mayavi to import csv-like files into datasets.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import HasTraits, Callable

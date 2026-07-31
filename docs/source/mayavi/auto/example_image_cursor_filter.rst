@@ -30,6 +30,11 @@ add the UserDefined filet, we can therefore select `ImageCursor3D`.
 The documentation of the filter is displayed when selecting its name
 within the `Class name` field of the dialog.
 
+.. image:: ../generated_images/example_image_cursor_filter.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`image_cursor_filter.py`
 
 .. literalinclude:: image_cursor_filter.py

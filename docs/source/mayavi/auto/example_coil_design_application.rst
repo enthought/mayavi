@@ -34,6 +34,11 @@ Simpler examples of magnetic field visualization can be found on
 The material required to understand this example is covered in section
 :ref:`building_applications`.
 
+.. image:: ../generated_images/example_coil_design_application.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`coil_design_application.py`
 
 .. literalinclude:: coil_design_application.py

@@ -7,7 +7,7 @@ functionality. See the class docs for more details.
 
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
-# Copyright (c) 2007-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import os
@@ -796,11 +796,17 @@ class TVTKScene(HasPrivateTraits):
         return self._interactor
 
     def _get_window_to_image(self):
-        w2if = tvtk.WindowToImageFilter(
-            read_front_buffer=not self.off_screen_rendering
-        )
+        # Read the back buffer, not the front one.  The front buffer is
+        # whatever the window server is showing, so anything overlapping the
+        # window ends up in the saved image -- which is why this used to raise
+        # the window first, stealing focus every time a figure was saved.  VTK's
+        # own regression tests and ParaView (both BSD-3-Clause) read the back
+        # buffer for the same reason:
+        # https://github.com/Kitware/VTK/blob/master/Testing/Rendering/vtkTesting.cxx
+        # https://gitlab.kitware.com/paraview/paraview/-/blob/master/Remoting/Views/vtkSMViewProxy.cxx
+        # _exporter_write holds the buffer swap off while the read happens.
+        w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
         set_magnification(w2if, self.magnification)
-        self._lift()
         w2if.input = self._renwin
         return w2if
 
@@ -814,21 +820,30 @@ class TVTKScene(HasPrivateTraits):
         # Bumps up the anti-aliasing frames when the image is saved so
         # that the saved picture looks nicer.
         rw = self.render_window
-        if hasattr(rw, 'aa_frames'):
-            aa_frames = rw.aa_frames
-            rw.aa_frames = self.anti_aliasing_frames
-        else:
-            aa_frames = rw.multi_samples
-            rw.multi_samples = self.anti_aliasing_frames
-        rw.render()
-        ex.update()
-        ex.write()
-        # Set the frames back to original setting.
-        if hasattr(rw, 'aa_frames'):
-            rw.aa_frames = aa_frames
-        else:
-            rw.multi_samples = aa_frames
-        rw.render()
+        has_aa_frames = hasattr(rw, 'aa_frames')
+        aa_frames = rw.aa_frames if has_aa_frames else rw.multi_samples
+        swap_buffers = rw.swap_buffers
+        try:
+            if has_aa_frames:
+                rw.aa_frames = self.anti_aliasing_frames
+            else:
+                rw.multi_samples = self.anti_aliasing_frames
+            # What is left in the back buffer after a swap is undefined by the
+            # OpenGL spec, so do not let one happen while the image is read.
+            rw.swap_buffers = False
+            rw.render()
+            ex.update()
+            ex.write()
+        finally:
+            # Whatever happened, leave the window usable: a scene stuck with
+            # swapping off or the anti-aliasing bumped up would have to be
+            # closed and recreated.
+            rw.swap_buffers = swap_buffers
+            if has_aa_frames:
+                rw.aa_frames = aa_frames
+            else:
+                rw.multi_samples = aa_frames
+            rw.render()
 
     def _update_view(self, x, y, z, vx, vy, vz):
         """Used internally to set the view."""

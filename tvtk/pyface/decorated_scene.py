@@ -4,7 +4,7 @@ etc.
 """
 # Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>,
 #          Dave Peterson <dpeterson@enthought.com>
-# Copyright (c) 2006, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 

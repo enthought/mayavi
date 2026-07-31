@@ -2,7 +2,7 @@
 Simple utility code for animations.
 """
 # Author: Prabhu Ramachandran <prabhu at aerodotiitbdotacdotin>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 import types

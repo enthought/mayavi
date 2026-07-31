@@ -45,6 +45,11 @@ vectors giving the edges, and use `mlab.quiver3d` to display them. To
 display an unoriented graph, it is best to use the `2ddash` mode of
 `quiver3d`.
 
+.. image:: ../generated_images/example_delaunay_graph.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`delaunay_graph.py`
 
 .. literalinclude:: delaunay_graph.py

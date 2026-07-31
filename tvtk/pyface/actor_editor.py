@@ -3,7 +3,7 @@
 
 # Authors: Robert Kern <robert.kern [at] gmail.com>
 #          Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Import the toolkit specific version.

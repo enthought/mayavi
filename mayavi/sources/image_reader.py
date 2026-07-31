@@ -6,7 +6,7 @@
 #          Chandrashekhar Kaushik
 #          Suyog Dutt Jain <suyog.jain [at] aero.iitb.ac.in>
 #          Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 from os.path import basename

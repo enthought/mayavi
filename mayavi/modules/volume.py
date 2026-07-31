@@ -6,7 +6,7 @@ probably with the ImageData based renderers.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006-2020, Enthought, Inc.
+# Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
 # Standard imports
@@ -467,6 +467,9 @@ class Volume(Module):
         else:
             rng = cell_rng
 
+        # get_range hands back a list, which never compares equal to the Tuple
+        # trait (so the update always fired) and warns when assigned to it
+        rng = tuple(rng)
         if self.current_range != rng:
             self.current_range = rng
 

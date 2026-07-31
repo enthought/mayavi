@@ -25,3 +25,8 @@ docs/source/*.cube
 docs/source/*.ent.gz
 docs/source/*.tar.gz
 docs/source/*.zip
+render_failures.txt
+docs/source/bunny_data/
+docs/source/dragon_data/
+docs/source/lucy_data/
+docs/source/mri_data/
