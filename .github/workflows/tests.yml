@@ -105,6 +105,14 @@ jobs:
     - run: python -m pip install --no-build-isolation -ve .${{ steps.install.outputs.extra }}
     - run: pytest -v --timeout=10 mayavi
     - run: pytest -sv --timeout=60 tvtk
+    # Each of these stands the Mayavi2 application up in a subprocess of its
+    # own, so they need a display and the [app] extra, and they are slower than
+    # the suites above (~2 min for all 26).  One row is enough: they exercise
+    # the application rather than the VTK version, and the per-VTK coverage is
+    # already spread across the matrix.  The wrapper sets its own subprocess
+    # timeout, so pytest's is only a backstop behind it.
+    - run: pytest -v --timeout=360 integrationtests
+      if: matrix.os == 'ubuntu-latest' && !matrix.headless && !matrix.vtk
 
   # Scheduled runs have no associated PR where a failure would be noticed, so
   # open an issue (if there isn't one already) when they break

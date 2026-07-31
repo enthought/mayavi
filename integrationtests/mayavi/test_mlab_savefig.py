@@ -52,6 +52,23 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # the clean up function will close all figures and stop the engine
         self.addCleanup(self.cleanup_engine, self.engine)
 
+    def realize(self, figure):
+        """ Put the figure's window on screen so VTK gives it a size.
+
+        A scene that has never been shown leaves vtkRenderWindow at 0x0: the Qt
+        widget reports the size it was asked for, but VTK only learns one from a
+        resize event, and rendering does not supply it.  mlab.screenshot reads
+        render_window.size, so it would try to reshape the grab into (0, 0, 3).
+        """
+        from pyface.api import GUI
+
+        figure.scene._vtk_control.window().show()
+        for _ in range(20):
+            GUI.process_events()
+            if all(figure.scene.render_window.size):
+                return
+        raise AssertionError('the scene window never got a size')
+
     def cleanup_engine(self, engine):
         """ Close all scenes in the engine and stop it """
         scenes = [scene for scene in engine.scenes]
@@ -86,6 +103,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         engine = Engine()
         self.setup_engine_and_figure(engine)
         create_quiver3d()
+        self.realize(self.figure)
         sz = self.figure.scene.get_size()
         pixel_ratio = self._get_pixel_ratio(self.figure)
         sz = (sz[0]*pixel_ratio, sz[1]*pixel_ratio)

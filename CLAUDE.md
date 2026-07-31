@@ -51,12 +51,16 @@ pytest -v --timeout=10 mayavi
 pytest -sv --timeout=60 tvtk
 ```
 
-- `integrationtests/` is not a pytest tree — each file is an `optparse` script
-  subclassing `TestCase(Mayavi)`, run by `run.py` shelling out per file, and
-  collecting one launches the Mayavi2 application and waits for the window to
-  be closed.  `integrationtests/conftest.py` sets `collect_ignore_glob` so a
-  bare `pytest` cannot wander into it.  21 of the 26 pass as of 2026-07;
-  porting them to pytest and wiring up a Linux-only CI job is a follow-up.
+- The files in `integrationtests/mayavi/` are not pytest modules — each is an
+  `optparse` script subclassing `TestCase(Mayavi)`, meant to be run as `python
+  test_contour.py`, and importing one hands pytest `Test*` classes it cannot
+  instantiate.  `integrationtests/conftest.py` therefore keeps collection out
+  of `mayavi/`; `integrationtests/test_integration.py` beside it is the pytest
+  entry point and shells out per script, as `run.py` always has, because engine
+  and scene state leaks between them in one process.  All 26 pass (~2 min), and
+  `tests.yml` runs them on the one Linux row with the latest VTK: they exercise
+  the application, not the VTK version, so the matrix covers that already.
+  They need a display and the `[app]` extra, so not the headless row.
 - Regeneration is skipped if `tvtk/tvtk_classes.zip` is < 120 s old
   (`_tvtk_built_recently` in `setup.py`).
 - Warnings are errors.  The filters live in `mayavi/tests/conftest.py` and

@@ -112,8 +112,14 @@ class TestLabels(TestCase):
         s.children.append(source)
         GUI.process_events()
 
-        # Now do the check.
+        # Now do the check.  The camera has just moved, and the count checked
+        # below comes from vtkSelectVisiblePoints, which reads the z-buffer of
+        # the last render -- so it has to be asked again for the new view
+        # before it means anything.  Without this it reported 16 of the ~50
+        # points as visible and the check failed.
         s.scene.isometric_view()
+        s.scene.render()
+        GUI.process_events()
         self.check(saved=True)
 
         # Now deepcopy the source and replace the existing one with
@@ -124,8 +130,14 @@ class TestLabels(TestCase):
         s.children[0] = source1
         GUI.process_events()
 
-        # Now do the check.
+        # Now do the check.  The camera has just moved, and the count checked
+        # below comes from vtkSelectVisiblePoints, which reads the z-buffer of
+        # the last render -- so it has to be asked again for the new view
+        # before it means anything.  Without this it reported 16 of the ~50
+        # points as visible and the check failed.
         s.scene.isometric_view()
+        s.scene.render()
+        GUI.process_events()
         self.check(saved=True)
 
         GUI.process_events()
