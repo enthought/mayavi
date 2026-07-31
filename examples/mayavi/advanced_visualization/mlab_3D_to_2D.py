@@ -185,9 +185,9 @@ if __name__ == '__main__':
     N = 4
 
     # create a few points in 3-space
-    X = np.random.random_integers(-3, 3, N)
-    Y = np.random.random_integers(-3, 3, N)
-    Z = np.random.random_integers(-3, 3, N)
+    X = np.random.randint(-3, 4, N)
+    Y = np.random.randint(-3, 4, N)
+    Z = np.random.randint(-3, 4, N)
 
     # plot the points with mlab
     pts = mlab.points3d(X, Y, Z)

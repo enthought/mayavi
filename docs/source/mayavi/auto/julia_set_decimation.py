@@ -38,9 +38,11 @@ z = x + 1j * y
 
 julia = np.zeros(z.shape)
 
-for i in range(50):
-    z = z ** 2 - 0.70176 - 0.3842j
-    julia += 1 / float(2 + i) * (z * np.conj(z) > 4)
+# the iteration is an escape-time one, so |z| overflowing is the point
+with np.errstate(over='ignore', invalid='ignore'):
+    for i in range(50):
+        z = z ** 2 - 0.70176 - 0.3842j
+        julia += 1 / float(2 + i) * (z * np.conj(z) > 4)
 
 
 mlab.figure(size=(400, 300))

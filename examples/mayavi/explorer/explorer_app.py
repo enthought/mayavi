@@ -169,7 +169,7 @@ class Explorer3D(HasTraits):
             # messes up the dimensions of the data.  The scalars
             # themselves are ravel'd and used internally by VTK so the
             # dimension does not matter for the scalars.
-            s.shape = s.shape[::-1]
+            s = s.reshape(s.shape[::-1])
             self.data = s
         except:
             pass

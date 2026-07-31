@@ -74,7 +74,7 @@ mlab.plot3d(atoms_x, atoms_y, atoms_z, [1, 2, 1],
 with open('h2o-elf.cube') as fid:
     text = ' '.join(fid.readlines()[9:])
 data = np.array(text.split(), dtype=float)
-data.shape = (40, 40, 40)
+data = data.reshape((40, 40, 40))
 
 source = mlab.pipeline.scalar_field(data)
 min = data.min()
