@@ -1,4 +1,4 @@
-cube_stl = """solid cube
+solid cube
     facet normal 0 0 1
         outer loop
         vertex 0 0 0
@@ -83,5 +83,4 @@ cube_stl = """solid cube
         vertex 1 1 0
         endloop
     endfacet
-    endsolid cube"""
-
+endsolid cube

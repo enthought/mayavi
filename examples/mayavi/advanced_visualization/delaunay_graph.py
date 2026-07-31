@@ -216,8 +216,8 @@ if __name__ == '__main__':
     # nx.mst returns an edge generator
     edges = nx.minimum_spanning_tree(g).edges(data=True)
     start_idx, end_idx, _ = np.array(list(edges)).T
-    start_idx = start_idx.astype(np.int)
-    end_idx   = end_idx.astype(np.int)
+    start_idx = start_idx.astype(int)
+    end_idx   = end_idx.astype(int)
 
     # Plot this with Mayavi
     graph_plot(x, y, z, start_idx, end_idx,

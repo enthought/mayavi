@@ -22,13 +22,10 @@ watch as the figure transforms accordingly!
 # License: BSD Style.
 
 import numpy as np
-from enthought.traits.api import HasTraits, Range, Instance, \
+from traits.api import HasTraits, Range, Instance, \
                     on_trait_change
-from enthought.traits.ui.api import View, Item, HGroup
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.mayavi.tools.mlab_scene_model import \
-                    MlabSceneModel
-from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+from traitsui.api import View, Item, HGroup
+from mayavi.core.ui.api import MayaviScene, MlabSceneModel, SceneEditor
 
 
 def fexp(x,p):
