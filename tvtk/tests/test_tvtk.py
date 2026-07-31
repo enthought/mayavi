@@ -195,6 +195,14 @@ class TestTVTK(unittest.TestCase):
         obj.SetSpecularColor(val)
         self.assertEqual(p.specular_color, val)
 
+        # A state value with no SetXToY method to discover it from must
+        # still resync, else this raises (see tvtk/WORKAROUNDS.md).  #1391
+        tp = tvtk.TextProperty()
+        tp._vtk_obj.SetFontFamily(4)  # vtk.VTK_FONT_FILE
+        self.assertEqual(tp.font_family, 'file')
+        tp.font_family = 0  # vtk.VTK_ARIAL
+        self.assertEqual(tp._vtk_obj.GetFontFamily(), vtk.VTK_ARIAL)
+
     def test_obj_del(self):
         """Test object deletion and reference cycles."""
         p = tvtk.Property()

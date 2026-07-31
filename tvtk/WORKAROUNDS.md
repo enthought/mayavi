@@ -100,6 +100,55 @@ values), some of them keyed on `sys.platform` rather than a VTK version
 (`vtkPoints.DataType` on Windows, `vtkRenderWindow.StereoType` on macOS).
 Prefer `special_traits` for new cases.
 
+One of those inline entries is **not** a VTK bug and never expires:
+`_gen_state_methods()` infers a state trait's whole set of valid values from
+the `SetXToY` methods, so any value `SetX()` accepts without a matching
+`SetXToY` is missing from the map — the trait then rejects a value the C++
+object legitimately holds, and `update_traits()` raises inside a notification
+handler on every resync.  `vtkTextProperty.FontFamily` is the live case
+(`VTK_FONT_FILE`, which is how a custom `FontFile` is selected, and
+`VTK_UNKNOWN_FONT`, which everything out of range clamps to, have no `To`
+methods); it is patched by adding the two names to the map.  Raising
+`MIN_VTK` does not retire this — only VTK growing the missing `SetXToY`
+methods would.
+
+That one stays inline rather than moving to `special_traits`, against the
+preference above, because the registry is scoped to the get/set path and does
+not survive being pointed at the state path: `_gen_state_methods()` returns no
+`allow_update_failure` set, so half the `(updateable, allow_update_failure,
+writer)` contract would be silently dropped; a writer method would have to
+rebuild `d`/`default` from the parser by hand, since the registry replaces a
+whole trait definition and has no hook for amending an inferred one; and the
+existing regexes already match state attributes they have never been applied
+to — `[a-zA-Z0-9]+\.ScalarType$` catches `vtkImageCanvasSource2D`,
+`vtkVoxelModeller` and the `vtk*ExtractHistogram2D` family, whose writer
+`_write_any_scalar_type` is a deliberate no-op, so wiring the dispatch in
+would delete their `scalar_type` trait outright.
+
+Consolidating the ~10 inline per-class conditionals in `_gen_state_methods()`
+is still worth doing, but it wants a **second registry of its own**, keyed the
+same `vtkClass.Attribute` way and consulted only on the state path.  It cannot
+be a one-field mapping, because those conditionals poke three different knobs:
+
+- `vtk_val` — do not emit a mapped trait at all, fall back to plain methods
+  (`vtkRenderView.InteractionMode`, `vtkMatrixMathFilter.Operation`,
+  `vtkResliceImageViewer.ResliceMode`, `vtkThreshold.PointsDataType`).
+- `extra_val` — keep the map as inferred, but tolerate an extra value by
+  coercing it to the default.  For *junk* values only: uninitialized defaults
+  that fall outside the choices (`vtkGenericEnSightReader.ByteOrder`,
+  `vtkImagePlaneWidget.PlaneOrientation`, `vtkThreshold.AttributeMode`,
+  `vtkRenderWindow.StereoType` on macOS).
+- the map itself — add a name/value pair the `SetXToY` sweep could not
+  discover (`vtkPoints.DataType` on Windows, `vtkTextProperty.FontFamily`).
+  This is the amend-the-map hook `special_traits` has no equivalent of.
+
+Keep the last two apart: they look interchangeable and are not.  `extra_val`
+routes the value to `default_value` in `RevPrefixMap._rmap`, so using it for a
+*meaningful* value silently discards it — `font_family = 4` would read back as
+`'arial'` and the next resync would push `SetFontFamily(0)`, dropping the
+user's font file.  Reach for `extra_val` only when the value means nothing and
+the point is merely not to raise.
+
 ## Layer 3: `vtk_module.py` — runtime class removal
 
 For classes that crash or hang *whenever used* on a specific runtime VTK,
