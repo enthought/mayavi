@@ -640,9 +640,8 @@ more fine control than mlab.
     :width: 150
 
             
-.. |0219| raw:: html
-
-    <br/>
+.. |0219| image:: ../generated_images/example_mlab_3D_to_2D.jpg
+    :width: 150
 
             
 .. |0220| image:: ../generated_images/example_magnetic_field.jpg

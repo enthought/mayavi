@@ -111,6 +111,11 @@ you will see).
 
 Now that the prelimenaries are out of the way, lets get started.
 
+.. image:: ../generated_images/example_mlab_3D_to_2D.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`mlab_3D_to_2D.py`
 
 .. literalinclude:: mlab_3D_to_2D.py

@@ -78,7 +78,12 @@ jobs:
         MAYAVI_RENDER_FLAKY: ${{ inputs.render_flaky }}
       run: python scripts/render_docs.py
     - name: Report regenerated files
-      run: git --no-pager diff --stat
+      # --stat alone shows nothing for a figure that is new rather than
+      # changed, which is how the gallery went years with images CI rendered
+      # on every run and nobody ever committed
+      run: |
+        git --no-pager diff --stat
+        git status --short --untracked-files=all
     - run: make -C docs site
     - uses: actions/upload-pages-artifact@v5.0.0
       with:
