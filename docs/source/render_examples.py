@@ -39,14 +39,6 @@ SKIP_EXAMPLES = {
         'needs wxPython, which the docs do not install',
     'compute_in_thread': 'drives a worker thread, so the figure never settles',
     'poll_file': 'waits for a file to be edited',
-    # It is the only example that reparents a scene widget.  On X11 that
-    # destroys the native window VTK was given, so the paint event that follows
-    # reaches vtkXOpenGLRenderWindow::CreateAWindow and glXCreateContext dies
-    # with SIGSEGV under Xvfb.  Refreshing the id on WinIdChange only moved the
-    # crash into that handler.  The real fix is likely QVTKRWIBase =
-    # "QOpenGLWidget", where Qt owns the context and VTK never calls GLX, but
-    # that changes how every scene in the build is rendered.
-    'qt_embedding': 'segfaults in VTK GLX context creation under Xvfb',
     'standalone': 'starts the Envisage application and its event loop',
     'user_mayavi': 'is loaded by the mayavi2 application, not run on its own',
     'zzz_reader': 'registers a reader; there is nothing to show',
@@ -59,6 +51,13 @@ EXAMPLE_TIMEOUT = 60
 # ...except lucy, which on a cold cache downloads 307 MB and unpacks 523 MB from
 # it before it can render.  Once the data is there it is as quick as the rest.
 EXAMPLE_TIMEOUTS = {'lucy': 300}
+
+# Examples rendered with Qt owning the GL context instead of VTK.  qt_embedding
+# reparents its scene widget, which on X11 destroys the native window VTK was
+# handed and leaves it creating one of its own -- glXCreateContext then dies
+# under Xvfb.  With this base the context comes from Qt and VTK never calls GLX.
+# Kept per-example so the rest of the gallery renders exactly as it did.
+QOPENGL_EXAMPLES = frozenset({'qt_embedding'})
 
 # Examples that were meant to produce a figure and did not.  A failure only
 # prints and moves on, so that one broken example does not cost the gallery
@@ -292,11 +291,16 @@ def capture_in_subprocess(filename, image_file):
         keeps one example's leftover scene state out of the next one's figure.
     """
     here = os.path.dirname(os.path.abspath(__file__))
-    code = ('import mayavi, tvtk.api, sys\n'          # bind before the doc
+    short_name = os.path.splitext(os.path.basename(filename))[0]
+    # tvtk reads this when it first imports the interactor, so it has to be set
+    # before anything pulls a scene widget in
+    base = ('import vtk.qt\nvtk.qt.QVTKRWIBase = "QOpenGLWidget"\n'
+            if short_name in QOPENGL_EXAMPLES else '')
+    code = (base
+            + 'import mayavi, tvtk.api, sys\n'        # bind before the doc
             'sys.path.insert(0, %r)\n'                # sources can shadow them
             'from render_examples import capture_one\n'
             'capture_one(%r, %r)\n' % (here, filename, image_file))
-    short_name = os.path.splitext(os.path.basename(filename))[0]
     subprocess.run([sys.executable, '-P', '-c', code], check=True,
                    timeout=EXAMPLE_TIMEOUTS.get(short_name, EXAMPLE_TIMEOUT),
                    capture_output=True, text=True)
