@@ -66,6 +66,15 @@ jobs:
         python -m pip install --only-binary :all: \
           -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-24.04 \
           wxpython
+    - name: Check wxPython and its toolkit load
+      # the wheel links against GTK and friends, so a missing system library
+      # shows up only on import -- here rather than inside a render subprocess
+      # five minutes later, where it reads as "an example failed"
+      run: |
+        python -c "import wx; print('wxPython', wx.version())"
+        ETS_TOOLKIT=wx python -c "
+        from pyface.base_toolkit import find_toolkit
+        print('traitsui toolkit:', find_toolkit('traitsui.toolkits'))"
     - name: Cache the example datasets
       # the examples urlretrieve these into the cwd they run in, with no
       # timeout; lucy alone is a 322 MB download.  The unpacked directories are

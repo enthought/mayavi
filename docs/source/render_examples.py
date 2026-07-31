@@ -465,8 +465,13 @@ def capture_example(filename, short_file_name, image_file):
                 # tail would show instead of the stack that matters
                 lines = [line for line in text.strip().splitlines()
                          if not line.startswith('Extension modules:')]
-                print(textwrap.indent('\n'.join(lines[-40:]), '    '),
-                      flush=True)
+                # both ends: a chained exception puts the cause that actually
+                # explains the failure at the top, a crash dump puts the stack
+                # at the bottom, and a tail alone loses the first of those
+                if len(lines) > 70:
+                    lines = (lines[:30] + ['    ... %d lines omitted ...'
+                                           % (len(lines) - 70)] + lines[-40:])
+                print(textwrap.indent('\n'.join(lines), '    '), flush=True)
 
 
 def is_mlab_example(filename):
