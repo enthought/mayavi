@@ -182,7 +182,7 @@ class TestTVTK(unittest.TestCase):
     def test_auto_update(self):
         """Test if traits are updated when the VTK object changes."""
         p = tvtk.Property()
-        obj = p._vtk_obj
+        obj = tvtk.to_vtk(p)
         obj.SetEdgeVisibility(1)
         self.assertEqual(p.edge_visibility, 1)
 
@@ -203,10 +203,11 @@ class TestTVTK(unittest.TestCase):
         # A state value with no SetXToY method to discover it from must
         # still resync, else this raises (see tvtk/WORKAROUNDS.md).  #1391
         tp = tvtk.TextProperty()
-        tp._vtk_obj.SetFontFamily(4)  # vtk.VTK_FONT_FILE
+        tp_obj = tvtk.to_vtk(tp)
+        tp_obj.SetFontFamily(4)  # vtk.VTK_FONT_FILE
         self.assertEqual(tp.font_family, 'file')
         tp.font_family = 0  # vtk.VTK_ARIAL
-        self.assertEqual(tp._vtk_obj.GetFontFamily(), vtk.VTK_ARIAL)
+        self.assertEqual(tp_obj.GetFontFamily(), vtk.VTK_ARIAL)
 
     def test_obj_del(self):
         """Test object deletion and reference cycles."""
