@@ -209,6 +209,42 @@ class TestTVTK(unittest.TestCase):
         tp.font_family = 0  # vtk.VTK_ARIAL
         self.assertEqual(tp_obj.GetFontFamily(), vtk.VTK_ARIAL)
 
+    def test_mapped_trait_set_survives_reentrant_update(self):
+        """A dynamic shadow-trait listener must find VTK already synced.
+
+        mayavi renders from a dynamic listener on every trait change, and
+        a render can pull a Modified event through messenger, running
+        update_traits() from inside that listener.  The VTK write used to
+        hang off the *main* trait's static handler, which runs after the
+        shadow trait's dynamic listeners -- so update_traits() read the
+        stale VTK value back and silently reverted the first mapped-trait
+        assignment made after any pending pipeline change.
+        """
+        for name, get in (('force_opaque', 'GetForceOpaque'),
+                          ('visibility', 'GetVisibility')):
+            a = tvtk.Actor()
+            new_value = not getattr(a, name)
+            seen = []
+
+            def reentrant():
+                seen.append(bool(getattr(a._vtk_obj, get)()))
+                a.update_traits()
+
+            a.on_trait_change(reentrant, name + '_')
+            setattr(a, name, new_value)
+            # VTK was synced before the dynamic listener ran...
+            self.assertEqual(seen, [new_value], name)
+            # ...so the reentrant resync could not revert the assignment.
+            self.assertEqual(getattr(a, name), new_value, name)
+            self.assertEqual(bool(getattr(a._vtk_obj, get)()), new_value,
+                             name)
+        # Same for a state (RevPrefixMap) trait.
+        p = tvtk.Property()
+        p.on_trait_change(lambda: p.update_traits(), 'representation_')
+        p.representation = 'wireframe'
+        self.assertEqual(p.representation, 'wireframe')
+        self.assertEqual(p._vtk_obj.GetRepresentationAsString(), 'Wireframe')
+
     def test_obj_del(self):
         """Test object deletion and reference cycles."""
         p = tvtk.Property()
