@@ -182,6 +182,27 @@ class TestArrayHandler(unittest.TestCase):
             array_handler.array2vtk(numpy.zeros((1,),
                                     dtype=numpy.dtype(dtype)))
 
+    def test_char_signedness(self):
+        """int8 must round-trip on either platform char signedness (gh-1194).
+
+        Plain C ``char`` (VTK_CHAR) is signed on x86 but unsigned on ARM,
+        so numpy.int8 must map to a VTK type that is really signed there.
+        """
+        typ = array_handler.get_vtk_array_type(numpy.dtype(numpy.int8))
+        vtk_arr = array_handler.create_vtk_array(typ)
+        self.assertLess(vtk_arr.GetDataTypeMin(), 0)
+        # The reverse map must agree with what VTK says about VTK_CHAR.
+        char_dtype = array_handler.get_numeric_array_type(vtk.VTK_CHAR)
+        signed = vtk.vtkCharArray().GetDataTypeMin() < 0
+        self.assertEqual(char_dtype, numpy.int8 if signed else numpy.uint8)
+        # A native VTK signed char array must convert to int8.
+        vtk_arr = vtk.vtkSignedCharArray()
+        vtk_arr.InsertNextValue(-128)
+        vtk_arr.InsertNextValue(127)
+        arr = array_handler.vtk2array(vtk_arr)
+        self.assertEqual(arr.dtype, numpy.int8)
+        self.assertEqual(list(arr), [-128, 127])
+
     def test_arr2cell_array(self):
         """Test Numeric array to vtkCellArray conversion."""
         # Test list of lists.
