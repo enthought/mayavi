@@ -66,7 +66,7 @@ jobs:
       PYTHONUNBUFFERED: '1'
 
     steps:
-    - uses: actions/checkout@v7.0.0
+    - uses: actions/checkout@v7.0.1
       with:
         persist-credentials: false
         # setuptools_scm derives the version from git tags, which a shallow
@@ -76,7 +76,7 @@ jobs:
       with:
         qt: true
       if: matrix.headless != true
-    - uses: actions/setup-python@v6.3.0
+    - uses: actions/setup-python@v7.0.0
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
@@ -117,7 +117,7 @@ jobs:
       issues: write
     steps:
     # a local action has to be checked out before it can be used
-    - uses: actions/checkout@v7.0.0
+    - uses: actions/checkout@v7.0.1
       with:
         persist-credentials: false
         sparse-checkout: .github/actions
