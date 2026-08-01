@@ -442,7 +442,7 @@ class TestTVTK(unittest.TestCase):
         # inside the notification handler.
         cd.scalars = tvtk.FloatArray()
         cd.copy_scalars = False
-        self.assertEqual(cd._vtk_obj.GetCopyScalars(), 0)
+        self.assertEqual(tvtk.to_vtk(cd).GetCopyScalars(), 0)
 
     def test_data_array(self):
         """Test if vtkDataArrays behave in a Pythonic fashion."""
