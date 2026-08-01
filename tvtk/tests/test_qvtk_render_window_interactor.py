@@ -2,13 +2,14 @@ import unittest
 
 try:
     from tvtk.pyface.ui.qt4.QVTKRenderWindowInteractor import (
+        Key,
         QVTKRenderWindowInteractor,
         _repaint_after_render,
     )
 except (ImportError, RuntimeError):
     # No binding installed (ImportError) or QT_API set but empty/invalid, as on
     # the headless CI row (RuntimeError) -- both mean "no Qt here".
-    QVTKRenderWindowInteractor = _repaint_after_render = None
+    Key = QVTKRenderWindowInteractor = _repaint_after_render = None
 
 
 @unittest.skipIf(_repaint_after_render is None, 'Qt is not available.')
@@ -100,7 +101,8 @@ class _FakeKeyEvent:
 class TestKeySyms(unittest.TestCase):
     def test_key_char_and_keysym(self):
         """Chars and non-printing keys must map to VTK keysyms."""
-        from pyface.qt.QtCore import Qt
+        # Use the module's Key alias: PyQt6 only has the scoped enum
+        # (Qt.Key.Key_PageUp), flat Qt.Key_PageUp is an AttributeError there.
         from pyface.qt.QtGui import QApplication
         app = QApplication.instance() or QApplication([])  # noqa: F841
         w = QVTKRenderWindowInteractor()
@@ -111,13 +113,13 @@ class TestKeySyms(unittest.TestCase):
             self.assertEqual(f(_FakeKeyEvent('?')), ('?', 'question'))
             # Non-printing keys have no text and map through the key code;
             # Prior/Next were dropped from the map for years.
-            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_PageUp)),
+            self.assertEqual(f(_FakeKeyEvent('', Key.Key_PageUp)),
                              ('\0', 'Prior'))
-            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_PageDown)),
+            self.assertEqual(f(_FakeKeyEvent('', Key.Key_PageDown)),
                              ('\0', 'Next'))
-            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_Left)),
+            self.assertEqual(f(_FakeKeyEvent('', Key.Key_Left)),
                              ('\0', 'Left'))
-            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_Meta)),
+            self.assertEqual(f(_FakeKeyEvent('', Key.Key_Meta)),
                              ('\0', 'None'))
         finally:
             w.close()
