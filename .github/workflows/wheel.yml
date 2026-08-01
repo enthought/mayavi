@@ -24,12 +24,12 @@ jobs:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v7.0.0
+    - uses: actions/checkout@v7.0.1
       with:
         persist-credentials: false
         # full history so setuptools_scm can derive the version from tags
         fetch-depth: 0
-    - uses: actions/setup-python@v6.3.0
+    - uses: actions/setup-python@v7.0.0
       with:
         python-version: '3.14'
     - name: Build sdist and wheel
@@ -105,7 +105,7 @@ jobs:
     - uses: pyvista/setup-headless-display-action@v4
       with:
         qt: true
-    - uses: actions/setup-python@v6.3.0
+    - uses: actions/setup-python@v7.0.0
       with:
         python-version: ${{ matrix.python-version }}
     - uses: actions/download-artifact@v8
@@ -154,7 +154,7 @@ jobs:
       with:
         name: sdist
         path: dist
-    - uses: actions/setup-python@v6.3.0
+    - uses: actions/setup-python@v7.0.0
       with:
         python-version: '3.14'
     - run: |
