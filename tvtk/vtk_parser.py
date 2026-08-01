@@ -541,18 +541,9 @@ class VTKMethodParser:
         """
         meths = methods[:]
         tm = self.toggle_meths
-        klass_name = klass.__name__
-        # These wrap badly as On/Off toggles (see tvtk/WORKAROUNDS.md)
-        problem_methods = ['CopyVectors', 'CopyTensors',
-                           'CopyTCoords', 'CopyScalars',
-                           'CopyNormals', 'CopyGlobalIds',
-                           'CopyPedigreeIds']
         for method in meths[:]:
-            if klass_name == 'vtkDataSetAttributes' and \
-               method[:-2] in problem_methods:
-                continue
             # (see tvtk/WORKAROUNDS.md)
-            elif method[:-2] == 'AlphaBitPlanes':
+            if method[:-2] == 'AlphaBitPlanes':
                 continue
             if method[-2:] == 'On':
                 key = method[:-2]
@@ -680,11 +671,6 @@ class VTKMethodParser:
             # These hang on Windows (and maybe Fedora 34)
             # (see tvtk/WORKAROUNDS.md)
             elif (klass_name in ('vtkDataEncoder', 'vtkWebApplication')):
-                continue
-            # On VTK 9.5.2 we get
-            # Cannot set the undefined 'copy_global_ids' attribute of a 'PointData' object
-            # (see tvtk/WORKAROUNDS.md)
-            elif (klass_name == "vtkDataSetAttributes" and method[3:] in ("CopyGlobalIds", "CopyNormals", "CopyPedigreeIds", "CopyScalars", "CopyTCoords", "CopyTensors", "CopyVectors")):
                 continue
             elif ('Get' + method[3:]) in methods:
                 key = method[3:]

@@ -421,6 +421,29 @@ class TestTVTK(unittest.TestCase):
         # If this does not segfault, we are OK.
         mesh.point_data.scalars = sc
 
+    def test_data_set_attributes_copy_toggles(self):
+        """The Copy* flags wrap as toggle traits and resync cleanly.
+
+        Regression test for enthought/mayavi#1355: the copy_* traits were
+        skipped at generation, so touching one raised "Cannot set the
+        undefined 'copy_scalars' attribute of a 'CellData' object", and the
+        resync after any Modified event raised the same for copy_global_ids.
+        """
+        mesh = tvtk.PolyData()
+        cd = mesh.cell_data
+        for name in ('scalars', 'vectors', 'normals', 'tensors', 't_coords',
+                     'global_ids', 'pedigree_ids', 'tangents'):
+            trait = 'copy_' + name
+            cd.trait_set(**{trait: False})
+            self.assertEqual(getattr(cd, trait + '_'), 0)
+            cd.trait_set(**{trait: True})
+            self.assertEqual(getattr(cd, trait + '_'), 1)
+        # A Modified event resyncs every trait from VTK; this used to raise
+        # inside the notification handler.
+        cd.scalars = tvtk.FloatArray()
+        cd.copy_scalars = False
+        self.assertEqual(cd._vtk_obj.GetCopyScalars(), 0)
+
     def test_data_array(self):
         """Test if vtkDataArrays behave in a Pythonic fashion."""
         # Check a 3D array.
