@@ -488,6 +488,10 @@ class HelperGenerator:
         code = """
         import vtk
         from tvtk import tvtk_base
+        # not the same thing as ``vtk`` above: vtk_module is the filtered view
+        # of it that the generated classes bind, with the classes that are
+        # broken on this runtime VTK removed (see tvtk/WORKAROUNDS.md)
+        from tvtk import vtk_module
         from tvtk.common import get_tvtk_name, camel2enthought
 
         # Caches all the classes.
@@ -548,11 +552,28 @@ class HelperGenerator:
                 cached_obj = tvtk_base.get_tvtk_object_from_cache(obj)
                 if cached_obj is not None:
                     return cached_obj
-                cname = get_tvtk_name(obj.__class__.__name__)
+                vtk_name = obj.__class__.__name__
+                cname = get_tvtk_name(vtk_name)
+                # VTK names some of its Python classes without the prefix --
+                # vtkImageData's class is literally named "ImageData" -- while
+                # vtk_module only ever holds the prefixed names
+                if not vtk_name.startswith('vtk'):
+                    vtk_name = 'vtk' + vtk_name
                 try:
                     tvtk_class = get_class(cname)
                 except ImportError:
                     tvtk_class = get_nearest_base_class(obj)
+                else:
+                    if not hasattr(vtk_module, vtk_name):
+                        # The wrapper exists but vtk_module removed the VTK
+                        # class it names on this runtime.  A same-version
+                        # build never generates the wrapper at all and lands
+                        # in the ImportError branch above; a wheel or conda
+                        # package generated against a newer VTK still ships
+                        # it, and instantiating it would raise AttributeError
+                        # on vtk.<vtk_name>.  Fall back to the nearest wrapped
+                        # base either way (see tvtk/WORKAROUNDS.md)
+                        tvtk_class = get_nearest_base_class(obj)
                 return tvtk_class(obj)
             else:
                 return obj

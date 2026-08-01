@@ -32,22 +32,22 @@ jobs:
           - python-version: '3.13'
             qt-api: 'pyside6'
             os: ubuntu-latest
-            vtk: 'vtk==9.6'
+            vtk: 'vtk==9.6.*'
           - python-version: '3.12'
             qt-api: 'pyside6'
             os: ubuntu-latest
-            vtk: 'vtk==9.5'
-            numpy: 'numpy==2.3' # in1d (used by vtk) removed in 2.4+
+            vtk: 'vtk==9.5.*'
+            numpy: 'numpy==2.3.*' # in1d (used by vtk) removed in 2.4+
           - python-version: '3.11'
             qt-api: 'pyqt6'
             os: ubuntu-latest
-            vtk: 'vtk==9.4'
-            numpy: 'numpy==2.3'
+            vtk: 'vtk==9.4.*'
+            numpy: 'numpy==2.3.*'
           # Oldest supported Python, VTK, and Qt bindings
           - python-version: '3.10'
             qt-api: 'pyqt5'
             os: ubuntu-latest
-            vtk: 'vtk==9.4'
+            vtk: 'vtk==9.4.*'
           # No display server / Qt toolkit at all
           - python-version: '3.14'
             os: ubuntu-latest

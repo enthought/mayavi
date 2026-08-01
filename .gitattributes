@@ -2,3 +2,8 @@
 *.jpg binary
 *.pdf binary
 *.pkl binary
+
+# setuptools_scm derives the version from git, which a GitHub zipball does not
+# carry; export-subst fills these in as the archive is written so that building
+# from one still gets a version instead of failing outright
+.git_archival.txt export-subst
