@@ -375,9 +375,8 @@ applications.
     :width: 150
 
             
-.. |0110| raw:: html
-
-    <br/>
+.. |0110| image:: ../generated_images/example_compute_in_thread.jpg
+    :width: 150
 
             
 .. |0111| image:: ../generated_images/example_qt_embedding.jpg
@@ -388,9 +387,8 @@ applications.
     :width: 150
 
             
-.. |0113| raw:: html
-
-    <br/>
+.. |0113| image:: ../generated_images/example_poll_file.jpg
+    :width: 150
 
             
 .. |0114| image:: ../generated_images/example_lorenz_ui.jpg
@@ -552,9 +550,8 @@ more fine control than mlab.
     :width: 150
 
             
-.. |0201| raw:: html
-
-    <br/>
+.. |0201| image:: ../generated_images/example_polydata.jpg
+    :width: 150
 
             
 .. |0202| raw:: html
@@ -562,39 +559,32 @@ more fine control than mlab.
     <br/>
 
             
-.. |0203| raw:: html
-
-    <br/>
-
-            
-.. |0204| raw:: html
-
-    <br/>
+.. |0203| image:: ../generated_images/example_surf_regular_mlab.jpg
+    :width: 150
 
             
-.. |0205| raw:: html
-
-    <br/>
-
-            
-.. |0206| raw:: html
-
-    <br/>
+.. |0204| image:: ../generated_images/example_glyph.jpg
+    :width: 150
 
             
-.. |0207| raw:: html
-
-    <br/>
-
-            
-.. |0208| raw:: html
-
-    <br/>
+.. |0205| image:: ../generated_images/example_structured_points2d.jpg
+    :width: 150
 
             
-.. |0209| raw:: html
+.. |0206| image:: ../generated_images/example_contour_contour.jpg
+    :width: 150
 
-    <br/>
+            
+.. |0207| image:: ../generated_images/example_scatter_plot.jpg
+    :width: 150
+
+            
+.. |0208| image:: ../generated_images/example_structured_points3d.jpg
+    :width: 150
+
+            
+.. |0209| image:: ../generated_images/example_numeric_source.jpg
+    :width: 150
 
             
 .. |0210| image:: ../generated_images/example_streamline.jpg
@@ -605,23 +595,20 @@ more fine control than mlab.
     :width: 150
 
             
-.. |0212| raw:: html
-
-    <br/>
+.. |0212| image:: ../generated_images/example_contour.jpg
+    :width: 150
 
             
 .. |0213| image:: ../generated_images/example_probe_filter.jpg
     :width: 150
 
             
-.. |0214| raw:: html
-
-    <br/>
+.. |0214| image:: ../generated_images/example_unstructured_grid.jpg
+    :width: 150
 
             
-.. |0215| raw:: html
-
-    <br/>
+.. |0215| image:: ../generated_images/example_structured_grid.jpg
+    :width: 150
 
             
 .. |0216| image:: ../generated_images/example_tvtk_segmentation.jpg

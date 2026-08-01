@@ -51,10 +51,16 @@ app = [
     "setuptools<82",
 ]
 
-# For building the docs (see the Docs workflow).  Not an extra: none of this is
-# a feature of the installed package.  numpy and vtk are missing on purpose --
-# they are build requirements and so have to be installed ahead of the package.
+# For running the suites and for building the docs (see the CI and Docs
+# workflows).  Not extras: none of this is a feature of the installed package.
+# numpy and vtk are missing on purpose -- they are build requirements and so
+# have to be installed ahead of the package, and CI pins them per matrix row.
 [dependency-groups]
+test = [
+    "pillow",         # integrationtests' texture and text3d cases read images
+    "pytest",
+    "pytest-timeout",
+]
 docs = [
     "docutils",     # mlab_reference.py validates docstrings with it directly
     "matplotlib",   # used by the mlab_3D_to_2D example

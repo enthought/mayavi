@@ -17,6 +17,11 @@ Alternatively, it can be run as::
 
   $ python structured_points3d.py
 
+.. image:: ../generated_images/example_structured_points3d.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`structured_points3d.py`
 
 .. literalinclude:: structured_points3d.py
