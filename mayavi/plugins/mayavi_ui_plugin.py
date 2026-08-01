@@ -195,8 +195,8 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
         id = SHELL_VIEW
         py = window.get_view_by_id(id)
         if py is None:
-            logger.warn('*'*80)
-            logger.warn("Can't find the Python shell view to bind variables")
+            logger.warning('*'*80)
+            logger.warning("Can't find the Python shell view to bind variables")
             return
 
         # Bind the script and engine instances to names on the
@@ -214,5 +214,5 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
         except AttributeError as msg:
             # This can happen when the shell is not visible.
             # FIXME: fix this when the shell plugin is improved.
-            logger.warn(msg)
-            logger.warn("Can't find the Python shell to bind variables")
+            logger.warning(msg)
+            logger.warning("Can't find the Python shell to bind variables")

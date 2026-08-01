@@ -68,6 +68,86 @@ def test_core_common_pyface_import_honors_env_var():
     assert result == 'None'
 
 
+def test_no_usable_toolkit_degrades_to_logging():
+    # pyface importable but no toolkit: GUI resolves to an Unimplemented
+    # stub and the UI helpers must degrade to logging instead of raising
+    # (gh-1308).  Blocking the bindings needs a fresh process.
+    code = '\n'.join([
+        "import sys, os",
+        "for mod in ('PySide6', 'PyQt6', 'PyQt5', 'PySide2', 'wx'):",
+        "    sys.modules[mod] = None  # force ImportError",
+        "from mayavi.core import common",
+        "assert common.pyface is not None",
+        "assert not common._has_ui()",
+        "common.process_ui_events()",
+        "common.warning('w')",
+        "common.error('e')",
+        "try:",
+        "    raise RuntimeError('boom')",
+        "except RuntimeError:",
+        "    common.exception('handled')",
+        "print('OK')",
+    ])
+    env = dict(os.environ)
+    env.pop('ETS_TOOLKIT', None)
+    env.pop('CI', None)
+    out = check_output([sys.executable, '-c', code], env=env)
+    assert out.strip().decode('utf-8').endswith('OK')
+
+
+class TestNoUsableToolkitGuards(unittest.TestCase):
+    """In-process checks of the gh-1308 guards against a stubbed pyface."""
+
+    def setUp(self):
+        from mayavi.core import common
+        self.common = common
+        self._pyface = common.pyface
+        self._reraise = common.reraise_exceptions
+
+        class Unimplemented:  # what pyface resolves GUI to with no toolkit
+            pass
+
+        class FakePyface:
+            GUI = Unimplemented
+
+            @staticmethod
+            def warning(parent, msg):
+                raise NotImplementedError()
+
+            @staticmethod
+            def error(parent, msg, title=None):
+                raise NotImplementedError()
+
+        common.pyface = FakePyface
+        common.reraise_exceptions = False
+
+    def tearDown(self):
+        self.common.pyface = self._pyface
+        self.common.reraise_exceptions = self._reraise
+
+    def test_process_ui_events_does_not_raise(self):
+        self.common.process_ui_events()
+
+    def test_message_helpers_do_not_raise(self):
+        self.common.warning('w')
+        self.common.error('e')
+        try:
+            raise RuntimeError('boom')
+        except RuntimeError:
+            self.common.exception('handled')
+
+    def test_has_ui_tolerates_raising_gui_attribute(self):
+        # resolving the toolkit itself raises on broken installs (the
+        # KeyError 'pyface.toolkits' family) -- _has_ui must not propagate
+        class RaisingPyface:
+            @property
+            def GUI(self):
+                raise KeyError('pyface.toolkits')
+
+        self.common.pyface = RaisingPyface()
+        self.assertFalse(self.common._has_ui())
+
+
 class TestCoreCommon(unittest.TestCase):
     def setUp(self):
         e = NullEngine()
