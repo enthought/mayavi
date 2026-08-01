@@ -27,6 +27,7 @@ z = sin(phi)*sin(theta)
 ################################################################################
 # Plot the data
 from mayavi import mlab
+from tvtk.api import tvtk
 
 # A first plot in 3D
 fig = mlab.figure(1)
@@ -51,7 +52,7 @@ mlab.view(90, 0)
 
 def picker_callback(picker_obj):
     picked = picker_obj.actors
-    if mesh.actor.actor._vtk_obj in [o._vtk_obj for o in picked]:
+    if tvtk.to_vtk(mesh.actor.actor) in [tvtk.to_vtk(o) for o in picked]:
         # m.mlab_source.points is the points array underlying the vtk
         # dataset. GetPointId return the index in this array.
         x_, y_ = np.lib.index_tricks.unravel_index(picker_obj.point_id,
