@@ -50,6 +50,11 @@ jobs:
             qt-api: 'pyside6'
             os: ubuntu-latest
             vtk: 'vtk-dev'
+          # Linux arm64: plain C char is unsigned there (unlike x86 and
+          # unlike Apple's arm64 ABI), which is what broke gh-1194
+          - python-version: '3.14'
+            qt-api: 'pyside6'
+            os: ubuntu-24.04-arm
       fail-fast: false
     defaults:
       run:
