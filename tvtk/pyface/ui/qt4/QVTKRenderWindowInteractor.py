@@ -42,10 +42,8 @@ Changes by Fabian Wenzel, Jan. 2016
 
 import sys
 
-from pyface.qt import QtCore, qt_api, is_qt4
-if qt_api == 'pyqt':
-    PyQtImpl = "PyQt4"
-elif qt_api == 'pyqt5':
+from pyface.qt import QtCore, qt_api
+if qt_api == 'pyqt5':
     PyQtImpl = "PyQt5"
 elif qt_api == 'pyqt6':
     PyQtImpl = "PyQt6"
@@ -54,7 +52,9 @@ elif qt_api == 'pyside2':
 elif qt_api == 'pyside6':
     PyQtImpl = "PySide6"
 else:
-    PyQtImpl = "PySide"
+    raise ImportError(
+        "Unsupported Qt binding %r: PyQt5, PyQt6, PySide2 and PySide6 "
+        "are supported" % (qt_api,))
 
 import vtk
 
@@ -73,7 +73,7 @@ except (ImportError, AttributeError):
 if QVTKRWIBase != "QWidget":
     if PyQtImpl in ["PySide6", "PyQt6"] and QVTKRWIBase == "QOpenGLWidget":
         pass  # compatible
-    elif PyQtImpl in ["PyQt5", "PySide2","PyQt4", "PySide"] and QVTKRWIBase == "QGLWidget":
+    elif PyQtImpl in ["PyQt5", "PySide2"] and QVTKRWIBase == "QGLWidget":
         pass  # compatible
     else:
         raise ImportError("Cannot load " + QVTKRWIBase + " from " + PyQtImpl)
@@ -130,30 +130,6 @@ elif PyQtImpl == "PySide2":
     from PySide2.QtCore import QObject
     from PySide2.QtCore import QSize
     from PySide2.QtCore import QEvent
-elif PyQtImpl == "PyQt4":
-    if QVTKRWIBase == "QGLWidget":
-        from PyQt4.QtOpenGL import QGLWidget
-    from PyQt4.QtGui import QWidget
-    from PyQt4.QtGui import QSizePolicy
-    from PyQt4.QtGui import QApplication
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtCore import Qt
-    from PyQt4.QtCore import QTimer
-    from PyQt4.QtCore import QObject
-    from PyQt4.QtCore import QSize
-    from PyQt4.QtCore import QEvent
-elif PyQtImpl == "PySide":
-    if QVTKRWIBase == "QGLWidget":
-        from PySide.QtOpenGL import QGLWidget
-    from PySide.QtGui import QWidget
-    from PySide.QtGui import QSizePolicy
-    from PySide.QtGui import QApplication
-    from PySide.QtGui import QMainWindow
-    from PySide.QtCore import Qt
-    from PySide.QtCore import QTimer
-    from PySide.QtCore import QObject
-    from PySide.QtCore import QSize
-    from PySide.QtCore import QEvent
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
 
@@ -190,10 +166,7 @@ else:
     SizePolicy = QSizePolicy
     EventType = QEvent
 
-if PyQtImpl in ('PyQt4', 'PySide'):
-    MiddleButton = MouseButton.MidButton
-else:
-    MiddleButton = MouseButton.MiddleButton
+MiddleButton = MouseButton.MiddleButton
 
 
 def _get_event_pos(ev):
@@ -374,15 +347,6 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         self._Timer = QTimer(self)
         self._Timer.timeout.connect(self.TimerEvent)
-
-        # add wheel timer to fix scrolling issue with trackpad
-        self.wheel_timer = None
-        if is_qt4:
-            self.wheel_timer = QTimer()
-            self.wheel_timer.setSingleShot(True)
-            self.wheel_timer.setInterval(25)
-            self.wheel_timer.timeout.connect(self._emit_wheel_event)
-            self._saved_wheel_event_info = ()
 
         self._Iren.AddObserver('CreateTimerEvent', messenger.send)
         messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
@@ -631,45 +595,19 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         self._Iren.KeyReleaseEvent()
 
     def wheelEvent(self, ev):
-        """ Reimplemented to work around scrolling bug in Mac.
+        """ Reimplemented to accumulate trackpad scrolling.
 
-        Work around https://bugreports.qt-project.org/browse/QTBUG-22269.
-        Accumulate wheel events that are within a period of 25ms into a single
-        event.  Changes in buttons or modifiers, while a scroll is going on,
-        are not handled, since they seem to be too much of a corner case to be
-        worth handling.
+        Trackpads report a stream of small angle deltas rather than whole
+        notches (https://bugreports.qt-project.org/browse/QTBUG-22269), so
+        accumulate them and emit one VTK wheel event per accumulated notch.
         """
-        if hasattr(ev, 'delta'):
-            self.__wheelDelta += ev.delta()
-            self._saved_wheel_event_info = (
-                ev.pos(),
-                ev.globalPos(),
-                self.__wheelDelta,
-                ev.buttons(),
-                ev.modifiers(),
-                ev.orientation()
-            )
-        else:
-            self.__wheelDelta += ev.angleDelta().y()
-            if self.__wheelDelta >= 60:
-                self._Iren.MouseWheelForwardEvent()
-                self.__wheelDelta = 0
-            elif self.__wheelDelta <= -60:
-                self._Iren.MouseWheelBackwardEvent()
-                self.__wheelDelta = 0
-
-        if self.wheel_timer and not self.wheel_timer.isActive():
-            ev.setAccepted(True)
-            self.wheel_timer.start()
-
-    def _emit_wheel_event(self):
-        ev = QWheelEvent(*self._saved_wheel_event_info)
-        if ev.delta() >= 0:
+        self.__wheelDelta += ev.angleDelta().y()
+        if self.__wheelDelta >= 60:
             self._Iren.MouseWheelForwardEvent()
-        else:
+            self.__wheelDelta = 0
+        elif self.__wheelDelta <= -60:
             self._Iren.MouseWheelBackwardEvent()
-        self.wheel_timer.stop()
-        self.__wheelDelta = 0
+            self.__wheelDelta = 0
 
     def GetRenderWindow(self):
         return self._RenderWindow
