@@ -75,17 +75,17 @@ jobs:
           - os: ubuntu-latest
             python-version: '3.12'
             qt-api: 'pyside6'
-            vtk: 'vtk==9.5'
-            numpy: 'numpy==2.3' # in1d (used by vtk) removed in 2.4+
+            vtk: 'vtk==9.5.*'
+            numpy: 'numpy==2.3.*' # in1d (used by vtk) removed in 2.4+
           - os: ubuntu-latest
             python-version: '3.11'
             qt-api: 'pyqt6'
-            vtk: 'vtk==9.4'
-            numpy: 'numpy==2.3'
+            vtk: 'vtk==9.4.*'
+            numpy: 'numpy==2.3.*'
           - os: ubuntu-latest
             python-version: '3.10'
             qt-api: 'pyqt5'
-            vtk: 'vtk==9.4'
+            vtk: 'vtk==9.4.*'
       fail-fast: false
     defaults:
       run:

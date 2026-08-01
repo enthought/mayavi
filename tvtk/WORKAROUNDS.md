@@ -157,6 +157,19 @@ code generation (`code_gen.py` checks `hasattr(vtk, name)`) and from
 `tvtk.<Name>` at runtime; `wrap_vtk` falls back to the nearest wrapped base
 class for objects of removed classes.
 
+Both halves of that only line up for a same-version build, where the
+wrapper is never generated and `wrap_vtk`'s `ImportError` branch catches it.
+A wheel or conda package generated against a *newer* VTK still ships the
+wrapper, so `wrap_vtk` has to check `hasattr(vtk, name)` itself before using
+it — otherwise the wrapper's `vtk.<Name>` lookup raises `AttributeError`
+somewhere far from here.  `tvtk.pyface`'s scene creation is the path that
+finds this: `to_tvtk(window.GetRenderWindow())` wraps whatever concrete
+render window the toolkit made, which on X11 is a removed class at 9.4.2.
+A version gate here therefore needs a matching thought about the mismatch
+case, not just the same-version one.  Test skips keyed on the same classes
+need `hasattr(vtk, ...)` too, not just `hasattr(tvtk, ...)` —
+`skipUnlessTVTKHasattr` checks both.
+
 ## Layer 4: `tvtk_base.py` — runtime tolerances
 
 `update_traits()` (syncing trait values from the wrapped VTK object at

@@ -69,7 +69,12 @@ def has_subclass(tvtk_class):
 
 
 def skipUnlessTVTKHasattr(attr):
-    if hasattr(tvtk, attr):
+    # The wrapper has to exist *and* the VTK class it names has to be present
+    # on the VTK we are running against.  Those differ once the classes were
+    # generated against a newer VTK than the runtime: the wrapper ships, but
+    # vtk_module may have removed the class here, and using it raises
+    # AttributeError (see tvtk/WORKAROUNDS.md)
+    if hasattr(tvtk, attr) and hasattr(vtk, 'vtk' + attr):
         return lambda func: func
     message = "{} is not available on this build of TVTK"
     return unittest.skip(message.format(attr))
