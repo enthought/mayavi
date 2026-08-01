@@ -84,5 +84,45 @@ class TestWheelEvent(unittest.TestCase):
             w.deleteLater()
 
 
+class _FakeKeyEvent:
+    def __init__(self, text, key=0):
+        self._text = text
+        self._key = key
+
+    def text(self):
+        return self._text
+
+    def key(self):
+        return self._key
+
+
+@unittest.skipIf(QVTKRenderWindowInteractor is None, 'Qt is not available.')
+class TestKeySyms(unittest.TestCase):
+    def test_key_char_and_keysym(self):
+        """Chars and non-printing keys must map to VTK keysyms."""
+        from pyface.qt.QtCore import Qt
+        from pyface.qt.QtGui import QApplication
+        app = QApplication.instance() or QApplication([])  # noqa: F841
+        w = QVTKRenderWindowInteractor()
+        try:
+            f = w._GetKeyCharAndKeySym
+            self.assertEqual(f(_FakeKeyEvent('r')), ('r', 'r'))
+            self.assertEqual(f(_FakeKeyEvent('+')), ('+', 'plus'))
+            self.assertEqual(f(_FakeKeyEvent('?')), ('?', 'question'))
+            # Non-printing keys have no text and map through the key code;
+            # Prior/Next were dropped from the map for years.
+            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_PageUp)),
+                             ('\0', 'Prior'))
+            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_PageDown)),
+                             ('\0', 'Next'))
+            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_Left)),
+                             ('\0', 'Left'))
+            self.assertEqual(f(_FakeKeyEvent('', Qt.Key_Meta)),
+                             ('\0', 'None'))
+        finally:
+            w.close()
+            w.deleteLater()
+
+
 if __name__ == '__main__':
     unittest.main()
