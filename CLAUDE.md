@@ -51,12 +51,21 @@ pytest -v --timeout=10 mayavi
 pytest -sv --timeout=60 tvtk
 ```
 
-- `integrationtests/` is not a pytest tree — each file is an `optparse` script
-  subclassing `TestCase(Mayavi)`, run by `run.py` shelling out per file, and
-  collecting one launches the Mayavi2 application and waits for the window to
-  be closed.  `integrationtests/conftest.py` sets `collect_ignore_glob` so a
-  bare `pytest` cannot wander into it.  21 of the 26 pass as of 2026-07;
-  porting them to pytest and wiring up a Linux-only CI job is a follow-up.
+- The files in `integrationtests/mayavi/` are not pytest modules — each is an
+  `optparse` script subclassing `TestCase(Mayavi)`, meant to be run as `python
+  test_contour.py`, and importing one hands pytest `Test*` classes it cannot
+  instantiate.  `integrationtests/conftest.py` therefore keeps collection out
+  of `mayavi/`; `integrationtests/test_integration.py` beside it is the pytest
+  entry point and shells out per script, as `run.py` always has, because engine
+  and scene state leaks between them in one process.  All 26 pass (~2 min), in
+  `tests.yml`'s own `integration` job — one configuration, since they exercise
+  the application rather than the VTK version the matrix already covers, and
+  they want a display and the `[app]` extra.  A *step* on a `tests` row was
+  tried first and never ran: `!matrix.vtk` matched nothing because the
+  `vtk-dev` include overrides no original matrix value, so GitHub merges it
+  into the base ubuntu combination instead of adding a row, and every ubuntu
+  row therefore has `vtk` set.  CI was green throughout.  A matrix-conditioned
+  step fails silently that way; a job's absence from the checks is visible.
 - Regeneration is skipped if `tvtk/tvtk_classes.zip` is < 120 s old
   (`_tvtk_built_recently` in `setup.py`).
 - Warnings are errors.  The filters live in `mayavi/tests/conftest.py` and
@@ -163,13 +172,17 @@ fatal separately, in the two places that run Python:
   (the commit and date would retitle every page), `html_last_updated_fmt` is
   off with the build date carried by the site landing page alone, and the
   renderers seed `np.random` because several `mlab.test_*` functions plot random
-  data.  `FLAKY_EXAMPLES` in `render_examples.py` names the one example that
-  still is not reproducible — `tvtk_in_mayavi`, which draws overlapping
-  translucent actors that VTK composites differently in ~1% of pixels on
-  roughly one run in five.  Its committed image is reused rather than
-  re-rendered, so the published figure stops flipping back and forth; set
-  `MAYAVI_RENDER_FLAKY=1` (or tick `render_flaky` on a `workflow_dispatch`) to
-  redo it deliberately.  Enabling depth peeling (it does engage —
+  data.  `FLAKY_EXAMPLES` in `render_examples.py` names the examples that still
+  are not reproducible: `tvtk_in_mayavi` and `magnetic_field`, which draw
+  overlapping translucent actors that VTK composites differently in ~1% of
+  pixels (roughly one run in five, and three of four, respectively), and
+  `wx_mayavi_embed_in_notebook`, a screenshot of a wx window whose notebook
+  lands differently — it came back changed in two of the four CI runs after it
+  was added, on the committed bytes both times.  Their committed images are
+  reused rather than re-rendered, so the published figures stop flipping back
+  and forth; set `MAYAVI_RENDER_FLAKY=1` (or tick `render_flaky` on a
+  `workflow_dispatch`) to redo them deliberately.  For the first two, enabling
+  depth peeling (it does engage —
   `last_rendering_used_depth_peeling` is 1) and forcing a `scene.render()`
   before the capture were both measured over ten runs and neither helps, so
   leave it alone rather than re-testing.  Beware that five runs is not enough to

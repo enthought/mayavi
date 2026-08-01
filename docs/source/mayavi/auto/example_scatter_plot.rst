@@ -29,6 +29,11 @@ Alternatively it can be run as::
 
   $ python scatter_plot.py
 
+.. image:: ../generated_images/example_scatter_plot.jpg
+    :align: center
+
+
+
 **Python source code:** :download:`scatter_plot.py`
 
 .. literalinclude:: scatter_plot.py

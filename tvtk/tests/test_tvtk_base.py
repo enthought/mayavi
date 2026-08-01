@@ -19,7 +19,9 @@ from tvtk.common import get_tvtk_name, camel2enthought
 
 
 # An elementary class based on vtkProperty that is used only for
-# testing.
+# testing.  It stands in for a generated wrapper, so its bodies use
+# `self._vtk_obj` the way wrapper_gen.py emits it rather than the public
+# deref_vtk() the tests below use from the outside.
 class Prop(tvtk_base.TVTKBase):
     def __init__(self, obj=None, update=1, **traits):
         tvtk_base.TVTKBase.__init__(
@@ -114,7 +116,7 @@ class TestTVTKBase(unittest.TestCase):
         p.diffuse_color = (1, 1, 1)
         p.specular_color = (1, 1, 0)
         for t, g in p._updateable_traits_:
-            val = getattr(p._vtk_obj, g)()
+            val = getattr(tvtk_base.deref_vtk(p), g)()
             if t == 'representation':
                 self.assertEqual(val, getattr(p, t + '_'))
             else:
@@ -127,7 +129,7 @@ class TestTVTKBase(unittest.TestCase):
         # When
         try:
             # Make a mistake
-            p._wrap_call(p._vtk_obj.SetLineWidth, 'a')
+            p._wrap_call(tvtk_base.deref_vtk(p).SetLineWidth, 'a')
         except TypeError:
             pass
 
@@ -138,7 +140,7 @@ class TestTVTKBase(unittest.TestCase):
     def test_auto_update(self):
         """Test trait updation when the VTK object changes."""
         p = Prop()
-        obj = p._vtk_obj
+        obj = tvtk_base.deref_vtk(p)
         obj.SetEdgeVisibility(1)
         self.assertEqual(p.edge_visibility, 1)
 
@@ -165,7 +167,7 @@ class TestTVTKBase(unittest.TestCase):
         p = Prop()
         # Turn off the observers.
         p.teardown_observers()
-        obj = p._vtk_obj
+        obj = tvtk_base.deref_vtk(p)
         obj.SetEdgeVisibility(1)
         self.assertEqual(p.edge_visibility, 0)
 
@@ -221,10 +223,10 @@ class TestTVTKBase(unittest.TestCase):
         d = p.__getstate__()
         del p
         p = Prop()
-        addr = p._vtk_obj.__this__
+        addr = tvtk_base.deref_vtk(p).__this__
         p.__setstate__(d)
         # Make sure its the same object.
-        self.assertEqual(addr, p._vtk_obj.__this__)
+        self.assertEqual(addr, tvtk_base.deref_vtk(p).__this__)
 
         self.assertEqual(p.edge_visibility, 1)
         self.assertEqual(p.opacity, 0.5)
@@ -343,7 +345,7 @@ class TestTVTKBase(unittest.TestCase):
 
         l1 = len(tvtk_base._object_cache)
         p = Prop()
-        addr = p._vtk_obj.__this__
+        addr = tvtk_base.deref_vtk(p).__this__
         self.assertEqual(l1 + 1, len(tvtk_base._object_cache))
         self.assertEqual(p, tvtk_base._object_cache.get(addr))
 

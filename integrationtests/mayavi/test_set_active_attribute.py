@@ -24,8 +24,11 @@ class TestSetActiveAttribute(TestCase):
         c = src.children[1]
         sc = get_output(c.outputs[0]).point_data.scalars
         assert sc.name == 'u'
-        # It is an iso-contour!
-        assert sc.range[0] == sc.range[1]
+        # It is an iso-contour, so the range collapses to the contour value --
+        # but only to the precision of the float32 scalars it is interpolated
+        # from, which is why this is not an equality.  VTK 9.6 returns
+        # (0.4851917326450348, 0.48519179224967957) here, six parts in 1e8.
+        assert abs(sc.range[1] - sc.range[0]) < 1e-6
         aa = c.children[0].children[0]
         assert aa.point_scalars_name == 't'
         sc = get_output(aa.outputs[0]).point_data.scalars
