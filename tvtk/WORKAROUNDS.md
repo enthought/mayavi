@@ -203,6 +203,24 @@ Those obey the same marker and cull rules; they are keyed on `qVersion()` and
   <https://github.com/pyvista/pyvistaqt/pull/810>.  Cull when Qt fixes the
   macOS backend and the floor passes it — the check is unit-tested in
   `tvtk/tests/test_qvtk_render_window_interactor.py`, which goes with it.
+- `tvtk/qt_x11.py`: VTK has no Wayland render window, so the Qt scene widget
+  cannot embed one when Qt runs on the wayland platform — the `winId()` Qt
+  fabricates there has no X11 window behind it, and VTK's first
+  `XGetWindowAttributes` on it makes Xlib abort the whole process with
+  BadWindow (#1396; KDE and other non-GNOME Wayland sessions hit this by
+  default, since only GNOME makes Qt prefer xcb).  `steer_qt_to_x11()` sets
+  `QT_QPA_PLATFORM=xcb` from `mayavi/__init__.py` and
+  `tvtk/pyface/__init__.py` — it must run that early because pyface creates
+  the QApplication as an import side effect of `traitsui.api`, which locks
+  the platform.  Where the app predates mayavi (user imported traitsui
+  first, or pinned `QT_QPA_PLATFORM=wayland`), `QVTKRenderWindowInteractor`
+  raises `embedding_error()`'s message instead of letting Xlib abort.
+  Unit-tested in `tvtk/tests/test_qt_x11.py`.  #1397 tracks dropping the X
+  fallback for native Wayland rendering; the way there is
+  <https://gitlab.kitware.com/vtk/vtk/-/merge_requests/9443>, which gives
+  VTK's Python `QVTK` widgets a `QOpenGLWidget` mode that draws through
+  Qt's own GL context instead of embedding a native X window.  Until tvtk
+  can require and adopt that, this is in the never-expires class.
 
 ## Outside the layers: `mayavi/`
 
