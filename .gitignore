@@ -8,6 +8,10 @@
 .claude/
 _configtest.*
 .hypothesis
+# .coverage.* is the per-process data the off screen tests' subprocesses
+# write, before the parent run combines them
+.coverage
+.coverage.*
 
 # ignore the build directories
 *.egg-info/
