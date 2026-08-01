@@ -223,11 +223,12 @@ class TestTVTK(unittest.TestCase):
         for name, get in (('force_opaque', 'GetForceOpaque'),
                           ('visibility', 'GetVisibility')):
             a = tvtk.Actor()
+            vtk_a = tvtk.to_vtk(a)
             new_value = not getattr(a, name)
             seen = []
 
             def reentrant():
-                seen.append(bool(getattr(a._vtk_obj, get)()))
+                seen.append(bool(getattr(vtk_a, get)()))
                 a.update_traits()
 
             a.on_trait_change(reentrant, name + '_')
@@ -236,14 +237,14 @@ class TestTVTK(unittest.TestCase):
             self.assertEqual(seen, [new_value], name)
             # ...so the reentrant resync could not revert the assignment.
             self.assertEqual(getattr(a, name), new_value, name)
-            self.assertEqual(bool(getattr(a._vtk_obj, get)()), new_value,
-                             name)
+            self.assertEqual(bool(getattr(vtk_a, get)()), new_value, name)
         # Same for a state (RevPrefixMap) trait.
         p = tvtk.Property()
         p.on_trait_change(lambda: p.update_traits(), 'representation_')
         p.representation = 'wireframe'
         self.assertEqual(p.representation, 'wireframe')
-        self.assertEqual(p._vtk_obj.GetRepresentationAsString(), 'Wireframe')
+        self.assertEqual(tvtk.to_vtk(p).GetRepresentationAsString(),
+                         'Wireframe')
 
     def test_obj_del(self):
         """Test object deletion and reference cycles."""
