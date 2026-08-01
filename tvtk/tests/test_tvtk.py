@@ -167,7 +167,7 @@ class TestTVTK(unittest.TestCase):
         for t, g in p._updateable_traits_:
             if g == "GetEdgeOpacity":
                 continue  # broken for some reason? (see tvtk/WORKAROUNDS.md)
-            vtk_get = getattr(p._vtk_obj, g, None)
+            vtk_get = getattr(tvtk.to_vtk(p), g, None)
             if vtk_get is None:
                 # getter from a newer VTK than the runtime one (TVTK
                 # classes may be generated against a newer VTK)
@@ -182,7 +182,7 @@ class TestTVTK(unittest.TestCase):
     def test_auto_update(self):
         """Test if traits are updated when the VTK object changes."""
         p = tvtk.Property()
-        obj = p._vtk_obj
+        obj = tvtk.to_vtk(p)
         obj.SetEdgeVisibility(1)
         self.assertEqual(p.edge_visibility, 1)
 
@@ -199,6 +199,15 @@ class TestTVTK(unittest.TestCase):
         val = (0.0, 1.0, 0.0)
         obj.SetSpecularColor(val)
         self.assertEqual(p.specular_color, val)
+
+        # A state value with no SetXToY method to discover it from must
+        # still resync, else this raises (see tvtk/WORKAROUNDS.md).  #1391
+        tp = tvtk.TextProperty()
+        tp_obj = tvtk.to_vtk(tp)
+        tp_obj.SetFontFamily(4)  # vtk.VTK_FONT_FILE
+        self.assertEqual(tp.font_family, 'file')
+        tp.font_family = 0  # vtk.VTK_ARIAL
+        self.assertEqual(tp_obj.GetFontFamily(), vtk.VTK_ARIAL)
 
     def test_obj_del(self):
         """Test object deletion and reference cycles."""
@@ -369,20 +378,20 @@ class TestTVTK(unittest.TestCase):
 
         # Test iterator nature.
         for i, j in zip(ac, a_list):
-            self.assertEqual(i._vtk_obj, j._vtk_obj)
+            self.assertEqual(tvtk.to_vtk(i), tvtk.to_vtk(j))
         for i, j in enumerate(ac):
-            self.assertEqual(a_list[i]._vtk_obj, j._vtk_obj)
+            self.assertEqual(tvtk.to_vtk(a_list[i]), tvtk.to_vtk(j))
 
         # Test __setitem__.
         ac[0] = a_list[1]
         ac[1] = a_list[0]
-        self.assertEqual(ac[0]._vtk_obj, a_list[1]._vtk_obj)
-        self.assertEqual(ac[1]._vtk_obj, a_list[0]._vtk_obj)
+        self.assertEqual(tvtk.to_vtk(ac[0]), tvtk.to_vtk(a_list[1]))
+        self.assertEqual(tvtk.to_vtk(ac[1]), tvtk.to_vtk(a_list[0]))
         self.assertRaises(TypeError, ac.__setitem__, 's', a_list[1])
 
         # Test __delitem__.
         del ac[-2]
-        self.assertEqual(ac[0]._vtk_obj, a_list[0]._vtk_obj)
+        self.assertEqual(tvtk.to_vtk(ac[0]), tvtk.to_vtk(a_list[0]))
         self.assertEqual(len(ac), 1)
         self.assertRaises(TypeError, ac.__delitem__, 1.414)
         del ac[0]
@@ -395,7 +404,7 @@ class TestTVTK(unittest.TestCase):
         ac.extend(a_list)
         self.assertEqual(len(ac), 2)
         for i, j in enumerate(ac):
-            self.assertEqual(a_list[i]._vtk_obj, j._vtk_obj)
+            self.assertEqual(tvtk.to_vtk(a_list[i]), tvtk.to_vtk(j))
 
         # Test the prop collection.
         pc = tvtk.PropCollection()
@@ -631,7 +640,7 @@ class TestTVTK(unittest.TestCase):
 
         # Get it back
         result = numpy.empty(9)
-        tvtk_filter._vtk_obj.GetKernel3x3(result)
+        tvtk.to_vtk(tvtk_filter).GetKernel3x3(result)
 
         self.assertTrue(numpy.allclose(result, expected), True)
 
@@ -658,7 +667,7 @@ class TestTVTK(unittest.TestCase):
 
         # Get it back
         result = numpy.empty(3)
-        tvtk_filter._vtk_obj.GetPoint1WorldPosition(result)
+        tvtk.to_vtk(tvtk_filter).GetPoint1WorldPosition(result)
 
         self.assertTrue(numpy.allclose(result, expected), True)
 
@@ -767,6 +776,9 @@ class TestTVTK(unittest.TestCase):
             # Should be able to instantiate this wrapped class.
             getattr(tvtk, name)()
 
+    # The three tests below are the ones that establish what tvtk.to_vtk and
+    # tvtk.to_tvtk return, so they have to compare against `_vtk_obj` itself.
+    # Rewriting them in terms of to_vtk would make them tautological.
     def test_to_vtk_returns_vtk_object(self):
         # Given
         x = tvtk.ContourFilter()

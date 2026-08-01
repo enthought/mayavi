@@ -617,6 +617,17 @@ class WrapperGenerator:
                 # an option and creates problems (see tvtk/WORKAROUNDS.md)
                 if klass.__name__ == "vtkPoints" and m == "DataType" and sys.platform == "win32":
                     d["int32"] = vtk.VTK_ID_TYPE
+                # VTK only offers SetFontFamilyTo{Arial,Courier,Times}, but
+                # SetFontFamily() accepts VTK_UNKNOWN_FONT and VTK_FONT_FILE
+                # too -- the latter is how a custom font_file is selected, and
+                # anything out of range clamps to the former.  Inferring the
+                # map from the SetXToY methods alone therefore rejects values
+                # the C++ object legitimately holds, so update_traits() raises
+                # on every resync.  https://github.com/enthought/mayavi/issues/1391
+                # (see tvtk/WORKAROUNDS.md)
+                if klass.__name__ == "vtkTextProperty" and m == "FontFamily":
+                    d["unknown"] = vtk.VTK_UNKNOWN_FONT
+                    d["file"] = vtk.VTK_FONT_FILE
                 if extra_val is None:
                     t_def = """tvtk_base.RevPrefixMap(%(d)s, default_value='%(default)s')""" % locals()
                 elif hasattr(extra_val, '__iter__'):
