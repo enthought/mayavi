@@ -357,7 +357,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         # would otherwise make Xlib abort (see tvtk/WORKAROUNDS.md)
         app = QApplication.instance()
         if app is not None and hasattr(app, 'platformName'):  # Qt5+
-            error = embedding_error(sys.platform, app.platformName())
+            error = embedding_error(app.platformName())
             if error is not None:
                 raise RuntimeError(error)
 
