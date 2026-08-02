@@ -15,11 +15,12 @@ from optparse import OptionParser
 
 # Enthought library imports
 from traits.etsconfig.api import ETSConfig
-from traits.api import  Any, Bool, Instance
+from traits.api import  Any, Bool, Instance, push_exception_handler
 from pyface.api import GUI
 from tvtk.api import tvtk
 from tvtk.common import configure_input
 from mayavi.plugins.app import Mayavi, setup_logger
+from mayavi.tests.conftest import fail_instead_of_dialogs
 
 # The TVTK window.
 from tvtk.pyface.tvtk_scene import TVTKWindow
@@ -27,6 +28,20 @@ from tvtk.pyface.tvtk_scene import TVTKWindow
 # Global variables.
 VERBOSE = False
 logger = logging.getLogger()
+
+
+# These scripts are processes of their own and never load the unit suite's
+# conftest, so ask it for the same treatment: without it a failure inside
+# mayavi is swallowed by a bare ``except:`` and the test asserts against a
+# half-built scene, while the dialog raised in its place waits for a click
+# nobody is there to give -- which is how a broken VRML read turned into a
+# script that sat there until the harness timed it out.
+fail_instead_of_dialogs()
+
+# ...and that only covers what mayavi reports itself.  Most of its work happens
+# in traits notification handlers, which log and carry on rather than let an
+# exception out, so an error there would still pass silently.
+push_exception_handler(reraise_exceptions=True)
 
 
 def off_screen_viewer():

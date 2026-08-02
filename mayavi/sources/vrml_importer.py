@@ -116,7 +116,7 @@ class VRMLImporter(Source):
                or len(reader.file_name) == 0:
             return
         actors1 = [x for x in self.scene.renderer.actors]
-        reader.read()
+        reader.update()
         self.scene.render()
         actors2 = [x for x in self.scene.renderer.actors]
         self.actors = [x for x in actors2 if x not in actors1]
