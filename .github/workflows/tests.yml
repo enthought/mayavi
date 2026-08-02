@@ -83,6 +83,13 @@ jobs:
       with:
         qt: true
       if: matrix.headless != true
+    # The row above gets libegl1 and libosmesa6 from that action, so the
+    # off screen tests can force each of VTK's backends in turn.  The headless
+    # row skips it and would have no way to make a GL context at all -- which
+    # is the one configuration where EGL/OSMesa is not a fallback but the only
+    # option, so it is the row that most needs them.
+    - run: sudo apt-get update && sudo apt-get install -y libegl1 libosmesa6
+      if: matrix.headless == true
     - uses: actions/setup-python@v7.0.0
       with:
         python-version: ${{ matrix.python-version }}

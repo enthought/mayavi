@@ -16,13 +16,6 @@ options.offscreen = True
 EventInfo = namedtuple('EventInfo', ['id', 'name', 'event', 'data'])
 
 
-if hasattr(vtk, 'vtkOSOpenGLRenderWindow'):
-    # Needed for VTK's vtkglew to be able to load the OSMesa.so. See:
-    # https://www.vtk.org/pipermail/vtk-developers/2017-November/035592.html
-    import ctypes
-    osm = ctypes.CDLL("libOSMesa.so", ctypes.RTLD_GLOBAL)
-
-
 class ImageEncoder(HasTraits):
     scene = Any
     w2if = Instance(tvtk.WindowToImageFilter)
