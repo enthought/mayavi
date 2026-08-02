@@ -796,16 +796,21 @@ class TVTKScene(HasPrivateTraits):
         return self._interactor
 
     def _get_window_to_image(self):
-        # Read the back buffer, not the front one.  The front buffer is
-        # whatever the window server is showing, so anything overlapping the
-        # window ends up in the saved image -- which is why this used to raise
-        # the window first, stealing focus every time a figure was saved.  VTK's
-        # own regression tests and ParaView (both BSD-3-Clause) read the back
-        # buffer for the same reason:
-        # https://github.com/Kitware/VTK/blob/master/Testing/Rendering/vtkTesting.cxx
-        # https://gitlab.kitware.com/paraview/paraview/-/blob/master/Remoting/Views/vtkSMViewProxy.cxx
-        # _exporter_write holds the buffer swap off while the read happens.
-        w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
+        # Read the front buffer.  Not because it is what the window server is
+        # showing -- with VTK 9 it is not, a front read returns VTK's own
+        # DisplayFramebuffer, which is why this no longer has to raise the
+        # window first and steal focus every time a figure is saved -- but
+        # because of how the two buffers get resolved.  Frame() resolves the
+        # samples into the DisplayFramebuffer with a gamma-correct shader,
+        # while a back read hands the raw multisample framebuffer to
+        # vtkOpenGLRenderWindow::ReadPixels, which resolves it inline with a
+        # plain glBlitFramebuffer average:
+        # https://gitlab.kitware.com/vtk/vtk/-/blob/master/Rendering/OpenGL2/vtkOpenGLRenderWindow.cxx#L112-140
+        # https://gitlab.kitware.com/vtk/vtk/-/blob/master/Rendering/OpenGL2/vtkOpenGLRenderWindow.cxx#L1369-1400
+        # The difference lands on every anti-aliased edge pixel, so reading the
+        # back buffer would throw away the anti-aliasing that _exporter_write
+        # bumps `anti_aliasing_frames` up to get.
+        w2if = tvtk.WindowToImageFilter(read_front_buffer=True)
         set_magnification(w2if, self.magnification)
         w2if.input = self._renwin
         return w2if
@@ -828,8 +833,9 @@ class TVTKScene(HasPrivateTraits):
                 rw.aa_frames = self.anti_aliasing_frames
             else:
                 rw.multi_samples = self.anti_aliasing_frames
-            # What is left in the back buffer after a swap is undefined by the
-            # OpenGL spec, so do not let one happen while the image is read.
+            # Frame() fills the buffer the image is read from before the swap,
+            # so holding the swap off refreshes it without ever presenting the
+            # bumped-up-anti-aliasing frame to the screen.
             rw.swap_buffers = False
             rw.render()
             ex.update()

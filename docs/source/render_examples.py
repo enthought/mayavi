@@ -302,11 +302,12 @@ def capture_dialog(filename, image_file):
                 with tempfile.NamedTemporaryFile(suffix='.png') as rendered:
                     rw = widget._RenderWindow
                     to_image = tvtk.WindowToImageFilter(
-                        input=rw, read_front_buffer=False)
+                        input=rw, read_front_buffer=True)
                     writer = tvtk.PNGWriter(file_name=rendered.name)
                     writer.set_input_data(to_image.output)
-                    # as in TVTKScene: what a swap leaves in the back buffer is
-                    # undefined, so do not let one happen while it is read
+                    # as in TVTKScene: the front buffer is the one VTK resolves
+                    # the multisamples into properly, and holding the swap off
+                    # refreshes it without presenting the frame
                     swap_buffers = rw.GetSwapBuffers()
                     rw.SwapBuffersOff()
                     try:
@@ -423,11 +424,12 @@ def capture_wx_dialog(filename, image_file):
                 size = control.GetSize()
                 with tempfile.NamedTemporaryFile(suffix='.png') as rendered:
                     to_image = tvtk.WindowToImageFilter(
-                        input=render_window, read_front_buffer=False)
+                        input=render_window, read_front_buffer=True)
                     writer = tvtk.PNGWriter(file_name=rendered.name)
                     writer.set_input_data(to_image.output)
-                    # as in TVTKScene: what a swap leaves in the back buffer is
-                    # undefined, so do not let one happen while it is read
+                    # as in TVTKScene: the front buffer is the one VTK resolves
+                    # the multisamples into properly, and holding the swap off
+                    # refreshes it without presenting the frame
                     swap_buffers = render_window.GetSwapBuffers()
                     render_window.SwapBuffersOff()
                     try:
