@@ -38,11 +38,30 @@ def debug(msg):
     logger.debug(msg)
 
 
+def _has_ui():
+    """Whether pyface found a usable GUI toolkit.
+
+    A successful pyface import is not enough: in an environment with no
+    (working) toolkit, pyface resolves GUI to an ``Unimplemented`` stub and
+    the dialog helpers to the null backend's placeholders, and touching
+    either raises -- which took down even the offscreen path, where no UI
+    is wanted in the first place (see enthought/mayavi#1308).
+    """
+    if pyface is None:
+        return False
+    try:
+        return getattr(pyface.GUI, 'process_events', None) is not None
+    except Exception:
+        # resolving the toolkit itself can raise on broken installs; that
+        # must not mask the error currently being reported
+        return False
+
+
 def warning(msg, parent=None):
     """Handle a warning message.
     """
-    logger.warn(msg)
-    if pyface is not None:
+    logger.warning(msg)
+    if _has_ui():
         pyface.warning(parent, msg)
 
 
@@ -50,7 +69,7 @@ def error(msg, parent=None):
     """Handle an error message.
     """
     logger.error(msg)
-    if pyface is not None:
+    if _has_ui():
         pyface.error(parent, msg)
 
 
@@ -71,7 +90,7 @@ def exception(msg='Exception', parent=None):
                    function)
         # Log and display the message.
         logger.exception(msg)
-        if pyface is not None:
+        if _has_ui():
             pyface.error(parent, exc_msg, title='Exception')
     finally:
         type = value = tb = None # clean up
@@ -83,7 +102,7 @@ def process_ui_events():
     This function merely abstracts the function so nothing is done when
     no UI is running.
     """
-    if pyface is not None:
+    if _has_ui():
         pyface.GUI.process_events()
 
 
