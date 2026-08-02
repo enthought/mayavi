@@ -244,7 +244,10 @@ commit**:
 
 - `tests.yml` — same-version matrix: build + test with the *same* VTK
   (latest on all OSes; older VTK/Python/Qt rows on Linux; one headless row
-  with `ETS_TOOLKIT=null`), plus a `vtk-dev` row against prerelease wheels
+  with `ETS_TOOLKIT=null`; one `ubuntu-24.04-arm` row, because plain C
+  `char` is unsigned on Linux arm64 — but signed in Apple's arm64 ABI, so
+  the macOS rows cannot cover it — which is what gh-1194 tripped over),
+  plus a `vtk-dev` row against prerelease wheels
   from https://wheels.vtk.org and NumPy nightlies from
   https://pypi.anaconda.org/scientific-python-nightly-wheels — that row is
   what `MAX_VTK` is raised on the strength of.  Also runs weekly on a
@@ -285,3 +288,27 @@ commit**:
   snake_case aliases only exist on >= 9.4.
 - `mayavi/__init__.py` reads the version from installed package metadata;
   the version itself comes from git tags via setuptools_scm.
+- Never name a concrete render window class (`EGLRenderWindow`,
+  `OSOpenGLRenderWindow`, …).  Construct `tvtk.RenderWindow()` and let
+  `vtkOpenGLRenderWindow::New()` choose: it honours
+  `VTK_DEFAULT_OPENGL_WINDOW`, else tries X11 → EGL → OSMesa and keeps the
+  first that initializes.  `hasattr(tvtk, 'EGLRenderWindow')` used to mean
+  "this is an EGL build of VTK"; the wheels have shipped all three backends
+  for years, so the same test now means "always", and picking EGL where no
+  driver backs it segfaults in `SetDeviceAsDisplay` (gh-1332).  The offscreen
+  paths that had this bug are covered by
+  `mayavi/tests/test_offscreen_rendering.py`, which renders through
+  `mlab.options.offscreen` under each of the three backends in turn (forced
+  with `VTK_DEFAULT_OPENGL_WINDOW`, and asserted in the child's output so a
+  variable VTK ignored cannot pass as coverage), and fakes a driverless EGL
+  with `__EGL_VENDOR_LIBRARY_FILENAMES`.  Those cases are subprocesses: the
+  option is process-global, and a render window that cannot initialize takes
+  its interpreter down with it.  They pass the parent's live coverage config
+  down in `COVERAGE_PROCESS_CONFIG`, which the `.pth` coverage installs turns
+  into a suffixed data file for the parent run to combine — otherwise a
+  `--cov` run reports everything they exercise as never imported.  (The
+  parent still *warns* "was never imported", since it genuinely does not
+  import it; the combined report is what to read.)  That is also what put the first OSMesa render
+  in CI, which is what made it safe to drop `remote_scene.py`'s
+  `ctypes.CDLL("libOSMesa.so", RTLD_GLOBAL)` preload -- a 2017 vtkglew
+  workaround VTK has not needed since well before `MIN_VTK`.

@@ -740,23 +740,21 @@ class TVTKScene(HasPrivateTraits):
     def _create_control(self, parent):
         """ Create the toolkit-specific control that represents the widget. """
 
+        # Let VTK's factory pick the concrete render window class, offscreen or
+        # not.  vtkOpenGLRenderWindow::New() honours VTK_DEFAULT_OPENGL_WINDOW
+        # and otherwise tries X11, then EGL, then OSMesa, keeping the first one
+        # that initializes -- so a headless machine gets EGL/OSMesa without
+        # being asked, and a machine with a display keeps its GLX context.
+        # Picking EGLRenderWindow here ourselves, as we used to whenever the
+        # class merely existed, segfaulted everywhere the wheel ships EGL
+        # support but the system has no EGL driver to go with it (the usual
+        # slim Docker image under Xvfb).
+        renwin = self._renwin = tvtk.RenderWindow()
         if self.off_screen_rendering:
-            if hasattr(tvtk, 'EGLRenderWindow'):
-                renwin = tvtk.EGLRenderWindow()
-            elif hasattr(tvtk, 'OSOpenGLRenderWindow'):
-                renwin = tvtk.OSOpenGLRenderWindow()
-            else:
-                renwin = tvtk.RenderWindow()
-                # If we are doing offscreen rendering we set the window size to
-                # (1,1) so the window does not appear at all
-                renwin.size = (1, 1)
-
-            self._renwin = renwin
             self._interactor = tvtk.GenericRenderWindowInteractor(
                 render_window=renwin
             )
         else:
-            renwin = self._renwin = tvtk.RenderWindow()
             self._interactor = tvtk.RenderWindowInteractor(
                 render_window=renwin
             )
