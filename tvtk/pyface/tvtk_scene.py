@@ -809,7 +809,11 @@ class TVTKScene(HasPrivateTraits):
         # https://gitlab.kitware.com/vtk/vtk/-/blob/master/Rendering/OpenGL2/vtkOpenGLRenderWindow.cxx#L1369-1400
         # The difference lands on every anti-aliased edge pixel, so reading the
         # back buffer would throw away the anti-aliasing that _exporter_write
-        # bumps `anti_aliasing_frames` up to get.
+        # bumps `anti_aliasing_frames` up to get.  That the two paths resolve
+        # differently at all is reported upstream as
+        # https://gitlab.kitware.com/vtk/vtk/-/work_items/20138 -- if they are
+        # ever unified, either buffer will do and this can go back to whichever
+        # is cheaper.
         w2if = tvtk.WindowToImageFilter(read_front_buffer=True)
         set_magnification(w2if, self.magnification)
         w2if.input = self._renwin
@@ -827,24 +831,26 @@ class TVTKScene(HasPrivateTraits):
         rw = self.render_window
         has_aa_frames = hasattr(rw, 'aa_frames')
         aa_frames = rw.aa_frames if has_aa_frames else rw.multi_samples
-        swap_buffers = rw.swap_buffers
         try:
             if has_aa_frames:
                 rw.aa_frames = self.anti_aliasing_frames
             else:
                 rw.multi_samples = self.anti_aliasing_frames
-            # Frame() fills the buffer the image is read from before the swap,
-            # so holding the swap off refreshes it without ever presenting the
-            # bumped-up-anti-aliasing frame to the screen.
-            rw.swap_buffers = False
+            # Let the swap happen.  It is what fills the buffer being read:
+            # everything vtkOpenGLRenderWindow::Frame does -- binding the
+            # display framebuffer and resolving the samples into it -- sits
+            # inside `if (this->SwapBuffers)`, so holding the swap off would
+            # leave the front buffer untouched.  Bumping the samples above
+            # recreates the framebuffers, so there is not even a previous
+            # frame left in it to read:
+            # https://gitlab.kitware.com/vtk/vtk/-/blob/master/Rendering/OpenGL2/vtkOpenGLRenderWindow.cxx#L1669-1719
             rw.render()
             ex.update()
             ex.write()
         finally:
             # Whatever happened, leave the window usable: a scene stuck with
-            # swapping off or the anti-aliasing bumped up would have to be
-            # closed and recreated.
-            rw.swap_buffers = swap_buffers
+            # the anti-aliasing bumped up would have to be closed and
+            # recreated.
             if has_aa_frames:
                 rw.aa_frames = aa_frames
             else:
