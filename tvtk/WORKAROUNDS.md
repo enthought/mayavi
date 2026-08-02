@@ -58,9 +58,8 @@ from crashing or producing garbage:
   property getters).
 - `_find_get_set_methods()`: per-class/method skips for getters that hang or
   wrap badly (`vtkDataEncoder`/`vtkWebApplication`,
-  `vtkPiecewisePointHandleItem`, the `vtkDataSetAttributes.Copy*` pair on
-  VTK 9.5.2), and version-keyed "broken getter -> no default" entries near
-  the end (grep `Broken in`).
+  `vtkPiecewisePointHandleItem`), and version-keyed "broken getter -> no
+  default" entries near the end (grep `Broken in`).
 - `BROKEN_GETTERS` (module level): getters whose VTK-documented precondition
   a fresh object violates, so probing them aborts an assertion-enabled build.
   Version-independent — see the Policy note above before retiring one.
