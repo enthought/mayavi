@@ -244,7 +244,10 @@ commit**:
 
 - `tests.yml` — same-version matrix: build + test with the *same* VTK
   (latest on all OSes; older VTK/Python/Qt rows on Linux; one headless row
-  with `ETS_TOOLKIT=null`), plus a `vtk-dev` row against prerelease wheels
+  with `ETS_TOOLKIT=null`; one `ubuntu-24.04-arm` row, because plain C
+  `char` is unsigned on Linux arm64 — but signed in Apple's arm64 ABI, so
+  the macOS rows cannot cover it — which is what gh-1194 tripped over),
+  plus a `vtk-dev` row against prerelease wheels
   from https://wheels.vtk.org and NumPy nightlies from
   https://pypi.anaconda.org/scientific-python-nightly-wheels — that row is
   what `MAX_VTK` is raised on the strength of.  Also runs weekly on a

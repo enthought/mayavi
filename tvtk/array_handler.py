@@ -41,6 +41,18 @@ elif VTK_LONG_TYPE_SIZE == 8:
     LONG_TYPE_CODE = numpy.int64
     ULONG_TYPE_CODE = numpy.uint64
 
+# VTK_CHAR is plain C ``char``, whose signedness is platform-dependent:
+# signed on x86, unsigned on ARM (e.g. aarch64).  Probe the installed VTK at
+# runtime rather than assuming numpy.int8, and route numpy.int8 data to
+# VTK_SIGNED_CHAR when ``char`` is unsigned, so that negative values
+# round-trip correctly (https://github.com/enthought/mayavi/issues/1194).
+if vtk.vtkCharArray().GetDataTypeMin() < 0:
+    CHAR_TYPE_CODE = numpy.int8
+    INT8_VTK_TYPE = vtkConstants.VTK_CHAR
+else:
+    CHAR_TYPE_CODE = numpy.uint8
+    INT8_VTK_TYPE = vtkConstants.VTK_SIGNED_CHAR
+
 BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 
 
@@ -179,7 +191,7 @@ def get_vtk_array_type(numeric_array_type):
         numpy.dtype('S'): vtkConstants.VTK_UNSIGNED_CHAR,  # numpy.character
         numpy.dtype(numpy.uint8): vtkConstants.VTK_UNSIGNED_CHAR,
         numpy.dtype(numpy.uint16): vtkConstants.VTK_UNSIGNED_SHORT,
-        numpy.dtype(numpy.int8): vtkConstants.VTK_CHAR,
+        numpy.dtype(numpy.int8): INT8_VTK_TYPE,
         numpy.dtype(numpy.int16): vtkConstants.VTK_SHORT,
         numpy.dtype(numpy.int32): vtkConstants.VTK_INT,
         numpy.dtype(numpy.uint32): vtkConstants.VTK_UNSIGNED_INT,
@@ -213,7 +225,7 @@ def get_vtk_to_numeric_typemap():
     """Returns the VTK array type to numpy array type mapping."""
     _vtk_arr = {
         vtkConstants.VTK_BIT: numpy.bool_,
-        vtkConstants.VTK_CHAR: numpy.int8,
+        vtkConstants.VTK_CHAR: CHAR_TYPE_CODE,
         vtkConstants.VTK_SIGNED_CHAR: numpy.int8,
         vtkConstants.VTK_UNSIGNED_CHAR: numpy.uint8,
         vtkConstants.VTK_SHORT: numpy.int16,
