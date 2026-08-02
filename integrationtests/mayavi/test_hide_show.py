@@ -27,6 +27,11 @@ class TestHideShow(TestCase):
         mm = src.children[0]
         scp = mm.children[0]
         iso = mm.children[1]
+        # Every check below this that involves the VRML source is a loop over
+        # its actors, so an import that quietly brought nothing in would leave
+        # them all vacuously true -- which is exactly how the source calling a
+        # method VTK 9.6 had removed went unnoticed.
+        assert len(wrl.actors) > 0
         if not saved:
             assert scp.actor.actor.visibility == True
             assert scp.implicit_plane.widget.enabled == True
