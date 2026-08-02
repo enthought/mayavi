@@ -42,6 +42,8 @@ Changes by Fabian Wenzel, Jan. 2016
 
 import sys
 
+from tvtk.qt_x11 import embedding_error
+
 from pyface.qt import QtCore, qt_api, is_qt4
 if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
@@ -350,6 +352,14 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
             self._RenderWindow = rw
         else:
             self._RenderWindow = vtk.vtkRenderWindow()
+
+        # Fail with a clear error where VTK's X requests on the window id
+        # would otherwise make Xlib abort (see tvtk/WORKAROUNDS.md)
+        app = QApplication.instance()
+        if app is not None and hasattr(app, 'platformName'):  # Qt5+
+            error = embedding_error(app.platformName())
+            if error is not None:
+                raise RuntimeError(error)
 
         wid = self._get_win_id()
         self._RenderWindow.SetWindowInfo(wid)
