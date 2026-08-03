@@ -44,10 +44,8 @@ import sys
 
 from tvtk.qt_x11 import embedding_error
 
-from pyface.qt import QtCore, qt_api, is_qt4
-if qt_api == 'pyqt':
-    PyQtImpl = "PyQt4"
-elif qt_api == 'pyqt5':
+from pyface.qt import QtCore, qt_api
+if qt_api == 'pyqt5':
     PyQtImpl = "PyQt5"
 elif qt_api == 'pyqt6':
     PyQtImpl = "PyQt6"
@@ -56,7 +54,9 @@ elif qt_api == 'pyside2':
 elif qt_api == 'pyside6':
     PyQtImpl = "PySide6"
 else:
-    PyQtImpl = "PySide"
+    raise ImportError(
+        "Unsupported Qt binding %r: PyQt5, PyQt6, PySide2 and PySide6 "
+        "are supported" % (qt_api,))
 
 import vtk
 
@@ -75,7 +75,7 @@ except (ImportError, AttributeError):
 if QVTKRWIBase != "QWidget":
     if PyQtImpl in ["PySide6", "PyQt6"] and QVTKRWIBase == "QOpenGLWidget":
         pass  # compatible
-    elif PyQtImpl in ["PyQt5", "PySide2","PyQt4", "PySide"] and QVTKRWIBase == "QGLWidget":
+    elif PyQtImpl in ["PyQt5", "PySide2"] and QVTKRWIBase == "QGLWidget":
         pass  # compatible
     else:
         raise ImportError("Cannot load " + QVTKRWIBase + " from " + PyQtImpl)
@@ -132,30 +132,6 @@ elif PyQtImpl == "PySide2":
     from PySide2.QtCore import QObject
     from PySide2.QtCore import QSize
     from PySide2.QtCore import QEvent
-elif PyQtImpl == "PyQt4":
-    if QVTKRWIBase == "QGLWidget":
-        from PyQt4.QtOpenGL import QGLWidget
-    from PyQt4.QtGui import QWidget
-    from PyQt4.QtGui import QSizePolicy
-    from PyQt4.QtGui import QApplication
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtCore import Qt
-    from PyQt4.QtCore import QTimer
-    from PyQt4.QtCore import QObject
-    from PyQt4.QtCore import QSize
-    from PyQt4.QtCore import QEvent
-elif PyQtImpl == "PySide":
-    if QVTKRWIBase == "QGLWidget":
-        from PySide.QtOpenGL import QGLWidget
-    from PySide.QtGui import QWidget
-    from PySide.QtGui import QSizePolicy
-    from PySide.QtGui import QApplication
-    from PySide.QtGui import QMainWindow
-    from PySide.QtCore import Qt
-    from PySide.QtCore import QTimer
-    from PySide.QtCore import QObject
-    from PySide.QtCore import QSize
-    from PySide.QtCore import QEvent
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
 
@@ -192,10 +168,7 @@ else:
     SizePolicy = QSizePolicy
     EventType = QEvent
 
-if PyQtImpl in ('PyQt4', 'PySide'):
-    MiddleButton = MouseButton.MidButton
-else:
-    MiddleButton = MouseButton.MiddleButton
+MiddleButton = MouseButton.MiddleButton
 
 
 def _get_event_pos(ev):
@@ -384,15 +357,6 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         self._Timer = QTimer(self)
         self._Timer.timeout.connect(self.TimerEvent)
-
-        # add wheel timer to fix scrolling issue with trackpad
-        self.wheel_timer = None
-        if is_qt4:
-            self.wheel_timer = QTimer()
-            self.wheel_timer.setSingleShot(True)
-            self.wheel_timer.setInterval(25)
-            self.wheel_timer.timeout.connect(self._emit_wheel_event)
-            self._saved_wheel_event_info = ()
 
         self._Iren.AddObserver('CreateTimerEvent', messenger.send)
         messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
@@ -592,94 +556,59 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
                                   ctrl, shift, chr(0), 0, None)
         self._Iren.MouseMoveEvent()
 
-    def keyPressEvent(self, ev):
-        """ React to key pressed event.
+    def _GetKeyCharAndKeySym(self, ev):
+        """ Convert a Qt key into a char and a vtk keysym.
 
-        If event text contains multiple characters, it is truncated to first
-        one.
+        This is essentially copied from the c++ implementation in
+        GUISupport/Qt/QVTKInteractorAdapter.cxx.
         """
+        # if there is a char, convert its ASCII code to a VTK keysym
+        try:
+            keyChar = ev.text()[0]
+            keySym = _keysyms_for_ascii[ord(keyChar)]
+        except IndexError:
+            keyChar = '\0'
+            keySym = None
+
+        # next, try converting Qt key code to a VTK keysym
+        if keySym is None:
+            keySym = _keysyms.get(ev.key())
+
+        # use "None" as a fallback
+        if keySym is None:
+            keySym = "None"
+
+        return keyChar, keySym
+
+    def keyPressEvent(self, ev):
+        key, keySym = self._GetKeyCharAndKeySym(ev)
         ctrl, shift = self._GetCtrlShift(ev)
-        key_sym = _qt_key_to_key_sym(ev.key())
-        if ev.key() < 256:
-            # Sometimes, the OS allows a chord (e.g. Alt-T) to generate
-            # a Unicode character outside of the 8-bit Latin-1 range. We will
-            # try to pass along Latin-1 characters unchanged, since VTK expects
-            # a single `char` byte. If not, we will try to pass on the root key
-            # of the chord (e.g. 'T' above).
-            if ev.text() and ev.text() <= u'\u00ff':
-                key = ev.text().encode('latin-1')
-            else:
-                # Has modifiers, but an ASCII key code.
-                key = chr(ev.key())
-        else:
-            key = chr(0)
-
-        # Truncating key pressed to first character if slow machine leads to
-        # multiple times the same key (required by SetEventInformationFlipY):
-        if ev.isAutoRepeat():
-            key = key[0]
-
         self._setEventInformation(self.__saveX, self.__saveY,
-                                  ctrl, shift, key, 0, key_sym)
+                                  ctrl, shift, key, 0, keySym)
         self._Iren.KeyPressEvent()
         self._Iren.CharEvent()
 
     def keyReleaseEvent(self, ev):
+        key, keySym = self._GetKeyCharAndKeySym(ev)
         ctrl, shift = self._GetCtrlShift(ev)
-        key_sym = _qt_key_to_key_sym(ev.key())
-        if ev.key() < 256:
-            if ev.text() and ev.text() <= u'\u00ff':
-                key = ev.text().encode('latin-1')
-            else:
-                # Has modifiers, but an ASCII key code.
-                key = chr(ev.key())
-        else:
-            key = chr(0)
-
         self._setEventInformation(self.__saveX, self.__saveY,
-                                  ctrl, shift, key, 0, key_sym)
+                                  ctrl, shift, key, 0, keySym)
         self._Iren.KeyReleaseEvent()
 
     def wheelEvent(self, ev):
-        """ Reimplemented to work around scrolling bug in Mac.
+        """ Reimplemented to accumulate trackpad scrolling.
 
-        Work around https://bugreports.qt-project.org/browse/QTBUG-22269.
-        Accumulate wheel events that are within a period of 25ms into a single
-        event.  Changes in buttons or modifiers, while a scroll is going on,
-        are not handled, since they seem to be too much of a corner case to be
-        worth handling.
+        Trackpads report a stream of small angle deltas rather than whole
+        notches (https://bugreports.qt-project.org/browse/QTBUG-22269), so
+        accumulate them and emit one VTK wheel event per accumulated notch.
         """
-        if hasattr(ev, 'delta'):
-            self.__wheelDelta += ev.delta()
-            self._saved_wheel_event_info = (
-                ev.pos(),
-                ev.globalPos(),
-                self.__wheelDelta,
-                ev.buttons(),
-                ev.modifiers(),
-                ev.orientation()
-            )
-        else:
-            self.__wheelDelta += ev.angleDelta().y()
-            if self.__wheelDelta >= 60:
-                self._Iren.MouseWheelForwardEvent()
-                self.__wheelDelta = 0
-            elif self.__wheelDelta <= -60:
-                self._Iren.MouseWheelBackwardEvent()
-                self.__wheelDelta = 0
-
-        if self.wheel_timer and not self.wheel_timer.isActive():
-            ev.setAccepted(True)
-            self.wheel_timer.start()
-
-    def _emit_wheel_event(self):
-        ev = QWheelEvent(*self._saved_wheel_event_info)
-        if ev.delta() >= 0:
+        self.__wheelDelta += ev.angleDelta().y()
+        if self.__wheelDelta >= 60:
             self._Iren.MouseWheelForwardEvent()
-        else:
+            self.__wheelDelta = 0
+        elif self.__wheelDelta <= -60:
             self._Iren.MouseWheelBackwardEvent()
-        self.wheel_timer.stop()
-        self.__wheelDelta = 0
+            self.__wheelDelta = 0
 
     def GetRenderWindow(self):
         return self._RenderWindow
@@ -722,11 +651,33 @@ def QVTKRenderWidgetConeExample():
     app.exec_()
 
 
+_keysyms_for_ascii = (
+    None, None, None, None, None, None, None, None,
+    None, "Tab", None, None, None, None, None, None,
+    None, None, None, None, None, None, None, None,
+    None, None, None, None, None, None, None, None,
+    "space", "exclam", "quotedbl", "numbersign",
+    "dollar", "percent", "ampersand", "quoteright",
+    "parenleft", "parenright", "asterisk", "plus",
+    "comma", "minus", "period", "slash",
+    "0", "1", "2", "3", "4", "5", "6", "7",
+    "8", "9", "colon", "semicolon", "less", "equal", "greater", "question",
+    "at", "A", "B", "C", "D", "E", "F", "G",
+    "H", "I", "J", "K", "L", "M", "N", "O",
+    "P", "Q", "R", "S", "T", "U", "V", "W",
+    "X", "Y", "Z", "bracketleft",
+    "backslash", "bracketright", "asciicircum", "underscore",
+    "quoteleft", "a", "b", "c", "d", "e", "f", "g",
+    "h", "i", "j", "k", "l", "m", "n", "o",
+    "p", "q", "r", "s", "t", "u", "v", "w",
+    "x", "y", "z", "braceleft", "bar", "braceright", "asciitilde", "Delete",
+    )
+
 _keysyms = {
     Key.Key_Backspace: 'BackSpace',
     Key.Key_Tab: 'Tab',
     Key.Key_Backtab: 'Tab',
-    # Key.Key_Clear : 'Clear',
+    Key.Key_Clear : 'Clear',
     Key.Key_Return: 'Return',
     Key.Key_Enter: 'Return',
     Key.Key_Shift: 'Shift_L',
@@ -736,14 +687,16 @@ _keysyms = {
     Key.Key_CapsLock: 'Caps_Lock',
     Key.Key_Escape: 'Escape',
     Key.Key_Space: 'space',
-    # Key.Key_Prior : 'Prior',
-    # Key.Key_Next : 'Next',
+    Key.Key_PageUp: 'Prior',
+    Key.Key_PageDown: 'Next',
     Key.Key_End: 'End',
     Key.Key_Home: 'Home',
     Key.Key_Left: 'Left',
     Key.Key_Up: 'Up',
     Key.Key_Right: 'Right',
     Key.Key_Down: 'Down',
+    Key.Key_Select: 'Select',
+    Key.Key_Execute: 'Execute',
     Key.Key_SysReq: 'Snapshot',
     Key.Key_Insert: 'Insert',
     Key.Key_Delete: 'Delete',
@@ -786,6 +739,7 @@ _keysyms = {
     Key.Key_Z: 'z',
     Key.Key_Asterisk: 'asterisk',
     Key.Key_Plus: 'plus',
+    Key.Key_Bar: 'bar',
     Key.Key_Minus: 'minus',
     Key.Key_Period: 'period',
     Key.Key_Slash: 'slash',
@@ -816,19 +770,6 @@ _keysyms = {
     Key.Key_NumLock: 'Num_Lock',
     Key.Key_ScrollLock: 'Scroll_Lock',
     }
-
-
-def _qt_key_to_key_sym(key):
-    """ Convert a Qt key into a vtk keysym.
-
-    This is essentially copied from the c++ implementation in
-    GUISupport/Qt/QVTKInteractorAdapter.cxx.
-    """
-
-    if key not in _keysyms:
-        return 'None'
-
-    return _keysyms[key]
 
 
 if __name__ == "__main__":

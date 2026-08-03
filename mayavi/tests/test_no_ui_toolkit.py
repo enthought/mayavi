@@ -30,20 +30,20 @@ class TestNoUIToolkit(unittest.TestCase):
 
         # Remove any references to wx and Qt
         saved = {}
-        for mod in ['wx', 'PyQt4', 'PySide']:
+        for mod in ['wx', 'PyQt5', 'PySide2', 'PyQt6', 'PySide6']:
             saved[mod] = sys.modules.pop(mod, None)
         self.saved = saved
 
     def tearDown(self):
         ETSConfig._toolkit = self.orig_tk
         # Add back any any references to wx and Qt
-        for mod in ['wx', 'PyQt4', 'PySide']:
+        for mod in ['wx', 'PyQt5', 'PySide2', 'PyQt6', 'PySide6']:
             m = self.saved[mod]
             if m is not None:
                 sys.modules[mod] = m
 
     def test_no_ui(self):
-        """Test if mayavi imports work without any UI (wx or PyQt4)."""
+        """Test if mayavi imports work without any UI (wx or Qt)."""
         # These imports should work without any UI.
         from mayavi import mlab
         from mayavi.api import Engine
@@ -52,10 +52,9 @@ class TestNoUIToolkit(unittest.TestCase):
         from mayavi.modules.api import Outline
         from mayavi.preferences.api import preference_manager
 
-        # Should not have triggered an import wx or PyQt4.
-        self.assertEqual('wx' in sys.modules, False)
-        self.assertEqual('PyQt4' in sys.modules, False)
-        self.assertEqual('PySide' in sys.modules, False)
+        # Should not have triggered an import of wx or any Qt binding.
+        for mod in ['wx', 'PyQt5', 'PySide2', 'PyQt6', 'PySide6']:
+            self.assertEqual(mod in sys.modules, False, mod)
 
 
 if __name__ == '__main__':
