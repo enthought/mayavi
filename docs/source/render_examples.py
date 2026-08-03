@@ -302,19 +302,15 @@ def capture_dialog(filename, image_file):
                 with tempfile.NamedTemporaryFile(suffix='.png') as rendered:
                     rw = widget._RenderWindow
                     to_image = tvtk.WindowToImageFilter(
-                        input=rw, read_front_buffer=False)
+                        input=rw, read_front_buffer=True)
                     writer = tvtk.PNGWriter(file_name=rendered.name)
                     writer.set_input_data(to_image.output)
-                    # as in TVTKScene: what a swap leaves in the back buffer is
-                    # undefined, so do not let one happen while it is read
-                    swap_buffers = rw.GetSwapBuffers()
-                    rw.SwapBuffersOff()
-                    try:
-                        rw.Render()
-                        to_image.update()
-                        writer.write()
-                    finally:
-                        rw.SetSwapBuffers(swap_buffers)
+                    # as in TVTKScene: the front buffer is the one VTK resolves
+                    # the multisamples into properly, and the swap is what
+                    # fills it, so it has to be left alone
+                    rw.Render()
+                    to_image.update()
+                    writer.write()
                     painter.drawImage(
                         QtCore.QRect(widget.mapTo(dialog, QtCore.QPoint(0, 0)),
                                      widget.size()),
@@ -423,19 +419,15 @@ def capture_wx_dialog(filename, image_file):
                 size = control.GetSize()
                 with tempfile.NamedTemporaryFile(suffix='.png') as rendered:
                     to_image = tvtk.WindowToImageFilter(
-                        input=render_window, read_front_buffer=False)
+                        input=render_window, read_front_buffer=True)
                     writer = tvtk.PNGWriter(file_name=rendered.name)
                     writer.set_input_data(to_image.output)
-                    # as in TVTKScene: what a swap leaves in the back buffer is
-                    # undefined, so do not let one happen while it is read
-                    swap_buffers = render_window.GetSwapBuffers()
-                    render_window.SwapBuffersOff()
-                    try:
-                        render_window.Render()
-                        to_image.update()
-                        writer.write()
-                    finally:
-                        render_window.SetSwapBuffers(swap_buffers)
+                    # as in TVTKScene: the front buffer is the one VTK resolves
+                    # the multisamples into properly, and the swap is what
+                    # fills it, so it has to be left alone
+                    render_window.Render()
+                    to_image.update()
+                    writer.write()
                     image = wx.Image(rendered.name)
                     if (image.GetWidth(), image.GetHeight()) != tuple(size):
                         # the render window is in pixels, the widget in points

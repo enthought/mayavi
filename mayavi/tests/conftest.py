@@ -38,8 +38,7 @@ def pytest_configure(config):
             config.addinivalue_line('filterwarnings', line)
 
 
-@pytest.fixture(autouse=True)
-def no_modal_dialogs(monkeypatch):
+def fail_instead_of_dialogs(set_attr=setattr):
     """Keep mayavi's error reporting from blocking (or hiding) a test run.
 
     A failure inside a pipeline update -- including a warning raised as an
@@ -47,12 +46,21 @@ def no_modal_dialogs(monkeypatch):
     box, so on a headed toolkit the run stops until someone clicks OK and the
     test then passes regardless.  Re-raise instead, and route the genuinely
     user-facing messages to the log only.
+
+    `set_attr` is the hook the fixture below uses to get its changes undone
+    again; the integration scripts, which are whole processes of their own,
+    take the default and keep them.
     """
     from mayavi.core import common
-    monkeypatch.setattr(common, 'reraise_exceptions', True)
+    set_attr(common, 'reraise_exceptions', True)
     if common.pyface is not None:
         for name in ('error', 'warning', 'information'):
-            monkeypatch.setattr(
-                common.pyface, name,
-                lambda parent, msg, *args, _name=name, **kwargs:
-                    common.logger.info('pyface.%s: %s', _name, msg))
+            set_attr(common.pyface, name,
+                     lambda parent, msg, *args, _name=name, **kwargs:
+                         common.logger.info('pyface.%s: %s', _name, msg))
+
+
+@pytest.fixture(autouse=True)
+def no_modal_dialogs(monkeypatch):
+    """Apply `fail_instead_of_dialogs` for the duration of each test."""
+    fail_instead_of_dialogs(monkeypatch.setattr)
