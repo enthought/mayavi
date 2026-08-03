@@ -44,6 +44,13 @@ from .QVTKRenderWindowInteractor import (
     KeyboardModifier,
 )
 
+# Bounds on the two geometry-settling loops in Scene, below.  Both are
+# expected to finish on the first pass; the counts only keep a widget that
+# never settles (a hidden parent, a layout that fights back) from hanging the
+# caller, which a bare `while` would.
+_MAX_REALIZE_PASSES = 10
+_MAX_RESIZE_PASSES = 3
+
 
 ######################################################################
 # `_VTKRenderWindowInteractor` class.
@@ -384,7 +391,7 @@ class Scene(TVTKScene, Widget):
         just bakes them in).  This pumps the event loop only in that
         never-shown state, so steady-state calls stay purely synchronous.
         """
-        for _ in range(10):
+        for _ in range(_MAX_REALIZE_PASSES):
             if self._vtk_control.isVisible():
                 break
             GUI.process_events()
@@ -417,10 +424,11 @@ class Scene(TVTKScene, Widget):
             # decoration/toolbar delta, so this converges in one or two.
             self._realize()
             self._activate_layouts()
-            for _ in range(3):
+            for _ in range(_MAX_RESIZE_PASSES):
+                # either can be negative: the widget can overshoot as well
                 err_w = size[0] - ctrl.width()
                 err_h = size[1] - ctrl.height()
-                if not (err_w or err_h):
+                if err_w == 0 and err_h == 0:
                     break
                 top.resize(top.width() + err_w, top.height() + err_h)
                 self._activate_layouts()

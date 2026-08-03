@@ -31,7 +31,9 @@ def png_size(fname):
 
 
 d = tempfile.mkdtemp()
-mlab.figure()
+# explicit, since both cases below are relative to it: (100, 80) is smaller
+# than the window and (1200, 900) larger, exercising the magnification path
+mlab.figure(size=(400, 350))
 sizes = []
 for n in range(3):
     mlab.test_contour3d()
