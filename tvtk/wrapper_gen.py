@@ -1367,6 +1367,18 @@ class WrapperGenerator:
         map_str = ''
         if mapped:
             map_str = '_'
+            # For a mapped trait the VTK write must hang off the *shadow*
+            # trait (``name_``): assigning ``name`` first runs post_setattr,
+            # which sets the shadow and dispatches its notifications --
+            # static handlers, then dynamic listeners -- before ``name``'s
+            # own notifications ever run.  With the handler on ``name``, a
+            # dynamic shadow listener (e.g. mayavi's render hook) can
+            # therefore run while the VTK object still holds the old value;
+            # if that render pulls a Modified event through messenger,
+            # update_traits() reads the stale value back and silently
+            # reverts the assignment.  A static handler on the shadow runs
+            # before any dynamic listener, closing the window.
+            changed = '_%s__changed'%t_name
         force_str = ''
         if force_update is not None:
             force_str = ', %s'%force_update
