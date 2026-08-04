@@ -124,8 +124,27 @@ jobs:
           echo "extra=[app]" | tee -a $GITHUB_OUTPUT
         fi
     - run: python -m pip install --no-build-isolation --group test -ve .${{ steps.install.outputs.extra }}
-    - run: pytest -v --timeout=10 mayavi
-    - run: pytest -sv --timeout=60 tvtk
+    # `coverage run` rather than pytest-cov: there are two suites per job plus
+    # the subprocesses they spawn, and pytest-cov combines at the end of each
+    # run, which would consume the children's data before the explicit combine
+    # below can see all of it.  `parallel = true` keeps the runs from clobbering
+    # one another.
+    - run: coverage run -m pytest -v --timeout=10 mayavi
+    - run: coverage run -m pytest -sv --timeout=60 tvtk
+    - name: Combine coverage
+      if: '!cancelled()'
+      run: |
+        coverage combine
+        coverage xml
+        coverage report --show-missing --skip-covered
+    - uses: codecov/codecov-action@v7.0.0
+      if: '!cancelled()'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: coverage.xml
+        # informational only, and the token is not registered yet -- a failed
+        # upload must not fail the job
+        fail_ci_if_error: false
 
   # A job of its own rather than a step on a `tests` row.  Each of these stands
   # the Mayavi2 application up in a subprocess, so they want a display and the
@@ -168,8 +187,21 @@ jobs:
     - run: python -m pip install --group test pyside6 -ve ".[app]"
     - run: python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
     # the wrapper sets its own per-script subprocess timeout; pytest's is the
-    # backstop behind it
-    - run: pytest -v --timeout=360 integrationtests
+    # backstop behind it.  Every case here *is* a subprocess, so this job only
+    # reports anything at all because of `patch = ["subprocess"]`.
+    - run: coverage run -m pytest -v --timeout=360 integrationtests
+    - name: Combine coverage
+      if: '!cancelled()'
+      run: |
+        coverage combine
+        coverage xml
+        coverage report --show-missing --skip-covered
+    - uses: codecov/codecov-action@v7.0.0
+      if: '!cancelled()'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: coverage.xml
+        fail_ci_if_error: false
 
   # Scheduled runs have no associated PR where a failure would be noticed, so
   # open an issue (if there isn't one already) when they break

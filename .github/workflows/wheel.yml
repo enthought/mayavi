@@ -53,9 +53,10 @@ jobs:
 
   test:
     # Each OS tests its own wheel.  Rows mirror tests.yml so failures are
-    # attributable to the VTK mismatch, not the environment.  No checkout:
-    # pytest --pyargs runs the installed wheel, which must ship everything
-    # the tests need.
+    # attributable to the VTK mismatch, not the environment.  pytest --pyargs
+    # runs the installed wheel, which must ship everything the tests need --
+    # so the checkout below goes in a subdirectory and nothing ever runs from
+    # a directory holding a `mayavi/`, which would shadow site-packages.
     name: Test wheel ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt-api }} ${{ matrix.vtk || 'vtk (latest)' }}
     needs: build
     strategy:
@@ -102,6 +103,14 @@ jobs:
       PYTHONUNBUFFERED: '1'
 
     steps:
+    # Only for the coverage config and for codecov to have a repo to attribute
+    # against; the tests still import the wheel, never this tree.  `path:` keeps
+    # `mayavi/` and `tvtk/` out of the workspace root, which is where the
+    # non-Windows rows run pytest from.
+    - uses: actions/checkout@v7.0.1
+      with:
+        persist-credentials: false
+        path: repo
     - uses: pyvista/setup-headless-display-action@v4
       with:
         qt: true
@@ -115,7 +124,7 @@ jobs:
     - name: Install dependencies and the wheel
       run: |
         python -m pip install --upgrade pip
-        python -m pip install --upgrade ${{ matrix.qt-api }} "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk || 'vtk' }}" pillow pytest pytest-timeout --only-binary="numpy,vtk"
+        python -m pip install --upgrade ${{ matrix.qt-api }} "${{ matrix.numpy || 'numpy' }}" "${{ matrix.vtk || 'vtk' }}" pillow pytest pytest-timeout "coverage[toml]>=7.10" --only-binary="numpy,vtk"
         python -m pip install dist/*.whl
     - name: Import smoke test
       run: |
@@ -131,10 +140,41 @@ jobs:
         else
           echo "PYTEST_DIR=$PWD" | tee -a $GITHUB_ENV
         fi
-    - run: pytest -v --timeout=10 --pyargs mayavi
+    # COVERAGE_RCFILE because none of these run from the checkout, so coverage
+    # would otherwise find no config at all and measure on defaults.  The
+    # [tool.coverage.paths] remap there is what turns the recorded
+    # site-packages paths back into repo-relative ones for codecov.
+    - run: coverage run -m pytest -v --timeout=10 --pyargs mayavi
       working-directory: ${{ env.PYTEST_DIR }}
-    - run: pytest -sv --timeout=60 --pyargs tvtk
+      env:
+        COVERAGE_RCFILE: ${{ github.workspace }}/repo/pyproject.toml
+    - run: coverage run -m pytest -sv --timeout=60 --pyargs tvtk
       working-directory: ${{ env.PYTEST_DIR }}
+      env:
+        COVERAGE_RCFILE: ${{ github.workspace }}/repo/pyproject.toml
+    # Combine from the checkout, not from where the data was written: the
+    # [tool.coverage.paths] entries that rewrite site-packages onto the source
+    # tree are relative, and a relative entry only resolves in a directory that
+    # actually has `mayavi/` and `tvtk/` in it.  Being in the checkout is also
+    # what makes `coverage xml` emit repo-relative filenames.
+    - name: Combine coverage
+      if: '!cancelled()'
+      working-directory: repo
+      run: |
+        coverage combine "${{ env.PYTEST_DIR }}"
+        coverage xml
+        coverage report --show-missing --skip-covered
+    - uses: codecov/codecov-action@v7.0.0
+      if: '!cancelled()'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ${{ github.workspace }}/repo/coverage.xml
+        # the action's git context comes from the checkout, which is not the
+        # default working directory here
+        root_dir: ${{ github.workspace }}/repo
+        # informational only, and the token is not registered yet -- a failed
+        # upload must not fail the job
+        fail_ci_if_error: false
 
   check:
     name: Check dists

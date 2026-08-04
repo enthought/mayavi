@@ -44,6 +44,13 @@ from .QVTKRenderWindowInteractor import (
     KeyboardModifier,
 )
 
+# Bounds on the two geometry-settling loops in Scene, below.  Both are
+# expected to finish on the first pass; the counts only keep a widget that
+# never settles (a hidden parent, a layout that fights back) from hanging the
+# caller, which a bare `while` would.
+_MAX_REALIZE_PASSES = 10
+_MAX_RESIZE_PASSES = 3
+
 
 ######################################################################
 # `_VTKRenderWindowInteractor` class.
@@ -358,15 +365,77 @@ class Scene(TVTKScene, Widget):
         if not self.disable_render:
             self._vtk_control.Render()
 
+    def _activate_layouts(self):
+        """Recompute the layouts between the scene widget and its window.
+
+        Qt only settles geometry when the posted LayoutRequest events are
+        delivered, and every layout in the chain has to be activated, not
+        just the window's.  Activating them directly is synchronous and,
+        unlike pumping the event loop, cannot run arbitrary queued events
+        from inside a save.  Adapted from mne-tools/mne-python#14087.
+        """
+        widget = self._vtk_control
+        processed = set()
+        while widget is not None and widget not in processed:
+            layout = widget.layout()
+            if layout is not None:
+                layout.activate()
+            processed.add(widget)
+            widget = widget.parentWidget()
+
+    def _realize(self):
+        """Flush a pending show so the widget geometry is meaningful.
+
+        Until the queued show/layout events have run once, the widget
+        chain reports pre-layout default sizes (and activating the layouts
+        just bakes them in).  This pumps the event loop only in that
+        never-shown state, so steady-state calls stay purely synchronous.
+        """
+        for _ in range(_MAX_REALIZE_PASSES):
+            if self._vtk_control.isVisible():
+                break
+            GUI.process_events()
+
     def get_size(self):
         """Return size of the render window."""
+        # A window whose posted show/layout events were never delivered
+        # reports its pre-layout default size, which among other things
+        # inflates savefig's auto magnification (enthought/mayavi#1288)
+        self._realize()
+        self._activate_layouts()
         sz = self._vtk_control.size()
 
         return (sz.width(), sz.height())
 
     def set_size(self, size):
         """Set the size of the window."""
-        self._vtk_control.resize(*size)
+        size = tuple(size)
+        ctrl = self._vtk_control
+        top = ctrl.window()
+        if ctrl is top:
+            ctrl.resize(*size)
+        else:
+            # Resizing the embedded widget itself is futile: the enclosing
+            # layout reasserts its geometry on the next pass, so the size
+            # held only briefly and a save right afterwards captured the
+            # framebuffer at the old size (enthought/mayavi#1288).  Resize
+            # the top-level window and nudge until the layout lands this
+            # widget at the requested size -- the first pass absorbs the
+            # decoration/toolbar delta, so this converges in one or two.
+            self._realize()
+            self._activate_layouts()
+            for _ in range(_MAX_RESIZE_PASSES):
+                # either can be negative: the widget can overshoot as well
+                err_w = size[0] - ctrl.width()
+                err_h = size[1] - ctrl.height()
+                if err_w == 0 and err_h == 0:
+                    break
+                top.resize(top.width() + err_w, top.height() + err_h)
+                self._activate_layouts()
+        # Resize events are deferred while the window has never been shown,
+        # so mirror the final size onto the VTK side as the base class does.
+        sz = ctrl.size()
+        super().set_size((sz.width(), sz.height()))
 
     def hide_cursor(self):
         """Hide the cursor."""
