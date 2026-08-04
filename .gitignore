@@ -12,6 +12,7 @@ _configtest.*
 # write, before the parent run combines them
 .coverage
 .coverage.*
+coverage.xml
 
 # ignore the build directories
 *.egg-info/

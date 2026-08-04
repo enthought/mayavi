@@ -1,16 +1,26 @@
+comment: false
+github_checks:  # too noisy, even though "a" interactively disables them
+  annotations: false
+
 codecov:
   notify:
-    require_ci_to_pass: yes
+    require_ci_to_pass: false
 
 coverage:
-  precision: 2
-  round: up
-  range: 40...100
-
   status:
-    project: 
-    
     patch:
-      only_pulls: yes
-
-comment : off
+      default:
+        informational: true
+        target: 95%
+        if_no_uploads: error
+        if_not_found: success
+        if_ci_failed: failure
+    project:
+      # mne-python splits this into a `library` flag; mayavi uploads a single
+      # unflagged report, so the status has to hang off `default` to apply
+      default:
+        informational: true
+        target: 90%
+        if_no_uploads: error
+        if_not_found: success
+        if_ci_failed: failure

@@ -57,6 +57,7 @@ app = [
 # have to be installed ahead of the package, and CI pins them per matrix row.
 [dependency-groups]
 test = [
+    "coverage[toml]>=7.10",  # 7.10 is where [run] patch arrived
     "pillow",         # integrationtests' texture and text3d cases read images
     "pytest",
     "pytest-timeout",
@@ -108,6 +109,63 @@ namespaces = true
 # Version is derived from git tags (e.g. "4.8.3"); at runtime mayavi/__init__.py
 # reads it from the installed package metadata (see below).
 [tool.setuptools_scm]
+
+# Coverage is informational (see codecov.yml); nothing here fails a build.
+# This replaced a .coveragerc, which quietly won over pyproject.toml -- so keep
+# the settings here and do not reintroduce one.
+[tool.coverage.run]
+branch = true
+# source_pkgs + relative_files, not `source`, so that the XML carries one empty
+# <source> and fully qualified names like `mayavi/api.py`.  With two `source`
+# directories the names come out relative to each (a bare `api.py`), and the ten
+# paths that exist under both packages -- __init__.py, api.py, version.py,
+# tools/mlab.py ... -- are then ambiguous for codecov to attribute.
+relative_files = true
+source_pkgs = ["mayavi", "tvtk"]
+omit = [
+    # generated at build time from the installed VTK.  The `*tvtk_classes*` this
+    # replaces never matched: coverage's `*` stops at a path separator, so a
+    # pattern with no `/` only ever matches a bare basename.
+    "*/tvtk_classes.zip/*",
+    "*/tvtk_classes/*",
+    "*/tests/*",
+    "setup.py",
+]
+# Nothing in the package or the suites uses threads or multiprocessing, so the
+# default `concurrency` is right -- but almost everything interesting happens in
+# a *subprocess*: the integration suite runs one Mayavi2 application per script,
+# and the off screen and toolkit tests each probe process-global state in a
+# fresh interpreter.  Measure those too and combine afterwards, or the code they
+# exercise reads as never imported.  `patch` supersedes the hand-rolled
+# COVERAGE_PROCESS_CONFIG plumbing in test_offscreen_rendering.py, which stays
+# because it also covers a run started without this config; process_startup() is
+# idempotent, so a child reached by both paths still starts coverage once.
+parallel = true          # required: several processes write concurrently
+patch = ["subprocess", "_exit"]  # fork/execv are not available on Windows
+
+# wheel.yml measures the *installed* package, so its data records absolute
+# site-packages paths (relative_files cannot relativize what is outside the
+# tree), which codecov has nothing in the repo to attribute to.  Map them back
+# onto the source tree; the first entry of each list is what combine keeps.
+# Being relative, those first entries only resolve if `coverage combine` runs
+# in a directory that has `mayavi/` and `tvtk/` -- hence the working-directory
+# on wheel.yml's combine step.
+[tool.coverage.paths]
+mayavi = ["mayavi", "*/site-packages/mayavi"]
+tvtk = ["tvtk", "*/site-packages/tvtk"]
+
+[tool.coverage.report]
+ignore_errors = true
+# `exclude_also` adds to coverage's defaults; the `exclude_lines` this grew out
+# of replaced them, which is why "pragma: no cover" had to be restated there
+exclude_also = [
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@overload",
+]
 
 [tool.pytest.ini_options]
 addopts = "--durations=20 -ra --tb=short"
