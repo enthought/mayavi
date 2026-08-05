@@ -253,7 +253,12 @@ commit**:
   what `MAX_VTK` is raised on the strength of.  Also runs weekly on a
   schedule, which is how VTK-dev breakage gets noticed; a scheduled failure
   opens an issue (the `issue-on-failure` job) since there is no PR to show it
-  on.
+  on.  The *install* step runs under `coverage run` too: the build is the only
+  place the code generator ever executes, so `tvtk/{code_gen,wrapper_gen,
+  special_gen}.py` are covered from there and nowhere else.  It works because
+  `patch = ["subprocess"]` follows pip into the build backend, which needs the
+  `--no-build-isolation` this job uses — the wheel and docs builds are isolated
+  and cannot be measured this way.
 - `.github/actions/open-issue` — composite action behind both
   `issue-on-failure` jobs: files an issue unless one with the same title is
   already open, appending the run URL.  Callers need an `actions/checkout`

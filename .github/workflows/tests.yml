@@ -102,8 +102,10 @@ jobs:
       id: install
       run: |
         # setuptools_scm is a build requirement, and we install below with
-        # --no-build-isolation, so it must be present in the environment
-        python -m pip install --upgrade pip setuptools setuptools_scm wheel
+        # --no-build-isolation, so it must be present in the environment.
+        # coverage comes from the `test` group too, but the install that brings
+        # the group in is itself run under `coverage run`, so it has to precede
+        python -m pip install --upgrade pip setuptools setuptools_scm wheel "coverage[toml]>=7.10"
         if [[ "${{ matrix.vtk }}" == "vtk-dev" ]]; then
           # Dev wheels get their own pip calls so that --pre and the nightly
           # indexes apply only to the package they belong to
@@ -123,7 +125,12 @@ jobs:
         if [[ "${{ matrix.headless }}" != "true" ]]; then
           echo "extra=[app]" | tee -a $GITHUB_OUTPUT
         fi
-    - run: python -m pip install --no-build-isolation --group test -ve .${{ steps.install.outputs.extra }}
+    # under coverage because the build is the only place the code generator
+    # ever runs: `patch = ["subprocess"]` reaches through pip into the build
+    # backend, which takes tvtk/wrapper_gen.py from 10% to 92%.  It costs ~4%
+    # on the build (7.5s -> 7.8s locally) and needs --no-build-isolation, which
+    # this install has and the wheel and docs builds do not.
+    - run: coverage run -m pip install --no-build-isolation --group test -ve .${{ steps.install.outputs.extra }}
     # `coverage run` rather than pytest-cov: there are two suites per job plus
     # the subprocesses they spawn, and pytest-cov combines at the end of each
     # run, which would consume the children's data before the explicit combine
