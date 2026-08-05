@@ -462,42 +462,45 @@ class GradientTable:
     def load(self, file_name):
         """Load control point set from file FileName and recalculate gradient
         table."""
-        file = open( file_name, "r" )
-        version_tag = file.readline()
-        version = float(version_tag.split()[1])+1e-5
-        if ( version >= 1.1 ):
-            # read in the scaling function and the scaling function parameter
-            function_line_split = file.readline().split()
-            parameter_line = file.readline()
-            if ( len(function_line_split)==2 ):
-                self.scaling_function_string = function_line_split[1]
+        # a `with` block, not a close() at the end: a malformed file raises
+        # out of the middle of the loop below
+        with open( file_name, "r" ) as file:
+            version_tag = file.readline()
+            version = float(version_tag.split()[1])+1e-5
+            if ( version >= 1.1 ):
+                # read in the scaling function and the scaling function
+                # parameter
+                function_line_split = file.readline().split()
+                parameter_line = file.readline()
+                if ( len(function_line_split)==2 ):
+                    self.scaling_function_string = function_line_split[1]
+                else:
+                    self.scaling_function_string = ""
+                self.scaling_function_parameter = \
+                    float(parameter_line.split()[1])
             else:
                 self.scaling_function_string = ""
-            self.scaling_function_parameter = float(parameter_line.split()[1])
-        else:
-            self.scaling_function_string = ""
-            self.scaling_function_parameter = 0.5
-        file.readline()
-        new_control_points = []
-        while True:
-            cur_line = file.readline()
-            if len(cur_line) == 0:
-                # readline is supposed to return an empty string at EOF
-                break
-            args = cur_line.split()
-            if ( len(args) < 7 ):
-                msg = "gradient file format broken at line:\n"
-                msg += cur_line
-                raise ValueError(msg)
-            new_point = ColorControlPoint(active_channels="")
-            new_point.set_pos( float( args[0] ) )
-            new_point.fixed = "True" == args[1] #bool( args[1] )
-            new_point.active_channels = args[2]
-            (h,s,v,a) = ( float(args[3]), float(args[4]),
-                          float(args[5]), float(args[6]) )
-            new_point.color.set_hsva(h,s,v,a)
-            new_control_points.append(new_point)
-        file.close()
+                self.scaling_function_parameter = 0.5
+            file.readline()
+            new_control_points = []
+            while True:
+                cur_line = file.readline()
+                if len(cur_line) == 0:
+                    # readline is supposed to return an empty string at EOF
+                    break
+                args = cur_line.split()
+                if ( len(args) < 7 ):
+                    msg = "gradient file format broken at line:\n"
+                    msg += cur_line
+                    raise ValueError(msg)
+                new_point = ColorControlPoint(active_channels="")
+                new_point.set_pos( float( args[0] ) )
+                new_point.fixed = "True" == args[1] #bool( args[1] )
+                new_point.active_channels = args[2]
+                (h,s,v,a) = ( float(args[3]), float(args[4]),
+                              float(args[5]), float(args[6]) )
+                new_point.color.set_hsva(h,s,v,a)
+                new_control_points.append(new_point)
         self.control_points = new_control_points
         self.sort_control_points()
         #self.scaling_parameters_changed()

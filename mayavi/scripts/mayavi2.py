@@ -408,7 +408,9 @@ def run_script(mayavi, script_name):
     try:
         # If we don't pass globals twice we get NameErrors and nope,
         # using exec open(script_name).read() does not fix it.
-        exec(compile(open(script_name).read(), script_name, 'exec'), g, g)
+        with open(script_name) as fh:
+            source = fh.read()
+        exec(compile(source, script_name, 'exec'), g, g)
     except Exception as msg:
         exception(str(msg))
         error = True
