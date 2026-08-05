@@ -292,6 +292,13 @@ TraitsUI built -- calling ``dispose()`` here instead schedules a second
 ``Destroy`` through ``wx.CallAfter``, and popping over widgets of your
 own removes handlers wx installed for itself.  Both crash on close.
 
+Pass the container the panel is going into as ``parent``, not the frame
+around it: a widget handed to a Qt layout is reparented for you, while wx
+expects it to be a child of the container already.  Putting a Mayavi view
+in a notebook page therefore means ``parent=self.notebook`` -- with the
+frame as parent the page can come out mis-drawn, and recent wxWidgets
+assert on it outright rather than reparenting quietly as older ones did.
+
 Two examples of integrating Mayavi visualization with Wx applications are
 given:
 

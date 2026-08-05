@@ -70,9 +70,11 @@ class MainWindow(wx.Frame):
         self.mayavi_view = MayaviView()
 
         # The edit_traits method opens a first view of our 'MayaviView'
-        # object
+        # object.  A notebook page has to be a child of the notebook itself,
+        # not of the frame -- unlike a Qt layout, wx containers do not adopt
+        # what you put in them.
         self.control = self.mayavi_view.edit_traits(
-                        parent=self,
+                        parent=self.notebook,
                         kind='subpanel').control
         self.notebook.AddPage(page=self.control, caption='Display 1')
 
@@ -80,7 +82,7 @@ class MainWindow(wx.Frame):
 
         # The second call to edit_traits opens a second view
         self.control2 = self.mayavi_view2.edit_traits(
-                        parent=self,
+                        parent=self.notebook,
                         kind='subpanel').control
         self.notebook.AddPage(page=self.control2, caption='Display 2')
 
