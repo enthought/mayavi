@@ -2,6 +2,9 @@
 # Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
+import pytest
+from traits.api import pop_exception_handler, push_exception_handler
+
 # One filter per line, "#" comments allowed.
 WARNING_LINES = r"""
 error::
@@ -23,3 +26,16 @@ def pytest_configure(config):
         line = line.strip()
         if line and not line.startswith('#') and line not in existing:
             config.addinivalue_line('filterwarnings', line)
+
+
+@pytest.fixture(autouse=True, scope='session')
+def reraise_notification_exceptions():
+    """Let an exception inside a traits notification reach the test.
+
+    A copy of the mayavi suite's fixture, which tvtk cannot import from: it
+    is the layer below.  Without it, running this suite on its own swallows
+    what running it after mayavi's would raise.
+    """
+    push_exception_handler(reraise_exceptions=True)
+    yield
+    pop_exception_handler()
