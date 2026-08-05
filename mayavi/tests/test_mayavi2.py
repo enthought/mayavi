@@ -2,6 +2,7 @@
 # Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
+import importlib.util
 import os
 import shutil
 import sys
@@ -12,10 +13,12 @@ from unittest.mock import patch
 from mayavi.core.null_engine import NullEngine
 from mayavi.tests.common import get_example_data
 
-try:
-    from mayavi.plugins.script import Script
-except ImportError:  # the `app` extra is not installed
-    Script = None
+# what mayavi.scripts.mayavi2 imports, at one remove: the module reaches
+# mayavi.plugins.app, which reaches envisage.api, which imports pkg_resources
+# itself -- and setuptools 82 removed that.  find_spec rather than an import,
+# so that probing costs nothing and raises no warning of its own
+HAVE_APP = all(importlib.util.find_spec(name) is not None
+               for name in ('envisage', 'pkg_resources'))
 
 
 def import_mayavi2(argv=()):
@@ -34,6 +37,7 @@ class StubApp:
     """Stand-in for MayaviApp: process_cmd_line only wants `script`."""
 
     def __init__(self):
+        from mayavi.plugins.script import Script  # only when HAVE_APP
         engine = NullEngine()
         engine.start()
         self.script = Script(engine=engine)
@@ -57,7 +61,7 @@ def unbind_from_main(test):
     test.addCleanup(restore)
 
 
-@unittest.skipIf(Script is None, "requires the app extra")
+@unittest.skipUnless(HAVE_APP, "requires the app extra")
 class TestParseCmdLine(unittest.TestCase):
     def setUp(self):
         self.mayavi2 = import_mayavi2()
@@ -90,7 +94,7 @@ class TestParseCmdLine(unittest.TestCase):
             self.assertIn(option, usage)
 
 
-@unittest.skipIf(Script is None, "requires the app extra")
+@unittest.skipUnless(HAVE_APP, "requires the app extra")
 class TestImportTimeOptions(unittest.TestCase):
     """-h, -V and -o are acted on while the module is being imported."""
 
@@ -109,7 +113,7 @@ class TestImportTimeOptions(unittest.TestCase):
         self.assertFalse(import_mayavi2(['-d', 'foo.vtk']).OFFSCREEN)
 
 
-@unittest.skipIf(Script is None, "requires the app extra")
+@unittest.skipUnless(HAVE_APP, "requires the app extra")
 class TestProcessCmdLine(unittest.TestCase):
     def setUp(self):
         self.mayavi2 = import_mayavi2()
@@ -178,7 +182,7 @@ class TestProcessCmdLine(unittest.TestCase):
         self.assertEqual(len(self.engine.scenes), 1)
 
 
-@unittest.skipIf(Script is None, "requires the app extra")
+@unittest.skipUnless(HAVE_APP, "requires the app extra")
 class TestRunScript(unittest.TestCase):
     def setUp(self):
         self.mayavi2 = import_mayavi2()
