@@ -1,0 +1,10 @@
+# The ETS packages mayavi depends on, from their development branches rather
+# than PyPI.  Used by the action beside this file, and usable on its own to
+# reproduce one of those CI rows locally:
+#
+#     pip install -r .github/actions/install-ets-main/requirements.txt
+#
+traits @ git+https://github.com/enthought/traits@main
+pyface @ git+https://github.com/enthought/pyface@main
+traitsui @ git+https://github.com/enthought/traitsui@main
+envisage @ git+https://github.com/enthought/envisage@main

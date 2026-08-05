@@ -254,6 +254,24 @@ commit**:
   schedule, which is how VTK-dev breakage gets noticed; a scheduled failure
   opens an issue (the `issue-on-failure` job) since there is no PR to show it
   on.
+- `.github/actions/install-ets-main` — composite action behind the `ets: main`
+  row of `tests.yml` and the second `integration` job: swaps traits, pyface,
+  traitsui and envisage for their `main` branches, from the `requirements.txt`
+  beside it (which also reproduces the row locally).  Deliberately *not* folded
+  into the `vtk-dev` row, whose greenness is what `MAX_VTK` gets raised on and
+  so has to stay attributable to VTK alone; it runs on the latest released VTK
+  instead.  Two traps, both of which the action guards:
+  - None of the four carries a dev version on `main` — each reports its last
+    *release* — so `pip install --upgrade` finds the requirement already
+    satisfied and silently leaves PyPI's copy in place.  Hence the `pip
+    uninstall` first, and `assert_from_main.py` after, which reads each
+    distribution's `direct_url.json`: nothing else distinguishes a real `main`
+    install from a fall back to PyPI, and the row would be green either way.
+    The package list lives only in `requirements.txt` — `pip uninstall` takes
+    it with `-r` and the script parses it — so the three uses cannot drift.
+  - It runs *after* the package install so nothing can undo it, which is why
+    `pip check` stands in for the floor checking that installing first would
+    have got from the resolver.
 - `.github/actions/open-issue` — composite action behind both
   `issue-on-failure` jobs: files an issue unless one with the same title is
   already open, appending the run URL.  Callers need an `actions/checkout`
