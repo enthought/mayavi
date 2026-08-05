@@ -949,7 +949,15 @@ class TestTVTKModule(unittest.TestCase):
             try:
                 tvtk_klass()
             # TypeError: super(type, obj): obj must be an instance or subtype of type
-            except (TraitError, KeyError, TypeError):
+            except (TraitError, KeyError, TypeError, AttributeError) as exception:
+                if (isinstance(exception, AttributeError)
+                        and tvtk_base.vtk_version_mismatch()):
+                    # a trait whose VTK setter does not exist in the (older)
+                    # runtime VTK, reached from update_traits by the getter
+                    # that does -- the getter side of the same drift is
+                    # tolerated in test_all_traits_are_gettable below
+                    # (see tvtk/WORKAROUNDS.md)
+                    continue
                 errors.append(f"\n{name}:\n{indent(traceback.format_exc(), '  ')}")
         if on_gha:
             print("\n::endgroup::")

@@ -208,9 +208,9 @@ Two *forward* adaptations live here (see Policy — do not cull them):
 
 Only for VTK bugs that cannot be worked around without losing
 functionality or for expected degradation when running version-mismatched
-(getters/properties backed by API the older runtime lacks).  Keep skips
-keyed on `vtk_version` / `vtk_version_mismatch()` and commented.  Current
-cases:
+(getters, setters or properties backed by API the older runtime lacks).
+Keep skips keyed on `vtk_version` / `vtk_version_mismatch()` and commented.
+Current cases:
 
 - `tvtk/tests/test_tvtk.py`: `test_xopengl_render_window`, plus the
   `windowed_bases` exclusion in the all-classes instantiation test —
@@ -219,6 +219,16 @@ cases:
   as plain properties, which VTK 9.7 introduced by giving `SphereWidget2` an
   object-valued `SetRepresentation` alongside an unrelated
   `GetRepresentationMinValue`/`MaxValue`.
+- `tvtk/tests/test_tvtk.py`, both directions of one-sided getter/setter
+  drift under `vtk_version_mismatch()`: `test_all_traits_are_gettable`
+  tolerates `AttributeError` from a *getter* the older runtime lacks, and
+  `test_all_instantiable` the same from a *setter*, which `update_traits`
+  reaches through the getter that does exist — `OpenGLES30PolyDataMapper2D`
+  on VTK 9.4 has `GetArrayName` but no `SetArrayName`.  Layer 4 does not
+  catch that one: it arrives from the trait's change handler as
+  `AttributeError`, not `TraitError`.  Both are visible at all only because
+  `tvtk/tests/conftest.py` reraises exceptions traits would otherwise
+  swallow inside a notification.
 - `mayavi/tests/test_streamline.py`: the whole `TestStreamline` case, which
   on VTK >= 9.5 segfaults inside VTK's array dispatch
   (`vtkDataArray::DeepCopy` -> `GetTuplesFromListWorker` on the
