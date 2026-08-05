@@ -48,6 +48,9 @@ app = [
     # envisage requires a bare "setuptools" so nothing holds it back.  The import
     # is gone from envisage main (enthought/envisage#548) but not from 7.0.4, so
     # drop this once a release carries the fix.
+    # TODO: drop this once the envisage floor can be raised past 7.0.4.  The
+    # tests.yml `ets: main` row already runs against a fixed envisage, so that
+    # row is where the pin becoming unnecessary will show up first.
     "setuptools<82",
 ]
 
