@@ -49,6 +49,16 @@ class MayaviView(HasTraits):
 import wx
 import wx.aui
 
+
+def pop_event_handlers(window):
+    """ Undo the event handlers TraitsUI pushed onto a window tree.
+    """
+    while window.GetEventHandler() is not window:
+        window.PopEventHandler(True)
+    for child in window.GetChildren():
+        pop_event_handlers(child)
+
+
 class MainWindow(wx.Frame):
 
     def __init__(self, parent, id):
@@ -78,7 +88,21 @@ class MainWindow(wx.Frame):
         sizer.Add(self.notebook,1, wx.EXPAND)
         self.SetSizer(sizer)
 
+        self.Bind(wx.EVT_CLOSE, self.on_close)
         self.Show(True)
+
+    def on_close(self, event):
+        # TraitsUI pushes wx event handlers onto each panel and its children and
+        # pops them only in ui.dispose(), which wx never gets to call on a frame
+        # that is simply closed; wx asserts on destroying a window that still
+        # has one.  Popping them by hand is enough -- disposing here instead
+        # schedules a second Destroy through wx.CallAfter, and the notebook then
+        # crashes walking pages that are already gone.
+        # only the TraitsUI panels: the notebook pushes handlers of its own,
+        # and popping those aborts the interpreter on close
+        pop_event_handlers(self.control)
+        pop_event_handlers(self.control2)
+        event.Skip()
 
 if __name__ == '__main__':
     app = wx.App(False)
