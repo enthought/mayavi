@@ -210,7 +210,3 @@ class Test_csv_py_files(Util):
 
     def test_webaccess(self):
         self.check('webaccess')
-
-
-if __name__ == '__main__':
-    unittest.main()

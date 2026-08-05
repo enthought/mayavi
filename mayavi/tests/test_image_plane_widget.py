@@ -159,6 +159,3 @@ class TestImagePlaneWidgetNewPipeline(unittest.TestCase):
             ipw = mlab.pipeline.image_plane_widget(idp)
         self.assertEqual(m.call_count, 0)
         self.assertEqual(numpy.allclose(ipw.ipw.center, (0.0, 3.0, 1.5)),True)
-
-if __name__ == '__main__':
-    unittest.main()

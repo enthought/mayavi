@@ -292,7 +292,3 @@ class TestArraySourceAttributes(unittest.TestCase):
             numpy.all(src.image_data.point_data.get_array('s3') == s2)
         )
         self.assertEqual(src.image_data.point_data.get_array('s2'), None)
-
-
-if __name__ == '__main__':
-    unittest.main()

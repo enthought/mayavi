@@ -457,7 +457,3 @@ class TestArrayHandler(unittest.TestCase):
 
         np = array_handler.vtk2array(arr)
         self.assertEqual(numpy.all(np == list(range(10))), True)
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -1,8 +1,6 @@
 """
 Testing the MlabSceneModel
 """
-import unittest
-
 import numpy as np
 
 from traits.api import HasTraits, Instance
@@ -38,6 +36,3 @@ class TestMlabSceneModel(TestMlabNullEngine):
         # Check that each figure got the module it should have
         self.assertEqual(plt.scene, test_object.scene1)
         self.assertEqual(pts.scene, test_object.scene2)
-
-if __name__ == '__main__':
-    unittest.main()

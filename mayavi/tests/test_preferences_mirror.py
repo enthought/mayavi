@@ -77,7 +77,3 @@ class ClassNameTest(unittest.TestCase):
         self.assertEqual(pref.show, mirror.show)
         # Reset preferences back to defaults.
         pref.trait_set(saved)
-
-if __name__ == '__main__':
-    unittest.main()
-

@@ -261,7 +261,3 @@ In practice, $N >= \frac{5}{P}\mathrm{ln}\left(\frac{1}{PU}\right)$
         correct = 'get_output(int) -> StructuredPoints\n'\
                   'get_output() -> StructuredPoints\n'
         self.assertEqual(ret, correct)
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -280,15 +280,14 @@ illustrating various features.  Tests are available in the
 Test suite
 ~~~~~~~~~~
 
-The basic test suites for tvtk and mayavi can be run using nose::
+The basic test suites for tvtk and mayavi can be run using pytest::
 
-  nosetests -v tvtk/tests
-  nosetests -v mayavi
+  pytest -v --timeout=10 mayavi
+  pytest -sv --timeout=60 tvtk
 
 The integration tests can be run as::
 
-  cd integrationtests/mayavi
-  python run.py
+  pytest -v --timeout=360 integrationtests
 
 
 Troubleshooting

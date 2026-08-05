@@ -18,7 +18,3 @@ class TestCustomize(unittest.TestCase):
                       'mayavi.core.base'):
             mod = customize._import_contrib(mname)
             self.assertEqual(mod.__name__, mname)
-
-
-if __name__ == '__main__':
-    unittest.main()

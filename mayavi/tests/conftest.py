@@ -3,12 +3,22 @@
 # License: BSD Style.
 
 import pytest
+from traits.api import pop_exception_handler, push_exception_handler
 
 # One filter per line, "#" comments allowed.
 WARNING_LINES = r"""
 error::
 # unsatisfiable until pyface.workbench moves -- see tvtk/WORKAROUNDS.md
 ignore:Workbench will be moved from pyface:PendingDeprecationWarning
+# envisage.api imports pkg_resources, which setuptools 81 deprecated and 82
+# removed -- hence the setuptools<82 pin on the `app` extra.  Gone from
+# envisage main (enthought/envisage#548), so drop this with that pin.  No
+# category on either: setuptools raised these as DeprecationWarning before 81
+# and as UserWarning after, and the wheel jobs see the older one
+ignore:pkg_resources is deprecated as an API
+# and importing it makes it scan the environment, so any namespace package
+# that happens to be installed alongside warns too
+ignore:Deprecated call to `pkg_resources.declare_namespace
 # should be fixed in traits
 ignore: module 'sre_.+' is deprecated:DeprecationWarning
 """
@@ -64,3 +74,19 @@ def fail_instead_of_dialogs(set_attr=setattr):
 def no_modal_dialogs(monkeypatch):
     """Apply `fail_instead_of_dialogs` for the duration of each test."""
     fail_instead_of_dialogs(monkeypatch.setattr)
+
+
+@pytest.fixture(autouse=True, scope='session')
+def reraise_notification_exceptions():
+    """Let an exception inside a traits notification reach the test.
+
+    Traits logs and swallows those, which leaves a test asserting against a
+    half-built pipeline -- so this belongs to the whole run, and is popped
+    again at the end of it.  It used to be pushed at import time by
+    test_mlab_integration.py and never popped, which meant every module
+    collected after that one silently inherited it and running a module on
+    its own behaved differently from running the suite.
+    """
+    push_exception_handler(reraise_exceptions=True)
+    yield
+    pop_exception_handler()

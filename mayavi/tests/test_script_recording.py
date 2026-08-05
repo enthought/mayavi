@@ -101,7 +101,3 @@ class TestScriptRecording(unittest.TestCase):
         self.assertEqual(tape.lines[-1], '#end')
         src.function = 'klein'
         self.assertEqual(tape.lines[-1], '#end')
-
-
-if __name__ == '__main__':
-    unittest.main()

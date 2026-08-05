@@ -208,7 +208,3 @@ class TestFileDataSourceTimestep(unittest.TestCase):
         self.assertEqual(len(r.file_list), 3)
         self.assertEqual(r2._max_timestep, 2)
         self.assertEqual(len(r2.file_list), 3)
-
-
-if __name__ == '__main__':
-    unittest.main()

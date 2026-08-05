@@ -8,18 +8,14 @@ This directory contains unit tests for mayavi.
 Running the tests
 =================
 
-The best way to run the tests in this directory is to do::
+Run them with pytest, from the root of a source checkout::
 
- $ ./runtests.py .
+ $ pytest -v --timeout=10 mayavi
 
-Try ``runtests.py --help`` to see all help options.
+which is what CI does.  A single file, or a single test, is::
 
-You may also run each test individually.  For example::
-
- $ python test_contour.py
-
-You can also use nosetests but nosetests runs everything in the same
-process often tripping up on valid tests.
+ $ pytest mayavi/tests/test_contour.py
+ $ pytest mayavi/tests/test_contour.py::TestContour::test_contour
 
 
 Debugging using on-screen rendering

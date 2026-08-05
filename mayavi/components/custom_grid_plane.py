@@ -13,6 +13,7 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.core.common import error
+from mayavi.components.grid_plane import _get_extent
 
 
 
@@ -155,7 +156,9 @@ class CustomGridPlane(Component):
     # Non-public methods.
     ######################################################################
     def _update_limits(self):
-        extents = self.plane.input.whole_extent
+        # not plane.input.whole_extent: data objects lost that in VTK 6, so
+        # every input raised AttributeError here
+        extents = _get_extent(self.inputs[0].get_output_dataset())
         self._x_low, self._x_high = extents[:2]
         self._y_low, self._y_high = extents[2:4]
         self._z_low, self._z_high = extents[4:]

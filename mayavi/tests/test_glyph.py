@@ -219,6 +219,3 @@ class TestGlyph(unittest.TestCase):
         sources1 = copy.deepcopy(sources)
         s.children[:] = sources1
         self.check()
-
-if __name__ == '__main__':
-    unittest.main()

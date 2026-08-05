@@ -330,7 +330,3 @@ class TestVTKParser(unittest.TestCase):
                     if callable(meth):
                         p.get_method_signature(meth)
         # print(time.clock() - t1, 'seconds')
-
-
-if __name__ == "__main__":
-    unittest.main()

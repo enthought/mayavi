@@ -148,6 +148,3 @@ class TestRegistry(unittest.TestCase):
         # Add back the poly data reader.
         registry.sources.insert(index, poly)
         registry.sources.remove(open_dummy)
-
-if __name__ == '__main__':
-    unittest.main()
