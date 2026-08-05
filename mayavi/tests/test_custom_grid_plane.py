@@ -5,7 +5,6 @@
 import unittest
 
 from mayavi import mlab
-from mayavi.components.custom_grid_plane import CustomGridPlane
 from .common import get_example_data
 from .test_engine_manager import patch_backend
 from .test_filters import patch_pyface, save_and_reload
@@ -45,15 +44,10 @@ class TestCustomGridPlane(unittest.TestCase):
     @patch_pyface()
     @patch_backend('test')
     def test_unsupported_dataset(self):
-        # driven directly rather than through mlab.pipeline: whether the
-        # TypeError reaches the caller or is swallowed by the pipeline depends
-        # on the traits exception handler, which other test modules push
-        src = mlab.pipeline.open(get_example_data('pyramid_ug.vtu'))
-        component = CustomGridPlane()
-        component.trait_setq(inputs=[src])
+        # reaches the caller out of the pipeline notification because the
+        # suite reraises those; see conftest.reraise_notification_exceptions
         with self.assertRaises(TypeError):
-            component.update_pipeline()
-        self.assertIsNone(component.plane)
+            self.grid_plane('pyramid_ug.vtu')
         mlab.clf()
 
     @patch_pyface()

@@ -12,7 +12,6 @@ from unittest.mock import patch
 import numpy as np
 from numpy.testing import assert_allclose
 from traits.testing.unittest_tools import UnittestTools
-from traits.api import push_exception_handler
 
 import vtk
 
@@ -22,9 +21,6 @@ from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
 from mayavi.core.registry import registry
 from mayavi.tests.common import get_example_data
-
-# XXX should probably be elsewhere
-push_exception_handler(reraise_exceptions=True)
 
 
 class TestMlabNullEngine(unittest.TestCase):
