@@ -3,8 +3,6 @@
 # License: BSD Style.
 
 # Standard library imports.
-import unittest
-
 # Local imports.
 from mayavi.tests.common import get_example_data
 
@@ -297,6 +295,3 @@ class TestSLCReader(DataReaderTestBase):
         # Test if the MayaVi2 visualization can be deep-copied.
 
         self.check_deepcopying(self.scene, self.bounds)
-
-if __name__ == '__main__':
-    unittest.main()

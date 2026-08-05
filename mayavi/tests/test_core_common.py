@@ -284,7 +284,3 @@ class TestNoUITimer(unittest.TestCase):
         a.timer.Start()
         self.assertEqual(a.count, 11)
         self.assertFalse(a.timer.IsRunning())
-
-
-if __name__ == '__main__':
-    unittest.main()

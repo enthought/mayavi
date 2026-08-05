@@ -80,6 +80,3 @@ class TestIPWMultipleScalars(unittest.TestCase):
         st = ipw.input.scalar_type_as_string
         self.assertEqual(scalars.data_type, 10)
         self.assertEqual(st, 'float')
-
-if __name__ == '__main__':
-    unittest.main()

@@ -153,7 +153,3 @@ class TestGradientTableFiles(unittest.TestCase):
                      "ScalingParameter: 0.5\nControlPoints:\n0.0 True hsva\n")
         with self.assertRaises(ValueError):
             self.table.load(path)
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -25,8 +25,3 @@ class TestVolumeWorksWithProbe(unittest.TestCase):
         self.assertEqual(
             np.allclose(vol.volume.center, (3.0, 3.0, 1.5)),True
         )
-
-
-
-if __name__ == '__main__':
-    unittest.main()

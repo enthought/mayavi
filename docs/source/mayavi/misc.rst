@@ -47,57 +47,32 @@ available.
 Tests for Mayavi
 -----------------
 
-You can easily run the Mayavi test suite using `mayavi2 -t` from the
-command line. Running tests is useful to find out if Mayavi works well on
-your particular system. Indeed, the systems can vary from one to another:
-in addition to the variety of existing operating systems, different
-versions of the libraries can be installed. The Mayavi developers do
-their best to support many different configuration, but you can help them
-by running the test suite and reporting any errors.
+Running the tests is useful to find out if Mayavi works well on your
+particular system. Indeed, the systems can vary from one to another: in
+addition to the variety of existing operating systems, different versions of
+the libraries can be installed. The Mayavi developers do their best to
+support many different configuration, but you can help them by running the
+test suite and reporting any errors.
 
-You can use `nose`_ to run the unit tests of both packages by doing the
-following from the root of the Mayavi source directory::
+The tests need `pytest`_ and are run from the root of a source checkout, one
+suite per package, exactly as continuous integration runs them::
 
-  $ nosetests
-  ----------------------------------------------------------------------
-  Ran 317 tests in 29.934s
+  $ pytest -v --timeout=10 mayavi
+  $ pytest -sv --timeout=60 tvtk
 
-  OK (SKIP=5)
+A single file or a single test works the usual way::
 
-From the mayavi source directory, to run tests only for mayavi package you can
-do::
+  $ pytest mayavi/tests/test_contour.py
+  $ pytest mayavi/tests/test_contour.py::TestContour::test_contour
 
-  $ nosetests mayavi/tests
-  ----------------------------------------------------------------------
-  Ran 231 tests in 14.066s
+In addition to these unit tests mayavi also has several integration tests,
+in the ``integrationtests`` directory of the source distribution::
 
-  OK (SKIP=4)
+  $ pytest -v --timeout=360 integrationtests
 
-From the mayavi source directory, to run tests only for tvtk package you can
-do::
-
-  $ nosetests tvtk/tests
-  ----------------------------------------------------------------------
-  Ran 87 tests in 9.080s
-
-  OK (SKIP=1)
-
-If you get an "ERROR" regarding the unavailability of coverage you may
-safely ignore it.  If for some reason nose is having difficulty running
-the tests, the tests may be found inside ``tvtk/tests`` and
-``mayavi/tests``.  You can run each of the ``test_*.py`` files
-in these directories manually, or change your current directory to these
-directories and run ``nosetests`` there.
-
-In addition to these unit tests mayavi also has several integration tests.
-These are in the ``integrationtests/mayavi`` directory of the source
-distribution.  You may run the tests there like so::
-
- $ ./run.py
-
-These tests are intrusive and will create several mayavi windows and
-also take a while to complete.  Some of them may fail on your machine
-for various reasons.
+These tests are intrusive: each one stands the Mayavi application up in a
+subprocess of its own, so they create several mayavi windows and take a while
+to complete.  Some of them may fail on your machine for various reasons.
 
 Helping out
 -----------
@@ -167,7 +142,7 @@ There is a `mayavi translation page`_ for mayavi (main) documentation.
 
 Detail is here: https://docs.transifex.com/getting-started-1/translators
 
-.. _nose: https://nose.readthedocs.org
+.. _pytest: https://docs.pytest.org
 .. _github: https://github.com/enthought/mayavi
 .. _issue tracker: https://github.com/enthought/mayavi/issues
 .. _pull request: https://help.github.com/articles/using-pull-requests

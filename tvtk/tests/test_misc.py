@@ -95,7 +95,3 @@ class TestMisc(unittest.TestCase):
         with suppress_vtk_warnings():
             self.assertEqual(obj.GetGlobalWarningDisplay(), 0)
         self.assertEqual(obj.GetGlobalWarningDisplay(), 1)
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -152,7 +152,3 @@ class TestUserDefined(unittest.TestCase):
         self.check()
         #from mayavi.tools.show import show
         #show()
-
-
-if __name__ == '__main__':
-    unittest.main()

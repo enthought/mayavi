@@ -436,8 +436,3 @@ class TestVerticalVectorsSource(unittest.TestCase):
         self.assertRaises(ValueError,
                     sources.line_source, x[0, 0], y[0, 0], z[0, 0], s[0, 0],
                     figure=None)
-
-
-
-if __name__ == '__main__':
-    unittest.main()

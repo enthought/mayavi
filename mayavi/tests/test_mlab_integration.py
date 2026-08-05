@@ -544,7 +544,3 @@ class TestMlabAnimate(TestMlabNullEngine):
         mm.animation_start.assert_called_once_with()
         self.assertEqual(mm.animation_step.call_count, 4)
         mm.animation_stop.assert_called_once_with()
-
-
-if __name__ == '__main__':
-    unittest.main()

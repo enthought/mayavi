@@ -80,6 +80,3 @@ class TestCutter(unittest.TestCase):
         e.add_source(r)
 
         self.check()
-
-if __name__ == '__main__':
-    unittest.main()

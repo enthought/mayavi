@@ -82,6 +82,3 @@ class TestDataSetHelper(unittest.TestCase):
         self.assertEqual(dsh.get_range(), (None, [0., 1.]))
         # XXX there is some wackiness here, no idea why this changes!
         self.assertEqual(dsh.get_range(), ('point_scalars', [0., 3.]))
-
-if __name__ == '__main__':
-    unittest.main()

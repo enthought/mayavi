@@ -69,7 +69,3 @@ class TestCTFUtil(unittest.TestCase):
         data = save_ctfs(self.vp)
         # check that both the data are identical.
         self.assertEqual(edata, data)
-
-
-if __name__ == '__main__':
-    unittest.main()

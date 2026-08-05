@@ -77,7 +77,3 @@ class TestCustomGridPlane(unittest.TestCase):
         self.assertEqual(module.__class__.__name__, 'CustomGridPlane')
         self.assertEqual(module.grid_plane.x_min, 3)
         mlab.clf()
-
-
-if __name__ == "__main__":
-    unittest.main()

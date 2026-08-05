@@ -140,24 +140,6 @@ following:
      Loads a previously saved Mayavi2 visualization file passed as the
      argument.
 
--t
---test
-
-     Runs the mayavi2 test suite and exits.  If run as such, this runs
-     both the TVTK and Mayavi2 unittests.  If any additional arguments
-     are passed they are passed along to the test runner.  So this may
-     be used to run other tests as well.  For example::
-
-        mayavi2 -t apptools.persistence
-
-     This will run just the tests inside the apptools.persistence
-     package.  You can also specify a directory with test files to run
-     with this, for example::
-
-        mayavi2 -t relative_path_to/integrationtests/mayavi
-
-     will run the integration tests from the mayavi sources.
-
 -v
 --verbose
 
@@ -417,14 +399,6 @@ def run_script(mayavi, script_name):
 
     return error
 
-
-# This runs the runtests script and sends any args to it.
-if ('-t' in sys.argv[1:]) or ('--test' in sys.argv[1:]):
-    from mayavi.tests import runtests
-    for arg in ('-t', '--test'):
-        if arg in sys.argv[1:]:
-            sys.argv.remove(arg)
-    runtests.main()
 
 # If the user just wants help messages.  Print them before importing
 # any of the big modules.

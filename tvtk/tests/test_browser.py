@@ -179,7 +179,3 @@ class TestPipelineBrowser(unittest.TestCase):
 
         # Then
         self.assertTrue(self.count > 0)
-
-
-if __name__ == '__main__':
-    unittest.main()

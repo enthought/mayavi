@@ -205,7 +205,3 @@ class TestRunScript(unittest.TestCase):
         # one place where the swallowing itself is under test
         with patch('mayavi.core.common.reraise_exceptions', False):
             self.assertTrue(self.mayavi2.run_script(self.app.script, path))
-
-
-if __name__ == "__main__":
-    unittest.main()

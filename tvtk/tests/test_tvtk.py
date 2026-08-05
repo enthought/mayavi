@@ -1111,7 +1111,3 @@ class TestTVTKModule(unittest.TestCase):
         output = output.decode('ascii')
         self.assertFalse('QtCore' in output)
         self.assertFalse('wx' in output)
-
-
-if __name__ == "__main__":
-    unittest.main()

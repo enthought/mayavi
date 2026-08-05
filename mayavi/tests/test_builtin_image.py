@@ -119,7 +119,3 @@ class TestBuiltinImageSource(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-
-
-if __name__ == '__main__':
-    unittest.main()

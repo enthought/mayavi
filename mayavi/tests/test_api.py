@@ -33,7 +33,3 @@ class TestApiModules(unittest.TestCase):
         from mayavi.core.api import Engine, NullEngine, OffScreenEngine
         self.assertTrue(issubclass(NullEngine, Engine))
         self.assertTrue(issubclass(OffScreenEngine, Engine))
-
-
-if __name__ == "__main__":
-    unittest.main()

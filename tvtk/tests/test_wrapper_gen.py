@@ -133,7 +133,3 @@ class TestGeneratedCode(unittest.TestCase):
     def test_special_trait(self):
         self.assertIn('file_name = tvtk_base.vtk_file_name(',
                       self.sources['xml_reader.py'])
-
-
-if __name__ == "__main__":
-    unittest.main()

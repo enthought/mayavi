@@ -294,6 +294,3 @@ class TestVisual(unittest.TestCase):
         assert_allclose(s.pos, pos, rtol=0, atol=1e-15)
         assert_allclose(a.pos, pos, rtol=0, atol=1e-15)
         assert_allclose(f.pos, pos, rtol=0, atol=1e-15)
-
-if __name__ == '__main__':
-    unittest.main()
