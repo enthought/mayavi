@@ -9,6 +9,11 @@ In this example, we embed one single Mayavi scene in a Wx notebook, with
 2 tabs, each one of them hosting a different view of the scene.
 """
 
+# The toolkit is a per-process choice, and pyface prefers Qt when both are
+# installed, so a wx application has to claim it before anything reads it.
+from traits.etsconfig.api import ETSConfig
+ETSConfig.toolkit = 'wx'
+
 from numpy import ogrid, sin
 
 from traits.api import HasTraits, Instance

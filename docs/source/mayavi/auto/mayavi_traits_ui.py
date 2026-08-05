@@ -57,11 +57,11 @@ class Mayavi(HasTraits):
                                     editor=SceneEditor(),
                                     show_label=False,
                                     resizable=True,
-                                    height=500,
-                                    width=500),
+                                    ),
                         ),
                 resizable=True,
-                scrollable=True
+                scrollable=True,
+                id='mayavi.examples.interactive.mayavi_traits_ui'
                 )
 
     def __init__(self, **traits):

@@ -313,12 +313,12 @@ applications.
 
    example_mlab_visual.rst
    example_mlab_traits_ui.rst
-   example_wx_embedding.rst
    example_multiple_engines.rst
+   example_wx_embedding.rst
    example_multiple_mlab_scene_models.rst
    example_superquad_with_gui.rst
-   example_wx_mayavi_embed_in_notebook.rst
    example_mlab_interactive_dialog.rst
+   example_wx_mayavi_embed_in_notebook.rst
    example_subclassing_mayavi_application.rst
    example_mayavi_traits_ui.rst
    example_compute_in_thread.rst
@@ -342,11 +342,11 @@ applications.
     :width: 150
 
             
-.. |0102| image:: ../generated_images/example_wx_embedding.jpg
+.. |0102| image:: ../generated_images/example_multiple_engines.jpg
     :width: 150
 
             
-.. |0103| image:: ../generated_images/example_multiple_engines.jpg
+.. |0103| image:: ../generated_images/example_wx_embedding.jpg
     :width: 150
 
             
@@ -358,11 +358,11 @@ applications.
     :width: 150
 
             
-.. |0106| image:: ../generated_images/example_wx_mayavi_embed_in_notebook.jpg
+.. |0106| image:: ../generated_images/example_mlab_interactive_dialog.jpg
     :width: 150
 
             
-.. |0107| image:: ../generated_images/example_mlab_interactive_dialog.jpg
+.. |0107| image:: ../generated_images/example_wx_mayavi_embed_in_notebook.jpg
     :width: 150
 
             
@@ -418,13 +418,13 @@ applications.
          A simple example of how to use
          mayavi.mlab inside a traits UI dialog.
 
-|0102|  :ref:`example_wx_embedding`
-         This example shows to embed a Mayavi
-         view in a wx frame.
-
-|0103|  :ref:`example_multiple_engines`
+|0102|  :ref:`example_multiple_engines`
          An example to show how you can have
          multiple engines in one application.
+
+|0103|  :ref:`example_wx_embedding`
+         This example shows to embed a Mayavi
+         view in a wx frame.
 
 |0104|  :ref:`example_multiple_mlab_scene_models`
          Example showing a dialog with multiple
@@ -438,13 +438,13 @@ applications.
          parametrised by two parameters, *alpha*
          and *beta*.
 
-|0106|  :ref:`example_wx_mayavi_embed_in_notebook`
-         This example show how to embedded Mayavi
-         in a wx notebook.
-
-|0107|  :ref:`example_mlab_interactive_dialog`
+|0106|  :ref:`example_mlab_interactive_dialog`
          An example of how to modify the data
          visualized  via an interactive dialog.
+
+|0107|  :ref:`example_wx_mayavi_embed_in_notebook`
+         This example show how to embedded Mayavi
+         in a wx notebook.
 
 |0108|  :ref:`example_subclassing_mayavi_application`
          This script demonstrates how one can

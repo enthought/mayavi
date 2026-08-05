@@ -246,6 +246,17 @@ A complete, runnable, code based on the above comments is given in the
 Integrating in a WxPython application
 --------------------------------------
 
+Before defining the `Visualization` class, you should set the toolkit
+used by Traits to the Wx backend, as it otherwise prefers Qt when both
+are installed and `edit_traits` then hands you a Qt widget that no wx
+sizer will accept::
+
+    from traits.etsconfig.api import ETSConfig
+    ETSConfig.toolkit = 'wx'
+
+This has to happen before anything else reads the toolkit, so keep it at
+the top of the module, above the Traits and Mayavi imports.
+
 Using the `Visualization` class defined above::
 
     import wx
