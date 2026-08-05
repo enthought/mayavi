@@ -7,7 +7,7 @@ import pytest
 # One filter per line, "#" comments allowed.
 WARNING_LINES = r"""
 error::
-# unsatisfiable until pyface.workbench moves
+# unsatisfiable until pyface.workbench moves -- see tvtk/WORKAROUNDS.md
 ignore:Workbench will be moved from pyface:PendingDeprecationWarning
 # should be fixed in traits
 ignore: module 'sre_.+' is deprecated:DeprecationWarning
