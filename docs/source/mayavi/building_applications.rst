@@ -246,9 +246,26 @@ A complete, runnable, code based on the above comments is given in the
 Integrating in a WxPython application
 --------------------------------------
 
+Before defining the `Visualization` class, you should set the toolkit
+used by Traits to the Wx backend, as it otherwise prefers Qt when both
+are installed and `edit_traits` then hands you a Qt widget that no wx
+sizer will accept::
+
+    from traits.etsconfig.api import ETSConfig
+    ETSConfig.toolkit = 'wx'
+
+This has to happen before anything else reads the toolkit, so keep it at
+the top of the module, above the Traits and Mayavi imports.
+
 Using the `Visualization` class defined above::
 
     import wx
+
+    def pop_event_handlers(window):
+        while window.GetEventHandler() is not window:
+            window.PopEventHandler(True)
+        for child in window.GetChildren():
+            pop_event_handlers(child)
 
     class MainWindow(wx.Frame):
         def __init__(self, parent, id):
@@ -256,11 +273,31 @@ Using the `Visualization` class defined above::
             self.visualization = Visualization()
             self.control = self.visualization.edit_traits(parent=self,
                                     kind='subpanel').control
+            self.Bind(wx.EVT_CLOSE, self.on_close)
             self.Show()
+
+        def on_close(self, event):
+            pop_event_handlers(self.control)
+            event.Skip()
 
     app = wx.App(False)
     frame = MainWindow(None, wx.ID_ANY)
     app.MainLoop()
+
+TraitsUI pushes wx event handlers onto the panel it builds and onto its
+children, and pops them only in ``ui.dispose()``, which never runs for a
+frame that is simply closed; wx then asserts on destroying a window that
+still has one.  Popping them as above is enough, and only over the panel
+TraitsUI built -- calling ``dispose()`` here instead schedules a second
+``Destroy`` through ``wx.CallAfter``, and popping over widgets of your
+own removes handlers wx installed for itself.  Both crash on close.
+
+Pass the container the panel is going into as ``parent``, not the frame
+around it: a widget handed to a Qt layout is reparented for you, while wx
+expects it to be a child of the container already.  Putting a Mayavi view
+in a notebook page therefore means ``parent=self.notebook`` -- with the
+frame as parent the page can come out mis-drawn, and recent wxWidgets
+assert on it outright rather than reparenting quietly as older ones did.
 
 Two examples of integrating Mayavi visualization with Wx applications are
 given:

@@ -481,7 +481,10 @@ def capture_in_subprocess(filename, image_file):
             'capture_one(%r, %r)\n' % (here, filename, image_file))
     short_name = os.path.splitext(os.path.basename(filename))[0]
     # the toolkit is per process, which is exactly what the isolation buys us:
-    # a wx example gets a wx child and the rest of the gallery stays on Qt
+    # a wx example gets a wx child and the rest of the gallery stays on Qt.
+    # The examples set ETSConfig.toolkit themselves too, but that cannot carry
+    # the child on its own: importing this module for capture_one resolves the
+    # toolkit to Qt through mlab, before the example is ever exec'd
     env = dict(os.environ)
     if is_wx_example(filename):
         env['ETS_TOOLKIT'] = 'wx'

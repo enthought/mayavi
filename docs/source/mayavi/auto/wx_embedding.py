@@ -15,6 +15,11 @@ In this example, the wx part is very simple. See
 embedding of Mayavi scenes in Wx applications.
 """
 
+# The toolkit is a per-process choice, and pyface prefers Qt when both are
+# installed, so a wx application has to claim it before anything reads it.
+from traits.etsconfig.api import ETSConfig
+ETSConfig.toolkit = 'wx'
+
 from numpy import ogrid, sin
 
 from traits.api import HasTraits, Instance
@@ -48,6 +53,16 @@ class MayaviView(HasTraits):
 # Wx Code
 import wx
 
+
+def pop_event_handlers(window):
+    """ Undo the event handlers TraitsUI pushed onto a window tree.
+    """
+    while window.GetEventHandler() is not window:
+        window.PopEventHandler(True)
+    for child in window.GetChildren():
+        pop_event_handlers(child)
+
+
 class MainWindow(wx.Frame):
 
     def __init__(self, parent, id):
@@ -58,7 +73,17 @@ class MainWindow(wx.Frame):
         self.control = self.mayavi_view.edit_traits(
                         parent=self,
                         kind='subpanel').control
+        self.Bind(wx.EVT_CLOSE, self.on_close)
         self.Show(True)
+
+    def on_close(self, event):
+        # TraitsUI pushes wx event handlers onto the panel and its children and
+        # pops them only in ui.dispose(), which wx never gets to call on a
+        # frame that is simply closed; wx asserts on destroying a window that
+        # still has one.  Popping them by hand is enough -- disposing here
+        # instead schedules a second Destroy through wx.CallAfter and crashes.
+        pop_event_handlers(self.control)
+        event.Skip()
 
 app = wx.App(False)
 frame = MainWindow(None, wx.ID_ANY)
