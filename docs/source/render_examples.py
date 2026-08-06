@@ -17,6 +17,7 @@ import time
 import token, tokenize
 import textwrap
 import itertools
+import warnings
 
 import numpy as np
 
@@ -67,6 +68,25 @@ EXAMPLE_TIMEOUTS = {'lucy': 300}
 # and looks, in the diff, exactly like an example that rendered unchanged.
 # render_docs.py turns a non-empty list into a failed build at the very end.
 RENDER_FAILURES = []
+
+# render_docs.py hands the children its filters through PYTHONWARNINGS, which
+# cannot express these: warnings._setoption strips the message it is given, so a
+# message that begins with whitespace can never be matched.  They are applied in
+# Python instead, from capture_one, which every render goes through.
+# See tvtk/WORKAROUNDS.md.
+UNSETTABLE_WARNING_FILTERS = (
+    # pyface's code widget builds a shortcut with '+' rather than '|', which
+    # PySide6 6.0 deprecated; the warning is fatal here, and it leaves the
+    # widget half-built, so the log view mayavi2 docks beside the Python shell
+    # cannot be drawn at all
+    ('ignore', '\nThe "+" operator is deprecated', UserWarning),
+)
+
+
+def apply_unsettable_warning_filters():
+    """Add the filters that `PYTHONWARNINGS` could not carry into the child."""
+    for action, message, category in UNSETTABLE_WARNING_FILTERS:
+        warnings.filterwarnings(action, re.escape(message), category)
 
 
 def keep_windows_in_background():
@@ -450,6 +470,7 @@ def capture_wx_dialog(filename, image_file):
 def capture_one(filename, image_file):
     """ Renders one example, the way that suits it.  Runs in the child.
     """
+    apply_unsettable_warning_filters()
     # An error reported in a modal box is a hang here: nobody is watching to
     # click it away, the per-example timeout is what ends it, and the message
     # -- the only thing that says what went wrong -- dies inside the box.
