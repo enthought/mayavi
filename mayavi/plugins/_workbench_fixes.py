@@ -44,6 +44,25 @@ def fix_view_chooser():
     logger.debug('Patched pyface IViewTreeNode.is_node_for (gh-1409)')
 
 
+def _restore_qfont_typewriter():
+    """Put back the ``QFont.TypeWriter`` alias PyQt6 dropped, for pyface.
+
+    pyface names that style hint unscoped, the way PyQt5 and PySide expose it,
+    in its console widget, its code editor and its font registry.  PyQt6 has
+    only the scoped enums, so building the Python shell there raises
+    ``AttributeError: type object 'QFont' has no attribute 'TypeWriter'``.  One
+    alias covers every one of those call sites.
+    """
+    try:
+        from pyface.qt import QtGui
+    except ImportError:     # a toolkit with no Qt behind it
+        return
+    if hasattr(QtGui.QFont, 'TypeWriter'):
+        return
+    QtGui.QFont.TypeWriter = QtGui.QFont.StyleHint.TypeWriter
+    logger.debug('Restored QFont.TypeWriter for pyface (gh-1409)')
+
+
 def fix_python_shell_view():
     """Repair envisage's Python shell view against pyface's widget API.
 
@@ -51,7 +70,8 @@ def fix_python_shell_view():
     leaves ``control`` at None until ``create()`` is called -- and envisage
     never made the second call, so picking "Python" in "View -> Other..."
     dies reading ``self.namespace`` off a shell that has no interpreter yet
-    (the next failure along gh-1409, on 7.0.4 and on envisage main).
+    (the next failure along gh-1409, on 7.0.4 and on envisage main).  Building
+    the shell for real then needs `_restore_qfont_typewriter` under PyQt6.
 
     It surfaces as ``AttributeError: no attribute '_service_id'`` instead:
     pyface's ``add_view`` runs ``destroy_control()`` from the except branch
@@ -59,6 +79,8 @@ def fix_python_shell_view():
     ``create_control()`` assigns on its last line.  Both halves are patched,
     the second so the next such failure keeps its own traceback.
     """
+    _restore_qfont_typewriter()
+
     from envisage.plugins.python_shell.view import python_shell_view
 
     view_class = python_shell_view.PythonShellView

@@ -312,6 +312,22 @@ that carries the upstream fix.  Current cases:
   `create()` call is idempotent and the patch is skipped if already installed,
   so an envisage that grows the missing call is left alone.
   `mayavi/tests/test_workbench_fixes.py` goes with it.
+- `mayavi/plugins/_workbench_fixes.py`: `_restore_qfont_typewriter()` puts back
+  `QFont.TypeWriter`, which PyQt6 dropped along with the rest of the unscoped
+  enums but pyface still names in its console widget, its code editor and its
+  font registry.  Building the Python shell above therefore raises
+  `AttributeError: type object 'QFont' has no attribute 'TypeWriter'` on PyQt6;
+  the one alias covers every call site.  Keyed on pyface, not on PyQt6 — the
+  bindings are not going back.
+- `docs/source/render_examples.py`: `UNSETTABLE_WARNING_FILTERS` ignores
+  PySide6's `The "+" operator is deprecated` from pyface's code widget, which
+  builds a shortcut with `+` rather than `|`.  It matters because warnings are
+  fatal while rendering, and the half-built widget then takes the log view
+  mayavi2 docks beside the Python shell with it.  It cannot live in
+  `render_docs.py`'s `WARNING_FILTERS` beside the rest: those reach the
+  per-example children through `PYTHONWARNINGS`, and `warnings._setoption`
+  strips the message it is given, so a message starting with a newline — as
+  PySide6's does — can never be matched there.
 - `mayavi/tests/conftest.py` ignores pyface's "Workbench will be moved from
   pyface" `PendingDeprecationWarning`.  Unsatisfiable rather than deferred:
   there is nowhere for the import to move to until the code does.
