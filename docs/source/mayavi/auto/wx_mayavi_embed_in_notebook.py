@@ -104,6 +104,13 @@ class MainWindow(wx.Frame):
         # and popping those aborts the interpreter on close
         pop_event_handlers(self.control)
         pop_event_handlers(self.control2)
+        # AuiNotebook destroys its pages through the C++ virtual Destroy, and
+        # TraitsUIPanel.Destroy returns None where wx wants a bool; taking the
+        # pages off the notebook and destroying them from here avoids that call
+        while self.notebook.GetPageCount():
+            self.notebook.RemovePage(0)
+        self.control.Destroy()
+        self.control2.Destroy()
         event.Skip()
 
 if __name__ == '__main__':
