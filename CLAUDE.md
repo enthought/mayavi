@@ -70,7 +70,7 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
 - both `conf.py`s call `warnings.filterwarnings('error')`, for the Sphinx build itself (autodoc importing our modules);
 - `scripts/render_docs.py` sets `WARNING_FILTERS` for example execution, and exports them as `PYTHONWARNINGS` so they reach the per-example child processes too — `capture_in_subprocess` throws a child's output away unless it exits non-zero, so a warning there is only ever seen by being raised.
   Failures are collected in `render_examples.RENDER_FAILURES` and turned into a non-zero exit *after* every example has had its turn, so one broken example still does not cost the gallery the rest of its figures.
-  Both ways of applying a filter match the message as a literal *prefix* — `PYTHONWARNINGS` escapes it and `apply_warning_filters` does the same for the in-process call — so a warning whose message does not start with something quotable (PySide6 opens the `"+"` one with a newline) has to be matched by the optional fourth field, the module it is raised from.
+  A filter reaches the children as a literal message prefix, which is what `render_examples.UNSETTABLE_WARNING_FILTERS` exists for: `warnings._setoption` strips the message `PYTHONWARNINGS` carries, so one that begins with whitespace — as PySide6's `"+"` deprecation does — can only be applied in Python, from `capture_one`.
 
 - The Makefiles export `ETS_TOOLKIT=null`: `tips.rst` autodocs `mayavi.tools.server`, whose `wx`/`twisted` imports are handled by `autodoc_mock_imports`, and PySide6's feature import hook hits an `inspect.unwrap` loop on those mock objects (17 warnings, fatal under `-W`).
   It is `?=`, so an `ETS_TOOLKIT` in the environment **wins** — which is why `docs.yml` leaves it unset at job level and sets `qt4` only on the rendering step, which does need a toolkit.
@@ -90,6 +90,14 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
   Each new one needs a `prune` in `MANIFEST.in` and a `.gitignore` entry, or `recursive-include docs` sweeps it into the sdist.
 - `render_examples.py` writes the gallery's image directives *before* it renders the images, and only for figures already on disk.
   A brand-new example therefore needs two passes before it appears with a thumbnail, which is why the images are committed rather than left to CI.
+- The fourteen examples under `@mayavi2.standalone` are the only ones that need a *real* Qt event loop.
+  `capture_dialog` normally stubs `QApplication.exec` out, which is right for a dialog example — but `standalone` does not call the example's function, it hands it to the loop to be run once the application has started, so with no loop it never runs and there is no scene to shoot.
+  Those get the real loop with a `singleShot` (`APP_LOOP_MS`) ending it — with `exit()`, not `quit()`, since `quit()` asks the windows to close and the workbench answers that with an "Exit Mayavi2?" prompt nobody is there to click.
+  Leaving as soon as a scene appeared was tried instead and hung.
+  They also take their window from `_window_holding_a_scene()` rather than the last `edit_traits`, which by then is one of the workbench's own view panels.
+  Before the Python shell view worked again the app was broken enough that these rendered anyway, through the `run_mlab_file` fallback; that fallback closes the workbench's own scene editor on its first line, which is where every "already deleted" in those logs came from.
+- `capture_in_subprocess` gives each child a throwaway `ETSConfig.application_data`.
+  The workbench saves its window layout there and puts it back next run, so without it an app example's figure depends on what the last `mayavi2` on the machine happened to leave behind — CI starts clean and a local regenerate would not match it.
 - Generated image names come from `module.__name__` (`mayavi_mlab_*.jpg`).
   They were `enthought_mayavi_mlab_*` until 2026-07, from the pre-2010 `enthought.mayavi` package name — which meant `mlab_reference.py` looked for names that did not exist and the mlab reference shipped with no illustrations at all for years.
 - A rebuild is byte-for-byte reproducible, so regenerating shows a diff only where something really changed: the doc version is truncated to `4.8.4.dev` (the commit and date would retitle every page), `html_last_updated_fmt` is off with the build date carried by the site landing page alone, and the renderers seed `np.random` because several `mlab.test_*` functions plot random data.
