@@ -9,6 +9,11 @@ WARNING_LINES = r"""
 error::
 # unsatisfiable until pyface.workbench moves -- see tvtk/WORKAROUNDS.md
 ignore:Workbench will be moved from pyface:PendingDeprecationWarning
+# envisage.api imports pkg_resources, which warns about itself and about
+# whatever namespace packages are installed -- see tvtk/WORKAROUNDS.md, and
+# pyproject.toml's setuptools pin, which this culls with
+ignore:pkg_resources is deprecated as an API:UserWarning
+ignore:Deprecated call to .pkg_resources.declare_namespace:DeprecationWarning
 # should be fixed in traits
 ignore: module 'sre_.+' is deprecated:DeprecationWarning
 """

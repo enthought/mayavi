@@ -162,6 +162,24 @@ fatal separately, in the two places that run Python:
   renders the images, and only for figures already on disk.  A brand-new
   example therefore needs two passes before it appears with a thumbnail, which
   is why the images are committed rather than left to CI.
+- The fourteen examples under `@mayavi2.standalone` are the only ones that need
+  a *real* Qt event loop.  `capture_dialog` normally stubs `QApplication.exec`
+  out, which is right for a dialog example — but `standalone` does not call the
+  example's function, it hands it to the loop to be run once the application
+  has started, so with no loop it never runs and there is no scene to shoot.
+  Those get the real loop with a `singleShot` (`APP_LOOP_MS`) ending it — with
+  `exit()`, not `quit()`, since `quit()` asks the windows to close and the
+  workbench answers that with an "Exit Mayavi2?" prompt nobody is there to
+  click.  Leaving as soon as a scene appeared was tried instead and hung.
+  They also take their window from `_window_holding_a_scene()` rather than the
+  last `edit_traits`, which by then is one of the workbench's own view panels.
+  This only started mattering when the Python shell view began working again
+  (#1414): before that the app was broken enough that these rendered anyway.
+- `capture_in_subprocess` gives each child a throwaway
+  `ETSConfig.application_data`.  The workbench saves its window layout there
+  and puts it back next run, so without it an app example's figure depends on
+  what the last `mayavi2` on the machine happened to leave behind — CI starts
+  clean and a local regenerate would not match it.
 - Generated image names come from `module.__name__` (`mayavi_mlab_*.jpg`).
   They were `enthought_mayavi_mlab_*` until 2026-07, from the pre-2010
   `enthought.mayavi` package name — which meant `mlab_reference.py` looked

@@ -275,12 +275,13 @@ Those obey the same marker and cull rules; they are keyed on `qVersion()` and
   Qt's own GL context instead of embedding a native X window.  Until tvtk
   can require and adopt that, this is in the never-expires class.
 
-## Outside the layers: pyface
+## Outside the layers: pyface and envisage
 
-Mayavi is the last consumer of `pyface.workbench`, which upstream considers
-unmaintained, so bugs there are ours to carry.  These are keyed on a pyface
-release rather than a VTK version, and cull when `setup.py`'s `pyface` floor
-passes the release that carries the upstream fix.  Current case:
+Mayavi is the last consumer of `pyface.workbench` and of envisage's views onto
+it, and upstream considers that code unmaintained, so bugs there are ours to
+carry.  These are keyed on a pyface or envisage release rather than a VTK
+version, and cull when `setup.py`'s floor for that package passes the release
+that carries the upstream fix.  Current cases:
 
 - `mayavi/plugins/_workbench_fixes.py`: pyface's "View -> Other..." dialog
   adapts by *calling* the interface (`IView(obj, Undefined)` in
@@ -295,9 +296,47 @@ passes the release that carries the upstream fix.  Current case:
   than comparing versions, so it already no-ops against a fixed pyface;
   deleting it is still a floor bump away.  `mayavi/tests/test_workbench_fixes.py`
   goes with it.
+- `mayavi/plugins/_workbench_fixes.py`: picking "Python" in that same dialog
+  then fails, because pyface 8.0 made widget construction two-phase —
+  `PythonShell(parent)` leaves `control` at `None` until `create()` is called —
+  and envisage's `PythonShellView.create_control()` never makes the second
+  call, so it dies reading `self.namespace` off a shell with no interpreter.
+  What the user sees is `AttributeError: no attribute '_service_id'`, from
+  pyface's `add_view()` running `destroy_control()` in the except branch that
+  handles a failed `create_control()`: that unregisters a service
+  `create_control()` assigns on its last line, so the cleanup buries the real
+  traceback.  `fix_python_shell_view()` patches both halves — a `PythonShell`
+  subclass that creates its own control, and a `destroy_control()` that
+  tolerates a view which never opened.  Unreported upstream, and present on
+  envisage main as well as 7.0.4, so nothing is waiting on a release yet; the
+  `create()` call is idempotent and the patch is skipped if already installed,
+  so an envisage that grows the missing call is left alone.
+  `mayavi/tests/test_workbench_fixes.py` goes with it.
+- `mayavi/plugins/_workbench_fixes.py`: `_restore_qfont_typewriter()` puts back
+  `QFont.TypeWriter`, which PyQt6 dropped along with the rest of the unscoped
+  enums but pyface still names in its console widget, its code editor and its
+  font registry.  Building the Python shell above therefore raises
+  `AttributeError: type object 'QFont' has no attribute 'TypeWriter'` on PyQt6;
+  the one alias covers every call site.  Keyed on pyface, not on PyQt6 — the
+  bindings are not going back.
+- `docs/source/render_examples.py`: `UNSETTABLE_WARNING_FILTERS` ignores
+  PySide6's `The "+" operator is deprecated` from pyface's code widget, which
+  builds a shortcut with `+` rather than `|`.  It matters because warnings are
+  fatal while rendering, and the half-built widget then takes the log view
+  mayavi2 docks beside the Python shell with it.  It cannot live in
+  `render_docs.py`'s `WARNING_FILTERS` beside the rest: those reach the
+  per-example children through `PYTHONWARNINGS`, and `warnings._setoption`
+  strips the message it is given, so a message starting with a newline — as
+  PySide6's does — can never be matched there.
 - `mayavi/tests/conftest.py` ignores pyface's "Workbench will be moved from
   pyface" `PendingDeprecationWarning`.  Unsatisfiable rather than deferred:
   there is nowhere for the import to move to until the code does.
+- `mayavi/tests/conftest.py` ignores two `pkg_resources` warnings (its own
+  deprecation, and the `declare_namespace` one it emits for whatever namespace
+  packages the environment holds).  `envisage.api` imports `pkg_resources` on
+  7.0.4; this goes with `pyproject.toml`'s `setuptools<82` pin and culls with
+  it, once the envisage floor passes the release carrying
+  <https://github.com/enthought/envisage/pull/548>.
 
 ## Outside the layers: `mayavi/`
 

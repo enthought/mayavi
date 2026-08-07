@@ -20,6 +20,9 @@ SOURCE = REPO / 'docs' / 'source'
 # (action, message prefix, category) -- the examples and the generators run as
 # plain scripts, so this is the only thing making their warnings fatal; the
 # Makefiles' -W covers Sphinx's own diagnostics, not Python's.
+# Filters whose message begins with whitespace cannot go here -- PYTHONWARNINGS
+# carries this list into the children and warnings._setoption strips it.  Those
+# live in render_examples.UNSETTABLE_WARNING_FILTERS.
 WARNING_FILTERS = (
     ('error', '', Warning),
     # third-party, reached through envisage's plugin manager and sphinxcontrib
