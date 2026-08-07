@@ -62,6 +62,13 @@ EXAMPLE_TIMEOUT = 60
 # it before it can render.  Once the data is there it is as quick as the rest.
 EXAMPLE_TIMEOUTS = {'lucy': 300}
 
+# How long an app example's own event loop runs before we take the picture.  It
+# only has to outlast the work @mayavi2.standalone queues on it, which is the
+# example's own function and nothing else; the whole app is already up by the
+# time the loop starts.  Leaving as soon as a scene appears was tried instead
+# and hung -- this is the version that renders all fourteen of them.
+APP_LOOP_MS = 3000
+
 # Examples that were meant to produce a figure and did not.  A failure only
 # prints and moves on, so that one broken example does not cost the gallery
 # every later figure -- which also means it leaves the committed image in place
@@ -275,12 +282,32 @@ def capture_dialog(filename, image_file):
         for _ in range(5):
             app.processEvents()
 
-    # a few examples run the Qt loop themselves rather than through mlab.show
+    # A few examples run the Qt loop themselves rather than through mlab.show.
+    # Returning from it at once is right for a dialog example, which has built
+    # everything it is going to build by then -- but not for an app example:
+    # @mayavi2.standalone hands the example's own function to the loop, to be
+    # run once the application has started, so with no loop to run it there is
+    # never a scene to shoot.  Give that one a real loop with a deadline on it.
     real_execs = {name: getattr(QtGui.QApplication, name)
                   for name in ('exec', 'exec_')
                   if hasattr(QtGui.QApplication, name)}
+
+    # bound now, because the name on the class is about to stop being the real
+    # one -- and it takes no arguments, so the patch cannot pass its own on
+    app = QtGui.QApplication.instance()
+    run_real_loop = app.exec if hasattr(app, 'exec') else app.exec_
+
+    def bounded_exec(*args, **kwargs):
+        # exit() rather than quit(): quit() asks the windows to close, and the
+        # workbench answers that with an "Exit Mayavi2?" prompt nobody is there
+        # to click.  exit() just ends the loop and leaves the window standing,
+        # which is what we came for -- it is the picture.
+        QtCore.QTimer.singleShot(APP_LOOP_MS, lambda: app.exit(0))
+        return run_real_loop()
+
+    stub = bounded_exec if is_app_example(filename) else (lambda *a, **k: 0)
     for name in real_execs:
-        setattr(QtGui.QApplication, name, lambda *a, **k: 0)
+        setattr(QtGui.QApplication, name, stub)
 
     mlab.show = lambda func=None: None
     HasTraits.edit_traits = edit_traits
@@ -289,13 +316,16 @@ def capture_dialog(filename, image_file):
     try:
         exec(compile(Path(filename).read_text(), filename, 'exec'),
              {'__name__': '__main__', '__file__': os.path.abspath(filename)})
-        ui = created[-1] if created else None
+        # An app example opens no dialog of its own; its figure is whichever
+        # window Envisage put the scene in.  Not `created[-1]`, even though the
+        # workbench's own views do reach edit_traits -- that is a panel of the
+        # window we are after, and by now some of them have no control left.
+        ui = None if is_app_example(filename) else (
+            created[-1] if created else None)
         if ui is not None:
             # for an embedded panel this is the window the example built round it
             dialog = ui.control.window()
         else:
-            # an example driving the Mayavi2 application opens no dialog of its
-            # own: its figure is whichever window Envisage put the scene in
             dialog = _window_holding_a_scene()
             if dialog is None:
                 raise RuntimeError('%s opened no dialog' % filename)
@@ -496,19 +526,32 @@ def capture_in_subprocess(filename, image_file):
         keeps one example's leftover scene state out of the next one's figure.
     """
     here = os.path.dirname(os.path.abspath(__file__))
-    code = ('import mayavi, tvtk.api, sys\n'          # bind before the doc
+    # A fresh application-data directory per example.  The workbench saves its
+    # window layout there and puts it back next time, so an app example's
+    # figure would otherwise depend on what the last mayavi2 run on this
+    # machine left behind -- CI, starting clean, would render one thing and a
+    # regenerate here another.  It has to be set before mayavi is imported.
+    state = tempfile.mkdtemp(prefix='mayavi-render-')
+    code = ('from traits.etsconfig.api import ETSConfig\n'
+            'ETSConfig.application_data = %r\n'
+            'import mayavi, tvtk.api, sys\n'          # bind before the doc
             'sys.path.insert(0, %r)\n'                # sources can shadow them
             'from render_examples import capture_one\n'
-            'capture_one(%r, %r)\n' % (here, filename, image_file))
+            'capture_one(%r, %r)\n'
+            % (state, here, filename, image_file))
     short_name = os.path.splitext(os.path.basename(filename))[0]
     # the toolkit is per process, which is exactly what the isolation buys us:
     # a wx example gets a wx child and the rest of the gallery stays on Qt
     env = dict(os.environ)
     if is_wx_example(filename):
         env['ETS_TOOLKIT'] = 'wx'
-    subprocess.run([sys.executable, '-P', '-c', code], check=True,
-                   timeout=EXAMPLE_TIMEOUTS.get(short_name, EXAMPLE_TIMEOUT),
-                   capture_output=True, text=True, env=env)
+    try:
+        subprocess.run([sys.executable, '-P', '-c', code], check=True,
+                       timeout=EXAMPLE_TIMEOUTS.get(short_name,
+                                                    EXAMPLE_TIMEOUT),
+                       capture_output=True, text=True, env=env)
+    finally:
+        shutil.rmtree(state, ignore_errors=True)
 
 
 def capture_example(filename, short_file_name, image_file):
