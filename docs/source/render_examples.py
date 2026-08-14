@@ -576,19 +576,6 @@ def capture_example(filename, short_file_name, image_file):
         print("Keeping the committed image for %s; it does not render "
               "reproducibly (set MAYAVI_RENDER_FLAKY=1 to redo it)" % filename)
         return
-    if is_app_example(filename) and os.path.exists(image_file):
-        # These need a real Qt event loop to get as far as a scene: standalone
-        # hands the example's function to the application to run once it has
-        # started, and capture_dialog stubs QApplication.exec out -- right for
-        # a dialog example, but it leaves these with an empty workbench window.
-        # They used to come out of the run_mlab_file fallback below instead,
-        # which envisage 8 and pyface 8 ended by tearing the scene's widget
-        # down with the application: the fallback now dies on a deleted C++
-        # object.  Keep what is committed rather than fail the gallery, and
-        # say so per example rather than in a count nobody reads.
-        print("Keeping the committed image for %s: rendering it needs an "
-              "event loop the renderer does not run" % filename)
-        return
     if not (is_dialog_example(filename) or is_mlab_example(filename)
             or is_app_example(filename)):
         print("Skipping %s: it neither shows a figure nor opens a dialog"
