@@ -12,7 +12,7 @@ on:
 
 jobs:
   tests:
-    name: Tests ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt-api }} ${{ matrix.vtk }} ${{ (matrix.headless && 'headless') || ''}}
+    name: Tests ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.qt-api }} ${{ matrix.vtk }} ${{ (matrix.ets && 'ets-main') || '' }} ${{ (matrix.headless && 'headless') || ''}}
     strategy:
       matrix:
         # Always test against the latest VTK, NumPy, and Qt bindings
@@ -27,6 +27,9 @@ jobs:
         # to the includes, `vtk: vtk-dev` was absorbed into the base ubuntu row
         # and there was no ubuntu job on the latest release at all.
         vtk: ['']
+        # Unreleased ETS (traits/traitsui/pyface/envisage from their main
+        # branches).  Has to start here for the same reason `vtk` does.
+        ets: ['']
         # Then add some backward compat checks
         include:
           - python-version: '3.13'
@@ -57,6 +60,13 @@ jobs:
             qt-api: 'pyside6'
             os: ubuntu-latest
             vtk: 'vtk-dev'
+          # Unreleased ETS, on the latest *released* VTK rather than folded
+          # into the row above: that row is what MAX_VTK gets raised on the
+          # strength of, so it has to stay attributable to VTK alone.
+          - python-version: '3.14'
+            qt-api: 'pyside6'
+            os: ubuntu-latest
+            ets: 'main'
           # Linux arm64: plain C char is unsigned there (unlike x86 and
           # unlike Apple's arm64 ABI), which is what broke gh-1194
           - python-version: '3.14'
@@ -131,6 +141,8 @@ jobs:
     # on the build (7.5s -> 7.8s locally) and needs --no-build-isolation, which
     # this install has and the wheel and docs builds do not.
     - run: coverage run -m pip install --no-build-isolation --group test -ve .${{ steps.install.outputs.extra }}
+    - uses: ./.github/actions/install-ets-main
+      if: matrix.ets == 'main'
     # `coverage run` rather than pytest-cov: there are two suites per job plus
     # the subprocesses they spawn, and pytest-cov combines at the end of each
     # run, which would consume the children's data before the explicit combine
@@ -161,10 +173,16 @@ jobs:
   # this was first written as one.  A job that stops running is a check that is
   # visibly no longer there.
   #
-  # One configuration is enough: these exercise the Mayavi2 application, not
-  # the VTK version, which the matrix above already covers.
+  # One VTK is enough: these exercise the Mayavi2 application, not the VTK
+  # version, which the matrix above already covers.  ETS is the exception --
+  # this is the layer envisage is actually load-bearing in, so unreleased ETS
+  # gets a second run here as well as a row up there.
   integration:
-    name: Integration tests
+    name: Integration tests ${{ (matrix.ets && 'ets-main') || '' }}
+    strategy:
+      matrix:
+        ets: ['', 'main']
+      fail-fast: false
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -192,6 +210,8 @@ jobs:
     # package does not ask for itself.
     - run: python -m pip install --upgrade pip  # --group needs pip >= 25.1
     - run: python -m pip install --group test pyside6 -ve ".[app]"
+    - uses: ./.github/actions/install-ets-main
+      if: matrix.ets == 'main'
     - run: python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
     # the wrapper sets its own per-script subprocess timeout; pytest's is the
     # backstop behind it.  Every case here *is* a subprocess, so this job only
@@ -231,5 +251,6 @@ jobs:
         title: Scheduled CI run is failing
         body: |
           The weekly scheduled CI run failed. Since these runs test against the
-          latest dependencies (including VTK dev wheels), this probably means a
-          dependency update broke something.
+          latest dependencies (VTK dev wheels, and the ETS packages from their
+          main branches), this probably means an upstream change broke
+          something.

@@ -8,7 +8,7 @@ from traits.api import pop_exception_handler, push_exception_handler
 # One filter per line, "#" comments allowed.
 WARNING_LINES = r"""
 error::
-# unsatisfiable until pyface.workbench moves
+# unsatisfiable until pyface.workbench moves -- see tvtk/WORKAROUNDS.md
 ignore:Workbench will be moved from pyface:PendingDeprecationWarning
 # envisage.api imports pkg_resources, which setuptools 81 deprecated and 82
 # removed -- hence the setuptools<82 pin on the `app` extra.  Gone from

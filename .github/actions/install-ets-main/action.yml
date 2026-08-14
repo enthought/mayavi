@@ -1,0 +1,20 @@
+name: Install ETS packages from main
+description: >-
+  Replace traits, pyface, traitsui and envisage with their main branches, and
+  prove that is what ended up installed.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        # Uninstall first: main carries the last released version number on all
+        # four, so `--upgrade` finds the release already installed, calls the
+        # requirement satisfied and leaves PyPI's copy in place.
+        python -m pip uninstall -y -r "$GITHUB_ACTION_PATH/requirements.txt"
+        python -m pip install -r "$GITHUB_ACTION_PATH/requirements.txt"
+        # Runs after the package install rather than before it, so that nothing
+        # can pull a release back over these afterwards.  That leaves `pip
+        # check` to do what installing first would have: report a main that no
+        # longer satisfies a floor mayavi declares.
+        python -m pip check
+        python "$GITHUB_ACTION_PATH/assert_from_main.py"

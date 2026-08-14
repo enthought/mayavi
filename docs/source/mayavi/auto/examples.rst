@@ -313,17 +313,17 @@ applications.
 
    example_mlab_visual.rst
    example_mlab_traits_ui.rst
-   example_wx_embedding.rst
    example_multiple_engines.rst
    example_multiple_mlab_scene_models.rst
    example_superquad_with_gui.rst
-   example_wx_mayavi_embed_in_notebook.rst
    example_mlab_interactive_dialog.rst
+   example_wx_embedding.rst
    example_subclassing_mayavi_application.rst
    example_mayavi_traits_ui.rst
    example_compute_in_thread.rst
    example_qt_embedding.rst
    example_adjust_cropping_extents.rst
+   example_wx_mayavi_embed_in_notebook.rst
    example_poll_file.rst
    example_lorenz_ui.rst
    example_volume_slicer.rst
@@ -342,48 +342,48 @@ applications.
     :width: 150
 
             
-.. |0102| image:: ../generated_images/example_wx_embedding.jpg
+.. |0102| image:: ../generated_images/example_multiple_engines.jpg
     :width: 150
 
             
-.. |0103| image:: ../generated_images/example_multiple_engines.jpg
+.. |0103| image:: ../generated_images/example_multiple_mlab_scene_models.jpg
     :width: 150
 
             
-.. |0104| image:: ../generated_images/example_multiple_mlab_scene_models.jpg
+.. |0104| image:: ../generated_images/example_superquad_with_gui.jpg
     :width: 150
 
             
-.. |0105| image:: ../generated_images/example_superquad_with_gui.jpg
+.. |0105| image:: ../generated_images/example_mlab_interactive_dialog.jpg
     :width: 150
 
             
-.. |0106| image:: ../generated_images/example_wx_mayavi_embed_in_notebook.jpg
+.. |0106| image:: ../generated_images/example_wx_embedding.jpg
     :width: 150
 
             
-.. |0107| image:: ../generated_images/example_mlab_interactive_dialog.jpg
-    :width: 150
-
-            
-.. |0108| raw:: html
+.. |0107| raw:: html
 
     <br/>
 
             
-.. |0109| image:: ../generated_images/example_mayavi_traits_ui.jpg
+.. |0108| image:: ../generated_images/example_mayavi_traits_ui.jpg
     :width: 150
 
             
-.. |0110| image:: ../generated_images/example_compute_in_thread.jpg
+.. |0109| image:: ../generated_images/example_compute_in_thread.jpg
     :width: 150
 
             
-.. |0111| image:: ../generated_images/example_qt_embedding.jpg
+.. |0110| image:: ../generated_images/example_qt_embedding.jpg
     :width: 150
 
             
-.. |0112| image:: ../generated_images/example_adjust_cropping_extents.jpg
+.. |0111| image:: ../generated_images/example_adjust_cropping_extents.jpg
+    :width: 150
+
+            
+.. |0112| image:: ../generated_images/example_wx_mayavi_embed_in_notebook.jpg
     :width: 150
 
             
@@ -418,19 +418,15 @@ applications.
          A simple example of how to use
          mayavi.mlab inside a traits UI dialog.
 
-|0102|  :ref:`example_wx_embedding`
-         This example shows to embed a Mayavi
-         view in a wx frame.
-
-|0103|  :ref:`example_multiple_engines`
+|0102|  :ref:`example_multiple_engines`
          An example to show how you can have
          multiple engines in one application.
 
-|0104|  :ref:`example_multiple_mlab_scene_models`
+|0103|  :ref:`example_multiple_mlab_scene_models`
          Example showing a dialog with multiple
          embedded scenes.
 
-|0105|  :ref:`example_superquad_with_gui`
+|0104|  :ref:`example_superquad_with_gui`
          This example uses MayaVi to show the
          evolution of a superquadric
          (http://en.wikipedia.org/wiki/Superquadrics),
@@ -438,27 +434,27 @@ applications.
          parametrised by two parameters, *alpha*
          and *beta*.
 
-|0106|  :ref:`example_wx_mayavi_embed_in_notebook`
-         This example show how to embedded Mayavi
-         in a wx notebook.
-
-|0107|  :ref:`example_mlab_interactive_dialog`
+|0105|  :ref:`example_mlab_interactive_dialog`
          An example of how to modify the data
          visualized  via an interactive dialog.
 
-|0108|  :ref:`example_subclassing_mayavi_application`
+|0106|  :ref:`example_wx_embedding`
+         This example shows to embed a Mayavi
+         view in a wx frame.
+
+|0107|  :ref:`example_subclassing_mayavi_application`
          This script demonstrates how one can
          script the Mayavi application by
          subclassing the application, create a
          new scene and create a few simple
          modules.
 
-|0109|  :ref:`example_mayavi_traits_ui`
+|0108|  :ref:`example_mayavi_traits_ui`
          An example of how to create a UI similar
          to the complete Mayavi application
          inside a Traits UI view.
 
-|0110|  :ref:`example_compute_in_thread`
+|0109|  :ref:`example_compute_in_thread`
          This script demonstrates how one can do
          a computation in another thread and
          update the mayavi pipeline. It also
@@ -466,14 +462,18 @@ applications.
          and visualize it as image data using a
          few modules.
 
-|0111|  :ref:`example_qt_embedding`
+|0110|  :ref:`example_qt_embedding`
          This example demonstrates using Mayavi
          as a component of a large Qt
          application.
 
-|0112|  :ref:`example_adjust_cropping_extents`
+|0111|  :ref:`example_adjust_cropping_extents`
          A custom dialog to adjust the parameters
          of a GeometryFilter to crop data points.
+
+|0112|  :ref:`example_wx_mayavi_embed_in_notebook`
+         This example show how to embedded Mayavi
+         in a wx notebook.
 
 |0113|  :ref:`example_poll_file`
          A simple script that polls a data file

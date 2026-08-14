@@ -9,6 +9,11 @@ In this example, we embed one single Mayavi scene in a Wx notebook, with
 2 tabs, each one of them hosting a different view of the scene.
 """
 
+# The toolkit is a per-process choice, and pyface prefers Qt when both are
+# installed, so a wx application has to claim it before anything reads it.
+from traits.etsconfig.api import ETSConfig
+ETSConfig.toolkit = 'wx'
+
 from numpy import ogrid, sin
 
 from traits.api import HasTraits, Instance
@@ -44,6 +49,16 @@ class MayaviView(HasTraits):
 import wx
 import wx.aui
 
+
+def pop_event_handlers(window):
+    """ Undo the event handlers TraitsUI pushed onto a window tree.
+    """
+    while window.GetEventHandler() is not window:
+        window.PopEventHandler(True)
+    for child in window.GetChildren():
+        pop_event_handlers(child)
+
+
 class MainWindow(wx.Frame):
 
     def __init__(self, parent, id):
@@ -55,9 +70,11 @@ class MainWindow(wx.Frame):
         self.mayavi_view = MayaviView()
 
         # The edit_traits method opens a first view of our 'MayaviView'
-        # object
+        # object.  A notebook page has to be a child of the notebook itself,
+        # not of the frame -- unlike a Qt layout, wx containers do not adopt
+        # what you put in them.
         self.control = self.mayavi_view.edit_traits(
-                        parent=self,
+                        parent=self.notebook,
                         kind='subpanel').control
         self.notebook.AddPage(page=self.control, caption='Display 1')
 
@@ -65,7 +82,7 @@ class MainWindow(wx.Frame):
 
         # The second call to edit_traits opens a second view
         self.control2 = self.mayavi_view2.edit_traits(
-                        parent=self,
+                        parent=self.notebook,
                         kind='subpanel').control
         self.notebook.AddPage(page=self.control2, caption='Display 2')
 
@@ -73,7 +90,28 @@ class MainWindow(wx.Frame):
         sizer.Add(self.notebook,1, wx.EXPAND)
         self.SetSizer(sizer)
 
+        self.Bind(wx.EVT_CLOSE, self.on_close)
         self.Show(True)
+
+    def on_close(self, event):
+        # TraitsUI pushes wx event handlers onto each panel and its children and
+        # pops them only in ui.dispose(), which wx never gets to call on a frame
+        # that is simply closed; wx asserts on destroying a window that still
+        # has one.  Popping them by hand is enough -- disposing here instead
+        # schedules a second Destroy through wx.CallAfter, and the notebook then
+        # crashes walking pages that are already gone.
+        # only the TraitsUI panels: the notebook pushes handlers of its own,
+        # and popping those aborts the interpreter on close
+        pop_event_handlers(self.control)
+        pop_event_handlers(self.control2)
+        # AuiNotebook destroys its pages through the C++ virtual Destroy, and
+        # TraitsUIPanel.Destroy returns None where wx wants a bool; taking the
+        # pages off the notebook and destroying them from here avoids that call
+        while self.notebook.GetPageCount():
+            self.notebook.RemovePage(0)
+        self.control.Destroy()
+        self.control2.Destroy()
+        event.Skip()
 
 if __name__ == '__main__':
     app = wx.App(False)

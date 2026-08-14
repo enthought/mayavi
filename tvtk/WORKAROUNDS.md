@@ -1,4 +1,4 @@
-# Where VTK (and Qt) workarounds live
+# Where VTK (and other upstream) workarounds live
 
 TVTK wraps VTK by introspecting the installed VTK at build time and
 generating traits-based wrapper classes into `tvtk_classes.zip`.  VTK has
@@ -6,6 +6,11 @@ bugs — uninitialized values, getters that segfault, API drift between
 versions — and every workaround for those lives in one of the layers below.
 The layers are ordered roughly by preference: fix a problem in the earliest
 layer that can express it.
+
+The layers are VTK-shaped, but the marker and cull rules are not, so
+workarounds for the other upstreams we ship against (Qt, and the ETS
+libraries) are inventoried here too, in the "Outside the layers" sections —
+one grep should find them all.
 
 ## Policy
 
@@ -279,6 +284,30 @@ Those obey the same marker and cull rules; they are keyed on `qVersion()` and
   VTK's Python `QVTK` widgets a `QOpenGLWidget` mode that draws through
   Qt's own GL context instead of embedding a native X window.  Until tvtk
   can require and adopt that, this is in the never-expires class.
+
+## Outside the layers: pyface
+
+Mayavi is the last consumer of `pyface.workbench`, which upstream considers
+unmaintained, so bugs there are ours to carry.  These are keyed on a pyface
+release rather than a VTK version, and cull when `setup.py`'s `pyface` floor
+passes the release that carries the upstream fix.  Current case:
+
+- `mayavi/plugins/_workbench_fixes.py`: pyface's "View -> Other..." dialog
+  adapts by *calling* the interface (`IView(obj, Undefined)` in
+  `IViewTreeNode.is_node_for`), which traits deprecated in 6.0 and removed in
+  7.0 — so with traits >= 7 the menu item raises `TypeError` instead of
+  opening a dialog (#1409, #1339,
+  <https://github.com/enthought/pyface/issues/1263>).  Fixed upstream by
+  <https://github.com/enthought/pyface/pull/1264>, but pyface's latest release
+  (8.0.0, April 2023) predates it and main has not moved since, so
+  `fix_view_chooser()` installs the same one-line fix from
+  `MayaviWorkbenchApplication.run()`.  It probes the installed method rather
+  than comparing versions, so it already no-ops against a fixed pyface;
+  deleting it is still a floor bump away.  `mayavi/tests/test_workbench_fixes.py`
+  goes with it.
+- `mayavi/tests/conftest.py` ignores pyface's "Workbench will be moved from
+  pyface" `PendingDeprecationWarning`.  Unsatisfiable rather than deferred:
+  there is nowhere for the import to move to until the code does.
 
 ## Outside the layers: `mayavi/`
 
