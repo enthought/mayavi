@@ -17,25 +17,26 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 SOURCE = REPO / 'docs' / 'source'
 
-# (action, message prefix, category) -- the examples and the generators run as
-# plain scripts, so this is the only thing making their warnings fatal; the
-# Makefiles' -W covers Sphinx's own diagnostics, not Python's.
+# (action, message prefix, category[, module]) -- the examples and the
+# generators run as plain scripts, so this is the only thing making their
+# warnings fatal; the Makefiles' -W covers Sphinx's own diagnostics, not
+# Python's.  Both ways of applying these match the message as a literal
+# *prefix*, which is why the pyface entry below has to go by module instead.
 WARNING_FILTERS = (
     ('error', '', Warning),
-    # pyface 8.0.0's code editor adds two Qt flags with "+", which PySide6
-    # deprecated.  Raised as an error it aborts the widget half-built, and the
-    # app examples that open the logger view then die on an AttributeError
-    # rather than on this.  Nothing here can fix it, and 8.0.0 is the newest
-    # pyface there is -- drop this when a release stops doing it
-    # (the message is a regex matched from the start, and PySide6 opens this
-    # one with a newline -- hence the \s*, and the escaped +)
-    (r'ignore', r'\s*The "\+" operator is deprecated in Qt For Python',
-     UserWarning),
     # unsatisfiable until pyface.workbench moves to apptools
     ('ignore', 'Workbench will be moved from pyface', PendingDeprecationWarning),
     # an example calling plt.show() is right; it is this renderer that has no
     # interactive matplotlib backend
     ('ignore', 'FigureCanvasAgg is non-interactive', UserWarning),
+    # pyface 8.0.0's code editor adds two Qt flags with "+", which PySide6
+    # deprecated.  Fatal, it aborts the widget half-built and the app examples
+    # that open the logger view then die on an AttributeError rather than on
+    # this.  PySide6 opens the message with a newline, so no prefix can match
+    # it and the module is what there is to go on.  Nothing here can fix it and
+    # 8.0.0 is the newest pyface there is -- drop this when a release stops
+    # doing it.
+    ('ignore', '', UserWarning, 'pyface.ui.qt.code_editor.code_widget'),
 )
 
 
@@ -54,12 +55,15 @@ def apply_warning_filters():
         filters.append(('ignore',
                         'Setting the shape on a NumPy array has been deprecated',
                         DeprecationWarning))
-    for action, message, category in filters:
-        warnings.filterwarnings(action, re.escape(message), category)
-    # PYTHONWARNINGS matches the message as a literal prefix, not a regex
+    # both forms take the message and the module as regexes, and both are
+    # meant literally here -- PYTHONWARNINGS escapes them itself, so only the
+    # in-process call has to
+    for action, message, category, *module in filters:
+        warnings.filterwarnings(action, re.escape(message), category,
+                                re.escape(module[0]) if module else '')
     os.environ['PYTHONWARNINGS'] = ','.join(
-        ':'.join((action, message, category.__name__))
-        for action, message, category in filters)
+        ':'.join((action, message, category.__name__, *module))
+        for action, message, category, *module in filters)
 
 
 def main():

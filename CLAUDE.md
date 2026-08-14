@@ -70,6 +70,7 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
 - both `conf.py`s call `warnings.filterwarnings('error')`, for the Sphinx build itself (autodoc importing our modules);
 - `scripts/render_docs.py` sets `WARNING_FILTERS` for example execution, and exports them as `PYTHONWARNINGS` so they reach the per-example child processes too — `capture_in_subprocess` throws a child's output away unless it exits non-zero, so a warning there is only ever seen by being raised.
   Failures are collected in `render_examples.RENDER_FAILURES` and turned into a non-zero exit *after* every example has had its turn, so one broken example still does not cost the gallery the rest of its figures.
+  Both ways of applying a filter match the message as a literal *prefix* — `PYTHONWARNINGS` escapes it and `apply_warning_filters` does the same for the in-process call — so a warning whose message does not start with something quotable (PySide6 opens the `"+"` one with a newline) has to be matched by the optional fourth field, the module it is raised from.
 
 - The Makefiles export `ETS_TOOLKIT=null`: `tips.rst` autodocs `mayavi.tools.server`, whose `wx`/`twisted` imports are handled by `autodoc_mock_imports`, and PySide6's feature import hook hits an `inspect.unwrap` loop on those mock objects (17 warnings, fatal under `-W`).
   It is `?=`, so an `ETS_TOOLKIT` in the environment **wins** — which is why `docs.yml` leaves it unset at job level and sets `qt4` only on the rendering step, which does need a toolkit.
