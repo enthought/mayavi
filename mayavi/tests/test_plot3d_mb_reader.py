@@ -103,7 +103,3 @@ class TestPlot3dMbReader(unittest.TestCase):
         r1.children[0].output_index = 1
         self.assertEqual(o1.outline_filter.output.bounds,
                          (2.0, 3.0, 1.0, 2.0, 1.0, 2.0))
-
-
-if __name__ == '__main__':
-    unittest.main()

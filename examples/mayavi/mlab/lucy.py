@@ -23,7 +23,8 @@ if not os.path.exists(lucy_ply_file):
         print("Downloading lucy model, Please Wait (307MB)")
         opener = urlopen(
                 'http://graphics.stanford.edu/data/3Dscanrep/lucy.tar.gz')
-        open('lucy.tar.gz', 'wb').write(opener.read())
+        with open('lucy.tar.gz', 'wb') as fh:
+            fh.write(opener.read())
 
     # Extract the data
     import tarfile
@@ -32,7 +33,7 @@ if not os.path.exists(lucy_ply_file):
         os.mkdir('lucy_data')
     except:
         pass
-    lucy_tar_file.extractall('lucy_data')
+    lucy_tar_file.extractall('lucy_data', filter='data')
     lucy_tar_file.close()
 
 # Render the lucy ply file

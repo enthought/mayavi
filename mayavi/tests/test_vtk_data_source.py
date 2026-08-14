@@ -289,7 +289,3 @@ class TestVTKDataSourceAttributes(unittest.TestCase):
         self.assertEqual(sorted(src._point_scalars_list), ['', 's2'])
         self.assertTrue(numpy.all(src.data.point_data.get_array('s2') == s1))
         self.assertEqual(src.data.point_data.get_array('s1'), None)
-
-
-if __name__ == '__main__':
-    unittest.main()

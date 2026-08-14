@@ -79,8 +79,3 @@ class TestMousePickerDispatcher(unittest.TestCase):
                                 ])
         self.assertEqual(interactor_callbacks,
                          initial_interactor_callbacks)
-
-
-
-if __name__ == '__main__':
-    unittest.main()

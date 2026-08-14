@@ -137,8 +137,3 @@ class TestOptionalCollection(unittest.TestCase):
         self.check(coll)
         #from mayavi.tools.show import show
         #show()
-
-
-
-if __name__ == '__main__':
-    unittest.main()

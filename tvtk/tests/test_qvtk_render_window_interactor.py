@@ -124,7 +124,3 @@ class TestKeySyms(unittest.TestCase):
         finally:
             w.close()
             w.deleteLater()
-
-
-if __name__ == '__main__':
-    unittest.main()

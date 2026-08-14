@@ -79,7 +79,3 @@ class TestMovieMaker(unittest.TestCase):
 
         # Then
         self.assertEqual(mm._subdir, 'movie002')
-
-
-if __name__ == '__main__':
-    unittest.main()

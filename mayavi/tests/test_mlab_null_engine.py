@@ -75,7 +75,3 @@ class TestRealMlabNullEngine(unittest.TestCase):
         g.render()
         # Then
         self.assertTrue(pd.number_of_polys == 1920)
-
-
-if __name__ == '__main__':
-    unittest.main()

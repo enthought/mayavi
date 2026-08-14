@@ -21,7 +21,3 @@ class TestSources(unittest.TestCase):
 
         self.assertEqual(len(all_dims), 1)
         self.assertIn((1,), all_dims)
-
-
-if __name__ == '__main__':
-    unittest.main()

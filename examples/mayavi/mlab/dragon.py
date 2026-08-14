@@ -23,7 +23,8 @@ if not os.path.exists(dragon_ply_file):
         print("Downloading dragon model, Please Wait (11MB)")
         opener = urlopen(
                 'http://graphics.stanford.edu/pub/3Dscanrep/dragon/dragon_recon.tar.gz')
-        open('dragon.tar.gz', 'wb').write(opener.read())
+        with open('dragon.tar.gz', 'wb') as fh:
+            fh.write(opener.read())
 
     # Extract the data
     import tarfile
@@ -32,7 +33,7 @@ if not os.path.exists(dragon_ply_file):
         os.mkdir('dragon_data')
     except:
         pass
-    dragon_tar_file.extractall('dragon_data')
+    dragon_tar_file.extractall('dragon_data', filter='data')
     dragon_tar_file.close()
 
 # Render the dragon ply file

@@ -175,7 +175,3 @@ class TestMessenger(unittest.TestCase):
 
         # Clean up.
         messenger.disconnect(c1)
-
-
-if __name__ == "__main__":
-    unittest.main()

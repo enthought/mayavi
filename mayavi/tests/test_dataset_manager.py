@@ -215,7 +215,3 @@ class TestDataSetManager(unittest.TestCase):
         self.assertEqual(data.cell_data.scalars.name, 'foo')
         dm.activate('t', 'cell')
         self.assertEqual(data.cell_data.scalars.name, 't')
-
-
-if __name__ == '__main__':
-    unittest.main()

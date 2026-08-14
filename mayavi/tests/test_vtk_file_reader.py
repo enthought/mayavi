@@ -54,6 +54,3 @@ class TestVTKFileReader(unittest.TestCase):
     def test_field_file(self):
         self.src.initialize(get_example_data('fieldfile.vtk'))
         self.check(18, 3)
-
-if __name__ == '__main__':
-    unittest.main()

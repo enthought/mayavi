@@ -993,7 +993,3 @@ class TestMTriangularMeshSource(unittest.TestCase):
 
         # Then
         self.assertFalse(np.allclose(bounds, obj.actor.actor.bounds))
-
-
-if __name__ == '__main__':
-    unittest.main()
