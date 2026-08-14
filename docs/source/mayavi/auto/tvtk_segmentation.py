@@ -24,7 +24,8 @@ if not os.path.exists(mri_slice_file):
         print("Downloading data, Please Wait (7.8MB)")
         opener = urlopen(
                     'http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
-        open('MRbrain.tar.gz', 'wb').write(opener.read())
+        with open('MRbrain.tar.gz', 'wb') as fh:
+            fh.write(opener.read())
 
     # Extract the data
     import tarfile
@@ -33,7 +34,7 @@ if not os.path.exists(mri_slice_file):
         os.mkdir('mri_data')
     except:
         pass
-    tar_file.extractall('mri_data')
+    tar_file.extractall('mri_data', filter='data')
     tar_file.close()
 
 

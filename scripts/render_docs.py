@@ -22,10 +22,15 @@ SOURCE = REPO / 'docs' / 'source'
 # Makefiles' -W covers Sphinx's own diagnostics, not Python's.
 WARNING_FILTERS = (
     ('error', '', Warning),
-    # third-party, reached through envisage's plugin manager and sphinxcontrib
-    ('ignore', 'pkg_resources is deprecated as an API', UserWarning),
-    ('ignore', 'Deprecated call to `pkg_resources.declare_namespace',
-     DeprecationWarning),
+    # pyface 8.0.0's code editor adds two Qt flags with "+", which PySide6
+    # deprecated.  Raised as an error it aborts the widget half-built, and the
+    # app examples that open the logger view then die on an AttributeError
+    # rather than on this.  Nothing here can fix it, and 8.0.0 is the newest
+    # pyface there is -- drop this when a release stops doing it
+    # (the message is a regex matched from the start, and PySide6 opens this
+    # one with a newline -- hence the \s*, and the escaped +)
+    (r'ignore', r'\s*The "\+" operator is deprecated in Qt For Python',
+     UserWarning),
     # unsatisfiable until pyface.workbench moves to apptools
     ('ignore', 'Workbench will be moved from pyface', PendingDeprecationWarning),
     # an example calling plt.show() is right; it is this renderer that has no

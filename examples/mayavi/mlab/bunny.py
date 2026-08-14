@@ -23,7 +23,8 @@ if not os.path.exists(bunny_ply_file):
         print("Downloading bunny model, Please Wait (3MB)")
         opener = urlopen(
                     'http://graphics.stanford.edu/pub/3Dscanrep/bunny.tar.gz')
-        open('bunny.tar.gz', 'wb').write(opener.read())
+        with open('bunny.tar.gz', 'wb') as fh:
+            fh.write(opener.read())
 
     # Extract the data
     import tarfile
@@ -32,7 +33,7 @@ if not os.path.exists(bunny_ply_file):
         os.mkdir('bunny_data')
     except:
         pass
-    bunny_tar_file.extractall('bunny_data')
+    bunny_tar_file.extractall('bunny_data', filter='data')
     bunny_tar_file.close()
 
 # Render the bunny ply file
