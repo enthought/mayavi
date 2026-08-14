@@ -43,15 +43,11 @@ classifiers = [
 ]
 [project.optional-dependencies]
 app = [
-    "envisage",
-    # envisage.api imports pkg_resources, which setuptools 82 removed, and
-    # envisage requires a bare "setuptools" so nothing holds it back.  The import
-    # is gone from envisage main (enthought/envisage#548) but not from 7.0.4, so
-    # drop this once a release carries the fix.
-    # TODO: drop this once the envisage floor can be raised past 7.0.4.  The
-    # tests.yml `ets: main` row already runs against a fixed envisage, so that
-    # row is where the pin becoming unnecessary will show up first.
-    "setuptools<82",
+    # 8.0.0 dropped the pkg_resources import that setuptools 82 removed (which
+    # is what the "setuptools<82" pin here used to be for), and 8.0.1 carries
+    # the Python shell view fix -- creating the pyface 8 widget, and not
+    # unwinding a create_control that raised (enthought/envisage#639)
+    "envisage>=8.0.1",
 ]
 
 # For running the suites and for building the docs (see the CI and Docs

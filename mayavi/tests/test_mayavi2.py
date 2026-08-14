@@ -13,12 +13,10 @@ from unittest.mock import patch
 from mayavi.core.null_engine import NullEngine
 from mayavi.tests.common import get_example_data
 
-# what mayavi.scripts.mayavi2 imports, at one remove: the module reaches
-# mayavi.plugins.app, which reaches envisage.api, which imports pkg_resources
-# itself -- and setuptools 82 removed that.  find_spec rather than an import,
-# so that probing costs nothing and raises no warning of its own
-HAVE_APP = all(importlib.util.find_spec(name) is not None
-               for name in ('envisage', 'pkg_resources'))
+# what mayavi.scripts.mayavi2 needs, at one remove: the module reaches
+# mayavi.plugins.app, and that reaches envisage.  find_spec rather than an
+# import, so that probing costs nothing
+HAVE_APP = importlib.util.find_spec('envisage') is not None
 
 
 def import_mayavi2(argv=()):

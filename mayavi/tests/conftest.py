@@ -10,15 +10,6 @@ WARNING_LINES = r"""
 error::
 # unsatisfiable until pyface.workbench moves -- see tvtk/WORKAROUNDS.md
 ignore:Workbench will be moved from pyface:PendingDeprecationWarning
-# envisage.api imports pkg_resources, which setuptools 81 deprecated and 82
-# removed -- hence the setuptools<82 pin on the `app` extra.  Gone from
-# envisage main (enthought/envisage#548), so drop this with that pin.  No
-# category on either: setuptools raised these as DeprecationWarning before 81
-# and as UserWarning after, and the wheel jobs see the older one
-ignore:pkg_resources is deprecated as an API
-# and importing it makes it scan the environment, so any namespace package
-# that happens to be installed alongside warns too
-ignore:Deprecated call to `pkg_resources.declare_namespace
 # should be fixed in traits
 ignore: module 'sre_.+' is deprecated:DeprecationWarning
 """
