@@ -56,7 +56,3 @@ class TestEmbeddingError(unittest.TestCase):
     def test_other_oses_pass(self):
         self.assertIsNone(self.f('cocoa'))
         self.assertIsNone(self.f('windows'))
-
-
-if __name__ == '__main__':
-    unittest.main()

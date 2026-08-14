@@ -65,7 +65,3 @@ class TestTVTKScene(unittest.TestCase):
 
         # The TVTK Scene should have been collected.
         self.assertTrue(scene_collected[0])
-
-
-if __name__ == "__main__":
-    unittest.main()

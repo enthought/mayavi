@@ -11,7 +11,3 @@ class TestBrowserOpen(unittest.TestCase):
             action_help.browser_open(url)
 
         open_mock.assert_called_once_with(url, autoraise=1)
-
-
-if __name__ == '__main__':
-    unittest.main()

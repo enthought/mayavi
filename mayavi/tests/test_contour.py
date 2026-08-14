@@ -190,6 +190,3 @@ class TestContour(unittest.TestCase):
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()
-
-if __name__ == '__main__':
-    unittest.main()

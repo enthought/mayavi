@@ -20,7 +20,7 @@ from pyface.api import GUI
 from tvtk.api import tvtk
 from tvtk.common import configure_input
 from mayavi.plugins.app import Mayavi, setup_logger
-from mayavi.tests.conftest import fail_instead_of_dialogs
+from mayavi.tests.common import fail_instead_of_dialogs
 
 # The TVTK window.
 from tvtk.pyface.tvtk_scene import TVTKWindow

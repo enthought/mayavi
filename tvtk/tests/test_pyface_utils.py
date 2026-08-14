@@ -32,7 +32,3 @@ class TestPopupSave(unittest.TestCase):
             x = popup_save()
 
         self.assertEqual(x, '')
-
-
-if __name__ == '__main__':
-    unittest.main()

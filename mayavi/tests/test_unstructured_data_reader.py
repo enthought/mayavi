@@ -101,6 +101,3 @@ class TestGambitReader(DataReaderTestBase):
         # Test if the MayaVi2 visualization can be deep-copied.
 
         self.check_deepcopying(self.scene, self.bounds)
-
-if __name__ == '__main__':
-    unittest.main()

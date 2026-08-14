@@ -42,8 +42,3 @@ class TestPipelineInfoTest(unittest.TestCase):
         self.assertEqual(len(p.datasets), 0)
         self.assertEqual(len(p.attribute_types), 0)
         self.assertEqual(len(p.attributes), 0)
-
-
-
-if __name__ == '__main__':
-    unittest.main()

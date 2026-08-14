@@ -1,5 +1,3 @@
-import unittest
-
 import vtk
 from tvtk.api import tvtk
 
@@ -97,7 +95,3 @@ class TestVTKObjectSource(TestMlabNullEngine):
 
         # Then
         self.assertTrue(isinstance(src, VTKObjectSource))
-
-
-if __name__ == '__main__':
-    unittest.main()

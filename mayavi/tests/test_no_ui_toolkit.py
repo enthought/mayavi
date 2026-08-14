@@ -55,7 +55,3 @@ class TestNoUIToolkit(unittest.TestCase):
         # Should not have triggered an import of wx or any Qt binding.
         for mod in ['wx', 'PyQt5', 'PySide2', 'PyQt6', 'PySide6']:
             self.assertEqual(mod in sys.modules, False, mod)
-
-
-if __name__ == '__main__':
-    unittest.main()

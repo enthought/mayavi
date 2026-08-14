@@ -363,7 +363,3 @@ class TestTVTKBase(unittest.TestCase):
     # Reloading causes havoc with nosetests based tests so we skip in
     # that case.  Unittest will see the test just fine.
     test_zz_object_cache.__test__ = False
-
-
-if __name__ == "__main__":
-    unittest.main()

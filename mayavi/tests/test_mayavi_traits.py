@@ -140,8 +140,3 @@ class TestArrayOrNone(unittest.TestCase):
         self.assertEqual(a._test_y, 3)
         a.y = None
         self.assertEqual(a._test_y, 4)
-
-
-if __name__ == '__main__':
-    unittest.main()
-

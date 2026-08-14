@@ -137,7 +137,3 @@ class TestThresholdFilter(unittest.TestCase):
         output_range = output.point_data.scalars.range
         self.assertTrue(output_range[0] >= 0.25)
         self.assertTrue(output_range[1] <= 0.75)
-
-
-if __name__ == '__main__':
-    unittest.main()

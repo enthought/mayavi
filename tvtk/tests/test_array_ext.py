@@ -71,7 +71,3 @@ class TestArrayExt(unittest.TestCase):
 
     def test_set_id_type_array_py(self):
         self.check(set_id_type_array_py)
-
-
-if __name__ == "__main__":
-    unittest.main()

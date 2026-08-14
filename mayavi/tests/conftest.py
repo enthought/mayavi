@@ -3,6 +3,9 @@
 # License: BSD Style.
 
 import pytest
+from traits.api import pop_exception_handler, push_exception_handler
+
+from mayavi.tests.common import fail_instead_of_dialogs
 
 # One filter per line, "#" comments allowed.
 WARNING_LINES = r"""
@@ -38,29 +41,23 @@ def pytest_configure(config):
             config.addinivalue_line('filterwarnings', line)
 
 
-def fail_instead_of_dialogs(set_attr=setattr):
-    """Keep mayavi's error reporting from blocking (or hiding) a test run.
-
-    A failure inside a pipeline update -- including a warning raised as an
-    error -- is swallowed by a bare ``except:`` and shown in a modal pyface
-    box, so on a headed toolkit the run stops until someone clicks OK and the
-    test then passes regardless.  Re-raise instead, and route the genuinely
-    user-facing messages to the log only.
-
-    `set_attr` is the hook the fixture below uses to get its changes undone
-    again; the integration scripts, which are whole processes of their own,
-    take the default and keep them.
-    """
-    from mayavi.core import common
-    set_attr(common, 'reraise_exceptions', True)
-    if common.pyface is not None:
-        for name in ('error', 'warning', 'information'):
-            set_attr(common.pyface, name,
-                     lambda parent, msg, *args, _name=name, **kwargs:
-                         common.logger.info('pyface.%s: %s', _name, msg))
-
-
 @pytest.fixture(autouse=True)
 def no_modal_dialogs(monkeypatch):
     """Apply `fail_instead_of_dialogs` for the duration of each test."""
     fail_instead_of_dialogs(monkeypatch.setattr)
+
+
+@pytest.fixture(autouse=True, scope='session')
+def reraise_notification_exceptions():
+    """Let an exception inside a traits notification reach the test.
+
+    Traits logs and swallows those, which leaves a test asserting against a
+    half-built pipeline -- so this belongs to the whole run, and is popped
+    again at the end of it.  It used to be pushed at import time by
+    test_mlab_integration.py and never popped, which meant every module
+    collected after that one silently inherited it and running a module on
+    its own behaved differently from running the suite.
+    """
+    push_exception_handler(reraise_exceptions=True)
+    yield
+    pop_exception_handler()

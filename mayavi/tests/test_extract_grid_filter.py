@@ -183,8 +183,3 @@ class TestExtractGridFilter(unittest.TestCase):
 
         #from mayavi.tools.show import show
         #show()
-
-
-
-if __name__ == '__main__':
-    unittest.main()

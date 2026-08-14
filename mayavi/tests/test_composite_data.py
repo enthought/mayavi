@@ -1,4 +1,3 @@
-import unittest
 from numpy import testing as npt
 import numpy as np
 from tvtk.api import tvtk
@@ -85,7 +84,3 @@ class TestCompositeData(TestMlabNullEngine):
         self.assertTrue(
             np.all(bounds > (expect - 1.0)) and np.all(bounds < (expect + 1.0))
         )
-
-
-if __name__ == '__main__':
-    unittest.main()

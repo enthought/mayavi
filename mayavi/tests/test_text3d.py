@@ -96,6 +96,3 @@ class TestText3D(unittest.TestCase):
         self.save_and_reload()
         self.assertTrue(self.t.orient_to_camera)
         self.assertTrue(isinstance(self.t.actor.actor, tvtk.Follower))
-
-if __name__ == '__main__':
-    unittest.main()

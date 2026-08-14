@@ -153,7 +153,3 @@ class TestClassTree(unittest.TestCase):
             self.test_parent_child()
             self.test_level()
             self.test_tree()
-
-
-if __name__ == "__main__":
-    unittest.main()
