@@ -450,6 +450,12 @@ def capture_wx_dialog(filename, image_file):
 def capture_one(filename, image_file):
     """ Renders one example, the way that suits it.  Runs in the child.
     """
+    # An error reported in a modal box is a hang here: nobody is watching to
+    # click it away, the per-example timeout is what ends it, and the message
+    # -- the only thing that says what went wrong -- dies inside the box.
+    # Raise instead, so the child exits non-zero and its output is kept.
+    from mayavi.tests.common import fail_instead_of_dialogs
+    fail_instead_of_dialogs()
     if is_wx_example(filename):
         # keep_windows_in_background is Qt-only, and pyface.qt need not even
         # import in a toolkit=wx child

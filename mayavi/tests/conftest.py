@@ -5,6 +5,8 @@
 import pytest
 from traits.api import pop_exception_handler, push_exception_handler
 
+from mayavi.tests.common import fail_instead_of_dialogs
+
 # One filter per line, "#" comments allowed.
 WARNING_LINES = r"""
 error::
@@ -37,28 +39,6 @@ def pytest_configure(config):
         line = line.strip()
         if line and not line.startswith('#') and line not in existing:
             config.addinivalue_line('filterwarnings', line)
-
-
-def fail_instead_of_dialogs(set_attr=setattr):
-    """Keep mayavi's error reporting from blocking (or hiding) a test run.
-
-    A failure inside a pipeline update -- including a warning raised as an
-    error -- is swallowed by a bare ``except:`` and shown in a modal pyface
-    box, so on a headed toolkit the run stops until someone clicks OK and the
-    test then passes regardless.  Re-raise instead, and route the genuinely
-    user-facing messages to the log only.
-
-    `set_attr` is the hook the fixture below uses to get its changes undone
-    again; the integration scripts, which are whole processes of their own,
-    take the default and keep them.
-    """
-    from mayavi.core import common
-    set_attr(common, 'reraise_exceptions', True)
-    if common.pyface is not None:
-        for name in ('error', 'warning', 'information'):
-            set_attr(common.pyface, name,
-                     lambda parent, msg, *args, _name=name, **kwargs:
-                         common.logger.info('pyface.%s: %s', _name, msg))
 
 
 @pytest.fixture(autouse=True)
