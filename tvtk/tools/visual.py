@@ -370,7 +370,7 @@ class MVector(numpy.ndarray):
         data = numpy.array((x, y, z), float)
         ret = numpy.ndarray.__new__(subtype, shape = (3,),
                                     buffer = data, dtype=float,
-                                    order = False)
+                                    order = 'C')
         return ret.copy()
 
     def _get_x(self):

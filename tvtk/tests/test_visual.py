@@ -47,6 +47,26 @@ class TestVisual(unittest.TestCase):
     def tearDown(self):
         visual.set_viewer(None)
 
+    def test_vector(self):
+        # Regression test for #995: vector() raised a TypeError under
+        # numpy >= 1.18, which removed the boolean ``order`` argument this
+        # constructor was passing.
+        v = visual.vector(1.0, 2.0, 3.0)
+        self.assertIsInstance(v, visual.MVector)
+        assert_allclose(v, (1.0, 2.0, 3.0))
+        assert_allclose(visual.vector(), (0.0, 0.0, 0.0))
+
+        self.assertEqual((v.x, v.y, v.z), (1.0, 2.0, 3.0))
+        v.x = 9.0
+        assert_allclose(v, (9.0, 2.0, 3.0))
+
+        a = visual.vector(1.0, 2.0, 3.0)
+        b = visual.vector(4.0, 5.0, 6.0)
+        assert_allclose(a.dot(b), 32.0)
+        assert_allclose(a.cross(b), (-3.0, 6.0, -3.0))
+        assert_allclose(a.mag(), np.sqrt(14.0))
+        assert_allclose(a.norm(), np.array((1.0, 2.0, 3.0)) / np.sqrt(14.0))
+
     def test_ring(self):
         # Given
         r = visual.ring()
