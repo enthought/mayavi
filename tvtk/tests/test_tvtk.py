@@ -976,7 +976,7 @@ class TestTVTKModule(unittest.TestCase):
                 return word[0].upper()+word[1:].lower()
             return re.sub(r'(_?[a-zA-Z]+)', replace_func, text)
 
-        def get_min_max_value(vtk_klass, vtk_attr_name):
+        def get_min_max_value(vtk_obj, vtk_attr_name):
             """ Return (min, max) of a VTK attribute
 
             If MaxValue or MinValue is not available
@@ -985,8 +985,8 @@ class TestTVTKModule(unittest.TestCase):
             get_min_method = 'Get' + vtk_attr_name + 'MinValue'
             get_max_method = 'Get' + vtk_attr_name + 'MaxValue'
             try:
-                return (getattr(vtk_klass(), get_min_method)(),
-                        getattr(vtk_klass(), get_max_method)())
+                return (getattr(vtk_obj, get_min_method)(),
+                        getattr(vtk_obj, get_max_method)())
             except AttributeError:
                 return None, None
 
@@ -1012,11 +1012,16 @@ class TestTVTKModule(unittest.TestCase):
                 # testing for instantiation is above
                 continue
 
+            # one VTK object per class, not one per Get*MinValue/Get*MaxValue
+            # call: these accessors return constants, and constructing tens of
+            # thousands of VTK objects is the whole cost of this test
+            vtk_obj = vtk_klass()
+
             for trait_name in obj.editable_traits():
                 if trait_name in ['_in_set', '_vtk_obj']:
                     continue
                 vtk_attr_name = to_camel_case(trait_name)
-                min_value, max_value = get_min_max_value(vtk_klass,
+                min_value, max_value = get_min_max_value(vtk_obj,
                                                          vtk_attr_name)
 
                 # Explicitly checking for None instead of bool(value)

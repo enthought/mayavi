@@ -330,6 +330,13 @@ and should go.  Current case:
   `numpy_support.vtk_to_numpy` still assigns to `.shape`.  9.7 fixed it, so
   the filter is version-keyed rather than blanket — mayavi's own assignments
   all went through `tvtk.common.reshape_view` instead, and must stay errors.
+- `scripts/render_docs.py` ignores VTK 9.7's "Call to deprecated class
+  vtkImageThreshold" for the example render, where warnings are fatal.
+  `tvtk_segmentation.py` needs that filter and cannot move to the replacement
+  `vtkImageBinaryThreshold`, which does not exist before 9.7; at a 9.7 floor
+  switch the example over and drop the filter.  The suites need no such entry:
+  `tvtk/tests/conftest.py` already ignores every "Call to deprecated" message,
+  since they instantiate every VTK class.
 - `mayavi/core/utils.py` reduces composite arrays with `numpy` rather than
   `numpy_interface.algorithms` when the runtime VTK dispatches numpy functions
   on them (detected by `dsa.COMPOSITE_OVERRIDE`, added in 9.6 along with the
