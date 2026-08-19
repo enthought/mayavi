@@ -285,12 +285,14 @@ Those obey the same marker and cull rules; they are keyed on `qVersion()` and
   Qt's own GL context instead of embedding a native X window.  Until tvtk
   can require and adopt that, this is in the never-expires class.
 
-## Outside the layers: pyface
+## Outside the layers: pyface and traitsui
 
 Mayavi is the last consumer of `pyface.workbench`, which upstream considers
-unmaintained, so bugs there are ours to carry.  These are keyed on a pyface
-release rather than a VTK version, and cull when `setup.py`'s `pyface` floor
-passes the release that carries the upstream fix.  Current case:
+unmaintained, so bugs there are ours to carry — as are the ones in the Qt
+backends of pyface and traitsui that only our windows reach.  These are keyed
+on a pyface or traitsui release rather than a VTK version, and cull when
+`setup.py`'s floor passes the release that carries the upstream fix.  Current
+cases:
 
 - `mayavi/plugins/_workbench_fixes.py`: pyface's "View -> Other..." dialog
   adapts by *calling* the interface (`IView(obj, Undefined)` in
@@ -322,6 +324,25 @@ passes the release that carries the upstream fix.  Current case:
   the workbench view wrapping `PipelineBrowser`; the examples' is for the four
   that stand the workbench up (`explorer3d`, `nongui`, `plugins/test`,
   `subclassing_mayavi_application`).
+
+- `tvtk/tests/test_ivtk.py` skips its whole class on PyQt6.  Two independent
+  upstream bugs, both of which `ivtk.viewer()` and every `IVTK*` window walk
+  straight into there, and neither of which tvtk can paper over:
+  - `pyface.ui.qt.action.action_item._MenuItem` calls
+    `QMenu.addAction(text, slot, shortcut)`.  PyQt6 has no such overload — its
+    three-argument forms are `(text, slot, type)` and `(text, shortcut, slot)`
+    — so building the menu bar raises `TypeError: arguments did not match any
+    overloaded call`.  PySide6 accepts it.
+  - `traitsui.qt.ui_panel._GroupSplitter._resize_items` seeds its sizes from
+    `Item.width`, a `Float`, and returns early on `if avail <= 0` before
+    anything is coerced, so a splitter that is still zero-sized reaches
+    `QSplitter.setSizes([-1.0, -1.0])`.  PyQt6 raises `TypeError: index 0 has
+    type 'float' but 'int' is expected`; because it happens inside a
+    `showEvent`, the exception is unraisable and Qt **aborts the process**
+    (exit 134), which no skip inside the test could have caught.
+  Both reproduce against pyface and traitsui `main` (checked 2026-08-19), so
+  the skip cannot be keyed on a release yet.  The PySide6 and PyQt5 rows keep
+  covering what the tests are for; drop the skip once both are fixed upstream.
 
 ## Outside the layers: `mayavi/`
 
