@@ -325,14 +325,29 @@ cases:
   that stand the workbench up (`explorer3d`, `nongui`, `plugins/test`,
   `subclassing_mayavi_application`).
 
-- `tvtk/tests/test_ivtk.py` skips its whole class on PyQt6.  Two independent
-  upstream bugs, both of which `ivtk.viewer()` and every `IVTK*` window walk
-  straight into there, and neither of which tvtk can paper over:
+- `mayavi/plugins/_workbench_fixes.py`: `restore_qfont_typewriter()` puts back
+  `QFont.TypeWriter`, which PyQt6 dropped along with the rest of the unscoped
+  enums but pyface still names in its console widget, its code editor and its
+  font registry.  Building the Python shell view therefore raises
+  `AttributeError: type object 'QFont' has no attribute 'TypeWriter'` on PyQt6;
+  the one alias covers every call site, and
+  `mayavi_workbench_application.run()` applies it beside `fix_view_chooser()`.
+  Keyed on pyface, not on PyQt6 — the bindings are not going back.  It was lost
+  once already, having been nested inside a `fix_python_shell_view` that
+  envisage 8.0.1 made unnecessary; `mayavi/tests/test_workbench_fixes.py`
+  now builds a shell so that cannot happen quietly again.
+- `tvtk/tests/test_ivtk.py` skips its whole class on PyQt6.  Three independent
+  upstream bugs, all of which `ivtk.viewer()` and every `IVTK*` window walk
+  straight into there, and none of which tvtk can paper over:
   - `pyface.ui.qt.action.action_item._MenuItem` calls
     `QMenu.addAction(text, slot, shortcut)`.  PyQt6 has no such overload — its
     three-argument forms are `(text, slot, type)` and `(text, shortcut, slot)`
     — so building the menu bar raises `TypeError: arguments did not match any
     overloaded call`.  PySide6 accepts it.
+  - the same `QFont.TypeWriter` the entry above restores, which the two
+    `WithCrust` windows reach through pyface's console widget.  Nothing applies
+    that alias on a tvtk-only path, and fixing just this one would not make the
+    windows work while the other two stand, so it is left to the skip.
   - `traitsui.qt.ui_panel._GroupSplitter._resize_items` seeds its sizes from
     `Item.width`, a `Float`, and returns early on `if avail <= 0` before
     anything is coerced, so a splitter that is still zero-sized reaches

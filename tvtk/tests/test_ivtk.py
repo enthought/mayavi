@@ -12,15 +12,20 @@ except (ImportError, RuntimeError):
     GUI = QtGui = qt_api = None
 
 
-# Neither of these is ours to fix, and the second is not even catchable -- see
-# tvtk/WORKAROUNDS.md.  pyface's `_MenuItem` calls `QMenu.addAction(text, slot,
-# shortcut)`, an overload PyQt6 does not have, so every one of these windows
-# fails building its menu bar; and traitsui's `_GroupSplitter._resize_items`
-# hands `QSplitter.setSizes` the floats it seeded from `Item.width` whenever the
+# Three separate upstream bugs bite here on PyQt6, none of them ours and the
+# last not even catchable -- see tvtk/WORKAROUNDS.md.  pyface's `_MenuItem`
+# calls `QMenu.addAction(text, slot, shortcut)`, an overload PyQt6 does not
+# have, so every one of these windows fails building its menu bar; pyface's
+# console widget names the `QFont.TypeWriter` PyQt6 dropped, which the two
+# `WithCrust` windows hit (mayavi2 itself is covered by
+# `_workbench_fixes.restore_qfont_typewriter`, but nothing applies it on this
+# tvtk-only path); and traitsui's `_GroupSplitter._resize_items` hands
+# `QSplitter.setSizes` the floats it seeded from `Item.width` whenever the
 # splitter is still zero-sized, which PyQt6 rejects from inside a `showEvent`,
-# where the TypeError is unraisable and Qt aborts the process.  PySide6 coerces
-# and carries on, so the rest of the matrix covers what these are here for.
-# Both reproduce on pyface and traitsui `main` as of 2026-08-19.
+# where the TypeError is unraisable and Qt aborts the process.  PySide6 has the
+# overload, has the alias and coerces the floats, so the rest of the matrix
+# covers what these are here for.  All three reproduce on pyface and traitsui
+# `main` as of 2026-08-19.
 @unittest.skipIf(QtGui is None, 'Qt is not available.')
 @unittest.skipIf(qt_api == 'pyqt6',
                  'pyface and traitsui break the ivtk windows on PyQt6')
