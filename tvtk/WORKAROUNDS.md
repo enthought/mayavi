@@ -314,11 +314,14 @@ passes the release that carries the upstream fix.  Current case:
   per-example children through `PYTHONWARNINGS`, and `warnings._setoption`
   strips the message it is given, so a message starting with a newline — as
   PySide6's does — can never be matched there.
-- `mayavi/tests/conftest.py` and `tvtk/tests/conftest.py` ignore pyface's
+- `mayavi/tests/conftest.py`, `tvtk/tests/conftest.py` and
+  `mayavi/tests/common.py`'s `EXAMPLE_WARNING_FILTERS` ignore pyface's
   "Workbench will be moved from pyface" `PendingDeprecationWarning`.
   Unsatisfiable rather than deferred: there is nowhere for the import to move
   to until the code does.  `tvtk`'s copy is for `test_browser.py`, which builds
-  the workbench view wrapping `PipelineBrowser`.
+  the workbench view wrapping `PipelineBrowser`; the examples' is for the four
+  that stand the workbench up (`explorer3d`, `nongui`, `plugins/test`,
+  `subclassing_mayavi_application`).
 
 ## Outside the layers: `mayavi/`
 
@@ -332,13 +335,14 @@ and should go.  Current case:
   `numpy_support.vtk_to_numpy` still assigns to `.shape`.  9.7 fixed it, so
   the filter is version-keyed rather than blanket — mayavi's own assignments
   all went through `tvtk.common.reshape_view` instead, and must stay errors.
-- `scripts/render_docs.py` ignores VTK 9.7's "Call to deprecated class
-  vtkImageThreshold" for the example render, where warnings are fatal.
-  `tvtk_segmentation.py` needs that filter and cannot move to the replacement
-  `vtkImageBinaryThreshold`, which does not exist before 9.7; at a 9.7 floor
-  switch the example over and drop the filter.  The suites need no such entry:
-  `tvtk/tests/conftest.py` already ignores every "Call to deprecated" message,
-  since they instantiate every VTK class.
+- `mayavi/tests/common.py`'s `EXAMPLE_WARNING_FILTERS` ignores VTK 9.7's "Call
+  to deprecated class vtkImageThreshold" wherever an example runs with warnings
+  fatal — `scripts/render_docs.py` for the gallery, `run_example_headless` for
+  the rest.  `tvtk_segmentation.py` needs that filter and cannot move to the
+  replacement `vtkImageBinaryThreshold`, which does not exist before 9.7; at a
+  9.7 floor switch the example over and drop the filter.  The suites need no
+  such entry: `tvtk/tests/conftest.py` already ignores every "Call to
+  deprecated" message, since they instantiate every VTK class.
 - `mayavi/core/utils.py` reduces composite arrays with `numpy` rather than
   `numpy_interface.algorithms` when the runtime VTK dispatches numpy functions
   on them (detected by `dsa.COMPOSITE_OVERRIDE`, added in 9.6 along with the

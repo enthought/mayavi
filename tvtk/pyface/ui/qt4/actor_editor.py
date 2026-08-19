@@ -13,9 +13,9 @@ from pyface.qt import QtGui
 # Enthought library imports.
 from traits.api import Any, Bool, Callable, Dict, Str
 try:
-    from traitsui.qt4.editor import Editor
-except ModuleNotFoundError:
     from traitsui.qt.editor import Editor
+except ModuleNotFoundError:  # traitsui < 8
+    from traitsui.qt4.editor import Editor
 from traitsui.basic_editor_factory import BasicEditorFactory
 
 from .decorated_scene import DecoratedScene

@@ -47,7 +47,8 @@ pytest -v --timeout=180 examples
   CI was green throughout.
   A matrix-conditioned step fails silently that way; a job's absence from the checks is visible.
 - `pytest examples` runs the examples the gallery does not, one subprocess each (30 of the 90, ~1 min), in `tests.yml`'s own `examples` job.
-  `mayavi/tests/common.py:run_example_headless` is what the child calls: it stubs out everything an example ends by blocking in — `mlab.show`, `GUI.start_event_loop`, `configure_traits`, `vtkRenderWindowInteractor::Start`, `QApplication.exec` — pushes the same re-raising traits handler the suites use, and runs the rest of the script.
+  `mayavi/tests/common.py:run_example_headless` is what the child calls: it stubs out everything an example ends by blocking in — `mlab.show`, `GUI.start_event_loop`, `configure_traits`, `vtkRenderWindowInteractor::Start`, `QApplication.exec` — pushes the same re-raising traits handler the suites use, makes warnings fatal, and runs the rest of the script.
+  The filters are `EXAMPLE_WARNING_FILTERS` in the same file, shared with `scripts/render_docs.py` so that the two halves of the example set hold examples to one standard; pytest's own `filterwarnings` cannot do it, as it applies to the process pytest runs in and every case here is a subprocess.
   Which examples those are is asked of `render_examples.rendered_examples()` rather than listed, so the two sets cannot drift: an example that stops being rendered starts being run here instead.
   `user_mayavi.py` and `zzz_reader.py` are the exception (`RUN_AS_MODULE`) — both `sys.exit(1)` when run as `__main__`, being meant for the application to import, so they are run under their own module name for their module body.
   `examples/conftest.py` keeps pytest from importing the example scripts themselves, as `integrationtests/conftest.py` does.
