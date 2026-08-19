@@ -30,6 +30,10 @@ WARNING_FILTERS = (
     # an example calling plt.show() is right; it is this renderer that has no
     # interactive matplotlib backend
     ('ignore', 'FigureCanvasAgg is non-interactive', UserWarning),
+    # tvtk_segmentation.py wants vtkImageThreshold, whose replacement
+    # vtkImageBinaryThreshold does not exist before VTK 9.7 -- see
+    # tvtk/WORKAROUNDS.md
+    ('ignore', 'Call to deprecated class vtkImageThreshold', DeprecationWarning),
 )
 
 
