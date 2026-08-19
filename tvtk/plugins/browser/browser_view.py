@@ -47,7 +47,8 @@ class BrowserView(View):
         self.browser = PipelineBrowser()
         self.browser.show(parent=parent)
 
-        return self.browser.ui.control
+        # PipelineBrowser keeps its UI in _ui; there is no public `ui`
+        return self.browser._ui.control
 
     ###########################################################################
     # Private interface.
@@ -63,6 +64,10 @@ class BrowserView(View):
         is used to add and remove objects from the pipeline.
 
         """
+
+        # TODO: both of these are no-ops -- map() is lazy in Python 3 and
+        # nothing consumes it, so the browser has never tracked scenes being
+        # added or removed.  No example or test exercises this path.
 
         # Scenes that were removed.
         map(self._remove_scene, event.removed)

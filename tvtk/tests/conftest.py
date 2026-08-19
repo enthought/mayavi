@@ -11,6 +11,8 @@ error::
 # these tests instantiate every VTK class and read every getter, deprecated
 # ones included; the parenthetical wording varies far too much to match on
 ignore:Call to deprecated .*Deprecated since version.*:DeprecationWarning
+# unsatisfiable until pyface.workbench moves -- see tvtk/WORKAROUNDS.md
+ignore:Workbench will be moved from pyface:PendingDeprecationWarning
 # should be fixed in traits
 ignore: module 'sre_.+' is deprecated:DeprecationWarning
 """

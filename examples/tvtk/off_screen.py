@@ -47,7 +47,7 @@ rw.off_screen_rendering=1
 rw.add_renderer(ren)
 
 w2if = tvtk.WindowToImageFilter()
-w2if.magnification = 2
+w2if.scale = (2, 2)
 w2if.input = rw
 ex = tvtk.PNGWriter()
 ex.file_name = "example.png"

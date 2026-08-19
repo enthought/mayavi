@@ -64,3 +64,65 @@ def get_example_data(fname):
     p = os.path.join('data', fname)
     return os.path.abspath(fixpath(p))
 
+
+# Examples that are meant for the mayavi2 application to import rather than to
+# be executed, and say so by exiting non-zero under `__main__`.  Their module
+# body is the part that does the work, so they get a name that skips the guard.
+RUN_AS_MODULE = ('user_mayavi', 'zzz_reader')
+
+
+def run_example_headless(filename):
+    """Run one example script to completion, with nothing left blocking.
+
+    An example ends by handing itself to an event loop -- ``mlab.show()``,
+    ``GUI.start_event_loop()``, ``configure_traits()``, VTK's own
+    ``vtkRenderWindowInteractor::Start`` -- which never returns.  Stub those
+    out and the whole script still runs, which is all this is checking: that
+    the example works against the installed VTK and ETS.
+
+    The gallery renderer in ``docs/source/render_examples.py`` does the same
+    for the examples it shoots a figure of, but with the capture machinery
+    wrapped around it; ``examples/test_examples.py`` calls this for the rest.
+    """
+    import runpy
+    import sys
+
+    from traits.api import push_exception_handler
+
+    # as in the renderer: an exception in a notification handler is otherwise
+    # printed and swallowed, and the example "passes" with half its work undone
+    push_exception_handler(reraise_exceptions=True)
+    fail_instead_of_dialogs()
+    # an example that also draws with matplotlib would block in pyplot.show()
+    os.environ.setdefault('MPLBACKEND', 'Agg')
+
+    from pyface.api import GUI
+    from mayavi import mlab
+    from tvtk.api import tvtk
+    from tvtk.tools import visual
+
+    GUI.start_event_loop = lambda self: None
+    tvtk.RenderWindowInteractor.start = lambda self: None
+    visual.show = lambda: None
+    # mlab.show doubles as a decorator, and returning None from it would leave
+    # the example calling None() rather than its own function
+    mlab.show = lambda func=None, stop=False: func
+    HasTraits.configure_traits = \
+        lambda self, *args, **kwargs: self.edit_traits(kind='live')
+    try:
+        from pyface.qt import QtGui
+    except Exception:
+        pass        # a toolkit-less run has no loop to stop either
+    else:
+        for name in ('exec', 'exec_'):
+            if hasattr(QtGui.QApplication, name):
+                setattr(QtGui.QApplication, name, lambda *a, **kw: 0)
+
+    filename = os.path.abspath(filename)
+    # examples/mayavi/explorer names its own modules as envisage services, and
+    # resolving one is an import: give the example the sys.path[0] that running
+    # it as a script would have given it
+    sys.path.insert(0, os.path.dirname(filename))
+    name = os.path.splitext(os.path.basename(filename))[0]
+    runpy.run_path(filename,
+                   run_name=name if name in RUN_AS_MODULE else '__main__')

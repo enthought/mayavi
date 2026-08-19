@@ -314,9 +314,11 @@ passes the release that carries the upstream fix.  Current case:
   per-example children through `PYTHONWARNINGS`, and `warnings._setoption`
   strips the message it is given, so a message starting with a newline — as
   PySide6's does — can never be matched there.
-- `mayavi/tests/conftest.py` ignores pyface's "Workbench will be moved from
-  pyface" `PendingDeprecationWarning`.  Unsatisfiable rather than deferred:
-  there is nowhere for the import to move to until the code does.
+- `mayavi/tests/conftest.py` and `tvtk/tests/conftest.py` ignore pyface's
+  "Workbench will be moved from pyface" `PendingDeprecationWarning`.
+  Unsatisfiable rather than deferred: there is nowhere for the import to move
+  to until the code does.  `tvtk`'s copy is for `test_browser.py`, which builds
+  the workbench view wrapping `PipelineBrowser`.
 
 ## Outside the layers: `mayavi/`
 
