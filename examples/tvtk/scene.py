@@ -163,6 +163,7 @@ class ExampleWindow(SplitApplicationWindow):
         """ Creates the right hand side or bottom depending on the style. """
 
         self.python_shell = PythonShell(parent)
+        self.python_shell.create()
         self.python_shell.bind('scene', self.scene)
         self.python_shell.bind('s', self.scene)
 

@@ -23,11 +23,20 @@ import numpy as np
 
 # Enthought imports
 from mayavi import mlab
+from traits.api import push_exception_handler
 
 # A global counter, for subsitutions.
 global_counter = itertools.count()
 
-EXAMPLE_DIR = '../../examples/mayavi'
+# absolute, so that `rendered_examples` below answers the same thing wherever
+# it is called from -- examples/test_examples.py imports it to work out which
+# examples the gallery leaves for it to run
+EXAMPLE_DIR = str(Path(__file__).resolve().parents[2] / 'examples' / 'mayavi')
+
+# The gallery sections, in the order render_examples() writes them.  The fifth,
+# the top-level "Misc examples", is listed rather than rendered.
+GALLERY_SECTIONS = ('mlab', 'interactive', 'advanced_visualization',
+                    'data_interaction')
 
 # Examples whose figure differs from run to run, so that re-rendering would flip
 # the published image back and forth for no gain.  The first two draw
@@ -501,6 +510,13 @@ def capture_one(filename, image_file):
     """ Renders one example, the way that suits it.  Runs in the child.
     """
     apply_unsettable_warning_filters()
+    # Traits prints an exception raised in a notification handler and carries
+    # on, so an example that breaks inside one still renders -- a figure with
+    # whatever the handler was going to draw missing from it -- and the child
+    # exits 0, which throws its output away.  That is how coil_design_application
+    # published a picture of two coils and no magnetic field for as long as it
+    # did.  The suites push the same handler from their conftests.
+    push_exception_handler(reraise_exceptions=True)
     # An error reported in a modal box is a hang here: nobody is watching to
     # click it away, the per-example timeout is what ends it, and the message
     # -- the only thing that says what went wrong -- dies inside the box.
@@ -563,6 +579,39 @@ def capture_in_subprocess(filename, image_file):
         shutil.rmtree(state, ignore_errors=True)
 
 
+def renders_a_figure(filename):
+    """ Whether the gallery runs this example to make a figure of it.
+
+        `examples/test_examples.py` runs the ones this says no to, so that
+        between the two every example is executed somewhere.  A flaky example
+        says yes: its committed image is kept, but it is still run.
+    """
+    if os.path.splitext(os.path.basename(filename))[0] in SKIP_EXAMPLES:
+        return False
+    return (is_dialog_example(filename) or is_mlab_example(filename)
+            or is_app_example(filename))
+
+
+def collected_examples(section):
+    """ The examples one gallery section lists, shortest (simplest) first.
+    """
+    files = glob.glob(os.path.join(EXAMPLE_DIR, section, '*.py'))
+    if section == 'mlab':
+        # that directory also holds examples belonging to no section
+        files = [name for name in files if is_mlab_example(name)]
+    return sorted(files,
+                  key=lambda name: (len(Path(name).read_text().splitlines()),
+                                    name))
+
+
+def rendered_examples():
+    """ Every example the gallery runs, as absolute paths.
+    """
+    return {os.path.abspath(name) for section in GALLERY_SECTIONS
+            for name in collected_examples(section)
+            if renders_a_figure(name)}
+
+
 def capture_example(filename, short_file_name, image_file):
     """ Renders one example's figure, picking the way that suits it.
 
@@ -572,20 +621,27 @@ def capture_example(filename, short_file_name, image_file):
     if short_file_name in SKIP_EXAMPLES:
         print("Skipping %s: %s" % (filename, SKIP_EXAMPLES[short_file_name]))
         return
-    if not should_render(short_file_name, image_file):
-        print("Keeping the committed image for %s; it does not render "
-              "reproducibly (set MAYAVI_RENDER_FLAKY=1 to redo it)" % filename)
-        return
-    if not (is_dialog_example(filename) or is_mlab_example(filename)
-            or is_app_example(filename)):
+    if not renders_a_figure(filename):
         print("Skipping %s: it neither shows a figure nor opens a dialog"
               % filename)
         return
     print("Generating images for %s" % filename, flush=True)
+    # A flaky example is still run -- it has to keep working, and this is the
+    # only place it ever runs -- but its figure goes to a scratch directory and
+    # the committed one stays put, so the published image stops flipping back
+    # and forth.
+    keep_committed = not should_render(short_file_name, image_file)
+    scratch = tempfile.mkdtemp(prefix='mayavi-flaky-') if keep_committed else None
+    target = (os.path.join(scratch, os.path.basename(image_file))
+              if keep_committed else image_file)
     try:
-        capture_in_subprocess(filename, image_file)
-        if not os.path.exists(image_file):
+        capture_in_subprocess(filename, target)
+        if not os.path.exists(target):
             raise RuntimeError('rendered without leaving an image behind')
+        if keep_committed:
+            print("Keeping the committed image for %s; it does not render "
+                  "reproducibly (set MAYAVI_RENDER_FLAKY=1 to redo it)"
+                  % filename)
     except Exception as exc:
         # one broken example should not cost the gallery every later figure
         RENDER_FAILURES.append('%s: %s: %s'
@@ -611,6 +667,9 @@ def capture_example(filename, short_file_name, image_file):
                     lines = (lines[:30] + ['    ... %d lines omitted ...'
                                            % (len(lines) - 70)] + lines[-40:])
                 print(textwrap.indent('\n'.join(lines), '    '), flush=True)
+    finally:
+        if scratch is not None:
+            shutil.rmtree(scratch, ignore_errors=True)
 
 
 def is_mlab_example(filename):
@@ -1055,13 +1114,7 @@ Example gallery
 
     ##########################################################################
     # Mlab examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'mlab', '*.py'))
-                    if is_mlab_example(filename)]
-    # Sort by file length (gives a measure of the complexity of the
-    # example)
-    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
+    example_files = collected_examples('mlab')
 
     mlab_example_lister = MlabExampleLister(render_images=render_images,
                                         out_dir=out_dir,
@@ -1074,12 +1127,7 @@ Example gallery
 
     ##########################################################################
     # Interactive application examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'interactive', '*.py'))]
-    # Sort by file length (gives a measure of the complexity of the
-    # example)
-    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
+    example_files = collected_examples('interactive')
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -1095,12 +1143,7 @@ applications.
 
     ##########################################################################
     # Advanced visualization examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'advanced_visualization', '*.py'))]
-    # Sort by file length (gives a measure of the complexity of the
-    # example)
-    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
+    example_files = collected_examples('advanced_visualization')
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',
@@ -1115,12 +1158,7 @@ more fine control than mlab.
 
     ##########################################################################
     # Data interaction examples
-    example_files = [ filename
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
-                        'data_interaction', '*.py'))]
-    # Sort by file length (gives a measure of the complexity of the
-    # example)
-    example_files.sort(key=lambda name: (len(Path(name).read_text().splitlines()), name))
+    example_files = collected_examples('data_interaction')
     example_lister = RenderedExampleLister(
             render_images=render_images,
             images_dir='mayavi/generated_images',

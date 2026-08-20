@@ -230,11 +230,76 @@ jobs:
         files: coverage.xml
         fail_ci_if_error: false
 
+  # The examples the gallery does not render, which is where every other one
+  # is run: examples/tvtk, the explorer application, the four top-level ones,
+  # and the handful that neither show a figure nor open a dialog.  Which those
+  # are is asked of docs/source/render_examples.py rather than listed, so the
+  # two sets cannot drift apart -- between them every example in the repository
+  # is executed on every PR.
+  #
+  # A job of its own for the reasons `integration` is one: they want a display
+  # and the [app] extra, and a step conditioned on the matrix stops running in
+  # silence when the matrix moves under it.  One VTK is enough -- what these
+  # actually exercise is the ETS API the examples are written against, which is
+  # why the `ets: main` row is here and not only on the matrix above: every bug
+  # this suite turned up when it was written (a pyface 8 widget that no longer
+  # creates its own control, taking IVTK's splitter down with a null; a
+  # PipelineBrowser attribute the workbench view had wrong) was that kind.
+  examples:
+    name: Examples ${{ (matrix.ets && 'ets-main') || '' }}
+    strategy:
+      matrix:
+        ets: ['', 'main']
+      fail-fast: false
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 20  # the suite takes about a minute
+    env:
+      ETS_TOOLKIT: qt4
+      QT_API: pyside6
+      PYTHONUNBUFFERED: '1'
+    steps:
+    - uses: actions/checkout@v7.0.1
+      with:
+        persist-credentials: false
+        fetch-depth: 0  # setuptools_scm needs the tags
+    - uses: pyvista/setup-headless-display-action@v4
+      with:
+        qt: true
+    - uses: actions/setup-python@v7.0.0
+      with:
+        python-version: '3.14'
+    - run: python -m pip install --upgrade pip  # --group needs pip >= 25.1
+    # scipy is the only third-party import in this set (array_animation.py);
+    # the rendered examples want more, and docs.yml's `docs` group has those
+    - run: python -m pip install --group test pyside6 scipy -ve ".[app]"
+    - uses: ./.github/actions/install-ets-main
+      if: matrix.ets == 'main'
+    - run: python -c "import vtk; print(f'VTK {vtk.VTK_VERSION}')"
+    # every case is a subprocess, so this reports anything at all only because
+    # of `patch = ["subprocess"]`; the wrapper's own per-example timeout is
+    # tighter than pytest's, which is the backstop behind it
+    - run: coverage run -m pytest -v --timeout=180 examples
+    - name: Combine coverage
+      if: '!cancelled()'
+      run: |
+        coverage combine
+        coverage xml
+        coverage report --show-missing --skip-covered
+    - uses: codecov/codecov-action@v7.0.0
+      if: '!cancelled()'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: coverage.xml
+        fail_ci_if_error: false
+
   # Scheduled runs have no associated PR where a failure would be noticed, so
   # open an issue (if there isn't one already) when they break
   issue-on-failure:
     name: Open issue on scheduled failure
-    needs: [tests, integration]
+    needs: [tests, integration, examples]
     if: failure() && github.event_name == 'schedule'
     runs-on: ubuntu-latest
     permissions:

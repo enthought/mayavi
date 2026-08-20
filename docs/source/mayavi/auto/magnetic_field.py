@@ -108,19 +108,22 @@ def magnetic_field(r, n, r0, R):
     y = r[:, 1]
     z = r[:, 2]
     rho = np.sqrt(x**2 + y**2)
-    theta = np.arctan(x/y)
-    theta[y==0] = 0
+    # on the axis of the coil rho and y are zero, so several of these divide by
+    # zero; what that produces is replaced just below
+    with np.errstate(divide='ignore', invalid='ignore'):
+        theta = np.arctan(x/y)
+        theta[y==0] = 0
 
-    E = special.ellipe((4 * R * rho)/( (R + rho)**2 + z**2))
-    K = special.ellipk((4 * R * rho)/( (R + rho)**2 + z**2))
-    Bz =  1/np.sqrt((R + rho)**2 + z**2) * (
-                K
-              + E * (R**2 - rho**2 - z**2)/((R - rho)**2 + z**2)
-              )
-    Brho = z/(rho*np.sqrt((R + rho)**2 + z**2)) * (
-               -K
-              + E * (R**2 + rho**2 + z**2)/((R - rho)**2 + z**2)
-              )
+        E = special.ellipe((4 * R * rho)/( (R + rho)**2 + z**2))
+        K = special.ellipk((4 * R * rho)/( (R + rho)**2 + z**2))
+        Bz =  1/np.sqrt((R + rho)**2 + z**2) * (
+                    K
+                  + E * (R**2 - rho**2 - z**2)/((R - rho)**2 + z**2)
+                  )
+        Brho = z/(rho*np.sqrt((R + rho)**2 + z**2)) * (
+                   -K
+                  + E * (R**2 + rho**2 + z**2)/((R - rho)**2 + z**2)
+                  )
     # On the axis of the coil we get a divided by zero here. This returns a
     # NaN, where the field is actually zero :
     Brho[np.isnan(Brho)] = 0
