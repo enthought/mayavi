@@ -13,7 +13,7 @@ mlab.points3d function. The visualization object created is stored
 as an attribute on the main MyModel object, to modify it inplace later.
 
 When the `n_meridional` and `n_longitudinal` attributes are modified, eg via
-the slide bars on the dialog, the curve is recomputed, and the
+the spinners on the dialog, the curve is recomputed, and the
 visualization is updated by modifying inplace the stored plot
 object (see :ref:`mlab-animating-data`).
 
@@ -49,8 +49,8 @@ def curve(n_mer, n_long):
 
 
 class MyModel(HasTraits):
-    n_meridional    = Range(0, 30, 6, )#mode='spinner')
-    n_longitudinal  = Range(0, 30, 11, )#mode='spinner')
+    n_meridional    = Range(1, 30, 6, mode='spinner')
+    n_longitudinal  = Range(0, 30, 11, mode='spinner')
 
     scene = Instance(MlabSceneModel, ())
 
