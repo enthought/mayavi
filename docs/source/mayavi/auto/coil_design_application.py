@@ -185,10 +185,10 @@ class Loop(HasTraits):
         # to use an ImageData
         Bmax = 10 * np.median(Bnorm)
 
-        Bx[Bnorm > Bmax] = np.NAN
-        By[Bnorm > Bmax] = np.NAN
-        Bz[Bnorm > Bmax] = np.NAN
-        Bnorm[Bnorm > Bmax] = np.NAN
+        Bx[Bnorm > Bmax] = np.nan
+        By[Bnorm > Bmax] = np.nan
+        Bz[Bnorm > Bmax] = np.nan
+        Bnorm[Bnorm > Bmax] = np.nan
 
         self.Bx = Bx
         self.By = By

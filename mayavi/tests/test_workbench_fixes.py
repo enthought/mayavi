@@ -48,3 +48,27 @@ def test_view_chooser_dialog(node_class):
     # 'panel' rather than 'live': same editors, no window on screen
     ui = chooser.edit_traits(kind='panel')
     ui.dispose()
+
+
+@pytest.mark.skipif(ETSConfig.toolkit == 'null',
+                    reason='the shell needs a UI toolkit')
+def test_python_shell_builds():
+    """Test that pyface's Python shell can be built (gh-1409).
+
+    On PyQt6 it cannot without `restore_qfont_typewriter`, and this is what
+    catches the alias going missing again -- it already did once, having been
+    nested inside a `fix_python_shell_view` that envisage 8.0.1 retired.
+    """
+    from pyface.api import GUI, PythonShell
+    from pyface.qt import QtGui
+
+    from mayavi.plugins._workbench_fixes import restore_qfont_typewriter
+
+    restore_qfont_typewriter()
+    GUI()  # the toolkit application object the widget needs
+    shell = PythonShell(QtGui.QWidget())
+    shell.create()
+    try:
+        assert shell.control is not None
+    finally:
+        shell.destroy()

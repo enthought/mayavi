@@ -112,7 +112,26 @@ jobs:
         ETS_TOOLKIT: qt4
         # empty for push/pull_request, so those runs keep the committed image
         MAYAVI_RENDER_FLAKY: ${{ inputs.render_flaky }}
-      run: python scripts/render_docs.py
+      # under coverage because this is where sixty of the ninety examples are
+      # run -- the other thirty are `pytest examples` in tests.yml.  Every
+      # example is a subprocess, so it reports anything at all only because of
+      # `patch = ["subprocess"]`; render_docs.py chdirs into docs/source, but
+      # the data files still land beside pyproject.toml, where combine wants
+      # them.
+      run: coverage run scripts/render_docs.py
+    - name: Combine coverage
+      if: '!cancelled()'
+      run: |
+        coverage combine
+        coverage xml
+        coverage report --show-missing --skip-covered
+    - uses: codecov/codecov-action@v7.0.0
+      if: '!cancelled()'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: coverage.xml
+        # informational only -- a failed upload must not fail the job
+        fail_ci_if_error: false
     - name: Report regenerated files
       # --stat alone shows nothing for a figure that is new rather than
       # changed, which is how the gallery went years with images CI rendered

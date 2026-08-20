@@ -280,6 +280,7 @@ class IVTKWithCrust(SplitApplicationWindow):
         style.  's' and 'scene' are bound to the Scene instance."""
 
         self.python_shell = PythonShell(parent)
+        self.python_shell.create()
         self.python_shell.bind('scene', self.scene)
         self.python_shell.bind('s', self.scene)
         self.python_shell.bind('tvtk', tvtk)
@@ -342,6 +343,7 @@ class IVTKWithCrustAndBrowser(SplitApplicationWindow):
     def _create_lhs(self, parent):
         """ Creates the left hand side or top depending on the style. """
         self.browser_scene = SceneWithBrowser(parent)
+        self.browser_scene.create()
         self.scene = self.browser_scene.scene
         self.browser = self.browser_scene.browser
         return self.browser_scene.control
@@ -351,6 +353,7 @@ class IVTKWithCrustAndBrowser(SplitApplicationWindow):
         style.  's' and 'scene' are bound to the Scene instance."""
 
         self.python_shell = PythonShell(parent)
+        self.python_shell.create()
         self.python_shell.bind('scene', self.scene)
         self.python_shell.bind('s', self.scene)
         self.python_shell.bind('browser', self.browser)
@@ -454,6 +457,7 @@ class IVTKWithBrowser(ApplicationWindow):
         """ Create the contents of the window. """
 
         self.browser_scene = SceneWithBrowser(parent)
+        self.browser_scene.create()
         self.scene = self.browser_scene.scene
         self.browser = self.browser_scene.browser
         return self.browser_scene.control

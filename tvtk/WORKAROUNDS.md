@@ -285,12 +285,14 @@ Those obey the same marker and cull rules; they are keyed on `qVersion()` and
   Qt's own GL context instead of embedding a native X window.  Until tvtk
   can require and adopt that, this is in the never-expires class.
 
-## Outside the layers: pyface
+## Outside the layers: pyface and traitsui
 
 Mayavi is the last consumer of `pyface.workbench`, which upstream considers
-unmaintained, so bugs there are ours to carry.  These are keyed on a pyface
-release rather than a VTK version, and cull when `setup.py`'s `pyface` floor
-passes the release that carries the upstream fix.  Current case:
+unmaintained, so bugs there are ours to carry — as are the ones in the Qt
+backends of pyface and traitsui that only our windows reach.  These are keyed
+on a pyface or traitsui release rather than a VTK version, and cull when
+`setup.py`'s floor passes the release that carries the upstream fix.  Current
+cases:
 
 - `mayavi/plugins/_workbench_fixes.py`: pyface's "View -> Other..." dialog
   adapts by *calling* the interface (`IView(obj, Undefined)` in
@@ -314,9 +316,48 @@ passes the release that carries the upstream fix.  Current case:
   per-example children through `PYTHONWARNINGS`, and `warnings._setoption`
   strips the message it is given, so a message starting with a newline — as
   PySide6's does — can never be matched there.
-- `mayavi/tests/conftest.py` ignores pyface's "Workbench will be moved from
-  pyface" `PendingDeprecationWarning`.  Unsatisfiable rather than deferred:
-  there is nowhere for the import to move to until the code does.
+- `mayavi/tests/conftest.py`, `tvtk/tests/conftest.py` and
+  `mayavi/tests/common.py`'s `EXAMPLE_WARNING_FILTERS` ignore pyface's
+  "Workbench will be moved from pyface" `PendingDeprecationWarning`.
+  Unsatisfiable rather than deferred: there is nowhere for the import to move
+  to until the code does.  `tvtk`'s copy is for `test_browser.py`, which builds
+  the workbench view wrapping `PipelineBrowser`; the examples' is for the four
+  that stand the workbench up (`explorer3d`, `nongui`, `plugins/test`,
+  `subclassing_mayavi_application`).
+
+- `mayavi/plugins/_workbench_fixes.py`: `restore_qfont_typewriter()` puts back
+  `QFont.TypeWriter`, which PyQt6 dropped along with the rest of the unscoped
+  enums but pyface still names in its console widget, its code editor and its
+  font registry.  Building the Python shell view therefore raises
+  `AttributeError: type object 'QFont' has no attribute 'TypeWriter'` on PyQt6;
+  the one alias covers every call site, and
+  `mayavi_workbench_application.run()` applies it beside `fix_view_chooser()`.
+  Keyed on pyface, not on PyQt6 — the bindings are not going back.  It was lost
+  once already, having been nested inside a `fix_python_shell_view` that
+  envisage 8.0.1 made unnecessary; `mayavi/tests/test_workbench_fixes.py`
+  now builds a shell so that cannot happen quietly again.
+- `tvtk/tests/test_ivtk.py` skips its whole class on PyQt6.  Three independent
+  upstream bugs, all of which `ivtk.viewer()` and every `IVTK*` window walk
+  straight into there, and none of which tvtk can paper over:
+  - `pyface.ui.qt.action.action_item._MenuItem` calls
+    `QMenu.addAction(text, slot, shortcut)`.  PyQt6 has no such overload — its
+    three-argument forms are `(text, slot, type)` and `(text, shortcut, slot)`
+    — so building the menu bar raises `TypeError: arguments did not match any
+    overloaded call`.  PySide6 accepts it.
+  - the same `QFont.TypeWriter` the entry above restores, which the two
+    `WithCrust` windows reach through pyface's console widget.  Nothing applies
+    that alias on a tvtk-only path, and fixing just this one would not make the
+    windows work while the other two stand, so it is left to the skip.
+  - `traitsui.qt.ui_panel._GroupSplitter._resize_items` seeds its sizes from
+    `Item.width`, a `Float`, and returns early on `if avail <= 0` before
+    anything is coerced, so a splitter that is still zero-sized reaches
+    `QSplitter.setSizes([-1.0, -1.0])`.  PyQt6 raises `TypeError: index 0 has
+    type 'float' but 'int' is expected`; because it happens inside a
+    `showEvent`, the exception is unraisable and Qt **aborts the process**
+    (exit 134), which no skip inside the test could have caught.
+  Both reproduce against pyface and traitsui `main` (checked 2026-08-19), so
+  the skip cannot be keyed on a release yet.  The PySide6 and PyQt5 rows keep
+  covering what the tests are for; drop the skip once both are fixed upstream.
 
 ## Outside the layers: `mayavi/`
 
@@ -330,13 +371,14 @@ and should go.  Current case:
   `numpy_support.vtk_to_numpy` still assigns to `.shape`.  9.7 fixed it, so
   the filter is version-keyed rather than blanket — mayavi's own assignments
   all went through `tvtk.common.reshape_view` instead, and must stay errors.
-- `scripts/render_docs.py` ignores VTK 9.7's "Call to deprecated class
-  vtkImageThreshold" for the example render, where warnings are fatal.
-  `tvtk_segmentation.py` needs that filter and cannot move to the replacement
-  `vtkImageBinaryThreshold`, which does not exist before 9.7; at a 9.7 floor
-  switch the example over and drop the filter.  The suites need no such entry:
-  `tvtk/tests/conftest.py` already ignores every "Call to deprecated" message,
-  since they instantiate every VTK class.
+- `mayavi/tests/common.py`'s `EXAMPLE_WARNING_FILTERS` ignores VTK 9.7's "Call
+  to deprecated class vtkImageThreshold" wherever an example runs with warnings
+  fatal — `scripts/render_docs.py` for the gallery, `run_example_headless` for
+  the rest.  `tvtk_segmentation.py` needs that filter and cannot move to the
+  replacement `vtkImageBinaryThreshold`, which does not exist before 9.7; at a
+  9.7 floor switch the example over and drop the filter.  The suites need no
+  such entry: `tvtk/tests/conftest.py` already ignores every "Call to
+  deprecated" message, since they instantiate every VTK class.
 - `mayavi/core/utils.py` reduces composite arrays with `numpy` rather than
   `numpy_interface.algorithms` when the runtime VTK dispatches numpy functions
   on them (detected by `dsa.COMPOSITE_OVERRIDE`, added in 9.6 along with the

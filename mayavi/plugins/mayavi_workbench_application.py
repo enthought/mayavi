@@ -16,7 +16,8 @@ from pyface.api import AboutDialog, ImageResource, SplashScreen
 # Local imports.
 import mayavi.api
 from mayavi.preferences.api import preference_manager
-from mayavi.plugins._workbench_fixes import fix_view_chooser
+from mayavi.plugins._workbench_fixes import (fix_view_chooser,
+                                            restore_qfont_typewriter)
 
 IMG_DIR = dirname(mayavi.api.__file__)
 logger = logging.getLogger(__name__)
@@ -70,6 +71,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
         logger.debug('---------- workbench application ----------')
 
         fix_view_chooser()
+        restore_qfont_typewriter()
 
         # Make sure the GUI has been created (so that, if required, the splash
         # screen is shown).

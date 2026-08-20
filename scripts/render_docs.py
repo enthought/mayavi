@@ -17,41 +17,21 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 SOURCE = REPO / 'docs' / 'source'
 
-# (action, message prefix, category) -- the examples and the generators run as
-# plain scripts, so this is the only thing making their warnings fatal; the
-# Makefiles' -W covers Sphinx's own diagnostics, not Python's.
-# Filters whose message begins with whitespace cannot go here -- PYTHONWARNINGS
-# carries this list into the children and warnings._setoption strips it.  Those
-# live in render_examples.UNSETTABLE_WARNING_FILTERS.
-WARNING_FILTERS = (
-    ('error', '', Warning),
-    # unsatisfiable until pyface.workbench moves to apptools
-    ('ignore', 'Workbench will be moved from pyface', PendingDeprecationWarning),
-    # an example calling plt.show() is right; it is this renderer that has no
-    # interactive matplotlib backend
-    ('ignore', 'FigureCanvasAgg is non-interactive', UserWarning),
-    # tvtk_segmentation.py wants vtkImageThreshold, whose replacement
-    # vtkImageBinaryThreshold does not exist before VTK 9.7 -- see
-    # tvtk/WORKAROUNDS.md
-    ('ignore', 'Call to deprecated class vtkImageThreshold', DeprecationWarning),
-)
-
 
 def apply_warning_filters():
     """Make warnings fatal, here and in the per-example child processes.
 
-    `capture_in_subprocess` discards a child's output unless it exits
-    non-zero, so a warning there is only ever seen by being raised.
+    The examples and the generators run as plain scripts, so this is the only
+    thing making their warnings fatal; the Makefiles' -W covers Sphinx's own
+    diagnostics, not Python's.  And `capture_in_subprocess` discards a child's
+    output unless it exits non-zero, so a warning there is only ever seen by
+    being raised.
+
+    The list itself is `mayavi.tests.common.EXAMPLE_WARNING_FILTERS`, shared
+    with `pytest examples`, which runs the examples this render does not.
     """
-    filters = list(WARNING_FILTERS)
-    # VTK's own numpy_support.vtk_to_numpy assigns to .shape, which NumPy 2.5
-    # deprecated; fixed in 9.7, so keep it fatal there.  mayavi/tests/conftest.py
-    # carries the same gate for the suites -- see tvtk/WORKAROUNDS.md
-    from tvtk.common import vtk_major_version, vtk_minor_version
-    if (vtk_major_version, vtk_minor_version) < (9, 7):
-        filters.append(('ignore',
-                        'Setting the shape on a NumPy array has been deprecated',
-                        DeprecationWarning))
+    from mayavi.tests.common import example_warning_filters
+    filters = example_warning_filters()
     for action, message, category in filters:
         warnings.filterwarnings(action, re.escape(message), category)
     # PYTHONWARNINGS matches the message as a literal prefix, not a regex

@@ -37,6 +37,7 @@ python -m build
 # Test suites (CI runs exactly these)
 pytest -v --timeout=10 mayavi
 pytest -sv --timeout=60 tvtk
+pytest -v --timeout=180 examples
 ```
 
 - The files in `integrationtests/mayavi/` are not pytest modules — each is an `optparse` script subclassing `TestCase(Mayavi)`, meant to be run as `python test_contour.py`, and importing one hands pytest `Test*` classes it cannot instantiate.
@@ -45,6 +46,13 @@ pytest -sv --timeout=60 tvtk
   A *step* on a `tests` row was tried first and never ran: `!matrix.vtk` matched nothing because the `vtk-dev` include overrides no original matrix value, so GitHub merges it into the base ubuntu combination instead of adding a row, and every ubuntu row therefore has `vtk` set.
   CI was green throughout.
   A matrix-conditioned step fails silently that way; a job's absence from the checks is visible.
+- `pytest examples` runs the examples the gallery does not, one subprocess each (30 of the 90, ~1 min), in `tests.yml`'s own `examples` job.
+  `mayavi/tests/common.py:run_example_headless` is what the child calls: it stubs out everything an example ends by blocking in — `mlab.show`, `GUI.start_event_loop`, `configure_traits`, `vtkRenderWindowInteractor::Start`, `QApplication.exec` — pushes the same re-raising traits handler the suites use, makes warnings fatal, and runs the rest of the script.
+  The filters are `EXAMPLE_WARNING_FILTERS` in the same file, shared with `scripts/render_docs.py` so that the two halves of the example set hold examples to one standard; pytest's own `filterwarnings` cannot do it, as it applies to the process pytest runs in and every case here is a subprocess.
+  Which examples those are is asked of `render_examples.rendered_examples()` rather than listed, so the two sets cannot drift: an example that stops being rendered starts being run here instead.
+  `user_mayavi.py` and `zzz_reader.py` are the exception (`RUN_AS_MODULE`) — both `sys.exit(1)` when run as `__main__`, being meant for the application to import, so they are run under their own module name for their module body.
+  `examples/conftest.py` keeps pytest from importing the example scripts themselves, as `integrationtests/conftest.py` does.
+  Both `ets` rows run, unlike `integration`'s reasoning about envisage: what these exercise is the ETS API the examples are written against, and every bug the suite found when it was written was ETS drift (pyface 8 widgets that no longer create their own control, which took `IVTK`'s `QSplitter` down with a null; `browser_view.py` reaching for a `PipelineBrowser.ui` that is spelled `_ui`).
 - Regeneration is skipped if `tvtk/tvtk_classes.zip` is < 120 s old (`_tvtk_built_recently` in `setup.py`).
 - Warnings are errors.
   The filters live in `mayavi/tests/conftest.py` and `tvtk/tests/conftest.py` rather than `pyproject.toml`, so that they ship in the wheel and so reach the `pytest --pyargs` runs below and in `wheel.yml`.
@@ -78,6 +86,11 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
   The toolkit is a per-process choice, so `capture_in_subprocess` sets `ETS_TOOLKIT=wx` in the child for any example whose source imports `wx` (`is_wx_example`), and `capture_one` sends it to `capture_wx_dialog` — the wx counterpart of `capture_dialog`, `WindowDC`/`MemoryDC` in place of `QWidget.grab`.
   Note it cannot use `keep_windows_in_background()`, which is Qt-only, so a local render of those two will take focus.
   wxPython has no Linux wheels on PyPI: `docs.yml` takes them from `extras.wxpython.org`, which is published per Ubuntu release and per Python — currently cp313 at the newest, which is why that job pins Python 3.13 and `ubuntu-24.04` rather than `-latest`.
+- `capture_one` pushes a re-raising traits exception handler, as the suites' conftests do.
+  Without it an exception inside a notification handler is printed and swallowed, the example renders a figure with whatever that handler was going to draw missing from it, and the child exits 0 — which throws its output away.
+  That is how `coil_design_application` published a picture of two coils and no magnetic field: `np.NAN` went away in NumPy 2 and the `_get_Bnorm` property that computes the field raised on every call, silently (gh-1418).
+- `render_examples.rendered_examples()` is the list of examples the gallery runs, and `examples/test_examples.py` runs the complement, so between the two every example is executed on every PR.
+  `EXAMPLE_DIR` is absolute for that reason — the helper has to answer the same thing from outside `docs/source`.
 - Parts of `docs/source/mayavi/auto/` are generated: `mlab_reference.py` (repo root) emits the mlab API reference, `docs/source/render_examples.py` emits the example gallery.
   Both are re-run in CI and both are also committed, so a plain `make -C docs html` works offline — which means a generator change must be committed **together with** its regenerated output, or `-W` fails on the stale copies.
 - Regenerate with `python scripts/render_docs.py`, which drives all of them in the right order.
@@ -102,7 +115,8 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
   They were `enthought_mayavi_mlab_*` until 2026-07, from the pre-2010 `enthought.mayavi` package name — which meant `mlab_reference.py` looked for names that did not exist and the mlab reference shipped with no illustrations at all for years.
 - A rebuild is byte-for-byte reproducible, so regenerating shows a diff only where something really changed: the doc version is truncated to `4.8.4.dev` (the commit and date would retitle every page), `html_last_updated_fmt` is off with the build date carried by the site landing page alone, and the renderers seed `np.random` because several `mlab.test_*` functions plot random data.
   `FLAKY_EXAMPLES` in `render_examples.py` names the examples that still are not reproducible: `tvtk_in_mayavi` and `magnetic_field`, which draw overlapping translucent actors that VTK composites differently in ~1% of pixels (roughly one run in five, and three of four, respectively), and `wx_mayavi_embed_in_notebook`, a screenshot of a wx window whose notebook lands differently — it came back changed in two of the four CI runs after it was added, on the committed bytes both times.
-  Their committed images are reused rather than re-rendered, so the published figures stop flipping back and forth; set `MAYAVI_RENDER_FLAKY=1` (or tick `render_flaky` on a `workflow_dispatch`) to redo them deliberately.
+  They are still *run* — that is the only place they ever run — but their figure goes to a scratch directory and the committed image stays put, so the published figures stop flipping back and forth; set `MAYAVI_RENDER_FLAKY=1` (or tick `render_flaky` on a `workflow_dispatch`) to redo them deliberately.
+  Skipping the run as well is what let `magnetic_field` sit broken: `np.arctan(x/y)` divides by zero on the axis of the coil, which is fatal under the render's warnings-as-errors, and nothing had executed it since the warnings became fatal.
   For the first two, enabling depth peeling (it does engage — `last_rendering_used_depth_peeling` is 1) and forcing a `scene.render()` before the capture were both measured over ten runs and neither helps, so leave it alone rather than re-testing.
   Beware that five runs is not enough to call this stable; that sample size gave a false positive twice.
 - `mlab.savefig` honours the display's device pixel ratio, and neither `magnification=1` nor an explicit `size` overrides it, so a HiDPI display would give images 2x the size of CI's.
@@ -141,6 +155,8 @@ If the change touched a VTK workaround in any form — a `vtk_*_version` or `sys
     Hence the `pip uninstall` first, and `assert_from_main.py` after, which reads each distribution's `direct_url.json`: nothing else distinguishes a real `main` install from a fall back to PyPI, and the row would be green either way.
     The package list lives only in `requirements.txt` — `pip uninstall` takes it with `-r` and the script parses it — so the three uses cannot drift.
   - It runs *after* the package install so nothing can undo it, which is why `pip check` stands in for the floor checking that installing first would have got from the resolver.
+- The `examples` job runs `pytest examples` — the thirty examples the gallery does not render — under coverage, on both `ets` rows.
+  See **Building and testing locally** above for what it covers and why the ETS matrix is there.
 - `.github/actions/open-issue` — composite action behind both `issue-on-failure` jobs: files an issue unless one with the same title is already open, appending the run URL.
   Callers need an `actions/checkout` (sparse is enough) because a local action has to be on disk to be used, and `permissions: issues: write`.
 - `wheel.yml` — mismatch matrix: build per-OS wheels against latest VTK, test them against all supported older VTKs (rows deliberately mirror `tests.yml` so failures are attributable to the mismatch), `twine check --strict`, and trusted publishing to PyPI on GitHub releases (environment `pypi`, `needs: [build, test, check]`).
@@ -150,6 +166,9 @@ If the change touched a VTK workaround in any form — a `vtk_*_version` or `sys
   Doc build requirements live in the `docs` dependency group (PEP 735, `pip --group`), so the whole install is one `pip install --group docs -ve ".[app]"`.
   Unlike `tests.yml` this build is *not* `--no-build-isolation`: nothing here pins an older VTK, so letting the isolated build fetch the latest is fine.
   To review a PR's rendered docs, download the `docs-site` artifact and serve it (`python -m http.server`); GitHub has no linked HTML preview, and `deploy-pages`' `preview` input is alpha-gated.
+  The render step runs under `coverage run` and uploads to codecov like the other jobs: it is where sixty of the ninety examples execute, and every one of them is a subprocess, so it measures anything at all only because of `patch = ["subprocess"]`.
+  `render_docs.py` chdirs into `docs/source`, but coverage anchors its data files to the config it was started from, so they still land beside `pyproject.toml` where `coverage combine` wants them.
+  The generator itself stays unmeasured here — this build is isolated, and `tests.yml`'s install step is the one that covers it.
   See **Documentation** below.
 
 ## Gotchas

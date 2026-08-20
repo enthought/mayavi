@@ -179,3 +179,25 @@ class TestPipelineBrowser(unittest.TestCase):
 
         # Then
         self.assertTrue(self.count > 0)
+
+
+class TestBrowserView(unittest.TestCase):
+    """The workbench view wrapping a PipelineBrowser."""
+
+    def test_create_control(self):
+        # it reached for a `ui` attribute PipelineBrowser does not have, and
+        # the workbench answers a failing view with a message box rather than
+        # an exception -- so the mayavi2 pipeline browser view just never
+        # opened.  See examples/tvtk/plugins/test.py.
+        try:
+            from pyface.qt import QtGui
+        except (ImportError, RuntimeError):
+            self.skipTest('Qt is not available.')
+        from pyface.api import GUI
+        from tvtk.plugins.browser.browser_view import BrowserView
+
+        GUI()   # the view needs a QApplication to build against
+        parent = QtGui.QWidget()
+        control = BrowserView().create_control(parent)
+
+        self.assertIsNotNone(control)

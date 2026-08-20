@@ -7,7 +7,7 @@
 from math import atan, cos, sin, pi
 
 from tvtk.tools.visual import vector, MVector, Box, Helix, Frame, \
-    Cylinder, curve, color, iterate, show
+    Cylinder, curve, iterate, show
 
 
 top = vector(0,1.,0) # where top of spring is held
@@ -50,10 +50,10 @@ shaft = Cylinder(pos = gyro1.pos, axis = Lshaft*gyro1.axis, radius =
 rotor = Cylinder(pos = 0.5*gyro1.axis*(Lshaft-Drotor), axis =
                  gyro1.axis*Drotor, radius = Rrotor, color = (0.5,0.5,0.5), length = 0.1)
 
-stripe1 = curve(color = color.green,
+stripe1 = curve(color = (0, 1, 0),
                 points = [rotor.pos+1.03*rotor.axis+vector(0,Rrotor,0),
                 rotor.pos+1.03*rotor.axis-vector(0,Rrotor,0)])
-stripe2 = curve(color = color.green,
+stripe2 = curve(color = (0, 1, 0),
                 points = [rotor.pos-0.03*rotor.axis+vector(0,Rrotor,0),
                 rotor.pos-0.03*rotor.axis-vector(0,Rrotor,0)])
 
