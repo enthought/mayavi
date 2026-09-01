@@ -94,7 +94,7 @@ jobs:
         # setuptools_scm derives the version from git tags, which a shallow
         # clone does not have (the version would come out as "0.0.0")
         fetch-depth: 0
-    - uses: pyvista/setup-headless-display-action@v4
+    - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
       if: matrix.headless != true
@@ -193,14 +193,14 @@ jobs:
       QT_API: pyside6
       PYTHONUNBUFFERED: '1'
     steps:
-    - uses: actions/checkout@v7.0.0
+    - uses: actions/checkout@v7.0.1
       with:
         persist-credentials: false
         fetch-depth: 0  # setuptools_scm needs the tags
-    - uses: pyvista/setup-headless-display-action@v4
+    - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
-    - uses: actions/setup-python@v6.3.0
+    - uses: actions/setup-python@v7.0.0
       with:
         python-version: '3.14'
     # Unlike the matrix above this pins nothing, so there is no reason to keep
@@ -265,7 +265,7 @@ jobs:
       with:
         persist-credentials: false
         fetch-depth: 0  # setuptools_scm needs the tags
-    - uses: pyvista/setup-headless-display-action@v4
+    - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
     - uses: actions/setup-python@v7.0.0

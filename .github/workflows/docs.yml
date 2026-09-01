@@ -46,7 +46,7 @@ jobs:
         # setuptools_scm derives the version from git tags, which a shallow
         # clone does not have (the version would come out as "0.0.0")
         fetch-depth: 0
-    - uses: pyvista/setup-headless-display-action@v4
+    - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
     - uses: actions/setup-python@v7.0.0

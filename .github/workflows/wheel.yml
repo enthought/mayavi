@@ -111,7 +111,7 @@ jobs:
       with:
         persist-credentials: false
         path: repo
-    - uses: pyvista/setup-headless-display-action@v4
+    - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
     - uses: actions/setup-python@v7.0.0
