@@ -156,7 +156,7 @@ jobs:
         coverage combine
         coverage xml
         coverage report --show-missing --skip-covered
-    - uses: codecov/codecov-action@v7.0.0
+    - uses: codecov/codecov-action@v7.1.1
       if: '!cancelled()'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
@@ -223,7 +223,7 @@ jobs:
         coverage combine
         coverage xml
         coverage report --show-missing --skip-covered
-    - uses: codecov/codecov-action@v7.0.0
+    - uses: codecov/codecov-action@v7.1.1
       if: '!cancelled()'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
@@ -288,7 +288,7 @@ jobs:
         coverage combine
         coverage xml
         coverage report --show-missing --skip-covered
-    - uses: codecov/codecov-action@v7.0.0
+    - uses: codecov/codecov-action@v7.1.1
       if: '!cancelled()'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}

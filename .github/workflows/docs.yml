@@ -125,7 +125,7 @@ jobs:
         coverage combine
         coverage xml
         coverage report --show-missing --skip-covered
-    - uses: codecov/codecov-action@v7.0.0
+    - uses: codecov/codecov-action@v7.1.1
       if: '!cancelled()'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
@@ -177,7 +177,7 @@ jobs:
       id-token: write
     steps:
     - id: deploy
-      uses: actions/deploy-pages@v5.0.0
+      uses: actions/deploy-pages@v5.0.1
 
   # a push to main has no pull request where a failure would be noticed, and a
   # broken docs build means docs.enthought.com stops being updated
