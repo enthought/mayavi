@@ -9,8 +9,6 @@ some of the VTK classes.  `HelperGenerator` helps generate the
 # Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
-import vtk
-
 # These are relative imports for good reason.
 from . import indenter
 from .common import get_tvtk_name
@@ -482,9 +480,6 @@ class HelperGenerator:
     def write_prelims(self, out):
         """ Write out the preliminary data."""
         indent = self.indent
-        v = vtk.vtkVersion()
-        vtk_version = v.GetVTKVersion()[:3]
-        vtk_src_version = v.GetVTKSourceVersion()
         code = """
         import vtk
         from tvtk import tvtk_base

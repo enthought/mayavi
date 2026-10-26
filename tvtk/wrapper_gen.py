@@ -9,7 +9,6 @@ VTK classes.
 import faulthandler
 import re
 import sys
-import vtk
 import textwrap
 import keyword
 import copy
@@ -22,6 +21,7 @@ from .common import get_tvtk_name, camel2enthought, _sanitize_name
 from . import vtk_parser
 from . import indenter
 from . import special_gen
+from . import vtk_module as vtk
 
 faulthandler.enable()
 

@@ -24,7 +24,7 @@ This file is written one sentence per line, so that editing a sentence touches o
   `MyBdistWheel` in `setup.py` handles the tags.
 - Wheels are generated against the **latest** VTK and must run against all supported older ones.
   Version mismatch between generation and runtime is an expected, supported state: `tvtk_base.vtk_version_mismatch()` gates runtime tolerances.
-  The generation VTK is recorded in `tvtk_classes/vtk_version.py` inside the zip.
+  The generation VTK is recorded in `tvtk_classes/vtk_version.py` inside the zip, as major.minor (`common.vtk_major_minor`, never a slice of the version string, which would read 9.10 as "9.1").
 - Dependencies are PEP 643 dynamic (`setup.py`): the wheel gets `vtk>=MIN_VTK,<MAX_VTK`; the sdist stays uncapped above the floor.
 
 ## Building and testing locally
@@ -53,7 +53,8 @@ pytest -v --timeout=180 examples
   `user_mayavi.py` and `zzz_reader.py` are the exception (`RUN_AS_MODULE`) — both `sys.exit(1)` when run as `__main__`, being meant for the application to import, so they are run under their own module name for their module body.
   `examples/conftest.py` keeps pytest from importing the example scripts themselves, as `integrationtests/conftest.py` does.
   Both `ets` rows run, unlike `integration`'s reasoning about envisage: what these exercise is the ETS API the examples are written against, and every bug the suite found when it was written was ETS drift (pyface 8 widgets that no longer create their own control, which took `IVTK`'s `QSplitter` down with a null; `browser_view.py` reaching for a `PipelineBrowser.ui` that is spelled `_ui`).
-- Regeneration is skipped if `tvtk/tvtk_classes.zip` is < 120 s old (`_tvtk_built_recently` in `setup.py`).
+- Regeneration is skipped when `tvtk/tvtk_classes.zip` is current: `tvtk/_setup.py` compares the `generation_stamp` it records (full VTK version, Python version, and a hash of the generator modules, `code_gen.generation_stamp`) against the build environment.
+  So switching VTK or editing the generator regenerates on the next install; switching branches *without* reinstalling still leaves the tree's zip as it was.
 - Warnings are errors.
   The filters live in `mayavi/tests/conftest.py` and `tvtk/tests/conftest.py` rather than `pyproject.toml`, so that they ship in the wheel and so reach the `pytest --pyargs` runs below and in `wheel.yml`.
   Each conftest adds its own `error::` but skips any line the other already added: pluggy calls the two `pytest_configure` hooks in reverse load order, and a second `error::` would outrank the ignores the first one just added.

@@ -8,7 +8,6 @@ from setuptools.command.bdist_wheel import bdist_wheel
 from setuptools.command.build_py import build_py
 
 import sys
-import time
 import shutil
 from pathlib import Path
 
@@ -28,26 +27,9 @@ if str(MY_DIR) not in sys.path:
 DEFAULT_INPUT_DIR = Path('docs', 'source')
 
 
-def _tvtk_built_recently(zipfile, delay):
-    """Returns True if the TVTK classes in zipfile was built in the last
-    delay seconds.
-    """
-    if not zipfile.exists():
-        return False
-
-    ctime = zipfile.stat().st_ctime
-    tdiff = time.time() - ctime
-    return tdiff < delay
-
-
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
-    zipfile = MY_DIR / 'tvtk' / 'tvtk_classes.zip'
-    if _tvtk_built_recently(zipfile, delay=120):
-        print("Already built tvtk_classes.zip")
-        return
-    else:
-        print("Building tvtk_classes.zip")
+    """Generate tvtk_classes.zip, unless the one in the tree is current."""
     from tvtk._setup import gen_tvtk_classes_zip
     gen_tvtk_classes_zip()
 

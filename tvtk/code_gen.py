@@ -18,8 +18,10 @@ and ``vtk_parser.py``.
 # Copyright (c) Enthought, Inc.
 # License: BSD Style.
 
+import hashlib
 import os
 import os.path
+import sys
 import zipfile
 import tempfile
 import shutil
@@ -38,13 +40,38 @@ faulthandler.enable()
 
 # Local imports -- these should be relative imports since these are
 # imported before the package is installed.
-from .common import get_tvtk_name, camel2enthought
+from .common import get_tvtk_name, camel2enthought, vtk_major_minor
 from .wrapper_gen import WrapperGenerator
 from .special_gen import HelperGenerator
 from . import vtk_module as vtk
 
 
 logger = logging.getLogger(__name__)
+
+# The modules whose code decides what gets generated.  A change to any of them
+# changes the generation stamp, and so makes the build regenerate the zip.
+GENERATOR_MODULES = ('class_tree', 'code_gen', 'common', 'indenter',
+                     'special_gen', 'vtk_module', 'vtk_parser',
+                     'wrapper_gen')
+
+
+def generation_stamp():
+    """Identify everything the generated code depends on.
+
+    That is the full VTK version (down to the commit, for a dev build), the
+    Python version (the ZIP holds .pyc files) and the source of the generator
+    itself.  The build compares the
+    stamp in an existing ZIP against this to decide whether to regenerate.
+    """
+    h = hashlib.sha256()
+    here = os.path.dirname(os.path.abspath(__file__))
+    for name in GENERATOR_MODULES:
+        with open(os.path.join(here, name + '.py'), 'rb') as f:
+            h.update(f.read())
+    # GetVTKVersionFull carries the git describe of a dev build
+    return 'vtk %s, python %d.%d, generator %s' % (
+        vtk.vtkVersion.GetVTKVersionFull(),
+        sys.version_info[0], sys.version_info[1], h.hexdigest()[:16])
 
 ######################################################################
 # `TVTKGenerator`
@@ -95,13 +122,12 @@ class TVTKGenerator:
         with open(os.path.join(out_dir, '__init__.py'), 'w'):
             pass
 
-        # Crete a vtk_version.py file that contains VTK build
+        # Create a vtk_version.py file that contains VTK build
         # information.
-        v = vtk.vtkVersion()
-        vtk_version = v.GetVTKVersion()[:3]
-        vtk_src_version = v.GetVTKSourceVersion()
-        code = "vtk_build_version = \'%s\'\n"%(vtk_version)
-        code += "vtk_build_src_version = \'%s\'\n"%(vtk_src_version)
+        code = "vtk_build_version = %r\n" % vtk_major_minor
+        code += ("vtk_build_src_version = %r\n"
+                 % vtk.vtkVersion().GetVTKSourceVersion())
+        code += "generation_stamp = %r\n" % generation_stamp()
 
         with open(os.path.join(out_dir, 'vtk_version.py'), 'w') as f:
             f.write(code)
@@ -206,21 +232,21 @@ class TVTKGenerator:
 
         """
         cwd = os.getcwd()
-        d = os.path.dirname(self.out_dir)
-        os.chdir(d)
-        z = zipfile.PyZipFile(self.zip_name, 'w',
-                              zipfile.ZIP_DEFLATED)
-        if include_src:
-            l = glob.glob(os.path.join('tvtk_classes', '*.py'))
-            for x in l:
-                fname = os.path.basename(x)
-                z.write(x, 'tvtk_classes/%s' % fname)
-        z.writepy('tvtk_classes')
-        z.close()
-        if os.path.exists(cwd + "/" + self.zip_name):
-            os.unlink(cwd + "/" + self.zip_name)
-        shutil.move(self.zip_name, cwd)
-        os.chdir(cwd)
+        target = os.path.join(cwd, self.zip_name)
+        os.chdir(os.path.dirname(self.out_dir))
+        try:
+            with zipfile.PyZipFile(self.zip_name, 'w',
+                                   zipfile.ZIP_DEFLATED) as z:
+                if include_src:
+                    for x in glob.glob(os.path.join('tvtk_classes', '*.py')):
+                        fname = os.path.basename(x)
+                        z.write(x, 'tvtk_classes/%s' % fname)
+                z.writepy('tvtk_classes')
+            if os.path.exists(target):
+                os.unlink(target)
+            shutil.move(self.zip_name, target)
+        finally:
+            os.chdir(cwd)
 
     def clean(self):
         """Delete the temporary directory where the code has been
@@ -245,9 +271,9 @@ class TVTKGenerator:
         # The only reason this method is separate is to generate code
         # for an individual class when debugging.
         fname = camel2enthought(tvtk_name) + '.py'
-        out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
-        self.wrap_gen.generate_code(node, out)
-        out.close()
+        with open(os.path.join(self.out_dir, fname), 'w',
+                  encoding='utf-8') as out:
+            self.wrap_gen.generate_code(node, out)
 
 
 ######################################################################

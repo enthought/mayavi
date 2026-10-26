@@ -16,6 +16,7 @@ import vtk
 
 from traits import api as traits
 from . import messenger
+from .common import vtk_major_minor
 
 try:
     from traits.api import PrefixMap, PrefixList
@@ -74,8 +75,7 @@ def vtk_version_mismatch():
         except ImportError:
             _vtk_version_mismatch = False
         else:
-            _vtk_version_mismatch = (
-                vtk.vtkVersion().GetVTKVersion()[:3] != vtk_build_version)
+            _vtk_version_mismatch = vtk_major_minor != vtk_build_version
     return _vtk_version_mismatch
 
 
