@@ -387,7 +387,8 @@ class WrapperGenerator:
         # ----------------------------------------
         # Write out the allow_update_failure traits, this is used by
         # the `update_traits` method.
-        junk = textwrap.fill(repr(tuple(data['allow_update_failure'])))
+        # sorted: a set's order changes with the per-process hash seed
+        junk = textwrap.fill(repr(tuple(sorted(data['allow_update_failure']))))
         code = "\n_allow_update_failure_ = \\" + "\n%s\n\n"%junk
         out.write(self.indent.format(code))
 
@@ -536,8 +537,9 @@ class WrapperGenerator:
             try:
                 vtk_set_meth = getattr(klass, 'Set' + m)
             except AttributeError:
-                # Some classes have GetProp and PropOn/Off but no SetProp
-                # (e.g. vtkStaticPointLocator.Static, still on VTK 9.7).
+                # Some classes have GetProp and PropOn/Off but no SetProp:
+                # vtkStaticPointLocator{,2D}.Static, new in VTK 9.7
+                # (see tvtk/WORKAROUNDS.md).
                 vtk_get_meth = getattr(klass, 'Get' + m)
                 self._write_trait(out, name, t_def, vtk_get_meth,
                                   mapped=True, broken_bool=True)
@@ -692,6 +694,13 @@ class WrapperGenerator:
 
                 self._write_special_trait(klass, out, vtk_attr_name)
                 continue
+
+            # The default is uninitialized memory, which the parser has
+            # replaced with a neutral value; the runtime value is just as
+            # arbitrary, so reading it back must be allowed to fail (e.g. a
+            # garbage value outside a Range); see tvtk/WORKAROUNDS.md.
+            if vtk_attr_name in parser.get_uninitialized_methods():
+                allow_update_failure.add(name)
 
             # --------------------------------------------------------
             # A getter that only fills an output array (e.g.

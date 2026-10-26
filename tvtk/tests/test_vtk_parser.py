@@ -210,6 +210,23 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual('OutputOrigin' not in state_meths, True)
         self.assertEqual('OutputExtent' not in state_meths, True)
 
+    def test_uninitialized_default_is_neutral(self):
+        """A default VTK never initializes is replaced, not baked in."""
+        p = self.p
+        p.parse(vtk.vtkPointSource)
+        self.assertIn('Lambda', p.get_uninitialized_methods())
+        self.assertEqual(p.get_get_set_methods()['Lambda'][0], 0.0)
+        # an initialized one is left alone
+        self.assertNotIn('Radius', p.get_uninitialized_methods())
+
+    def test_neutral_and_same(self):
+        self.assertEqual(vtk_parser._neutral(12345, None), 0)
+        self.assertEqual(vtk_parser._neutral(7.5, (1.0, 10.0)), 1.0)
+        self.assertEqual(vtk_parser._neutral((3, 1e-300), None), (0, 0.0))
+        nan = float('nan')
+        self.assertTrue(vtk_parser._same((nan, 1.0), (nan, 1.0)))
+        self.assertFalse(vtk_parser._same((nan, 1.0), (nan, 2.0)))
+
     def test_defaults_of_falsy_instances(self):
         """Defaults are read even from an instance that is falsy.
 

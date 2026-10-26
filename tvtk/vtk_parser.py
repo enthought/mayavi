@@ -30,6 +30,55 @@ BROKEN_GETTERS = (
     "vtkGenericAttributeCollection.GetAttributesToInterpolate",
 )
 
+# Getters that read memory the constructor never initialized, so the value
+# they return is garbage that differs from run to run.  Baking it in as a
+# default made the generated code nondeterministic; the parser substitutes a
+# neutral default and wrapper_gen lets update_traits() fail on them.  Most are
+# also caught by comparing instances (_flag_uninitialized), but that only
+# works when the garbage happens to differ, so the ones seen are listed here.
+# Found on VTK 9.7 on Linux; uninitialized memory is platform-dependent, so
+# like the special_traits entries these are culled only on evidence from
+# every platform; see tvtk/WORKAROUNDS.md.
+UNINITIALIZED_GETTERS = (
+    "vtkExplicitStructuredGrid.GetExtent",
+    "vtkGridAxesActor2D.GetGridBounds",
+    "vtkPointSource.GetLambda",
+    "vtkWebGLObject.GetLayer",
+    "vtkWindBladeReader.GetSubExtent",
+    "vtkWindBladeReader.GetWholeExtent",
+)
+
+
+def _is_numeric(value):
+    """True for a number, or a non-empty tuple of numbers (not bools)."""
+    if isinstance(value, bool):
+        return False
+    if isinstance(value, (int, float)):
+        return True
+    return (isinstance(value, tuple) and len(value) > 0
+            and all(_is_numeric(v) for v in value))
+
+
+def _same(a, b):
+    """Equality that treats two NaNs as the same value."""
+    if isinstance(a, tuple) and isinstance(b, tuple):
+        return len(a) == len(b) and all(_same(x, y) for x, y in zip(a, b))
+    if isinstance(a, float) and isinstance(b, float) and a != a and b != b:
+        return True
+    return a == b
+
+
+def _neutral(default, rng):
+    """A zero of the same type and shape as `default`, moved to the bottom
+    of `rng` if zero lies outside it."""
+    if isinstance(default, tuple):
+        return tuple(_neutral(v, None) for v in default)
+    zero = type(default)(0)
+    if (rng and _is_numeric(rng[0]) and _is_numeric(rng[1])
+            and not rng[0] <= zero <= rng[1]):
+        return rng[0]
+    return zero
+
 
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK
@@ -313,6 +362,13 @@ class VTKMethodParser:
         """
         return self.get_set_meths
 
+    def get_uninitialized_methods(self):
+        """Return the set of Get/Set <Value>s whose default VTK leaves
+        uninitialized.  Their entry in `get_get_set_methods` holds a neutral
+        default in place of the garbage the getter returned.
+        """
+        return self.uninitialized_meths
+
     def get_get_methods(self):
         """Return a list of parsed Get<Value> methods.
 
@@ -494,6 +550,8 @@ class VTKMethodParser:
         self.state_meths = {}
         # Collects the Set/Get<Value> pairs.
         self.get_set_meths = {}
+        # The Set/Get<Value>s whose default is uninitialized memory.
+        self.uninitialized_meths = set()
         # Collects the Get<Value> methods.
         self.get_meths = []
         # Collects all the remaining methods.
@@ -760,6 +818,7 @@ class VTKMethodParser:
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
+                self._flag_uninitialized(klass, gsm)
                 if self._gc and self._verbose:
                     print(f"  GC {klass_name}")
                 del obj
@@ -772,6 +831,41 @@ class VTKMethodParser:
                         gsm[key] = None
 
         return meths
+
+    def _flag_uninitialized(self, klass, gsm):
+        """Replace the numeric defaults in `gsm` that are uninitialized
+        memory with a neutral value, and record them in
+        `self.uninitialized_meths`.
+
+        Besides UNINITIALIZED_GETTERS, a default is taken to be garbage when
+        two more instances, alive at the same time as the first, disagree on
+        it: a real initializer cannot.  They have to be alive together;
+        created one after another, each gets the block the last one freed,
+        garbage included.
+        """
+        klass_name = klass.__name__
+        keys = [k for k, v in gsm.items() if v and _is_numeric(v[0])]
+        flagged = {k for k in keys
+                   if f"{klass_name}.Get{k}" in UNINITIALIZED_GETTERS}
+        rest = [k for k in keys if k not in flagged]
+        if rest:
+            others = [self._get_instance(klass, do_print=False)
+                      for _ in range(2)]
+            if all(o is not None for o in others):
+                for key in rest:
+                    if self._verbose:
+                        print(f"  Calling {klass_name}.Get{key}() again")
+                    try:
+                        values = [getattr(o, f"Get{key}")() for o in others]
+                    except TypeError:
+                        continue
+                    if not all(_same(gsm[key][0], v) for v in values):
+                        flagged.add(key)
+            del others
+        for key in flagged:
+            default, rng = gsm[key]
+            gsm[key] = (_neutral(default, rng), rng)
+        self.uninitialized_meths |= flagged
 
     def _find_get_methods(self, klass, methods):
         """Find/store methods of the form Get<Value> in the given
