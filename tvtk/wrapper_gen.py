@@ -532,8 +532,8 @@ class WrapperGenerator:
             try:
                 vtk_set_meth = getattr(klass, 'Set' + m)
             except AttributeError:
-                # Broken VTK API (4.2) where sometimes GetProp and
-                # PropOn/Off exist but no SetProp method is available.
+                # Some classes have GetProp and PropOn/Off but no SetProp
+                # (e.g. vtkStaticPointLocator.Static, still on VTK 9.7).
                 vtk_get_meth = getattr(klass, 'Get' + m)
                 self._write_trait(out, name, t_def, vtk_get_meth,
                                   mapped=True, broken_bool=True)
@@ -939,7 +939,6 @@ class WrapperGenerator:
 
     def _get_class_name(self, klasses):
         """Returns renamed VTK classes as per TVTK naming style."""
-        ret = []
         if type(klasses) in (list, tuple):
             return  [get_tvtk_name(x.__name__) \
                      for x in klasses]

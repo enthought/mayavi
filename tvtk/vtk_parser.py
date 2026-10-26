@@ -353,13 +353,12 @@ class VTKMethodParser:
         if doc is None:
             return None
         doc = doc[:doc.find('\n\n')]
-        new_sig = not doc.startswith('V.')
         sig = []
         c_sig = [] # The C++ signature
         in_sig = False
         in_c_sig = False
         counter = 0
-        py_sig_pat = re.compile(r'(V\.)|(\w+\()')
+        py_sig_pat = re.compile(r'\w+\(')
         for line in doc.split('\n'):
             if py_sig_pat.match(line):
                 in_sig = True
@@ -375,13 +374,10 @@ class VTKMethodParser:
             elif in_c_sig:
                 c_sig[counter-1] = c_sig[counter-1] + line.strip()
 
-        # Remove the V.<method_name>
+        # Remove the <method_name> and the self argument
         def _process(x):
-            if new_sig:
-                x = x.replace(method.__name__, '')
-                return x.replace('(self, ', '(').replace('(self', '(')
-            else:
-                return x.replace('V.' + method.__name__, '')
+            x = x.replace(method.__name__, '')
+            return x.replace('(self, ', '(').replace('(self', '(')
 
         sig = [_process(x) for x in sig]
         c_sig = [x[x.find('('):] for x in c_sig]

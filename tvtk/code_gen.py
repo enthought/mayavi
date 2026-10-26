@@ -27,7 +27,6 @@ import glob
 import logging
 import traceback
 from optparse import OptionParser
-import sys
 import faulthandler
 
 # Generating the wrappers instantiates every VTK class and calls its Get
@@ -39,16 +38,10 @@ faulthandler.enable()
 
 # Local imports -- these should be relative imports since these are
 # imported before the package is installed.
-try:
-    from .common import get_tvtk_name, camel2enthought
-    from .wrapper_gen import WrapperGenerator
-    from .special_gen import HelperGenerator
-    from . import vtk_module as vtk
-except SystemError:
-    from common import get_tvtk_name, camel2enthought
-    from wrapper_gen import WrapperGenerator
-    from special_gen import HelperGenerator
-    import vtk_module as vtk
+from .common import get_tvtk_name, camel2enthought
+from .wrapper_gen import WrapperGenerator
+from .special_gen import HelperGenerator
+from . import vtk_module as vtk
 
 
 logger = logging.getLogger(__name__)
