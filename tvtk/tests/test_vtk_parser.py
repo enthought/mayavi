@@ -210,6 +210,17 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual('OutputOrigin' not in state_meths, True)
         self.assertEqual('OutputExtent' not in state_meths, True)
 
+    def test_defaults_of_falsy_instances(self):
+        """Defaults are read even from an instance that is falsy.
+
+        VTK gives sequence-like classes a ``__len__``, so an empty
+        vtkDataSetAttributes (or, on newer VTK, a vtkScivisView) is false,
+        and an ``if obj:`` used to skip reading its defaults altogether.
+        """
+        p = self.p
+        p.parse(vtk.vtkDataSetAttributes)
+        self.assertEqual(p.get_toggle_methods()['CopyScalars'], 1)
+
     def test_props_allocated_rendertime_is_not_a_get_set_method(self):
         p = self.p
         a = vtk.vtkActor()

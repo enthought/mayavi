@@ -217,17 +217,21 @@ class MGlyphSource(MlabSource):
         else:
             # Modify existing one.
             pd = self.dataset
-        # First set the polys to None to avoid accessing invalid points.
-        pd.polys = None
-        pd.trait_set(points=points)
-        pd.trait_set(verts=polys)
-
+        # First set the verts to None to avoid accessing invalid points.
+        # Glyphing visits every point, not just those in a cell, so the
+        # point data has to be replaced before the points: setting an
+        # array modifies only the point data and updates nothing, while
+        # setting the points updates the pipeline, which would then read
+        # past the end of attributes sized for the old points.
+        pd.verts = None
         if self.vectors is not None:
             pd.point_data.vectors = self.vectors
             pd.point_data.vectors.name = 'vectors'
         if self.scalars is not None:
             pd.point_data.scalars = self.scalars.ravel()
             pd.point_data.scalars.name = 'scalars'
+        pd.trait_set(points=points)
+        pd.trait_set(verts=polys)
 
         self.dataset = pd
         if not new_dataset:
@@ -496,16 +500,16 @@ class MLineSource(MlabSource):
         else:
             pd = self.dataset
         # Avoid lines refering to non existing points: First set the
-        # lines to None, then set the points, then set the lines
-        # refering to the new points.
+        # lines to None, then set the points and their scalars, then set
+        # the lines refering to the new points.
         pd.trait_set(lines=None)
         pd.trait_set(points=points)
-        pd.trait_set(lines=lines)
 
         if scalars is not None and len(scalars) > 0:
             assert len(x) == len(scalars)
             pd.point_data.scalars = np.ravel(scalars)
             pd.point_data.scalars.name = 'scalars'
+        pd.trait_set(lines=lines)
 
         self.dataset = pd
         if not new_dataset:
@@ -722,9 +726,10 @@ class MGridSource(MlabSource):
             new_dataset = True
         else:
             pd = self.dataset
+        # Set the scalars before the polys, so that no update sees
+        # polygons referring to points the scalars do not cover.
         pd.trait_set(polys=None)
         pd.trait_set(points=points)
-        pd.trait_set(polys=triangles)
 
         if scalars is not None and len(scalars) > 0:
             if not scalars.flags.contiguous:
@@ -733,6 +738,7 @@ class MGridSource(MlabSource):
             assert x.shape == scalars.shape
             pd.point_data.scalars = scalars.ravel()
             pd.point_data.scalars.name = 'scalars'
+        pd.trait_set(polys=triangles)
 
         self.dataset = pd
         if not new_dataset:
@@ -824,14 +830,17 @@ class MTriangularMeshSource(MlabSource):
             new_dataset = True
         else:
             pd = self.dataset
-        # Set the points first, and the triangles after: so that the
-        # polygone can refer to the right points, in the polydata.
+        # Set the points and scalars first, and the triangles after: so
+        # that the polygons can refer to the right points, in the
+        # polydata.  Each assignment updates the pipeline, and a filter
+        # handed triangles over points the scalars do not cover reads
+        # past the end of the scalars (vtkPolyDataNormals does, when it
+        # splits sharp edges).
 
         # Set the polys to None so that when the points are set, the
         # cells do not point to garbage.
         pd.polys = None
         pd.trait_set(points=points)
-        pd.trait_set(polys=triangles)
 
         if ('scalars' not in traits and scalars is not None
            and scalars.shape != x.shape):
@@ -846,6 +855,7 @@ class MTriangularMeshSource(MlabSource):
             assert x.shape == scalars.shape
             pd.point_data.scalars = scalars.ravel()
             pd.point_data.scalars.name = 'scalars'
+        pd.trait_set(polys=triangles)
 
         self.dataset = pd
         if not new_dataset:

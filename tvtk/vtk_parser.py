@@ -556,7 +556,7 @@ class VTKMethodParser:
         # get defaults
         if tm:
             obj = self._get_instance(klass)
-            if obj:
+            if obj is not None:
                 for key in tm:
                     try:
                         tm[key] = getattr(obj, 'Get%s'%key)()
@@ -609,7 +609,7 @@ class VTKMethodParser:
         if sm:
             obj = self._get_instance(klass)
             klass_name = klass.__name__
-            if obj and not klass_name.endswith('Viewer'):
+            if obj is not None and not klass_name.endswith('Viewer'):
                 # We do not try to inspect viewers, because they'll
                 # trigger segfaults during the inspection
                 for key, values in sm.items():
@@ -709,7 +709,7 @@ class VTKMethodParser:
                 except TypeError:
                     skip_instance = False
             obj = None if skip_instance else self._get_instance(klass)
-            if obj:
+            if obj is not None:
                 for key, value in gsm.items():
                     # Broken in all versions (see BROKEN_GETTERS above)
                     if f"{klass_name}.Get{key}" in BROKEN_GETTERS:
@@ -814,7 +814,7 @@ class VTKMethodParser:
                 if n is not None:
                     for c in n.children:
                         obj = self._get_instance(t.get_class(c.name), do_print=False)
-                        if obj:
+                        if obj is not None:
                             print(f"  Using super {t.get_class(c.name)} instead of {klass}")
                             break
         return obj
