@@ -211,13 +211,17 @@ in order:
 
 Same-version builds stay strict so generation bugs surface in CI.
 
-## Layer 5: `special_gen.py` and `tvtk/custom/` — hand-written classes
+## Layer 5: `tvtk/mixins.py`, `special_gen.py` and `tvtk/custom/` — hand-written code
 
-`special_gen.py` writes `tvtk_helper` plus hand-tuned overrides for a few
-classes (`Matrix4x4`/`Property` pickling, `Collection` iteration,
-`DataArray`/`Points` indexing).  A module placed in `tvtk/custom/` takes
-import priority over the generated class of the same name (currently
-empty — the escape hatch of last resort for whole-class replacement).
+`tvtk/mixins.py` holds hand-written methods for a few classes
+(`Matrix4x4`/`Property` pickling, `Collection` iteration,
+`DataArray`/`Points` indexing); `special_gen.MIXINS` names which class gets
+which, and the generator puts that mixin first among the class's bases.
+`special_gen.py` itself writes `tvtk_helper` and the little that has to be
+in a class body (the `InteractorEventRecorder.priority` trait).  A module
+placed in `tvtk/custom/` takes import priority over the generated class of
+the same name (currently empty — the escape hatch of last resort for
+whole-class replacement).
 
 Two *forward* adaptations live here (see Policy — do not cull them):
 

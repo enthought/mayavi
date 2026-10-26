@@ -1136,6 +1136,20 @@ class TestTVTKModule(unittest.TestCase):
         # the views are built on demand, by TVTKBase.trait_view
         self.assertFalse('traitsui' in output)
 
+    def test_mixin_methods_are_not_shadowed(self):
+        """A generated method of the same name would beat the mixin, as the
+        class body comes first; a new VTK method could do that silently."""
+        from tvtk import mixins
+        from tvtk.special_gen import MIXINS
+        for class_name, mixin_name in MIXINS.items():
+            klass = getattr(tvtk, class_name)
+            mixin = getattr(mixins, mixin_name)
+            self.assertIs(klass.__mro__[1], mixin)
+            for name, value in vars(mixin).items():
+                if callable(value):
+                    self.assertIs(getattr(klass, name), value,
+                                  '%s.%s' % (class_name, name))
+
     def test_shared_trait_views(self):
         """TVTKBase.trait_view builds every class's views from the trait
         names the generator wrote for it."""

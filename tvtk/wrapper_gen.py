@@ -288,6 +288,14 @@ class WrapperGenerator:
                 out.write(indent.format(_imp))
                 out.write('\n\n')
 
+        # A hand-written mixin goes first among the bases, so that its
+        # methods override the ones the class inherits.
+        mixin = special_gen.MIXINS.get(class_name)
+        if mixin is not None:
+            out.write(indent.format("from tvtk.mixins import %s" % mixin))
+            out.write('\n\n')
+            base_name = '%s, %s' % (mixin, base_name)
+
         # Write the class declaration.
         cdef = """
         class %(class_name)s(%(base_name)s):
