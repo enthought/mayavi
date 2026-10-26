@@ -24,7 +24,7 @@ This file is written one sentence per line, so that editing a sentence touches o
   `MyBdistWheel` in `setup.py` handles the tags.
 - Wheels are generated against the **latest** VTK and must run against all supported older ones.
   Version mismatch between generation and runtime is an expected, supported state: `tvtk_base.vtk_version_mismatch()` gates runtime tolerances.
-  The generation VTK is recorded in `tvtk_classes/vtk_version.py` inside the zip.
+  The generation VTK is recorded in `tvtk_classes/vtk_version.py` inside the zip, as major.minor (`common.vtk_major_minor`, never a slice of the version string, which would read 9.10 as "9.1").
 - Dependencies are PEP 643 dynamic (`setup.py`): the wheel gets `vtk>=MIN_VTK,<MAX_VTK`; the sdist stays uncapped above the floor.
 
 ## Building and testing locally
@@ -53,7 +53,8 @@ pytest -v --timeout=180 examples
   `user_mayavi.py` and `zzz_reader.py` are the exception (`RUN_AS_MODULE`) — both `sys.exit(1)` when run as `__main__`, being meant for the application to import, so they are run under their own module name for their module body.
   `examples/conftest.py` keeps pytest from importing the example scripts themselves, as `integrationtests/conftest.py` does.
   Both `ets` rows run, unlike `integration`'s reasoning about envisage: what these exercise is the ETS API the examples are written against, and every bug the suite found when it was written was ETS drift (pyface 8 widgets that no longer create their own control, which took `IVTK`'s `QSplitter` down with a null; `browser_view.py` reaching for a `PipelineBrowser.ui` that is spelled `_ui`).
-- Regeneration is skipped if `tvtk/tvtk_classes.zip` is < 120 s old (`_tvtk_built_recently` in `setup.py`).
+- Regeneration is skipped when `tvtk/tvtk_classes.zip` is current: `tvtk/_setup.py` compares the `generation_stamp` it records (full VTK version, Python version, and a hash of the generator modules, `code_gen.generation_stamp`) against the build environment.
+  So switching VTK or editing the generator regenerates on the next install; switching branches *without* reinstalling still leaves the tree's zip as it was.
 - Warnings are errors.
   The filters live in `mayavi/tests/conftest.py` and `tvtk/tests/conftest.py` rather than `pyproject.toml`, so that they ship in the wheel and so reach the `pytest --pyargs` runs below and in `wheel.yml`.
   Each conftest adds its own `error::` but skips any line the other already added: pluggy calls the two `pytest_configure` hooks in reverse load order, and a second `error::` would outrank the ignores the first one just added.
@@ -98,7 +99,9 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
   The script binds the real packages before putting `docs/source` on the path.
 - Files `include`d into another document (the `mlab_*.rst` partials, `examples.rst`, `auto/changes.rst`) are listed in `exclude_patterns`; otherwise Sphinx also reads each as its own document, duplicating every label it defines and losing the host's `currentmodule`.
 - The gallery **images** are regenerated on every run too, by `docs/source/render_images.py` (which also invokes `render_examples.py`, so `mlab_reference.py` has to run *after* it to pick the images up).
-  The example datasets the examples `urlretrieve` are cached by `docs.yml` under the key `example-data-v2` — bump it if a URL changes.
+  The example datasets the examples download are cached by `docs.yml` under the prefix `example-data-v3-` — bump it if a URL changes.
+  The key is a fingerprint of what is on disk after rendering, and the newest cache under the prefix is what gets restored: a cold run that misses one dataset (its host down, as Stanford's was in October 2026) still saves the rest, and the next run adds the missing one under a new key.
+  Saving happens even when an example failed, but not from pull requests; empty files, which a failed single-file download leaves behind, are deleted first so they cannot be cached.
   What is cached is the *unpacked* `docs/source/*_data` directories (~550 MB, lucy dominating), not the tarballs: the examples skip both download and unpack once those exist.
   Each new one needs a `prune` in `MANIFEST.in` and a `.gitignore` entry, or `recursive-include docs` sweeps it into the sdist.
 - `render_examples.py` writes the gallery's image directives *before* it renders the images, and only for figures already on disk.
@@ -160,9 +163,12 @@ If the change touched a VTK workaround in any form — a `vtk_*_version` or `sys
 - `.github/actions/open-issue` — composite action behind both `issue-on-failure` jobs: files an issue unless one with the same title is already open, appending the run URL.
   Callers need an `actions/checkout` (sparse is enough) because a local action has to be on disk to be used, and `permissions: issues: write`.
 - `wheel.yml` — mismatch matrix: build per-OS wheels against latest VTK, test them against all supported older VTKs (rows deliberately mirror `tests.yml` so failures are attributable to the mismatch), `twine check --strict`, and trusted publishing to PyPI on GitHub releases (environment `pypi`, `needs: [build, test, check]`).
+  Four wheels: Linux x86_64, Linux arm64 (its own build, not an extra tag, since unsigned `char` there can change the generated classes), Windows amd64 and macOS universal2 (built on Apple silicon; the `macos-26-intel` test row installs that same artifact via the matrix's `wheel` key).
+  VTK publishes no Windows arm64 wheels, so there is no row for it.
 - Windows test jobs run pytest from `C:\` (site-packages drive): apptools persistence cannot relativize paths across drives.
 - `docs.yml` — builds the docs on every PR and deploys them to <https://docs.enthought.com/mayavi/> on every push to `main` (GitHub Pages, `actions/deploy-pages`, environment `github-pages`).
-  A failed push to `main` opens an issue, as there is no PR to notice it on.
+  It also runs twice a week on a schedule, chiefly so the example-data cache is never 7 days unused (GitHub deletes it then, and every run downloads ~550 MB again).
+  A failed push to `main` or scheduled run opens an issue, as there is no PR to notice it on.
   Doc build requirements live in the `docs` dependency group (PEP 735, `pip --group`), so the whole install is one `pip install --group docs -ve ".[app]"`.
   Unlike `tests.yml` this build is *not* `--no-build-isolation`: nothing here pins an older VTK, so letting the isolated build fetch the latest is fine.
   To review a PR's rendered docs, download the `docs-site` artifact and serve it (`python -m http.server`); GitHub has no linked HTML preview, and `deploy-pages`' `preview` input is alpha-gated.

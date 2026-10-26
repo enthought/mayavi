@@ -3,17 +3,12 @@
 # Copyright (c) Enthought, Inc.
 # All rights reserved.
 
-from setuptools import Command, Distribution, setup
+from setuptools import Distribution, setup
 from setuptools.command.bdist_wheel import bdist_wheel
 from setuptools.command.build_py import build_py
-from setuptools.command.develop import develop
 
-import os
 import sys
-import time
-import subprocess
 import shutil
-import re
 from pathlib import Path
 
 # NOTE: tvtk is imported lazily inside the build hooks below, not at module
@@ -29,185 +24,12 @@ MY_DIR = Path(__file__).resolve().parent
 if str(MY_DIR) not in sys.path:
     sys.path.insert(0, str(MY_DIR))
 
-DEFAULT_HTML_TARGET_DIR = Path('docs', 'build')
 DEFAULT_INPUT_DIR = Path('docs', 'source')
-
-
-class GenDocs(Command):
-
-    description = (
-        "This command generates generated part of the documentation "
-        "when needed. It's run automatically before a build_docs, and that's "
-        "the only time it needs to be run."
-    )
-    user_options = [
-        ('None', None, 'this command has no options'),
-        ]
-
-    def latest_modified(self, the_path, filetypes='', ignore_dirs=''):
-        """Traverse a path looking for the most recently modified file.
-
-        Parameters
-        ----------
-        the_path : path-like
-            Contains path to be traversed or filename to be inspected.
-        filetypes : string
-            Regular expression pattern of files to examine. If specified, other
-            files are ignored. Otherwise, all files are examined.
-        ignore_dirs : string
-            Regular expression pattern of directories to be ignored. If ignore
-            specified, all directories are walked.
-
-        Returns
-        -------
-        latest_time : float
-            Modification time of latest_path.
-        latest_path : Path
-            Most recently modified file.
-        """
-        the_path = Path(the_path)
-        file_re = re.compile(filetypes)
-        dir_re = re.compile(ignore_dirs)
-
-        if not the_path.exists():
-            return 0, the_path
-        if the_path.is_dir():
-            latest_time = 0
-            latest_path = the_path
-            # os.walk (rather than Path.rglob) so that ignored directories can
-            # be pruned from the traversal in place
-            for root, dirs, files in os.walk(the_path):
-                root = Path(root)
-                if ignore_dirs != '':
-                    # This needs to iterate over a copy of the list. Otherwise,
-                    # as things get removed from the original list, the indices
-                    # become invalid.
-                    for dir in dirs[:]:
-                        if dir_re.search(dir):
-                            dirs.remove(dir)
-                for file in files:
-                    if filetypes != '':
-                        if not file_re.search(file):
-                            continue
-                    current_file_time = (root / file).stat().st_mtime
-                    if current_file_time > latest_time:
-                        latest_time = current_file_time
-                        latest_path = root / file
-            return latest_time, latest_path
-
-        else:
-            return the_path.stat().st_mtime, the_path
-
-    def mlab_reference(self):
-        """If mayavi is installed, run the mlab_reference generator."""
-        # XXX: This is really a hack: the script is not made to be used
-        # for different projects, but it ended up being. This part is
-        # mayavi-specific.
-
-        mlab_ref_dir = DEFAULT_INPUT_DIR / 'mayavi' / 'auto'
-
-        source_path = Path('mayavi')
-        sources = r'(\.py)|(\.rst)$'
-        excluded_dirs = r'^\.'
-        target_path = mlab_ref_dir
-        target_time = self.latest_modified(target_path,
-                                           ignore_dirs=excluded_dirs)[0]
-
-        if (self.latest_modified(source_path, filetypes=sources,
-                                 ignore_dirs=excluded_dirs)[0] > target_time
-            or self.latest_modified('mlab_reference.py')[0] > target_time
-                or not (mlab_ref_dir / 'mlab_reference.rst').exists()):
-            try:
-                from mayavi import mlab
-                from mayavi.tools import auto_doc
-                print("Generating the mlab reference documentation")
-                os.system('python mlab_reference.py')
-            except Exception:
-                pass
-
-    def example_files(self):
-        """Generate the documentation files for the examples."""
-        mlab_ref_dir = DEFAULT_INPUT_DIR / 'mayavi' / 'auto'
-
-        source_path = Path('examples', 'mayavi')
-        sources = r'(\.py)|(\.rst)$'
-        excluded_dirs = r'^\.'
-        target_path = mlab_ref_dir
-        target_time = self.latest_modified(target_path,
-                                           ignore_dirs=excluded_dirs)[0]
-
-        script_file_name = DEFAULT_INPUT_DIR / 'render_examples.py'
-
-        if (self.latest_modified(source_path, filetypes=sources,
-                                 ignore_dirs=excluded_dirs)[0] > target_time
-            or self.latest_modified(script_file_name)[0] > target_time
-                or not (mlab_ref_dir / 'examples.rst').exists()):
-            try:
-                from mayavi import mlab
-                from mayavi.tools import auto_doc
-                print("Generating the example list")
-                subprocess.call('python %s' % script_file_name.name,
-                                shell=True, cwd=script_file_name.parent)
-            except:
-                pass
-
-    def run(self):
-        self.mlab_reference()
-        self.example_files()
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-
-class BuildDocs(Command):
-
-    description = \
-        "This command generates the documentation by running Sphinx. " \
-        "It then zips the docs into an html.zip file."
-
-    user_options = [
-        ('None', None, 'this command has no options'),
-        ]
-
-    def make_docs(self):
-        if os.name == 'nt':
-            print("Please impelemnt sphinx building on windows here.")
-        else:
-            subprocess.call(['make', 'html'], cwd='docs')
-
-    def run(self):
-        self.make_docs()
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-
-def _tvtk_built_recently(zipfile, delay):
-    """Returns True if the TVTK classes in zipfile was built in the last
-    delay seconds.
-    """
-    if not zipfile.exists():
-        return False
-
-    ctime = zipfile.stat().st_ctime
-    tdiff = time.time() - ctime
-    return tdiff < delay
 
 
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
-    zipfile = MY_DIR / 'tvtk' / 'tvtk_classes.zip'
-    if _tvtk_built_recently(zipfile, delay=120):
-        print("Already built tvtk_classes.zip")
-        return
-    else:
-        print("Building tvtk_classes.zip")
+    """Generate tvtk_classes.zip, unless the one in the tree is current."""
     from tvtk._setup import gen_tvtk_classes_zip
     gen_tvtk_classes_zip()
 
@@ -234,14 +56,6 @@ class MyBuildPy(build_py):
         dst = Path(self.build_lib) / 'tvtk' / 'tvtk_classes.zip'
         self.mkpath(str(dst.parent))
         self.copy_file(str(src), str(dst))
-
-
-class MyDevelop(develop):
-    """A hook to build the TVTK ZIP file on develop."""
-
-    def run(self):
-        build_tvtk_classes_zip()
-        super().run()
 
 
 class MyDistribution(Distribution):
@@ -322,9 +136,6 @@ if __name__ == '__main__':
         cmdclass={
             'bdist_wheel': MyBdistWheel,
             'build_py': MyBuildPy,
-            'develop': MyDevelop,
-            'gen_docs': GenDocs,
-            'build_docs': BuildDocs,
         },
         install_requires=DEPENDENCIES + [vtk_requirement()],
     )

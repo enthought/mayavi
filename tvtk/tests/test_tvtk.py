@@ -781,6 +781,15 @@ class TestTVTK(unittest.TestCase):
         self.assertTrue(tvtk_obj.tolerance <= vtk_obj.GetToleranceMaxValue())
         self.assertTrue(tvtk_obj.tolerance >= vtk_obj.GetToleranceMinValue())
 
+    def test_special_toggle_is_synced_and_shown(self):
+        """A toggle in special_traits is still synced from VTK and listed
+        in the views, like any other toggle."""
+        cs = tvtk.CylinderSource()
+        tvtk.to_vtk(cs).SetLatLongTessellation(1)
+        cs.update_traits()
+        self.assertTrue(cs.lat_long_tessellation)
+        self.assertIn('lat_long_tessellation', cs._full_traitnames_list_)
+
     @skipUnlessTVTKHasattr('ObjectFactory')
     def test_object_factory_enableflag_api(self):
         """ Test ObjectFactory Get/SetEnableFlag API
@@ -1124,3 +1133,32 @@ class TestTVTKModule(unittest.TestCase):
         output = output.decode('ascii')
         self.assertFalse('QtCore' in output)
         self.assertFalse('wx' in output)
+        # the views are built on demand, by TVTKBase.trait_view
+        self.assertFalse('traitsui' in output)
+
+    def test_mixin_methods_are_not_shadowed(self):
+        """A generated method of the same name would beat the mixin, as the
+        class body comes first; a new VTK method could do that silently."""
+        from tvtk import mixins
+        from tvtk.special_gen import MIXINS
+        for class_name, mixin_name in MIXINS.items():
+            klass = getattr(tvtk, class_name)
+            mixin = getattr(mixins, mixin_name)
+            self.assertIs(klass.__mro__[1], mixin)
+            for name, value in vars(mixin).items():
+                if callable(value):
+                    self.assertIs(getattr(klass, name), value,
+                                  '%s.%s' % (class_name, name))
+
+    def test_shared_trait_views(self):
+        """TVTKBase.trait_view builds every class's views from the trait
+        names the generator wrote for it."""
+        s = tvtk.SphereSource()
+        toggles, states, get_sets = s._view_traitnames_
+        self.assertIn('radius', get_sets)
+        # left out of the compact view, but not out of the full one
+        self.assertNotIn('debug', toggles)
+        self.assertIn('debug', s._full_traitnames_list_)
+        for name in (None, 'traits_view', 'view', 'full_traits_view'):
+            view = s.trait_view(name)
+            self.assertEqual(view.title, 'Edit SphereSource properties')

@@ -15,6 +15,10 @@ import vtk
 # see tvtk/WORKAROUNDS.md for the full map and the cull policy.
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
+# What tvtk_classes/vtk_version.py records as the generation VTK, and what
+# the runtime is compared against.  From the integer parts rather than a
+# slice of the version string, which would read 9.10 as "9.1".
+vtk_major_minor = '%d.%d' % (vtk_major_version, vtk_minor_version)
 
 # NumPy 2.5 deprecated assigning to .shape, but the reshape(copy=False) that
 # replaces it only exists from 2.1 -- drop the branch at a numpy>=2.1 floor.

@@ -38,7 +38,9 @@ one grep should find them all.
   platform.  *Uninitialized-value* bugs are platform-dependent — garbage
   memory on Linux can read as a perfectly sane value on macOS — so they may
   only be culled with probes from every platform (in practice: let CI's
-  Linux jobs vote) or a fix confirmed in the VTK changelog.
+  Linux jobs vote) or a fix confirmed in the VTK changelog.  That applies to
+  `UNINITIALIZED_GETTERS` in `vtk_parser.py` as much as to the
+  uninitialized-value entries in `special_traits`.
   *Assertion-precondition* bugs (`BROKEN_GETTERS` in `vtk_parser.py`) are
   build-dependent, not version- or platform-dependent: release builds compile
   the `assert` out and merely return junk, while assertion-enabled distro
@@ -68,6 +70,18 @@ from crashing or producing garbage:
 - `BROKEN_GETTERS` (module level): getters whose VTK-documented precondition
   a fresh object violates, so probing them aborts an assertion-enabled build.
   Version-independent — see the Policy note above before retiring one.
+- `UNINITIALIZED_GETTERS` (module level) and `_flag_uninitialized()`: a
+  numeric get/set default that is uninitialized memory is replaced with a
+  neutral value (zero, or the bottom of its range), and `wrapper_gen.py`
+  puts the trait in `_allow_update_failure_`.  Without this the garbage was
+  baked into the generated code, which then differed between any two
+  builds.  `_flag_uninitialized()` catches new cases by reading the default
+  from two more instances alive at the same time and flagging any value they
+  disagree on; it only works when the garbage happens to differ (instances
+  created one after another reuse the same freed block, garbage included),
+  so every case it has caught is also listed in `UNINITIALIZED_GETTERS`.
+  The older uninitialized-value entries in `special_traits` (Layer 2) take
+  precedence and stay there.
 - `code_gen.py` also skips any class with an ignored *ancestor*, since the
   parent wrapper it would inherit from is never generated (e.g. VTK 9.7's
   `vtkSOATypeFloat32Array` over `vtkSOADataArrayTemplate_IfE`).
@@ -97,6 +111,12 @@ writer_method)`:
   syncing is tolerated (use for type/range drift, e.g. `GraphMapper.IconSize`
   on VTK < 9.6).
 - The writer method controls the emitted trait definition.
+
+`_gen_toggle_methods()` handles a toggle with `XOn`/`XOff` and `GetX` but no
+`SetX` by writing the trait through the On/Off methods (`broken_bool`).  It
+dates from VTK 4.2, but it is a *forward* adaptation now: the live cases,
+`vtkStaticPointLocator.Static` and `vtkStaticPointLocator2D.Static`, are new
+in VTK 9.7 (9.4 has none), so do not cull it.
 
 `wrapper_gen.py` also carries older inline `if klass.__name__ == ...`
 conditionals in `_gen_state_methods()` (bad defaults, out-of-choice enum
@@ -191,13 +211,17 @@ in order:
 
 Same-version builds stay strict so generation bugs surface in CI.
 
-## Layer 5: `special_gen.py` and `tvtk/custom/` — hand-written classes
+## Layer 5: `tvtk/mixins.py`, `special_gen.py` and `tvtk/custom/` — hand-written code
 
-`special_gen.py` writes `tvtk_helper` plus hand-tuned overrides for a few
-classes (`Matrix4x4`/`Property` pickling, `Collection` iteration,
-`DataArray`/`Points` indexing).  A module placed in `tvtk/custom/` takes
-import priority over the generated class of the same name (currently
-empty — the escape hatch of last resort for whole-class replacement).
+`tvtk/mixins.py` holds hand-written methods for a few classes
+(`Matrix4x4`/`Property` pickling, `Collection` iteration,
+`DataArray`/`Points` indexing); `special_gen.MIXINS` names which class gets
+which, and the generator puts that mixin first among the class's bases.
+`special_gen.py` itself writes `tvtk_helper` and the little that has to be
+in a class body (the `InteractorEventRecorder.priority` trait).  A module
+placed in `tvtk/custom/` takes import priority over the generated class of
+the same name (currently empty — the escape hatch of last resort for
+whole-class replacement).
 
 Two *forward* adaptations live here (see Policy — do not cull them):
 
