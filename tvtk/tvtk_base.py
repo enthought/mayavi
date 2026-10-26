@@ -8,7 +8,6 @@
 import sys
 import warnings
 import weakref
-import os
 import logging
 from contextlib import contextmanager
 
@@ -522,46 +521,6 @@ class TVTKBase(traits.HasStrictTraits):
     #################################################################
     # `HasTraits` interface.
     #################################################################
-    @classmethod
-    def class_trait_view_elements(cls):
-        """ Returns the ViewElements object associated with the class.
-
-        The returned object can be used to access all the view elements
-        associated with the class.
-
-        Overridden here to search through a particular directory for substitute
-        views to use for this tvtk object. The view should be declared in a
-        file named <class name>_view. We execute this file and replace any
-        currently defined view elements with view elements declared in this
-        file (that have the same name).
-
-        """
-
-        # FIXME: This can be enhanced to search for new views also (in addition
-        # to replacing current views).
-
-        view_elements = super(TVTKBase, cls).class_trait_view_elements()
-        # Get the names of all the currently defined view elements.
-        names = view_elements.filter_by()
-        baseDir = os.path.dirname(os.path.abspath(__file__))
-        viewDir = os.path.join(baseDir, 'view')
-        try:
-            module_name = cls.__module__.split('.')[-1]
-            view_filename = os.path.join(viewDir,
-                                         module_name + '_view.py')
-            result = {}
-            exec(
-                compile(
-                    open(view_filename).read(), view_filename, 'exec'
-                ), {}, result
-            )
-            for name in names:
-                if name in result:
-                    view_elements.content[name] = result[name]
-        except Exception:
-            pass
-        return view_elements
-
     def trait_view(self, name=None, view_element=None):
         """The views every TVTK class shares, built from the trait names the
         generator wrote for it: 'view' shows the commonly used traits,
