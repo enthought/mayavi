@@ -99,7 +99,9 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
   The script binds the real packages before putting `docs/source` on the path.
 - Files `include`d into another document (the `mlab_*.rst` partials, `examples.rst`, `auto/changes.rst`) are listed in `exclude_patterns`; otherwise Sphinx also reads each as its own document, duplicating every label it defines and losing the host's `currentmodule`.
 - The gallery **images** are regenerated on every run too, by `docs/source/render_images.py` (which also invokes `render_examples.py`, so `mlab_reference.py` has to run *after* it to pick the images up).
-  The example datasets the examples `urlretrieve` are cached by `docs.yml` under the key `example-data-v2` — bump it if a URL changes.
+  The example datasets the examples download are cached by `docs.yml` under the prefix `example-data-v3-` — bump it if a URL changes.
+  The key is a fingerprint of what is on disk after rendering, and the newest cache under the prefix is what gets restored: a cold run that misses one dataset (its host down, as Stanford's was in October 2026) still saves the rest, and the next run adds the missing one under a new key.
+  Saving happens even when an example failed, but not from pull requests; empty files, which a failed single-file download leaves behind, are deleted first so they cannot be cached.
   What is cached is the *unpacked* `docs/source/*_data` directories (~550 MB, lucy dominating), not the tarballs: the examples skip both download and unpack once those exist.
   Each new one needs a `prune` in `MANIFEST.in` and a `.gitignore` entry, or `recursive-include docs` sweeps it into the sdist.
 - `render_examples.py` writes the gallery's image directives *before* it renders the images, and only for figures already on disk.
@@ -165,7 +167,8 @@ If the change touched a VTK workaround in any form — a `vtk_*_version` or `sys
   VTK publishes no Windows arm64 wheels, so there is no row for it.
 - Windows test jobs run pytest from `C:\` (site-packages drive): apptools persistence cannot relativize paths across drives.
 - `docs.yml` — builds the docs on every PR and deploys them to <https://docs.enthought.com/mayavi/> on every push to `main` (GitHub Pages, `actions/deploy-pages`, environment `github-pages`).
-  A failed push to `main` opens an issue, as there is no PR to notice it on.
+  It also runs twice a week on a schedule, chiefly so the example-data cache is never 7 days unused (GitHub deletes it then, and every run downloads ~550 MB again).
+  A failed push to `main` or scheduled run opens an issue, as there is no PR to notice it on.
   Doc build requirements live in the `docs` dependency group (PEP 735, `pip --group`), so the whole install is one `pip install --group docs -ve ".[app]"`.
   Unlike `tests.yml` this build is *not* `--no-build-isolation`: nothing here pins an older VTK, so letting the isolated build fetch the latest is fine.
   To review a PR's rendered docs, download the `docs-site` artifact and serve it (`python -m http.server`); GitHub has no linked HTML preview, and `deploy-pages`' `preview` input is alpha-gated.
