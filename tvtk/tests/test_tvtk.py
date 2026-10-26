@@ -781,6 +781,15 @@ class TestTVTK(unittest.TestCase):
         self.assertTrue(tvtk_obj.tolerance <= vtk_obj.GetToleranceMaxValue())
         self.assertTrue(tvtk_obj.tolerance >= vtk_obj.GetToleranceMinValue())
 
+    def test_special_toggle_is_synced_and_shown(self):
+        """A toggle in special_traits is still synced from VTK and listed
+        in the views, like any other toggle."""
+        cs = tvtk.CylinderSource()
+        tvtk.to_vtk(cs).SetLatLongTessellation(1)
+        cs.update_traits()
+        self.assertTrue(cs.lat_long_tessellation)
+        self.assertIn('lat_long_tessellation', cs._full_traitnames_list_)
+
     @skipUnlessTVTKHasattr('ObjectFactory')
     def test_object_factory_enableflag_api(self):
         """ Test ObjectFactory Get/SetEnableFlag API

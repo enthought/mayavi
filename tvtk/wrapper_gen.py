@@ -505,6 +505,11 @@ class WrapperGenerator:
         allow_update_failure = set()
         for m in meths:
             name = self._reform_name(m)
+            # Registered before the special case below, as the get/set path
+            # does: a special toggle that *is* updateable used to be left
+            # out, so it was never synced from VTK, nor shown in the views
+            # (e.g. vtkCylinderSource.LatLongTessellation).
+            updateable_traits[name] = 'Get' + m
             #-----------------------------------------------------------
             # Some traits have special API or the VTK API is broken that
             # we need to handle them separately.
@@ -525,7 +530,6 @@ class WrapperGenerator:
                 self._write_special_trait(klass, out, m)
                 continue
 
-            updateable_traits[name] = 'Get' + m
             t_def = 'tvtk_base.false_bool_trait'
             if meths[m]:
                 t_def = 'tvtk_base.true_bool_trait'
