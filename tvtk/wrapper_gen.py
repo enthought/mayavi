@@ -256,13 +256,9 @@ class WrapperGenerator:
         prelim = """
         # Automatically generated code: EDIT AT YOUR OWN RISK
         from traits import api as traits
-        from traitsui.item import Item, spring
-        from traitsui.group import HGroup
-        from traitsui.view import View
 
         from tvtk import vtk_module as vtk
         from tvtk import tvtk_base
-        from tvtk.tvtk_base_handler import TVTKBaseHandler
         from tvtk import messenger
         from tvtk.tvtk_base import deref_vtk
         from tvtk import array_handler
@@ -270,12 +266,6 @@ class WrapperGenerator:
         from tvtk.tvtk_classes.tvtk_helper import wrap_vtk
 
         nan = float('nan')
-
-
-        def InstanceEditor(*args, **kw):
-            from traitsui.editors.api import InstanceEditor as Editor
-            return Editor(view_name="handler.view")
-
         inf = float('inf')
 
         """
@@ -413,10 +403,6 @@ class WrapperGenerator:
         # No point having these in the GUI.
         _safe_remove(get_set, ['reference_count', 'progress'])
 
-        class_name = get_tvtk_name(node.name)
-        title = 'Edit %s properties'%class_name
-
-        # Write the full_traits_view.
         # The full traits view displays all of the relevant traits in a table
         # editor. For this, we first write out the _full_traitnames_list: this
         # is used by the TVTKBaseHandler to build a TableEditor for all of
@@ -429,37 +415,9 @@ class WrapperGenerator:
         code = "\n_full_traitnames_list_ = \\" + "\n%s\n\n"%junk
         out.write(self.indent.format(code))
 
-        # Start the trait_view() method.
-        code = "\ndef trait_view(self, name=None, view_element=None):"
-        out.write(self.indent.format(code))
-        self.indent.incr()
-        code = "\nif view_element is not None or name not in (None, '', 'traits_view', 'full_traits_view', 'view'):"
-        out.write(self.indent.format(code))
-        self.indent.incr()
-        code = "\nreturn super(%s, self).trait_view(name, view_element)" % class_name
-        out.write(self.indent.format(code))
-        self.indent.decr()
-
-        # Now write the full traits view.
-        code = "\nif name == 'full_traits_view':"
-        out.write(self.indent.format(code))
-        self.indent.incr()
-        item_contents = (
-              'Item("handler._full_traits_list",show_label=False)')
-        junk = 'View((%s),'% item_contents
-        code = "\nfull_traits_view = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
-               "\nhandler=TVTKBaseHandler,"\
-               "\nbuttons=['OK', 'Cancel'])"\
-               "\nreturn full_traits_view"%(junk, title)
-        out.write(self.indent.format(code))
-        self.indent.decr()
-
-        # Next, we write a compact traits_view (which we call 'view'), which
-        # removes some generally unused items.
-        code = "\nelif name == 'view':"
-        out.write(self.indent.format(code))
-        self.indent.incr()
+        # Next, the traits the compact 'view' shows, which leaves out some
+        # generally unused items.  TVTKBase.trait_view builds the views
+        # themselves from this and _full_traitnames_list_.
         _safe_remove(get_set, ['progress_text'])
         _safe_remove(toggle, ['abort_execute', 'release_data_flag',
                               'dragable', 'pickable',
@@ -467,38 +425,9 @@ class WrapperGenerator:
         t_g = sorted(toggle.keys())
         s_g = sorted(state.keys())
         gs_g = sorted(get_set.keys())
-        junk = textwrap.fill('View((%s, %s, %s),'%(t_g, s_g, gs_g))
-        code = "\nview = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
-               "\nhandler=TVTKBaseHandler,"\
-               "\nbuttons=['OK', 'Cancel'])"\
-               "\nreturn view"%(junk, title)
+        junk = textwrap.fill(repr((t_g, s_g, gs_g)))
+        code = "\n_view_traitnames_ = \\" + "\n%s\n\n"%junk
         out.write(self.indent.format(code))
-        self.indent.decr()
-
-        # Finally, we write the default traits_view which includes a field
-        # for specifying the view type (basic or advanced) and the
-        # corresponding view (basic->view and advanced->full_traits_view)
-        code = "\nelif name in (None, 'traits_view'):"
-        out.write(self.indent.format(code))
-        self.indent.incr()
-        viewtype_contents = (
-            'HGroup(spring, "handler.view_type", ' +\
-                             'show_border=True)')
-        view_contents = (
-            '\nItem("handler.info.object", ' +\
-            'editor = InstanceEditor(view_name="handler.view"), ' +\
-            'style = "custom", show_label=False)')
-        junk = 'View((%s, %s),'% (viewtype_contents, view_contents)
-        code = "\ntraits_view = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
-               "\nhandler=TVTKBaseHandler,"\
-               "\nbuttons=['OK', 'Cancel'])"\
-               "\nreturn traits_view\n\n"%(junk, title)
-        out.write(self.indent.format(code))
-        self.indent.decr()
-
-        self.indent.decr()
 
     def _gen_toggle_methods(self, klass, out):
         meths = self.parser.get_toggle_methods()

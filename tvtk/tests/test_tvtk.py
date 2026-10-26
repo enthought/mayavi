@@ -1133,3 +1133,18 @@ class TestTVTKModule(unittest.TestCase):
         output = output.decode('ascii')
         self.assertFalse('QtCore' in output)
         self.assertFalse('wx' in output)
+        # the views are built on demand, by TVTKBase.trait_view
+        self.assertFalse('traitsui' in output)
+
+    def test_shared_trait_views(self):
+        """TVTKBase.trait_view builds every class's views from the trait
+        names the generator wrote for it."""
+        s = tvtk.SphereSource()
+        toggles, states, get_sets = s._view_traitnames_
+        self.assertIn('radius', get_sets)
+        # left out of the compact view, but not out of the full one
+        self.assertNotIn('debug', toggles)
+        self.assertIn('debug', s._full_traitnames_list_)
+        for name in (None, 'traits_view', 'view', 'full_traits_view'):
+            view = s.trait_view(name)
+            self.assertEqual(view.title, 'Edit SphereSource properties')

@@ -403,6 +403,10 @@ class TVTKBase(traits.HasStrictTraits):
     # this object.
     _full_traitnames_list_ = traits.List
 
+    # The trait names the compact 'view' shows, as three lists: toggles,
+    # states and the other get/set traits.  Written by the generator.
+    _view_traitnames_ = traits.Tuple
+
     #################################################################
     # `object` interface.
     #################################################################
@@ -557,6 +561,34 @@ class TVTKBase(traits.HasStrictTraits):
         except Exception:
             pass
         return view_elements
+
+    def trait_view(self, name=None, view_element=None):
+        """The views every TVTK class shares, built from the trait names the
+        generator wrote for it: 'view' shows the commonly used traits,
+        'full_traits_view' every trait in a table, and the default
+        'traits_view' lets the user switch between the two.
+        """
+        if (view_element is not None or not self._view_traitnames_
+                or name not in (None, '', 'traits_view', 'full_traits_view',
+                                'view')):
+            return super().trait_view(name, view_element)
+        # imported here so that using tvtk does not import a GUI toolkit
+        from traitsui.api import (HGroup, InstanceEditor, Item, View,
+                                  spring)
+        from .tvtk_base_handler import TVTKBaseHandler
+        kw = dict(title='Edit %s properties' % type(self).__name__,
+                  scrollable=True, resizable=True, handler=TVTKBaseHandler,
+                  buttons=['OK', 'Cancel'])
+        if name == 'full_traits_view':
+            return View(Item("handler._full_traits_list", show_label=False),
+                        **kw)
+        if name == 'view':
+            return View(tuple(self._view_traitnames_), **kw)
+        return View((HGroup(spring, "handler.view_type", show_border=True),
+                     Item("handler.info.object",
+                          editor=InstanceEditor(view_name="handler.view"),
+                          style="custom", show_label=False)),
+                    **kw)
 
     #################################################################
     # `TVTKBase` interface.
