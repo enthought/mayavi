@@ -161,6 +161,8 @@ If the change touched a VTK workaround in any form — a `vtk_*_version` or `sys
 - `.github/actions/open-issue` — composite action behind both `issue-on-failure` jobs: files an issue unless one with the same title is already open, appending the run URL.
   Callers need an `actions/checkout` (sparse is enough) because a local action has to be on disk to be used, and `permissions: issues: write`.
 - `wheel.yml` — mismatch matrix: build per-OS wheels against latest VTK, test them against all supported older VTKs (rows deliberately mirror `tests.yml` so failures are attributable to the mismatch), `twine check --strict`, and trusted publishing to PyPI on GitHub releases (environment `pypi`, `needs: [build, test, check]`).
+  Four wheels: Linux x86_64, Linux arm64 (its own build, not an extra tag, since unsigned `char` there can change the generated classes), Windows amd64 and macOS universal2 (built on Apple silicon; the `macos-26-intel` test row installs that same artifact via the matrix's `wheel` key).
+  VTK publishes no Windows arm64 wheels, so there is no row for it.
 - Windows test jobs run pytest from `C:\` (site-packages drive): apptools persistence cannot relativize paths across drives.
 - `docs.yml` — builds the docs on every PR and deploys them to <https://docs.enthought.com/mayavi/> on every push to `main` (GitHub Pages, `actions/deploy-pages`, environment `github-pages`).
   A failed push to `main` opens an issue, as there is no PR to notice it on.
