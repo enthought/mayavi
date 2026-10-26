@@ -198,9 +198,13 @@ jobs:
       with:
         token: ${{ github.token }}
         title: Docs build on main is failing
-        body: |
+        # folded, so the wrapping does not reach the issue; a folded block
+        # turns one blank line into a single newline, so it takes two to
+        # separate paragraphs
+        body: >
           The docs build for a push to `main` failed, so
           https://docs.enthought.com/mayavi/ is no longer being updated.
+
 
           The build treats Sphinx warnings as errors and re-renders the example
           gallery, so this is usually either a new warning or an example that

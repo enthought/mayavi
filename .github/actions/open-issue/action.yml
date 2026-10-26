@@ -9,7 +9,10 @@ inputs:
     description: The issue title, which doubles as the deduplication key.
     required: true
   body:
-    description: Why the issue is being opened.
+    description: >
+      Why the issue is being opened.  GitHub renders a single newline in an
+      issue as a line break, so pass it as a folded (>) block, not a
+      literal (|) one, or its wrapping shows up in the issue.
     required: true
   token:
     description: A token with issues:write on this repository.

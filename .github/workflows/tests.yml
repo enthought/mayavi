@@ -314,7 +314,8 @@ jobs:
       with:
         token: ${{ github.token }}
         title: Scheduled CI run is failing
-        body: |
+        # folded, so the wrapping does not reach the issue
+        body: >
           The weekly scheduled CI run failed. Since these runs test against the
           latest dependencies (VTK dev wheels, and the ETS packages from their
           main branches), this probably means an upstream change broke
