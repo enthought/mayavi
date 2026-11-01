@@ -16,7 +16,11 @@ jobs:
     name: Build wheel (latest VTK, ${{ matrix.os }})
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        # Linux arm64 gets a wheel of its own rather than a second tag on the
+        # x86_64 one: plain C char is unsigned there, which changes what VTK
+        # reports (gh-1194), so the generated classes can differ.  macOS
+        # builds a universal2 wheel, and VTK has no Windows arm64 wheels.
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -72,7 +76,19 @@ jobs:
           - os: windows-latest
             python-version: '3.14'
             qt-api: 'pyside6'
+          - os: ubuntu-24.04-arm
+            python-version: '3.14'
+            qt-api: 'pyside6'
+          # The universal2 wheel built on Apple silicon, on an Intel Mac
+          - os: macos-26-intel
+            wheel: macos-latest
+            python-version: '3.14'
+            qt-api: 'pyside6'
           # Older VTK than the wheel was built with
+          - os: ubuntu-latest
+            python-version: '3.13'
+            qt-api: 'pyside6'
+            vtk: 'vtk==9.6.*'
           - os: ubuntu-latest
             python-version: '3.12'
             qt-api: 'pyside6'
@@ -119,7 +135,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - uses: actions/download-artifact@v8
       with:
-        name: wheel-${{ matrix.os }}
+        # `wheel` names the build to test where it is not this runner's own
+        name: wheel-${{ matrix.wheel || matrix.os }}
         path: dist
     - name: Install dependencies and the wheel
       run: |

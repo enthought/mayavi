@@ -7,6 +7,12 @@ on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    # Twice a week: GitHub deletes a cache unused for 7 days, and once the
+    # example datasets' cache is gone every run downloads all of them again,
+    # failing whenever one of their hosts is down.  Also catches the gallery
+    # breaking under new upstream releases, as tests.yml's weekly run does.
+    - cron: "17 5 * * 1,4"
   workflow_dispatch:
     inputs:
       render_flaky:
@@ -87,20 +93,23 @@ jobs:
             # would let a broken wx through if this only printed the result
             assert toolkit.toolkit == 'wx', (entry_point, toolkit.toolkit)
         "
-    - name: Cache the example datasets
-      # the examples urlretrieve these into the cwd they run in, with no
+    - name: Restore the example datasets
+      # the examples download these into the cwd they run in, with no
       # timeout; lucy alone is a 322 MB download.  The unpacked directories are
       # what the examples read, and they skip the download once those exist, so
-      # caching the tarballs as well would store the same data twice.  Bump the
-      # key if a URL changes.
-      uses: actions/cache@v6.1.0
+      # caching the tarballs as well would store the same data twice.  Restores
+      # the newest cache under the prefix (the key itself never matches; see
+      # the save step).  Bump the prefix if a URL changes.
+      id: data-cache
+      uses: actions/cache/restore@v6.1.0
       with:
         path: |
           docs/source/*_data
           docs/source/*.zip
           docs/source/*.ent.gz
           docs/source/*.cube
-        key: example-data-v2
+        key: example-data-v3-${{ github.run_id }}
+        restore-keys: example-data-v3-
     - name: Render the gallery images and regenerate the mlab reference
       # ~3 min locally, plus the dataset downloads on a cold cache; each
       # example also has its own 60s cap, so this only catches the whole lot
@@ -119,6 +128,34 @@ jobs:
       # the data files still land beside pyproject.toml, where combine wants
       # them.
       run: coverage run scripts/render_docs.py
+    - name: Fingerprint the example datasets
+      if: '!cancelled()'
+      id: data-hash
+      # a download that fails leaves an empty file behind (the examples open
+      # it before reading the response), which would then be cached and
+      # skipped forever; drop those first
+      run: |
+        cd docs/source
+        find . -maxdepth 1 -type f -size 0 \( -name '*.zip' -o -name '*.ent.gz' -o -name '*.cube' \) -print -delete
+        hash=$(find . -maxdepth 1 \( -name '*.zip' -o -name '*.ent.gz' -o -name '*.cube' \) -type f -printf '%P %s\n' | sort | sha256sum | cut -c1-16)
+        data=$(find . -path './*_data/*' -type f -printf '%P %s\n' | sort | sha256sum | cut -c1-16)
+        echo "key=example-data-v3-$hash-$data" | tee -a "$GITHUB_OUTPUT"
+    - name: Save the example datasets
+      # Even when an example failed: a cold run that misses one dataset (its
+      # host was down) still saves the rest, and the next run adds the missing
+      # one under a new key, since the key is a fingerprint of the contents.
+      # Not from pull requests, whose caches no other branch can use.
+      if: >-
+        !cancelled() && github.event_name != 'pull_request' &&
+        steps.data-hash.outputs.key != steps.data-cache.outputs.cache-matched-key
+      uses: actions/cache/save@v6.1.0
+      with:
+        path: |
+          docs/source/*_data
+          docs/source/*.zip
+          docs/source/*.ent.gz
+          docs/source/*.cube
+        key: ${{ steps.data-hash.outputs.key }}
     - name: Combine coverage
       if: '!cancelled()'
       run: |
@@ -179,12 +216,13 @@ jobs:
     - id: deploy
       uses: actions/deploy-pages@v5.0.1
 
-  # a push to main has no pull request where a failure would be noticed, and a
-  # broken docs build means docs.enthought.com stops being updated
+  # a push to main or a scheduled run has no pull request where a failure
+  # would be noticed, and a broken docs build on a push means
+  # docs.enthought.com stops being updated
   issue-on-failure:
     name: Open issue on failure
     needs: [build, deploy]
-    if: failure() && github.event_name == 'push'
+    if: failure() && (github.event_name == 'push' || github.event_name == 'schedule')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -202,8 +240,9 @@ jobs:
         # turns one blank line into a single newline, so it takes two to
         # separate paragraphs
         body: >
-          The docs build for a push to `main` failed, so
-          https://docs.enthought.com/mayavi/ is no longer being updated.
+          The docs build on `main` failed (on a push, or in the twice-weekly
+          scheduled run), so https://docs.enthought.com/mayavi/ may no longer
+          be updated.
 
 
           The build treats Sphinx warnings as errors and re-renders the example

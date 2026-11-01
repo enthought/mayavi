@@ -117,11 +117,13 @@ easy to edit the `.rst` files to modify or extend the text. Once you have
 done your modifications, you can build the documentation by
 running::
 
-    python setup.py build_docs
+    pip install --group docs -ve ".[app]"
+    make -C docs html
 
-in the base directory of your checkout. You will need `sphinx`_ installed for
-that. The documentation is then built as an HTML documentation that you can
-find in the sub directory ``build/docs/html/mayavi``. Once you are comfortable
+in the base directory of your checkout. The first line installs `sphinx`_ and
+the other requirements. The documentation is then built as an HTML
+documentation that you can find in the sub directory
+``docs/build/mayavi/html``. Once you are comfortable
 with the modifications, just generate a github pull request to integrate
 your changes into the next stable release.
 

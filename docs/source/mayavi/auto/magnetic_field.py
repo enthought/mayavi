@@ -188,8 +188,8 @@ n  = np.vstack((n, n))      # Helmoltz like configuration
 
 ##############################################################################
 # Calculate field
-# First initialize a container matrix for the field vector :
-B = np.empty_like(r)
+# First initialize the field to zero, since the coils are summed into it :
+B = np.zeros_like(r)
 # Then loop through the different coils and sum the fields :
 for this_n, this_r0, this_R in zip(n, r0, R):
   this_n    = np.array(this_n)

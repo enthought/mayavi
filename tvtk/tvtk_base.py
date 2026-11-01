@@ -8,7 +8,6 @@
 import sys
 import warnings
 import weakref
-import os
 import logging
 from contextlib import contextmanager
 
@@ -16,6 +15,7 @@ import vtk
 
 from traits import api as traits
 from . import messenger
+from .common import vtk_major_minor
 
 try:
     from traits.api import PrefixMap, PrefixList
@@ -74,8 +74,7 @@ def vtk_version_mismatch():
         except ImportError:
             _vtk_version_mismatch = False
         else:
-            _vtk_version_mismatch = (
-                vtk.vtkVersion().GetVTKVersion()[:3] != vtk_build_version)
+            _vtk_version_mismatch = vtk_major_minor != vtk_build_version
     return _vtk_version_mismatch
 
 
@@ -403,6 +402,10 @@ class TVTKBase(traits.HasStrictTraits):
     # this object.
     _full_traitnames_list_ = traits.List
 
+    # The trait names the compact 'view' shows, as three lists: toggles,
+    # states and the other get/set traits.  Written by the generator.
+    _view_traitnames_ = traits.Tuple
+
     #################################################################
     # `object` interface.
     #################################################################
@@ -518,45 +521,33 @@ class TVTKBase(traits.HasStrictTraits):
     #################################################################
     # `HasTraits` interface.
     #################################################################
-    @classmethod
-    def class_trait_view_elements(cls):
-        """ Returns the ViewElements object associated with the class.
-
-        The returned object can be used to access all the view elements
-        associated with the class.
-
-        Overridden here to search through a particular directory for substitute
-        views to use for this tvtk object. The view should be declared in a
-        file named <class name>_view. We execute this file and replace any
-        currently defined view elements with view elements declared in this
-        file (that have the same name).
-
+    def trait_view(self, name=None, view_element=None):
+        """The views every TVTK class shares, built from the trait names the
+        generator wrote for it: 'view' shows the commonly used traits,
+        'full_traits_view' every trait in a table, and the default
+        'traits_view' lets the user switch between the two.
         """
-
-        # FIXME: This can be enhanced to search for new views also (in addition
-        # to replacing current views).
-
-        view_elements = super(TVTKBase, cls).class_trait_view_elements()
-        # Get the names of all the currently defined view elements.
-        names = view_elements.filter_by()
-        baseDir = os.path.dirname(os.path.abspath(__file__))
-        viewDir = os.path.join(baseDir, 'view')
-        try:
-            module_name = cls.__module__.split('.')[-1]
-            view_filename = os.path.join(viewDir,
-                                         module_name + '_view.py')
-            result = {}
-            exec(
-                compile(
-                    open(view_filename).read(), view_filename, 'exec'
-                ), {}, result
-            )
-            for name in names:
-                if name in result:
-                    view_elements.content[name] = result[name]
-        except Exception:
-            pass
-        return view_elements
+        if (view_element is not None or not self._view_traitnames_
+                or name not in (None, '', 'traits_view', 'full_traits_view',
+                                'view')):
+            return super().trait_view(name, view_element)
+        # imported here so that using tvtk does not import a GUI toolkit
+        from traitsui.api import (HGroup, InstanceEditor, Item, View,
+                                  spring)
+        from .tvtk_base_handler import TVTKBaseHandler
+        kw = dict(title='Edit %s properties' % type(self).__name__,
+                  scrollable=True, resizable=True, handler=TVTKBaseHandler,
+                  buttons=['OK', 'Cancel'])
+        if name == 'full_traits_view':
+            return View(Item("handler._full_traits_list", show_label=False),
+                        **kw)
+        if name == 'view':
+            return View(tuple(self._view_traitnames_), **kw)
+        return View((HGroup(spring, "handler.view_type", show_border=True),
+                     Item("handler.info.object",
+                          editor=InstanceEditor(view_name="handler.view"),
+                          style="custom", show_label=False)),
+                    **kw)
 
     #################################################################
     # `TVTKBase` interface.
