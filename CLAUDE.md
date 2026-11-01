@@ -177,6 +177,9 @@ If the change touched a VTK workaround in any form — a `vtk_*_version` or `sys
   `render_docs.py` chdirs into `docs/source`, but coverage anchors its data files to the config it was started from, so they still land beside `pyproject.toml` where `coverage combine` wants them.
   The generator itself stays unmeasured here — this build is isolated, and `tests.yml`'s install step is the one that covers it.
   See **Documentation** below.
+- `automerge.yml` — turns on squash auto-merge for Dependabot PRs, so they merge once the required checks pass.
+  It needs "Allow auto-merge" in the repo settings and required status checks on `main`; auto-merge waits only on checks marked required, never on the rest.
+  The merge is made with `GITHUB_TOKEN`, whose pushes trigger no workflows, so a Dependabot merge does not run `docs.yml`'s deploy; the next human push to `main` does.
 
 ## Gotchas
 

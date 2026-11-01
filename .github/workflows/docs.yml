@@ -55,7 +55,7 @@ jobs:
     - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
-    - uses: actions/setup-python@v7.0.0
+    - uses: actions/setup-python@v7.1.0
       with:
         # not 3.14: wxPython's Linux wheels stop at cp313, and the two wx
         # examples are the only thing in the gallery that needs it.  VTK is the
