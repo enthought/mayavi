@@ -25,11 +25,9 @@ if not os.path.exists('h2o-elf.cube'):
     except ImportError:
         from urllib.request import urlopen
     print('Downloading data, please wait')
-    # code.enthought.com now redirects this to an HTML page, so read the last
-    # snapshot that still served the data
     opener = urlopen(
-        'https://web.archive.org/web/20170323103111id_/'
-        'http://code.enthought.com/projects/mayavi/data/h2o-elf.cube'
+        'https://github.com/larsoner/mayavi-data/releases/download/'
+        'enthought-v1/h2o-elf.cube'
         )
     open('h2o-elf.cube', 'wb').write(opener.read())
 

@@ -67,6 +67,15 @@ from crashing or producing garbage:
   wrap badly (`vtkDataEncoder`/`vtkWebApplication`,
   `vtkPiecewisePointHandleItem`), and version-keyed "broken getter -> no
   default" entries near the end (grep `Broken in`).
+  The default probe itself treats a `ValueError` like a `TypeError` (no
+  default, so the trait becomes a property that `update_traits()` never
+  reads).  That is a *forward* adaptation: VTK 9.7 dev (9.7.1-2096, the
+  2026-11-01 wheels) made `vtkVolumeTexture.GetPartitions` return a
+  `vtkTuple<long long, 3>` its Python wrappers have no instantiation for, so
+  the call raises `cannot create object of unknown type "vtkTuple_IxLi3EE"`.
+  Probing every getter, the generator has no way to know ahead of time
+  which return types are wrappable.  Reading `partitions` on such a VTK
+  still raises; only generation is shielded.
 - `BROKEN_GETTERS` (module level): getters whose VTK-documented precondition
   a fresh object violates, so probing them aborts an assertion-enabled build.
   Version-independent — see the Policy note above before retiring one.

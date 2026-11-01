@@ -790,7 +790,8 @@ class VTKMethodParser:
                             if self._verbose:
                                 print(f"  Calling {klass_name}.Get{key}()")
                             default = getattr(obj, f"Get{key}")()
-                        except TypeError:
+                        # ValueError: VTK 9.7 dev (9.7.1-2096) returns an unwrapped vtkTuple<long long, 3> from vtkVolumeTexture.GetPartitions (see tvtk/WORKAROUNDS.md)
+                        except (TypeError, ValueError):
                             default = None
 
                     # If we don't turn these into integers, they won't

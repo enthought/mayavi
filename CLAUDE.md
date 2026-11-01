@@ -102,7 +102,7 @@ If a warning is genuinely unfixable, add it to `nitpick_ignore` in `docs/source/
   The example datasets the examples download are cached by `docs.yml` under the prefix `example-data-v3-` — bump it if a URL changes.
   The key is a fingerprint of what is on disk after rendering, and the newest cache under the prefix is what gets restored: a cold run that misses one dataset (its host down, as Stanford's was in October 2026) still saves the rest, and the next run adds the missing one under a new key.
   Saving happens even when an example failed, but not from pull requests; empty files, which a failed single-file download leaves behind, are deleted first so they cannot be cached.
-  The Stanford datasets (bunny, dragon, lucy, MRbrain) are downloaded from the `stanford-v1` release of `larsoner/mayavi-data`, a byte-for-byte mirror made during that outage (checksums in its README).
+  The Stanford datasets (bunny, dragon, lucy, MRbrain) are downloaded from the `stanford-v1` release of `larsoner/mayavi-data`, a byte-for-byte mirror made during that outage, and `chemistry.py`'s `h2o-elf.cube` from its `enthought-v1` release, in place of a Wayback Machine snapshot that returned a 500 (checksums in its README).
   What is cached is the *unpacked* `docs/source/*_data` directories (~550 MB, lucy dominating), not the tarballs: the examples skip both download and unpack once those exist.
   Each new one needs a `prune` in `MANIFEST.in` and a `.gitignore` entry, or `recursive-include docs` sweeps it into the sdist.
 - `render_examples.py` writes the gallery's image directives *before* it renders the images, and only for figures already on disk.
