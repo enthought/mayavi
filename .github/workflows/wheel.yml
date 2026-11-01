@@ -29,7 +29,7 @@ jobs:
         persist-credentials: false
         # full history so setuptools_scm can derive the version from tags
         fetch-depth: 0
-    - uses: actions/setup-python@v7.0.0
+    - uses: actions/setup-python@v7.1.0
       with:
         python-version: '3.14'
     - name: Build sdist and wheel
@@ -114,7 +114,7 @@ jobs:
     - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
-    - uses: actions/setup-python@v7.0.0
+    - uses: actions/setup-python@v7.1.0
       with:
         python-version: ${{ matrix.python-version }}
     - uses: actions/download-artifact@v8
@@ -194,7 +194,7 @@ jobs:
       with:
         name: sdist
         path: dist
-    - uses: actions/setup-python@v7.0.0
+    - uses: actions/setup-python@v7.1.0
       with:
         python-version: '3.14'
     - run: |

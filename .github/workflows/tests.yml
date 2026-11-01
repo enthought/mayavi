@@ -105,7 +105,7 @@ jobs:
     # option, so it is the row that most needs them.
     - run: sudo apt-get update && sudo apt-get install -y libegl1 libosmesa6
       if: matrix.headless == true
-    - uses: actions/setup-python@v7.0.0
+    - uses: actions/setup-python@v7.1.0
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
@@ -200,7 +200,7 @@ jobs:
     - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
-    - uses: actions/setup-python@v7.0.0
+    - uses: actions/setup-python@v7.1.0
       with:
         python-version: '3.14'
     # Unlike the matrix above this pins nothing, so there is no reason to keep
@@ -268,7 +268,7 @@ jobs:
     - uses: pyvista/setup-headless-display-action@v5
       with:
         qt: true
-    - uses: actions/setup-python@v7.0.0
+    - uses: actions/setup-python@v7.1.0
       with:
         python-version: '3.14'
     - run: python -m pip install --upgrade pip  # --group needs pip >= 25.1
