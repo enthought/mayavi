@@ -22,7 +22,7 @@ if not os.path.exists(bunny_ply_file):
             from urllib.request import urlopen
         print("Downloading bunny model, Please Wait (3MB)")
         opener = urlopen(
-                    'http://graphics.stanford.edu/pub/3Dscanrep/bunny.tar.gz')
+                    'https://github.com/larsoner/mayavi-data/releases/download/stanford-v1/bunny.tar.gz')
         with open('bunny.tar.gz', 'wb') as fh:
             fh.write(opener.read())
 
