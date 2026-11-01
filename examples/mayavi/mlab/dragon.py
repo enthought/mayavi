@@ -22,7 +22,7 @@ if not os.path.exists(dragon_ply_file):
             from urllib.request import urlopen
         print("Downloading dragon model, Please Wait (11MB)")
         opener = urlopen(
-                'http://graphics.stanford.edu/pub/3Dscanrep/dragon/dragon_recon.tar.gz')
+                'https://github.com/larsoner/mayavi-data/releases/download/stanford-v1/dragon.tar.gz')
         with open('dragon.tar.gz', 'wb') as fh:
             fh.write(opener.read())
 

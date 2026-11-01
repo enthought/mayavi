@@ -1,30 +1,18 @@
-
 Building documentation
 =========================
 
-In the top-level directory, run::
+Install the documentation requirements and an editable Mayavi, then build
+from the top-level directory::
 
-    python setup.py build_docs
+    pip install --group docs -ve ".[app]"
+    make -C docs site
 
-Uploading docs on the web page
-=================================
+The site is written to ``docs/build/site``.  To regenerate the example gallery
+images and the mlab reference first, run ``python scripts/render_docs.py``.
 
-The docs live on their own gh-pages git branch. So to update, starting
-from the root of the project here is what you do::
+Publishing the docs
+===================
 
-   # Recompile docs
-   cd docs/
-   make html
-   # Copy to other branch
-   cd ..
-   git checkout gh-pages
-   cp -r docs/build/tvtk/html/* tvtk/
-   cp -r docs/build/mayavi/html/* mayavi/
-   git add tvtk mayavi
-   # Commit and push new docs
-   git commit -a -m "Updated docs"
-   git push
-   # Return to main branch
-   git checkout main
-
-
+There is nothing to do by hand: every push to ``main`` builds the docs and
+deploys them to https://docs.enthought.com/mayavi/ (see
+``.github/workflows/docs.yml``).

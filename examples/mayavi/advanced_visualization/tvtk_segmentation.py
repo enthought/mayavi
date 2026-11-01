@@ -2,7 +2,8 @@
 Using VTK to assemble a pipeline for segmenting MRI images. This example
 shows how to insert well-controled custom VTK filters in Mayavi.
 
-This example downloads an MRI scan, turns it into a 3D numpy array,
+This example downloads an MRI scan (from the Stanford volume data
+archive), turns it into a 3D numpy array,
 applies a segmentation procedure made of VTK filters to extract the
 gray-matter/white-matter boundary.
 
@@ -23,7 +24,7 @@ if not os.path.exists(mri_slice_file):
             from urllib.request import urlopen
         print("Downloading data, Please Wait (7.8MB)")
         opener = urlopen(
-                    'http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
+                    'https://github.com/larsoner/mayavi-data/releases/download/stanford-v1/MRbrain.tar.gz')
         with open('MRbrain.tar.gz', 'wb') as fh:
             fh.write(opener.read())
 

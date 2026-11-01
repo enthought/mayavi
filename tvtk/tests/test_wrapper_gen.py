@@ -117,7 +117,8 @@ class TestGeneratedCode(unittest.TestCase):
         # write_wrapper_classes pulls in the ancestors so that
         # _updateable_traits_ can be assembled
         self.assertIn('object.py', self.sources)
-        self.assertIn('class Property(Object):', self.sources['property.py'])
+        self.assertIn('class Property(PropertyMixin, Object):',
+                      self.sources['property.py'])
 
     def test_toggle_and_state_traits(self):
         source = self.sources['property.py']

@@ -22,7 +22,7 @@ if not os.path.exists(lucy_ply_file):
             from urllib.request import urlopen
         print("Downloading lucy model, Please Wait (307MB)")
         opener = urlopen(
-                'http://graphics.stanford.edu/data/3Dscanrep/lucy.tar.gz')
+                'https://github.com/larsoner/mayavi-data/releases/download/stanford-v1/lucy.tar.gz')
         with open('lucy.tar.gz', 'wb') as fh:
             fh.write(opener.read())
 
