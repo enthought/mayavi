@@ -132,14 +132,17 @@ class TestVTKParser(unittest.TestCase):
         res['SelectionLineWidth'] = (2.0, None)
         res['SelectionPointSize'] = (2.0, None)
         res['EdgeOpacity'] = (1.0, None)
-        # New in VTK >= 9.5 (guarded by hasattr so the expectation tracks
-        # whatever VTK is installed).  See tvtk/WORKAROUNDS.md.
+        # New in VTK >= 9.5 and 9.7 (guarded by hasattr so the expectation
+        # tracks whatever VTK is installed).  See tvtk/WORKAROUNDS.md.
         if hasattr(obj, 'GetEdgeWidth'):
             res['EdgeWidth'] = (1.0, (0.0, float_max))
         if hasattr(obj, 'GetLineJoin'):
             res['LineJoin'] = (2, None)
         if hasattr(obj, 'GetPoint2DShape'):
             res['Point2DShape'] = (1, None)
+        if hasattr(obj, 'GetBaseSpecularWeight'):
+            res['BaseSpecularColor'] = ((1.0, 1.0, 1.0), None)
+            res['BaseSpecularWeight'] = (1.0, (0.0, 1.0))
 
         result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):
@@ -194,6 +197,8 @@ class TestVTKParser(unittest.TestCase):
                 res.append('LineJoinType')
             if hasattr(obj, 'Point2DShapeType'):
                 res.append('Point2DShapeType')
+            if hasattr(obj, 'SetSpecularTexture'):  # VTK >= 9.7
+                res.extend(['SetSpecularColorTexture', 'SetSpecularTexture'])
 
         if hasattr(obj, 'PostRender'):
             res.append('PostRender')
